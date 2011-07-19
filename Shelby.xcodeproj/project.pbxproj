@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
+		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
+		0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
+		0AD9A35B13D53BD200EFECE0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35A13D53BD200EFECE0 /* CoreData.framework */; };
+		0AD9A36113D53BD300EFECE0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */; };
+		0AD9A36413D53BD300EFECE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36313D53BD300EFECE0 /* main.m */; };
+		0AD9A36713D53BD300EFECE0 /* ShelbyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */; };
+		0AD9A36A13D53BD300EFECE0 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */; };
+		0AD9A36E13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */; };
+		0AD9A37113D53BD300EFECE0 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */; };
+		0AD9A37513D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A37413D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m */; };
+		0AD9A37813D53BD300EFECE0 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */; };
+		0AD9A37F13D53BD300EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
+		0AD9A38013D53BD300EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
+		0AD9A38113D53BD300EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
+		0AD9A38213D53BD300EFECE0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35A13D53BD200EFECE0 /* CoreData.framework */; };
+		0AD9A38A13D53BD300EFECE0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38813D53BD300EFECE0 /* InfoPlist.strings */; };
+		0AD9A38D13D53BD300EFECE0 /* ShelbyTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */; };
+		0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0AD9A38313D53BD300EFECE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0AD9A34713D53BD200EFECE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0AD9A34F13D53BD200EFECE0;
+			remoteInfo = Shelby;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0AD9A35A13D53BD200EFECE0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0AD9A35E13D53BD200EFECE0 /* Shelby-Info.plist */ = {isa = PBXFileReference; path = "Shelby-Info.plist"; sourceTree = "<group>"; };
+		0AD9A36013D53BD200EFECE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */ = {isa = PBXFileReference; path = "Shelby-Prefix.pch"; sourceTree = "<group>"; };
+		0AD9A36313D53BD300EFECE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */ = {isa = PBXFileReference; path = ShelbyAppDelegate.h; sourceTree = "<group>"; };
+		0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyAppDelegate.m; sourceTree = "<group>"; };
+		0AD9A36913D53BD300EFECE0 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
+		0AD9A36C13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.h */ = {isa = PBXFileReference; name = ShelbyAppDelegate_iPhone.h; path = iPhone/ShelbyAppDelegate_iPhone.h; sourceTree = "<group>"; };
+		0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ShelbyAppDelegate_iPhone.m; path = iPhone/ShelbyAppDelegate_iPhone.m; sourceTree = "<group>"; };
+		0AD9A37013D53BD300EFECE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPhone/en.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
+		0AD9A37313D53BD300EFECE0 /* ShelbyAppDelegate_iPad.h */ = {isa = PBXFileReference; name = ShelbyAppDelegate_iPad.h; path = iPad/ShelbyAppDelegate_iPad.h; sourceTree = "<group>"; };
+		0AD9A37413D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ShelbyAppDelegate_iPad.m; path = iPad/ShelbyAppDelegate_iPad.m; sourceTree = "<group>"; };
+		0AD9A37713D53BD300EFECE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iPad/en.lproj/MainWindow_iPad.xib; sourceTree = "<group>"; };
+		0AD9A37E13D53BD300EFECE0 /* ShelbyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShelbyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AD9A38713D53BD300EFECE0 /* ShelbyTests-Info.plist */ = {isa = PBXFileReference; path = "ShelbyTests-Info.plist"; sourceTree = "<group>"; };
+		0AD9A38913D53BD300EFECE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0AD9A38B13D53BD300EFECE0 /* ShelbyTests-Prefix.pch */ = {isa = PBXFileReference; path = "ShelbyTests-Prefix.pch"; sourceTree = "<group>"; };
+		0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelbyTests.h; sourceTree = "<group>"; };
+		0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0AD9A34D13D53BD200EFECE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */,
+				0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */,
+				0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */,
+				0AD9A35B13D53BD200EFECE0 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0AD9A37A13D53BD300EFECE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AD9A37F13D53BD300EFECE0 /* UIKit.framework in Frameworks */,
+				0AD9A38013D53BD300EFECE0 /* Foundation.framework in Frameworks */,
+				0AD9A38113D53BD300EFECE0 /* CoreGraphics.framework in Frameworks */,
+				0AD9A38213D53BD300EFECE0 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0AD9A34513D53BD200EFECE0 = {
+			isa = PBXGroup;
+			children = (
+				0AD9A35C13D53BD200EFECE0 /* Shelby */,
+				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
+				0AD9A35313D53BD200EFECE0 /* Frameworks */,
+				0AD9A35113D53BD200EFECE0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0AD9A35113D53BD200EFECE0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A35013D53BD200EFECE0 /* Shelby.app */,
+				0AD9A37E13D53BD300EFECE0 /* ShelbyTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0AD9A35313D53BD200EFECE0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A35413D53BD200EFECE0 /* UIKit.framework */,
+				0AD9A35613D53BD200EFECE0 /* Foundation.framework */,
+				0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */,
+				0AD9A35A13D53BD200EFECE0 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
+				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
+				0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */,
+				0AD9A36B13D53BD300EFECE0 /* iPhone */,
+				0AD9A37213D53BD300EFECE0 /* iPad */,
+				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
+			);
+			path = Shelby;
+			sourceTree = "<group>";
+		};
+		0AD9A35D13D53BD200EFECE0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A35E13D53BD200EFECE0 /* Shelby-Info.plist */,
+				0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */,
+				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
+				0AD9A36313D53BD300EFECE0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0AD9A36B13D53BD300EFECE0 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A36C13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.h */,
+				0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */,
+				0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		0AD9A37213D53BD300EFECE0 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A37313D53BD300EFECE0 /* ShelbyAppDelegate_iPad.h */,
+				0AD9A37413D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m */,
+				0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+		0AD9A38513D53BD300EFECE0 /* ShelbyTests */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */,
+				0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */,
+				0AD9A38613D53BD300EFECE0 /* Supporting Files */,
+			);
+			path = ShelbyTests;
+			sourceTree = "<group>";
+		};
+		0AD9A38613D53BD300EFECE0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0AD9A38713D53BD300EFECE0 /* ShelbyTests-Info.plist */,
+				0AD9A38813D53BD300EFECE0 /* InfoPlist.strings */,
+				0AD9A38B13D53BD300EFECE0 /* ShelbyTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0AD9A34F13D53BD200EFECE0 /* Shelby */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0AD9A39213D53BD300EFECE0 /* Build configuration list for PBXNativeTarget "Shelby" */;
+			buildPhases = (
+				0AD9A34C13D53BD200EFECE0 /* Sources */,
+				0AD9A34D13D53BD200EFECE0 /* Frameworks */,
+				0AD9A34E13D53BD200EFECE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Shelby;
+			productName = Shelby;
+			productReference = 0AD9A35013D53BD200EFECE0 /* Shelby.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0AD9A37D13D53BD300EFECE0 /* ShelbyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0AD9A39513D53BD300EFECE0 /* Build configuration list for PBXNativeTarget "ShelbyTests" */;
+			buildPhases = (
+				0AD9A37913D53BD300EFECE0 /* Sources */,
+				0AD9A37A13D53BD300EFECE0 /* Frameworks */,
+				0AD9A37B13D53BD300EFECE0 /* Resources */,
+				0AD9A37C13D53BD300EFECE0 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0AD9A38413D53BD300EFECE0 /* PBXTargetDependency */,
+			);
+			name = ShelbyTests;
+			productName = ShelbyTests;
+			productReference = 0AD9A37E13D53BD300EFECE0 /* ShelbyTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0AD9A34713D53BD200EFECE0 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 0AD9A34A13D53BD200EFECE0 /* Build configuration list for PBXProject "Shelby" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0AD9A34513D53BD200EFECE0;
+			productRefGroup = 0AD9A35113D53BD200EFECE0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0AD9A34F13D53BD200EFECE0 /* Shelby */,
+				0AD9A37D13D53BD300EFECE0 /* ShelbyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0AD9A34E13D53BD200EFECE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AD9A36113D53BD300EFECE0 /* InfoPlist.strings in Resources */,
+				0AD9A37113D53BD300EFECE0 /* MainWindow_iPhone.xib in Resources */,
+				0AD9A37813D53BD300EFECE0 /* MainWindow_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0AD9A37B13D53BD300EFECE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AD9A38A13D53BD300EFECE0 /* InfoPlist.strings in Resources */,
+				0AD9A38D13D53BD300EFECE0 /* ShelbyTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0AD9A37C13D53BD300EFECE0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0AD9A34C13D53BD200EFECE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AD9A36413D53BD300EFECE0 /* main.m in Sources */,
+				0AD9A36713D53BD300EFECE0 /* ShelbyAppDelegate.m in Sources */,
+				0AD9A36A13D53BD300EFECE0 /* Shelby.xcdatamodeld in Sources */,
+				0AD9A36E13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m in Sources */,
+				0AD9A37513D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0AD9A37913D53BD300EFECE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0AD9A38413D53BD300EFECE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0AD9A34F13D53BD200EFECE0 /* Shelby */;
+			targetProxy = 0AD9A38313D53BD300EFECE0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AD9A36013D53BD200EFECE0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AD9A37013D53BD300EFECE0 /* en */,
+			);
+			name = MainWindow_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AD9A37713D53BD300EFECE0 /* en */,
+			);
+			name = MainWindow_iPad.xib;
+			sourceTree = "<group>";
+		};
+		0AD9A38813D53BD300EFECE0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AD9A38913D53BD300EFECE0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0AD9A39013D53BD300EFECE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0AD9A39113D53BD300EFECE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0AD9A39313D53BD300EFECE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				INFOPLIST_FILE = "Shelby/Shelby-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0AD9A39413D53BD300EFECE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				INFOPLIST_FILE = "Shelby/Shelby-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0AD9A39613D53BD300EFECE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shelby.app/Shelby";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		0AD9A39713D53BD300EFECE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shelby.app/Shelby";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0AD9A34A13D53BD200EFECE0 /* Build configuration list for PBXProject "Shelby" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AD9A39013D53BD300EFECE0 /* Debug */,
+				0AD9A39113D53BD300EFECE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0AD9A39213D53BD300EFECE0 /* Build configuration list for PBXNativeTarget "Shelby" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AD9A39313D53BD300EFECE0 /* Debug */,
+				0AD9A39413D53BD300EFECE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0AD9A39513D53BD300EFECE0 /* Build configuration list for PBXNativeTarget "ShelbyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AD9A39613D53BD300EFECE0 /* Debug */,
+				0AD9A39713D53BD300EFECE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0AD9A36913D53BD300EFECE0 /* Shelby.xcdatamodel */,
+			);
+			currentVersion = 0AD9A36913D53BD300EFECE0 /* Shelby.xcdatamodel */;
+			path = Shelby.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 0AD9A34713D53BD200EFECE0 /* Project object */;
+}
