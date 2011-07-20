@@ -13,18 +13,13 @@
 
 @synthesize window=_window;
 
+@synthesize loginViewController;
+
 @synthesize managedObjectContext=__managedObjectContext;
 
 @synthesize managedObjectModel=__managedObjectModel;
 
 @synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
-    [self.window makeKeyAndVisible];
-    return YES;
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

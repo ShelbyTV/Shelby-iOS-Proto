@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class LoginViewController;
+
 @interface ShelbyAppDelegate : NSObject <UIApplicationDelegate> {
 
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+
+@property (nonatomic, retain) LoginViewController *loginViewController;
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
