@@ -26,6 +26,9 @@
 		0AD9A38A13D53BD300EFECE0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38813D53BD300EFECE0 /* InfoPlist.strings */; };
 		0AD9A38D13D53BD300EFECE0 /* ShelbyTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */; };
 		0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */; };
+		0AD9A3ED13D69C9400EFECE0 /* Login_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3EC13D69C9400EFECE0 /* Login_iPad.xib */; };
+		0AD9A3F013D6A13B00EFECE0 /* ShelbyTvLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3EF13D6A13B00EFECE0 /* ShelbyTvLogo.png */; };
+		0AD9A3F213D6A1CF00EFECE0 /* Login_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		0AD9A38B13D53BD300EFECE0 /* ShelbyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShelbyTests-Prefix.pch"; sourceTree = "<group>"; };
 		0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelbyTests.h; sourceTree = "<group>"; };
 		0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyTests.m; sourceTree = "<group>"; };
+		0AD9A3EC13D69C9400EFECE0 /* Login_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login_iPad.xib; sourceTree = "<group>"; };
+		0AD9A3EF13D6A13B00EFECE0 /* ShelbyTvLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShelbyTvLogo.png; sourceTree = "<group>"; };
+		0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login_iPhone.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,7 @@
 				0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */,
 				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
 				0AD9A36313D53BD300EFECE0 /* main.m */,
+				0AD9A3EF13D6A13B00EFECE0 /* ShelbyTvLogo.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,6 +157,7 @@
 			children = (
 				0AD9A36C13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.h */,
 				0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */,
+				0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */,
 				0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */,
 			);
 			name = iPhone;
@@ -160,6 +168,7 @@
 			children = (
 				0AD9A37313D53BD300EFECE0 /* ShelbyAppDelegate_iPad.h */,
 				0AD9A37413D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m */,
+				0AD9A3EC13D69C9400EFECE0 /* Login_iPad.xib */,
 				0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */,
 			);
 			name = iPad;
@@ -255,6 +264,9 @@
 				0AD9A36113D53BD300EFECE0 /* InfoPlist.strings in Resources */,
 				0AD9A37113D53BD300EFECE0 /* MainWindow_iPhone.xib in Resources */,
 				0AD9A37813D53BD300EFECE0 /* MainWindow_iPad.xib in Resources */,
+				0AD9A3ED13D69C9400EFECE0 /* Login_iPad.xib in Resources */,
+				0AD9A3F013D6A13B00EFECE0 /* ShelbyTvLogo.png in Resources */,
+				0AD9A3F213D6A1CF00EFECE0 /* Login_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +491,7 @@
 				0AD9A39413D53BD300EFECE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0AD9A39513D53BD300EFECE0 /* Build configuration list for PBXNativeTarget "ShelbyTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +500,7 @@
 				0AD9A39713D53BD300EFECE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
