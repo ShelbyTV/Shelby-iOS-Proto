@@ -31,7 +31,6 @@
 		0AD9A3F013D6A13B00EFECE0 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3EF13D6A13B00EFECE0 /* Logo.png */; };
 		0AD9A3F213D6A1CF00EFECE0 /* Login_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */; };
 		0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */; };
-		0AD9A3F713D6A45300EFECE0 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F513D6A45200EFECE0 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +74,6 @@
 		0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login_iPhone.xib; sourceTree = "<group>"; };
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		0AD9A3F513D6A45200EFECE0 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +139,6 @@
 				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
 				0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */,
 				0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */,
-				0AD9A3F513D6A45200EFECE0 /* LoginViewController.xib */,
 				0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */,
 				0AD9A36B13D53BD300EFECE0 /* iPhone */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
@@ -278,7 +275,6 @@
 				0AD9A3ED13D69C9400EFECE0 /* Login_iPad.xib in Resources */,
 				0AD9A3F013D6A13B00EFECE0 /* Logo.png in Resources */,
 				0AD9A3F213D6A1CF00EFECE0 /* Login_iPhone.xib in Resources */,
-				0AD9A3F713D6A45300EFECE0 /* LoginViewController.xib in Resources */,
 				0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
