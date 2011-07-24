@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A12930413DCB7A3009D254F /* Navigation_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930313DCB7A3009D254F /* Navigation_iPhone.xib */; };
+		0A12930613DCBC63009D254F /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930513DCBC63009D254F /* Face.png */; };
+		0A12930913DCC0DC009D254F /* FacebookActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930713DCC0DC009D254F /* FacebookActive.png */; };
+		0A12930A13DCC0DC009D254F /* FacebookDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930813DCC0DC009D254F /* FacebookDisabled.png */; };
+		0A12930D13DCC0E7009D254F /* TwitterActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930B13DCC0E7009D254F /* TwitterActive.png */; };
+		0A12930E13DCC0E7009D254F /* TwitterDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930C13DCC0E7009D254F /* TwitterDisabled.png */; };
 		0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
@@ -44,6 +50,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A12930313DCB7A3009D254F /* Navigation_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Navigation_iPhone.xib; sourceTree = "<group>"; };
+		0A12930513DCBC63009D254F /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Face.png; sourceTree = "<group>"; };
+		0A12930713DCC0DC009D254F /* FacebookActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookActive.png; sourceTree = "<group>"; };
+		0A12930813DCC0DC009D254F /* FacebookDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookDisabled.png; sourceTree = "<group>"; };
+		0A12930B13DCC0E7009D254F /* TwitterActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterActive.png; sourceTree = "<group>"; };
+		0A12930C13DCC0E7009D254F /* TwitterDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterDisabled.png; sourceTree = "<group>"; };
 		0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = ../BackgroundStripes.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -154,6 +166,11 @@
 				0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */,
 				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
 				0AD9A36313D53BD300EFECE0 /* main.m */,
+				0A12930713DCC0DC009D254F /* FacebookActive.png */,
+				0A12930813DCC0DC009D254F /* FacebookDisabled.png */,
+				0A12930B13DCC0E7009D254F /* TwitterActive.png */,
+				0A12930C13DCC0E7009D254F /* TwitterDisabled.png */,
+				0A12930513DCBC63009D254F /* Face.png */,
 				0AD9A3EF13D6A13B00EFECE0 /* Logo.png */,
 				0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */,
 			);
@@ -166,6 +183,7 @@
 				0AD9A36C13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.h */,
 				0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */,
 				0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */,
+				0A12930313DCB7A3009D254F /* Navigation_iPhone.xib */,
 				0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */,
 			);
 			name = iPhone;
@@ -276,6 +294,12 @@
 				0AD9A3F013D6A13B00EFECE0 /* Logo.png in Resources */,
 				0AD9A3F213D6A1CF00EFECE0 /* Login_iPhone.xib in Resources */,
 				0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */,
+				0A12930413DCB7A3009D254F /* Navigation_iPhone.xib in Resources */,
+				0A12930613DCBC63009D254F /* Face.png in Resources */,
+				0A12930913DCC0DC009D254F /* FacebookActive.png in Resources */,
+				0A12930A13DCC0DC009D254F /* FacebookDisabled.png in Resources */,
+				0A12930D13DCC0E7009D254F /* TwitterActive.png in Resources */,
+				0A12930E13DCC0E7009D254F /* TwitterDisabled.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
