@@ -57,13 +57,24 @@
             UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
+- (void)fadeOut
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.view.alpha = 0.0;
+    }];
+}
+
 - (IBAction)loginWithFacebook:(id)sender
 {
+    [self fadeOut];
+        
     NSLog(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
+    [self fadeOut];
+    
     NSLog(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }
 
