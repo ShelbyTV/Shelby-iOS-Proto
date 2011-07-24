@@ -61,6 +61,12 @@
 {
     [UIView animateWithDuration:0.25 animations:^{
         self.view.alpha = 0.0;
+    }
+    completion:^(BOOL finished){
+        if (finished) {
+            NSLog(@"Animation stopped!");
+            [self.view setHidden:YES];
+        }
     }];
 }
 

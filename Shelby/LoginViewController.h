@@ -14,6 +14,7 @@
     IBOutlet UITextField *password;
 }
 
+- (void)fadeOut;
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;
 
