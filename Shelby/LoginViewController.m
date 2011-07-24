@@ -51,7 +51,10 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait && 
+            UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ||
+           (interfaceOrientation == UIInterfaceOrientationLandscapeRight &&
+            UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
 - (IBAction)loginWithFacebook:(id)sender
