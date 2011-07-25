@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class VideoTableViewController;
+
 @interface NavigationViewController : UIViewController
 {
     IBOutlet UIView *header;
+    IBOutlet UIView *videoTableHolder;
+    VideoTableViewController *videoTable;
 }
 
 @end
