@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class LoginViewController;
+@class NavigationViewController;
+@class RootViewController;
 
 @interface ShelbyAppDelegate : NSObject <UIApplicationDelegate> {
 
@@ -17,6 +19,8 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @property (nonatomic, retain) LoginViewController *loginViewController;
+@property (nonatomic, retain) NavigationViewController *navigationViewController;
+@property (nonatomic, retain) RootViewController *rootViewController;
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;

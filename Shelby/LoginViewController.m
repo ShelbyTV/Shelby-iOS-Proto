@@ -48,15 +48,6 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait && 
-            UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ||
-           (interfaceOrientation == UIInterfaceOrientationLandscapeRight &&
-            UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
-}
-
 - (void)fadeOut
 {
     [UIView animateWithDuration:0.25 animations:^{

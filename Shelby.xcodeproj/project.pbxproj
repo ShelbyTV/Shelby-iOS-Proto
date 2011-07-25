@@ -14,6 +14,16 @@
 		0A12930D13DCC0E7009D254F /* TwitterActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930B13DCC0E7009D254F /* TwitterActive.png */; };
 		0A12930E13DCC0E7009D254F /* TwitterDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930C13DCC0E7009D254F /* TwitterDisabled.png */; };
 		0A12931013DCC2D6009D254F /* Navigation_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12930F13DCC2D6009D254F /* Navigation_iPad.xib */; };
+		0A12931313DCD2AA009D254F /* NavigationViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931213DCD2AA009D254F /* NavigationViewController_iPhone.m */; };
+		0A12931613DCD300009D254F /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931513DCD300009D254F /* NavigationViewController.m */; };
+		0A12931913DCD8CA009D254F /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931813DCD8CA009D254F /* NavigationViewController_iPad.m */; };
+		0A12931E13DCDF4E009D254F /* LoginViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931D13DCDF4D009D254F /* LoginViewController_iPad.m */; };
+		0A12932113DCE001009D254F /* LoginViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932013DCE001009D254F /* LoginViewController_iPhone.m */; };
+		0A12932513DCE9C6009D254F /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932313DCE9C5009D254F /* RootViewController_iPhone.m */; };
+		0A12932613DCE9C6009D254F /* Root_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12932413DCE9C5009D254F /* Root_iPhone.xib */; };
+		0A12932913DCEA7E009D254F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932813DCEA7E009D254F /* RootViewController.m */; };
+		0A12932D13DCEAE4009D254F /* RootViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */; };
+		0A12932E13DCEAE4009D254F /* Root_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12932C13DCEAE4009D254F /* Root_iPad.xib */; };
 		0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
@@ -58,6 +68,24 @@
 		0A12930B13DCC0E7009D254F /* TwitterActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterActive.png; sourceTree = "<group>"; };
 		0A12930C13DCC0E7009D254F /* TwitterDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterDisabled.png; sourceTree = "<group>"; };
 		0A12930F13DCC2D6009D254F /* Navigation_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Navigation_iPad.xib; sourceTree = "<group>"; };
+		0A12931113DCD2AA009D254F /* NavigationViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController_iPhone.h; sourceTree = "<group>"; };
+		0A12931213DCD2AA009D254F /* NavigationViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController_iPhone.m; sourceTree = "<group>"; };
+		0A12931413DCD300009D254F /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		0A12931513DCD300009D254F /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		0A12931713DCD8CA009D254F /* NavigationViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController_iPad.h; sourceTree = "<group>"; };
+		0A12931813DCD8CA009D254F /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController_iPad.m; sourceTree = "<group>"; };
+		0A12931C13DCDF4D009D254F /* LoginViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController_iPad.h; sourceTree = "<group>"; };
+		0A12931D13DCDF4D009D254F /* LoginViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController_iPad.m; sourceTree = "<group>"; };
+		0A12931F13DCE001009D254F /* LoginViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController_iPhone.h; sourceTree = "<group>"; };
+		0A12932013DCE001009D254F /* LoginViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController_iPhone.m; sourceTree = "<group>"; };
+		0A12932213DCE9C5009D254F /* RootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPhone.h; sourceTree = "<group>"; };
+		0A12932313DCE9C5009D254F /* RootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPhone.m; sourceTree = "<group>"; };
+		0A12932413DCE9C5009D254F /* Root_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Root_iPhone.xib; sourceTree = "<group>"; };
+		0A12932713DCEA7E009D254F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		0A12932813DCEA7E009D254F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		0A12932A13DCEAE4009D254F /* RootViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPad.h; sourceTree = "<group>"; };
+		0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPad.m; sourceTree = "<group>"; };
+		0A12932C13DCEAE4009D254F /* Root_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Root_iPad.xib; sourceTree = "<group>"; };
 		0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = ../BackgroundStripes.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -149,10 +177,14 @@
 		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
 			isa = PBXGroup;
 			children = (
-				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
-				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
 				0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */,
 				0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */,
+				0A12931413DCD300009D254F /* NavigationViewController.h */,
+				0A12931513DCD300009D254F /* NavigationViewController.m */,
+				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
+				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
+				0A12932713DCEA7E009D254F /* RootViewController.h */,
+				0A12932813DCEA7E009D254F /* RootViewController.m */,
 				0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */,
 				0AD9A36B13D53BD300EFECE0 /* iPhone */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
@@ -182,11 +214,18 @@
 		0AD9A36B13D53BD300EFECE0 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				0A12931F13DCE001009D254F /* LoginViewController_iPhone.h */,
+				0A12932013DCE001009D254F /* LoginViewController_iPhone.m */,
+				0A12931113DCD2AA009D254F /* NavigationViewController_iPhone.h */,
+				0A12931213DCD2AA009D254F /* NavigationViewController_iPhone.m */,
+				0A12932213DCE9C5009D254F /* RootViewController_iPhone.h */,
+				0A12932313DCE9C5009D254F /* RootViewController_iPhone.m */,
 				0AD9A36C13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.h */,
 				0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */,
 				0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */,
-				0A12930313DCB7A3009D254F /* Navigation_iPhone.xib */,
 				0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */,
+				0A12930313DCB7A3009D254F /* Navigation_iPhone.xib */,
+				0A12932413DCE9C5009D254F /* Root_iPhone.xib */,
 			);
 			name = iPhone;
 			sourceTree = "<group>";
@@ -194,11 +233,18 @@
 		0AD9A37213D53BD300EFECE0 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				0A12931C13DCDF4D009D254F /* LoginViewController_iPad.h */,
+				0A12931D13DCDF4D009D254F /* LoginViewController_iPad.m */,
+				0A12931713DCD8CA009D254F /* NavigationViewController_iPad.h */,
+				0A12931813DCD8CA009D254F /* NavigationViewController_iPad.m */,
 				0AD9A37313D53BD300EFECE0 /* ShelbyAppDelegate_iPad.h */,
 				0AD9A37413D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m */,
+				0A12932A13DCEAE4009D254F /* RootViewController_iPad.h */,
+				0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */,
 				0AD9A3EC13D69C9400EFECE0 /* Login_iPad.xib */,
-				0A12930F13DCC2D6009D254F /* Navigation_iPad.xib */,
 				0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */,
+				0A12930F13DCC2D6009D254F /* Navigation_iPad.xib */,
+				0A12932C13DCEAE4009D254F /* Root_iPad.xib */,
 			);
 			name = iPad;
 			sourceTree = "<group>";
@@ -304,6 +350,8 @@
 				0A12930D13DCC0E7009D254F /* TwitterActive.png in Resources */,
 				0A12930E13DCC0E7009D254F /* TwitterDisabled.png in Resources */,
 				0A12931013DCC2D6009D254F /* Navigation_iPad.xib in Resources */,
+				0A12932613DCE9C6009D254F /* Root_iPhone.xib in Resources */,
+				0A12932E13DCEAE4009D254F /* Root_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +393,14 @@
 				0AD9A36E13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m in Sources */,
 				0AD9A37513D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m in Sources */,
 				0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */,
+				0A12931313DCD2AA009D254F /* NavigationViewController_iPhone.m in Sources */,
+				0A12931613DCD300009D254F /* NavigationViewController.m in Sources */,
+				0A12931913DCD8CA009D254F /* NavigationViewController_iPad.m in Sources */,
+				0A12931E13DCDF4E009D254F /* LoginViewController_iPad.m in Sources */,
+				0A12932113DCE001009D254F /* LoginViewController_iPhone.m in Sources */,
+				0A12932513DCE9C6009D254F /* RootViewController_iPhone.m in Sources */,
+				0A12932913DCEA7E009D254F /* RootViewController.m in Sources */,
+				0A12932D13DCEAE4009D254F /* RootViewController_iPad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
