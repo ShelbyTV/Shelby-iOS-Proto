@@ -24,6 +24,7 @@
 		0A12932913DCEA7E009D254F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932813DCEA7E009D254F /* RootViewController.m */; };
 		0A12932D13DCEAE4009D254F /* RootViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */; };
 		0A12932E13DCEAE4009D254F /* Root_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12932C13DCEAE4009D254F /* Root_iPad.xib */; };
+		0A12933213DCF84B009D254F /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12933113DCF84B009D254F /* ForegroundStripes.png */; };
 		0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
@@ -86,6 +87,7 @@
 		0A12932A13DCEAE4009D254F /* RootViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPad.h; sourceTree = "<group>"; };
 		0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPad.m; sourceTree = "<group>"; };
 		0A12932C13DCEAE4009D254F /* Root_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Root_iPad.xib; sourceTree = "<group>"; };
+		0A12933113DCF84B009D254F /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForegroundStripes.png; sourceTree = "<group>"; };
 		0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = ../BackgroundStripes.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -207,6 +209,7 @@
 				0A12930513DCBC63009D254F /* Face.png */,
 				0AD9A3EF13D6A13B00EFECE0 /* Logo.png */,
 				0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */,
+				0A12933113DCF84B009D254F /* ForegroundStripes.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				0A12931013DCC2D6009D254F /* Navigation_iPad.xib in Resources */,
 				0A12932613DCE9C6009D254F /* Root_iPhone.xib in Resources */,
 				0A12932E13DCEAE4009D254F /* Root_iPad.xib in Resources */,
+				0A12933213DCF84B009D254F /* ForegroundStripes.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@
 
 @interface NavigationViewController : UIViewController
 {
-    
+    IBOutlet UIView *header;
 }
 
 @end
