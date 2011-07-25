@@ -13,10 +13,6 @@
 
 @synthesize window=_window;
 
-@synthesize loginViewController;
-@synthesize navigationViewController;
-@synthesize rootViewController;
-
 @synthesize managedObjectContext=__managedObjectContext;
 
 @synthesize managedObjectModel=__managedObjectModel;

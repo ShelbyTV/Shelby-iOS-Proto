@@ -13,14 +13,12 @@
 @class RootViewController;
 
 @interface ShelbyAppDelegate : NSObject <UIApplicationDelegate> {
-
+    LoginViewController *loginViewController;
+    NavigationViewController *navigationViewController;
+    RootViewController *rootViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-
-@property (nonatomic, retain) LoginViewController *loginViewController;
-@property (nonatomic, retain) NavigationViewController *navigationViewController;
-@property (nonatomic, retain) RootViewController *rootViewController;
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;

@@ -17,17 +17,17 @@
 {
     // Override point for customization after application launch.
 
-    self.rootViewController = [[RootViewController_iPhone alloc] initWithNibName:@"Root_iPhone" bundle:nil];
+    rootViewController = [[RootViewController_iPhone alloc] initWithNibName:@"Root_iPhone" bundle:nil];
     
-    self.navigationViewController = [[NavigationViewController_iPhone alloc] initWithNibName:@"Navigation_iPhone" bundle:nil];
-    self.navigationViewController.view.frame = self.rootViewController.view.bounds;
-    [self.rootViewController.view addSubview:self.navigationViewController.view];
+    navigationViewController = [[NavigationViewController_iPhone alloc] initWithNibName:@"Navigation_iPhone" bundle:nil];
+    navigationViewController.view.frame = rootViewController.view.bounds;
+    [rootViewController.view addSubview:navigationViewController.view];
     
-    self.loginViewController = [[LoginViewController_iPhone alloc] initWithNibName:@"Login_iPhone" bundle:nil];
-    self.loginViewController.view.frame = self.rootViewController.view.bounds;
-    [self.rootViewController.view addSubview:self.loginViewController.view]; 
+    loginViewController = [[LoginViewController_iPhone alloc] initWithNibName:@"Login_iPhone" bundle:nil];
+    loginViewController.view.frame = rootViewController.view.bounds;
+    [rootViewController.view addSubview:loginViewController.view]; 
     
-    [self.window addSubview:self.rootViewController.view];
+    [self.window addSubview:rootViewController.view];
     
     [self.window makeKeyAndVisible];
     return YES;
