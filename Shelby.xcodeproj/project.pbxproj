@@ -17,15 +17,13 @@
 		0A12931313DCD2AA009D254F /* NavigationViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931213DCD2AA009D254F /* NavigationViewController_iPhone.m */; };
 		0A12931613DCD300009D254F /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931513DCD300009D254F /* NavigationViewController.m */; };
 		0A12931913DCD8CA009D254F /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931813DCD8CA009D254F /* NavigationViewController_iPad.m */; };
-		0A12931E13DCDF4E009D254F /* LoginViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931D13DCDF4D009D254F /* LoginViewController_iPad.m */; };
-		0A12932113DCE001009D254F /* LoginViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932013DCE001009D254F /* LoginViewController_iPhone.m */; };
-		0A12932513DCE9C6009D254F /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932313DCE9C5009D254F /* RootViewController_iPhone.m */; };
 		0A12932613DCE9C6009D254F /* Root_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12932413DCE9C5009D254F /* Root_iPhone.xib */; };
 		0A12932913DCEA7E009D254F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932813DCEA7E009D254F /* RootViewController.m */; };
-		0A12932D13DCEAE4009D254F /* RootViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */; };
 		0A12932E13DCEAE4009D254F /* Root_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A12932C13DCEAE4009D254F /* Root_iPad.xib */; };
 		0A12933213DCF84B009D254F /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A12933113DCF84B009D254F /* ForegroundStripes.png */; };
 		0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12933A13DD0DC0009D254F /* VideoTableViewController.m */; };
+		0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934013DD2EE3009D254F /* AVFoundation.framework */; };
+		0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934213DD2FFB009D254F /* MediaPlayer.framework */; };
 		0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
@@ -76,21 +74,15 @@
 		0A12931513DCD300009D254F /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		0A12931713DCD8CA009D254F /* NavigationViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController_iPad.h; sourceTree = "<group>"; };
 		0A12931813DCD8CA009D254F /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController_iPad.m; sourceTree = "<group>"; };
-		0A12931C13DCDF4D009D254F /* LoginViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController_iPad.h; sourceTree = "<group>"; };
-		0A12931D13DCDF4D009D254F /* LoginViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController_iPad.m; sourceTree = "<group>"; };
-		0A12931F13DCE001009D254F /* LoginViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController_iPhone.h; sourceTree = "<group>"; };
-		0A12932013DCE001009D254F /* LoginViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController_iPhone.m; sourceTree = "<group>"; };
-		0A12932213DCE9C5009D254F /* RootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPhone.h; sourceTree = "<group>"; };
-		0A12932313DCE9C5009D254F /* RootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPhone.m; sourceTree = "<group>"; };
 		0A12932413DCE9C5009D254F /* Root_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Root_iPhone.xib; sourceTree = "<group>"; };
 		0A12932713DCEA7E009D254F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		0A12932813DCEA7E009D254F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		0A12932A13DCEAE4009D254F /* RootViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPad.h; sourceTree = "<group>"; };
-		0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPad.m; sourceTree = "<group>"; };
 		0A12932C13DCEAE4009D254F /* Root_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Root_iPad.xib; sourceTree = "<group>"; };
 		0A12933113DCF84B009D254F /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForegroundStripes.png; sourceTree = "<group>"; };
 		0A12933913DD0DBF009D254F /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
 		0A12933A13DD0DC0009D254F /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
+		0A12934013DD2EE3009D254F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0A12934213DD2FFB009D254F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = ../BackgroundStripes.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -128,6 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */,
+				0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */,
 				0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */,
 				0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */,
 				0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */,
@@ -171,6 +165,8 @@
 		0AD9A35313D53BD200EFECE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A12934213DD2FFB009D254F /* MediaPlayer.framework */,
+				0A12934013DD2EE3009D254F /* AVFoundation.framework */,
 				0AD9A35413D53BD200EFECE0 /* UIKit.framework */,
 				0AD9A35613D53BD200EFECE0 /* Foundation.framework */,
 				0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */,
@@ -222,12 +218,8 @@
 		0AD9A36B13D53BD300EFECE0 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				0A12931F13DCE001009D254F /* LoginViewController_iPhone.h */,
-				0A12932013DCE001009D254F /* LoginViewController_iPhone.m */,
 				0A12931113DCD2AA009D254F /* NavigationViewController_iPhone.h */,
 				0A12931213DCD2AA009D254F /* NavigationViewController_iPhone.m */,
-				0A12932213DCE9C5009D254F /* RootViewController_iPhone.h */,
-				0A12932313DCE9C5009D254F /* RootViewController_iPhone.m */,
 				0AD9A36C13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.h */,
 				0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */,
 				0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */,
@@ -241,14 +233,10 @@
 		0AD9A37213D53BD300EFECE0 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				0A12931C13DCDF4D009D254F /* LoginViewController_iPad.h */,
-				0A12931D13DCDF4D009D254F /* LoginViewController_iPad.m */,
 				0A12931713DCD8CA009D254F /* NavigationViewController_iPad.h */,
 				0A12931813DCD8CA009D254F /* NavigationViewController_iPad.m */,
 				0AD9A37313D53BD300EFECE0 /* ShelbyAppDelegate_iPad.h */,
 				0AD9A37413D53BD300EFECE0 /* ShelbyAppDelegate_iPad.m */,
-				0A12932A13DCEAE4009D254F /* RootViewController_iPad.h */,
-				0A12932B13DCEAE4009D254F /* RootViewController_iPad.m */,
 				0AD9A3EC13D69C9400EFECE0 /* Login_iPad.xib */,
 				0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */,
 				0A12930F13DCC2D6009D254F /* Navigation_iPad.xib */,
@@ -405,11 +393,7 @@
 				0A12931313DCD2AA009D254F /* NavigationViewController_iPhone.m in Sources */,
 				0A12931613DCD300009D254F /* NavigationViewController.m in Sources */,
 				0A12931913DCD8CA009D254F /* NavigationViewController_iPad.m in Sources */,
-				0A12931E13DCDF4E009D254F /* LoginViewController_iPad.m in Sources */,
-				0A12932113DCE001009D254F /* LoginViewController_iPhone.m in Sources */,
-				0A12932513DCE9C6009D254F /* RootViewController_iPhone.m in Sources */,
 				0A12932913DCEA7E009D254F /* RootViewController.m in Sources */,
-				0A12932D13DCEAE4009D254F /* RootViewController_iPad.m in Sources */,
 				0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

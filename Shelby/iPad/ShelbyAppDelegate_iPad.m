@@ -7,9 +7,9 @@
 //
 
 #import "ShelbyAppDelegate_iPad.h"
-#import "LoginViewController_iPad.h"
+#import "LoginViewController.h"
 #import "NavigationViewController_iPad.h"
-#import "RootViewController_iPad.h"
+#import "RootViewController.h"
 
 @implementation ShelbyAppDelegate_iPad
 
@@ -17,13 +17,13 @@
 {
     // Override point for customization after application launch.
     
-    rootViewController = [[RootViewController_iPad alloc] initWithNibName:@"Root_iPad" bundle:nil];
+    rootViewController = [[RootViewController alloc] initWithNibName:@"Root_iPad" bundle:nil];
     
     navigationViewController = [[NavigationViewController_iPad alloc] initWithNibName:@"Navigation_iPad" bundle:nil];
     navigationViewController.view.frame = rootViewController.view.bounds;
     [rootViewController.view addSubview:navigationViewController.view];
 
-    loginViewController = [[LoginViewController_iPad alloc] initWithNibName:@"Login_iPad" bundle:nil];
+    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPad" bundle:nil];
     loginViewController.view.frame = rootViewController.view.bounds;
     [rootViewController.view addSubview:loginViewController.view];
     
