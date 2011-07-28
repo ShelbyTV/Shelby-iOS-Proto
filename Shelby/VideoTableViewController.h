@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class VideoTableData;
+
 @interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 {
-    
+    VideoTableData *videoTableData;
 }
+
+
 
 @end

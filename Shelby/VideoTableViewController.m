@@ -7,8 +7,19 @@
 //
 
 #import "VideoTableViewController.h"
+#import "VideoTableData.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @implementation VideoTableViewController
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        videoTableData = [[VideoTableData alloc] initWithUITableView:self.tableView];
+    }
+    return self;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -75,22 +86,33 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return [videoTableData numItems];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     // Configure the cell...
-    cell.textLabel.text = @"Mark";
-    cell.detailTextLabel.text = @"Johnson";
-    cell.imageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Face" ofType:@"png"]];
+    NSUInteger whichCell[2];
+    [indexPath getIndexes:whichCell];
+    
+    /*
+     * Right now, this is pretty bad UI. The table can initially show up without any thumbnail images.
+     * See the comment at the top of VideoTableData.m about how we should really be loading data and properly
+     * inserting new data / cells into the UITableView in a graceful, animated way.
+     *
+     * In the current ghetto UITableView display, you can get the thumbnails to display if they're blank by
+     * dragging the list really far down and really far up.
+     */
+    cell.textLabel.text = [videoTableData videoTitleAtIndex:whichCell[1]];
+    cell.detailTextLabel.text = [videoTableData videoSharerAtIndex:whichCell[1]];
+    cell.imageView.image = [videoTableData videoThumbnailAtIndex:whichCell[1]];
     
     return cell;
 }
@@ -146,6 +168,23 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+    
+    // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
+    NSUInteger whichCell[2];
+    [indexPath getIndexes:whichCell];
+    
+    NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
+    
+    /*
+     * This is pretty ghetto, but it's a quick way to display a video. Eventually this should load the contentURL into
+     * the custom Shelby movie view, etc. Not sure if moviePlayer will get properly cleaned up when user hits "Done" -- 
+     * definitely bad that it randomly disappears on user hitting minimize.
+     *
+     * Plus, because of ways views are currently set up, MoviePlayer doesn't autorotate properly.
+     */
+    MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:contentURL];
+    [[self view] addSubview:[moviePlayer view]];
+    [moviePlayer setFullscreen:YES];
 }
 
 @end
