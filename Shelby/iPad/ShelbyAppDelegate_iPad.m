@@ -17,6 +17,7 @@
 {
     // Override point for customization after application launch.
     
+    // Windows don't work very well at passing events to multiple subviews. Use rootView to contain everything.
     rootViewController = [[RootViewController alloc] initWithNibName:@"Root_iPad" bundle:nil];
     
     navigationViewController = [[NavigationViewController_iPad alloc] initWithNibName:@"Navigation_iPad" bundle:nil];

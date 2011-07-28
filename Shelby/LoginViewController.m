@@ -34,6 +34,13 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    /* 
+     * Even though normally I don't like programmatically checking for iPad vs. iPhone, an iPad
+     * or iPhone-specific subclass would only have this one method. Doesn't seem worth it.
+     *
+     * This may not be necessary -- just having this on the RootView might be enough?
+     */
+    
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait &&
             UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ||

@@ -6,6 +6,11 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+/*
+ * Eventually there will be device-specific logic in these NavigationViewController subclasses,
+ * since both devices have very different navigation.
+ */
+
 #import "NavigationViewController_iPhone.h"
 
 @implementation NavigationViewController_iPhone
