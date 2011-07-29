@@ -28,4 +28,6 @@
 - (void)retrieveYouTubeVideoData:(id)youTubeURL;
 - (void)updateTableView;
 
++ (NSString *)createYouTubeURLWithVideo:(NSString *)video;
+
 @end

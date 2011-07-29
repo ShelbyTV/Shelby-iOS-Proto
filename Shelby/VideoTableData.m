@@ -217,7 +217,7 @@ static NSString *fakeAPIData[] = {
 }
 
 // helper method -- maybe better to just embed in this file?
-+ (NSString *)createyouTubeVideoWithVideo:(NSString *)video
++ (NSString *)createYouTubeURLWithVideo:(NSString *)video
 {
     NSString *baseURL = @"http://www.youtube.com/watch?v=";
     return [baseURL stringByAppendingString:video];
@@ -241,7 +241,7 @@ static NSString *fakeAPIData[] = {
         videoDataArray = [[NSMutableArray alloc] init];
         
         for (int i = 0; i < 23; i++) {
-            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createyouTubeVideoWithVideo:fakeAPIData[i * 4 + 2]]];
+            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeURLWithVideo:fakeAPIData[i * 4 + 2]]];
             URLIndex *youTubeVideoIndex = [[URLIndex alloc] init]; 
             youTubeVideoIndex.videoURL = youTubeVideo;
             youTubeVideoIndex.index = i;
