@@ -9,17 +9,27 @@
 #import "VideoTableData.h"
 
 @interface URLIndex : NSObject
-@property (nonatomic, retain) NSURL *url;
+@property (nonatomic, retain) NSURL *videoURL;
+@property (nonatomic, retain) NSURL *thumbnailURL;
 @property (nonatomic) NSUInteger index;
+@property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSString *submitter;
 @end
 @implementation URLIndex
-@synthesize url;
-@synthesize index;
+@synthesize videoURL, thumbnailURL, index, title, submitter;
+@end
+
+@interface VideoData : NSObject
+@property (nonatomic, retain) NSURL *contentURL;
+@property (nonatomic, retain) UIImage *thumbnailImage;
+@property (nonatomic, retain) NSString *submitter;
+@property (nonatomic, retain) NSString *title;
+@end
+@implementation VideoData
+@synthesize contentURL, thumbnailImage, submitter, title;
 @end
 
 @implementation VideoTableData
-
-@synthesize numItems;
 
 /*
  * Eventually we'll be getting data like this from the Shelby API -- the "broadcast" data
@@ -59,57 +69,56 @@ static NSString *fakeAPIData[] = {
     @"http://i2.ytimg.com/vi/Ul_NLXwmxVs/hqdefault.jpg",@"\"It Gets Better: CBS Employees\"",                                            @"Ul_NLXwmxVs",@"Jessica Dolcourt",            
 };
 
-/*
- * This should really be a helper object defined above. Instead of declaring this global C-style array of structs,
- * we should really be using an NSArray.
- *
- * Currently this class gets the UITableView passed in. Ideally we'd restructure this code to load the thumbnail
- * and the YouTube MPEG URL in the same method, create the entire video data object, add it (in a threadsafe way) to
- * an NSArray, and then use UITableView beginUpdates, insertRow, and endUpdates to make only fully populated video data objects
- * show up in the UITableView in a graceful, animated way.
- *
- * Note, because we know our number of entries and the index is passed to the loading functions, using this already-sized
- * C-style array means we can put data into it threadsafe without any locks for now.
- */
-
-typedef struct videoData {
-    NSURL *contentURL;
-    UIImage *thumbnailImage;
-    NSString *submitter;
-    NSString *title;
-} videoData;
-
-videoData videoDataArray[23];
+- (NSUInteger)numItems
+{
+    @synchronized(videoDataArray)
+    {
+        return [videoDataArray count];
+    }
+}
 
 - (NSString *)videoTitleAtIndex:(NSUInteger)index
 {
-    return videoDataArray[index].title;
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] title];
+    }
 }
 
 - (NSString *)videoSharerAtIndex:(NSUInteger)index
 {
-    return videoDataArray[index].submitter;
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] submitter];
+    }
 }
 
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index
 {
-    return videoDataArray[index].thumbnailImage;
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] thumbnailImage];
+    }
 }
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
-    return videoDataArray[index].contentURL;
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] contentURL];
+    }
 }
 
-/*
- * See above note about how this and the thumbnail loading should probably
- * be combined into one method.
- */
-- (void)retrieveYouTubeVideoContentURL:(id)youTubeURL
+- (void)retrieveYouTubeVideoData:(id)youTubeVideo
 {
+    
+    /*
+     * Content URL
+     */
+    
     NSURLResponse *response = nil;
     NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:((URLIndex *)youTubeURL).url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:((URLIndex *)youTubeVideo).videoURL];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     /*
@@ -153,32 +162,62 @@ videoData videoDataArray[23];
 //    useful for debugging YouTube page changes
 //    NSLog(@"movieURLString = %@", movieURLString);
     
-    videoDataArray[((URLIndex *)youTubeURL).index].contentURL = [[NSURL URLWithString:movieURLString] retain];
+    /*
+     * Thumbnail image
+     */
     
-    [youTubeURL release];
-}
-
-
-/*
- * See above note about how this and the MPEG URL loading should probably
- * be combined into one method.
- */
-- (void)retrieveVideoThumbnail:(id)thumbnailURL
-{
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:((URLIndex *)thumbnailURL).url];
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    response = nil;
+    error = nil;
+    request = [NSURLRequest requestWithURL:((URLIndex *)youTubeVideo).thumbnailURL];
+    data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     UIImage *thumbnailImage = [[UIImage imageWithData:data] retain];
     
-    videoDataArray[((URLIndex *)thumbnailURL).index].thumbnailImage = thumbnailImage;
+    /*
+     * Create data object and store it
+     */
     
-    [thumbnailURL release];
+    VideoData *videoData = [[[VideoData alloc] init] retain];
+    
+    videoData.contentURL = [[NSURL URLWithString:movieURLString] retain];
+    videoData.thumbnailImage = thumbnailImage;
+    videoData.submitter = ((URLIndex *)youTubeVideo).submitter;
+    videoData.title = ((URLIndex *)youTubeVideo).title;
+    
+    @synchronized(videoDataArray)
+    {
+        [videoDataArray addObject:videoData];
+    }
+
+    [youTubeVideo release];
+}
+
+- (void)updateTableView
+{
+    NSUInteger currentCount;
+     
+    @synchronized(videoDataArray)
+    {
+        currentCount = [videoDataArray count];
+    }
+    
+    if (lastInserted != currentCount) {
+        NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+        
+        for (int i = lastInserted; i < currentCount; i++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]]; 
+        }
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+        [tableView endUpdates];
+        
+        lastInserted = currentCount;
+    }
 }
 
 // helper method -- maybe better to just embed in this file?
-+ (NSString *)createYouTubeURLWithVideo:(NSString *)video
++ (NSString *)createyouTubeVideoWithVideo:(NSString *)video
 {
     NSString *baseURL = @"http://www.youtube.com/watch?v=";
     return [baseURL stringByAppendingString:video];
@@ -187,34 +226,34 @@ videoData videoDataArray[23];
 - (id)initWithUITableView:(UITableView *)linkedTableView
 {
     self = [super init];
-    if (self) {
-        numItems = 23; // just hardcode number of fakeAPIData items for now
-        
+    if (self) {        
         operationQueue = [[NSOperationQueue alloc] init];
-        [operationQueue setMaxConcurrentOperationCount:4]; // seems slow on iPod Touch 2G -- too high?
+        [operationQueue setMaxConcurrentOperationCount:2];
         
         // eventually we should use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
         
-        for (int i = 0; i < numItems; i++) {
-            NSURL *youTubeURL = [[NSURL alloc] initWithString:[VideoTableData createYouTubeURLWithVideo:fakeAPIData[i * 4 + 2]]];
-            URLIndex *youTubeURLIndex = [[URLIndex alloc] init]; 
-            youTubeURLIndex.url = youTubeURL;
-            youTubeURLIndex.index = i;
-            NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(retrieveYouTubeVideoContentURL:) object:youTubeURLIndex];
-            [operationQueue addOperation:operation];
+        lastInserted = 0;
+        
+        // use timer so that updates to the UITableView are smoothly animated, coming in once per second
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTableView) userInfo:nil repeats:YES];
+        
+        videoDataArray = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < 23; i++) {
+            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createyouTubeVideoWithVideo:fakeAPIData[i * 4 + 2]]];
+            URLIndex *youTubeVideoIndex = [[URLIndex alloc] init]; 
+            youTubeVideoIndex.videoURL = youTubeVideo;
+            youTubeVideoIndex.index = i;
             
             NSURL *thumbnailURL = [[NSURL alloc] initWithString:fakeAPIData[i * 4]];
-            URLIndex *thumbnailURLIndex = [[URLIndex alloc] init];
-            thumbnailURLIndex.url = thumbnailURL;
-            thumbnailURLIndex.index = i;
-            [operationQueue addOperation:([[NSInvocationOperation alloc] initWithTarget:self selector:@selector(retrieveVideoThumbnail:) object:thumbnailURLIndex])];
+            youTubeVideoIndex.thumbnailURL = thumbnailURL;
             
-            // fill out data we already know. nil out data filled in by the enqueued operations.
-            videoDataArray[i].title = fakeAPIData[i * 4 + 1];
-            videoDataArray[i].submitter = fakeAPIData[i * 4 + 3];
-            videoDataArray[i].thumbnailImage = nil;
-            videoDataArray[i].contentURL = nil;
+            youTubeVideoIndex.title = fakeAPIData[i * 4 + 1];
+            youTubeVideoIndex.submitter = fakeAPIData[i * 4 + 3];
+            
+            NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(retrieveYouTubeVideoData:) object:youTubeVideoIndex];
+            [operationQueue addOperation:operation];
         }
     }
     

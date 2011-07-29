@@ -12,18 +12,20 @@
 {
     NSOperationQueue *operationQueue;
     UITableView *tableView;
+    NSMutableArray *videoDataArray;
+    NSUInteger lastInserted;
+    NSTimer *updateTimer;
 }
-
-@property (nonatomic, readonly) NSUInteger numItems;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
+- (NSUInteger)numItems;
 - (NSString *)videoTitleAtIndex:(NSUInteger)index;
 - (NSString *)videoSharerAtIndex:(NSUInteger)index;
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 
-- (void)retrieveVideoThumbnail:(id)thumbnailURL;
-- (void)retrieveYouTubeVideoContentURL:(id)youTubeURL;
+- (void)retrieveYouTubeVideoData:(id)youTubeURL;
+- (void)updateTableView;
 
 @end
