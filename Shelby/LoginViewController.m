@@ -72,7 +72,6 @@
     }
     completion:^(BOOL finished){
         if (finished) {
-            NSLog(@"Animation stopped!");
             [self.view setHidden:YES];
         }
     }];
@@ -82,14 +81,14 @@
 {
     [self fadeOut];
         
-    NSLog(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
+//    NSLog(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
     [self fadeOut];
     
-    NSLog(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
+//    NSLog(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
