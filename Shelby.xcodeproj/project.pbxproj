@@ -49,6 +49,11 @@
 		0AD9A3F013D6A13B00EFECE0 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3EF13D6A13B00EFECE0 /* Logo.png */; };
 		0AD9A3F213D6A1CF00EFECE0 /* Login_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */; };
 		0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */; };
+		0AF24AF313E7365F0026E9D9 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF24AF213E7365F0026E9D9 /* VideoCell.xib */; };
+		0AF24AF913E742860026E9D9 /* SourceFacebook1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF24AF513E742860026E9D9 /* SourceFacebook1.png */; };
+		0AF24AFA13E742860026E9D9 /* SourceFacebook2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF24AF613E742860026E9D9 /* SourceFacebook2.png */; };
+		0AF24AFB13E742860026E9D9 /* SourceTwitter1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF24AF713E742860026E9D9 /* SourceTwitter1.png */; };
+		0AF24AFC13E742860026E9D9 /* SourceTwitter2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF24AF813E742860026E9D9 /* SourceTwitter2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +121,11 @@
 		0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login_iPhone.xib; sourceTree = "<group>"; };
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0AF24AF213E7365F0026E9D9 /* VideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
+		0AF24AF513E742860026E9D9 /* SourceFacebook1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SourceFacebook1.png; sourceTree = "<group>"; };
+		0AF24AF613E742860026E9D9 /* SourceFacebook2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SourceFacebook2.png; sourceTree = "<group>"; };
+		0AF24AF713E742860026E9D9 /* SourceTwitter1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SourceTwitter1.png; sourceTree = "<group>"; };
+		0AF24AF813E742860026E9D9 /* SourceTwitter2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SourceTwitter2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +218,10 @@
 				0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */,
 				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
 				0AD9A36313D53BD300EFECE0 /* main.m */,
+				0AF24AF513E742860026E9D9 /* SourceFacebook1.png */,
+				0AF24AF613E742860026E9D9 /* SourceFacebook2.png */,
+				0AF24AF713E742860026E9D9 /* SourceTwitter1.png */,
+				0AF24AF813E742860026E9D9 /* SourceTwitter2.png */,
 				0A12930713DCC0DC009D254F /* FacebookActive.png */,
 				0A12930813DCC0DC009D254F /* FacebookDisabled.png */,
 				0A12930B13DCC0E7009D254F /* TwitterActive.png */,
@@ -246,6 +260,7 @@
 				0AD9A37613D53BD300EFECE0 /* MainWindow_iPad.xib */,
 				0A12930F13DCC2D6009D254F /* Navigation_iPad.xib */,
 				0A12932C13DCEAE4009D254F /* Root_iPad.xib */,
+				0AF24AF213E7365F0026E9D9 /* VideoCell.xib */,
 			);
 			name = iPad;
 			sourceTree = "<group>";
@@ -354,6 +369,11 @@
 				0A12932613DCE9C6009D254F /* Root_iPhone.xib in Resources */,
 				0A12932E13DCEAE4009D254F /* Root_iPad.xib in Resources */,
 				0A12933213DCF84B009D254F /* ForegroundStripes.png in Resources */,
+				0AF24AF313E7365F0026E9D9 /* VideoCell.xib in Resources */,
+				0AF24AF913E742860026E9D9 /* SourceFacebook1.png in Resources */,
+				0AF24AFA13E742860026E9D9 /* SourceFacebook2.png in Resources */,
+				0AF24AFB13E742860026E9D9 /* SourceTwitter1.png in Resources */,
+				0AF24AFC13E742860026E9D9 /* SourceTwitter2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
