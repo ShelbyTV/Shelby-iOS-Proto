@@ -258,7 +258,7 @@ static NSString *fakeAPIData[] = {
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:2];
         
-        // eventually we should use this to gracefully insert new entries into the UITableView
+        // we use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
         
         lastInserted = 0;
