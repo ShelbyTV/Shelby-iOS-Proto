@@ -18,8 +18,8 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil 
                bundle:(NSBundle *)nibBundleOrNil
-       callbackObject:(id)callbackObject
-     callbackSelector:(SEL)callbackSelector;
+       callbackObject:(id)object
+     callbackSelector:(SEL)selector;
 
 - (void)fadeOut;
 - (IBAction)loginWithFacebook:(id)sender;

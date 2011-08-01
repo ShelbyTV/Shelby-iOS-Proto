@@ -13,7 +13,13 @@
 @interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 {
     VideoTableData *videoTableData;
+    id callbackObject;
+    SEL callbackSelector;
 }
+
+- (id)initWithStyle:(UITableViewStyle)style
+     callbackObject:(id)object
+   callbackSelector:(SEL)selector;
 
 - (void)loadVideos;
 

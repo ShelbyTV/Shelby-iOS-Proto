@@ -8,6 +8,7 @@
 
 #import "NavigationViewController.h"
 #import "VideoTableViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @implementation NavigationViewController
 
@@ -16,9 +17,36 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
+                                                      callbackObject:self callbackSelector:@selector(playContentURL:)];
     }
     return self;
+}
+
+- (void)playContentURL:(NSURL *)url
+{
+    if (url == nil) {
+        return;
+    }
+    
+    /*
+     * This is pretty ghetto, but it's a quick way to display a video. Eventually this should load the contentURL into
+     * the custom Shelby movie view, etc. Not sure if moviePlayer will get properly cleaned up when user hits "Done" -- 
+     * definitely bad that it randomly disappears on user hitting minimize.
+     *
+     * Plus, because of ways views are currently set up, MoviePlayer doesn't autorotate properly.
+     *
+     * And, finally, if the iPad/iPhone differences get more complicated (almost guaranteed), should definitely
+     * put this method implementation in the device-specific subclasses.
+     */
+    MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    [videoHolder addSubview:[moviePlayer view]];
+    [videoHolder setHidden:NO];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [moviePlayer setFullscreen:YES];
+    } else {
+        moviePlayer.view.frame = videoHolder.bounds;
+    }
 }
 
 - (void)loadUserData

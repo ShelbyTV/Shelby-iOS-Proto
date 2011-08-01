@@ -134,25 +134,30 @@ static NSString *fakeAPIData[] = {
         // useful for debugging
         // NSLog(@"%@", youTubeVideoDataReadable);
         
-        NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"18|http"];
+        NSRange statusFailResponse = [youTubeVideoDataReadable rangeOfString:@"status=fail"];
         
-        NSRange roughMpegHttpStream;
-        roughMpegHttpStream.location = mpegHttpStreamStart.location;
-        roughMpegHttpStream.length = youTubeVideoDataReadable.length - mpegHttpStreamStart.location;
+        if (statusFailResponse.location == NSNotFound) { // means we probably got good data; still need better error checking
         
-        NSRange pipesAtEnd = [youTubeVideoDataReadable rangeOfString:@"||" options:0 range:roughMpegHttpStream];
-        NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
-        
-        NSRange finalMpegHttpStream;
-        finalMpegHttpStream.location = httpAtStart.location;
-        finalMpegHttpStream.length = pipesAtEnd.location - httpAtStart.location;
-        
-        NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        // useful for debugging YouTube page changes
-        // NSLog(@"movieURLString = %@", movieURLString);
-        
-        videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
+            NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"18|http"];
+            
+            NSRange roughMpegHttpStream;
+            roughMpegHttpStream.location = mpegHttpStreamStart.location;
+            roughMpegHttpStream.length = youTubeVideoDataReadable.length - mpegHttpStreamStart.location;
+            
+            NSRange pipesAtEnd = [youTubeVideoDataReadable rangeOfString:@"||" options:0 range:roughMpegHttpStream];
+            NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
+            
+            NSRange finalMpegHttpStream;
+            finalMpegHttpStream.location = httpAtStart.location;
+            finalMpegHttpStream.length = pipesAtEnd.location - httpAtStart.location;
+            
+            NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+            // useful for debugging YouTube page changes
+            // NSLog(@"movieURLString = %@", movieURLString);
+            
+            videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
+        }
     }
     
     return contentURL;

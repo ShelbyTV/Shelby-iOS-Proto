@@ -8,15 +8,18 @@
 
 #import "VideoTableViewController.h"
 #import "VideoTableData.h"
-#import <MediaPlayer/MediaPlayer.h>
 
 @implementation VideoTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
+     callbackObject:(id)object
+   callbackSelector:(SEL)selector
 {
     self = [super initWithStyle:style];
     if (self) {
         videoTableData = [[VideoTableData alloc] initWithUITableView:self.tableView];
+        callbackObject = object;
+        callbackSelector = selector;
     }
     return self;
 }
@@ -179,17 +182,8 @@
     [indexPath getIndexes:whichCell];
     
     NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
-    
-    /*
-     * This is pretty ghetto, but it's a quick way to display a video. Eventually this should load the contentURL into
-     * the custom Shelby movie view, etc. Not sure if moviePlayer will get properly cleaned up when user hits "Done" -- 
-     * definitely bad that it randomly disappears on user hitting minimize.
-     *
-     * Plus, because of ways views are currently set up, MoviePlayer doesn't autorotate properly.
-     */
-    MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:contentURL];
-    [[self view] addSubview:[moviePlayer view]];
-    [moviePlayer setFullscreen:YES];
+
+    [callbackObject performSelector:callbackSelector withObject:contentURL];
 }
 
 @end
