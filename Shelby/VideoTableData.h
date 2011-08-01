@@ -26,7 +26,7 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (void)loadVideos;
 
-- (void)retrieveYouTubeThumbnailAndStoreVideoData:(id)youTubeURL;
+- (void)retrieveAndStoreYouTubeVideoData:(id)youTubeURL;
 - (void)updateTableView;
 
 + (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video;
