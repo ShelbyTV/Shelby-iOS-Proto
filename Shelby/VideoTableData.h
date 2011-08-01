@@ -24,10 +24,11 @@
 - (NSString *)videoSharerAtIndex:(NSUInteger)index;
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
+- (void)loadVideos;
 
-- (void)retrieveYouTubeVideoData:(id)youTubeURL;
+- (void)retrieveYouTubeThumbnailAndStoreVideoData:(id)youTubeURL;
 - (void)updateTableView;
 
-+ (NSString *)createYouTubeURLWithVideo:(NSString *)video;
++ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video;
 
 @end

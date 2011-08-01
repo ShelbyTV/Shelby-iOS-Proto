@@ -12,7 +12,14 @@
 @interface LoginViewController : UIViewController {
     IBOutlet UITextField *username;
     IBOutlet UITextField *password;
+    id callbackObject;
+    SEL callbackSelector;
 }
+
+- (id)initWithNibName:(NSString *)nibNameOrNil 
+               bundle:(NSBundle *)nibBundleOrNil
+       callbackObject:(id)callbackObject
+     callbackSelector:(SEL)callbackSelector;
 
 - (void)fadeOut;
 - (IBAction)loginWithFacebook:(id)sender;

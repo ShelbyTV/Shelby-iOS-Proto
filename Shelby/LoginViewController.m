@@ -10,11 +10,15 @@
 
 @implementation LoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil 
+               bundle:(NSBundle *)nibBundleOrNil
+       callbackObject:(id)object
+     callbackSelector:(SEL)selector
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        callbackObject = object;
+        callbackSelector = selector;
     }
     return self;
 }
@@ -79,13 +83,15 @@
 
 - (IBAction)loginWithFacebook:(id)sender
 {
+    [callbackObject performSelector:callbackSelector];
     [self fadeOut];
-        
+    
 //    NSLog(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
+    [callbackObject performSelector:callbackSelector];
     [self fadeOut];
     
 //    NSLog(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);

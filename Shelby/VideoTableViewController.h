@@ -15,6 +15,6 @@
     VideoTableData *videoTableData;
 }
 
-
+- (void)loadVideos;
 
 @end

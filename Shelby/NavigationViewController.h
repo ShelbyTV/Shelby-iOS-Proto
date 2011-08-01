@@ -17,4 +17,6 @@
     VideoTableViewController *videoTable;
 }
 
+- (void)loadUserData;
+
 @end

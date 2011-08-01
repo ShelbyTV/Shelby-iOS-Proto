@@ -20,13 +20,14 @@
 @end
 
 @interface VideoData : NSObject
+@property (nonatomic, retain) NSURL *youTubeURL;
 @property (nonatomic, retain) NSURL *contentURL;
 @property (nonatomic, retain) UIImage *thumbnailImage;
 @property (nonatomic, retain) NSString *submitter;
 @property (nonatomic, retain) NSString *title;
 @end
 @implementation VideoData
-@synthesize contentURL, thumbnailImage, submitter, title;
+@synthesize youTubeURL, contentURL, thumbnailImage, submitter, title;
 @end
 
 @implementation VideoTableData
@@ -103,73 +104,72 @@ static NSString *fakeAPIData[] = {
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
+    VideoData *videoData = nil;
+    NSURL *contentURL = nil;
+    
     @synchronized(videoDataArray)
     {
-        return [[videoDataArray objectAtIndex:index] contentURL];
+        videoData = [[[videoDataArray objectAtIndex:index] retain] autorelease];
     }
+    
+    contentURL = [[[[videoDataArray objectAtIndex:index] contentURL] retain] autorelease];
+    
+    if (contentURL == nil) {
+        
+        /*
+         * Content URL
+         */
+        
+        NSURL *youTubeURL = videoData.youTubeURL;        
+        NSError *error = nil;
+        NSString *youTubeVideoDataRaw = [[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSUTF8StringEncoding error:&error];
+        NSString *youTubeVideoDataReadable = [[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
+        
+        /*
+         * The code below tries to parse out the MPEG URL from a YouTube video info page.
+         * We have to do this because YouTube encodes some parameters into the string
+         * that make it valid only on the machine that accessed the YouTube video URL.
+         */
+        
+        // useful for debugging
+        // NSLog(@"%@", youTubeVideoDataReadable);
+        
+        NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"18|http"];
+        
+        NSRange roughMpegHttpStream;
+        roughMpegHttpStream.location = mpegHttpStreamStart.location;
+        roughMpegHttpStream.length = youTubeVideoDataReadable.length - mpegHttpStreamStart.location;
+        
+        NSRange pipesAtEnd = [youTubeVideoDataReadable rangeOfString:@"||" options:0 range:roughMpegHttpStream];
+        NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
+        
+        NSRange finalMpegHttpStream;
+        finalMpegHttpStream.location = httpAtStart.location;
+        finalMpegHttpStream.length = pipesAtEnd.location - httpAtStart.location;
+        
+        NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        // useful for debugging YouTube page changes
+        // NSLog(@"movieURLString = %@", movieURLString);
+        
+        videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
+    }
+    
+    return contentURL;
 }
 
-- (void)retrieveYouTubeVideoData:(id)youTubeVideo
+- (void)retrieveYouTubeThumbnailAndStoreVideoData:(id)youTubeVideo
 {
-    
-    /*
-     * Content URL
-     */
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:((URLIndex *)youTubeVideo).videoURL];
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    /*
-     * This complicated code below tries to parse out the MPEG URL from a YouTube movie page.
-     * It seems like we have to do this in this way because YouTube encodes some parameters into the string
-     * that make it valid only on the machine that accessed the YouTube watch URL.
-     *
-     * It's possible we can get around YouTube in the future server-side, or work with them to get access
-     * to a private API that does it (Apple must do this).
-     *
-     * For now, we're working with what's publicly available and seems to work for now. We may have to adjust
-     * this over time if YouTube changes their page structure.
-     */
-    
-    NSString *utf8response = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    
-    NSRange mpegHttpStreamStart = [utf8response rangeOfString:@"18|http"];
-    
-    NSRange roughMpegHttpStream;
-    roughMpegHttpStream.location = mpegHttpStreamStart.location;
-    roughMpegHttpStream.length = [utf8response length] - mpegHttpStreamStart.location;
-    
-    NSRange commaAtEnd = [utf8response rangeOfString:@"," options:0 range:roughMpegHttpStream];
-    NSRange pipesAtEnd = [utf8response rangeOfString:@"||" options:0 range:roughMpegHttpStream];
-    NSRange httpAtStart = [utf8response rangeOfString:@"http" options:0 range:roughMpegHttpStream];
-    
-    NSAssert((commaAtEnd.location != NSNotFound) || (pipesAtEnd.location != NSNotFound), @"Accessed unparsable YouTube page!");
-    
-    NSRange finalMpegHttpStream;
-    finalMpegHttpStream.location = httpAtStart.location;
-    if (commaAtEnd.location == NSNotFound) {
-        finalMpegHttpStream.length = pipesAtEnd.location - httpAtStart.location;
-    } else if (pipesAtEnd.location == NSNotFound) {
-        finalMpegHttpStream.length = commaAtEnd.location - httpAtStart.location;
-    } else {
-        finalMpegHttpStream.length = MIN(commaAtEnd.location, pipesAtEnd.location) - httpAtStart.location;
-    }
-        
-    NSString *movieURLString = [[[[[[[utf8response substringWithRange:finalMpegHttpStream] stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"\\u0026" withString:@"&"] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"] stringByReplacingOccurrencesOfString:@"%7C" withString:@"|"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
- 
-//    useful for debugging YouTube page changes
-//    NSLog(@"movieURLString = %@", movieURLString);
+    URLIndex *youTubeVideoURLIndex = (URLIndex *)youTubeVideo;
     
     /*
      * Thumbnail image
      */
     
-    response = nil;
-    error = nil;
-    request = [NSURLRequest requestWithURL:((URLIndex *)youTubeVideo).thumbnailURL];
-    data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSURLRequest *request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.thumbnailURL];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     UIImage *thumbnailImage = [[UIImage imageWithData:data] retain];
     
@@ -179,10 +179,11 @@ static NSString *fakeAPIData[] = {
     
     VideoData *videoData = [[[VideoData alloc] init] retain];
     
-    videoData.contentURL = [[NSURL URLWithString:movieURLString] retain];
+    videoData.youTubeURL = youTubeVideoURLIndex.videoURL; 
+    videoData.contentURL = nil;
     videoData.thumbnailImage = thumbnailImage;
-    videoData.submitter = ((URLIndex *)youTubeVideo).submitter;
-    videoData.title = ((URLIndex *)youTubeVideo).title;
+    videoData.submitter = youTubeVideoURLIndex.submitter;
+    videoData.title = youTubeVideoURLIndex.title;
     
     @synchronized(videoDataArray)
     {
@@ -217,10 +218,32 @@ static NSString *fakeAPIData[] = {
 }
 
 // helper method -- maybe better to just embed in this file?
-+ (NSString *)createYouTubeURLWithVideo:(NSString *)video
++ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
 {
-    NSString *baseURL = @"http://www.youtube.com/watch?v=";
+    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
     return [baseURL stringByAppendingString:video];
+}
+
+- (void)loadVideos
+{
+    for (int i = 0; i < 23; i++) {
+        NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:fakeAPIData[i * 4 + 2]]];
+        URLIndex *youTubeVideoIndex = [[URLIndex alloc] init]; 
+        youTubeVideoIndex.videoURL = youTubeVideo;
+        youTubeVideoIndex.index = i;
+        
+        NSURL *thumbnailURL = [[NSURL alloc] initWithString:fakeAPIData[i * 4]];
+        youTubeVideoIndex.thumbnailURL = thumbnailURL;
+        
+        youTubeVideoIndex.title = fakeAPIData[i * 4 + 1];
+        youTubeVideoIndex.submitter = fakeAPIData[i * 4 + 3];
+        
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self 
+                                                                                selector:@selector(retrieveYouTubeThumbnailAndStoreVideoData:) 
+                                                                                  object:youTubeVideoIndex];
+        
+        [operationQueue addOperation:operation];
+    }
 }
 
 - (id)initWithUITableView:(UITableView *)linkedTableView
@@ -239,22 +262,6 @@ static NSString *fakeAPIData[] = {
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTableView) userInfo:nil repeats:YES];
         
         videoDataArray = [[NSMutableArray alloc] init];
-        
-        for (int i = 0; i < 23; i++) {
-            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeURLWithVideo:fakeAPIData[i * 4 + 2]]];
-            URLIndex *youTubeVideoIndex = [[URLIndex alloc] init]; 
-            youTubeVideoIndex.videoURL = youTubeVideo;
-            youTubeVideoIndex.index = i;
-            
-            NSURL *thumbnailURL = [[NSURL alloc] initWithString:fakeAPIData[i * 4]];
-            youTubeVideoIndex.thumbnailURL = thumbnailURL;
-            
-            youTubeVideoIndex.title = fakeAPIData[i * 4 + 1];
-            youTubeVideoIndex.submitter = fakeAPIData[i * 4 + 3];
-            
-            NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(retrieveYouTubeVideoData:) object:youTubeVideoIndex];
-            [operationQueue addOperation:operation];
-        }
     }
     
     return self;

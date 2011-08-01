@@ -24,7 +24,11 @@
     navigationViewController.view.frame = rootViewController.view.bounds;
     [rootViewController.view addSubview:navigationViewController.view];
     
-    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone" bundle:nil];
+    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone" 
+                                                                bundle:nil 
+                                                        callbackObject:navigationViewController 
+                                                      callbackSelector:@selector(loadUserData)];
+    
     loginViewController.view.frame = rootViewController.view.bounds;
     [rootViewController.view addSubview:loginViewController.view]; 
     
