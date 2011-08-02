@@ -25,6 +25,8 @@
 		0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934013DD2EE3009D254F /* AVFoundation.framework */; };
 		0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934213DD2FFB009D254F /* MediaPlayer.framework */; };
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
+		0A33357E13E8800C0044E921 /* SignUpFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A33357C13E8800C0044E921 /* SignUpFacebook.png */; };
+		0A33357F13E8800C0044E921 /* SignUpTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A33357D13E8800C0044E921 /* SignUpTwitter.png */; };
 		0A509E8B13DBAB7C00FED5D9 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
@@ -92,6 +94,8 @@
 		0A12934213DD2FFB009D254F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		0A220C9513DE8193004BE680 /* VideoTableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableData.h; sourceTree = "<group>"; };
 		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableData.m; sourceTree = "<group>"; };
+		0A33357C13E8800C0044E921 /* SignUpFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SignUpFacebook.png; sourceTree = "<group>"; };
+		0A33357D13E8800C0044E921 /* SignUpTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SignUpTwitter.png; sourceTree = "<group>"; };
 		0A509E8A13DBAB7C00FED5D9 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundStripes.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -220,6 +224,8 @@
 				0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */,
 				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
 				0AD9A36313D53BD300EFECE0 /* main.m */,
+				0A33357C13E8800C0044E921 /* SignUpFacebook.png */,
+				0A33357D13E8800C0044E921 /* SignUpTwitter.png */,
 				0AF24AF513E742860026E9D9 /* SourceFacebook1.png */,
 				0AF24AF613E742860026E9D9 /* SourceFacebook2.png */,
 				0AF24AF713E742860026E9D9 /* SourceTwitter1.png */,
@@ -378,6 +384,8 @@
 				0AF24AFB13E742860026E9D9 /* SourceTwitter1.png in Resources */,
 				0AF24AFC13E742860026E9D9 /* SourceTwitter2.png in Resources */,
 				0AF24AFE13E756860026E9D9 /* VideoCell_iPhone.xib in Resources */,
+				0A33357E13E8800C0044E921 /* SignUpFacebook.png in Resources */,
+				0A33357F13E8800C0044E921 /* SignUpTwitter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
