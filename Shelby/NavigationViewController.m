@@ -82,7 +82,7 @@
 
     videoTable.tableView.frame = videoTableHolder.bounds;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        videoTable.tableView.rowHeight = 149;
+        videoTable.tableView.rowHeight = 118;
     } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         videoTable.tableView.rowHeight = 232;
     }
