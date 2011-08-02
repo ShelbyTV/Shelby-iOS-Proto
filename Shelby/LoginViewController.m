@@ -10,7 +10,7 @@
 
 @implementation LoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil 
+- (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
        callbackObject:(id)object
      callbackSelector:(SEL)selector
@@ -32,19 +32,19 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    /* 
+    /*
      * Even though normally I don't like programmatically checking for iPad vs. iPhone, an iPad
      * or iPhone-specific subclass would only have this one method. Doesn't seem worth it.
      *
      * This may not be necessary -- just having this on the RootView might be enough?
      */
-    
+
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait &&
             UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ||
@@ -71,6 +71,7 @@
 
 - (void)fadeOut
 {
+    //Note: this won't work on iOS3.
     [UIView animateWithDuration:0.25 animations:^{
         self.view.alpha = 0.0;
     }
