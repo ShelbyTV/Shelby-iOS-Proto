@@ -103,16 +103,16 @@
 							<string key="NSResourceName">SignUpTwitter.png</string>
 						</object>
 					</object>
-					<object class="IBUIView" id="748643068">
+					<object class="IBUIView" id="230665739">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUITextField" id="165636766">
-								<reference key="NSNextResponder" ref="748643068"/>
+								<reference key="NSNextResponder" ref="230665739"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{111, 37}, {149, 31}}</string>
-								<reference key="NSSuperview" ref="748643068"/>
+								<reference key="NSSuperview" ref="230665739"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="556707432"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -128,6 +128,11 @@
 										<int key="NSID">2</int>
 									</object>
 								</object>
+								<object class="NSFont" key="IBUIFont" id="699616804">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">14</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">17</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
@@ -137,12 +142,12 @@
 								</object>
 							</object>
 							<object class="IBUITextField" id="648447762">
-								<reference key="NSNextResponder" ref="748643068"/>
+								<reference key="NSNextResponder" ref="230665739"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{111, 76}, {149, 31}}</string>
-								<reference key="NSSuperview" ref="748643068"/>
+								<reference key="NSSuperview" ref="230665739"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="770042115"/>
+								<reference key="NSNextKeyView" ref="262879220"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -154,6 +159,7 @@
 									<bytes key="NSWhite">MAA</bytes>
 									<reference key="NSCustomColorSpace" ref="1066988778"/>
 								</object>
+								<reference key="IBUIFont" ref="699616804"/>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">17</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
@@ -164,10 +170,10 @@
 								</object>
 							</object>
 							<object class="IBUILabel" id="595964625">
-								<reference key="NSNextResponder" ref="748643068"/>
+								<reference key="NSNextResponder" ref="230665739"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{18, 42}, {85, 21}}</string>
-								<reference key="NSSuperview" ref="748643068"/>
+								<reference key="NSSuperview" ref="230665739"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="165636766"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -176,7 +182,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">USERNAME:</string>
-								<object class="NSFont" key="IBUIFont" id="194910371">
+								<object class="NSFont" key="IBUIFont" id="846691406">
 									<string key="NSName">Arial-BoldMT</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
@@ -194,10 +200,10 @@
 								<int key="IBUITextAlignment">2</int>
 							</object>
 							<object class="IBUILabel" id="556707432">
-								<reference key="NSNextResponder" ref="748643068"/>
+								<reference key="NSNextResponder" ref="230665739"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{19, 81}, {84, 21}}</string>
-								<reference key="NSSuperview" ref="748643068"/>
+								<reference key="NSSuperview" ref="230665739"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="648447762"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -206,7 +212,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">PASSWORD:</string>
-								<reference key="IBUIFont" ref="194910371"/>
+								<reference key="IBUIFont" ref="846691406"/>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -229,16 +235,16 @@
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIView" id="770042115">
+					<object class="IBUIView" id="262879220">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIImageView" id="915006430">
-								<reference key="NSNextResponder" ref="770042115"/>
+								<reference key="NSNextResponder" ref="262879220"/>
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{10, 5}, {194, 70}}</string>
-								<reference key="NSSuperview" ref="770042115"/>
+								<reference key="NSSuperview" ref="262879220"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="244224889"/>
 								<int key="IBUIContentMode">1</int>
@@ -265,7 +271,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="748643068"/>
+				<reference key="NSNextKeyView" ref="230665739"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MAA</bytes>
@@ -352,8 +358,8 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="748643068"/>
-							<reference ref="770042115"/>
+							<reference ref="230665739"/>
+							<reference ref="262879220"/>
 							<reference ref="244224889"/>
 							<reference ref="503009288"/>
 						</object>
@@ -382,7 +388,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">21</int>
-						<reference key="object" ref="748643068"/>
+						<reference key="object" ref="230665739"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="165636766"/>
@@ -395,26 +401,26 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
 						<reference key="object" ref="165636766"/>
-						<reference key="parent" ref="748643068"/>
+						<reference key="parent" ref="230665739"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
 						<reference key="object" ref="648447762"/>
-						<reference key="parent" ref="748643068"/>
+						<reference key="parent" ref="230665739"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
 						<reference key="object" ref="595964625"/>
-						<reference key="parent" ref="748643068"/>
+						<reference key="parent" ref="230665739"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
 						<reference key="object" ref="556707432"/>
-						<reference key="parent" ref="748643068"/>
+						<reference key="parent" ref="230665739"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
-						<reference key="object" ref="770042115"/>
+						<reference key="object" ref="262879220"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="915006430"/>
@@ -424,7 +430,7 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
 						<reference key="object" ref="915006430"/>
-						<reference key="parent" ref="770042115"/>
+						<reference key="parent" ref="262879220"/>
 					</object>
 				</object>
 			</object>
