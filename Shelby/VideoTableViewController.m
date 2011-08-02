@@ -11,6 +11,8 @@
 
 @implementation VideoTableViewController
 
+@synthesize videoCell;
+
 - (id)initWithStyle:(UITableViewStyle)style
      callbackObject:(id)object
    callbackSelector:(SEL)selector
@@ -99,11 +101,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"VideoCell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [[NSBundle mainBundle] loadNibNamed:@"VideoCell_iPhone" owner:self options:nil];
+        } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            [[NSBundle mainBundle] loadNibNamed:@"VideoCell_iPad" owner:self options:nil];
+        }
+        cell = videoCell;
+        self.videoCell = nil;
     }
     
     // Configure the cell...
@@ -111,16 +119,30 @@
     [indexPath getIndexes:whichCell];
     
     /*
-     * Right now, this is pretty bad UI. The table can initially show up without any thumbnail images.
-     * See the comment at the top of VideoTableData.m about how we should really be loading data and properly
-     * inserting new data / cells into the UITableView in a graceful, animated way.
+     * This method of loading UITableViewCells from NIB/XIB files and setting the properties
+     * via view tags is recommended by Apple here:
      *
-     * In the current ghetto UITableView display, you can get the thumbnails to display if they're blank by
-     * dragging the list really far down and really far up.
+     * http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html
+     *
+     * See the "Loading Custom Table-View Cells From Nib Files" section and sub-section
+     * "The Technique for Dynamic Row Content"
      */
-    cell.textLabel.text = [videoTableData videoTitleAtIndex:whichCell[1]];
-    cell.detailTextLabel.text = [videoTableData videoSharerAtIndex:whichCell[1]];
-    cell.imageView.image = [videoTableData videoThumbnailAtIndex:whichCell[1]];
+    
+    // tag 1 is source tag icon (triangular upper left image) -- not setting this yet
+   
+    UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
+    videoThumbnail.image = [videoTableData videoThumbnailAtIndex:whichCell[1]];
+    
+    UILabel *sharerComment = (UILabel *)[cell viewWithTag:3];
+    sharerComment.text = [videoTableData videoSharerCommentAtIndex:whichCell[1]];
+    
+    UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
+    sharerImage.image = [videoTableData videoSharerImageAtIndex:whichCell[1]];;
+    
+    UILabel *sharer = (UILabel *)[cell viewWithTag:5];
+    sharer.text = [videoTableData videoSharerAtIndex:whichCell[1]];
+
+    // tag 6 is time in minutes/hours ago -- not setting this yet
     
     return cell;
 }

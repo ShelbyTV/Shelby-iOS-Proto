@@ -245,9 +245,9 @@
 				0AD9A36D13D53BD300EFECE0 /* ShelbyAppDelegate_iPhone.m */,
 				0AD9A3F113D6A1CF00EFECE0 /* Login_iPhone.xib */,
 				0AD9A36F13D53BD300EFECE0 /* MainWindow_iPhone.xib */,
-				0AF24AFD13E756860026E9D9 /* VideoCell_iPhone.xib */,
 				0A12930313DCB7A3009D254F /* Navigation_iPhone.xib */,
 				0A12932413DCE9C5009D254F /* Root_iPhone.xib */,
+				0AF24AFD13E756860026E9D9 /* VideoCell_iPhone.xib */,
 			);
 			name = iPhone;
 			sourceTree = "<group>";

@@ -12,12 +12,12 @@
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
 @property (nonatomic, retain) NSURL *thumbnailURL;
 @property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *submitter;
-@property (nonatomic, retain) NSString *submitterComment;
-@property (nonatomic, retain) NSURL *submitterImageURL;
+@property (nonatomic, retain) NSString *sharer;
+@property (nonatomic, retain) NSString *sharerComment;
+@property (nonatomic, retain) NSURL *sharerImageURL;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, submitter, submitterComment, submitterImageURL;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL;
 @end
 
 @interface VideoData : NSObject
@@ -25,12 +25,12 @@
 @property (nonatomic, retain) NSURL *contentURL;
 @property (nonatomic, retain) UIImage *thumbnailImage;
 @property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *submitter;
-@property (nonatomic, retain) NSString *submitterComment;
-@property (nonatomic, retain) UIImage *submitterImage;
+@property (nonatomic, retain) NSString *sharer;
+@property (nonatomic, retain) NSString *sharerComment;
+@property (nonatomic, retain) UIImage *sharerImage;
 @end
 @implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, submitter, submitterComment, submitterImage;
+@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage;
 @end
 
 @implementation VideoTableData
@@ -93,7 +93,23 @@ static NSString *fakeAPIData[] = {
 {
     @synchronized(videoDataArray)
     {
-        return [[videoDataArray objectAtIndex:index] submitter];
+        return [[videoDataArray objectAtIndex:index] sharer];
+    }
+}
+
+- (UIImage *)videoSharerImageAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] sharerImage];
+    }    
+}
+
+- (NSString *)videoSharerCommentAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] sharerComment];
     }
 }
 
@@ -147,12 +163,29 @@ static NSString *fakeAPIData[] = {
             roughMpegHttpStream.location = mpegHttpStreamStart.location;
             roughMpegHttpStream.length = youTubeVideoDataReadable.length - mpegHttpStreamStart.location;
             
-            NSRange pipesAtEnd = [youTubeVideoDataReadable rangeOfString:@"||" options:0 range:roughMpegHttpStream];
             NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
+            
+            roughMpegHttpStream.location = httpAtStart.location;
+            roughMpegHttpStream.length = youTubeVideoDataReadable.length - httpAtStart.location;
+            
+            NSRange pipeAtEnd = [youTubeVideoDataReadable rangeOfString:@"|" options:0 range:roughMpegHttpStream];
+
+            roughMpegHttpStream.length = pipeAtEnd.location - httpAtStart.location;
+            
+            NSRange nearEnd;
+            nearEnd.location = pipeAtEnd.location - 5;
+            nearEnd.length = 5;
+            
+            NSRange commaNearEnd = [youTubeVideoDataReadable rangeOfString:@"," options:0 range:nearEnd];
             
             NSRange finalMpegHttpStream;
             finalMpegHttpStream.location = httpAtStart.location;
-            finalMpegHttpStream.length = pipesAtEnd.location - httpAtStart.location;
+            
+            if (commaNearEnd.location != NSNotFound) {
+                finalMpegHttpStream.length = commaNearEnd.location - httpAtStart.location;
+            } else {
+                finalMpegHttpStream.length = pipeAtEnd.location - httpAtStart.location;
+            }
             
             NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
@@ -182,13 +215,13 @@ static NSString *fakeAPIData[] = {
     UIImage *thumbnailImage = [[UIImage imageWithData:data] retain];
     
     /*
-     * Submitter image
+     * Sharer image
      */
     
-    request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.submitterImageURL];
+    request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.sharerImageURL];
     data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
-    UIImage *submitterImage = [[UIImage imageWithData:data] retain];
+    UIImage *sharerImage = [[UIImage imageWithData:data] retain];
     
     /*
      * Create data object and store it
@@ -200,9 +233,9 @@ static NSString *fakeAPIData[] = {
     videoData.contentURL = nil;
     videoData.thumbnailImage = thumbnailImage;
     videoData.title = youTubeVideoURLIndex.title;
-    videoData.submitter = youTubeVideoURLIndex.submitter;
-    videoData.submitterComment = youTubeVideoURLIndex.submitterComment;
-    videoData.submitterImage = submitterImage;
+    videoData.sharer = youTubeVideoURLIndex.sharer;
+    videoData.sharerComment = youTubeVideoURLIndex.sharerComment;
+    videoData.sharerImage = sharerImage;
     
     @synchronized(videoDataArray)
     {
@@ -254,9 +287,9 @@ static NSString *fakeAPIData[] = {
         youTubeVideoIndex.thumbnailURL = thumbnailURL;
         
         youTubeVideoIndex.title = fakeAPIData[i * 6 + 1];
-        youTubeVideoIndex.submitter = fakeAPIData[i * 6 + 5];
-        youTubeVideoIndex.submitterComment = fakeAPIData[i * 6 + 3];
-        youTubeVideoIndex.submitterImageURL = [[NSURL alloc] initWithString:fakeAPIData[i * 6 + 4]];
+        youTubeVideoIndex.sharer = fakeAPIData[i * 6 + 5];
+        youTubeVideoIndex.sharerComment = fakeAPIData[i * 6 + 3];
+        youTubeVideoIndex.sharerImageURL = [[NSURL alloc] initWithString:fakeAPIData[i * 6 + 4]];
         
         NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self 
                                                                                 selector:@selector(retrieveAndStoreYouTubeVideoData:) 

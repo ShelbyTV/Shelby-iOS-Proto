@@ -15,7 +15,10 @@
     VideoTableData *videoTableData;
     id callbackObject;
     SEL callbackSelector;
+    UITableViewCell *videoCell;
 }
+
+@property (nonatomic, assign) IBOutlet UITableViewCell *videoCell;
 
 - (id)initWithStyle:(UITableViewStyle)style
      callbackObject:(id)object

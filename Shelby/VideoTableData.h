@@ -22,6 +22,8 @@
 - (NSUInteger)numItems;
 - (NSString *)videoTitleAtIndex:(NSUInteger)index;
 - (NSString *)videoSharerAtIndex:(NSUInteger)index;
+- (UIImage *)videoSharerImageAtIndex:(NSUInteger)index;
+- (NSString *)videoSharerCommentAtIndex:(NSUInteger)index;
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (void)loadVideos;

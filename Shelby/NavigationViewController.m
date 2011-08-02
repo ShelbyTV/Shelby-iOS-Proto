@@ -81,7 +81,13 @@
     [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
 
     videoTable.tableView.frame = videoTableHolder.bounds;
-    [videoTable.tableView setBackgroundColor:[UIColor darkGrayColor]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        videoTable.tableView.rowHeight = 149;
+    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        videoTable.tableView.rowHeight = 232;
+    }
+    [videoTable.tableView setBackgroundColor:[UIColor lightGrayColor]];
+    [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [videoTableHolder addSubview:[videoTable tableView]];
 }
 
