@@ -241,6 +241,7 @@
 				<reference key="IBUIBackgroundColor" ref="596432695"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISeparatorStyle">1</int>
+				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="670359591"/>
 				<string key="IBUIReuseIdentifier">VideoCell</string>
 			</object>
