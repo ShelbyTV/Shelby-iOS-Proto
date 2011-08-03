@@ -1,0 +1,17 @@
+Establish style guide.
+    Underscored member variables
+Establish project layout.
+    Resources go outside of code directories.
+Establish testing standards.
+    OCUnit seems much better than in the past.
+
+Contact
+    H@shelby.TV
+    D@shelby.TV
+    R@shelby.TV
+    M@shelby.TV
+
+Localization
+    http://www.icanlocalize.com/site/tutorials/iphone-applications-localization-guide/
+    http://www.skylarcantu.com/blog/2009/08/19/localization-your-iphone-os-applications-in-xcode/
+

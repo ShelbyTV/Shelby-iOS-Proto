@@ -8,6 +8,7 @@
 
 #import "NavigationViewController.h"
 #import "VideoTableViewController.h"
+#import "VideoPlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @implementation NavigationViewController
@@ -19,15 +20,20 @@
         // Custom initialization
         videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
                                                       callbackObject:self callbackSelector:@selector(playContentURL:)];
+        _videoPlayer = [[VideoPlayer alloc] init];
+        _videoPlayer.delegate = self;
     }
     return self;
 }
 
 - (void)playContentURL:(NSURL *)url
 {
+    NSLog(@"playContentURL: %@", url);
     if (url == nil) {
         return;
     }
+
+    [_videoPlayer playContentURL: url];
     
     /*
      * This is pretty ghetto, but it's a quick way to display a video. Eventually this should load the contentURL into
@@ -39,14 +45,15 @@
      * And, finally, if the iPad/iPhone differences get more complicated (almost guaranteed), should definitely
      * put this method implementation in the device-specific subclasses.
      */
-    MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [videoHolder addSubview:[moviePlayer view]];
-    [videoHolder setHidden:NO];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [moviePlayer setFullscreen:YES];
-    } else {
-        moviePlayer.view.frame = videoHolder.bounds;
-    }
+
+    //MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    //[videoHolder addSubview:[moviePlayer view]];
+    //[videoHolder setHidden:NO];
+    //if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    //    [moviePlayer setFullscreen:YES];
+    //} else {
+    //    moviePlayer.view.frame = videoHolder.bounds;
+    //}
 }
 
 - (void)loadUserData
@@ -54,12 +61,20 @@
     [videoTable loadVideos];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+#pragma mark - VideoPlayerDelegate Methods
+
+- (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer {
+    NSLog(@"[NavigationViewController videoPlayerPlayButtonWasPressed]");
+}
+
+- (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
+    NSLog(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
+
+}
+
+- (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
+    NSLog(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
+
 }
 
 #pragma mark - View lifecycle
@@ -77,9 +92,11 @@
 {
     [super viewDidLoad];
     
+    //Background.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
     [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
 
+    //VideoTable.
     videoTable.tableView.frame = videoTableHolder.bounds;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         videoTable.tableView.rowHeight = 149;
@@ -89,6 +106,11 @@
     [videoTable.tableView setBackgroundColor:[UIColor lightGrayColor]];
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [videoTableHolder addSubview:[videoTable tableView]];
+    
+    //VideoPlayer.
+    [videoHolder addSubview: _videoPlayer];
+    _videoPlayer.frame = videoHolder.bounds;
+    [videoHolder setHidden:NO];
 }
 
 - (void)viewDidUnload
@@ -96,6 +118,21 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc
+{
+    [_videoPlayer release];
+
+    [super dealloc];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
 }
 
 @end
