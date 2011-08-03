@@ -8,13 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+@class VideoProgressBar;
+
+@protocol VideoProgressBarDelegate
+
+- (void)videoProgressBarWasAdjusted:(VideoProgressBar *)videoProgressBar value:(float)value;
+
+@end
+
 /*
  * Presents a visual progress bar of playback to the user.
  */
 @interface VideoProgressBar : UIView {
   // For now, let's just use the factory appearance.
-  UIProgressView *_progressView;
+  UISlider *_slider;
+  // This lets us know that
+  BOOL _adjustingSlider;
+  //float _videoDuration;
 }
+
+@property(assign) id <VideoProgressBarDelegate> delegate;
+@property(readwrite) float duration;
 
 - (void)setProgress:(float)progress;
 - (float)progress;

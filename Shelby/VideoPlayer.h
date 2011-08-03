@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h> 
+#import "VideoProgressBar.h"
 
 @class VideoPlayer;
 @class VideoProgressBar;
+@class VideoPlayerTitleBar;
+@class VideoPlayerControlBar;
 
 @protocol VideoPlayerDelegate 
 
@@ -20,17 +23,23 @@
 
 @end
 
-@interface VideoPlayer : UIView {
+@interface VideoPlayer : UIView <VideoProgressBarDelegate> {
+    // State
+    float _duration;
+
+    // UI
     UIButton *_playButton;
     UIButton *_nextButton;
     UIButton *_prevButton;
 
     VideoProgressBar *_progressBar;
+    VideoPlayerControlBar *_controlBar;
 
     MPMoviePlayerController *_moviePlayer;
 }
 
 @property (assign) id<VideoPlayerDelegate> delegate;
+@property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
 
 - (void)play;
 - (void)pause;

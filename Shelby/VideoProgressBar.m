@@ -11,27 +11,65 @@
 
 @implementation VideoProgressBar
 
+@synthesize delegate;
+
 #pragma mark - Initialization
+
+- (void)initViews {
+    _slider = [[UISlider alloc] init];
+    [self addSubview: _slider];
+
+    [_slider addTarget: self
+                action: @selector(sliderWasMoved:)
+      forControlEvents: UIControlEventValueChanged];
+
+    [self addObserver:self
+           forKeyPath:@"_slider.value"
+              options:0
+              context:@"sliderChanged"
+              ];
+
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _progressView = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleDefault];
-        [self addSubview: _progressView];
+        [self initViews];
     }
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    // initialise ourselves normally
+    self = [super initWithCoder:aDecoder];
+    if(self) {
+        [self initViews];
+    }
+    return self;
+}
 
 #pragma mark - Public Methods
 
 - (void)setProgress:(float)progress {
-    _progressView.progress = progress;
+    if (progress >= 0.0f)  {
+        _adjustingSlider = YES;
+        _slider.value = progress;
+        _adjustingSlider = NO;
+    }
 }
 
 - (float)progress {
-    return _progressView.progress;
+    return _slider.value;
+}
+
+- (void)setDuration:(float)duration {
+    _slider.maximumValue = duration;
+}
+
+- (float)duration {
+    return _slider.maximumValue;
 }
 
 /*
@@ -43,17 +81,51 @@
 }
 */
 
+#pragma mark - Notify
+
+- (void)videoProgressBarWasAdjusted {
+    //Notify our delegate that we've changed.
+    if (self.delegate) {
+        [self.delegate videoProgressBarWasAdjusted: self value: _slider.value];
+    }
+}
+
 #pragma mark - Layout
 
 - (void)layoutSubviews {
-    _progressView.frame = self.bounds;
+    _slider.frame = self.bounds;
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    NSLog(@"[VideoProgressBar observeValueForKeyPath: %@]", keyPath);
+    if ([keyPath isEqualToString:@"_slider.value"]) {
+        //if (!_adjustingSlider) {
+        //    NSLog(@"slider OBSERVED!");
+        //    [self videoProgressBarWasAdjusted];
+        //}
+    }
+}
+
+#pragma mark - Slider tracking
+
+- (void)sliderWasMoved:(id)sender {
+    if (!_adjustingSlider) {
+        NSLog(@"slider MOVED!");
+        [self videoProgressBarWasAdjusted];
+    }
 }
 
 #pragma mark - Cleanup
 
 - (void)dealloc
 {
-    [_progressView release];
+    [_slider release];
     [super dealloc];
 }
 
