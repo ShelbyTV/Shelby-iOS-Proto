@@ -84,13 +84,13 @@
 
 #pragma mark - Tick Methods
 
-- (void)timerAction:(NSTimer *)timer {
-    [self updateProgress];
-}
-
 - (void)updateProgress {
     float currentTime = [_moviePlayer currentPlaybackTime];
     NSLog(@"Current time: %f", currentTime);
+}
+
+- (void)timerAction:(NSTimer *)timer {
+  [self updateProgress];
 }
 
 #pragma mark - Delegate Callbacks

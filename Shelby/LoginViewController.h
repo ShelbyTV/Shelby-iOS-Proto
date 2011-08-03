@@ -14,6 +14,12 @@
     IBOutlet UITextField *password;
     id callbackObject;
     SEL callbackSelector;
+
+    // These are all to implement keyboard scrolling.
+    IBOutlet UIScrollView *_scrollView;
+    CGPoint _originalOffset;
+    UIView *_activeField;
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil 
@@ -24,5 +30,7 @@
 - (void)fadeOut;
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;
+- (IBAction)registerWasPressed:(id)sender;
+- (IBAction)loginWasPressed:(id)sender;
 
 @end
