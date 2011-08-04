@@ -188,22 +188,37 @@
 
 #pragma mark - Table view delegate
 
+// DEBUG Only
+- (NSURL *)movieURL
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *moviePath = [bundle 
+        pathForResource:@"SampleMovie" 
+                 ofType:@"mov"];
+    if (moviePath) {
+        return [NSURL fileURLWithPath:moviePath];
+    } else {
+        return nil;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
     /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-    
+       <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    // ...
+    // Pass the selected object to the new view controller.
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+    */
+
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger whichCell[2];
     [indexPath getIndexes:whichCell];
-    
-    NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
+
+    //NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
+    NSURL *contentURL = [self movieURL];
 
     [callbackObject performSelector:callbackSelector withObject:contentURL];
 }

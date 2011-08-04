@@ -30,7 +30,6 @@
     MPMoviePlayerController *_moviePlayer;
 }
 
-
 @property (assign) id<VideoPlayerDelegate> delegate;
 
 - (void)play;

@@ -99,7 +99,11 @@
     if (self.delegate) {
         [self.delegate videoPlayerPlayButtonWasPressed: self];
     }
-    [self play];
+    if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
+        [self pause];
+    } else {
+        [self play];
+    }
 }
 
 - (IBAction)nextButtonWasPressed:(id)sender {

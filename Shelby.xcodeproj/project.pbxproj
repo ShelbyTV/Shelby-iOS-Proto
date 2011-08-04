@@ -29,6 +29,7 @@
 		0AD9A38D13D53BD300EFECE0 /* ShelbyTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */; };
 		0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */; };
 		0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */; };
+		4229CDD813EB39A5000F587E /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDD713EB39A5000F587E /* SampleMovie.mov */; };
 		42C4C56413E8A6C00034AC97 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */; };
 		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
 		42C4C56613E8A6C00034AC97 /* FacebookActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55913E8A6C00034AC97 /* FacebookActive.png */; };
@@ -106,6 +107,7 @@
 		0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyTests.m; sourceTree = "<group>"; };
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		4229CDD713EB39A5000F587E /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/Video/SampleMovie.mov; sourceTree = "<group>"; };
 		42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		42C4C55813E8A6C00034AC97 /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Face.png; path = Resources/Images/Face.png; sourceTree = "<group>"; };
 		42C4C55913E8A6C00034AC97 /* FacebookActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookActive.png; path = Resources/Images/FacebookActive.png; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		42C4C55513E8A6A50034AC97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4229CDD713EB39A5000F587E /* SampleMovie.mov */,
 				42C4C57313E8A6F00034AC97 /* NIBs */,
 				42C4C55613E8A6AC0034AC97 /* Images */,
 			);
@@ -470,6 +473,7 @@
 				42C4C61513E9D1370034AC97 /* ButtonNext.png in Resources */,
 				42C4C61613E9D1370034AC97 /* ButtonPlay.png in Resources */,
 				42C4C61713E9D1370034AC97 /* ButtonPrevious.png in Resources */,
+				4229CDD813EB39A5000F587E /* SampleMovie.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
