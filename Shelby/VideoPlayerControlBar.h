@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VideoProgressBar.h"
 
 @class VideoProgressBar;
+@class VideoPlayerControlBar;
 
-@interface VideoPlayerControlBar : UIView {
+@protocol VideoPlayerControlBarDelegate 
+
+- (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar;
+- (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time;
+
+@end
+
+@interface VideoPlayerControlBar : UIView <VideoProgressBarDelegate> {
     IBOutlet UIButton *_favoriteButton;
     IBOutlet UIButton *_shareButton;
     IBOutlet UIButton *_playButton;
@@ -18,6 +27,11 @@
     IBOutlet UIButton *_soundButton;
     
     IBOutlet VideoProgressBar *_progressBar;
+
 }
+
+@property (assign) id <VideoPlayerControlBarDelegate> delegate;
+@property (readwrite) float progress;
+@property (readwrite) float duration;
 
 @end

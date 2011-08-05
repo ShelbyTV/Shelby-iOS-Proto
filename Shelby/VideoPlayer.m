@@ -22,13 +22,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Buttons
-        _playButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
-        [_playButton setImage: [UIImage imageNamed: @"ButtonPlay.png"]
-                     forState: UIControlStateNormal];
-        [_playButton addTarget: self
-                        action: @selector(playButtonWasPressed:)
-              forControlEvents: UIControlEventTouchUpInside];
-
         _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
         [_nextButton setImage: [UIImage imageNamed: @"ButtonNext.png"]
                      forState: UIControlStateNormal];
@@ -43,12 +36,9 @@
                         action: @selector(prevButtonWasPressed:)
               forControlEvents: UIControlEventTouchUpInside];
 
-        // Progress Bar
-        _progressBar = [[VideoProgressBar alloc] init];
-        _progressBar.delegate = self;
-        
         // Control Bar
         _controlBar = [[VideoPlayerControlBar alloc] init];
+        _controlBar.delegate = self;
         
         // Title Bar
         self.titleBar = [[VideoPlayerTitleBar alloc] init];
@@ -73,10 +63,8 @@
         [self addSubview: _moviePlayer.view];
 
         [self addSubview: self.titleBar];
-        [self addSubview: _playButton];
         [self addSubview: _nextButton];
         [self addSubview: _prevButton];
-        [self addSubview: _progressBar];
         [self addSubview: _controlBar];
 
         // Timer to update the progressBar after each second.
@@ -120,7 +108,7 @@
 
 - (void) movieDurationAvailable:(NSNotification*)notification {
     _duration = [_moviePlayer duration];
-    _progressBar.duration = _duration;
+    _controlBar.duration = _duration;
 }
 
 #pragma mark - KVO
@@ -136,42 +124,41 @@
     }
 }
 
-#pragma mark - VideoProgressBarDelegate Methods
-
-- (void)videoProgressBarWasAdjusted:(VideoProgressBar *)videoProgressBar value:(float)value {
-    NSLog(@"videoProgressBarWasAdjusted: %f", value);
-    // Update playback time.
-    _moviePlayer.currentPlaybackTime = value;
-
-    // Update the progress bar.
-    //[self updateProgress];
-}
-
 #pragma mark - Tick Methods
 
 - (void)updateProgress {
-    float currentTime = [_moviePlayer currentPlaybackTime];
-    NSLog(@"Current time: %f", currentTime);
-    //float percentage = currentTime / _duration;
-    [_progressBar setProgress: currentTime];
+  float currentTime = [_moviePlayer currentPlaybackTime];
+  NSLog(@"Current time: %f", currentTime);
+  //[_progressBar setProgress: currentTime];
+  _controlBar.progress = currentTime;
 }
 
 - (void)timerAction:(NSTimer *)timer {
+  [self updateProgress];
+}
+
+#pragma mark - VideoProgressBarDelegate Methods
+
+- (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time {
+    NSLog(@"videoProgressBarWasAdjusted: %f", time);
+    // Update playback time.
+    _moviePlayer.currentPlaybackTime = time;
+
+    // Update the progress bar.
     [self updateProgress];
 }
 
-#pragma mark - Delegate Callbacks
+#pragma mark - ControlBarDelegate Callbacks
 
-- (IBAction)playButtonWasPressed:(id)sender {
-    if (self.delegate) {
-        [self.delegate videoPlayerPlayButtonWasPressed: self];
-    }
+- (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar {
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
     } else {
         [self play];
     }
 }
+
+#pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {
     if (self.delegate) {
@@ -215,24 +202,16 @@
     _prevButton.frame = CGRectMake(0, height / 2, buttonWidth, buttonHeight);
     _nextButton.frame = CGRectMake(width - buttonWidth, height / 2, buttonWidth, buttonHeight);
 
-    // Place playbutton at the bottom center.
-    _playButton.frame = CGRectMake(width / 2, height / 2, buttonWidth, buttonHeight);
-
-    // Place progressBar at the bottom center.
-    _progressBar.frame = CGRectMake(width / 8, height/2 - buttonHeight, width * 3 / 4, buttonHeight);
-
-    // Place Bar at the bottom center.
+    // Place controlBar at the bottom center.
     _controlBar.frame = CGRectMake(width / 8, height - buttonHeight, width * 3 / 4, buttonHeight);
 }
 
 #pragma mark - Cleanup
 
 - (void)dealloc {
-    //[_playButton removeFromSuperview];
     //[_nextButton removeFromSuperview];
     //[_prevButton removeFromSuperview];
 
-    [_playButton release];
     [_nextButton release];
     [_prevButton release];
 

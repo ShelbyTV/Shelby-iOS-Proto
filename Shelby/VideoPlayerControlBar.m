@@ -7,9 +7,11 @@
 //
 
 #import "VideoPlayerControlBar.h"
-
+#import "VideoProgressBar.h"
 
 @implementation VideoPlayerControlBar
+
+@synthesize delegate;
 
 static NSString *NIB_NAME = @"VideoPlayerControlBar";
 
@@ -21,6 +23,8 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
     // actually, we know there's only one thing in it, which is the
     // view we want to appear within this one
     [self addSubview:[objects objectAtIndex:0]];
+
+    _progressBar.delegate = self;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -32,6 +36,40 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
         //self.backgroundColor = [UIColor redColor];
     }
     return self;
+}
+
+#pragma mark - Properties
+
+- (void)setProgress:(float)progress {
+    _progressBar.progress = progress;
+}
+
+- (float)progress {
+    return _progressBar.progress;
+}
+
+- (void)setDuration:(float)duration {
+    _progressBar.duration = duration;
+}
+
+- (float)duration {
+    return _progressBar.duration;
+}
+
+#pragma mark - VideoProgressBarDelegate Methods
+
+- (void)videoProgressBarWasAdjusted:(VideoProgressBar *)videoProgressBar value:(float)value {
+    if (self.delegate) {
+        [self.delegate controlBarChangedTime: self time: value];
+    }
+}
+
+#pragma mark - Delegate Callbacks
+
+- (IBAction)playButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate controlBarPlayButtonWasPressed: self];
+    }
 }
 
 /*
