@@ -72,7 +72,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Heart.png</string>
+							<string key="NSResourceName">ButtonHeart.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="1020473785">
@@ -95,7 +95,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Share.png</string>
+							<string key="NSResourceName">ButtonShare.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="438259432">
@@ -118,7 +118,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Fullscreen.png</string>
+							<string key="NSResourceName">ButtonFullscreen.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="732259793">
@@ -141,7 +141,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Sound.png</string>
+							<string key="NSResourceName">ButtonSound.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="929594750">
@@ -164,7 +164,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Play.png</string>
+							<string key="NSResourceName">ButtonPlay.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="838028058">
@@ -460,19 +460,19 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>Fullscreen.png</string>
-				<string>Heart.png</string>
-				<string>Play.png</string>
-				<string>Share.png</string>
-				<string>Sound.png</string>
+				<string>ButtonFullscreen.png</string>
+				<string>ButtonHeart.png</string>
+				<string>ButtonPlay.png</string>
+				<string>ButtonShare.png</string>
+				<string>ButtonSound.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{42, 42}</string>
-				<string>{42, 42}</string>
-				<string>{42, 42}</string>
-				<string>{42, 42}</string>
-				<string>{42, 42}</string>
+				<string>{39, 39}</string>
+				<string>{36, 32}</string>
+				<string>{35, 40}</string>
+				<string>{36, 30}</string>
+				<string>{40, 38}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">301</string>

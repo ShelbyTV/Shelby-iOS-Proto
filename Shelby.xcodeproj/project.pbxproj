@@ -33,11 +33,6 @@
 		4229CDEC13EC57E6000F587E /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDEB13EC57E6000F587E /* VideoPlayerTitleBar.xib */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CDF113EC5ED4000F587E /* VideoPlayerControlBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDF013EC5ED4000F587E /* VideoPlayerControlBar.xib */; };
-		4229CDF913EC6166000F587E /* Sound.png in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDF413EC6166000F587E /* Sound.png */; };
-		4229CDFA13EC6166000F587E /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDF513EC6166000F587E /* Play.png */; };
-		4229CDFB13EC6166000F587E /* Fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDF613EC6166000F587E /* Fullscreen.png */; };
-		4229CDFC13EC6166000F587E /* Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDF713EC6166000F587E /* Share.png */; };
-		4229CDFD13EC6166000F587E /* Heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4229CDF813EC6166000F587E /* Heart.png */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
 		42C4C56413E8A6C00034AC97 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */; };
 		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
@@ -75,6 +70,12 @@
 		42C4C61713E9D1370034AC97 /* ButtonPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C61413E9D1370034AC97 /* ButtonPrevious.png */; };
 		42C4C61A13E9D7EF0034AC97 /* VideoProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C61913E9D7EF0034AC97 /* VideoProgressBar.m */; };
 		42C4C61B13E9D7EF0034AC97 /* VideoProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C61913E9D7EF0034AC97 /* VideoProgressBar.m */; };
+		42CA0DB913EC83FE00B9BF15 /* ButtonSound.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */; };
+		42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */; };
+		42CA0DBB13EC83FE00B9BF15 /* ButtonPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */; };
+		42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */; };
+		42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */; };
+		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,11 +122,6 @@
 		4229CDED13EC597B000F587E /* VideoPlayerTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerTitleBar.h; sourceTree = "<group>"; };
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDF013EC5ED4000F587E /* VideoPlayerControlBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerControlBar.xib; sourceTree = "<group>"; };
-		4229CDF413EC6166000F587E /* Sound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Sound.png; path = Resources/Images/Sound.png; sourceTree = "<group>"; };
-		4229CDF513EC6166000F587E /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Play.png; path = Resources/Images/Play.png; sourceTree = "<group>"; };
-		4229CDF613EC6166000F587E /* Fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Fullscreen.png; path = Resources/Images/Fullscreen.png; sourceTree = "<group>"; };
-		4229CDF713EC6166000F587E /* Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Share.png; path = Resources/Images/Share.png; sourceTree = "<group>"; };
-		4229CDF813EC6166000F587E /* Heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Heart.png; path = Resources/Images/Heart.png; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
 		4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerControlBar.m; sourceTree = "<group>"; };
 		42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
@@ -169,6 +165,12 @@
 		42C4C61413E9D1370034AC97 /* ButtonPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPrevious.png; path = Resources/Images/ButtonPrevious.png; sourceTree = "<group>"; };
 		42C4C61813E9D7EF0034AC97 /* VideoProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoProgressBar.h; sourceTree = "<group>"; };
 		42C4C61913E9D7EF0034AC97 /* VideoProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoProgressBar.m; sourceTree = "<group>"; };
+		42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSound.png; path = Resources/Images/ButtonSound.png; sourceTree = "<group>"; };
+		42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShare.png; path = Resources/Images/ButtonShare.png; sourceTree = "<group>"; };
+		42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlay.png; path = Resources/Images/ButtonPlay.png; sourceTree = "<group>"; };
+		42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeart.png; path = Resources/Images/ButtonHeart.png; sourceTree = "<group>"; };
+		42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFullscreen.png; path = Resources/Images/ButtonFullscreen.png; sourceTree = "<group>"; };
+		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,11 +321,12 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				4229CDF413EC6166000F587E /* Sound.png */,
-				4229CDF513EC6166000F587E /* Play.png */,
-				4229CDF613EC6166000F587E /* Fullscreen.png */,
-				4229CDF713EC6166000F587E /* Share.png */,
-				4229CDF813EC6166000F587E /* Heart.png */,
+				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
+				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
+				42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */,
+				42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */,
+				42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */,
+				42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */,
 				42C4C61213E9D1370034AC97 /* ButtonNext.png */,
 				42C4C61313E9D1370034AC97 /* ButtonPlay.png */,
 				42C4C61413E9D1370034AC97 /* ButtonPrevious.png */,
@@ -507,11 +510,12 @@
 				4229CDD813EB39A5000F587E /* SampleMovie.mov in Resources */,
 				4229CDEC13EC57E6000F587E /* VideoPlayerTitleBar.xib in Resources */,
 				4229CDF113EC5ED4000F587E /* VideoPlayerControlBar.xib in Resources */,
-				4229CDF913EC6166000F587E /* Sound.png in Resources */,
-				4229CDFA13EC6166000F587E /* Play.png in Resources */,
-				4229CDFB13EC6166000F587E /* Fullscreen.png in Resources */,
-				4229CDFC13EC6166000F587E /* Share.png in Resources */,
-				4229CDFD13EC6166000F587E /* Heart.png in Resources */,
+				42CA0DB913EC83FE00B9BF15 /* ButtonSound.png in Resources */,
+				42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */,
+				42CA0DBB13EC83FE00B9BF15 /* ButtonPlay.png in Resources */,
+				42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */,
+				42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */,
+				42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
