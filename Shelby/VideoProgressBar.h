@@ -24,7 +24,6 @@
   UISlider *_slider;
   // This lets us know that
   BOOL _adjustingSlider;
-  //float _videoDuration;
 }
 
 @property(assign) id <VideoProgressBarDelegate> delegate;

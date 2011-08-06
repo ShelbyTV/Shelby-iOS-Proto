@@ -16,18 +16,14 @@
 #pragma mark - Initialization
 
 - (void)initViews {
+    // We currently use a slider for our progress bar. In the future, we can replace this with a custom UIView.
     _slider = [[UISlider alloc] init];
     [self addSubview: _slider];
 
+    // We use this to maintain a close eye on the slider value.
     [_slider addTarget: self
                 action: @selector(sliderWasMoved:)
       forControlEvents: UIControlEventValueChanged];
-
-    [self addObserver:self
-           forKeyPath:@"_slider.value"
-              options:0
-              context:@"sliderChanged"
-              ];
 
 }
 
@@ -104,12 +100,6 @@
                        context:(void *)context
 {
     LOG(@"[VideoProgressBar observeValueForKeyPath: %@]", keyPath);
-    if ([keyPath isEqualToString:@"_slider.value"]) {
-        //if (!_adjustingSlider) {
-        //    LOG(@"slider OBSERVED!");
-        //    [self videoProgressBarWasAdjusted];
-        //}
-    }
 }
 
 #pragma mark - Slider tracking
