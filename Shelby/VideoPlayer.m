@@ -46,7 +46,12 @@
         _controlBar.delegate = self;
         
         // Title Bar
-        self.titleBar = [[VideoPlayerTitleBar alloc] init];
+        nibViews = [[NSBundle mainBundle] loadNibNamed:@"VideoPlayerTitleBar"
+                                                          owner:self
+                                                        options:nil];
+
+        self.titleBar = [ nibViews objectAtIndex: 0];
+        //self.titleBar = [[VideoPlayerTitleBar alloc] init];
 
         // Movie Player
         _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
@@ -178,7 +183,8 @@
 
 - (void)layoutSubviews {
     //CGRect frame = self.frame;
-    CGRect frame = self.superview.bounds;
+    //CGRect frame = self.superview.bounds;
+    CGRect frame = self.bounds;
     self.frame = frame;
     LOG(@"[VideoPlayer layoutSubviews]: %@", frame);
     LogRect(@"VideoPlayer", frame);
@@ -193,7 +199,14 @@
     _moviePlayer.view.frame = self.frame;
 
     // Place titleBar at the top center.
-    self.titleBar.frame = CGRectMake(width / 8, 0, width * 3 / 4, buttonHeight);
+    float titleBarX = 20.0f;
+    float titleBarWidth = width;
+    self.titleBar.frame = CGRectMake(
+            titleBarX,
+            0,
+            titleBarWidth - (2 * titleBarX),
+            buttonHeight
+            );
 
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(0, height / 2, buttonWidth, buttonHeight);

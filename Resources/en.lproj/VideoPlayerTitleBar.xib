@@ -40,12 +40,12 @@
 			</object>
 			<object class="IBUIView" id="759562499">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
+				<int key="NSvFlags">295</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIImageView" id="978124853">
 						<reference key="NSNextResponder" ref="759562499"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">300</int>
 						<string key="NSFrame">{{20, 11}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
@@ -60,7 +60,7 @@
 					</object>
 					<object class="IBUILabel" id="113638569">
 						<reference key="NSNextResponder" ref="759562499"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">300</int>
 						<string key="NSFrame">{{53, 13}, {521, 21}}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
