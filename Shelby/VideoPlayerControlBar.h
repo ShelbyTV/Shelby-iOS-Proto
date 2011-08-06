@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VideoProgressBar.h"
+#import "VideoPlayerProgressBar.h"
 
-@class VideoProgressBar;
+@class VideoPlayerProgressBar;
 @class VideoPlayerControlBar;
 
 @protocol VideoPlayerControlBarDelegate 
@@ -26,7 +26,7 @@
     IBOutlet UIButton *_fullscreenButton;
     IBOutlet UIButton *_soundButton;
     
-    IBOutlet VideoProgressBar *_progressBar;
+    IBOutlet VideoPlayerProgressBar *_progressBar;
 
 }
 

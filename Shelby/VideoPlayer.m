@@ -7,7 +7,7 @@
 //
 
 #import "VideoPlayer.h"
-#import "VideoProgressBar.h"
+#import "VideoPlayerProgressBar.h"
 #import "VideoPlayerTitleBar.h"
 #import "VideoPlayerControlBar.h"
 

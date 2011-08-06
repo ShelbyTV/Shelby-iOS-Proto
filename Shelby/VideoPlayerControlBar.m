@@ -7,7 +7,7 @@
 //
 
 #import "VideoPlayerControlBar.h"
-#import "VideoProgressBar.h"
+#import "VideoPlayerProgressBar.h"
 
 @implementation VideoPlayerControlBar
 
@@ -31,9 +31,7 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         [self loadViewFromNib];
-        //self.backgroundColor = [UIColor redColor];
     }
     return self;
 }
@@ -58,7 +56,7 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
 
 #pragma mark - VideoProgressBarDelegate Methods
 
-- (void)videoProgressBarWasAdjusted:(VideoProgressBar *)videoProgressBar value:(float)value {
+- (void)videoProgressBarWasAdjusted:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {
     if (self.delegate) {
         [self.delegate controlBarChangedTime: self time: value];
     }

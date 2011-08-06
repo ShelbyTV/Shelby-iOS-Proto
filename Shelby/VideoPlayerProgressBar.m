@@ -6,10 +6,10 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#import "VideoProgressBar.h"
+#import "VideoPlayerProgressBar.h"
 
 
-@implementation VideoProgressBar
+@implementation VideoPlayerProgressBar
 
 @synthesize delegate;
 

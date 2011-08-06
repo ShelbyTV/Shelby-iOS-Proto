@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h> 
-#import "VideoProgressBar.h"
+#import "VideoPlayerProgressBar.h"
 #import "VideoPlayerControlBar.h"
 
 @class VideoPlayer;
-@class VideoProgressBar;
+@class VideoPlayerProgressBar;
 @class VideoPlayerTitleBar;
 @class VideoPlayerControlBar;
 
