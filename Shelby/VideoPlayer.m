@@ -37,7 +37,12 @@
               forControlEvents: UIControlEventTouchUpInside];
 
         // Control Bar
-        _controlBar = [[VideoPlayerControlBar alloc] init];
+        NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"VideoPlayerControlBar"
+                                                          owner:self
+                                                        options:nil];
+
+        //_controlBar = [[VideoPlayerControlBar alloc] init];
+        _controlBar = [ nibViews objectAtIndex: 0];
         _controlBar.delegate = self;
         
         // Title Bar
@@ -167,7 +172,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+// Drawing code
 }
 */
 
@@ -195,7 +200,15 @@
     _nextButton.frame = CGRectMake(width - buttonWidth, height / 2, buttonWidth, buttonHeight);
 
     // Place controlBar at the bottom center.
-    _controlBar.frame = CGRectMake(width / 8, height - buttonHeight, width * 3 / 4, buttonHeight);
+    float controlBarX = 20.0f;
+    float controlBarWidth = width;
+    _controlBar.frame = CGRectMake(
+            controlBarX,
+            height - buttonHeight,
+            controlBarWidth - (2 * controlBarX),
+            buttonHeight
+            );
+    [_controlBar setNeedsLayout];
 }
 
 #pragma mark - Cleanup

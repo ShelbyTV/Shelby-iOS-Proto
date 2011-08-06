@@ -13,25 +13,36 @@
 
 @synthesize delegate;
 
-static NSString *NIB_NAME = @"VideoPlayerControlBar";
+//static NSString *NIB_NAME = @"VideoPlayerControlBar";
 
-- (void)loadViewFromNib {
-    // load everything in the XIB we created
-    NSArray *objects = [[NSBundle mainBundle] 
-        loadNibNamed:NIB_NAME owner:self options:nil];
+//- (void)loadViewFromNib {
+//    // load everything in the XIB we created
+//    NSArray *objects = [[NSBundle mainBundle] 
+//        loadNibNamed:NIB_NAME owner:self options:nil];
+//
+//    // actually, we know there's only one thing in it, which is the
+//    // view we want to appear within this one
+//    //[self addSubview:[objects objectAtIndex:0]];
+//    //self.view = [objects objectAtIndex:0];
+//
+//    _progressBar.delegate = self;
+//}
+//
+//- (id)initWithFrame:(CGRect)frame
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        [self loadViewFromNib];
+//    }
+//    return self;
+//}
 
-    // actually, we know there's only one thing in it, which is the
-    // view we want to appear within this one
-    [self addSubview:[objects objectAtIndex:0]];
-
-    _progressBar.delegate = self;
-}
-
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self loadViewFromNib];
+    // initialise ourselves normally
+    self = [super initWithCoder:aDecoder];
+    if(self) {
+
     }
     return self;
 }
@@ -69,6 +80,8 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
         [self.delegate controlBarPlayButtonWasPressed: self];
     }
 }
+
+#pragma mark - Layout
 
 /*
 // Only override drawRect: if you perform custom drawing.

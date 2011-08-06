@@ -27,7 +27,6 @@
     IBOutlet UIButton *_soundButton;
     
     IBOutlet VideoPlayerProgressBar *_progressBar;
-
 }
 
 @property (assign) id <VideoPlayerControlBarDelegate> delegate;
