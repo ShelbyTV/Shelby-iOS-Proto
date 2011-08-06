@@ -217,8 +217,11 @@
     NSUInteger whichCell[2];
     [indexPath getIndexes:whichCell];
 
-    //NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
+#ifdef ONLINE_MODE
+    NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
+#else
     NSURL *contentURL = [self movieURL];
+#endif
 
     [callbackObject performSelector:callbackSelector withObject:contentURL];
 }
