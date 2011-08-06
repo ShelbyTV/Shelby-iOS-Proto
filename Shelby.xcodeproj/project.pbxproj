@@ -171,6 +171,7 @@
 		42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeart.png; path = Resources/Images/ButtonHeart.png; sourceTree = "<group>"; };
 		42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFullscreen.png; path = Resources/Images/ButtonFullscreen.png; sourceTree = "<group>"; };
 		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
+		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +259,7 @@
 				42C4C59513E8AB420034AC97 /* Shelby-Info.plist */,
 				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
 				0AD9A36313D53BD300EFECE0 /* main.m */,
+				42CA0DBF13EC862700B9BF15 /* Macros.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

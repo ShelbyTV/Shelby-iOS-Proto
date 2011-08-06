@@ -103,10 +103,10 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"[VideoProgressBar observeValueForKeyPath: %@]", keyPath);
+    LOG(@"[VideoProgressBar observeValueForKeyPath: %@]", keyPath);
     if ([keyPath isEqualToString:@"_slider.value"]) {
         //if (!_adjustingSlider) {
-        //    NSLog(@"slider OBSERVED!");
+        //    LOG(@"slider OBSERVED!");
         //    [self videoProgressBarWasAdjusted];
         //}
     }
@@ -116,7 +116,7 @@
 
 - (void)sliderWasMoved:(id)sender {
     if (!_adjustingSlider) {
-        NSLog(@"slider MOVED!");
+        LOG(@"slider MOVED!");
         [self videoProgressBarWasAdjusted];
     }
 }

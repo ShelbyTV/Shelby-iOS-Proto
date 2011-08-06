@@ -151,7 +151,7 @@ static NSString *fakeAPIData[] = {
          */
         
         // useful for debugging
-        // NSLog(@"%@", youTubeVideoDataReadable);
+        // LOG(@"%@", youTubeVideoDataReadable);
         
         NSRange statusFailResponse = [youTubeVideoDataReadable rangeOfString:@"status=fail"];
         
@@ -190,7 +190,7 @@ static NSString *fakeAPIData[] = {
             NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
             // useful for debugging YouTube page changes
-            // NSLog(@"movieURLString = %@", movieURLString);
+            // LOG(@"movieURLString = %@", movieURLString);
             
             videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
         }

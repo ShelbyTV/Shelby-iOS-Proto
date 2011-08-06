@@ -102,7 +102,7 @@
 
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
-    NSLog(@"keyboardWasShown");
+    LOG(@"keyboardWasShown");
     NSDictionary* info = [aNotification userInfo];
     CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     kbRect = [self.view convertRect:kbRect toView:nil];
@@ -131,7 +131,7 @@
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification {
-    NSLog(@"keyboardWillBeHidden");
+    LOG(@"keyboardWillBeHidden");
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     _scrollView.contentInset = contentInsets;
     _scrollView.scrollIndicatorInsets = contentInsets;
@@ -168,7 +168,7 @@
     [callbackObject performSelector:callbackSelector];
     [self fadeOut];
 
-//    NSLog(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
+//    LOG(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
@@ -176,7 +176,7 @@
     [callbackObject performSelector:callbackSelector];
     [self fadeOut];
 
-//    NSLog(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
+//    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)registerWasPressed:(id)sender {
@@ -186,7 +186,7 @@
 }
 
 - (IBAction)loginWasPressed:(id)sender {
-    NSLog(@"Login not implemented");
+    LOG(@"Login not implemented");
 }
 
 @end

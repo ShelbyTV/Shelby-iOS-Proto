@@ -28,7 +28,7 @@
 
 - (void)playContentURL:(NSURL *)url
 {
-    NSLog(@"playContentURL: %@", url);
+    LOG(@"playContentURL: %@", url);
     if (url == nil) {
         return;
     }
@@ -64,16 +64,16 @@
 #pragma mark - VideoPlayerDelegate Methods
 
 - (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer {
-    NSLog(@"[NavigationViewController videoPlayerPlayButtonWasPressed]");
+    LOG(@"[NavigationViewController videoPlayerPlayButtonWasPressed]");
 }
 
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
-    NSLog(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
+    LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
 
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
-    NSLog(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
+    LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
 
 }
 

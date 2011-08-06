@@ -18,7 +18,6 @@
 
 @protocol VideoPlayerDelegate 
 
-//- (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer;
 
@@ -31,9 +30,6 @@
     // UI
     UIButton *_nextButton;
     UIButton *_prevButton;
-
-    //UIButton *_playButton;
-    //VideoProgressBar *_progressBar;
 
     VideoPlayerControlBar *_controlBar;
 

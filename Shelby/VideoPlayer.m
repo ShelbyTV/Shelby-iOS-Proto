@@ -45,12 +45,10 @@
 
         // Movie Player
         _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
-
-        _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;  // Uniform scale until one dimension fits
-        //MPMovieScalingModeAspectFill, // Uniform scale until the movie fills the visible bounds. One dimension may have clipped contents
-        //MPMovieScalingModeFill        // Non-uniform scale. Both render dimensions will exactly match the visible bounds
-
-        _moviePlayer.controlStyle = MPMovieControlStyleNone;
+        // Uniform scale until one dimension fits
+        _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;  
+        // Hide controls so we can render custom ones.
+        _moviePlayer.controlStyle = MPMovieControlStyleNone; 
 
         // Listen for duration updates.
         [[NSNotificationCenter defaultCenter]
@@ -70,13 +68,7 @@
         // Timer to update the progressBar after each second.
         // TODO: Shut this down when we're not playing a video.
         [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
-
-        // Monitor progress
-        //[self addObserver:self
-        //       forKeyPath:@"_progressBar.progress"
-        //          options:0
-        //          context:@"progressChanged"
-        //       ];
+    
     }
     return self;
 }
@@ -118,18 +110,14 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"[VideoPlayer observeValueForKeyPath: %@]", keyPath);
-    if ([keyPath isEqualToString:@"_progressBar.progress"]) {
-        NSLog(@"progress OBSERVED!");
-    }
+    LOG(@"[VideoPlayer observeValueForKeyPath: %@]", keyPath);
 }
 
 #pragma mark - Tick Methods
 
 - (void)updateProgress {
   float currentTime = [_moviePlayer currentPlaybackTime];
-  NSLog(@"Current time: %f", currentTime);
-  //[_progressBar setProgress: currentTime];
+  LOG(@"Current time: %f", currentTime);
   _controlBar.progress = currentTime;
 }
 
@@ -140,7 +128,7 @@
 #pragma mark - VideoProgressBarDelegate Methods
 
 - (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time {
-    NSLog(@"videoProgressBarWasAdjusted: %f", time);
+    LOG(@"videoProgressBarWasAdjusted: %f", time);
     // Update playback time.
     _moviePlayer.currentPlaybackTime = time;
 
@@ -184,7 +172,11 @@
 */
 
 - (void)layoutSubviews {
-    CGRect frame = self.frame;
+    //CGRect frame = self.frame;
+    CGRect frame = self.superview.bounds;
+    self.frame = frame;
+    LOG(@"[VideoPlayer layoutSubviews]: %@", frame);
+    LogRect(@"VideoPlayer", frame);
     CGFloat width = frame.size.width;
     CGFloat height = frame.size.height;
 
@@ -209,12 +201,10 @@
 #pragma mark - Cleanup
 
 - (void)dealloc {
-    //[_nextButton removeFromSuperview];
-    //[_prevButton removeFromSuperview];
-
     [_nextButton release];
     [_prevButton release];
 
+    [_controlBar release];
     [_moviePlayer release];
     [super dealloc];
 }
