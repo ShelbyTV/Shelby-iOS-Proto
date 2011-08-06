@@ -50,7 +50,7 @@
                                                           owner:self
                                                         options:nil];
 
-        self.titleBar = [ nibViews objectAtIndex: 0];
+        self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
         //self.titleBar = [[VideoPlayerTitleBar alloc] init];
 
         // Movie Player

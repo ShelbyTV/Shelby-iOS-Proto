@@ -13,6 +13,12 @@
 
 static NSString *NIB_NAME = @"VideoPlayerTitleBar";
 
++ (VideoPlayerTitleBar *)titleBarFromNib {
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:NIB_NAME owner:self options:nil];
+
+    return [objects objectAtIndex:0];
+}
+
 - (void)loadViewFromNib {
     // load everything in the XIB we created
     NSArray *objects = [[NSBundle mainBundle] 

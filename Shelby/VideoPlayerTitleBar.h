@@ -13,4 +13,6 @@
     
 }
 
++ (VideoPlayerTitleBar *)titleBarFromNib;
+
 @end
