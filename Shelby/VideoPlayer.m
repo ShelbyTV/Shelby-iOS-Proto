@@ -146,6 +146,14 @@
     }
 }
 
+- (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    // Show an action sheet for now.
+    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
+    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [popupQuery showInView: self];
+    [popupQuery release];
+}
+
 #pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {

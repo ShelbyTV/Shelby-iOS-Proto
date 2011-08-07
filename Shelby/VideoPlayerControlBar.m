@@ -100,6 +100,12 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
     }
 }
 
+- (IBAction)shareButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate controlBarShareButtonWasPressed: self];
+    }
+}
+
 #pragma mark - Layout
 
 /*

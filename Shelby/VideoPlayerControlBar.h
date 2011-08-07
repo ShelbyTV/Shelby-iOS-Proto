@@ -37,4 +37,7 @@
 
 + (VideoPlayerControlBar *)controlBarFromNib;
 
+- (IBAction)playButtonWasPressed:(id)sender;
+- (IBAction)shareButtonWasPressed:(id)sender;
+
 @end
