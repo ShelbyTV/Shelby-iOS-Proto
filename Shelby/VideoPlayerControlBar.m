@@ -36,20 +36,34 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
 //    return self;
 //}
 
+#pragma mark - Factory
+
 + (VideoPlayerControlBar *)controlBarFromNib {
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:NIB_NAME owner:self options:nil];
 
     return [objects objectAtIndex:0];
 }
 
+#pragma mark - Initialization
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     // initialise ourselves normally
     self = [super initWithCoder:aDecoder];
     if(self) {
+        // This is a dirty hack, because for some reason, the NIB variables aren't bound at runtime, so the following code doesn't work alone:
+        // _progressBar.delegate = self;
+        // So instead, we pull the view out via its tag.
+        _progressBar = (VideoPlayerProgressBar *) [self viewWithTag: 1];
         _progressBar.delegate = self;
     }
     return self;
+}
+
+- (void)handleInit {
+    if (!_initialized) {
+
+    }
 }
 
 #pragma mark - Properties

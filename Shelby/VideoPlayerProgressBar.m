@@ -106,7 +106,6 @@
 
 - (void)sliderWasMoved:(id)sender {
     if (!_adjustingSlider) {
-        LOG(@"slider MOVED!");
         [self videoProgressBarWasAdjusted];
     }
 }
