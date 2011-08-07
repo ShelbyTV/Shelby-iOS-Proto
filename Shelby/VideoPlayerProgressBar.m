@@ -65,7 +65,7 @@
 
 - (void)setProgress:(float)progress {
     if (progress >= 0.0f)  {
-        // Set our slider, making sure that when we adjust it, 
+        // Set our slider, making sure that when we adjust it,
         // we don't send false events.
         _adjustingSlider = YES;
         _slider.value = progress;
