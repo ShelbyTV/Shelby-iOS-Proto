@@ -65,16 +65,21 @@
 
 - (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerPlayButtonWasPressed]");
+
 }
 
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
-
+    //// Tell player to stop playing.
+    //[_videoPlayer stop];
+    //// Fetch the video next in queue.
+    //URL url = nil;
+    //// Tell player to start playing new video.
+    //[_videoPlayer playContentURL: url];
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
-
 }
 
 #pragma mark - View lifecycle
