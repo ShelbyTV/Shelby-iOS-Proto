@@ -11,6 +11,9 @@
 @interface NavigationViewController_iPad : NavigationViewController
 {
 
+  BOOL _trayClosed;
 }
+
+- (IBAction)shelbyIconWasPressed:(id)sender;
 
 @end

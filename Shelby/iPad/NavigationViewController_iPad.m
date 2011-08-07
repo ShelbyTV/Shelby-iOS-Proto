@@ -21,4 +21,25 @@
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
+- (CGRect)toggleFrame:(CGRect)frame right:(BOOL)right {
+    const float OFFSET = 100.0f;
+
+    CGRect newFrame = frame;
+    float offset = right ? -OFFSET : OFFSET;
+    newFrame.origin.x += offset;
+    return newFrame;
+}
+
+- (IBAction)shelbyIconWasPressed:(id)sender {
+    // Slide the tray in and out.
+
+    [UIView animateWithDuration:0.25 animations:^{
+        header.frame = [self toggleFrame: header.frame right: _trayClosed];
+    }
+    completion:^(BOOL finished){
+        // NOP
+    }];
+    _trayClosed = !_trayClosed;
+}
+
 @end
