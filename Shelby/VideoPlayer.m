@@ -37,21 +37,11 @@
               forControlEvents: UIControlEventTouchUpInside];
 
         // Control Bar
-        NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"VideoPlayerControlBar"
-                                                          owner:self
-                                                        options:nil];
-
-        //_controlBar = [[VideoPlayerControlBar alloc] init];
-        _controlBar = [ nibViews objectAtIndex: 0];
+        _controlBar = [VideoPlayerControlBar controlBarFromNib];
         _controlBar.delegate = self;
         
         // Title Bar
-        nibViews = [[NSBundle mainBundle] loadNibNamed:@"VideoPlayerTitleBar"
-                                                          owner:self
-                                                        options:nil];
-
         self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
-        //self.titleBar = [[VideoPlayerTitleBar alloc] init];
 
         // Movie Player
         _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];

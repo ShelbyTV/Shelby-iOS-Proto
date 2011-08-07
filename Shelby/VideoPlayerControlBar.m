@@ -13,7 +13,7 @@
 
 @synthesize delegate;
 
-//static NSString *NIB_NAME = @"VideoPlayerControlBar";
+static NSString *NIB_NAME = @"VideoPlayerControlBar";
 
 //- (void)loadViewFromNib {
 //    // load everything in the XIB we created
@@ -25,7 +25,6 @@
 //    //[self addSubview:[objects objectAtIndex:0]];
 //    //self.view = [objects objectAtIndex:0];
 //
-//    _progressBar.delegate = self;
 //}
 //
 //- (id)initWithFrame:(CGRect)frame
@@ -37,12 +36,18 @@
 //    return self;
 //}
 
++ (VideoPlayerControlBar *)controlBarFromNib {
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:NIB_NAME owner:self options:nil];
+
+    return [objects objectAtIndex:0];
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     // initialise ourselves normally
     self = [super initWithCoder:aDecoder];
     if(self) {
-
+        _progressBar.delegate = self;
     }
     return self;
 }

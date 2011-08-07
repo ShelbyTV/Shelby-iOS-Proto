@@ -33,4 +33,6 @@
 @property (readwrite) float progress;
 @property (readwrite) float duration;
 
++ (VideoPlayerControlBar *)controlBarFromNib;
+
 @end
