@@ -11,6 +11,7 @@
 @interface NavigationViewController_iPad : NavigationViewController
 {
 
+  IBOutlet UIView *_trimView;
   BOOL _trayClosed;
 }
 

@@ -14,6 +14,8 @@
 #import "NavigationViewController_iPad.h"
 
 @implementation NavigationViewController_iPad
+    
+static const float OFFSET = 100.0f;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -22,19 +24,36 @@
 }
 
 - (CGRect)toggleFrame:(CGRect)frame right:(BOOL)right {
-    const float OFFSET = 100.0f;
-
     CGRect newFrame = frame;
     float offset = right ? -OFFSET : OFFSET;
     newFrame.origin.x += offset;
     return newFrame;
 }
 
+- (void)slideView:(UIView *)view right:(BOOL)right {
+    view.frame = [self toggleFrame: view.frame right:right];
+}
+
+- (void)slideTray:(BOOL)right {
+    // Slide the right tray.
+    [self slideView: _trimView right: right];
+    [self slideView: header right: right];
+    [self slideView: videoTableHolder right: right];
+
+    // Animate the video player to grow to fill the remaining space.
+    // NOTE: This appears to not be working. May have to use the VideoPlayer 
+    // object and not the holder.
+    float offset = right ? -OFFSET : OFFSET;
+    CGRect tempFrame = videoHolder.frame;
+    tempFrame.size.width += offset;
+    videoHolder.frame = tempFrame;
+}
+
 - (IBAction)shelbyIconWasPressed:(id)sender {
     // Slide the tray in and out.
 
     [UIView animateWithDuration:0.25 animations:^{
-        header.frame = [self toggleFrame: header.frame right: _trayClosed];
+        [self slideTray: _trayClosed];
     }
     completion:^(BOOL finished){
         // NOP
