@@ -22,7 +22,8 @@
 @interface VideoPlayerProgressBar : UIView {
   // For now, let's just use the factory appearance.
   UISlider *_slider;
-  // This lets us know that
+  UILabel *_label;
+  // This lets us know that somebody is manipulating the slider by hand.
   BOOL _adjustingSlider;
 }
 
