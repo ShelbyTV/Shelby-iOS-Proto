@@ -178,13 +178,11 @@ static NSString *fakeAPIData[] = {
             NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
             
             // useful for debugging YouTube page changes
-            // LOG(@"\nmovieURLString = %@\n", movieURLString);
+            // LOG(@"movieURLString = %@", movieURLString);
 
             videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
         }
     }
-    
-    return contentURL;
     
     return contentURL;
 }
