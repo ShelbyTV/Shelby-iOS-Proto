@@ -16,7 +16,7 @@
 @synthesize delegate;
 @synthesize titleBar;
 
-#pragma mark - Initialization
+#pragma mark - Notification Handling
 
 - (void)addNotificationListeners {
     // Listen for duration updates.
@@ -39,52 +39,68 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
 }
 
+#pragma mark - Initialization
+
+- (void)initViews {
+    // Buttons
+    _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
+    [_nextButton setImage: [UIImage imageNamed: @"ButtonNext.png"]
+                 forState: UIControlStateNormal];
+    [_nextButton addTarget: self
+                    action: @selector(nextButtonWasPressed:)
+          forControlEvents: UIControlEventTouchUpInside];
+
+    _prevButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
+    [_prevButton setImage: [UIImage imageNamed: @"ButtonPrevious.png"]
+                 forState: UIControlStateNormal];
+    [_prevButton addTarget: self
+                    action: @selector(prevButtonWasPressed:)
+          forControlEvents: UIControlEventTouchUpInside];
+
+    // Control Bar
+    _controlBar = [VideoPlayerControlBar controlBarFromNib];
+    _controlBar.delegate = self;
+
+    // Title Bar
+    self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
+
+    // Movie Player
+    _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
+    // Uniform scale until one dimension fits
+    _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
+    // Hide controls so we can render custom ones.
+    _moviePlayer.controlStyle = MPMovieControlStyleNone;
+
+    // Add views.
+    [self addSubview: _moviePlayer.view];
+
+    [self addSubview: self.titleBar];
+    [self addSubview: _nextButton];
+    [self addSubview: _prevButton];
+    [self addSubview: _controlBar];
+
+    // Timer to update the progressBar after each second.
+    // TODO: Shut this down when we're not playing a video.
+    [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
+
+    [self addNotificationListeners];
+
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    // initialise ourselves normally
+    self = [super initWithCoder:aDecoder];
+    if(self) {
+        [self initViews];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Buttons
-        _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
-        [_nextButton setImage: [UIImage imageNamed: @"ButtonNext.png"]
-                     forState: UIControlStateNormal];
-        [_nextButton addTarget: self
-                        action: @selector(nextButtonWasPressed:)
-              forControlEvents: UIControlEventTouchUpInside];
-
-        _prevButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
-        [_prevButton setImage: [UIImage imageNamed: @"ButtonPrevious.png"]
-                     forState: UIControlStateNormal];
-        [_prevButton addTarget: self
-                        action: @selector(prevButtonWasPressed:)
-              forControlEvents: UIControlEventTouchUpInside];
-
-        // Control Bar
-        _controlBar = [VideoPlayerControlBar controlBarFromNib];
-        _controlBar.delegate = self;
-
-        // Title Bar
-        self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
-
-        // Movie Player
-        _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
-        // Uniform scale until one dimension fits
-        _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-        // Hide controls so we can render custom ones.
-        _moviePlayer.controlStyle = MPMovieControlStyleNone;
-
-
-        // Add views.
-        [self addSubview: _moviePlayer.view];
-
-        [self addSubview: self.titleBar];
-        [self addSubview: _nextButton];
-        [self addSubview: _prevButton];
-        [self addSubview: _controlBar];
-
-        // Timer to update the progressBar after each second.
-        // TODO: Shut this down when we're not playing a video.
-        [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
-
-        [self addNotificationListeners];
+        [self initViews];
     }
     return self;
 }
