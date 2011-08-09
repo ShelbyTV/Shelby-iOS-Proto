@@ -236,19 +236,23 @@
 - (void)layoutSubviews {
     //CGRect frame = self.frame;
     //CGRect frame = self.superview.bounds;
+    //self.frame = frame;
     CGRect frame = self.bounds;
-    self.frame = frame;
-    LOG(@"[VideoPlayer layoutSubviews]: %@", frame);
     LogRect(@"VideoPlayer", frame);
     CGFloat width = frame.size.width;
     CGFloat height = frame.size.height;
 
-    const float buttonWidth = 81.0f;
-    const float buttonHeight = 81.0f;
+    const float topBarHeight = 41.0f;
+
+    const CGSize nextPrevSize = CGSizeMake(81, 81);
+
+    const float buttonSize   = 62.0f;
+    const float buttonWidth  = buttonSize;
+    const float buttonHeight = buttonSize;
 
     self.backgroundColor = [UIColor redColor];
 
-    _moviePlayer.view.frame = self.frame;
+    _moviePlayer.view.frame = self.bounds;
 
     // Place titleBar at the top center.
     float titleBarX = 20.0f;
@@ -257,12 +261,21 @@
             titleBarX,
             0,
             titleBarWidth - (2 * titleBarX),
-            buttonHeight
+            topBarHeight
             );
 
     // Place next/prev buttons at the sides.
-    _prevButton.frame = CGRectMake(0, height / 2, buttonWidth, buttonHeight);
-    _nextButton.frame = CGRectMake(width - buttonWidth, height / 2, buttonWidth, buttonHeight);
+    _prevButton.frame = CGRectMake(
+            0,
+            height / 2,
+            nextPrevSize.width,
+            nextPrevSize.height
+            );
+    _nextButton.frame = CGRectMake(
+            width - nextPrevSize.width,
+            height / 2,
+            nextPrevSize.width,
+            nextPrevSize.height);
 
     // Place controlBar at the bottom center.
     float controlBarX = 20.0f;
