@@ -39,23 +39,17 @@
         // Control Bar
         _controlBar = [VideoPlayerControlBar controlBarFromNib];
         _controlBar.delegate = self;
-        
+
         // Title Bar
         self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
 
         // Movie Player
         _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
         // Uniform scale until one dimension fits
-        _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;  
+        _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
         // Hide controls so we can render custom ones.
-        _moviePlayer.controlStyle = MPMovieControlStyleNone; 
+        _moviePlayer.controlStyle = MPMovieControlStyleNone;
 
-        // Listen for duration updates.
-        [[NSNotificationCenter defaultCenter]
-            addObserver:self
-               selector:@selector(movieDurationAvailable:)
-                   name:MPMovieDurationAvailableNotification
-                 object:nil];
 
         // Add views.
         [self addSubview: _moviePlayer.view];
@@ -68,19 +62,47 @@
         // Timer to update the progressBar after each second.
         // TODO: Shut this down when we're not playing a video.
         [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
-    
+
+
+        [self addNotificationListeners];
     }
     return self;
+}
+
+- (void)addNotificationListeners {
+    // Listen for duration updates.
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(movieDurationAvailable:)
+               name:MPMovieDurationAvailableNotification
+             object:nil];
+
+    // Listen for the end of the video.
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(movieDidFinish:)
+               name:MPMoviePlayerPlaybackDidFinishNotification
+             object:nil];
+}
+
+- (void)removeNotificationListeners {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
 }
 
 #pragma mark - Public Methods
 
 - (void)playContentURL:(NSURL *)url {
+    // Set internal lock so our notification doesn't go haywire.
+    _changingVideo = YES;
+
     // Reset our duration.
     _duration = 0.0f;
     // Load the video and play it.
     _moviePlayer.contentURL = url;
     [_moviePlayer play];
+
+    _changingVideo = NO;
 }
 
 - (void)play {
@@ -105,6 +127,15 @@
 - (void) movieDurationAvailable:(NSNotification*)notification {
     _duration = [_moviePlayer duration];
     _controlBar.duration = _duration;
+}
+
+- (void) movieDidFinish:(NSNotification*)notification {
+    // As long as the user didn't stop the movie intentionally, inform our delegate.
+    if ( _changingVideo == YES) return;
+
+    if (self.delegate) {
+        [self.delegate videoPlayerVideoDidFinish: self];
+    }
 }
 
 #pragma mark - KVO
@@ -229,6 +260,9 @@
 #pragma mark - Cleanup
 
 - (void)dealloc {
+
+    [self removeNotificationListeners];
+
     [_nextButton release];
     [_prevButton release];
 

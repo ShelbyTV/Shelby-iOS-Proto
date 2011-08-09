@@ -88,6 +88,15 @@
     [_videoPlayer playContentURL: url];
 }
 
+- (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
+    LOG(@"[NavigationViewController videoPlayerVideoDidFinish]");
+
+    // Fetch the video next in queue.
+    NSURL *url = [videoTable getNextVideo];
+    // Tell player to start playing new video.
+    [_videoPlayer playContentURL: url];
+}
+
 #pragma mark - View lifecycle
 
 /*

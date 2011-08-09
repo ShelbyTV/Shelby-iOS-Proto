@@ -20,19 +20,21 @@
 
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer;
+- (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;
 
 @end
 
 @interface VideoPlayer : UIView <VideoPlayerControlBarDelegate> {
-    // State
+    // Current video's duration.
     float _duration;
+    // Is the user currently changing the video?
+    BOOL _changingVideo;
 
     // UI
     UIButton *_nextButton;
     UIButton *_prevButton;
 
     VideoPlayerControlBar *_controlBar;
-
     MPMoviePlayerController *_moviePlayer;
 }
 
