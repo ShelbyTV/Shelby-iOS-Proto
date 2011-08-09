@@ -130,7 +130,11 @@
 
 - (void) movieDidFinish:(NSNotification*)notification {
     // As long as the user didn't stop the movie intentionally, inform our delegate.
-    if ( _changingVideo == YES) return;
+    if (_changingVideo == YES) return;
+
+    if (_moviePlayer.playbackState == MPMoviePlaybackStatePaused) {
+        return;
+    }
 
     if (self.delegate) {
         [self.delegate videoPlayerVideoDidFinish: self];

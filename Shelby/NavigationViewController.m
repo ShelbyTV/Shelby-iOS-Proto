@@ -70,8 +70,8 @@
 
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
-    // Tell player to stop playing.
-    [_videoPlayer stop];
+    // Tell player to pause playing.
+    [_videoPlayer pause];
     // Fetch the video next in queue.
     NSURL *url = [videoTable getNextVideo];
     // Tell player to start playing new video.
@@ -80,8 +80,8 @@
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
-    // Tell player to stop playing.
-    [_videoPlayer stop];
+    // Tell player to pause playing.
+    [_videoPlayer pause];
     // Fetch the video next in queue.
     NSURL *url = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
