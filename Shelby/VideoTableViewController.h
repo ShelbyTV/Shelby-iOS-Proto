@@ -26,5 +26,7 @@
    callbackSelector:(SEL)selector;
 
 - (void)loadVideos;
+- (NSURL *)getNextVideo;
+- (NSURL *)getPreviousVideo;
 
 @end

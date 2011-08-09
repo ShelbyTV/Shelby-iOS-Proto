@@ -18,6 +18,27 @@
 
 #pragma mark - Initialization
 
+- (void)addNotificationListeners {
+    // Listen for duration updates.
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(movieDurationAvailable:)
+               name:MPMovieDurationAvailableNotification
+             object:nil];
+
+    // Listen for the end of the video.
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(movieDidFinish:)
+               name:MPMoviePlayerPlaybackDidFinishNotification
+             object:nil];
+}
+
+- (void)removeNotificationListeners {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -63,31 +84,9 @@
         // TODO: Shut this down when we're not playing a video.
         [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
 
-
         [self addNotificationListeners];
     }
     return self;
-}
-
-- (void)addNotificationListeners {
-    // Listen for duration updates.
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(movieDurationAvailable:)
-               name:MPMovieDurationAvailableNotification
-             object:nil];
-
-    // Listen for the end of the video.
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(movieDidFinish:)
-               name:MPMoviePlayerPlaybackDidFinishNotification
-             object:nil];
-}
-
-- (void)removeNotificationListeners {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
 }
 
 #pragma mark - Public Methods
