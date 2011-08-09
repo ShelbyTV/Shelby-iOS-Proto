@@ -91,6 +91,10 @@
     [_moviePlayer pause];
 }
 
+- (void)stop {
+    [_moviePlayer stop];
+}
+
 - (void)toggleFullscreen {
     [_moviePlayer setFullscreen: !_moviePlayer.isFullscreen
                        animated: YES];
