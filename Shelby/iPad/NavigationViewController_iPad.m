@@ -44,9 +44,9 @@ static const float OFFSET = 100.0f;
     // NOTE: This appears to not be working. May have to use the VideoPlayer 
     // object and not the holder.
     float offset = right ? -OFFSET : OFFSET;
-    CGRect tempFrame = videoHolder.frame;
+    CGRect tempFrame = _videoPlayer.frame;
     tempFrame.size.width += offset;
-    videoHolder.frame = tempFrame;
+    _videoPlayer.frame = tempFrame;
 }
 
 - (IBAction)shelbyIconWasPressed:(id)sender {

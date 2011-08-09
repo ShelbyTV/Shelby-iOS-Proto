@@ -51,7 +51,7 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
     // initialise ourselves normally
     self = [super initWithCoder:aDecoder];
     if(self) {
-        // This is a dirty hack, because for some reason, the NIB variables aren't bound at runtime, so the following code doesn't work alone:
+        // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _progressBar.delegate = self;
         // So instead, we pull the view out via its tag.
         _progressBar = (VideoPlayerProgressBar *) [self viewWithTag: 1];

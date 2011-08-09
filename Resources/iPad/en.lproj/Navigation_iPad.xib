@@ -45,7 +45,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIView" id="270257445">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">-2147483356</int>
+						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{694, 748}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -54,6 +54,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
+						<int key="IBUITag">1</int>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIView" id="129868568">
@@ -278,14 +279,6 @@
 					<int key="connectionID">20</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">videoHolder</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="270257445"/>
-					</object>
-					<int key="connectionID">22</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">shelbyIconWasPressed:</string>
 						<reference key="source" ref="256397958"/>
@@ -301,6 +294,14 @@
 						<reference key="destination" ref="388677444"/>
 					</object>
 					<int key="connectionID">29</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_videoPlayer</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="270257445"/>
+					</object>
+					<int key="connectionID">30</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -366,7 +367,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 						</object>
 						<reference key="parent" ref="191373211"/>
-						<string key="objectName">Video Holder</string>
+						<string key="objectName">Video Player</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">19</int>
@@ -411,6 +412,7 @@
 					<string>13.IBPluginDependency</string>
 					<string>16.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
+					<string>21.CustomClassName</string>
 					<string>21.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
@@ -428,6 +430,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>VideoPlayer</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -448,7 +451,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">29</int>
+			<int key="maxID">30</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -460,12 +463,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_videoPlayer</string>
 							<string>header</string>
 							<string>videoHolder</string>
 							<string>videoTableHolder</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>VideoPlayer</string>
 							<string>UIView</string>
 							<string>UIView</string>
 							<string>UIView</string>
@@ -475,12 +480,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_videoPlayer</string>
 							<string>header</string>
 							<string>videoHolder</string>
 							<string>videoTableHolder</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_videoPlayer</string>
+								<string key="candidateClassName">VideoPlayer</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">header</string>
 								<string key="candidateClassName">UIView</string>
@@ -528,6 +538,33 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/NavigationViewController_iPad.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VideoPlayer</string>
+					<string key="superclassName">UIView</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">titleBar</string>
+						<string key="NS.object.0">VideoPlayerTitleBar</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">titleBar</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">titleBar</string>
+							<string key="candidateClassName">VideoPlayerTitleBar</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VideoPlayer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VideoPlayerTitleBar</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VideoPlayerTitleBar.h</string>
 					</object>
 				</object>
 			</object>

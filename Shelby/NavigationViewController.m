@@ -20,7 +20,10 @@
         // Custom initialization
         videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
                                                       callbackObject:self callbackSelector:@selector(playContentURL:)];
-        _videoPlayer = [[VideoPlayer alloc] init];
+        // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
+        // _videoPlayer.delegate = self;
+        // So instead, we pull the view out via its tag.
+        _videoPlayer = (VideoPlayer *) [self.view viewWithTag: 1];
         _videoPlayer.delegate = self;
     }
     return self;
@@ -126,11 +129,6 @@
     [videoTable.tableView setBackgroundColor:[UIColor lightGrayColor]];
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [videoTableHolder addSubview:[videoTable tableView]];
-    
-    //VideoPlayer.
-    [videoHolder addSubview: _videoPlayer];
-    _videoPlayer.frame = videoHolder.bounds;
-    [videoHolder setHidden:NO];
 }
 
 - (void)viewDidUnload
