@@ -48,6 +48,12 @@
         _currentVideoIndex = 0;
     }
 
+    // Scroll to the next table cell.
+    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
+                          atScrollPosition: UITableViewScrollPositionMiddle
+                                  animated: YES];
+
+    // Return the next video.
     return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
 }
 
@@ -58,9 +64,14 @@
         _currentVideoIndex = [videoTableData numItems] - 1;
     }
 
+    // Scroll to the previous table cell.
+    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
+                          atScrollPosition: UITableViewScrollPositionMiddle
+                                  animated: YES];
+
+    // Return the previous video.
     return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
 }
-
 
 // DEBUG Only
 - (NSURL *)movieURL
