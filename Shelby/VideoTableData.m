@@ -81,6 +81,8 @@ static NSString *fakeAPIData[] = {
     }
 }
 
+#pragma mark - Index Methods
+
 - (NSString *)videoTitleAtIndex:(NSUInteger)index
 {
     @synchronized(videoDataArray)
@@ -286,6 +288,8 @@ static NSString *fakeAPIData[] = {
         [operationQueue addOperation:operation];
     }
 }
+
+#pragma mark - Initialization
 
 - (id)initWithUITableView:(UITableView *)linkedTableView
 {

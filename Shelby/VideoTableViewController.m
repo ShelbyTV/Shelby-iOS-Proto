@@ -35,8 +35,45 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - Next/Previous Videos
+
+- (NSURL *)getNextVideo {
+    _currentVideoIndex++;
+    if (_currentVideoIndex >= [videoTableData numItems]) {
+        // Set to first index.
+        _currentVideoIndex = 0;
+    }
+
+    return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
+}
+
+- (NSURL *)getPreviousVideo {
+    _currentVideoIndex--;
+    if (_currentVideoIndex < 0) {
+        // Set to last index.
+        _currentVideoIndex = [videoTableData numItems] - 1;
+    }
+
+    return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
+}
+
+
+// DEBUG Only
+- (NSURL *)movieURL
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *moviePath = [bundle
+        pathForResource:@"SampleMovie"
+                 ofType:@"mov"];
+    if (moviePath) {
+        return [NSURL fileURLWithPath:moviePath];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - View lifecycle
@@ -47,7 +84,7 @@
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -162,10 +199,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 */
 
@@ -185,21 +222,8 @@
 }
 */
 
-#pragma mark - Table view delegate
 
-// DEBUG Only
-- (NSURL *)movieURL
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *moviePath = [bundle 
-        pathForResource:@"SampleMovie" 
-                 ofType:@"mov"];
-    if (moviePath) {
-        return [NSURL fileURLWithPath:moviePath];
-    } else {
-        return nil;
-    }
-}
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -220,6 +244,8 @@
 #else
     NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
 #endif
+
+    _currentVideoIndex = row;
 
     [callbackObject performSelector:callbackSelector withObject:contentURL];
 }

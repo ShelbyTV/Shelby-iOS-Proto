@@ -16,6 +16,7 @@
     id callbackObject;
     SEL callbackSelector;
     UITableViewCell *videoCell;
+    NSInteger _currentVideoIndex;
 }
 
 @property (nonatomic, assign) IBOutlet UITableViewCell *videoCell;
