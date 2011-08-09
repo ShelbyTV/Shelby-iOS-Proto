@@ -15,6 +15,7 @@
 @protocol VideoPlayerControlBarDelegate 
 
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar;
+- (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time;
 
 @end
