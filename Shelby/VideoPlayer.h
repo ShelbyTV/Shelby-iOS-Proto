@@ -18,6 +18,7 @@
 
 @protocol VideoPlayerDelegate 
 
+- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;

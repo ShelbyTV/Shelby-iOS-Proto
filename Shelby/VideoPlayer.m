@@ -240,21 +240,14 @@
 */
 
 - (void)layoutSubviews {
-    //CGRect frame = self.frame;
-    //CGRect frame = self.superview.bounds;
-    //self.frame = frame;
     CGRect frame = self.bounds;
     LogRect(@"VideoPlayer", frame);
-    CGFloat width = frame.size.width;
-    CGFloat height = frame.size.height;
+    const CGFloat width = frame.size.width;
+    const CGFloat height = frame.size.height;
 
-    const float topBarHeight = 41.0f;
-
+    const float titleBarHeight = 41.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
-
-    const float buttonSize   = 62.0f;
-    const float buttonWidth  = buttonSize;
-    const float buttonHeight = buttonSize;
+    const CGSize buttonSize = CGSizeMake(62, 62);
 
     self.backgroundColor = [UIColor redColor];
 
@@ -267,7 +260,7 @@
             titleBarX,
             0,
             titleBarWidth - (2 * titleBarX),
-            topBarHeight
+            titleBarHeight
             );
 
     // Place next/prev buttons at the sides.
@@ -288,9 +281,9 @@
     float controlBarWidth = width;
     _controlBar.frame = CGRectMake(
             controlBarX,
-            height - buttonHeight,
+            height - buttonSize.width,
             controlBarWidth - (2 * controlBarX),
-            buttonHeight
+            buttonSize.height
             );
     [_controlBar setNeedsLayout];
 }
