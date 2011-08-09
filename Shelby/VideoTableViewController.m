@@ -215,10 +215,10 @@
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
 
-#ifdef ONLINE_MODE
-    NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
-#else
+#ifdef OFFLINE_MODE
     NSURL *contentURL = [self movieURL];
+#else
+    NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
 #endif
 
     [callbackObject performSelector:callbackSelector withObject:contentURL];

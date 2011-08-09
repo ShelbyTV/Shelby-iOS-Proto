@@ -836,6 +836,62 @@
 			};
 			name = Release;
 		};
+		4291E0D113F1BFA300AA3AA5 /* Offline */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = OFFLINE_MODE;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Offline;
+		};
+		4291E0D213F1BFA300AA3AA5 /* Offline */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Offline;
+		};
+		4291E0D313F1BFA300AA3AA5 /* Offline */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Shelby.app/Shelby";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Offline;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -843,6 +899,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AD9A39013D53BD300EFECE0 /* Debug */,
+				4291E0D113F1BFA300AA3AA5 /* Offline */,
 				0AD9A39113D53BD300EFECE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -852,6 +909,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AD9A39313D53BD300EFECE0 /* Debug */,
+				4291E0D213F1BFA300AA3AA5 /* Offline */,
 				0AD9A39413D53BD300EFECE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -861,6 +919,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AD9A39613D53BD300EFECE0 /* Debug */,
+				4291E0D313F1BFA300AA3AA5 /* Offline */,
 				0AD9A39713D53BD300EFECE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
