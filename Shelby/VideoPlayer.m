@@ -267,13 +267,13 @@
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(
             0,
-            height / 2,
+            height / 2 - (nextPrevSize.height / 2),
             nextPrevSize.width,
             nextPrevSize.height
             );
     _nextButton.frame = CGRectMake(
             width - nextPrevSize.width,
-            height / 2,
+            height / 2 - (nextPrevSize.height / 2),
             nextPrevSize.width,
             nextPrevSize.height);
 
