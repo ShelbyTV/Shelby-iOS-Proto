@@ -113,11 +113,10 @@
         cell = videoCell;
         self.videoCell = nil;
     }
-    
+
     // Configure the cell...
-    NSUInteger whichCell[2];
-    [indexPath getIndexes:whichCell];
-    
+    NSUInteger row = indexPath.row;
+
     /*
      * This method of loading UITableViewCells from NIB/XIB files and setting the properties
      * via view tags is recommended by Apple here:
@@ -127,23 +126,23 @@
      * See the "Loading Custom Table-View Cells From Nib Files" section and sub-section
      * "The Technique for Dynamic Row Content"
      */
-    
+
     // tag 1 is source tag icon (triangular upper left image) -- not setting this yet
-   
+
     UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
-    videoThumbnail.image = [videoTableData videoThumbnailAtIndex:whichCell[1]];
-    
+    videoThumbnail.image = [videoTableData videoThumbnailAtIndex:row];
+
     UILabel *sharerComment = (UILabel *)[cell viewWithTag:3];
-    sharerComment.text = [videoTableData videoSharerCommentAtIndex:whichCell[1]];
-    
+    sharerComment.text = [videoTableData videoSharerCommentAtIndex:row];
+
     UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
-    sharerImage.image = [videoTableData videoSharerImageAtIndex:whichCell[1]];;
-    
+    sharerImage.image = [videoTableData videoSharerImageAtIndex:row];;
+
     UILabel *sharer = (UILabel *)[cell viewWithTag:5];
-    sharer.text = [videoTableData videoSharerAtIndex:whichCell[1]];
+    sharer.text = [videoTableData videoSharerAtIndex:row];
 
     // tag 6 is time in minutes/hours ago -- not setting this yet
-    
+
     return cell;
 }
 
@@ -214,11 +213,10 @@
     */
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
-    NSUInteger whichCell[2];
-    [indexPath getIndexes:whichCell];
+    NSUInteger row = indexPath.row;
 
 #ifdef ONLINE_MODE
-    NSURL *contentURL = [videoTableData videoContentURLAtIndex:whichCell[1]];
+    NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
 #else
     NSURL *contentURL = [self movieURL];
 #endif
