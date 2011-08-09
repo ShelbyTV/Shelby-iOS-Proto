@@ -16,6 +16,7 @@
 
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar;
+- (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time;
 
 @end
@@ -40,5 +41,6 @@
 
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
+- (IBAction)fullscreenButtonWasPressed:(id)sender;
 
 @end

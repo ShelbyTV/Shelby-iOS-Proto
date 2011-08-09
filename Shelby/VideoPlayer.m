@@ -208,6 +208,12 @@
     [popupQuery release];
 }
 
+- (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    if (self.delegate) {
+        [self.delegate videoPlayerFullscreenButtonWasPressed: self];
+    }
+}
+
 #pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {

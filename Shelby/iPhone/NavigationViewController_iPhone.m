@@ -21,4 +21,27 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)playContentURL:(NSURL *)url
+{
+    LOG(@"playContentURL: %@", url);
+    if (url == nil) {
+        return;
+    }
+
+    // Make videoPlayer visible.
+    _videoPlayer.hidden = NO;
+
+    [_videoPlayer playContentURL: url];
+}
+
+- (void)hideVideoPlayer {
+    _videoPlayer.hidden = YES;
+    [_videoPlayer pause];
+}
+
+- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
+    LOG(@"[NavigationViewController videoPlayerFullscreenButtonWasPressed]");
+    [self hideVideoPlayer];
+}
+
 @end

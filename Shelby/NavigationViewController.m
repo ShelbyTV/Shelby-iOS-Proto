@@ -71,6 +71,11 @@
 
 }
 
+- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
+    LOG(@"[NavigationViewController videoPlayerFullscreenButtonWasPressed]");
+
+}
+
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
     // Tell player to pause playing.

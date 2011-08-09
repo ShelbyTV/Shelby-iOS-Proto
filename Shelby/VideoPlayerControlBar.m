@@ -106,6 +106,12 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
     }
 }
 
+- (IBAction)fullscreenButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate controlBarFullscreenButtonWasPressed: self];
+    }
+}
+
 #pragma mark - Layout
 
 /*
