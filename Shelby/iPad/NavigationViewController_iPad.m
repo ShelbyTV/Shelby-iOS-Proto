@@ -61,4 +61,20 @@ static const float OFFSET = 100.0f;
     _trayClosed = !_trayClosed;
 }
 
+- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
+    LOG(@"[NavigationViewController_iPad videoPlayerFullscreenButtonWasPressed]");
+
+    if (_fullscreen) {
+        // Exit fullscreen.
+        _videoPlayer.frame = _videoPlayerOriginal;
+        [self.view sendSubviewToBack: _videoPlayer];
+    } else {
+        // Enter fullscreen.
+        _videoPlayerOriginal = _videoPlayer.frame;
+        _videoPlayer.frame = self.view.bounds;
+        [self.view bringSubviewToFront: _videoPlayer];
+    }
+  _fullscreen = !_fullscreen;
+}
+
 @end
