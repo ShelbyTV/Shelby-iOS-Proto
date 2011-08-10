@@ -73,20 +73,6 @@
     return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
 }
 
-// DEBUG Only
-- (NSURL *)movieURL
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *moviePath = [bundle
-        pathForResource:@"SampleMovie"
-                 ofType:@"mov"];
-    if (moviePath) {
-        return [NSURL fileURLWithPath:moviePath];
-    } else {
-        return nil;
-    }
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -250,11 +236,7 @@
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
 
-#ifdef OFFLINE_MODE
-    NSURL *contentURL = [self movieURL];
-#else
     NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
-#endif
 
     _currentVideoIndex = row;
 

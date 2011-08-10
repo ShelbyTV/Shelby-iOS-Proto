@@ -123,8 +123,27 @@ static NSString *fakeAPIData[] = {
     }
 }
 
+#ifdef OFFLINE_MODE
+// DEBUG Only
+- (NSURL *)movieURL
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *moviePath = [bundle
+        pathForResource:@"SampleMovie"
+                 ofType:@"mov"];
+    if (moviePath) {
+        return [NSURL fileURLWithPath:moviePath];
+    } else {
+        return nil;
+    }
+}
+#endif
+
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
+#ifdef OFFLINE_MODE
+    return [self movieURL];
+#else
     VideoData *videoData = nil;
     NSURL *contentURL = nil;
     
@@ -187,6 +206,7 @@ static NSString *fakeAPIData[] = {
     }
     
     return contentURL;
+#endif
 }
 
 - (void)retrieveAndStoreYouTubeVideoData:(id)youTubeVideo
