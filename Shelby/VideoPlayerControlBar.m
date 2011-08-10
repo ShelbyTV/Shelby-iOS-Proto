@@ -106,6 +106,12 @@ static NSString *NIB_NAME = @"VideoPlayerControlBar";
     }
 }
 
+- (IBAction)favoriteButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate controlBarFavoriteButtonWasPressed: self];
+    }
+}
+
 - (IBAction)fullscreenButtonWasPressed:(id)sender {
     if (self.delegate) {
         [self.delegate controlBarFullscreenButtonWasPressed: self];

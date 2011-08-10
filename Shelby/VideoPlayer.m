@@ -208,6 +208,15 @@
     [popupQuery release];
 }
 
+- (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+	// open an alert with just an OK button
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Favorited" message:@"Your friends will see you like this video!"
+							delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+	[alert show];
+	[alert release];
+
+}
+
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
