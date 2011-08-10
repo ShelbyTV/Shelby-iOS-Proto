@@ -15,7 +15,9 @@
 
 @implementation NavigationViewController_iPad
     
-static const float OFFSET = 100.0f;
+// This is the size of the right side panel.
+static const float OFFSET = 330.0f;
+static const float ANIMATION_TIME = 0.5f;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -52,7 +54,7 @@ static const float OFFSET = 100.0f;
 - (IBAction)shelbyIconWasPressed:(id)sender {
     // Slide the tray in and out.
 
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:ANIMATION_TIME animations:^{
         [self slideTray: _trayClosed];
     }
     completion:^(BOOL finished){
