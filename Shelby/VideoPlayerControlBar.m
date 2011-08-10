@@ -15,27 +15,6 @@
 
 static NSString *NIB_NAME = @"VideoPlayerControlBar";
 
-//- (void)loadViewFromNib {
-//    // load everything in the XIB we created
-//    NSArray *objects = [[NSBundle mainBundle] 
-//        loadNibNamed:NIB_NAME owner:self options:nil];
-//
-//    // actually, we know there's only one thing in it, which is the
-//    // view we want to appear within this one
-//    //[self addSubview:[objects objectAtIndex:0]];
-//    //self.view = [objects objectAtIndex:0];
-//
-//}
-//
-//- (id)initWithFrame:(CGRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        [self loadViewFromNib];
-//    }
-//    return self;
-//}
-
 #pragma mark - Factory
 
 + (VideoPlayerControlBar *)controlBarFromNib {
