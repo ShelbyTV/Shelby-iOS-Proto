@@ -200,6 +200,9 @@
     }
 }
 
+/*
+ * Currently just a mockup.
+ */
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
     // Show an action sheet for now.
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
@@ -208,6 +211,9 @@
     [popupQuery release];
 }
 
+/*
+ * Currently just a mockup.
+ */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
 	// open an alert with just an OK button
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Favorited" message:@"Your friends will see you like this video!"
