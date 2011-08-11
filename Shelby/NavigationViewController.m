@@ -11,6 +11,8 @@
 #import "VideoPlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
 
+@class Video;
+
 @implementation NavigationViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -19,7 +21,8 @@
     if (self) {
         // Custom initialization
         videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
-                                                      callbackObject:self callbackSelector:@selector(playContentURL:)];
+                                                      //callbackObject:self callbackSelector:@selector(playContentURL:)];
+                                                      callbackObject:self callbackSelector:@selector(playVideo:)];
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
         // So instead, we pull the view out via its tag.
@@ -29,34 +32,12 @@
     return self;
 }
 
-- (void)playContentURL:(NSURL *)url
-{
-    LOG(@"playContentURL: %@", url);
-    if (url == nil) {
+- (void)playVideo:(Video *)video {
+    LOG(@"playContentURL: %@", video);
+    if (video == nil) {
         return;
     }
-
-    [_videoPlayer playContentURL: url];
-    
-    /*
-     * This is pretty ghetto, but it's a quick way to display a video. Eventually this should load the contentURL into
-     * the custom Shelby movie view, etc. Not sure if moviePlayer will get properly cleaned up when user hits "Done" -- 
-     * definitely bad that it randomly disappears on user hitting minimize.
-     *
-     * Plus, because of ways views are currently set up, MoviePlayer doesn't autorotate properly.
-     *
-     * And, finally, if the iPad/iPhone differences get more complicated (almost guaranteed), should definitely
-     * put this method implementation in the device-specific subclasses.
-     */
-
-    //MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    //[videoHolder addSubview:[moviePlayer view]];
-    //[videoHolder setHidden:NO];
-    //if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-    //    [moviePlayer setFullscreen:YES];
-    //} else {
-    //    moviePlayer.view.frame = videoHolder.bounds;
-    //}
+    [_videoPlayer playVideo: video];
 }
 
 - (void)loadUserData
@@ -81,9 +62,9 @@
     // Tell player to pause playing.
     [_videoPlayer pause];
     // Fetch the video next in queue.
-    NSURL *url = [videoTable getNextVideo];
+    Video *url = [videoTable getNextVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playContentURL: url];
+    [_videoPlayer playVideo: url];
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
@@ -91,18 +72,18 @@
     // Tell player to pause playing.
     [_videoPlayer pause];
     // Fetch the video next in queue.
-    NSURL *url = [videoTable getPreviousVideo];
+    Video *url = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playContentURL: url];
+    [_videoPlayer playVideo: url];
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerVideoDidFinish]");
 
     // Fetch the video next in queue.
-    NSURL *url = [videoTable getNextVideo];
+    Video *url = [videoTable getNextVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playContentURL: url];
+    [_videoPlayer playVideo: url];
 }
 
 #pragma mark - View lifecycle

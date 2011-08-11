@@ -21,17 +21,17 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)playContentURL:(NSURL *)url
+- (void)playVideo:(Video *)video
 {
-    LOG(@"playContentURL: %@", url);
-    if (url == nil) {
+    LOG(@"playVideo: %@", video);
+    if (video == nil) {
         return;
     }
 
     // Make videoPlayer visible.
     _videoPlayer.hidden = NO;
 
-    [_videoPlayer playContentURL: url];
+    [_videoPlayer playVideo: video];
 }
 
 - (void)hideVideoPlayer {

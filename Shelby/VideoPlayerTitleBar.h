@@ -10,9 +10,11 @@
 
 
 @interface VideoPlayerTitleBar : UIView {
-    
 }
 
 + (VideoPlayerTitleBar *)titleBarFromNib;
+
+@property(nonatomic, retain) IBOutlet UILabel *title;
+@property(nonatomic, retain) IBOutlet UIImageView *sharerPic;
 
 @end

@@ -20,7 +20,6 @@
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
 }
 
-- (void)playContentURL:(NSURL *)url;
 - (void)loadUserData;
 
 @end

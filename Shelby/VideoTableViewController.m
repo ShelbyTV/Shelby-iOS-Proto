@@ -8,6 +8,7 @@
 
 #import "VideoTableViewController.h"
 #import "VideoTableData.h"
+#import "Video.h"
 
 @implementation VideoTableViewController
 
@@ -41,7 +42,22 @@
 
 #pragma mark - Next/Previous Videos
 
-- (NSURL *)getNextVideo {
+- (Video *)videoAtTableDataIndex:(NSUInteger)index {
+    Video *video = [[[Video alloc] init] autorelease];
+
+    video.contentURL = [videoTableData videoContentURLAtIndex: index];
+
+    video.thumbnail = [videoTableData videoThumbnailAtIndex: index];
+    video.title = [videoTableData videoTitleAtIndex: index];
+
+    video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
+    video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
+    video.contentURL = [videoTableData videoContentURLAtIndex: index];
+
+    return video;
+}
+
+- (Video *)getNextVideo {
     _currentVideoIndex++;
     if (_currentVideoIndex >= [videoTableData numItems]) {
         // Set to first index.
@@ -54,10 +70,10 @@
                                   animated: YES];
 
     // Return the next video.
-    return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
+    return [self videoAtTableDataIndex: _currentVideoIndex];
 }
 
-- (NSURL *)getPreviousVideo {
+- (Video *)getPreviousVideo {
     _currentVideoIndex--;
     if (_currentVideoIndex < 0) {
         // Set to last index.
@@ -70,7 +86,7 @@
                                   animated: YES];
 
     // Return the previous video.
-    return [videoTableData videoContentURLAtIndex: _currentVideoIndex];
+    return [self videoAtTableDataIndex: _currentVideoIndex];
 }
 
 #pragma mark - View lifecycle
@@ -236,11 +252,15 @@
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
 
-    NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
+
+    Video *video = [self videoAtTableDataIndex: row];
+
+    //NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
 
     _currentVideoIndex = row;
 
-    [callbackObject performSelector:callbackSelector withObject:contentURL];
+    //[callbackObject performSelector:callbackSelector withObject:contentURL];
+    [callbackObject performSelector:callbackSelector withObject:video];
 }
 
 @end

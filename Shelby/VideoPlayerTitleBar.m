@@ -11,6 +11,9 @@
 
 @implementation VideoPlayerTitleBar
 
+@synthesize title;
+@synthesize sharerPic;
+
 static NSString *NIB_NAME = @"VideoPlayerTitleBar";
 
 + (VideoPlayerTitleBar *)titleBarFromNib {

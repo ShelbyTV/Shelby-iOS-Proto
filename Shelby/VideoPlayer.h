@@ -15,6 +15,7 @@
 @class VideoPlayerProgressBar;
 @class VideoPlayerTitleBar;
 @class VideoPlayerControlBar;
+@class Video;
 
 @protocol VideoPlayerDelegate 
 
@@ -45,6 +46,6 @@
 - (void)play;
 - (void)pause;
 - (void)stop;
-- (void)playContentURL:(NSURL *)url;
+- (void)playVideo:(Video *)video;
 
 @end

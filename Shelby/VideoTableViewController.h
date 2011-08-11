@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class VideoTableData;
+@class Video;
 
 @interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 {
@@ -26,7 +27,7 @@
    callbackSelector:(SEL)selector;
 
 - (void)loadVideos;
-- (NSURL *)getNextVideo;
-- (NSURL *)getPreviousVideo;
+- (Video *)getNextVideo;
+- (Video *)getPreviousVideo;
 
 @end

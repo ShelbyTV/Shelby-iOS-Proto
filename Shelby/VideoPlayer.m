@@ -10,6 +10,7 @@
 #import "VideoPlayerProgressBar.h"
 #import "VideoPlayerTitleBar.h"
 #import "VideoPlayerControlBar.h"
+#import "Video.h"
 
 @implementation VideoPlayer
 
@@ -107,14 +108,17 @@
 
 #pragma mark - Public Methods
 
-- (void)playContentURL:(NSURL *)url {
+- (void)playVideo:(Video *)video {
     // Set internal lock so our notification doesn't go haywire.
     _changingVideo = YES;
+
+    // Change our titlebar
+    self.titleBar.title.text = video.title;
 
     // Reset our duration.
     _duration = 0.0f;
     // Load the video and play it.
-    _moviePlayer.contentURL = url;
+    _moviePlayer.contentURL = video.contentURL;
     [_moviePlayer play];
 
     _changingVideo = NO;
@@ -139,12 +143,12 @@
 
 #pragma mark - Notification Handlers
 
-- (void) movieDurationAvailable:(NSNotification*)notification {
+- (void)movieDurationAvailable:(NSNotification*)notification {
     _duration = [_moviePlayer duration];
     _controlBar.duration = _duration;
 }
 
-- (void) movieDidFinish:(NSNotification*)notification {
+- (void)movieDidFinish:(NSNotification*)notification {
     // As long as the user didn't stop the movie intentionally, inform our delegate.
     if (_changingVideo == YES) return;
 

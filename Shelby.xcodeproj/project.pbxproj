@@ -31,6 +31,7 @@
 		0AD9A38D13D53BD300EFECE0 /* ShelbyTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */; };
 		0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */; };
 		0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */; };
+		4200E50413F41F0C00609C3E /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50313F41F0C00609C3E /* Video.m */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
 		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
@@ -120,6 +121,8 @@
 		0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyTests.m; sourceTree = "<group>"; };
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		4200E50213F41F0C00609C3E /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		4200E50313F41F0C00609C3E /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		4229CDED13EC597B000F587E /* VideoPlayerTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerTitleBar.h; sourceTree = "<group>"; };
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
@@ -249,6 +252,8 @@
 				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
 				0A220C9513DE8193004BE680 /* VideoTableData.h */,
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
+				4200E50213F41F0C00609C3E /* Video.h */,
+				4200E50313F41F0C00609C3E /* Video.m */,
 				0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
 			);
@@ -575,6 +580,7 @@
 				42C4C61A13E9D7EF0034AC97 /* VideoPlayerProgressBar.m in Sources */,
 				4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */,
 				4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */,
+				4200E50413F41F0C00609C3E /* Video.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
