@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class UICustomSwitch;
 
 @interface SettingsViewController : UIViewController {
     
 }
+
+@property(nonatomic, retain) IBOutlet UICustomSwitch * contactSwitch;
+@property(nonatomic, retain) IBOutlet UICustomSwitch * whereToSwitch;
 
 + (SettingsViewController *)viewController;
 

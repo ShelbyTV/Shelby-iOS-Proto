@@ -46,6 +46,10 @@
 		427A622013F46D5B00C945E2 /* CheckboxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */; };
 		427A622113F46D5B00C945E2 /* TextFieldGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621D13F46D5B00C945E2 /* TextFieldGray.png */; };
 		427A622413F46ECA00C945E2 /* SaveChanges.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622313F46ECA00C945E2 /* SaveChanges.png */; };
+		427A622C13F4719800C945E2 /* switchBlueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622713F4719800C945E2 /* switchBlueBg.png */; };
+		427A622D13F4719800C945E2 /* switchOffPlain.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622813F4719800C945E2 /* switchOffPlain.png */; };
+		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
+		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
 		42C4C56413E8A6C00034AC97 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */; };
 		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
@@ -152,6 +156,11 @@
 		427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxEmpty.png; path = Resources/Images/CheckboxEmpty.png; sourceTree = "<group>"; };
 		427A621D13F46D5B00C945E2 /* TextFieldGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextFieldGray.png; path = Resources/Images/TextFieldGray.png; sourceTree = "<group>"; };
 		427A622313F46ECA00C945E2 /* SaveChanges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SaveChanges.png; path = Resources/Images/SaveChanges.png; sourceTree = "<group>"; };
+		427A622713F4719800C945E2 /* switchBlueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchBlueBg.png; sourceTree = "<group>"; };
+		427A622813F4719800C945E2 /* switchOffPlain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchOffPlain.png; sourceTree = "<group>"; };
+		427A622913F4719800C945E2 /* switchThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchThumb.png; sourceTree = "<group>"; };
+		427A622A13F4719800C945E2 /* UICustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSwitch.h; sourceTree = "<group>"; };
+		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		429A99E813EDDAC80095DFED /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
 		42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		42C4C55813E8A6C00034AC97 /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Face.png; path = Resources/Images/Face.png; sourceTree = "<group>"; };
@@ -238,6 +247,7 @@
 			children = (
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
+				427A622513F4717C00C945E2 /* Libraries */,
 				0AD9A35313D53BD200EFECE0 /* Frameworks */,
 				0AD9A35113D53BD200EFECE0 /* Products */,
 				42C4C55513E8A6A50034AC97 /* Resources */,
@@ -342,6 +352,27 @@
 				0AD9A38B13D53BD300EFECE0 /* ShelbyTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		427A622513F4717C00C945E2 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				427A622613F4719800C945E2 /* UICustomSwitch */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		427A622613F4719800C945E2 /* UICustomSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				427A622713F4719800C945E2 /* switchBlueBg.png */,
+				427A622813F4719800C945E2 /* switchOffPlain.png */,
+				427A622913F4719800C945E2 /* switchThumb.png */,
+				427A622A13F4719800C945E2 /* UICustomSwitch.h */,
+				427A622B13F4719800C945E2 /* UICustomSwitch.m */,
+			);
+			name = UICustomSwitch;
+			path = Libraries/UICustomSwitch;
 			sourceTree = "<group>";
 		};
 		42C4C55513E8A6A50034AC97 /* Resources */ = {
@@ -578,6 +609,9 @@
 				427A622013F46D5B00C945E2 /* CheckboxEmpty.png in Resources */,
 				427A622113F46D5B00C945E2 /* TextFieldGray.png in Resources */,
 				427A622413F46ECA00C945E2 /* SaveChanges.png in Resources */,
+				427A622C13F4719800C945E2 /* switchBlueBg.png in Resources */,
+				427A622D13F4719800C945E2 /* switchOffPlain.png in Resources */,
+				427A622E13F4719800C945E2 /* switchThumb.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +665,7 @@
 				4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */,
 				4200E50413F41F0C00609C3E /* Video.m in Sources */,
 				4200E50913F4263900609C3E /* SettingsViewController.m in Sources */,
+				427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

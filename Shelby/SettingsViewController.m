@@ -7,9 +7,12 @@
 //
 
 #import "SettingsViewController.h"
-
+#import "UICustomSwitch.h"
 
 @implementation SettingsViewController
+
+@synthesize contactSwitch;
+@synthesize whereToSwitch;
 
 + (SettingsViewController *)viewController {
     NSString *nibName;
@@ -51,6 +54,31 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    CGRect frame = self.contactSwitch.frame;
+    
+    //UICustomSwitch *newSwitch = [UICustomSwitch switchWithLeftText:@"Weekly"
+    //                                                      andRight:@"Monthly"];
+    //newSwitch.frame = frame;
+    ////[self.view removeSubview: self.contactSwitch];
+    //[self.view addSubview: newSwitch];
+    //self.contactSwitch = newSwitch;
+
+    self.contactSwitch.leftLabel.text  = @"Weekly";
+    self.contactSwitch.rightLabel.text = @"Monthly";
+    
+    //[self.contactSwitch setTintColor: [UIColor redColor]];
+    [self.contactSwitch setTintColor: [UIColor 
+        colorWithRed: 170 / 255.0
+               green: 72  / 255.0
+                blue: 192 / 255.0
+               alpha: 1.0]];
+    
+    self.whereToSwitch.leftLabel.text  = @"Twitter";
+    self.whereToSwitch.rightLabel.text = @"Email";
+
+    //self.contactSwitch.leftLabel.frame = frame;
+    //self.contactSwitch.rightLabel.frame = frame;
+        
 }
 
 - (void)viewDidUnload
