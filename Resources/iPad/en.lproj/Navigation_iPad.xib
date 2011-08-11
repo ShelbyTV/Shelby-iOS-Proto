@@ -211,47 +211,18 @@
 						<int key="NSvFlags">292</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIButton" id="695686493">
+							<object class="IBUIButton" id="363149910">
 								<reference key="NSNextResponder" ref="388677444"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{52, 45}</string>
 								<reference key="NSSuperview" ref="388677444"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="613387773"/>
+								<reference key="NSNextKeyView" ref="957225475"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="198789442"/>
-								<string key="IBUINormalTitle">List</string>
-								<reference key="IBUIHighlightedTitleColor" ref="392759411"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
-								<reference key="IBUINormalTitleShadowColor" ref="58101125"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ButtonListHighlighted.png</string>
-								</object>
-								<object class="NSCustomResource" key="IBUINormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ButtonListNormal.png</string>
-								</object>
-							</object>
-							<object class="IBUIButton" id="613387773">
-								<reference key="NSNextResponder" ref="388677444"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{52, 0}, {52, 45}}</string>
-								<reference key="NSSuperview" ref="388677444"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="616968626"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<reference key="IBUIFont" ref="198789442"/>
-								<string key="IBUIHighlightedTitle">Favorites</string>
 								<reference key="IBUIHighlightedTitleColor" ref="392759411"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -267,11 +238,38 @@
 									<string key="NSResourceName">ButtonFavoritesNormal.png</string>
 								</object>
 							</object>
+							<object class="IBUIButton" id="957225475">
+								<reference key="NSNextResponder" ref="388677444"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{60, 0}, {52, 45}}</string>
+								<reference key="NSSuperview" ref="388677444"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="616968626"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIFont" ref="198789442"/>
+								<reference key="IBUIHighlightedTitleColor" ref="392759411"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="58101125"/>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">ButtonListHighlighted.png</string>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">ButtonListNormal.png</string>
+								</object>
+							</object>
 						</object>
 						<string key="NSFrame">{{694, 75}, {330, 45}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="695686493"/>
+						<reference key="NSNextKeyView" ref="363149910"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC4xNzUwMTE0MDUxAA</bytes>
@@ -418,8 +416,8 @@
 						<reference key="object" ref="388677444"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="613387773"/>
-							<reference ref="695686493"/>
+							<reference ref="363149910"/>
+							<reference ref="957225475"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Spacer View</string>
@@ -464,15 +462,13 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">31</int>
-						<reference key="object" ref="613387773"/>
+						<reference key="object" ref="363149910"/>
 						<reference key="parent" ref="388677444"/>
-						<string key="objectName">Favorites</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">32</int>
-						<reference key="object" ref="695686493"/>
+						<reference key="object" ref="957225475"/>
 						<reference key="parent" ref="388677444"/>
-						<string key="objectName">List</string>
 					</object>
 				</object>
 			</object>
