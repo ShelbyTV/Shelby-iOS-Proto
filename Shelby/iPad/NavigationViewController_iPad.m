@@ -73,16 +73,7 @@ static const float ANIMATION_TIME = 0.5f;
     LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
 
     SettingsViewController *vc = [SettingsViewController viewController];
-#if 0
-	vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-	// For now, just render it modally.
-	[self presentModalViewController: vc animated: YES];
-#else
-    [_navigationController pushViewController: vc
-                                     animated: YES];
-    [_navigationController setNavigationBarHidden: NO animated: NO];
-#endif
-
+    [_navigationController pushViewController: vc animated: YES];
 }
 
 #pragma mark - VideoPlayerDelegate Methods
@@ -107,10 +98,10 @@ static const float ANIMATION_TIME = 0.5f;
 
 // Called when the navigation controller shows a new top view controller via a push, pop or setting of the view controller stack.
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (viewController == [navigationController.viewControllers objectAtIndex: 0]) {
-        // If we're dealing with the root view controller, set the bar to hidden.
-        [navigationController setNavigationBarHidden: YES animated: YES];
-    }
+    //if (viewController == [navigationController.viewControllers objectAtIndex: 0]) {
+    //    // If we're dealing with the root view controller, set the bar to hidden.
+    //    [navigationController setNavigationBarHidden: YES animated: YES];
+    //}
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {

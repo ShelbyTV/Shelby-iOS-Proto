@@ -117,12 +117,21 @@
 
     _navigationController = [[UINavigationController alloc] initWithRootViewController: videoTable];
     _navigationController.view.frame = videoTableHolder.bounds;
-    [_navigationController setNavigationBarHidden: YES animated: YES];
+
+    //[_navigationController setNavigationBarHidden: YES animated: YES];
+
     _navigationController.delegate = self;
+
+
+    UINavigationBar *bar = _navigationController.navigationBar;
+    //bar.barStyle = UIBarStyleBlackTranslucent;
+    bar.barStyle = UIBarStyleBlackOpaque;
 
     //[videoTableHolder addSubview:[videoTable tableView]];
     [videoTableHolder addSubview:[_navigationController view]];
 }
+
+#pragma mark - Cleanup
 
 - (void)viewDidUnload
 {

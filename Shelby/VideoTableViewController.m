@@ -40,6 +40,12 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - UI Callbacks
+
+- (IBAction)toolbarButtonWasPressed:(id)sender {
+    LOG(@"toolbarButtonWasPressed %@", sender);
+}
+
 #pragma mark - Next/Previous Videos
 
 - (Video *)videoAtTableDataIndex:(NSUInteger)index {
@@ -100,6 +106,41 @@
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    //UIBarButtonItem *imageItem = [[UIBarButtonItem alloc]
+    //    initWithImage:[UIImage imageNamed: @"ButtonFavoritesNormal.png"]
+    //            style:UIBarButtonItemStylePlain
+    //           target:self
+    //           action:@selector(toolbarButtonWasPressed:)];
+
+    UIButton *timeButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    UIImage *timeImageNormal = [UIImage imageNamed: @"ButtonListNormal"];
+    [timeButton setImage: timeImageNormal
+            forState: UIControlStateNormal ];
+    [timeButton setImage: [UIImage imageNamed: @"ButtonListHighlighted"]
+            forState: UIControlStateHighlighted ];
+    timeButton.frame = CGRectMake(0, 0,
+            timeImageNormal.size.width,
+            //timeImageNormal.frame.size.height
+            42
+            );
+
+    UIButton *likeButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    UIImage *likeImageNormal = [UIImage imageNamed: @"ButtonFavoritesNormal"];
+    [likeButton setImage: likeImageNormal
+            forState: UIControlStateNormal ];
+    [likeButton setImage: [UIImage imageNamed: @"ButtonFavoritesHighlighted"]
+            forState: UIControlStateHighlighted ];
+    likeButton.frame = CGRectMake(CGRectGetMaxX(timeButton.frame),
+            0,
+            likeImageNormal.size.width,
+            42);
+
+    UIView *customView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 120, 42)];
+    [customView addSubview: timeButton];
+    [customView addSubview: likeButton];
+    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: customView];
+    [self.navigationItem setLeftBarButtonItem:customItem animated: NO];
 }
 
 - (void)viewDidUnload
