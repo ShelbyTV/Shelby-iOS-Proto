@@ -22,5 +22,6 @@
 }
 
 - (IBAction)shelbyIconWasPressed:(id)sender;
+- (IBAction)settingsButtonWasPressed:(id)sender;
 
 @end

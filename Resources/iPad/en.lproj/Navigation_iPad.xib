@@ -49,7 +49,7 @@
 						<string key="NSFrameSize">{694, 748}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="129868568"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -211,13 +211,13 @@
 						<int key="NSvFlags">292</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIButton" id="695686493">
+							<object class="IBUIButton" id="263967000">
 								<reference key="NSNextResponder" ref="388677444"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{52, 45}</string>
 								<reference key="NSSuperview" ref="388677444"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="613387773"/>
+								<reference key="NSNextKeyView" ref="95212027"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -239,7 +239,7 @@
 									<string key="NSResourceName">ButtonListNormal.png</string>
 								</object>
 							</object>
-							<object class="IBUIButton" id="613387773">
+							<object class="IBUIButton" id="95212027">
 								<reference key="NSNextResponder" ref="388677444"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{52, 0}, {52, 45}}</string>
@@ -271,7 +271,7 @@
 						<string key="NSFrame">{{694, 75}, {330, 45}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="695686493"/>
+						<reference key="NSNextKeyView" ref="263967000"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC4xNzUwMTE0MDUxAA</bytes>
@@ -362,6 +362,15 @@
 					</object>
 					<int key="connectionID">30</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">settingsButtonWasPressed:</string>
+						<reference key="source" ref="1017527175"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">34</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -418,8 +427,8 @@
 						<reference key="object" ref="388677444"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="613387773"/>
-							<reference ref="695686493"/>
+							<reference ref="95212027"/>
+							<reference ref="263967000"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Spacer View</string>
@@ -464,13 +473,13 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">31</int>
-						<reference key="object" ref="613387773"/>
+						<reference key="object" ref="95212027"/>
 						<reference key="parent" ref="388677444"/>
 						<string key="objectName">Favorites</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">32</int>
-						<reference key="object" ref="695686493"/>
+						<reference key="object" ref="263967000"/>
 						<reference key="parent" ref="388677444"/>
 						<string key="objectName">List</string>
 					</object>
@@ -535,7 +544,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">32</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -591,14 +600,35 @@
 					<string key="className">NavigationViewController_iPad</string>
 					<string key="superclassName">NavigationViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">shelbyIconWasPressed:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>settingsButtonWasPressed:</string>
+							<string>shelbyIconWasPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">shelbyIconWasPressed:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">shelbyIconWasPressed:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>settingsButtonWasPressed:</string>
+							<string>shelbyIconWasPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">settingsButtonWasPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">shelbyIconWasPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">

@@ -269,7 +269,7 @@
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     const CGSize buttonSize = CGSizeMake(62, 62);
 
-    self.backgroundColor = [UIColor redColor];
+    //self.backgroundColor = [UIColor redColor];
 
     _moviePlayer.view.frame = self.bounds;
 

@@ -33,7 +33,7 @@
 }
 
 - (void)playVideo:(Video *)video {
-    LOG(@"playContentURL: %@", video);
+    LOG(@"playVideo: %@", video);
     if (video == nil) {
         return;
     }
@@ -114,7 +114,14 @@
     }
     [videoTable.tableView setBackgroundColor:[UIColor lightGrayColor]];
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [videoTableHolder addSubview:[videoTable tableView]];
+
+    _navigationController = [[UINavigationController alloc] initWithRootViewController: videoTable];
+    _navigationController.view.frame = videoTableHolder.bounds;
+    [_navigationController setNavigationBarHidden: YES animated: YES];
+    _navigationController.delegate = self;
+
+    //[videoTableHolder addSubview:[videoTable tableView]];
+    [videoTableHolder addSubview:[_navigationController view]];
 }
 
 - (void)viewDidUnload

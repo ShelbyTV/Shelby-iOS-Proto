@@ -12,6 +12,7 @@
  */
 
 #import "NavigationViewController_iPad.h"
+#import "SettingsViewController.h"
 
 @implementation NavigationViewController_iPad
     
@@ -24,6 +25,8 @@ static const float ANIMATION_TIME = 0.5f;
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
+
+#pragma mark - View Animations
 
 - (CGRect)toggleFrame:(CGRect)frame right:(BOOL)right {
     CGRect newFrame = frame;
@@ -51,6 +54,8 @@ static const float ANIMATION_TIME = 0.5f;
     _videoPlayer.frame = tempFrame;
 }
 
+#pragma mark - UI Callbacks
+
 - (IBAction)shelbyIconWasPressed:(id)sender {
     // Slide the tray in and out.
 
@@ -62,6 +67,25 @@ static const float ANIMATION_TIME = 0.5f;
     }];
     _trayClosed = !_trayClosed;
 }
+
+- (IBAction)settingsButtonWasPressed:(id)sender {
+	// Open up the settings ViewController
+    LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
+
+    SettingsViewController *vc = [SettingsViewController viewController];
+#if 0
+	vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+	// For now, just render it modally.
+	[self presentModalViewController: vc animated: YES];
+#else
+    [_navigationController pushViewController: vc
+                                     animated: YES];
+    [_navigationController setNavigationBarHidden: NO animated: NO];
+#endif
+
+}
+
+#pragma mark - VideoPlayerDelegate Methods
 
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController_iPad videoPlayerFullscreenButtonWasPressed]");
@@ -77,6 +101,20 @@ static const float ANIMATION_TIME = 0.5f;
         [self.view bringSubviewToFront: _videoPlayer];
     }
   _fullscreen = !_fullscreen;
+}
+
+#pragma mark - UINavigationControllerDelegate Methods
+
+// Called when the navigation controller shows a new top view controller via a push, pop or setting of the view controller stack.
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (viewController == [navigationController.viewControllers objectAtIndex: 0]) {
+        // If we're dealing with the root view controller, set the bar to hidden.
+        [navigationController setNavigationBarHidden: YES animated: YES];
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+
 }
 
 @end

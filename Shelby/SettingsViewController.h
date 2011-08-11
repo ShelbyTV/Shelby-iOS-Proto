@@ -13,4 +13,6 @@
     
 }
 
++ (SettingsViewController *)viewController;
+
 @end

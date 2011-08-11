@@ -11,6 +11,18 @@
 
 @implementation SettingsViewController
 
++ (SettingsViewController *)viewController {
+    NSString *nibName;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        //nibName = @"SettingsViewController_iPad";
+        nibName = @"SettingsViewController";
+	} else {
+        nibName = @"SettingsViewController";
+	}
+    return [[[SettingsViewController alloc] initWithNibName: nibName
+                                                     bundle: nil] autorelease];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
