@@ -114,6 +114,7 @@
 
     // Change our titlebar
     self.titleBar.title.text = video.title;
+    self.titleBar.sharerPic.image = video.sharerImage;
 
     // Reset our duration.
     _duration = 0.0f;
