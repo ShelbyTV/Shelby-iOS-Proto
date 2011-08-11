@@ -34,6 +34,10 @@
 		4200E50413F41F0C00609C3E /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50313F41F0C00609C3E /* Video.m */; };
 		4200E50913F4263900609C3E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50713F4263900609C3E /* SettingsViewController.m */; };
 		4200E50A13F4263900609C3E /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4200E50813F4263900609C3E /* SettingsViewController.xib */; };
+		4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */; };
+		4200E51813F42BB100609C3E /* ButtonFavoritesNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */; };
+		4200E51913F42BB100609C3E /* ButtonListHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51513F42BB100609C3E /* ButtonListHighlighted.png */; };
+		4200E51A13F42BB100609C3E /* ButtonListNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51613F42BB100609C3E /* ButtonListNormal.png */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
 		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
@@ -128,6 +132,10 @@
 		4200E50613F4263900609C3E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		4200E50713F4263900609C3E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		4200E50813F4263900609C3E /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesHighlighted.png; path = Resources/Images/ButtonFavoritesHighlighted.png; sourceTree = "<group>"; };
+		4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesNormal.png; path = Resources/Images/ButtonFavoritesNormal.png; sourceTree = "<group>"; };
+		4200E51513F42BB100609C3E /* ButtonListHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonListHighlighted.png; path = Resources/Images/ButtonListHighlighted.png; sourceTree = "<group>"; };
+		4200E51613F42BB100609C3E /* ButtonListNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonListNormal.png; path = Resources/Images/ButtonListNormal.png; sourceTree = "<group>"; };
 		4229CDED13EC597B000F587E /* VideoPlayerTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerTitleBar.h; sourceTree = "<group>"; };
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
@@ -338,6 +346,10 @@
 			children = (
 				0A33357C13E8800C0044E921 /* SignUpFacebook.png */,
 				0A33357D13E8800C0044E921 /* SignUpTwitter.png */,
+				4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */,
+				4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */,
+				4200E51513F42BB100609C3E /* ButtonListHighlighted.png */,
+				4200E51613F42BB100609C3E /* ButtonListNormal.png */,
 				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
 				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
 				42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */,
@@ -538,6 +550,10 @@
 				42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */,
 				429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */,
 				4200E50A13F4263900609C3E /* SettingsViewController.xib in Resources */,
+				4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */,
+				4200E51813F42BB100609C3E /* ButtonFavoritesNormal.png in Resources */,
+				4200E51913F42BB100609C3E /* ButtonListHighlighted.png in Resources */,
+				4200E51A13F42BB100609C3E /* ButtonListNormal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
