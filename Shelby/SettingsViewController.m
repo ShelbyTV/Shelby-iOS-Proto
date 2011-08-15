@@ -54,7 +54,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    CGRect frame = self.contactSwitch.frame;
+    //CGRect frame = self.contactSwitch.frame;
     
     //UICustomSwitch *newSwitch = [UICustomSwitch switchWithLeftText:@"Weekly"
     //                                                      andRight:@"Monthly"];

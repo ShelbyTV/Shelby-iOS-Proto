@@ -110,8 +110,8 @@
     [self.clippingView removeFromSuperview];
     [self addSubview:self.clippingView];
     //[self bringSubviewToFront: self.clippingView];
-    CGRect originalFrame = CGRectMake(4,2,87,23);
-    CGRect fullFrame = CGRectMake(4, 2, self.frame.size.width, self.frame.size.height);
+    //CGRect originalFrame = CGRectMake(4,2,87,23);
+    //CGRect fullFrame = CGRectMake(4, 2, self.frame.size.width, self.frame.size.height);
     CGRect clippedFrame = CGRectMake(4, 2, self.frame.size.width - 10, self.frame.size.height);
     self.clippingView.frame = clippedFrame;
 

@@ -8,6 +8,26 @@
 
 #import "STVCheckBox.h"
 
+#pragma mark - Private Methods
+
+@interface STVCheckBox (private)
+
+- (void)setImageForState:(BOOL)isChecked;
+
+@end
+
+@implementation STVCheckBox (private)
+
+- (void)setImageForState:(BOOL)isChecked {
+    UIImage *newImage = (isChecked) ? _checkedImage : _emptyImage;
+
+    [_button setImage: newImage
+             forState: UIControlStateNormal];
+}
+
+@end
+
+#pragma mark - Main Class
 
 @implementation STVCheckBox
 
@@ -19,14 +39,14 @@
 
     _button = [UIButton buttonWithType: UIButtonTypeCustom];
     [_button addTarget: self
-                action: @selector(buttonWasPressed:) 
+                action: @selector(buttonWasPressed:)
       forControlEvents: UIControlEventTouchUpInside];
 
     [self addSubview: _button];
 
     [self setImageForState: NO];
 }
-      
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -48,13 +68,6 @@
 }
 
 #pragma mark - Appearance
-
-- (void)setImageForState:(BOOL)isChecked {
-    UIImage *newImage = (isChecked) ? _checkedImage : _emptyImage;
-
-    [_button setImage: newImage
-             forState: UIControlStateNormal];
-}
 
 - (void)layoutSubviews {
     _button.frame = self.bounds;
