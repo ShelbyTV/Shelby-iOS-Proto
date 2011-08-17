@@ -51,6 +51,8 @@
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
 		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
+		42A09B4913FC6CD100570DBE /* ConsumerTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4513FC6CD100570DBE /* ConsumerTwoViewController.m */; };
+		42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* LoginHelper.m */; };
 		42C4C56413E8A6C00034AC97 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */; };
 		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
 		42C4C56613E8A6C00034AC97 /* FacebookActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55913E8A6C00034AC97 /* FacebookActive.png */; };
@@ -163,6 +165,10 @@
 		427A623113F4843200C945E2 /* STVCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVCheckBox.h; sourceTree = "<group>"; };
 		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
 		429A99E813EDDAC80095DFED /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
+		42A09B4513FC6CD100570DBE /* ConsumerTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsumerTwoViewController.m; sourceTree = "<group>"; };
+		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHelper.m; sourceTree = "<group>"; };
+		42A09B4713FC6CD100570DBE /* ConsumerTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsumerTwoViewController.h; sourceTree = "<group>"; };
+		42A09B4813FC6CD100570DBE /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
 		42C4C55713E8A6C00034AC97 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		42C4C55813E8A6C00034AC97 /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Face.png; path = Resources/Images/Face.png; sourceTree = "<group>"; };
 		42C4C55913E8A6C00034AC97 /* FacebookActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookActive.png; path = Resources/Images/FacebookActive.png; sourceTree = "<group>"; };
@@ -280,6 +286,7 @@
 		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
 			isa = PBXGroup;
 			children = (
+				42A09B4313FC6CC400570DBE /* Login */,
 				427A623013F4840E00C945E2 /* Views */,
 				42C4C60B13E9CCD10034AC97 /* iPhone */,
 				42C4C60413E9CCB80034AC97 /* iPad */,
@@ -383,6 +390,17 @@
 				427A623213F4843200C945E2 /* STVCheckBox.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		42A09B4313FC6CC400570DBE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				42A09B4513FC6CD100570DBE /* ConsumerTwoViewController.m */,
+				42A09B4713FC6CD100570DBE /* ConsumerTwoViewController.h */,
+				42A09B4613FC6CD100570DBE /* LoginHelper.m */,
+				42A09B4813FC6CD100570DBE /* LoginHelper.h */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		42C4C55513E8A6A50034AC97 /* Resources */ = {
@@ -676,6 +694,8 @@
 				4200E50913F4263900609C3E /* SettingsViewController.m in Sources */,
 				427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */,
 				427A623313F4843200C945E2 /* STVCheckBox.m in Sources */,
+				42A09B4913FC6CD100570DBE /* ConsumerTwoViewController.m in Sources */,
+				42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
