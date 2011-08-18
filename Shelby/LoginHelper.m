@@ -26,17 +26,18 @@
 @implementation LoginHelper
 
 @synthesize delegate;
-@synthesize requestToken;
-@synthesize accessToken;
+@synthesize requestToken = _requestToken;
+@synthesize accessToken = _accessToken;
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+  self = [super init];
+  if (self) {
+    // Initialization code here.
+
+  }
+
+  return self;
 }
 
 #pragma mark - Request Token
@@ -72,6 +73,7 @@
     [requestToken release];
     // Notify delegate.
     [self.delegate fetchRequestTokenDidFinish: requestToken];
+    LOG(@"request token: %@", requestToken);
 	}
 }
 
@@ -82,13 +84,14 @@
 
 #pragma mark - User Authorization
 
-- (void)authorizeToken:(OAToken *)token {
+- (void)authorizeToken:(OAToken *)requestToken {
+    LOG(@"authorizing token: %@", requestToken);
   // Create the url string with the given token
 
 	NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: 
     @"%@?oauth_token=%@",
     kUserAuthorizationUrl,
-    token.key
+    requestToken.key
   ]];
 
 	[[UIApplication sharedApplication] openURL:url];
@@ -125,6 +128,7 @@
 		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		OAToken *accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
     self.accessToken = accessToken;
+    LOG(@"access token: %@", accessToken);
     // notify delegate
     [self.delegate fetchAccessTokenDidFinish: accessToken];
 	}

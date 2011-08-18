@@ -8,6 +8,7 @@
 //
 
 #import "LoginViewController.h"
+#import "LoginHelper.h"
 
 @implementation LoginViewController
 
@@ -22,6 +23,8 @@
     if (self) {
         callbackObject = object;
         callbackSelector = selector;
+
+        _loginHelper = [[LoginHelper alloc] init];
     }
     return self;
 }
@@ -176,6 +179,7 @@
     [callbackObject performSelector:callbackSelector];
     [self fadeOut];
 
+
 //    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }
 
@@ -187,6 +191,20 @@
 
 - (IBAction)loginWasPressed:(id)sender {
     LOG(@"Login not implemented");
+    //[_loginHelper getRequestToken];
 }
+
+- (IBAction)requestTokenWasPressed:(id)sender {
+  [_loginHelper getRequestToken];
+}
+
+- (IBAction)authorizeWasPressed:(id)sender {
+   [_loginHelper authorizeToken: _loginHelper.requestToken];
+}
+
+- (IBAction)accessTokenWasPressed:(id)sender {
+  [_loginHelper getAccessToken: _loginHelper.requestToken];
+}
+
 
 @end

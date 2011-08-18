@@ -21,6 +21,8 @@
 
 @interface LoginHelper : NSObject {
   // Cache our tokens for future use.
+  OAToken *_requestToken;
+  OAToken *_accessToken;
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;

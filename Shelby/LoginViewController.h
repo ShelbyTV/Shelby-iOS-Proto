@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class LoginHelper;
 
 @interface LoginViewController : UIViewController {
     IBOutlet UITextField *username;
@@ -20,6 +21,8 @@
     CGPoint _originalOffset;
     UIView *_activeField;
 
+    // Actual login stuff.
+    LoginHelper *_loginHelper;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil 
@@ -32,5 +35,9 @@
 - (IBAction)loginWithTwitter:(id)sender;
 - (IBAction)registerWasPressed:(id)sender;
 - (IBAction)loginWasPressed:(id)sender;
+
+- (IBAction)requestTokenWasPressed:(id)sender;
+- (IBAction)authorizeWasPressed:(id)sender;
+- (IBAction)accessTokenWasPressed:(id)sender;
 
 @end

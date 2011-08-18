@@ -115,6 +115,8 @@
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
 		42F0AB9A13EDD316003F47E9 /* VideoPlayerControlBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9613EDD316003F47E9 /* VideoPlayerControlBar.xib */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
+		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
+		42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +280,10 @@
 		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		42F0AB9713EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerControlBar.xib; sourceTree = "<group>"; };
 		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
+		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
+		42FAA3AE13FD841900BC1D28 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
+		42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelbyApp.h; sourceTree = "<group>"; };
+		42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelbyApp.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +351,7 @@
 		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
 			isa = PBXGroup;
 			children = (
+				42FAA3AB13FD840B00BC1D28 /* Utility */,
 				42A09B4313FC6CC400570DBE /* Login */,
 				427A623013F4840E00C945E2 /* Views */,
 				42C4C60B13E9CCD10034AC97 /* iPhone */,
@@ -358,6 +365,8 @@
 				4200E50313F41F0C00609C3E /* Video.m */,
 				0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
+				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
+				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
 			);
 			path = Shelby;
 			sourceTree = "<group>";
@@ -643,6 +652,15 @@
 			name = iPhone;
 			sourceTree = "<group>";
 		};
+		42FAA3AB13FD840B00BC1D28 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
+				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -842,6 +860,8 @@
 				42A09BC013FC6D9C00570DBE /* OAServiceTicket.m in Sources */,
 				42A09BC213FC6D9C00570DBE /* OAToken.m in Sources */,
 				42A09BC313FC6D9C00570DBE /* OATokenManager.m in Sources */,
+				42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */,
+				42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
