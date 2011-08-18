@@ -7,11 +7,15 @@
 //
 
 #import "LoginHelper.h"
-
-#import "OAuthConsumer.h"
+#import "NSURLConnection+AsyncBlock.h"
+#import "NSString+URLEncoding.h"
+#import "OAuthMutableURLRequest.h"
 
 #define kAppName @"Shelby.tv iOS"
 #define kProviderName @"shelby.tv"
+
+#define kRequestTokenName @"request"
+#define kAccessTokenName @"access"
 
 #define kShelbyConsumerKey		@"RXbwSMUr8l810IwUz64fcHGsww2ZZXRItCbmNgmv"
 #define kShelbyConsumerSecret		@"UaH7vX7e695nmEfgtLpPQVLeHZTOdBgnox0XfYfn"
@@ -23,141 +27,118 @@
 #define kUserAuthorizationUrl @"http://dev.shelby.tv/oauth/authorize"
 #define kAccessTokenUrl       @"http://dev.shelby.tv/oauth/access_token"
 
+#define kCallbackUrl       @"shelby://ios.shelby.tv"
+
 @implementation LoginHelper
 
 @synthesize delegate;
-@synthesize requestToken = _requestToken;
-@synthesize accessToken = _accessToken;
+//@synthesize requestToken = _requestToken;
+//@synthesize accessToken = _accessToken;
+//@synthesize verifier = _verifier;
 
 - (id)init
 {
   self = [super init];
   if (self) {
     // Initialization code here.
-
+//    self.requestToken = [self retrieveTokenWithName: kRequestTokenName];
+//    self.accessToken  = [self retrieveTokenWithName: kAccessTokenName];
   }
 
   return self;
 }
 
+#pragma mark - Token Storage
+
+//- (void)clearTokens {
+//  [OAToken removeFromUserDefaultsWithServiceProviderName: kProviderName
+//                                                  prefix: kRequestTokenName];
+//  [OAToken removeFromUserDefaultsWithServiceProviderName: kProviderName
+//                                                  prefix: kAccessTokenName];
+//}
+//
+//- (void)storeToken:(OAToken *)token withName:(NSString *)name {
+//  //[token storeInDefaultKeychainWithAppName:kAppName
+//  //										 serviceProviderName:kProviderName];
+//  [token storeInUserDefaultsWithServiceProviderName: kProviderName
+//                                             prefix: name
+//                                             ];
+//}
+//
+//- (OAToken *)retrieveTokenWithName:(NSString *)name {
+//  //OAToken *accessToken = [[OAToken alloc] initWithKeychainUsingAppName:kAppName
+//  //                                                 serviceProviderName:kProviderName];
+//  OAToken *accessToken = [[OAToken alloc]
+//    initWithUserDefaultsUsingServiceProviderName: kProviderName
+//                                          prefix: name
+//                                          ];
+//  return [accessToken autorelease];
+//}
+
 #pragma mark - Request Token
 
 - (void)getRequestToken {
-    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:kShelbyConsumerKey
-                                                    secret:kShelbyConsumerSecret];
-    
-    NSURL *url = [NSURL URLWithString: kRequestTokenUrl];
-    
-		OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
-																																	 consumer:consumer
-																																			token:nil   // we don't have a Token yet
-																																			realm:nil   // our service provider doesn't specify a realm
-																													signatureProvider:nil]; // use the default method, HMAC-SHA1
-    
-    [request setHTTPMethod:@"POST"];
-    
-    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-    
-    [fetcher fetchDataWithRequest:request
-                         delegate:self
-                didFinishSelector:@selector(requestTokenTicket:didFinishWithData:)
-                  didFailSelector:@selector(requestTokenTicket:didFailWithError:)];
-}
+  handshake = [[OAuthHandshake alloc] init];
+  [handshake setTokenRequestURL:[NSURL URLWithString: kRequestTokenUrl]];
+  [handshake setTokenAuthURL: [NSURL URLWithString: kAccessTokenUrl]];
+  [handshake setCallbackURL: @"shelby://auth"];
+  [handshake setDelegate: self];
 
-- (void)requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
-	if (ticket.didSucceed) {
-		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		OAToken *requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-    [responseBody release];
-    self.requestToken = requestToken;
-    [requestToken release];
-    // Notify delegate.
-    [self.delegate fetchRequestTokenDidFinish: requestToken];
-    LOG(@"request token: %@", requestToken);
-	}
-}
+  NSString *consumerKey = kShelbyConsumerKey;
+  NSString *consumerSecret = kShelbyConsumerSecret;
 
-- (void)requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
-	NSLog(@"requestToken failure! %@", error);
-  [self.delegate requestTokenTicket:ticket didFailWithError: error];
+  [handshake setConsumerKey: consumerKey];
+  [handshake setConsumerSecret: consumerSecret];
+
+  [handshake beginHandshake];
 }
 
 #pragma mark - User Authorization
 
-- (void)authorizeToken:(OAToken *)requestToken {
-    LOG(@"authorizing token: %@", requestToken);
-  // Create the url string with the given token
-
-	NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: 
-    @"%@?oauth_token=%@",
+- (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token;
+{
+  NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@", 
     kUserAuthorizationUrl,
-    requestToken.key
-  ]];
+    [token URLEncodedString]];
+  [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];
+}
 
-	[[UIApplication sharedApplication] openURL:url];
+- (void)verifierReturnedFromAuth:(NSString *)verifier {
+  [handshake continueHandshakeWithVerifier: verifier];
 }
 
 #pragma mark - Access Token
 
-- (void)getAccessToken:(OAToken *)requestToken {
-	// Similar to fetching the request token.
-  OAConsumer *consumer = [[OAConsumer alloc] initWithKey:kShelbyConsumerKey
-                                                  secret:kShelbyConsumerSecret];
-
-	NSURL *url = [NSURL URLWithString: kAccessTokenUrl];
-
-	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
-																																 consumer:consumer
-																																		token:requestToken   // we don't have a Token yet
-																																		realm:nil   // our service provider doesn't specify a realm
-																												signatureProvider:nil]; // use the default method, HMAC-SHA1
-
-	[request setHTTPMethod:@"POST"];
-
-	OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-
-	[fetcher fetchDataWithRequest:request
-											 delegate:self.delegate
-							didFinishSelector:@selector(accessTokenTicket:didFinishWithData:)
-								didFailSelector:@selector(accessTokenTicket:didFailWithError:)];
-
-}
-
-- (void)accessTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
-	if (ticket.didSucceed) {
-		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		OAToken *accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-    self.accessToken = accessToken;
-    LOG(@"access token: %@", accessToken);
-    // notify delegate
-    [self.delegate fetchAccessTokenDidFinish: accessToken];
-	}
-}
-
-- (void)accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
-	NSLog(@"accessToken failure! %@", error);
-  [self.delegate accessTokenTicket:ticket didFailWithError: error];
-}
-
-#pragma mark - Token Storage
-
-- (void)clearTokens {
-  
-}
-
-- (void)storeToken:(OAToken *)token {
-	[token storeInDefaultKeychainWithAppName:kAppName       
-											 serviceProviderName:kProviderName];
-}
-
-- (OAToken *)retrieveToken {
-	  OAToken *accessToken = [[OAToken alloc] initWithKeychainUsingAppName:kAppName
-                                                     serviceProviderName:kProviderName];
-		return accessToken;
+- (void)handshake:(OAuthHandshake *)handshake authenticatedToken:(NSString *)token withSecret:(NSString *)tokenSecret;
+{
+  NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
+  [self fetchBroadcasts];
 }
 
 #pragma mark - Access Resources
 
+- (void)fetchBroadcasts {
+  NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
+  OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
 
+  //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"POST"];
+  //NSString *tweet = @"<enter tweet here>";
+  //NSString *message = [NSString stringWithFormat: @"status=%@", [tweet URLEncodedString]];
+  //[req setHTTPBody: [message dataUsingEncoding: NSASCIIStringEncoding]];
+  //[req setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField: @"content-type"];
+
+  //[req sign];
+  //[req setValue: @"PLAINTEXT" forOAuthParameter: @"oauth_signature_method"];
+  // Set to plaintext on request because oAuth library is broken.
+  [req signPlaintext];
+
+  [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+}
+
+- (void)receivedGetBroadcastsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
+{
+  NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+  NSLog( @"sent tweet, reply: %@", string );
+}
 
 @end

@@ -7,27 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OAuthConsumer.h"
+#import "OAuthHandshake.h"
 
 @protocol LoginHelperDelegate
 
-- (void)fetchRequestTokenDidFinish:(OAToken *)requestToken;
-- (void)requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
-
-- (void)fetchAccessTokenDidFinish:(OAToken *)accessToken;
-- (void)accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
+//- (void)fetchRequestTokenDidFinish:(OAToken *)requestToken;
+//- (void)requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
+//
+//- (void)fetchAccessTokenDidFinish:(OAToken *)accessToken;
+//- (void)accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
 
 @end
 
-@interface LoginHelper : NSObject {
-  // Cache our tokens for future use.
-  OAToken *_requestToken;
-  OAToken *_accessToken;
+@interface LoginHelper : NSObject <OAuthHandshakeDelegate> {
+  //NSString *_verifier;
+  OAuthHandshake *handshake;
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;
 
-@property (nonatomic, retain) OAToken *requestToken;
-@property (nonatomic, retain) OAToken *accessToken;
+//@property (nonatomic, retain) NSString *verifier;
+
+- (void)getRequestToken;
+- (void)verifierReturnedFromAuth:(NSString *)verifier;
+- (void)fetchBroadcasts;
 
 @end

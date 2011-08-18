@@ -9,6 +9,7 @@
 
 #import "LoginViewController.h"
 #import "LoginHelper.h"
+#import "ShelbyApp.h"
 
 @implementation LoginViewController
 
@@ -24,7 +25,8 @@
         callbackObject = object;
         callbackSelector = selector;
 
-        _loginHelper = [[LoginHelper alloc] init];
+        //_loginHelper = [[LoginHelper alloc] init];
+        _loginHelper = [ShelbyApp sharedApp].loginHelper;
     }
     return self;
 }
@@ -81,11 +83,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    
+
     // Remove keyboard notification listeners.
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
+
 }
 
 #pragma mark - Misc Methods
@@ -157,7 +159,7 @@
     }
 
     // Return YES to confirm the UITextField is returning
-	return YES;
+    return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -199,11 +201,18 @@
 }
 
 - (IBAction)authorizeWasPressed:(id)sender {
-   [_loginHelper authorizeToken: _loginHelper.requestToken];
+   //[_loginHelper authorizeToken: _loginHelper.requestToken];
+   //[_loginHelper authorizeToken];
 }
 
 - (IBAction)accessTokenWasPressed:(id)sender {
-  [_loginHelper getAccessToken: _loginHelper.requestToken];
+     //[_loginHelper getAccessToken: _loginHelper.requestToken verifier: ];
+     //[_loginHelper getAccessToken];
+}
+
+- (IBAction)fetchBroadcastsWasPressed:(id)sender {
+     [_loginHelper fetchBroadcasts];
+
 }
 
 

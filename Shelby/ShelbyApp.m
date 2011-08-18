@@ -7,8 +7,11 @@
 //
 
 #import "ShelbyApp.h"
+#import "LoginHelper.h"
 
 @implementation ShelbyApp
+
+@synthesize loginHelper;
 
 static ShelbyApp *gShelbyApp;
 
@@ -23,7 +26,7 @@ static ShelbyApp *gShelbyApp;
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
+      self.loginHelper = [[[LoginHelper alloc] init] autorelease];
     }
     
     return self;

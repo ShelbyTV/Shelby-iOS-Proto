@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class LoginHelper;
+
 /*
  * Global singleton for maintaining state.
  */
-@interface ShelbyApp : NSObject
+@interface ShelbyApp : NSObject {
+}
+@property (nonatomic, retain) LoginHelper *loginHelper;
 
 + (ShelbyApp *)sharedApp;
 

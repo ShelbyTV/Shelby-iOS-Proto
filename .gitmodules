@@ -1,3 +1,3 @@
-[submodule "Libraries/oauthconsumer"]
-	path = Libraries/oauthconsumer
-	url = https://github.com/jdg/oauthconsumer.git
+[submodule "Libraries/OAuth"]
+	path = Libraries/OAuth
+	url = https://github.com/DavidYKay/OAuth.git

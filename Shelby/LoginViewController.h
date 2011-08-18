@@ -25,7 +25,7 @@
     LoginHelper *_loginHelper;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil 
+- (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
        callbackObject:(id)object
      callbackSelector:(SEL)selector;
@@ -39,5 +39,6 @@
 - (IBAction)requestTokenWasPressed:(id)sender;
 - (IBAction)authorizeWasPressed:(id)sender;
 - (IBAction)accessTokenWasPressed:(id)sender;
+- (IBAction)fetchBroadcastsWasPressed:(id)sender;
 
 @end
