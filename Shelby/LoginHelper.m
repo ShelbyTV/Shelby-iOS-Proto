@@ -10,6 +10,7 @@
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
 #import "OAuthMutableURLRequest.h"
+#import "SBJsonStreamParser.h"
 
 #define kAppName @"Shelby.tv iOS"
 #define kProviderName @"shelby.tv"
@@ -40,6 +41,8 @@
 {
   self = [super init];
   if (self) {
+		parser = [[SBJsonStreamParser alloc] init];
+		parser.delegate = self;
     // Initialization code here.
 //    self.requestToken = [self retrieveTokenWithName: kRequestTokenName];
 //    self.accessToken  = [self retrieveTokenWithName: kAccessTokenName];
@@ -121,14 +124,6 @@
   NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
   OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
 
-  //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"POST"];
-  //NSString *tweet = @"<enter tweet here>";
-  //NSString *message = [NSString stringWithFormat: @"status=%@", [tweet URLEncodedString]];
-  //[req setHTTPBody: [message dataUsingEncoding: NSASCIIStringEncoding]];
-  //[req setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField: @"content-type"];
-
-  //[req sign];
-  //[req setValue: @"PLAINTEXT" forOAuthParameter: @"oauth_signature_method"];
   // Set to plaintext on request because oAuth library is broken.
   [req signPlaintext];
 
@@ -138,7 +133,27 @@
 - (void)receivedGetBroadcastsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
   NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-  NSLog( @"sent tweet, reply: %@", string );
+  NSLog(@"Got broadcasts: %@", string);
+
+  [parser parse: data];
+}
+
+#pragma mark SBJsonStreamParserDelegate methods
+
+- (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
+	// Pass the data to VideoTableData.
+
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+		array, @"broadcasts",
+                            nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
+																											object: self
+																										userInfo: userInfo];
+	//[videoTableData gotNewJSONBroadcasts: array];
+}
+
+- (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
+	[NSException raise:@"unexpected" format:@"Should not get here"];
 }
 
 @end

@@ -15,7 +15,7 @@
 
 @property(nonatomic, retain) NSURL *contentURL;
 
-@property(nonatomic, retain) UIImage *thumbnail;
+@property(nonatomic, retain) UIImage *thumbnailImage;
 @property(nonatomic, retain) NSString *title;
 
 @property(nonatomic, retain) NSString *sharer;

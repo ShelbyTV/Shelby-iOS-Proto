@@ -13,7 +13,7 @@
 
 @synthesize contentURL;
 
-@synthesize thumbnail;
+@synthesize thumbnailImage;
 @synthesize title;
 
 @synthesize sharer;

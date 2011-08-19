@@ -8,6 +8,8 @@
 
 #import "VideoTableData.h"
 
+#define NOTNULL(x) (x && ![x isKindOfClass:[NSNull class]])
+
 @interface URLIndex : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
 @property (nonatomic, retain) NSURL *thumbnailURL;
@@ -70,7 +72,7 @@ static NSString *fakeAPIData[] = {
     @"http://i1.ytimg.com/vi/PgNqe7m5kK4/hqdefault.jpg",@"Billie Jean, The Civil Wars",                                                       @"PgNqe7m5kK4",@"yeah....",@"http://graph.facebook.com/503482796/picture",@"Emily Zisman",
     @"http://i1.ytimg.com/vi/lSTS4aS1BBs/hqdefault.jpg",@"ABW 2011 - Jam 6_12",                                                               @"lSTS4aS1BBs",@"Good stuff!",@"http://graph.facebook.com/4706141/picture",@"Abigail Browning",
     @"http://i2.ytimg.com/vi/m6tiaooiIo0/hqdefault.jpg",@"Stephen Colbert 2011 Commencement Speech at Northwestern University",               @"m6tiaooiIo0",@"Pardon the capture errors.",@"http://graph.facebook.com/5521514/picture",@"Adarsh Jagadeeshwaran",
-    @"http://i2.ytimg.com/vi/Ul_NLXwmxVs/hqdefault.jpg",@"\"It Gets Better: CBS Employees\"",                                                 @"Ul_NLXwmxVs",@"My awesome coworkers reach out to GLBT teens, including the extra-awesome Danny Chung",@"http://graph.facebook.com/500073814/picture",@"Jessica Dolcourt",                                                                                            
+    @"http://i2.ytimg.com/vi/Ul_NLXwmxVs/hqdefault.jpg",@"\"It Gets Better: CBS Employees\"",                                                 @"Ul_NLXwmxVs",@"My awesome coworkers reach out to GLBT teens, including the extra-awesome Danny Chung",@"http://graph.facebook.com/500073814/picture",@"Jessica Dolcourt",
 };
 
 - (NSUInteger)numItems
@@ -104,7 +106,7 @@ static NSString *fakeAPIData[] = {
     @synchronized(videoDataArray)
     {
         return [[videoDataArray objectAtIndex:index] sharerImage];
-    }    
+    }
 }
 
 - (NSString *)videoSharerCommentAtIndex:(NSUInteger)index
@@ -122,6 +124,8 @@ static NSString *fakeAPIData[] = {
         return [[videoDataArray objectAtIndex:index] thumbnailImage];
     }
 }
+
+#pragma mark - Loading Data
 
 #ifdef OFFLINE_MODE
 // DEBUG Only
@@ -146,65 +150,65 @@ static NSString *fakeAPIData[] = {
 #else
     VideoData *videoData = nil;
     NSURL *contentURL = nil;
-    
+
     @synchronized(videoDataArray)
     {
         videoData = [[[videoDataArray objectAtIndex:index] retain] autorelease];
     }
-    
+
     contentURL = [[[[videoDataArray objectAtIndex:index] contentURL] retain] autorelease];
-    
+
     if (contentURL == nil) {
-        
+
         /*
          * Content URL
          */
-        
-        NSURL *youTubeURL = videoData.youTubeVideoInfoURL;        
+
+        NSURL *youTubeURL = videoData.youTubeVideoInfoURL;
         NSError *error = nil;
         NSString *youTubeVideoDataRaw = [[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error];
         NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
-        
+
         /*
          * The code below tries to parse out the MPEG URL from a YouTube video info page.
          * We have to do this because YouTube encodes some parameters into the string
          * that make it valid only on the machine that accessed the YouTube video URL.
          */
-        
+
         // useful for debugging
         // LOG(@"%@", youTubeVideoDataReadable);
-        
+
         NSRange statusFailResponse = [youTubeVideoDataReadable rangeOfString:@"status=fail"];
-        
+
         if (statusFailResponse.location == NSNotFound) { // means we probably got good data; still need better error checking
-            
+
             NSRange format18 = [youTubeVideoDataReadable rangeOfString:@"itag=18"];
             NSRange roughMpegHttpStream;
             roughMpegHttpStream.location = 0;
             roughMpegHttpStream.length = format18.location;
-            
+
             NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"url=http" options:NSBackwardsSearch range:roughMpegHttpStream];
-            
+
             roughMpegHttpStream.location = mpegHttpStreamStart.location;
             roughMpegHttpStream.length = [youTubeVideoDataReadable length] - mpegHttpStreamStart.location;
-            
+
             NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
-            
+
             NSRange fallbackHostAtEnd = [youTubeVideoDataReadable rangeOfString:@"&fallback_host" options:0 range:roughMpegHttpStream];
-            
+
             NSRange finalMpegHttpStream;
             finalMpegHttpStream.location = httpAtStart.location;
             finalMpegHttpStream.length = fallbackHostAtEnd.location - httpAtStart.location;
-          
+
             NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-            
+
             // useful for debugging YouTube page changes
             // LOG(@"movieURLString = %@", movieURLString);
 
             videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
         }
     }
-    
+
     return contentURL;
 #endif
 }
@@ -212,33 +216,33 @@ static NSString *fakeAPIData[] = {
 - (void)retrieveAndStoreYouTubeVideoData:(id)youTubeVideo
 {
     URLIndex *youTubeVideoURLIndex = (URLIndex *)youTubeVideo;
-    
+
     /*
      * Thumbnail image
      */
-    
+
     NSURLResponse *response = nil;
     NSError *error = nil;
     NSURLRequest *request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.thumbnailURL];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
+
     UIImage *thumbnailImage = [[UIImage imageWithData:data] retain];
-    
+
     /*
      * Sharer image
      */
-    
+
     request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.sharerImageURL];
     data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
+
     UIImage *sharerImage = [[UIImage imageWithData:data] retain];
-    
+
     /*
      * Create data object and store it
      */
-    
+
     VideoData *videoData = [[[VideoData alloc] init] retain];
-    
+
     videoData.youTubeVideoInfoURL = youTubeVideoURLIndex.youTubeVideoInfoURL;
     videoData.contentURL = nil;
     videoData.thumbnailImage = thumbnailImage;
@@ -246,7 +250,7 @@ static NSString *fakeAPIData[] = {
     videoData.sharer = youTubeVideoURLIndex.sharer;
     videoData.sharerComment = youTubeVideoURLIndex.sharerComment;
     videoData.sharerImage = sharerImage;
-    
+
     @synchronized(videoDataArray)
     {
         [videoDataArray addObject:videoData];
@@ -258,23 +262,23 @@ static NSString *fakeAPIData[] = {
 - (void)updateTableView
 {
     NSUInteger currentCount;
-     
+
     @synchronized(videoDataArray)
     {
         currentCount = [videoDataArray count];
     }
-    
+
     if (lastInserted != currentCount) {
         NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-        
+
         for (int i = lastInserted; i < currentCount; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]]; 
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
         }
-        
+
         [tableView beginUpdates];
         [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
         [tableView endUpdates];
-        
+
         lastInserted = currentCount;
     }
 }
@@ -290,23 +294,78 @@ static NSString *fakeAPIData[] = {
 {
     for (int i = 0; i < 23; i++) {
         NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:fakeAPIData[i * 6 + 2]]];
-        URLIndex *youTubeVideoIndex = [[URLIndex alloc] init]; 
+        URLIndex *youTubeVideoIndex = [[URLIndex alloc] init];
         youTubeVideoIndex.youTubeVideoInfoURL = youTubeVideo;
-        
+
         NSURL *thumbnailURL = [[NSURL alloc] initWithString:fakeAPIData[i * 6]];
         youTubeVideoIndex.thumbnailURL = thumbnailURL;
-        
+
         youTubeVideoIndex.title = fakeAPIData[i * 6 + 1];
         youTubeVideoIndex.sharer = fakeAPIData[i * 6 + 5];
         youTubeVideoIndex.sharerComment = fakeAPIData[i * 6 + 3];
         youTubeVideoIndex.sharerImageURL = [[NSURL alloc] initWithString:fakeAPIData[i * 6 + 4]];
-        
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self 
-                                                                                selector:@selector(retrieveAndStoreYouTubeVideoData:) 
+
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                                selector:@selector(retrieveAndStoreYouTubeVideoData:)
                                                                                   object:youTubeVideoIndex];
-        
+
         [operationQueue addOperation:operation];
     }
+}
+
+- (void)gotNewJSONBroadcasts:(NSArray *)broadcasts {
+  for (NSDictionary *broadcast in broadcasts) {
+    if ([[broadcast objectForKey: @"video_provider_name"] isEqualToString: @"youtube"]) {
+      NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
+      NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
+      NSString *title        = [broadcast objectForKey: @"video_title"];
+      NSString *description  = [broadcast objectForKey: @"video_description"];
+
+      NSString *comment      = [broadcast objectForKey: @"description"];
+      NSString *sharerName   = [broadcast objectForKey: @"video_originator_user_name"];
+      NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
+
+
+      NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
+
+			if (NOTNULL(youTubeVideo)) {
+				URLIndex *video = [[URLIndex alloc] init];
+
+				// We need the video to get anything done
+				video.youTubeVideoInfoURL = youTubeVideo;
+				if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
+				if (NOTNULL(title)) video.title = title;
+
+				if (NOTNULL(sharerName)) video.sharer = sharerName;
+				if (NOTNULL(comment)) video.sharerComment = comment;
+				if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
+
+				NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+																																								selector:@selector(retrieveAndStoreYouTubeVideoData:)
+																																									object:video];
+
+				[operationQueue addOperation:operation];
+			}
+    }
+    // For now, we only handle YouTube.
+  }
+}
+
+#pragma mark - Notifications
+
+- (void)receivedBroadcastsNotification:(NSNotification *)notification {
+	 NSArray *broadcasts = [notification.userInfo objectForKey: @"broadcasts"];
+	 [self gotNewJSONBroadcasts: broadcasts];
+}
+
+#pragma mark - Cleanup
+
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver: self
+																									name: @"LoginHelperReceivedBroadcasts"
+																								object: nil];
+
+	[super dealloc];
 }
 
 #pragma mark - Initialization
@@ -314,21 +373,26 @@ static NSString *fakeAPIData[] = {
 - (id)initWithUITableView:(UITableView *)linkedTableView
 {
     self = [super init];
-    if (self) {        
+    if (self) {
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:2];
-        
+
         // we use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
-        
+
         lastInserted = 0;
-        
+
         // use timer so that updates to the UITableView are smoothly animated, coming in once per second
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTableView) userInfo:nil repeats:YES];
-        
+
         videoDataArray = [[NSMutableArray alloc] init];
+
+				[[NSNotificationCenter defaultCenter] addObserver: self
+																								 selector: @selector(receivedBroadcastsNotification:)
+																										 name: @"LoginHelperReceivedBroadcasts"
+																									 object: nil];
     }
-    
+
     return self;
 }
 

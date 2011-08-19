@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "OAuthHandshake.h"
 
+@class SBJsonStreamParser;
+
 @protocol LoginHelperDelegate
 
 //- (void)fetchRequestTokenDidFinish:(OAToken *)requestToken;
@@ -22,6 +24,7 @@
 @interface LoginHelper : NSObject <OAuthHandshakeDelegate> {
   //NSString *_verifier;
   OAuthHandshake *handshake;
+  SBJsonStreamParser *parser;
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;
