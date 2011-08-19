@@ -1,3 +1,6 @@
 [submodule "Libraries/OAuth"]
 	path = Libraries/OAuth
 	url = https://github.com/DavidYKay/OAuth.git
+[submodule "Libraries/json-framework"]
+	path = Libraries/json-framework
+	url = https://github.com/stig/json-framework.git
