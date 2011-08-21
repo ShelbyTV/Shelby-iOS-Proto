@@ -17,6 +17,7 @@
 
 #define kRequestTokenName @"request"
 #define kAccessTokenName @"access"
+#define kAccessTokenSecretName @"access_secret"
 
 #define kShelbyConsumerKey		@"RXbwSMUr8l810IwUz64fcHGsww2ZZXRItCbmNgmv"
 #define kShelbyConsumerSecret		@"UaH7vX7e695nmEfgtLpPQVLeHZTOdBgnox0XfYfn"
@@ -33,9 +34,12 @@
 @implementation LoginHelper
 
 @synthesize delegate;
-//@synthesize requestToken = _requestToken;
-//@synthesize accessToken = _accessToken;
-//@synthesize verifier = _verifier;
+
+//@synthesize consumerToken;
+//@synthesize consumerTokenSecret;
+
+@synthesize accessToken;
+@synthesize accessTokenSecret;
 
 - (id)init
 {
@@ -43,6 +47,7 @@
   if (self) {
 		parser = [[SBJsonStreamParser alloc] init];
 		parser.delegate = self;
+    [self loadTokens];
     // Initialization code here.
 //    self.requestToken = [self retrieveTokenWithName: kRequestTokenName];
 //    self.accessToken  = [self retrieveTokenWithName: kAccessTokenName];
@@ -53,30 +58,39 @@
 
 #pragma mark - Token Storage
 
-//- (void)clearTokens {
-//  [OAToken removeFromUserDefaultsWithServiceProviderName: kProviderName
-//                                                  prefix: kRequestTokenName];
-//  [OAToken removeFromUserDefaultsWithServiceProviderName: kProviderName
-//                                                  prefix: kAccessTokenName];
-//}
-//
-//- (void)storeToken:(OAToken *)token withName:(NSString *)name {
-//  //[token storeInDefaultKeychainWithAppName:kAppName
-//  //										 serviceProviderName:kProviderName];
-//  [token storeInUserDefaultsWithServiceProviderName: kProviderName
-//                                             prefix: name
-//                                             ];
-//}
-//
-//- (OAToken *)retrieveTokenWithName:(NSString *)name {
-//  //OAToken *accessToken = [[OAToken alloc] initWithKeychainUsingAppName:kAppName
-//  //                                                 serviceProviderName:kProviderName];
-//  OAToken *accessToken = [[OAToken alloc]
-//    initWithUserDefaultsUsingServiceProviderName: kProviderName
-//                                          prefix: name
-//                                          ];
-//  return [accessToken autorelease];
-//}
+- (NSString *)consumerTokenSecret {
+	return kShelbyConsumerSecret;
+}
+
+- (NSString *)consumerToken {
+	return kShelbyConsumerKey;
+}
+
+- (void)loadTokens {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	self.accessToken = [defaults stringForKey: kAccessTokenName];
+	self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
+}
+
+/**
+ * For now, we're using NSUserDefaults. However, this is insecure. 
+ * We should move to the keychain in the future.
+ */
+- (void)storeTokens {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setObject: self.accessToken
+               forKey: kAccessTokenName];
+  [defaults setObject: self.accessTokenSecret
+               forKey: kAccessTokenSecretName];
+  [defaults synchronize];
+}
+
+- (void)clearTokens {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults removeObjectForkey: kAccessTokenName];
+  [defaults removeObjectForkey: kAccessTokenSecretName];
+  [defaults synchronize];
+}
 
 #pragma mark - Request Token
 

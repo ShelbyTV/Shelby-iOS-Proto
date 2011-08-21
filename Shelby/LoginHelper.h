@@ -22,14 +22,16 @@
 @end
 
 @interface LoginHelper : NSObject <OAuthHandshakeDelegate> {
-  //NSString *_verifier;
   OAuthHandshake *handshake;
   SBJsonStreamParser *parser;
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;
 
-//@property (nonatomic, retain) NSString *verifier;
+@property (nonatomic, readonly) NSString *consumerToken;
+@property (nonatomic, readonly) NSString *consumerTokenSecret;
+@property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, retain) NSString *accessTokenSecret;
 
 - (void)getRequestToken;
 - (void)verifierReturnedFromAuth:(NSString *)verifier;
