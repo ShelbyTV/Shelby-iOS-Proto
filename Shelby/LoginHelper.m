@@ -137,7 +137,10 @@
   self.accessTokenSecret = tokenSecret;
   [self storeTokens];
 
-  [self fetchBroadcasts];
+  [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperAuthorizedAccessToken"
+                                                      object: self
+                                                      ];
+                                                    //userInfo: userInfo];
 }
 
 #pragma mark - Access Resources

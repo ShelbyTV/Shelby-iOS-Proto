@@ -265,29 +265,7 @@
 					<object class="IBUIButton" id="551778387">
 						<reference key="NSNextResponder" ref="387895688"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{228, 570}, {130, 37}}</string>
-						<reference key="NSSuperview" ref="387895688"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="970710737"/>
-						<string key="NSReuseIdentifierKey">_NS:237</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="450745820"/>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Get Request</string>
-						<reference key="IBUIHighlightedTitleColor" ref="184020844"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="280866642"/>
-					</object>
-					<object class="IBUIButton" id="422030773">
-						<reference key="NSNextResponder" ref="387895688"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{636, 570}, {130, 37}}</string>
+						<string key="NSFrame">{{436, 550}, {153, 37}}</string>
 						<reference key="NSSuperview" ref="387895688"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -298,29 +276,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="450745820"/>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Get Access</string>
-						<reference key="IBUIHighlightedTitleColor" ref="184020844"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="280866642"/>
-					</object>
-					<object class="IBUIButton" id="970710737">
-						<reference key="NSNextResponder" ref="387895688"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{429, 570}, {130, 37}}</string>
-						<reference key="NSSuperview" ref="387895688"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="422030773"/>
-						<string key="NSReuseIdentifierKey">_NS:237</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="450745820"/>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Authenticate</string>
+						<string key="IBUINormalTitle">oAuth Handshake</string>
 						<reference key="IBUIHighlightedTitleColor" ref="184020844"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -411,24 +367,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">accessTokenWasPressed:</string>
-						<reference key="source" ref="422030773"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">28</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">authorizeWasPressed:</string>
-						<reference key="source" ref="970710737"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">29</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">requestTokenWasPressed:</string>
 						<reference key="source" ref="551778387"/>
 						<reference key="destination" ref="372490531"/>
@@ -466,8 +404,6 @@
 							<reference ref="1047314806"/>
 							<reference ref="428655892"/>
 							<reference ref="551778387"/>
-							<reference ref="970710737"/>
-							<reference ref="422030773"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -532,16 +468,6 @@
 						<reference key="object" ref="551778387"/>
 						<reference key="parent" ref="387895688"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">26</int>
-						<reference key="object" ref="422030773"/>
-						<reference key="parent" ref="387895688"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">27</int>
-						<reference key="object" ref="970710737"/>
-						<reference key="parent" ref="387895688"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -556,8 +482,6 @@
 					<string>23.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
-					<string>26.IBPluginDependency</string>
-					<string>27.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
@@ -571,8 +495,6 @@
 					<string>LoginViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -613,6 +535,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>accessTokenWasPressed:</string>
 							<string>authorizeWasPressed:</string>
+							<string>fetchBroadcastsWasPressed:</string>
 							<string>loginWasPressed:</string>
 							<string>loginWithFacebook:</string>
 							<string>loginWithTwitter:</string>
@@ -621,6 +544,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -636,6 +560,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>accessTokenWasPressed:</string>
 							<string>authorizeWasPressed:</string>
+							<string>fetchBroadcastsWasPressed:</string>
 							<string>loginWasPressed:</string>
 							<string>loginWithFacebook:</string>
 							<string>loginWithTwitter:</string>
@@ -650,6 +575,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">authorizeWasPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">fetchBroadcastsWasPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
