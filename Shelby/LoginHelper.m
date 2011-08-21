@@ -131,6 +131,12 @@
 - (void)handshake:(OAuthHandshake *)handshake authenticatedToken:(NSString *)token withSecret:(NSString *)tokenSecret;
 {
   NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
+
+  // Store token for later use.
+  self.accessToken = token;
+  self.accessTokenSecret = tokenSecret;
+  [self storeTokens];
+
   [self fetchBroadcasts];
 }
 
