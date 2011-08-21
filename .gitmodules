@@ -4,3 +4,6 @@
 [submodule "Libraries/json-framework"]
 	path = Libraries/json-framework
 	url = https://github.com/stig/json-framework.git
+[submodule "Libraries/EGOTableViewPullRefresh"]
+	path = Libraries/EGOTableViewPullRefresh
+	url = https://github.com/enormego/EGOTableViewPullRefresh.git

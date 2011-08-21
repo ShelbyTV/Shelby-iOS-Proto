@@ -50,6 +50,15 @@
 		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
+		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
+		42925B221401C01B00333F46 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B191401C01B00333F46 /* blackArrow.png */; };
+		42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1A1401C01B00333F46 /* blackArrow@2x.png */; };
+		42925B241401C01B00333F46 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1B1401C01B00333F46 /* blueArrow.png */; };
+		42925B251401C01B00333F46 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1C1401C01B00333F46 /* blueArrow@2x.png */; };
+		42925B261401C01B00333F46 /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1D1401C01B00333F46 /* grayArrow.png */; };
+		42925B271401C01B00333F46 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1E1401C01B00333F46 /* grayArrow@2x.png */; };
+		42925B281401C01B00333F46 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1F1401C01B00333F46 /* whiteArrow.png */; };
+		42925B291401C01B00333F46 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B201401C01B00333F46 /* whiteArrow@2x.png */; };
 		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
 		42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* LoginHelper.m */; };
 		42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214B13FEE40500A8FC00 /* NSData+Base64.m */; };
@@ -182,6 +191,16 @@
 		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		427A623113F4843200C945E2 /* STVCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVCheckBox.h; sourceTree = "<group>"; };
 		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
+		42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		42925B191401C01B00333F46 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		42925B1A1401C01B00333F46 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
+		42925B1B1401C01B00333F46 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		42925B1C1401C01B00333F46 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
+		42925B1D1401C01B00333F46 /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
+		42925B1E1401C01B00333F46 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
+		42925B1F1401C01B00333F46 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
+		42925B201401C01B00333F46 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		429A99E813EDDAC80095DFED /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
 		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHelper.m; sourceTree = "<group>"; };
 		42A09B4813FC6CD100570DBE /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
@@ -424,6 +443,7 @@
 		427A622513F4717C00C945E2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				42925B131401C01B00333F46 /* EGOTableViewPullRefresh */,
 				42AB21D113FEF34C00A8FC00 /* JSON-Framework */,
 				42AB209013FEE40500A8FC00 /* OAuth */,
 				427A622613F4719800C945E2 /* UICustomSwitch */,
@@ -452,6 +472,48 @@
 				427A623213F4843200C945E2 /* STVCheckBox.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		42925B131401C01B00333F46 /* EGOTableViewPullRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				42925B141401C01B00333F46 /* Classes */,
+				42925B181401C01B00333F46 /* Resources */,
+			);
+			name = EGOTableViewPullRefresh;
+			path = Libraries/EGOTableViewPullRefresh/EGOTableViewPullRefresh;
+			sourceTree = "<group>";
+		};
+		42925B141401C01B00333F46 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				42925B151401C01B00333F46 /* View */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		42925B151401C01B00333F46 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */,
+				42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		42925B181401C01B00333F46 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				42925B191401C01B00333F46 /* blackArrow.png */,
+				42925B1A1401C01B00333F46 /* blackArrow@2x.png */,
+				42925B1B1401C01B00333F46 /* blueArrow.png */,
+				42925B1C1401C01B00333F46 /* blueArrow@2x.png */,
+				42925B1D1401C01B00333F46 /* grayArrow.png */,
+				42925B1E1401C01B00333F46 /* grayArrow@2x.png */,
+				42925B1F1401C01B00333F46 /* whiteArrow.png */,
+				42925B201401C01B00333F46 /* whiteArrow@2x.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		42A09B4313FC6CC400570DBE /* Login */ = {
@@ -763,6 +825,14 @@
 				427A622E13F4719800C945E2 /* switchThumb.png in Resources */,
 				42531BCD13F9B1E5004F44AB /* SettingsViewController.xib in Resources */,
 				42AB21C313FEE40500A8FC00 /* OAuth-Info.plist in Resources */,
+				42925B221401C01B00333F46 /* blackArrow.png in Resources */,
+				42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */,
+				42925B241401C01B00333F46 /* blueArrow.png in Resources */,
+				42925B251401C01B00333F46 /* blueArrow@2x.png in Resources */,
+				42925B261401C01B00333F46 /* grayArrow.png in Resources */,
+				42925B271401C01B00333F46 /* grayArrow@2x.png in Resources */,
+				42925B281401C01B00333F46 /* whiteArrow.png in Resources */,
+				42925B291401C01B00333F46 /* whiteArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,6 +908,7 @@
 				42AB21F113FEF35D00A8FC00 /* SBJsonTokeniser.m in Sources */,
 				42AB21F213FEF35D00A8FC00 /* SBJsonUTF8Stream.m in Sources */,
 				42AB21F313FEF35D00A8FC00 /* SBJsonWriter.m in Sources */,
+				42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
