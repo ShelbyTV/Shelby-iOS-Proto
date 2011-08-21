@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "OAuthHandshake.h"
+#import "SBJsonStreamParser.h"
 
 @class SBJsonStreamParser;
 
@@ -21,7 +22,7 @@
 
 @end
 
-@interface LoginHelper : NSObject <OAuthHandshakeDelegate> {
+@interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate> {
   OAuthHandshake *handshake;
   SBJsonStreamParser *parser;
 }
@@ -33,8 +34,11 @@
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *accessTokenSecret;
 
+#pragma mark - OAuth Handshake
 - (void)getRequestToken;
 - (void)verifierReturnedFromAuth:(NSString *)verifier;
+
+#pragma mark - API Calls
 - (void)fetchBroadcasts;
 
 @end

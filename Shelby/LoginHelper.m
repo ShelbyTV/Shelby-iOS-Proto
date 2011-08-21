@@ -10,7 +10,6 @@
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
 #import "OAuthMutableURLRequest.h"
-#import "SBJsonStreamParser.h"
 
 #define kAppName @"Shelby.tv iOS"
 #define kProviderName @"shelby.tv"
@@ -31,12 +30,18 @@
 
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
+@interface LoginHelper(Private)
+
+#pragma mark - Persistence
+- (void)loadTokens;
+- (void)storeTokens;
+- (void)clearTokens;
+
+@end
+
 @implementation LoginHelper
 
 @synthesize delegate;
-
-//@synthesize consumerToken;
-//@synthesize consumerTokenSecret;
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
@@ -48,9 +53,6 @@
 		parser = [[SBJsonStreamParser alloc] init];
 		parser.delegate = self;
     [self loadTokens];
-    // Initialization code here.
-//    self.requestToken = [self retrieveTokenWithName: kRequestTokenName];
-//    self.accessToken  = [self retrieveTokenWithName: kAccessTokenName];
   }
 
   return self;
@@ -87,8 +89,8 @@
 
 - (void)clearTokens {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults removeObjectForkey: kAccessTokenName];
-  [defaults removeObjectForkey: kAccessTokenSecretName];
+  [defaults removeObjectForKey: kAccessTokenName];
+  [defaults removeObjectForKey: kAccessTokenSecretName];
   [defaults synchronize];
 }
 
