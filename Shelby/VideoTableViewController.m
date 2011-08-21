@@ -27,18 +27,55 @@
     return self;
 }
 
+#pragma mark - Data Refresh
+
 - (void)loadVideos
 {
     [videoTableData loadVideos];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+- (void)doneLoadingTableViewData{
 
-    // Release any cached data, images, etc that aren't in use.
+	//  model should call this when its done loading
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+
 }
+
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+
+	[self loadVideos];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+
+	return _reloading; // should return if data source model is reloading
+
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+
+	return [NSDate date]; // should return date data source was last changed
+
+}
+
 
 #pragma mark - UI Callbacks
 
@@ -113,6 +150,18 @@
     //           target:self
     //           action:@selector(toolbarButtonWasPressed:)];
 
+    // Init the pull-to-refresh header.
+    if (_refreshHeaderView == nil) {
+      EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+      view.delegate = self;
+      [self.tableView addSubview:view];
+      _refreshHeaderView = view;
+      [view release];
+    }
+    //  update the last update date
+    [_refreshHeaderView refreshLastUpdatedDate];
+
+    // Init the segmented control.
     UIButton *timeButton = [UIButton buttonWithType: UIButtonTypeCustom];
     UIImage *timeImageNormal = [UIImage imageNamed: @"ButtonListNormal"];
     [timeButton setImage: timeImageNormal
@@ -276,7 +325,6 @@
 }
 */
 
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -303,5 +351,16 @@
     //[callbackObject performSelector:callbackSelector withObject:contentURL];
     [callbackObject performSelector:callbackSelector withObject:video];
 }
+
+#pragma mark - Cleanup
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+
+    // Release any cached data, images, etc that aren't in use.
+}
+
 
 @end

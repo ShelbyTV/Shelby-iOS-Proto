@@ -59,6 +59,7 @@
 		42925B271401C01B00333F46 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1E1401C01B00333F46 /* grayArrow@2x.png */; };
 		42925B281401C01B00333F46 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1F1401C01B00333F46 /* whiteArrow.png */; };
 		42925B291401C01B00333F46 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B201401C01B00333F46 /* whiteArrow@2x.png */; };
+		42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42925B2B1401C2AA00333F46 /* QuartzCore.framework */; };
 		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
 		42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* LoginHelper.m */; };
 		42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214B13FEE40500A8FC00 /* NSData+Base64.m */; };
@@ -201,6 +202,7 @@
 		42925B1E1401C01B00333F46 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
 		42925B1F1401C01B00333F46 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		42925B201401C01B00333F46 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		42925B2B1401C2AA00333F46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		429A99E813EDDAC80095DFED /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
 		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHelper.m; sourceTree = "<group>"; };
 		42A09B4813FC6CD100570DBE /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */,
 				0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */,
 				0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */,
 				0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */,
@@ -328,6 +331,7 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
+				42925B2B1401C2AA00333F46 /* QuartzCore.framework */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
 				427A622513F4717C00C945E2 /* Libraries */,
