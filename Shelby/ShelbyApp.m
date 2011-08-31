@@ -8,10 +8,11 @@
 
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
+#import "NetworkManager.h"
 
 @implementation ShelbyApp
 
-@synthesize loginHelper;
+@synthesize networkManager;
 
 static ShelbyApp *gShelbyApp;
 
@@ -26,7 +27,7 @@ static ShelbyApp *gShelbyApp;
 {
     self = [super init];
     if (self) {
-      self.loginHelper = [[[LoginHelper alloc] init] autorelease];
+      self.networkManager = [[[NetworkManager alloc] init] autorelease];
     }
     
     return self;

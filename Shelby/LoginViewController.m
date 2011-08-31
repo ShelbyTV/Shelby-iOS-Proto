@@ -8,7 +8,7 @@
 //
 
 #import "LoginViewController.h"
-#import "LoginHelper.h"
+#import "NetworkManager.h"
 #import "ShelbyApp.h"
 
 @implementation LoginViewController
@@ -25,8 +25,8 @@
         callbackObject = object;
         callbackSelector = selector;
 
-        //_loginHelper = [[LoginHelper alloc] init];
-        _loginHelper = [ShelbyApp sharedApp].loginHelper;
+        //_networkManager = [[LoginHelper alloc] init];
+        _networkManager = [ShelbyApp sharedApp].networkManager;
     }
     return self;
 }
@@ -193,26 +193,25 @@
 
 - (IBAction)loginWasPressed:(id)sender {
     LOG(@"Login not implemented");
-    //[_loginHelper getRequestToken];
+    //[_networkManager getRequestToken];
 }
 
 - (IBAction)requestTokenWasPressed:(id)sender {
-  [_loginHelper getRequestToken];
+  [_networkManager beginOAuthHandshake];
 }
 
 - (IBAction)authorizeWasPressed:(id)sender {
-   //[_loginHelper authorizeToken: _loginHelper.requestToken];
-   //[_loginHelper authorizeToken];
+   //[_networkManager authorizeToken: _networkManager.requestToken];
+   //[_networkManager authorizeToken];
 }
 
 - (IBAction)accessTokenWasPressed:(id)sender {
-     //[_loginHelper getAccessToken: _loginHelper.requestToken verifier: ];
-     //[_loginHelper getAccessToken];
+     //[_networkManager getAccessToken: _networkManager.requestToken verifier: ];
+     //[_networkManager getAccessToken];
 }
 
 - (IBAction)fetchBroadcastsWasPressed:(id)sender {
-     [_loginHelper fetchBroadcasts];
-
+     [_networkManager fetchBroadcasts];
 }
 
 

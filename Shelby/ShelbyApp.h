@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @class LoginHelper;
+@class NetworkManager;
 
 /*
  * Global singleton for maintaining state.
  */
 @interface ShelbyApp : NSObject {
 }
-@property (nonatomic, retain) LoginHelper *loginHelper;
+@property (nonatomic, retain) NetworkManager *networkManager;
 
 + (ShelbyApp *)sharedApp;
 

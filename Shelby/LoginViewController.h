@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class LoginHelper;
+@class NetworkManager;
 
 @interface LoginViewController : UIViewController {
     IBOutlet UITextField *username;
@@ -22,7 +22,7 @@
     UIView *_activeField;
 
     // Actual login stuff.
-    LoginHelper *_loginHelper;
+    NetworkManager *_networkManager;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil

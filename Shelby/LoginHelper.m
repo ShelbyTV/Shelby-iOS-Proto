@@ -28,6 +28,10 @@
 #define kUserAuthorizationUrl @"http://dev.shelby.tv/oauth/authorize"
 #define kAccessTokenUrl       @"http://dev.shelby.tv/oauth/access_token"
 
+//#define kRequestTokenUrl      @"http://api.shelby.tv/oauth/request_token"
+//#define kUserAuthorizationUrl @"http://api.shelby.tv/oauth/authorize"
+//#define kAccessTokenUrl       @"http://api.shelby.tv/oauth/access_token"
+
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
 @interface LoginHelper(Private)
