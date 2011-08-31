@@ -313,9 +313,10 @@ static NSString *fakeAPIData[] = {
     }
 }
 
-- (void)gotNewJSONBroadcasts:(NSArray *)broadcasts {
-  for (NSDictionary *broadcast in broadcasts) {
-    if ([[broadcast objectForKey: @"video_provider_name"] isEqualToString: @"youtube"]) {
+- (void)gotNewJSONBroadcasts:(NSArray *)broadcasts
+{
+    for (NSDictionary *broadcast in broadcasts) {
+        if ([[broadcast objectForKey: @"video_provider_name"] isEqualToString: @"youtube"]) {
       NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
       NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
       NSString *title        = [broadcast objectForKey: @"video_title"];
@@ -328,43 +329,44 @@ static NSString *fakeAPIData[] = {
 
       NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
 
-			if (NOTNULL(youTubeVideo)) {
-				URLIndex *video = [[URLIndex alloc] init];
+      if (NOTNULL(youTubeVideo)) {
+          URLIndex *video = [[URLIndex alloc] init];
 
-				// We need the video to get anything done
-				video.youTubeVideoInfoURL = youTubeVideo;
-				if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
-				if (NOTNULL(title)) video.title = title;
+          // We need the video to get anything done
+          video.youTubeVideoInfoURL = youTubeVideo;
+          if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
+          if (NOTNULL(title)) video.title = title;
 
-				if (NOTNULL(sharerName)) video.sharer = sharerName;
-				if (NOTNULL(comment)) video.sharerComment = comment;
-				if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
+          if (NOTNULL(sharerName)) video.sharer = sharerName;
+          if (NOTNULL(comment)) video.sharerComment = comment;
+          if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
 
-				NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-																																								selector:@selector(retrieveAndStoreYouTubeVideoData:)
-																																									object:video];
+          NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                                  selector:@selector(retrieveAndStoreYouTubeVideoData:)
+                                                                                    object:video];
 
-				[operationQueue addOperation:operation];
-			}
+          [operationQueue addOperation:operation];
+      }
+        }
+        // For now, we only handle YouTube.
     }
-    // For now, we only handle YouTube.
-  }
 }
 
 #pragma mark - Notifications
 
-- (void)receivedBroadcastsNotification:(NSNotification *)notification {
+- (void)receivedBroadcastsNotification:(NSNotification *)notification
+{
 	 NSArray *broadcasts = [notification.userInfo objectForKey: @"broadcasts"];
 	 [self gotNewJSONBroadcasts: broadcasts];
 }
 
 #pragma mark - Cleanup
 
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver: self
-																									name: @"LoginHelperReceivedBroadcasts"
-																								object: nil];
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"LoginHelperReceivedBroadcasts"
+                                                  object: nil];
 	[super dealloc];
 }
 

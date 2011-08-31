@@ -75,7 +75,7 @@
 }
 
 /**
- * For now, we're using NSUserDefaults. However, this is insecure. 
+ * For now, we're using NSUserDefaults. However, this is insecure.
  * We should move to the keychain in the future.
  */
 - (void)storeTokens {
@@ -116,7 +116,7 @@
 
 - (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token;
 {
-  NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@", 
+  NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@",
     kUserAuthorizationUrl,
     [token URLEncodedString]];
   [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];

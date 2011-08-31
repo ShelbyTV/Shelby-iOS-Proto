@@ -34,12 +34,11 @@
     [videoTableData loadVideos];
 }
 
-- (void)doneLoadingTableViewData{
-
+- (void)doneLoadingTableViewData
+{
 	//  model should call this when its done loading
 	_reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-
 }
 
 #pragma mark - UIScrollViewDelegate Methods
