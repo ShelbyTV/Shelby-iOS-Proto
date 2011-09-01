@@ -34,8 +34,8 @@
 #pragma mark - Initialization
 
 - (void)initImages {
-    _emptyImage = [[UIImage imageNamed: @"CheckBoxEmpty"] retain];
-    _checkedImage = [[UIImage imageNamed: @"CheckBoxChecked"] retain];
+    _emptyImage = [[UIImage imageNamed: @"CheckboxEmpty"] retain];
+    _checkedImage = [[UIImage imageNamed: @"CheckboxChecked"] retain];
 
     _button = [UIButton buttonWithType: UIButtonTypeCustom];
     [_button addTarget: self
