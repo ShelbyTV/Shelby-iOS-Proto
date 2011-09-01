@@ -98,6 +98,20 @@
     [defaults synchronize];
 }
 
+#pragma mark - Load Old Credentials
+
+- (OAuthMutableURLRequest *) requestForURL: (NSURL *) url withMethod: (NSString *) method;
+{
+    OAuthMutableURLRequest *request = [[[OAuthMutableURLRequest alloc] initWithURL: url] autorelease];
+
+    [request setConsumerKey: self.consumerToken secret: self.consumerTokenSecret];
+    if (self.accessToken != nil) [request setToken: self.accessToken secret: self.accessTokenSecret];
+
+    [request setHTTPMethod: method];
+
+    return request;
+}
+
 #pragma mark - Request Token
 
 - (void)getRequestToken {
@@ -147,12 +161,15 @@
                                                     //userInfo: userInfo];
 }
 
+
 #pragma mark - Access Resources
 
 //- (void)fetchBroadcasts {
 - (BOOL)fetchBroadcasts {
     NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
-    OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
+
+    //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
 
     if (req) {
         // Set to plaintext on request because oAuth library is broken.
@@ -188,7 +205,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
-	[NSException raise:@"unexpected" format:@"Should not get here"];
+    [NSException raise:@"unexpected" format:@"Should not get here"];
 }
 
 @end
