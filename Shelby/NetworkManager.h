@@ -10,14 +10,16 @@
 
 @class LoginHelper;
 
+/**
+ * This is our public-facing class for all things that go on the network.
+ */
 @interface NetworkManager : NSObject {
-
+@private
+    LoginHelper *_loginHelper;
 }
 
-@property (nonatomic, retain) LoginHelper *loginHelper;
 
-#pragma mark - Status
-- (BOOL)loggedIn;
+@property (nonatomic, readonly) BOOL loggedIn;
 
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake;

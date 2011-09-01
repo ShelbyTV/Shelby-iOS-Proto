@@ -168,7 +168,6 @@
 
 #pragma mark - Access Resources
 
-//- (void)fetchBroadcasts {
 - (BOOL)fetchBroadcasts {
     NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
 

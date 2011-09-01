@@ -10,6 +10,8 @@
 #import "LoginViewController.h"
 #import "NavigationViewController_iPhone.h"
 #import "RootViewController.h"
+#import "ShelbyApp.h"
+#import "NetworkManager.h"
 
 @implementation ShelbyAppDelegate_iPhone
 
@@ -19,21 +21,26 @@
 
     // Windows don't work very well at passing events to multiple subviews. Use rootView to contain everything.
     rootViewController = [[RootViewController alloc] initWithNibName:@"Root_iPhone" bundle:nil];
-    
+
     navigationViewController = [[NavigationViewController_iPhone alloc] initWithNibName:@"Navigation_iPhone" bundle:nil];
     navigationViewController.view.frame = rootViewController.view.bounds;
     [rootViewController.view addSubview:navigationViewController.view];
-    
-    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone" 
-                                                                bundle:nil 
-                                                        callbackObject:navigationViewController 
-                                                      callbackSelector:@selector(loadUserData)];
-    
-    loginViewController.view.frame = rootViewController.view.bounds;
-    [rootViewController.view addSubview:loginViewController.view]; 
-    
+
+    if ([ShelbyApp sharedApp].networkManager.loggedIn) {
+        // If we're logged in, we can bypass login.
+        [navigationViewController loadUserData];
+    } else {
+        loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone"
+                                                                    bundle:nil
+                                                            callbackObject:navigationViewController
+                                                          callbackSelector:@selector(loadUserData)];
+
+        loginViewController.view.frame = rootViewController.view.bounds;
+        [rootViewController.view addSubview:loginViewController.view];
+    }
+
     [self.window addSubview:rootViewController.view];
-    
+
     [self.window makeKeyAndVisible];
     return YES;
 }

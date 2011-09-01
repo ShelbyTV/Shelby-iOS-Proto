@@ -9,9 +9,13 @@
 #import "NetworkManager.h"
 #import "LoginHelper.h"
 
+@interface NetworkManager ()
+@property (nonatomic, retain) LoginHelper *loginHelper;
+@end
+
 @implementation NetworkManager
 
-@synthesize loginHelper;
+@synthesize loginHelper = _loginHelper;
 
 - (id)init
 {
@@ -19,6 +23,10 @@
     if (self) {
         // Initialization code here.
         self.loginHelper = [[[LoginHelper alloc] init] autorelease];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperAuthorizedTokenNotification:)
+                                                     name:@"LoginHelperAuthorizedAccessToken"
+                                                   object:nil];
     }
     return self;
 }
@@ -41,6 +49,13 @@
 #pragma mark - API Calls
 - (BOOL)fetchBroadcasts {
     return [self.loginHelper fetchBroadcasts];
+}
+
+#pragma mark - Notifications
+
+- (void)loginHelperAuthorizedTokenNotification:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedIn"
+                                                        object: self];
 }
 
 @end

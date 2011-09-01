@@ -26,12 +26,17 @@
         callbackSelector = selector;
 
         _networkManager = [ShelbyApp sharedApp].networkManager;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userLoggedIn:)
+                                                     name:@"NetworkManagerLoggedIn"
+                                                   object:nil];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NetworkManagerLoggedIn" object:nil];
     [super dealloc];
 }
 
@@ -102,6 +107,14 @@
             [self.view setHidden:YES];
         }
     }];
+}
+
+#pragma mark - Notification Handlers
+
+- (void)userLoggedIn:(NSNotification*)aNotification
+{
+    [callbackObject performSelector:callbackSelector];
+    [self fadeOut];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification

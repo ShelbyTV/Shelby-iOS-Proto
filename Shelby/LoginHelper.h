@@ -22,6 +22,10 @@
 
 @end
 
+/**
+ * The NetworkManager uses this class internally, but no other objects should
+ * have to worry about this class.
+ */
 @interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate> {
   OAuthHandshake *handshake;
   SBJsonStreamParser *parser;
