@@ -36,9 +36,4 @@
 - (IBAction)registerWasPressed:(id)sender;
 - (IBAction)loginWasPressed:(id)sender;
 
-- (IBAction)requestTokenWasPressed:(id)sender;
-- (IBAction)authorizeWasPressed:(id)sender;
-- (IBAction)accessTokenWasPressed:(id)sender;
-- (IBAction)fetchBroadcastsWasPressed:(id)sender;
-
 @end

@@ -109,12 +109,25 @@
     }];
 }
 
+- (void)beginLogin
+{
+  [_networkManager beginOAuthHandshake];
+}
+
+/**
+ * Once we've completed logging in, this removes the view.
+ */
+- (void)allDone
+{
+    [callbackObject performSelector:callbackSelector];
+    [self fadeOut];
+}
+
 #pragma mark - Notification Handlers
 
 - (void)userLoggedIn:(NSNotification*)aNotification
 {
-    [callbackObject performSelector:callbackSelector];
-    [self fadeOut];
+    [self allDone];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification
@@ -182,16 +195,16 @@
 
 - (IBAction)loginWithFacebook:(id)sender
 {
-    [callbackObject performSelector:callbackSelector];
-    [self fadeOut];
+    //[self allDone];
+    [self beginLogin];
 
 //    LOG(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
-    [callbackObject performSelector:callbackSelector];
-    [self fadeOut];
+    //[self allDone];
+    [self beginLogin];
 
 
 //    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
@@ -209,7 +222,7 @@
 }
 
 - (IBAction)requestTokenWasPressed:(id)sender {
-  [_networkManager beginOAuthHandshake];
+    [self beginLogin];
 }
 
 - (IBAction)authorizeWasPressed:(id)sender {
@@ -220,10 +233,6 @@
 - (IBAction)accessTokenWasPressed:(id)sender {
      //[_networkManager getAccessToken: _networkManager.requestToken verifier: ];
      //[_networkManager getAccessToken];
-}
-
-- (IBAction)fetchBroadcastsWasPressed:(id)sender {
-     [_networkManager fetchBroadcasts];
 }
 
 @end

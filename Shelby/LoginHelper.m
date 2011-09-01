@@ -208,7 +208,12 @@
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
-    [NSException raise:@"unexpected" format:@"Should not get here"];
+    NSString *error = [dict objectForKey: @"err"];
+    if (error) {
+        [NSException raise:@"unexpected" format:@"User not logged in!. Error: %@", error];
+    } else {
+        [NSException raise:@"unexpected" format:@"Should not get here"];
+    }
 }
 
 @end
