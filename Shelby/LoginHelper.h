@@ -10,6 +10,12 @@
 #import "OAuthHandshake.h"
 #import "SBJsonStreamParser.h"
 
+typedef enum {
+    STVParserModeIdle,
+    STVParserModeUser,
+    STVParserModeBroadcasts,
+} STVParserMode;
+
 @class SBJsonStreamParser;
 
 @protocol LoginHelperDelegate
@@ -27,8 +33,10 @@
  * have to worry about this class.
  */
 @interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate> {
-  OAuthHandshake *handshake;
-  SBJsonStreamParser *parser;
+    OAuthHandshake *handshake;
+    SBJsonStreamParser *parser;
+    @private
+    STVParserMode _parserMode;
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;
@@ -38,6 +46,7 @@
 @property (nonatomic, readonly) NSString *consumerTokenSecret;
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *accessTokenSecret;
+@property (nonatomic, retain) NSString *userId;
 
 #pragma mark - OAuth Handshake
 - (void)getRequestToken;

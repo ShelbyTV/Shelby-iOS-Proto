@@ -14,6 +14,7 @@
 #define kAppName @"Shelby.tv iOS"
 #define kProviderName @"shelby.tv"
 
+#define kUserIdName @"user_id"
 #define kRequestTokenName @"request"
 #define kAccessTokenName @"access"
 #define kAccessTokenSecretName @"access_secret"
@@ -28,13 +29,18 @@
 #define kUserAuthorizationUrl @"http://dev.shelby.tv/oauth/authorize"
 #define kAccessTokenUrl       @"http://dev.shelby.tv/oauth/access_token"
 
+#define kFetchUserUrl         @"http://api.shelby.tv/users.json"
+#define kFetchChannelsUrl     @"http://api.shelby.tv/channels.json"
+#define kFetchBroadcastsUrl   @"http://api.shelby.tv/broadcasts/%@.json"
+
 //#define kRequestTokenUrl      @"http://api.shelby.tv/oauth/request_token"
 //#define kUserAuthorizationUrl @"http://api.shelby.tv/oauth/authorize"
 //#define kAccessTokenUrl       @"http://api.shelby.tv/oauth/access_token"
 
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
-@interface LoginHelper(Private)
+
+@interface LoginHelper ()
 
 #pragma mark - Persistence
 - (void)loadTokens;
@@ -49,6 +55,7 @@
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
+@synthesize userId;
 
 - (id)init
 {
@@ -66,7 +73,7 @@
 
 - (BOOL)loggedIn {
     // If we have stored both the accessToken and the secret, we're logged in.
-    return (self.accessToken && self.accessTokenSecret);
+    return (self.accessToken && self.accessTokenSecret && self.userId);
 }
 
 - (NSString *)consumerTokenSecret {
@@ -81,6 +88,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.accessToken = [defaults stringForKey: kAccessTokenName];
     self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
+    self.userId = [defaults stringForKey: kUserIdName];
 }
 
 /**
@@ -89,6 +97,8 @@
  */
 - (void)storeTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject: self.userId
+                 forKey: kUserIdName];
     [defaults setObject: self.accessToken
                  forKey: kAccessTokenName];
     [defaults setObject: self.accessTokenSecret
@@ -98,6 +108,7 @@
 
 - (void)clearTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey: kUserIdName];
     [defaults removeObjectForKey: kAccessTokenName];
     [defaults removeObjectForKey: kAccessTokenSecretName];
     [defaults synchronize];
@@ -163,8 +174,45 @@
     [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperAuthorizedAccessToken"
                                                         object: self
                                                         ];
+
+    [self fetchUserId];
 }
 
+#pragma mark - User Id
+
+- (BOOL)fetchUserId {
+    NSURL *url = [NSURL URLWithString: kFetchUserUrl];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+
+    if (req) {
+        // Set to plaintext on request because oAuth library is broken.
+        [req signPlaintext];
+
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetUserResponse:data:error:forRequest:)];
+        return YES;
+    }
+    // We failed to send the request. Let the caller know.
+    return NO;
+}
+
+- (void)receivedGetUserResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
+{
+    NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    NSLog(@"Got user: %@", string);
+
+    _parserMode = STVParserModeUser;
+    [parser parse: data];
+}
+
+#pragma mark - Login Complete
+
+- (void)loginComplete {
+    [self storeTokens];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
+                                                        object: self
+                                                        ];
+
+}
 
 #pragma mark - Access Resources
 
@@ -190,30 +238,58 @@
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"Got broadcasts: %@", string);
 
+    _parserMode = STVParserModeBroadcasts;
     [parser parse: data];
 }
 
 #pragma mark SBJsonStreamParserDelegate methods
 
 - (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
-	// Pass the data to VideoTableData.
+    // Pass the data to VideoTableData.
 
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-		array, @"broadcasts",
-                            nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
-                                                        object: self
-                                                      userInfo: userInfo];
-	//[videoTableData gotNewJSONBroadcasts: array];
+    switch (_parserMode) {
+        case STVParserModeUser:
+            LOG(@"USER Array found: %@", array);
+
+            NSDictionary *user = [array objectAtIndex: 0];
+            self.userId = [user objectForKey: @"_id"];
+            [self loginComplete];
+
+            LOG(@"USER dict found: %@", user);
+            break;
+        case STVParserModeBroadcasts:
+            // For some reason, the compiler requires a log statement just after the 'case' statemnet.
+            LOG(@"woohoo");
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:                                     array, @"broadcasts",                 nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
+                                                                object: self
+                                                              userInfo: userInfo];
+            break;
+        default:
+            [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
+
+    }
+    _parserMode = STVParserModeIdle;
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
-    NSString *error = [dict objectForKey: @"err"];
-    if (error) {
-        [NSException raise:@"unexpected" format:@"User not logged in!. Error: %@", error];
-    } else {
-        [NSException raise:@"unexpected" format:@"Should not get here"];
+    switch (_parserMode) {
+        case STVParserModeBroadcasts:
+            LOG(@"YAhoo");
+            NSString *error = [dict objectForKey: @"err"];
+            if (error) {
+                [NSException raise:@"unexpected" format:@"User not logged in!. Error: %@", error];
+            } else {
+                [NSException raise:@"unexpected" format:@"Should not get here"];
+            }
+            break;
+        case STVParserModeUser:
+            LOG(@"USER object found: %@", dict);
+            break;
+        default:
+            [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
     }
+    _parserMode = STVParserModeIdle;
 }
 
 @end

@@ -24,8 +24,11 @@
         // Initialization code here.
         self.loginHelper = [[[LoginHelper alloc] init] autorelease];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperAuthorizedTokenNotification:)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperAuthorizedToken:)
                                                      name:@"LoginHelperAuthorizedAccessToken"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoginComplete:)
+                                                     name:@"LoginHelperLoginComplete"
                                                    object:nil];
     }
     return self;
@@ -47,13 +50,19 @@
 }
 
 #pragma mark - API Calls
+
 - (BOOL)fetchBroadcasts {
     return [self.loginHelper fetchBroadcasts];
 }
 
 #pragma mark - Notifications
 
-- (void)loginHelperAuthorizedTokenNotification:(NSNotification *)notification {
+- (void)loginHelperAuthorizedToken:(NSNotification *)notification {
+    //[[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedIn"
+    //                                                    object: self];
+}
+
+- (void)loginHelperLoginComplete:(NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedIn"
                                                         object: self];
 }

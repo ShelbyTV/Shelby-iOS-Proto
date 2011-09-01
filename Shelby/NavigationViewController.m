@@ -86,6 +86,18 @@
     [_videoPlayer playVideo: url];
 }
 
+
+#pragma mark - Touch Handling
+
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    LOG(@"NavigationViewController handleSingleTap: %@", recognizer);
+    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+
+    //Do stuff here...
+}
+
+
 #pragma mark - View lifecycle
 
 /*
@@ -100,6 +112,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    //DEBUG ONLY
+    UITapGestureRecognizer *singleFingerTap = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                action:@selector(handleSingleTap:)];
+    //[_videoPlayer.moviePlayer.view addGestureRecognizer:singleFingerTap];
     
     //Background.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
