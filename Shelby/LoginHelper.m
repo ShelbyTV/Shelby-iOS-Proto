@@ -52,14 +52,14 @@
 
 - (id)init
 {
-  self = [super init];
-  if (self) {
-		parser = [[SBJsonStreamParser alloc] init];
-		parser.delegate = self;
-    [self loadTokens];
-  }
+    self = [super init];
+    if (self) {
+        parser = [[SBJsonStreamParser alloc] init];
+        parser.delegate = self;
+        [self loadTokens];
+    }
 
-  return self;
+    return self;
 }
 
 #pragma mark - Token Storage
@@ -83,47 +83,47 @@
  * We should move to the keychain in the future.
  */
 - (void)storeTokens {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject: self.accessToken
-               forKey: kAccessTokenName];
-  [defaults setObject: self.accessTokenSecret
-               forKey: kAccessTokenSecretName];
-  [defaults synchronize];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject: self.accessToken
+                 forKey: kAccessTokenName];
+    [defaults setObject: self.accessTokenSecret
+                 forKey: kAccessTokenSecretName];
+    [defaults synchronize];
 }
 
 - (void)clearTokens {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults removeObjectForKey: kAccessTokenName];
-  [defaults removeObjectForKey: kAccessTokenSecretName];
-  [defaults synchronize];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey: kAccessTokenName];
+    [defaults removeObjectForKey: kAccessTokenSecretName];
+    [defaults synchronize];
 }
 
 #pragma mark - Request Token
 
 - (void)getRequestToken {
-  handshake = [[OAuthHandshake alloc] init];
-  [handshake setTokenRequestURL:[NSURL URLWithString: kRequestTokenUrl]];
-  [handshake setTokenAuthURL: [NSURL URLWithString: kAccessTokenUrl]];
-  [handshake setCallbackURL: @"shelby://auth"];
-  [handshake setDelegate: self];
+    handshake = [[OAuthHandshake alloc] init];
+    [handshake setTokenRequestURL:[NSURL URLWithString: kRequestTokenUrl]];
+    [handshake setTokenAuthURL: [NSURL URLWithString: kAccessTokenUrl]];
+    [handshake setCallbackURL: @"shelby://auth"];
+    [handshake setDelegate: self];
 
-  NSString *consumerKey = kShelbyConsumerKey;
-  NSString *consumerSecret = kShelbyConsumerSecret;
+    NSString *consumerKey = kShelbyConsumerKey;
+    NSString *consumerSecret = kShelbyConsumerSecret;
 
-  [handshake setConsumerKey: consumerKey];
-  [handshake setConsumerSecret: consumerSecret];
+    [handshake setConsumerKey: consumerKey];
+    [handshake setConsumerSecret: consumerSecret];
 
-  [handshake beginHandshake];
+    [handshake beginHandshake];
 }
 
 #pragma mark - User Authorization
 
 - (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token;
 {
-  NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@",
-    kUserAuthorizationUrl,
-    [token URLEncodedString]];
-  [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];
+    NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@",
+             kUserAuthorizationUrl,
+             [token URLEncodedString]];
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];
 }
 
 - (void)verifierReturnedFromAuth:(NSString *)verifier {
@@ -149,22 +149,28 @@
 
 #pragma mark - Access Resources
 
-- (void)fetchBroadcasts {
-  NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
-  OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
+//- (void)fetchBroadcasts {
+- (BOOL)fetchBroadcasts {
+    NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
+    OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
 
-  // Set to plaintext on request because oAuth library is broken.
-  [req signPlaintext];
+    if (req) {
+        // Set to plaintext on request because oAuth library is broken.
+        [req signPlaintext];
 
-  [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+        return YES;
+    }
+    // We failed to send the request. Let the caller know.
+    return NO;
 }
 
 - (void)receivedGetBroadcastsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
-  NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-  NSLog(@"Got broadcasts: %@", string);
+    NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    NSLog(@"Got broadcasts: %@", string);
 
-  [parser parse: data];
+    [parser parse: data];
 }
 
 #pragma mark SBJsonStreamParserDelegate methods
@@ -176,8 +182,8 @@
 		array, @"broadcasts",
                             nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
-																											object: self
-																										userInfo: userInfo];
+                                                        object: self
+                                                      userInfo: userInfo];
 	//[videoTableData gotNewJSONBroadcasts: array];
 }
 

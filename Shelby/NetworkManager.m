@@ -32,8 +32,8 @@
     [self.loginHelper verifierReturnedFromAuth: verifier];
 }
 
-- (void)fetchBroadcasts {
-    [self.loginHelper fetchBroadcasts];
+- (BOOL)fetchBroadcasts {
+    return [self.loginHelper fetchBroadcasts];
 }
 
 @end

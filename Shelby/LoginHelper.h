@@ -39,6 +39,6 @@
 - (void)verifierReturnedFromAuth:(NSString *)verifier;
 
 #pragma mark - API Calls
-- (void)fetchBroadcasts;
+- (BOOL)fetchBroadcasts;
 
 @end
