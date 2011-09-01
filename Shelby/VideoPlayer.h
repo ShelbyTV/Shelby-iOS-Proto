@@ -31,6 +31,8 @@
     float _duration;
     // Is the user currently changing the video?
     BOOL _changingVideo;
+    // Are the controls currently visible?
+    BOOL _controlsVisible;
 
     // UI
     UIButton *_nextButton;
@@ -42,6 +44,7 @@
 
 @property (assign) id<VideoPlayerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
+@property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
 
 - (void)play;
 - (void)pause;

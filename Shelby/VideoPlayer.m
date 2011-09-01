@@ -12,10 +12,13 @@
 #import "VideoPlayerControlBar.h"
 #import "Video.h"
 
+static const float kHideControlsInterval = 3.0f;
+
 @implementation VideoPlayer
 
 @synthesize delegate;
 @synthesize titleBar;
+@synthesize moviePlayer = _moviePlayer;
 
 #pragma mark - Notification Handling
 
@@ -86,6 +89,13 @@
 
     [self addNotificationListeners];
 
+    //The setup code (in viewDidLoad in your view controller)
+    UITapGestureRecognizer *singleFingerTap = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                action:@selector(handleSingleTap:)];
+    [_moviePlayer.view addGestureRecognizer:singleFingerTap];
+    singleFingerTap.delegate = self;
+    [singleFingerTap release];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -140,6 +150,43 @@
 - (void)toggleFullscreen {
     [_moviePlayer setFullscreen: !_moviePlayer.isFullscreen
                        animated: YES];
+}
+
+#pragma mark - Touch Handling
+
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    //LOG(@"VideoPlayer handleSingleTap: %@", recognizer);
+    LOG(@"VideoPlayer handleSingleTap");
+    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+
+    //Do stuff here...
+}
+
+#pragma mark - Controls Visibility
+
+- (void)hideControls {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.alpha = 0.0;
+    }
+    completion:^(BOOL finished){
+        if (finished) {
+            [self setHidden:YES];
+        }
+    }];
+}
+
+- (void)drawControls {
+    [self setHidden: NO];
+    [UIView animateWithDuration:0.25 animations:^{
+        self.alpha = 1.0;
+    }
+    completion:^(BOOL finished){
+        if (finished) {
+            // Set a timer to hide the controls in three seconds.
+            [NSTimer scheduledTimerWithTimeInterval: kHideControlsInterval target: self selector: @selector(hideControls) userInfo: nil repeats: NO];
+        }
+    }];
 }
 
 #pragma mark - Notification Handlers
@@ -306,6 +353,20 @@
             buttonSize.height
             );
     [_controlBar setNeedsLayout];
+}
+
+#pragma mark - Touch Delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+ 
+    //LOG(@"VideoPlayer shouldReceiveTouch: %@", touch);
+    LOG(@"VideoPlayer shouldReceiveTouch");
+    //// Disallow recognition of tap gestures in the segmented control.
+    //if ((touch.view == segmentedControl) && (gestureRecognizer == tapRecognizer)) {
+    //    return NO;
+    //}
+
+    return YES;
 }
 
 #pragma mark - Cleanup
