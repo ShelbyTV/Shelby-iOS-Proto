@@ -23,7 +23,13 @@
     return self;
 }
 
+#pragma mark - Status
+- (BOOL)loggedIn {
+    // If we have stored both the accessToken and the secret, we're logged in.
+    return self.loginHelper.loggedIn;
+}
 
+#pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake {
     [self.loginHelper getRequestToken];
 }
@@ -32,6 +38,7 @@
     [self.loginHelper verifierReturnedFromAuth: verifier];
 }
 
+#pragma mark - API Calls
 - (BOOL)fetchBroadcasts {
     return [self.loginHelper fetchBroadcasts];
 }

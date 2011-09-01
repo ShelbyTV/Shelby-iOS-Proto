@@ -16,6 +16,9 @@
 
 @property (nonatomic, retain) LoginHelper *loginHelper;
 
+#pragma mark - Status
+- (BOOL)loggedIn;
+
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake;
 - (void)oAuthVerifierReturned:(NSString *)verifier;

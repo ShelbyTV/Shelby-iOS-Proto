@@ -29,6 +29,7 @@
 
 @property (assign) id <LoginHelperDelegate> delegate;
 
+@property (nonatomic, readonly) BOOL loggedIn;
 @property (nonatomic, readonly) NSString *consumerToken;
 @property (nonatomic, readonly) NSString *consumerTokenSecret;
 @property (nonatomic, retain) NSString *accessToken;

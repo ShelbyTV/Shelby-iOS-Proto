@@ -64,6 +64,11 @@
 
 #pragma mark - Token Storage
 
+- (BOOL)loggedIn {
+    // If we have stored both the accessToken and the secret, we're logged in.
+    return (self.accessToken && self.accessTokenSecret);
+}
+
 - (NSString *)consumerTokenSecret {
     return kShelbyConsumerSecret;
 }
