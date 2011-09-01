@@ -65,17 +65,17 @@
 #pragma mark - Token Storage
 
 - (NSString *)consumerTokenSecret {
-	return kShelbyConsumerSecret;
+    return kShelbyConsumerSecret;
 }
 
 - (NSString *)consumerToken {
-	return kShelbyConsumerKey;
+    return kShelbyConsumerKey;
 }
 
 - (void)loadTokens {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	self.accessToken = [defaults stringForKey: kAccessTokenName];
-	self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.accessToken = [defaults stringForKey: kAccessTokenName];
+    self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
 }
 
 /**
@@ -148,17 +148,16 @@
 
 - (void)handshake:(OAuthHandshake *)handshake authenticatedToken:(NSString *)token withSecret:(NSString *)tokenSecret;
 {
-  NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
+    NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
 
-  // Store token for later use.
-  self.accessToken = token;
-  self.accessTokenSecret = tokenSecret;
-  [self storeTokens];
+    // Store token for later use.
+    self.accessToken = token;
+    self.accessTokenSecret = tokenSecret;
+    [self storeTokens];
 
-  [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperAuthorizedAccessToken"
-                                                      object: self
-                                                      ];
-                                                    //userInfo: userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperAuthorizedAccessToken"
+                                                        object: self
+                                                        ];
 }
 
 
