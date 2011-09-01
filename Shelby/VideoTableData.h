@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class VideoTableData;
+
+@protocol VideoTableDataDelegate
+
+- (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData;
+
+@end
 
 @interface VideoTableData : NSObject
 {
@@ -17,6 +24,7 @@
     NSUInteger lastInserted;
     NSTimer *updateTimer;
 }
+@property (assign) id <VideoTableDataDelegate> delegate;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 

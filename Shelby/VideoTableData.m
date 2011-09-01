@@ -37,6 +37,8 @@
 
 @implementation VideoTableData
 
+@synthesize delegate;
+
 /*
  * Eventually we'll be getting data like this from the Shelby API -- the "broadcast" data
  * structure should pretty much have this data and more.
@@ -290,6 +292,9 @@ static NSString *fakeAPIData[] = {
     return [baseURL stringByAppendingString:video];
 }
 
+/**
+ * Loads videos from dummy data.
+ */
 - (void)loadVideos
 {
     for (int i = 0; i < 23; i++) {
@@ -313,40 +318,47 @@ static NSString *fakeAPIData[] = {
     }
 }
 
+/**
+ * This method called when we've pulled down new data from the API.
+ */
 - (void)gotNewJSONBroadcasts:(NSArray *)broadcasts
 {
+    // Clear out the old broadcasts.
+    [videoDataArray removeAllObjects];
+
+    // Load up the new broadcasts.
     for (NSDictionary *broadcast in broadcasts) {
         if ([[broadcast objectForKey: @"video_provider_name"] isEqualToString: @"youtube"]) {
-      NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
-      NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
-      NSString *title        = [broadcast objectForKey: @"video_title"];
-      NSString *description  = [broadcast objectForKey: @"video_description"];
+            NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
+            NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
+            NSString *title        = [broadcast objectForKey: @"video_title"];
+            NSString *description  = [broadcast objectForKey: @"video_description"];
 
-      NSString *comment      = [broadcast objectForKey: @"description"];
-      NSString *sharerName   = [broadcast objectForKey: @"video_originator_user_name"];
-      NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
+            NSString *comment      = [broadcast objectForKey: @"description"];
+            NSString *sharerName   = [broadcast objectForKey: @"video_originator_user_name"];
+            NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
 
 
-      NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
+            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
 
-      if (NOTNULL(youTubeVideo)) {
-          URLIndex *video = [[URLIndex alloc] init];
+            if (NOTNULL(youTubeVideo)) {
+                URLIndex *video = [[URLIndex alloc] init];
 
-          // We need the video to get anything done
-          video.youTubeVideoInfoURL = youTubeVideo;
-          if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
-          if (NOTNULL(title)) video.title = title;
+                // We need the video to get anything done
+                video.youTubeVideoInfoURL = youTubeVideo;
+                if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
+                if (NOTNULL(title)) video.title = title;
 
-          if (NOTNULL(sharerName)) video.sharer = sharerName;
-          if (NOTNULL(comment)) video.sharerComment = comment;
-          if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
+                if (NOTNULL(sharerName)) video.sharer = sharerName;
+                if (NOTNULL(comment)) video.sharerComment = comment;
+                if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
 
-          NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                                  selector:@selector(retrieveAndStoreYouTubeVideoData:)
-                                                                                    object:video];
+                NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                                      selector:@selector(retrieveAndStoreYouTubeVideoData:)
+                                                                                        object:video];
 
-          [operationQueue addOperation:operation];
-      }
+                [operationQueue addOperation:operation];
+            }
         }
         // For now, we only handle YouTube.
     }

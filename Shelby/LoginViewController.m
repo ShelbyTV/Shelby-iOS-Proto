@@ -25,7 +25,6 @@
         callbackObject = object;
         callbackSelector = selector;
 
-        //_networkManager = [[LoginHelper alloc] init];
         _networkManager = [ShelbyApp sharedApp].networkManager;
     }
     return self;
@@ -213,6 +212,5 @@
 - (IBAction)fetchBroadcastsWasPressed:(id)sender {
      [_networkManager fetchBroadcasts];
 }
-
 
 @end

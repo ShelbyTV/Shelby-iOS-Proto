@@ -9,6 +9,8 @@
 #import "VideoTableViewController.h"
 #import "VideoTableData.h"
 #import "Video.h"
+#import "ShelbyApp.h"
+#import "NetworkManager.h"
 
 @implementation VideoTableViewController
 
@@ -21,6 +23,7 @@
     self = [super initWithStyle:style];
     if (self) {
         videoTableData = [[VideoTableData alloc] initWithUITableView:self.tableView];
+        videoTableData.delegate = self;
         callbackObject = object;
         callbackSelector = selector;
     }
@@ -31,7 +34,8 @@
 
 - (void)loadVideos
 {
-    [videoTableData loadVideos];
+    //[videoTableData loadVideos];
+    [[ShelbyApp sharedApp].networkManager fetchBroadcasts];
 }
 
 - (void)doneLoadingTableViewData
@@ -75,6 +79,11 @@
 
 }
 
+#pragma mark - VideoTableDataDelegate Methods
+
+- (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData {
+    [self doneLoadingTableViewData];
+}
 
 #pragma mark - UI Callbacks
 

@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
+#import "VideoTableData.h"
 
 @class VideoTableData;
 @class Video;
 
-@interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate>
+@interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate, VideoTableDataDelegate>
 {
     VideoTableData *videoTableData;
     id callbackObject;
