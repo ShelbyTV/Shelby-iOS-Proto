@@ -90,10 +90,10 @@
 
 - (void)loadTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.channelId = [defaults stringForKey: kChannelIdName];
+    self.userId = [defaults stringForKey: kUserIdName];
     self.accessToken = [defaults stringForKey: kAccessTokenName];
     self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
-    self.userId = [defaults stringForKey: kUserIdName];
-    self.userId = [defaults stringForKey: kChannelIdName];
 }
 
 /**
@@ -115,8 +115,8 @@
 
 - (void)clearTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey: kUserIdName];
     [defaults removeObjectForKey: kChannelIdName];
+    [defaults removeObjectForKey: kUserIdName];
     [defaults removeObjectForKey: kAccessTokenName];
     [defaults removeObjectForKey: kAccessTokenSecretName];
     [defaults synchronize];
