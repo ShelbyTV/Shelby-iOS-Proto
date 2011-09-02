@@ -15,6 +15,7 @@
 #define kProviderName @"shelby.tv"
 
 #define kUserIdName @"user_id"
+#define kChannelIdName @"channel_id"
 #define kRequestTokenName @"request"
 #define kAccessTokenName @"access"
 #define kAccessTokenSecretName @"access_secret"
@@ -56,6 +57,7 @@
 @synthesize accessToken;
 @synthesize accessTokenSecret;
 @synthesize userId;
+@synthesize channelId;
 
 - (id)init
 {
@@ -63,6 +65,7 @@
     if (self) {
         parser = [[SBJsonStreamParser alloc] init];
         parser.delegate = self;
+        parser.supportMultipleDocuments = YES;
         [self loadTokens];
     }
 
@@ -73,7 +76,7 @@
 
 - (BOOL)loggedIn {
     // If we have stored both the accessToken and the secret, we're logged in.
-    return (self.accessToken && self.accessTokenSecret && self.userId);
+    return (self.accessToken && self.accessTokenSecret && self.userId && self.channelId);
 }
 
 - (NSString *)consumerTokenSecret {
@@ -89,6 +92,7 @@
     self.accessToken = [defaults stringForKey: kAccessTokenName];
     self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
     self.userId = [defaults stringForKey: kUserIdName];
+    self.userId = [defaults stringForKey: kChannelIdName];
 }
 
 /**
@@ -97,6 +101,8 @@
  */
 - (void)storeTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject: self.channelId
+                 forKey: kChannelIdName];
     [defaults setObject: self.userId
                  forKey: kUserIdName];
     [defaults setObject: self.accessToken
@@ -109,6 +115,7 @@
 - (void)clearTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey: kUserIdName];
+    [defaults removeObjectForKey: kChannelIdName];
     [defaults removeObjectForKey: kAccessTokenName];
     [defaults removeObjectForKey: kAccessTokenSecretName];
     [defaults synchronize];
@@ -180,7 +187,8 @@
 
 #pragma mark - User Id
 
-- (BOOL)fetchUserId {
+- (BOOL)fetchUserId
+{
     NSURL *url = [NSURL URLWithString: kFetchUserUrl];
     OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
 
@@ -195,39 +203,82 @@
     return NO;
 }
 
-- (void)receivedGetUserResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
+- (void)receivedGetUserResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
 {
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"Got user: %@", string);
 
     _parserMode = STVParserModeUser;
-    [parser parse: data];
+    SBJsonStreamParserStatus status = [parser parse: data];
+    if (status == SBJsonStreamParserWaitingForData) {
+        // Woot. Good to go!
+        LOG(@"User Parsing Complete!");
+    } else {
+        [NSException raise:@"unexpected" format:@"User JSON Parsing error! %@", parser.error];
+    }
 }
 
-#pragma mark - Login Complete
+#pragma mark - Channels
 
-- (void)loginComplete {
-    [self storeTokens];
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
-                                                        object: self
-                                                        ];
-
-}
-
-#pragma mark - Access Resources
-
-- (BOOL)fetchBroadcasts {
-    NSURL *url = [NSURL URLWithString: @"http://api.shelby.tv/broadcasts.json"];
-
-    //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
+- (BOOL)fetchChannels
+{
+    NSURL *url = [NSURL URLWithString: kFetchChannelsUrl];
     OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
 
     if (req) {
         // Set to plaintext on request because oAuth library is broken.
         [req signPlaintext];
 
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetChannelsResponse:data:error:forRequest:)];
         return YES;
+    }
+    // We failed to send the request. Let the caller know.
+    return NO;
+}
+
+- (void)receivedGetChannelsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
+{
+    NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    NSLog(@"Got channels: %@", string);
+
+    _parserMode = STVParserModeChannels;
+    SBJsonStreamParserStatus status = [parser parse: data];
+
+    if (status == SBJsonStreamParserWaitingForData) {
+        // Woot. Good to go!
+        LOG(@"Channels Parsing Complete!");
+    } else {
+        [NSException raise:@"unexpected" format:@"Channels JSON Parsing error! %@", parser.error];
+    }
+}
+
+#pragma mark - Login Complete
+
+- (void)loginComplete
+{
+    [self storeTokens];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
+                                                        object: self
+                                                        ];
+}
+
+#pragma mark - Access Resources
+
+- (BOOL)fetchBroadcasts {
+    if (self.userId) {
+        NSURL *url = [NSURL URLWithString:
+               [NSString stringWithFormat: kFetchBroadcastsUrl, self.channelId]];
+
+        //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
+        OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+
+        if (req) {
+            // Set to plaintext on request because oAuth library is broken.
+            [req signPlaintext];
+
+            [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+            return YES;
+        }
     }
     // We failed to send the request. Let the caller know.
     return NO;
@@ -239,7 +290,13 @@
     NSLog(@"Got broadcasts: %@", string);
 
     _parserMode = STVParserModeBroadcasts;
-    [parser parse: data];
+    SBJsonStreamParserStatus status = [parser parse: data];
+    if (status == SBJsonStreamParserWaitingForData) {
+        // Woot. Good to go!
+        LOG(@"Broadcasts Parsing Complete!");
+    } else {
+        [NSException raise:@"unexpected" format:@"Broadcasts JSON Parsing error!"];
+    }
 }
 
 #pragma mark SBJsonStreamParserDelegate methods
@@ -253,18 +310,28 @@
 
             NSDictionary *user = [array objectAtIndex: 0];
             self.userId = [user objectForKey: @"_id"];
-            [self loginComplete];
+            [self storeTokens];
+            [self fetchChannels];
+            //[self loginComplete];
 
             LOG(@"USER dict found: %@", user);
             break;
+        case STVParserModeChannels:
+           LOG(@"CHANNEL array found: %@", array);
+           NSDictionary *timeline =  [array objectAtIndex: 1];
+           self.channelId = [timeline objectForKey: @"_id"];
+           [self loginComplete];
+           break;
         case STVParserModeBroadcasts:
             // For some reason, the compiler requires a log statement just after the 'case' statemnet.
-            LOG(@"woohoo");
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:                                     array, @"broadcasts",                 nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
-                                                                object: self
-                                                              userInfo: userInfo];
-            break;
+           LOG(@"woohoo");
+           NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+               array, @"broadcasts",
+               nil];
+           [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
+                                                               object: self
+                                                             userInfo: userInfo];
+           break;
         default:
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
 

@@ -14,6 +14,7 @@ typedef enum {
     STVParserModeIdle,
     STVParserModeUser,
     STVParserModeBroadcasts,
+    STVParserModeChannels,
 } STVParserMode;
 
 @class SBJsonStreamParser;
@@ -47,6 +48,7 @@ typedef enum {
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *accessTokenSecret;
 @property (nonatomic, retain) NSString *userId;
+@property (nonatomic, retain) NSString *channelId;
 
 #pragma mark - OAuth Handshake
 - (void)getRequestToken;
