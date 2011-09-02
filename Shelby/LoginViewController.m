@@ -30,6 +30,10 @@
                                                  selector:@selector(userLoggedIn:)
                                                      name:@"NetworkManagerLoggedIn"
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userLoggedOut:)
+                                                     name:@"NetworkManagerLoggedOut"
+                                                   object:nil];
     }
     return self;
 }
@@ -96,15 +100,33 @@
 
 #pragma mark - Misc Methods
 
+- (void)fadeIn
+{
+    [self fade: YES];
+}
+
 - (void)fadeOut
 {
+    [self fade: NO];
+}
+
+- (void)fade:(BOOL)visible {
+    float alpha;
+    BOOL hidden;
+    if (visible) {
+        alpha = 1.0f;
+        hidden = NO;
+    } else {
+        alpha = 0.0f;
+        hidden = YES;
+    }
     //Note: this won't work on iOS3.
     [UIView animateWithDuration:0.25 animations:^{
-        self.view.alpha = 0.0;
+        self.view.alpha = alpha;
     }
     completion:^(BOOL finished){
         if (finished) {
-            [self.view setHidden:YES];
+            [self.view setHidden: hidden];
         }
     }];
 }
@@ -128,6 +150,12 @@
 - (void)userLoggedIn:(NSNotification*)aNotification
 {
     [self allDone];
+}
+
+- (void)userLoggedOut:(NSNotification*)aNotification
+{
+    // Show the screen again.
+    [self fadeIn];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification

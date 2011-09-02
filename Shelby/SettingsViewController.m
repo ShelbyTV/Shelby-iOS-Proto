@@ -8,6 +8,8 @@
 
 #import "SettingsViewController.h"
 #import "UICustomSwitch.h"
+#import "ShelbyApp.h"
+#import "NetworkManager.h"
 
 @implementation SettingsViewController
 
@@ -32,6 +34,9 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = @"Settings";
+
+        UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutWasPressed:)];
+        self.navigationItem.rightBarButtonItem = logoutButton;
     }
     return self;
 }
@@ -93,6 +98,12 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - UI Callbacks
+
+- (IBAction)logoutWasPressed:(id)sender {
+    [[ShelbyApp sharedApp].networkManager logout];
 }
 
 @end

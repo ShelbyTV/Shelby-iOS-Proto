@@ -62,6 +62,7 @@ typedef enum {
 #pragma mark - OAuth Handshake
 - (void)getRequestToken;
 - (void)verifierReturnedFromAuth:(NSString *)verifier;
+- (void)logout;
 
 #pragma mark - API Calls
 - (BOOL)fetchBroadcasts;

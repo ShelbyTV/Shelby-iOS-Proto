@@ -102,6 +102,15 @@
     self.channel = [[self retrieveChannels] objectAtIndex: 0];
 }
 
+- (void)logout {
+    [self clearTokens];
+    //DEBUG ONLY!
+    //[[NSThread mainThread] exit];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoggedOut"
+                                                        object: self
+                                                        ];
+}
+
 /**
  * For now, we're using NSUserDefaults. However, this is insecure.
  * We should move to the keychain in the future.

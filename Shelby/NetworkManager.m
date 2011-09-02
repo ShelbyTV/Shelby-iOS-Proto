@@ -30,6 +30,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoginComplete:)
                                                      name:@"LoginHelperLoginComplete"
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoggedOut:)
+                                                     name:@"LoginHelperLoggedOut"
+                                                   object:nil];
     }
     return self;
 }
@@ -49,6 +52,11 @@
     [self.loginHelper verifierReturnedFromAuth: verifier];
 }
 
+- (void)logout {
+    [self.loginHelper logout];
+    // Now draw the login screen again.
+}
+
 #pragma mark - API Calls
 
 - (BOOL)fetchBroadcasts {
@@ -64,6 +72,11 @@
 
 - (void)loginHelperLoginComplete:(NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedIn"
+                                                        object: self];
+}
+
+- (void)loginHelperLoggedOut:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedOut"
                                                         object: self];
 }
 
