@@ -88,6 +88,7 @@ static const float kHideControlsDuration = 0.5f;
         _nextButton,
         _prevButton,
         _controlBar,
+        self.titleBar,
         nil];
 
     // Timer to update the progressBar after each second.
