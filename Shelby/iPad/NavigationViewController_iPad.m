@@ -23,11 +23,20 @@ static const float SHELBY_LOGO_OVERSHOOT = 25.0f;
 #define OFFSET (RIGHT_PANEL_WIDTH + SHELBY_LOGO_OVERSHOOT)
 static const float ANIMATION_TIME = 0.5f;
 
+#pragma mark - Rotation
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    //return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return YES;
 }
+
+//- (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+
+//- (void)didAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+//    [self setNeedsLayout];
+//}
 
 #pragma mark - View Animations
 
