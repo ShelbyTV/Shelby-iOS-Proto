@@ -13,6 +13,7 @@
 #import "Video.h"
 
 static const float kHideControlsInterval = 3.0f;
+static const float kHideControlsDuration = 0.5f;
 
 @implementation VideoPlayer
 
@@ -83,6 +84,12 @@ static const float kHideControlsInterval = 3.0f;
     [self addSubview: _prevButton];
     [self addSubview: _controlBar];
 
+    _controls = [[NSArray alloc] initWithObjects:
+        _nextButton,
+        _prevButton,
+        _controlBar,
+        nil];
+
     // Timer to update the progressBar after each second.
     // TODO: Shut this down when we're not playing a video.
     [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
@@ -96,6 +103,7 @@ static const float kHideControlsInterval = 3.0f;
     [_moviePlayer.view addGestureRecognizer:singleFingerTap];
     singleFingerTap.delegate = self;
     [singleFingerTap release];
+
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -158,7 +166,7 @@ static const float kHideControlsInterval = 3.0f;
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     //LOG(@"VideoPlayer handleSingleTap: %@", recognizer);
     LOG(@"VideoPlayer handleSingleTap");
-    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
 
     //Do stuff here...
 }
@@ -166,20 +174,29 @@ static const float kHideControlsInterval = 3.0f;
 #pragma mark - Controls Visibility
 
 - (void)hideControls {
-    [UIView animateWithDuration:0.25 animations:^{
-        self.alpha = 0.0;
+    LOG(@"hideControls");
+    [UIView animateWithDuration:kHideControlsDuration animations:^{
+          for (UIView *control in _controls) {
+             control.alpha = 0.0;
+          }
     }
     completion:^(BOOL finished){
         if (finished) {
-            [self setHidden:YES];
+            //for (UIView *control : _controls) {
+            //      [control setHidden:YES];
+            //}
         }
     }];
 }
 
 - (void)drawControls {
-    [self setHidden: NO];
-    [UIView animateWithDuration:0.25 animations:^{
-        self.alpha = 1.0;
+    LOG(@"drawControls");
+    //[self setHidden: NO];
+    [UIView animateWithDuration:kHideControlsDuration animations:^{
+          for (UIView *control in _controls) {
+              control.alpha = 1.0;
+              //[control setHidden:YES];
+          }
     }
     completion:^(BOOL finished){
         if (finished) {
@@ -361,6 +378,7 @@ static const float kHideControlsInterval = 3.0f;
 
     //LOG(@"VideoPlayer shouldReceiveTouch: %@", touch);
     LOG(@"VideoPlayer shouldReceiveTouch");
+    [self drawControls];
     //// Disallow recognition of tap gestures in the segmented control.
     //if ((touch.view == segmentedControl) && (gestureRecognizer == tapRecognizer)) {
     //    return NO;

@@ -40,6 +40,8 @@
 
     VideoPlayerControlBar *_controlBar;
     MPMoviePlayerController *_moviePlayer;
+
+    NSArray *_controls;
 }
 
 @property (assign) id<VideoPlayerDelegate> delegate;
