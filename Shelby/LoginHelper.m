@@ -59,8 +59,10 @@
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
-@synthesize userId;
-@synthesize channelId;
+//@synthesize userId;
+//@synthesize channelId;
+@synthesize user = _user;
+@synthesize channel = _channel;
 
 
 - (id)init
@@ -87,7 +89,7 @@
 
 - (BOOL)loggedIn {
     // If we have stored both the accessToken and the secret, we're logged in.
-    return (self.accessToken && self.accessTokenSecret && self.userId && self.channelId);
+    return (self.accessToken && self.accessTokenSecret && self.user && self.channel);
 }
 
 - (NSString *)consumerTokenSecret {
@@ -100,10 +102,12 @@
 
 - (void)loadTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.channelId = [defaults stringForKey: kChannelIdName];
-    self.userId = [defaults stringForKey: kUserIdName];
     self.accessToken = [defaults stringForKey: kAccessTokenName];
     self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
+    //self.channelId = [defaults stringForKey: kChannelIdName];
+    //self.userId = [defaults stringForKey: kUserIdName];
+    self.user = [self retrieveUser];
+    self.channel = [[self retrieveChannels] objectAtIndex: 0];
 }
 
 /**
@@ -112,10 +116,8 @@
  */
 - (void)storeTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject: self.channelId
-                 forKey: kChannelIdName];
-    [defaults setObject: self.userId
-                 forKey: kUserIdName];
+    //[defaults setObject: self.channelId forKey: kChannelIdName];
+    //[defaults setObject: self.userId forKey: kUserIdName];
     [defaults setObject: self.accessToken
                  forKey: kAccessTokenName];
     [defaults setObject: self.accessTokenSecret
@@ -126,7 +128,7 @@
 - (void)clearTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey: kChannelIdName];
-    [defaults removeObjectForKey: kUserIdName];
+    //[defaults removeObjectForKey: kUserIdName];
     [defaults removeObjectForKey: kAccessTokenName];
     [defaults removeObjectForKey: kAccessTokenSecretName];
     [defaults synchronize];
@@ -229,8 +231,8 @@
     }
 }
 
-- (void)storeUserWithDictionary:(NSDictionary *)dict {
-    NSManagedObject *user = [NSEntityDescription
+- (User *)storeUserWithDictionary:(NSDictionary *)dict {
+    User *user = [NSEntityDescription
         insertNewObjectForEntityForName:@"User"
                  inManagedObjectContext:_context];
     [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
@@ -250,6 +252,8 @@
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    } else {
+        return user;
     }
 }
 
@@ -335,7 +339,7 @@
 }
 
 - (void)storeChannelsWithArray:(NSArray *)array {
-    [self storeChannelsWithArray: array user: nil];
+    [self storeChannelsWithArray: array user: self.user];
 }
 
 - (NSArray *)retrieveChannels {
@@ -366,9 +370,10 @@
 #pragma mark - Access Resources
 
 - (BOOL)fetchBroadcasts {
-    if (self.userId) {
+    if (self.user) {
         NSURL *url = [NSURL URLWithString:
-               [NSString stringWithFormat: kFetchBroadcastsUrl, self.channelId]];
+               [NSString stringWithFormat: kFetchBroadcastsUrl, self.channel.shelbyId]];
+        LOG(@"Fetching broadcasts from: %@", url);
 
         //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
         OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
@@ -410,25 +415,24 @@
             LOG(@"USER Array found: %@", array);
 
             NSDictionary *dict = [array objectAtIndex: 0];
-            self.userId = [dict objectForKey: @"_id"];
-
-            //name = "David Y. Kay";
-            //nickname = DavidYKay;
-            //"total_videos_played" = 30;
-            //"updated_at" = "2011-09-02T15:13:47.000Z";
-            //"user_image" = "http://a3.twimg.com/profile_images/1128216386/29a016a_normal.jpg";
+            //self.userId = [dict objectForKey: @"_id"];
+            self.user = [self storeUserWithDictionary: dict];
 
             [self storeTokens];
             [self fetchChannels];
-            //[self loginComplete];
 
-            LOG(@"USER dict found: %@", dict);
             break;
         case STVParserModeChannels:
            LOG(@"CHANNEL array found: %@", array);
-           NSDictionary *timeline =  [array objectAtIndex: 1];
-           self.channelId = [timeline objectForKey: @"_id"];
-           [self loginComplete];
+           //NSDictionary *timeline =  [array objectAtIndex: 1];
+           //self.channelId = [timeline objectForKey: @"_id"];
+           [self storeChannelsWithArray: array];
+           self.channel = [[self retrieveChannels] objectAtIndex: 0];
+           if (self.channel) {
+               [self loginComplete];
+           } else {
+               [NSException raise:@"unexpected" format:@"Couldn't Save channel!"];
+           }
            break;
         case STVParserModeBroadcasts:
             // For some reason, the compiler requires a log statement just after the 'case' statemnet.
