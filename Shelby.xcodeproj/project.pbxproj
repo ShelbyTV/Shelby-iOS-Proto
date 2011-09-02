@@ -22,7 +22,6 @@
 		0AD9A36113D53BD300EFECE0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */; };
 		0AD9A36413D53BD300EFECE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36313D53BD300EFECE0 /* main.m */; };
 		0AD9A36713D53BD300EFECE0 /* ShelbyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */; };
-		0AD9A36A13D53BD300EFECE0 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */; };
 		0AD9A37F13D53BD300EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A38013D53BD300EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
 		0AD9A38113D53BD300EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
@@ -121,6 +120,7 @@
 		42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */; };
 		42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */; };
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
+		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
 		42F0AB9A13EDD316003F47E9 /* VideoPlayerControlBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9613EDD316003F47E9 /* VideoPlayerControlBar.xib */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
@@ -159,7 +159,6 @@
 		0AD9A36313D53BD300EFECE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelbyAppDelegate.h; sourceTree = "<group>"; };
 		0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyAppDelegate.m; sourceTree = "<group>"; };
-		0AD9A36913D53BD300EFECE0 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
 		0AD9A37E13D53BD300EFECE0 /* ShelbyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShelbyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A38713D53BD300EFECE0 /* ShelbyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ShelbyTests-Info.plist"; sourceTree = "<group>"; };
 		0AD9A38913D53BD300EFECE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -294,6 +293,7 @@
 		42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFullscreen.png; path = Resources/Images/ButtonFullscreen.png; sourceTree = "<group>"; };
 		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
 		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		42DAF46814112CA100936536 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
 		42F0AB9713EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerControlBar.xib; sourceTree = "<group>"; };
 		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
 		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
@@ -369,6 +369,7 @@
 		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
 			isa = PBXGroup;
 			children = (
+				42DAF45B141129C500936536 /* Model */,
 				42FAA3AB13FD840B00BC1D28 /* Utility */,
 				42A09B4313FC6CC400570DBE /* Login */,
 				427A623013F4840E00C945E2 /* Views */,
@@ -381,7 +382,6 @@
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
 				4200E50213F41F0C00609C3E /* Video.h */,
 				4200E50313F41F0C00609C3E /* Video.m */,
-				0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
 				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
 				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
@@ -589,6 +589,7 @@
 		42C4C55513E8A6A50034AC97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
 				429A99E813EDDAC80095DFED /* SampleMovie.mov */,
 				42C4C57313E8A6F00034AC97 /* NIBs */,
 				42C4C55613E8A6AC0034AC97 /* Images */,
@@ -700,6 +701,13 @@
 				42C4C60F13E9CCDA0034AC97 /* ShelbyAppDelegate_iPhone.m */,
 			);
 			name = iPhone;
+			sourceTree = "<group>";
+		};
+		42DAF45B141129C500936536 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		42FAA3AB13FD840B00BC1D28 /* Utility */ = {
@@ -879,7 +887,6 @@
 			files = (
 				0AD9A36413D53BD300EFECE0 /* main.m in Sources */,
 				0AD9A36713D53BD300EFECE0 /* ShelbyAppDelegate.m in Sources */,
-				0AD9A36A13D53BD300EFECE0 /* Shelby.xcdatamodeld in Sources */,
 				0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */,
 				0A12931613DCD300009D254F /* NavigationViewController.m in Sources */,
 				0A12932913DCEA7E009D254F /* RootViewController.m in Sources */,
@@ -919,6 +926,7 @@
 				42AB21F313FEF35D00A8FC00 /* SBJsonWriter.m in Sources */,
 				42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */,
 				42AFFA53140EBAE700C64D42 /* NetworkManager.m in Sources */,
+				42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1280,12 +1288,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0AD9A36813D53BD300EFECE0 /* Shelby.xcdatamodeld */ = {
+		42DAF46714112CA100936536 /* Shelby.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				0AD9A36913D53BD300EFECE0 /* Shelby.xcdatamodel */,
+				42DAF46814112CA100936536 /* Shelby.xcdatamodel */,
 			);
-			currentVersion = 0AD9A36913D53BD300EFECE0 /* Shelby.xcdatamodel */;
+			currentVersion = 42DAF46814112CA100936536 /* Shelby.xcdatamodel */;
 			path = Shelby.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

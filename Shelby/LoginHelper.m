@@ -309,8 +309,36 @@
         case STVParserModeUser:
             LOG(@"USER Array found: %@", array);
 
-            NSDictionary *user = [array objectAtIndex: 0];
-            self.userId = [user objectForKey: @"_id"];
+            NSDictionary *dict = [array objectAtIndex: 0];
+            self.userId = [dict objectForKey: @"_id"];
+
+            NSManagedObjectContext *context = [[UIApplication sharedApplication].delegate managedObjectContext];
+            NSManagedObject *user = [NSEntityDescription
+                insertNewObjectForEntityForName:@"User"
+                         inManagedObjectContext:context];
+            [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
+            [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
+            [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image"];
+            [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
+
+            //NSManagedObject *failedBankDetails = [NSEntityDescription
+            //    insertNewObjectForEntityForName:@"FailedBankDetails"
+            //             inManagedObjectContext:context];
+            //[failedBankDetails setValue:[NSDate date] forKey:@"closeDate"];
+            //[failedBankDetails setValue:[NSDate date] forKey:@"updatedDate"];
+            //[failedBankDetails setValue:[NSNumber numberWithInt:12345] forKey:@"zip"];
+            //[failedBankDetails setValue:user forKey:@"info"];
+            //[user setValue:failedBankDetails forKey:@"details"];
+            NSError *error;
+            if (![context save:&error]) {
+                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            }
+            //name = "David Y. Kay";
+            //nickname = DavidYKay;
+            //"total_videos_played" = 30;
+            //"updated_at" = "2011-09-02T15:13:47.000Z";
+            //"user_image" = "http://a3.twimg.com/profile_images/1128216386/29a016a_normal.jpg";
+
             [self storeTokens];
             [self fetchChannels];
             //[self loginComplete];

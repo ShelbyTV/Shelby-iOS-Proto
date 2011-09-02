@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="11B26" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Broadcast">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="provider" optional="YES" attributeType="String"/>
+        <attribute name="shelbyId" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="channel" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Channel" inverseName="broadcasts" inverseEntity="Channel"/>
+    </entity>
+    <entity name="Channel">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="public" attributeType="Boolean"/>
+        <attribute name="shelbyId" attributeType="String"/>
+        <relationship name="broadcasts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Broadcast" inverseName="channel" inverseEntity="Broadcast"/>
+        <relationship name="user" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="channels" inverseEntity="User"/>
+    </entity>
+    <entity name="User">
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="nickname" attributeType="String"/>
+        <attribute name="shelbyId" attributeType="String"/>
+        <relationship name="channels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Channel" inverseName="user" inverseEntity="Channel"/>
+    </entity>
+    <elements>
+        <element name="User" positionX="315" positionY="213" width="128" height="120"/>
+        <element name="Channel" positionX="-173" positionY="207" width="128" height="120"/>
+        <element name="Broadcast" positionX="27" positionY="438" width="128" height="120"/>
+    </elements>
+</model>
