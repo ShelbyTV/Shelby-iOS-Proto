@@ -257,9 +257,9 @@
     [fetchRequest setEntity:entity];
     NSError *error;
     NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     if ([objects count] > 0) {
     NSManagedObject *user = [objects objectAtIndex: 0];
-    [fetchRequest release];
     return user;
     } else {
         return nil;
@@ -297,6 +297,37 @@
         LOG(@"Channels Parsing Complete!");
     } else {
         [NSException raise:@"unexpected" format:@"Channels JSON Parsing error! %@", parser.error];
+    }
+}
+
+- (void)storeChannelsWithArray:(NSArray *)array {
+    for (NSDictionary *dict in array) {
+      NSManagedObject *channels = [NSEntityDescription
+          insertNewObjectForEntityForName:@"Channel"
+                   inManagedObjectContext:_context];
+      [channels setValue:[dict objectForKey:@"public"]  forKey:@"public"];
+      [channels setValue:[dict objectForKey:@"name"]  forKey:@"name"];
+      [channels setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
+    }
+
+    NSError *error;
+    if (![_context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+}
+
+- (NSArray *)retrieveChannels {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+        entityForName:@"Channel" inManagedObjectContext: _context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *channels = [_context executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
+    if ([channels count] > 0) {
+        return channels;
+    } else {
+        return nil;
     }
 }
 

@@ -120,6 +120,8 @@
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
 		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
 		42DAF46D1411390000936536 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46B1411389E00936536 /* CoreDataTest.m */; };
+		42DAF47014113F6300936536 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46F14113F6300936536 /* User.m */; };
+		42DAF47314113F8D00936536 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF47214113F8D00936536 /* Channel.m */; };
 		42F0AB9A13EDD316003F47E9 /* VideoPlayerControlBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9613EDD316003F47E9 /* VideoPlayerControlBar.xib */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
@@ -295,6 +297,10 @@
 		42DAF46814112CA100936536 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
 		42DAF46A1411389E00936536 /* CoreDataTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTest.h; sourceTree = "<group>"; };
 		42DAF46B1411389E00936536 /* CoreDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTest.m; sourceTree = "<group>"; };
+		42DAF46E14113F6300936536 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		42DAF46F14113F6300936536 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		42DAF47114113F8D00936536 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
+		42DAF47214113F8D00936536 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		42F0AB9713EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerControlBar.xib; sourceTree = "<group>"; };
 		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
 		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
@@ -592,7 +598,6 @@
 		42C4C55513E8A6A50034AC97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
 				429A99E813EDDAC80095DFED /* SampleMovie.mov */,
 				42C4C57313E8A6F00034AC97 /* NIBs */,
 				42C4C55613E8A6AC0034AC97 /* Images */,
@@ -709,6 +714,11 @@
 		42DAF45B141129C500936536 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
+				42DAF47114113F8D00936536 /* Channel.h */,
+				42DAF47214113F8D00936536 /* Channel.m */,
+				42DAF46E14113F6300936536 /* User.h */,
+				42DAF46F14113F6300936536 /* User.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -930,6 +940,8 @@
 				42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */,
 				42AFFA53140EBAE700C64D42 /* NetworkManager.m in Sources */,
 				42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */,
+				42DAF47014113F6300936536 /* User.m in Sources */,
+				42DAF47314113F8D00936536 /* Channel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1297,7 +1309,7 @@
 			);
 			currentVersion = 42DAF46814112CA100936536 /* Shelby.xcdatamodel */;
 			path = Shelby.xcdatamodeld;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */

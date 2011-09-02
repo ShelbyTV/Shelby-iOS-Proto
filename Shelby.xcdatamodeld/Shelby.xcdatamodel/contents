@@ -7,14 +7,14 @@
         <attribute name="url" optional="YES" attributeType="String"/>
         <relationship name="channel" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Channel" inverseName="broadcasts" inverseEntity="Channel"/>
     </entity>
-    <entity name="Channel">
+    <entity name="Channel" representedClassName="Channel">
         <attribute name="name" attributeType="String"/>
         <attribute name="public" attributeType="Boolean"/>
         <attribute name="shelbyId" attributeType="String"/>
         <relationship name="broadcasts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Broadcast" inverseName="channel" inverseEntity="Broadcast"/>
         <relationship name="user" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="channels" inverseEntity="User"/>
     </entity>
-    <entity name="User">
+    <entity name="User" representedClassName="User">
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="nickname" attributeType="String"/>

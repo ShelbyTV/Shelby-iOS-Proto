@@ -71,7 +71,7 @@
         @"1234"      , @"_id"        ,
         nil];
 
-    LoginHelper *loginHelper = [[LoginHelper alloc] initWithContext: ctx];
+    LoginHelper *loginHelper = [[[LoginHelper alloc] initWithContext: ctx] autorelease];
     [loginHelper storeUserWithDictionary: sampleDict];
     NSManagedObject * user = [loginHelper retrieveUser];
 
@@ -85,5 +85,51 @@
             [before isEqualToString: after], @"Before: %@ After: %@", before, after
             );
 }
+
+- (void)testStoreChannels {
+
+    NSDictionary *sampleChannel1 = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"4e385abdf6db24106c000004"     , @"_id"        ,
+        @"2011-08-02T20:14:53.000Z"     , @"created_at" ,
+        @"2011-08-02T20:14:53.000Z"     , @"updated_at" ,
+        @"The David Y. Kay Broadcast"   , @"name"       ,
+        [NSNumber numberWithInteger: 1] , @"public"     ,
+        @"4e385abdf6db24106c000001"     , @"user_id"    ,
+    nil];
+    NSDictionary *sampleChannel2 = [NSDictionary dictionaryWithObjectsAndKeys:
+          @"4e385abdf6db24106c000006"     , @"_id"        ,
+          @"2011-08-02T20:14:53.000Z"     , @"created_at" ,
+          @"Watch Later"                  , @"name"       ,
+          [NSNumber numberWithInteger: 0] , @"public"     ,
+          @"2011-08-02T20:14:53.000Z"     , @"updated_at" ,
+          @"4e385abdf6db24106c000001"     , @"user_id"    ,
+    nil];
+
+    NSArray *sampleChannels = [NSArray arrayWithObjects:
+        sampleChannel1,
+        sampleChannel2,
+        nil];
+
+    LoginHelper *loginHelper = [[[LoginHelper alloc] initWithContext: ctx] autorelease];
+    [loginHelper storeChannelsWithArray: sampleChannels];
+    NSArray *channels = [loginHelper retrieveChannels];
+    STAssertNotNil(channels, @"Channels was nil!");
+    STAssertTrue([channels count] == 2, @"Channels count was: %d.", [channels count]);
+
+    //NSManagedObject * user = [loginHelper retrieveUser];
+    //STAssertNotNil(user, @"User was nil!");
+    //// Make sure that our data persisted.
+    //NSString *before;
+    //NSString *after;
+    //before = [sampleDict objectForKey: @"name"];
+    //after = [user valueForKey: @"name"];
+    //STAssertTrue(
+    //        [before isEqualToString: after], @"Before: %@ After: %@", before, after
+    //        );
+
+}
+
+//- (void)testStoreBroadcasts {
+//}
 
 @end
