@@ -60,10 +60,18 @@
 @synthesize userId;
 @synthesize channelId;
 
+
 - (id)init
+{
+    NSManagedObjectContext *context = [[UIApplication sharedApplication].delegate managedObjectContext];
+    return [self initWithContext: context];
+}
+
+- (id)initWithContext:(NSManagedObjectContext *)context
 {
     self = [super init];
     if (self) {
+        _context = [context retain];
         parser = [[SBJsonStreamParser alloc] init];
         parser.delegate = self;
         parser.supportMultipleDocuments = YES;
@@ -220,10 +228,9 @@
 }
 
 - (void)storeUserWithDictionary:(NSDictionary *)dict {
-    NSManagedObjectContext *context = [[UIApplication sharedApplication].delegate managedObjectContext];
     NSManagedObject *user = [NSEntityDescription
         insertNewObjectForEntityForName:@"User"
-                 inManagedObjectContext:context];
+                 inManagedObjectContext:_context];
     [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
     [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
     [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image"];
@@ -238,21 +245,25 @@
     //[failedBankDetails setValue:user forKey:@"info"];
     //[user setValue:failedBankDetails forKey:@"details"];
     NSError *error;
-    if (![context save:&error]) {
+    if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
 }
 
-- (NSManagedObject *)retreiveUser:(NSManagedObjectContext *)context {
+- (NSManagedObject *)retrieveUser {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-        entityForName:@"User" inManagedObjectContext: context];
+        entityForName:@"User" inManagedObjectContext: _context];
     [fetchRequest setEntity:entity];
     NSError *error;
-    NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
+    NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
+    if ([objects count] > 0) {
     NSManagedObject *user = [objects objectAtIndex: 0];
     [fetchRequest release];
     return user;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - Channels

@@ -7,24 +7,25 @@
 //
 
 #import "CoreDataTest.h"
+#import "LoginHelper.h"
 
 @implementation CoreDataTest
 
 #if USE_APPLICATION_UNIT_TEST     // all code under test is in the iPhone Application
 
 - (void)testAppDelegate {
-    
+
     id yourApplicationDelegate = [[UIApplication sharedApplication] delegate];
     STAssertNotNil(yourApplicationDelegate, @"UIApplication failed to find the AppDelegate");
-    
+
 }
 
 #else                           // all code under test must be linked into the Unit Test bundle
 
 - (void)testMath {
-    
+
     STAssertTrue((1+1)==2, @"Compiler isn't feeling well today :-(" );
-    
+
 }
 
 #endif
@@ -37,7 +38,7 @@
     store = [coord addPersistentStoreWithType: NSInMemoryStoreType
                                 configuration: nil
                                           URL: nil
-                                      options: nil 
+                                      options: nil
                                         error: NULL];
     ctx = [[NSManagedObjectContext alloc] init];
     [ctx setPersistentStoreCoordinator: coord];
@@ -48,7 +49,7 @@
     [ctx release];
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error], 
+    STAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     [coord release];
@@ -60,6 +61,29 @@
 - (void)testThatEnvironmentWorks
 {
     STAssertNotNil(store, @"no persistent store");
+}
+
+- (void)testStoreUser {
+    NSDictionary *sampleDict = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"David Kay" , @"name"       ,
+        @"DavidYKay" , @"nickname"   ,
+        @"image.jpg" , @"user_image" ,
+        @"1234"      , @"_id"        ,
+        nil];
+
+    LoginHelper *loginHelper = [[LoginHelper alloc] initWithContext: ctx];
+    [loginHelper storeUserWithDictionary: sampleDict];
+    NSManagedObject * user = [loginHelper retrieveUser];
+
+    STAssertNotNil(user, @"User was nil!");
+    // Make sure that our data persisted.
+    NSString *before;
+    NSString *after;
+    before = [sampleDict objectForKey: @"name"];
+    after = [user valueForKey: @"name"];
+    STAssertTrue(
+            [before isEqualToString: after], @"Before: %@ After: %@", before, after
+            );
 }
 
 @end

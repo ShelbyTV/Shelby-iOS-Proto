@@ -38,6 +38,7 @@ typedef enum {
     SBJsonStreamParser *parser;
     @private
     STVParserMode _parserMode;
+    NSManagedObjectContext *_context;
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;
@@ -49,6 +50,9 @@ typedef enum {
 @property (nonatomic, retain) NSString *accessTokenSecret;
 @property (nonatomic, retain) NSString *userId;
 @property (nonatomic, retain) NSString *channelId;
+
+#pragma mark - Initialization
+- (id)initWithContext:(NSManagedObjectContext *)context;
 
 #pragma mark - OAuth Handshake
 - (void)getRequestToken;
