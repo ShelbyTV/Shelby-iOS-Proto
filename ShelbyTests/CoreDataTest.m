@@ -15,8 +15,7 @@
 
 #pragma mark - Set Up & Tear Down
 
-- (void)setUp
-{
+- (void)setUp {
     model = [[NSManagedObjectModel mergedModelFromBundles: nil] retain];
     NSLog(@"model: %@", model);
     coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
@@ -29,8 +28,7 @@
     [ctx setPersistentStoreCoordinator: coord];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     [ctx release];
     ctx = nil;
     NSError *error = nil;
@@ -99,8 +97,7 @@
 }
 
 #endif
-- (void)testThatEnvironmentWorks
-{
+- (void)testThatEnvironmentWorks {
     STAssertNotNil(store, @"no persistent store");
 }
 
