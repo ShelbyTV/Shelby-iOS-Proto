@@ -114,11 +114,11 @@
     [super viewDidLoad];
 
     //DEBUG ONLY
-    UITapGestureRecognizer *singleFingerTap = 
-        [[UITapGestureRecognizer alloc] initWithTarget:self 
+    UITapGestureRecognizer *singleFingerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
     //[_videoPlayer.moviePlayer.view addGestureRecognizer:singleFingerTap];
-    
+
     //Background.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
     [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
@@ -164,7 +164,7 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
 }
 

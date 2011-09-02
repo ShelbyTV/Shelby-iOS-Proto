@@ -52,8 +52,6 @@ typedef enum {
 @property (nonatomic, readonly) NSString *consumerTokenSecret;
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *accessTokenSecret;
-//@property (nonatomic, retain) NSString *userId;
-//@property (nonatomic, retain) NSString *channelId;
 
 @property (nonatomic, retain) User *user;
 @property (nonatomic, retain) Channel *channel;

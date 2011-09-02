@@ -15,7 +15,7 @@
 #import "SettingsViewController.h"
 
 @implementation NavigationViewController_iPad
-    
+
 // This is the size of the right side panel.
 static const float RIGHT_PANEL_WIDTH = 330.0f;
 // This is the amount of the Shelby Logo that spills over the edge.
@@ -49,7 +49,7 @@ static const float ANIMATION_TIME = 0.5f;
     [self slideView: videoTableHolder right: right];
 
     // Animate the video player to grow to fill the remaining space.
-    // NOTE: This appears to not be working. May have to use the VideoPlayer 
+    // NOTE: This appears to not be working. May have to use the VideoPlayer
     // object and not the holder.
     float offset = right ? -OFFSET : OFFSET;
     CGRect tempFrame = _videoPlayer.frame;
@@ -72,7 +72,7 @@ static const float ANIMATION_TIME = 0.5f;
 }
 
 - (IBAction)settingsButtonWasPressed:(id)sender {
-	// Open up the settings ViewController
+    // Open up the settings ViewController
     LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
 
     SettingsViewController *vc = [SettingsViewController viewController];

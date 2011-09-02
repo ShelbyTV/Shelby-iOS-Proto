@@ -37,10 +37,6 @@
 #define kFetchBroadcastUrl    @"http://api.shelby.tv/broadcasts/%@.json"
 #define kFetchBroadcastsUrl   @"http://api.shelby.tv/channels/%@/broadcasts.json"
 
-//#define kRequestTokenUrl      @"http://api.shelby.tv/oauth/request_token"
-//#define kUserAuthorizationUrl @"http://api.shelby.tv/oauth/authorize"
-//#define kAccessTokenUrl       @"http://api.shelby.tv/oauth/access_token"
-
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
 
@@ -59,8 +55,6 @@
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
-//@synthesize userId;
-//@synthesize channelId;
 @synthesize user = _user;
 @synthesize channel = _channel;
 
@@ -104,8 +98,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.accessToken = [defaults stringForKey: kAccessTokenName];
     self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
-    //self.channelId = [defaults stringForKey: kChannelIdName];
-    //self.userId = [defaults stringForKey: kUserIdName];
     self.user = [self retrieveUser];
     self.channel = [[self retrieveChannels] objectAtIndex: 0];
 }
@@ -116,8 +108,6 @@
  */
 - (void)storeTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //[defaults setObject: self.channelId forKey: kChannelIdName];
-    //[defaults setObject: self.userId forKey: kUserIdName];
     [defaults setObject: self.accessToken
                  forKey: kAccessTokenName];
     [defaults setObject: self.accessTokenSecret
@@ -127,8 +117,6 @@
 
 - (void)clearTokens {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey: kChannelIdName];
-    //[defaults removeObjectForKey: kUserIdName];
     [defaults removeObjectForKey: kAccessTokenName];
     [defaults removeObjectForKey: kAccessTokenSecretName];
     [defaults synchronize];
@@ -177,7 +165,7 @@
 }
 
 - (void)verifierReturnedFromAuth:(NSString *)verifier {
-  [handshake continueHandshakeWithVerifier: verifier];
+    [handshake continueHandshakeWithVerifier: verifier];
 }
 
 #pragma mark - Access Token
@@ -240,14 +228,6 @@
     [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image"];
     [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
 
-    //NSManagedObject *failedBankDetails = [NSEntityDescription
-    //    insertNewObjectForEntityForName:@"FailedBankDetails"
-    //             inManagedObjectContext:context];
-    //[failedBankDetails setValue:[NSDate date] forKey:@"closeDate"];
-    //[failedBankDetails setValue:[NSDate date] forKey:@"updatedDate"];
-    //[failedBankDetails setValue:[NSNumber numberWithInt:12345] forKey:@"zip"];
-    //[failedBankDetails setValue:user forKey:@"info"];
-    //[user setValue:failedBankDetails forKey:@"details"];
     NSError *error;
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -266,7 +246,6 @@
     NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     if ([objects count] > 0) {
-        //NSManagedObject *user = [objects objectAtIndex: 0];
         User *user = [objects objectAtIndex: 0];
         return user;
     } else {
@@ -415,7 +394,6 @@
             LOG(@"USER Array found: %@", array);
 
             NSDictionary *dict = [array objectAtIndex: 0];
-            //self.userId = [dict objectForKey: @"_id"];
             self.user = [self storeUserWithDictionary: dict];
 
             [self storeTokens];
@@ -424,8 +402,6 @@
             break;
         case STVParserModeChannels:
            LOG(@"CHANNEL array found: %@", array);
-           //NSDictionary *timeline =  [array objectAtIndex: 1];
-           //self.channelId = [timeline objectForKey: @"_id"];
            [self storeChannelsWithArray: array];
            self.channel = [[self retrieveChannels] objectAtIndex: 0];
            if (self.channel) {
