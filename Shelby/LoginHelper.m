@@ -219,6 +219,42 @@
     }
 }
 
+- (void)storeUserWithDictionary:(NSDictionary *)dict {
+    NSManagedObjectContext *context = [[UIApplication sharedApplication].delegate managedObjectContext];
+    NSManagedObject *user = [NSEntityDescription
+        insertNewObjectForEntityForName:@"User"
+                 inManagedObjectContext:context];
+    [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
+    [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
+    [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image"];
+    [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
+
+    //NSManagedObject *failedBankDetails = [NSEntityDescription
+    //    insertNewObjectForEntityForName:@"FailedBankDetails"
+    //             inManagedObjectContext:context];
+    //[failedBankDetails setValue:[NSDate date] forKey:@"closeDate"];
+    //[failedBankDetails setValue:[NSDate date] forKey:@"updatedDate"];
+    //[failedBankDetails setValue:[NSNumber numberWithInt:12345] forKey:@"zip"];
+    //[failedBankDetails setValue:user forKey:@"info"];
+    //[user setValue:failedBankDetails forKey:@"details"];
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+}
+
+- (NSManagedObject *)retreiveUser:(NSManagedObjectContext *)context {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+        entityForName:@"User" inManagedObjectContext: context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
+    NSManagedObject *user = [objects objectAtIndex: 0];
+    [fetchRequest release];
+    return user;
+}
+
 #pragma mark - Channels
 
 - (BOOL)fetchChannels
@@ -312,27 +348,6 @@
             NSDictionary *dict = [array objectAtIndex: 0];
             self.userId = [dict objectForKey: @"_id"];
 
-            NSManagedObjectContext *context = [[UIApplication sharedApplication].delegate managedObjectContext];
-            NSManagedObject *user = [NSEntityDescription
-                insertNewObjectForEntityForName:@"User"
-                         inManagedObjectContext:context];
-            [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
-            [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
-            [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image"];
-            [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
-
-            //NSManagedObject *failedBankDetails = [NSEntityDescription
-            //    insertNewObjectForEntityForName:@"FailedBankDetails"
-            //             inManagedObjectContext:context];
-            //[failedBankDetails setValue:[NSDate date] forKey:@"closeDate"];
-            //[failedBankDetails setValue:[NSDate date] forKey:@"updatedDate"];
-            //[failedBankDetails setValue:[NSNumber numberWithInt:12345] forKey:@"zip"];
-            //[failedBankDetails setValue:user forKey:@"info"];
-            //[user setValue:failedBankDetails forKey:@"details"];
-            NSError *error;
-            if (![context save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            }
             //name = "David Y. Kay";
             //nickname = DavidYKay;
             //"total_videos_played" = 30;
@@ -343,7 +358,7 @@
             [self fetchChannels];
             //[self loginComplete];
 
-            LOG(@"USER dict found: %@", user);
+            LOG(@"USER dict found: %@", dict);
             break;
         case STVParserModeChannels:
            LOG(@"CHANNEL array found: %@", array);

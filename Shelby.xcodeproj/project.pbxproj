@@ -104,7 +104,6 @@
 		42C4C59A13E8AB5E0034AC97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C59813E8AB5E0034AC97 /* InfoPlist.strings */; };
 		42C4C5E213E8D28B0034AC97 /* Login_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */; };
 		42C4C5EA13E9AA100034AC97 /* VideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C5E913E9AA100034AC97 /* VideoPlayer.m */; };
-		42C4C5EB13E9AA100034AC97 /* VideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C5E913E9AA100034AC97 /* VideoPlayer.m */; };
 		42C4C60213E9CBE30034AC97 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C60013E9CBE30034AC97 /* MainWindow_iPad.xib */; };
 		42C4C60913E9CCC00034AC97 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C60613E9CCC00034AC97 /* NavigationViewController_iPad.m */; };
 		42C4C60A13E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C60813E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m */; };
@@ -114,13 +113,13 @@
 		42C4C61613E9D1370034AC97 /* ButtonPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C61313E9D1370034AC97 /* ButtonPlay.png */; };
 		42C4C61713E9D1370034AC97 /* ButtonPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C61413E9D1370034AC97 /* ButtonPrevious.png */; };
 		42C4C61A13E9D7EF0034AC97 /* VideoPlayerProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C61913E9D7EF0034AC97 /* VideoPlayerProgressBar.m */; };
-		42C4C61B13E9D7EF0034AC97 /* VideoPlayerProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C61913E9D7EF0034AC97 /* VideoPlayerProgressBar.m */; };
 		42CA0DB913EC83FE00B9BF15 /* ButtonSound.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */; };
 		42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */; };
 		42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */; };
 		42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */; };
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
 		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
+		42DAF46D1411390000936536 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46B1411389E00936536 /* CoreDataTest.m */; };
 		42F0AB9A13EDD316003F47E9 /* VideoPlayerControlBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9613EDD316003F47E9 /* VideoPlayerControlBar.xib */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
@@ -294,6 +293,8 @@
 		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
 		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		42DAF46814112CA100936536 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
+		42DAF46A1411389E00936536 /* CoreDataTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTest.h; sourceTree = "<group>"; };
+		42DAF46B1411389E00936536 /* CoreDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTest.m; sourceTree = "<group>"; };
 		42F0AB9713EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerControlBar.xib; sourceTree = "<group>"; };
 		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
 		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
@@ -430,6 +431,8 @@
 		0AD9A38513D53BD300EFECE0 /* ShelbyTests */ = {
 			isa = PBXGroup;
 			children = (
+				42DAF46A1411389E00936536 /* CoreDataTest.h */,
+				42DAF46B1411389E00936536 /* CoreDataTest.m */,
 				0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */,
 				0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */,
 				0AD9A38613D53BD300EFECE0 /* Supporting Files */,
@@ -934,9 +937,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42DAF46D1411390000936536 /* CoreDataTest.m in Sources */,
 				0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */,
-				42C4C5EB13E9AA100034AC97 /* VideoPlayer.m in Sources */,
-				42C4C61B13E9D7EF0034AC97 /* VideoPlayerProgressBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
