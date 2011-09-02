@@ -288,6 +288,7 @@ static NSString *fakeAPIData[] = {
 // helper method -- maybe better to just embed in this file?
 + (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
 {
+    assert(NOTNULL(video));
     NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
     return [baseURL stringByAppendingString:video];
 }
@@ -339,7 +340,10 @@ static NSString *fakeAPIData[] = {
             NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
 
 
-            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
+            NSURL *youTubeVideo;
+            if (NOTNULL(videoId)) {
+                youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
+            }
 
             if (NOTNULL(youTubeVideo)) {
                 URLIndex *video = [[URLIndex alloc] init];
@@ -368,8 +372,8 @@ static NSString *fakeAPIData[] = {
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
-	 NSArray *broadcasts = [notification.userInfo objectForKey: @"broadcasts"];
-	 [self gotNewJSONBroadcasts: broadcasts];
+    NSArray *broadcasts = [notification.userInfo objectForKey: @"broadcasts"];
+    [self gotNewJSONBroadcasts: broadcasts];
 }
 
 #pragma mark - Cleanup
