@@ -10,12 +10,10 @@
 
 @class LoginViewController;
 @class NavigationViewController;
-@class RootViewController;
 
 @interface ShelbyAppDelegate : NSObject <UIApplicationDelegate> {
     LoginViewController *loginViewController;
     NavigationViewController *navigationViewController;
-    RootViewController *rootViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

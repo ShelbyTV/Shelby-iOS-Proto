@@ -232,9 +232,9 @@
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-    } else {
-        return user;
     }
+    return user;
+
 }
 
 - (User *)retrieveUser {

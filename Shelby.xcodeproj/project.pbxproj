@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0A12931613DCD300009D254F /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931513DCD300009D254F /* NavigationViewController.m */; };
-		0A12932913DCEA7E009D254F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12932813DCEA7E009D254F /* RootViewController.m */; };
 		0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12933A13DD0DC0009D254F /* VideoTableViewController.m */; };
 		0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934013DD2EE3009D254F /* AVFoundation.framework */; };
 		0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934213DD2FFB009D254F /* MediaPlayer.framework */; };
@@ -96,10 +95,8 @@
 		42C4C58313E8AADF0034AC97 /* Login_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */; };
 		42C4C58413E8AADF0034AC97 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57B13E8AADF0034AC97 /* MainWindow_iPhone.xib */; };
 		42C4C58513E8AADF0034AC97 /* Navigation_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57D13E8AADF0034AC97 /* Navigation_iPhone.xib */; };
-		42C4C58613E8AADF0034AC97 /* Root_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57F13E8AADF0034AC97 /* Root_iPhone.xib */; };
 		42C4C58713E8AADF0034AC97 /* VideoCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */; };
 		42C4C59113E8AB1D0034AC97 /* Navigation_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58A13E8AB1D0034AC97 /* Navigation_iPad.xib */; };
-		42C4C59213E8AB1D0034AC97 /* Root_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58C13E8AB1D0034AC97 /* Root_iPad.xib */; };
 		42C4C59313E8AB1D0034AC97 /* VideoCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */; };
 		42C4C59A13E8AB5E0034AC97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C59813E8AB5E0034AC97 /* InfoPlist.strings */; };
 		42C4C5E213E8D28B0034AC97 /* Login_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */; };
@@ -141,8 +138,6 @@
 /* Begin PBXFileReference section */
 		0A12931413DCD300009D254F /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		0A12931513DCD300009D254F /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
-		0A12932713DCEA7E009D254F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		0A12932813DCEA7E009D254F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		0A12933913DD0DBF009D254F /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
 		0A12933A13DD0DC0009D254F /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
 		0A12934013DD2EE3009D254F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -262,10 +257,8 @@
 		42C4C57A13E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Login_iPhone.xib; sourceTree = "<group>"; };
 		42C4C57C13E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		42C4C57E13E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Navigation_iPhone.xib; sourceTree = "<group>"; };
-		42C4C58013E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Root_iPhone.xib; sourceTree = "<group>"; };
 		42C4C58213E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = VideoCell_iPhone.xib; sourceTree = "<group>"; };
 		42C4C58B13E8AB1D0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Navigation_iPad.xib; sourceTree = SOURCE_ROOT; };
-		42C4C58D13E8AB1D0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Root_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C58F13E8AB1D0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/VideoCell_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C59513E8AB420034AC97 /* Shelby-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Shelby-Info.plist"; path = "Resources/Shelby-Info.plist"; sourceTree = SOURCE_ROOT; };
 		42C4C59913E8AB5E0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
@@ -414,7 +407,6 @@
 				42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */,
 				42C4C57B13E8AADF0034AC97 /* MainWindow_iPhone.xib */,
 				42C4C57D13E8AADF0034AC97 /* Navigation_iPhone.xib */,
-				42C4C57F13E8AADF0034AC97 /* Root_iPhone.xib */,
 				42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */,
 			);
 			name = iPhone;
@@ -427,7 +419,6 @@
 				42C4C60013E9CBE30034AC97 /* MainWindow_iPad.xib */,
 				42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */,
 				42C4C58A13E8AB1D0034AC97 /* Navigation_iPad.xib */,
-				42C4C58C13E8AB1D0034AC97 /* Root_iPad.xib */,
 				42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */,
 			);
 			name = iPad;
@@ -662,8 +653,6 @@
 			children = (
 				4200E50613F4263900609C3E /* SettingsViewController.h */,
 				4200E50713F4263900609C3E /* SettingsViewController.m */,
-				0A12932713DCEA7E009D254F /* RootViewController.h */,
-				0A12932813DCEA7E009D254F /* RootViewController.m */,
 				0A12933913DD0DBF009D254F /* VideoTableViewController.h */,
 				0A12933A13DD0DC0009D254F /* VideoTableViewController.m */,
 				0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */,
@@ -822,10 +811,8 @@
 				42C4C58313E8AADF0034AC97 /* Login_iPhone.xib in Resources */,
 				42C4C58413E8AADF0034AC97 /* MainWindow_iPhone.xib in Resources */,
 				42C4C58513E8AADF0034AC97 /* Navigation_iPhone.xib in Resources */,
-				42C4C58613E8AADF0034AC97 /* Root_iPhone.xib in Resources */,
 				42C4C58713E8AADF0034AC97 /* VideoCell_iPhone.xib in Resources */,
 				42C4C59113E8AB1D0034AC97 /* Navigation_iPad.xib in Resources */,
-				42C4C59213E8AB1D0034AC97 /* Root_iPad.xib in Resources */,
 				42C4C59313E8AB1D0034AC97 /* VideoCell_iPad.xib in Resources */,
 				42C4C59A13E8AB5E0034AC97 /* InfoPlist.strings in Resources */,
 				42C4C5E213E8D28B0034AC97 /* Login_iPad.xib in Resources */,
@@ -902,7 +889,6 @@
 				0AD9A36713D53BD300EFECE0 /* ShelbyAppDelegate.m in Sources */,
 				0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */,
 				0A12931613DCD300009D254F /* NavigationViewController.m in Sources */,
-				0A12932913DCEA7E009D254F /* RootViewController.m in Sources */,
 				0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */,
 				0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */,
 				42C4C5EA13E9AA100034AC97 /* VideoPlayer.m in Sources */,
@@ -1016,15 +1002,6 @@
 			path = ../Resources/iPhone/en.lproj;
 			sourceTree = "<group>";
 		};
-		42C4C57F13E8AADF0034AC97 /* Root_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C4C58013E8AADF0034AC97 /* en */,
-			);
-			name = Root_iPhone.xib;
-			path = ../Resources/iPhone/en.lproj;
-			sourceTree = "<group>";
-		};
 		42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1040,14 +1017,6 @@
 				42C4C58B13E8AB1D0034AC97 /* en */,
 			);
 			name = Navigation_iPad.xib;
-			sourceTree = "<group>";
-		};
-		42C4C58C13E8AB1D0034AC97 /* Root_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C4C58D13E8AB1D0034AC97 /* en */,
-			);
-			name = Root_iPad.xib;
 			sourceTree = "<group>";
 		};
 		42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */ = {

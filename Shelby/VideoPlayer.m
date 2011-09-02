@@ -90,8 +90,8 @@ static const float kHideControlsInterval = 3.0f;
     [self addNotificationListeners];
 
     //The setup code (in viewDidLoad in your view controller)
-    UITapGestureRecognizer *singleFingerTap = 
-        [[UITapGestureRecognizer alloc] initWithTarget:self 
+    UITapGestureRecognizer *singleFingerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
     [_moviePlayer.view addGestureRecognizer:singleFingerTap];
     singleFingerTap.delegate = self;
@@ -267,11 +267,11 @@ static const float kHideControlsInterval = 3.0f;
  * Currently just a mockup.
  */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-	// open an alert with just an OK button
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Favorited" message:@"Your friends will see you like this video!"
-							delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-	[alert show];
-	[alert release];
+    // open an alert with just an OK button
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked" message:@"Your friends will see you like this video!"
+                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
 
 }
 
@@ -358,7 +358,7 @@ static const float kHideControlsInterval = 3.0f;
 #pragma mark - Touch Delegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
- 
+
     //LOG(@"VideoPlayer shouldReceiveTouch: %@", touch);
     LOG(@"VideoPlayer shouldReceiveTouch");
     //// Disallow recognition of tap gestures in the segmented control.

@@ -9,7 +9,6 @@
 #import "ShelbyAppDelegate_iPad.h"
 #import "LoginViewController.h"
 #import "NavigationViewController_iPad.h"
-#import "RootViewController.h"
 #import "ShelbyApp.h"
 #import "NetworkManager.h"
 
@@ -20,11 +19,11 @@
     // Override point for customization after application launch.
 
     // Windows don't work very well at passing events to multiple subviews. Use rootView to contain everything.
-    rootViewController = [[RootViewController alloc] initWithNibName:@"Root_iPad" bundle:nil];
 
     navigationViewController = [[NavigationViewController_iPad alloc] initWithNibName:@"Navigation_iPad" bundle:nil];
-    navigationViewController.view.frame = rootViewController.view.bounds;
-    [rootViewController.view addSubview:navigationViewController.view];
+    CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    navigationViewController.view.frame = frame;
+    //navigationViewController.view.frame = [[UIApplication sharedApplication] keyWindow].bounds;
 
     if ([ShelbyApp sharedApp].networkManager.loggedIn) {
         // If we're logged in, we can bypass login.
@@ -36,11 +35,13 @@
                                                             callbackObject:navigationViewController
                                                           callbackSelector:@selector(loadUserData)];
 
-        loginViewController.view.frame = rootViewController.view.bounds;
-        [rootViewController.view addSubview:loginViewController.view];
+        //loginViewController.view.frame = rootViewController.view.bounds;
+        loginViewController.view.frame = navigationViewController.view.bounds;
+        //[rootViewController.view addSubview:loginViewController.view];
+        [navigationViewController.view addSubview:loginViewController.view];
     }
 
-    [self.window addSubview:rootViewController.view];
+    [self.window addSubview: navigationViewController.view];
 
     [self.window makeKeyAndVisible];
     return YES;

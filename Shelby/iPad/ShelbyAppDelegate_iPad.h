@@ -10,7 +10,7 @@
 #import "ShelbyAppDelegate.h"
 
 @interface ShelbyAppDelegate_iPad : ShelbyAppDelegate {
-    
+
 }
 
 @end

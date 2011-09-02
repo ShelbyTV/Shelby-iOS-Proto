@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h> 
+#import <MediaPlayer/MediaPlayer.h>
 #import "VideoPlayerProgressBar.h"
 #import "VideoPlayerControlBar.h"
 
@@ -17,7 +17,7 @@
 @class VideoPlayerControlBar;
 @class Video;
 
-@protocol VideoPlayerDelegate 
+@protocol VideoPlayerDelegate
 
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer;
