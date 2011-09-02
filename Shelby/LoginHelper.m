@@ -7,6 +7,8 @@
 //
 
 #import "LoginHelper.h"
+#import "User.h"
+#import "Channel.h"
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
 #import "OAuthMutableURLRequest.h"
@@ -247,10 +249,11 @@
     NSError *error;
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
 }
 
-- (NSManagedObject *)retrieveUser {
+- (User *)retrieveUser {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
         entityForName:@"User" inManagedObjectContext: _context];
@@ -259,8 +262,9 @@
     NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     if ([objects count] > 0) {
-    NSManagedObject *user = [objects objectAtIndex: 0];
-    return user;
+        //NSManagedObject *user = [objects objectAtIndex: 0];
+        User *user = [objects objectAtIndex: 0];
+        return user;
     } else {
         return nil;
     }
@@ -300,20 +304,38 @@
     }
 }
 
-- (void)storeChannelsWithArray:(NSArray *)array {
+- (void)storeChannelsWithArray:(NSArray *)array user:(User *)user {
     for (NSDictionary *dict in array) {
-      NSManagedObject *channels = [NSEntityDescription
+        LOG(@"Channel dict: %@", dict);
+        Channel *channel = [NSEntityDescription
           insertNewObjectForEntityForName:@"Channel"
                    inManagedObjectContext:_context];
-      [channels setValue:[dict objectForKey:@"public"]  forKey:@"public"];
-      [channels setValue:[dict objectForKey:@"name"]  forKey:@"name"];
-      [channels setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
+        NSNumber *public = [dict objectForKey:@"public"];
+        [channel setValue: public forKey:@"public"];
+        NSString *name = [dict objectForKey:@"name"];
+        [channel setValue: name forKey:@"name"];
+        NSString *shelbyId = [dict objectForKey:@"_id"];
+        [channel setValue: shelbyId forKey:@"shelbyId"];
+        if (user) channel.user = user;
     }
 
     NSError *error;
     if (![_context save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if(detailedErrors != nil && [detailedErrors count] > 0) {
+            for(NSError* detailedError in detailedErrors) {
+                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+            }
+        }
+        else {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
+}
+
+- (void)storeChannelsWithArray:(NSArray *)array {
+    [self storeChannelsWithArray: array user: nil];
 }
 
 - (NSArray *)retrieveChannels {
