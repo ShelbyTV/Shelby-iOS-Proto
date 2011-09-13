@@ -333,7 +333,7 @@ static NSString *fakeAPIData[] = {
             NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
             NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
             NSString *title        = [broadcast objectForKey: @"video_title"];
-            NSString *description  = [broadcast objectForKey: @"video_description"];
+            //NSString *description  = [broadcast objectForKey: @"video_description"];
 
             NSString *comment      = [broadcast objectForKey: @"description"];
             NSString *sharerName   = [broadcast objectForKey: @"video_originator_user_name"];

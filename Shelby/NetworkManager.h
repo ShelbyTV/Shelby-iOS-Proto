@@ -27,6 +27,8 @@
 - (void)beginOAuthHandshake;
 - (void)oAuthVerifierReturned:(NSString *)verifier;
 
+- (void)logout;
+
 #pragma mark - API Calls
 - (BOOL)fetchBroadcasts;
 
