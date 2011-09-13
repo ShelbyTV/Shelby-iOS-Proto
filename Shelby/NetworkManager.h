@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class LoginHelper;
+@class User;
 
 /**
  * This is our public-facing class for all things that go on the network.

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class STVUserView;
+
+@protocol STVUserViewDelegate
+
+- (void)userViewWasPressed:(STVUserView *)userView;
+
+@end
+
 /**
  * View for showing the user's name, photo, and social accounts. Primarily used
  * in the top-right of the navigation controller.
@@ -16,5 +24,8 @@
 }
 @property (nonatomic, retain) IBOutlet UIImageView *image;
 @property (nonatomic, retain) IBOutlet UILabel *name;
+@property (nonatomic, assign) id<STVUserViewDelegate> delegate;
+
+- (IBAction)buttonWasPressed:(id)sender;
 
 @end
