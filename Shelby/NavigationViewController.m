@@ -102,7 +102,7 @@
 //The event handling method
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     LOG(@"NavigationViewController handleSingleTap: %@", recognizer);
-    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
 
     //Do stuff here...
 }
@@ -124,9 +124,9 @@
     [super viewDidLoad];
 
     //DEBUG ONLY
-    UITapGestureRecognizer *singleFingerTap =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(handleSingleTap:)];
+    //UITapGestureRecognizer *singleFingerTap =
+    //    [[UITapGestureRecognizer alloc] initWithTarget:self
+    //                                            action:@selector(handleSingleTap:)];
     //[_videoPlayer.moviePlayer.view addGestureRecognizer:singleFingerTap];
 
     //Background.

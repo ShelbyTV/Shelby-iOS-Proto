@@ -100,16 +100,6 @@
 
 #pragma mark - Misc Methods
 
-- (void)fadeIn
-{
-    [self fade: YES];
-}
-
-- (void)fadeOut
-{
-    [self fade: NO];
-}
-
 - (void)fade:(BOOL)visible {
     float alpha;
     BOOL hidden;
@@ -129,6 +119,16 @@
             [self.view setHidden: hidden];
         }
     }];
+}
+
+- (void)fadeIn
+{
+    [self fade: YES];
+}
+
+- (void)fadeOut
+{
+    [self fade: NO];
 }
 
 - (void)beginLogin

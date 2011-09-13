@@ -9,6 +9,8 @@
 #import "LoginHelper.h"
 #import "User.h"
 #import "Channel.h"
+#import "ShelbyAppDelegate.h"
+
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
 #import "OAuthMutableURLRequest.h"
@@ -47,6 +49,10 @@
 - (void)storeTokens;
 - (void)clearTokens;
 
+- (User *)retrieveUser;
+- (NSArray *)retrieveChannels;
+- (BOOL)fetchUserId;
+
 @end
 
 @implementation LoginHelper
@@ -61,7 +67,8 @@
 
 - (id)init
 {
-    NSManagedObjectContext *context = [[UIApplication sharedApplication].delegate managedObjectContext];
+    ShelbyAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
     return [self initWithContext: context];
 }
 
