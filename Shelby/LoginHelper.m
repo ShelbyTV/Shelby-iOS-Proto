@@ -32,10 +32,10 @@
 #define kUserAuthorizationUrl @"http://dev.shelby.tv/oauth/authorize"
 #define kAccessTokenUrl       @"http://dev.shelby.tv/oauth/access_token"
 
-#define kFetchUserUrl         @"http://api.shelby.tv/users.json"
-#define kFetchChannelsUrl     @"http://api.shelby.tv/channels.json"
-#define kFetchBroadcastUrl    @"http://api.shelby.tv/broadcasts/%@.json"
-#define kFetchBroadcastsUrl   @"http://api.shelby.tv/channels/%@/broadcasts.json"
+#define kFetchUserUrl         @"http://api.shelby.tv/v1/users.json"
+#define kFetchChannelsUrl     @"http://api.shelby.tv/v1/channels.json"
+#define kFetchBroadcastUrl    @"http://api.shelby.tv/v1/broadcasts/%@.json"
+#define kFetchBroadcastsUrl   @"http://api.shelby.tv/v1/channels/%@/broadcasts.json"
 
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
