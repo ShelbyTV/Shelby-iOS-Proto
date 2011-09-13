@@ -43,6 +43,11 @@
     return self.loginHelper.loggedIn;
 }
 
+- (User *)user {
+    // If we have stored both the accessToken and the secret, we're logged in.
+    return self.loginHelper.user;
+}
+
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake {
     [self.loginHelper getRequestToken];

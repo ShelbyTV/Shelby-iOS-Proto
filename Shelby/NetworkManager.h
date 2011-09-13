@@ -20,6 +20,7 @@
 
 
 @property (nonatomic, readonly) BOOL loggedIn;
+@property (nonatomic, readonly) User *user;
 
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake;
