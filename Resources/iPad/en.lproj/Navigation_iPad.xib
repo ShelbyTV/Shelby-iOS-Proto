@@ -49,7 +49,7 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="129868568"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="590987013">
+						<object class="NSColor" key="IBUIBackgroundColor" id="962938265">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -95,7 +95,7 @@
 									<string key="NSResourceName">Logo.png</string>
 								</object>
 							</object>
-							<object class="IBUIView" id="65558049">
+							<object class="IBUIView" id="498810016">
 								<reference key="NSNextResponder" ref="129868568"/>
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{292, 15}, {128, 46}}</string>
@@ -103,7 +103,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:195</string>
-								<reference key="IBUIBackgroundColor" ref="590987013"/>
+								<reference key="IBUIBackgroundColor" ref="962938265"/>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 						</object>
@@ -190,6 +190,14 @@
 					</object>
 					<int key="connectionID">30</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_userView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="498810016"/>
+					</object>
+					<int key="connectionID">37</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -227,7 +235,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="256397958"/>
-							<reference ref="65558049"/>
+							<reference ref="498810016"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Logo &amp; Profile</string>
@@ -254,7 +262,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">36</int>
-						<reference key="object" ref="65558049"/>
+						<reference key="object" ref="498810016"/>
 						<reference key="parent" ref="129868568"/>
 					</object>
 				</object>
@@ -304,7 +312,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">37</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -316,12 +324,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_userView</string>
 							<string>_videoPlayer</string>
 							<string>header</string>
 							<string>videoTableHolder</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>STVUserView</string>
 							<string>VideoPlayer</string>
 							<string>UIView</string>
 							<string>UIView</string>
@@ -331,12 +341,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_userView</string>
 							<string>_videoPlayer</string>
 							<string>header</string>
 							<string>videoTableHolder</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_userView</string>
+								<string key="candidateClassName">STVUserView</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_videoPlayer</string>
 								<string key="candidateClassName">VideoPlayer</string>

@@ -10,6 +10,10 @@
 #import "VideoTableViewController.h"
 #import "VideoPlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "User.h"
+#import "ShelbyApp.h"
+#import "STVUserView.h"
+#import "NetworkManager.h"
 
 @class Video;
 
@@ -42,6 +46,12 @@
 
 - (void)loadUserData
 {
+    User *user = [ShelbyApp sharedApp].networkManager.user;
+    // Draw user image & name.
+    _userView.name.text = user.name;
+    //_userView.image.image =
+
+    // Refresh Video list.
     [videoTable loadVideos];
 }
 
