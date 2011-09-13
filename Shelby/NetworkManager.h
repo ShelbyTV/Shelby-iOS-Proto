@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class LoginHelper;
+@class User;
 
 /**
  * This is our public-facing class for all things that go on the network.
@@ -20,6 +21,7 @@
 
 
 @property (nonatomic, readonly) BOOL loggedIn;
+@property (nonatomic, readonly) User *user;
 
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake;

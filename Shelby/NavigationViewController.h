@@ -11,6 +11,7 @@
 
 @class VideoTableViewController;
 @class VideoPlayer;
+@class STVUserView;
 
 @interface NavigationViewController : UIViewController <VideoPlayerDelegate, UINavigationControllerDelegate>
 {
@@ -19,6 +20,7 @@
     VideoTableViewController *videoTable;
     UINavigationController *_navigationController;
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
+    IBOutlet STVUserView *_userView; 
 }
 
 - (void)loadUserData;
