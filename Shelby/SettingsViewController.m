@@ -63,13 +63,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //CGRect frame = self.contactSwitch.frame;
-    
-    //UICustomSwitch *newSwitch = [UICustomSwitch switchWithLeftText:@"Weekly"
-    //                                                      andRight:@"Monthly"];
-    //newSwitch.frame = frame;
-    ////[self.view removeSubview: self.contactSwitch];
-    //[self.view addSubview: newSwitch];
-    //self.contactSwitch = newSwitch;
 
     self.contactSwitch.leftLabel.text  = @"Weekly";
     self.contactSwitch.rightLabel.text = @"Monthly";
@@ -87,10 +80,6 @@
     //self.contactSwitch.leftLabel.frame = frame;
     //self.contactSwitch.rightLabel.frame = frame;
         
-    // Init user info.
-    User *user = [ShelbyApp sharedApp].networkManager.user;
-    _nameField.text = user.name;
-    _nicknameField.text = user.nickname;
 }
 
 - (void)viewDidUnload
@@ -98,6 +87,22 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated 
+{
+    // Load user info.
+    User *user = [ShelbyApp sharedApp].networkManager.user;
+    _nameField.text = user.name;
+    _nicknameField.text = user.nickname;
+}
+
+- (void)viewWillDisappear:(BOOL)animated 
+{
+    // Store all changes.
+    User *user = [ShelbyApp sharedApp].networkManager.user;
+    user.name = _nameField.text;
+    user.nickname = _nicknameField.text;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
