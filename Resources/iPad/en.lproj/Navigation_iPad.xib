@@ -67,6 +67,7 @@
 								<string key="NSFrame">{{3, 7}, {201, 62}}</string>
 								<reference key="NSSuperview" ref="129868568"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="498810016"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -100,6 +101,7 @@
 								<string key="NSFrame">{{212, 15}, {208, 46}}</string>
 								<reference key="NSSuperview" ref="129868568"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="616968626"/>
 								<string key="NSReuseIdentifierKey">_NS:195</string>
 								<reference key="IBUIBackgroundColor" ref="962938265"/>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -121,6 +123,7 @@
 						<string key="NSFrame">{{694, 75}, {330, 673}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="143258557">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>

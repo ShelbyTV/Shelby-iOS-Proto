@@ -193,10 +193,28 @@
             likeImageNormal.size.width,
             42);
 
+    UIImage *likeImageCropped = [UIImage imageNamed: @"ButtonFavoritesCropped"];
+    UIImage *timeImageCropped = [UIImage imageNamed: @"ButtonTimeCropped"];
+    
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems: [NSArray arrayWithObjects:
+        //likeImageNormal,
+        //timeImageNormal,
+
+        likeImageCropped,
+        timeImageCropped,
+
+        nil]
+        ];
+    //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
+    segmentedControl.tintColor = [UIColor blackColor];
+
     UIView *customView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 120, 42)];
     [customView addSubview: timeButton];
     [customView addSubview: likeButton];
-    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: customView];
+
+    //UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: customView];
+    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: segmentedControl];
     [self.navigationItem setLeftBarButtonItem:customItem animated: NO];
 }
 

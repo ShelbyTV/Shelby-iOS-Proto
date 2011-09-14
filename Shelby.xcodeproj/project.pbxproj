@@ -51,6 +51,8 @@
 		428B0258141FFE9300C88063 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B0257141FFE9300C88063 /* STVUserView.xib */; };
 		428B029C1421344200C88063 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029B1421344200C88063 /* SettingsViewController_iPhone.xib */; };
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
+		428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */; };
+		428B02A91421411C00C88063 /* ButtonTimeCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A81421411C00C88063 /* ButtonTimeCropped.png */; };
 		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
 		42925B221401C01B00333F46 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B191401C01B00333F46 /* blackArrow.png */; };
 		42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1A1401C01B00333F46 /* blackArrow@2x.png */; };
@@ -195,6 +197,8 @@
 		428B0257141FFE9300C88063 /* STVUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STVUserView.xib; sourceTree = "<group>"; };
 		428B029B1421344200C88063 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
+		428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesCropped.png; path = Resources/Images/ButtonFavoritesCropped.png; sourceTree = "<group>"; };
+		428B02A81421411C00C88063 /* ButtonTimeCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonTimeCropped.png; path = Resources/Images/ButtonTimeCropped.png; sourceTree = "<group>"; };
 		42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		42925B191401C01B00333F46 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -611,6 +615,8 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				428B02A81421411C00C88063 /* ButtonTimeCropped.png */,
+				428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */,
 				427A622313F46ECA00C945E2 /* SaveChanges.png */,
 				427A621A13F46D5B00C945E2 /* CancelButton.jpg */,
 				427A621B13F46D5B00C945E2 /* CheckboxChecked.png */,
@@ -863,6 +869,8 @@
 				428B0258141FFE9300C88063 /* STVUserView.xib in Resources */,
 				428B029C1421344200C88063 /* SettingsViewController_iPhone.xib in Resources */,
 				428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */,
+				428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */,
+				428B02A91421411C00C88063 /* ButtonTimeCropped.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
