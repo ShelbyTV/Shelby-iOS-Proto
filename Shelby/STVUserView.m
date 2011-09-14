@@ -29,6 +29,7 @@
     self.name.backgroundColor = [UIColor clearColor];
 
     self.button = [UIButton buttonWithType: UIButtonTypeCustom];
+    self.button.showsTouchWhenHighlighted = YES;
     [self.button addTarget: self
                     action: @selector(buttonWasPressed:)
           forControlEvents: UIControlEventTouchUpInside
