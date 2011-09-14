@@ -133,7 +133,11 @@
 
 - (void)beginLogin
 {
-  [_networkManager beginOAuthHandshake];
+#ifdef OFFLINE_MODE
+    [self allDone];
+#else
+    [_networkManager beginOAuthHandshake];
+#endif
 }
 
 /**

@@ -51,7 +51,11 @@
     User *user = [ShelbyApp sharedApp].networkManager.user;
     // Draw user image & name.
     self.userView.name.text = user.name;
-    //_userView.image.image =
+    if (user.image) {
+        _userView.image.image = [UIImage imageWithData: user.image];
+    } else {
+        _userView.image.image = [UIImage imageNamed: @"PlaceholderFace"];
+    }
 
     // Refresh Video list.
     [videoTable loadVideos];

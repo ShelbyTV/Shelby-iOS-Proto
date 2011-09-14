@@ -53,6 +53,8 @@
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
 		428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */; };
 		428B02A91421411C00C88063 /* ButtonTimeCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A81421411C00C88063 /* ButtonTimeCropped.png */; };
+		428B02AC14216FDA00C88063 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B02AB14216FDA00C88063 /* User.m */; };
+		428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02AD1421713D00C88063 /* PlaceholderFace.png */; };
 		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
 		42925B221401C01B00333F46 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B191401C01B00333F46 /* blackArrow.png */; };
 		42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1A1401C01B00333F46 /* blackArrow@2x.png */; };
@@ -122,7 +124,6 @@
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
 		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
 		42DAF46D1411390000936536 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46B1411389E00936536 /* CoreDataTest.m */; };
-		42DAF47014113F6300936536 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46F14113F6300936536 /* User.m */; };
 		42DAF47314113F8D00936536 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF47214113F8D00936536 /* Channel.m */; };
 		42F0AB9A13EDD316003F47E9 /* VideoPlayerControlBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9613EDD316003F47E9 /* VideoPlayerControlBar.xib */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
@@ -199,6 +200,9 @@
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
 		428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesCropped.png; path = Resources/Images/ButtonFavoritesCropped.png; sourceTree = "<group>"; };
 		428B02A81421411C00C88063 /* ButtonTimeCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonTimeCropped.png; path = Resources/Images/ButtonTimeCropped.png; sourceTree = "<group>"; };
+		428B02AA14216FDA00C88063 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		428B02AB14216FDA00C88063 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		428B02AD1421713D00C88063 /* PlaceholderFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlaceholderFace.png; path = Resources/Images/PlaceholderFace.png; sourceTree = "<group>"; };
 		42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		42925B191401C01B00333F46 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -301,8 +305,6 @@
 		42DAF46814112CA100936536 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
 		42DAF46A1411389E00936536 /* CoreDataTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTest.h; sourceTree = "<group>"; };
 		42DAF46B1411389E00936536 /* CoreDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTest.m; sourceTree = "<group>"; };
-		42DAF46E14113F6300936536 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		42DAF46F14113F6300936536 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		42DAF47114113F8D00936536 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		42DAF47214113F8D00936536 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		42F0AB9713EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerControlBar.xib; sourceTree = "<group>"; };
@@ -345,7 +347,6 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
-				42925B2B1401C2AA00333F46 /* QuartzCore.framework */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
 				427A622513F4717C00C945E2 /* Libraries */,
@@ -367,6 +368,7 @@
 		0AD9A35313D53BD200EFECE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42925B2B1401C2AA00333F46 /* QuartzCore.framework */,
 				0A12934213DD2FFB009D254F /* MediaPlayer.framework */,
 				0A12934013DD2EE3009D254F /* AVFoundation.framework */,
 				0AD9A35413D53BD200EFECE0 /* UIKit.framework */,
@@ -615,6 +617,7 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				428B02AD1421713D00C88063 /* PlaceholderFace.png */,
 				428B02A81421411C00C88063 /* ButtonTimeCropped.png */,
 				428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */,
 				427A622313F46ECA00C945E2 /* SaveChanges.png */,
@@ -721,10 +724,10 @@
 			isa = PBXGroup;
 			children = (
 				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
+				428B02AA14216FDA00C88063 /* User.h */,
+				428B02AB14216FDA00C88063 /* User.m */,
 				42DAF47114113F8D00936536 /* Channel.h */,
 				42DAF47214113F8D00936536 /* Channel.m */,
-				42DAF46E14113F6300936536 /* User.h */,
-				42DAF46F14113F6300936536 /* User.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */,
 				428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */,
 				428B02A91421411C00C88063 /* ButtonTimeCropped.png in Resources */,
+				428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,9 +951,9 @@
 				42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */,
 				42AFFA53140EBAE700C64D42 /* NetworkManager.m in Sources */,
 				42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */,
-				42DAF47014113F6300936536 /* User.m in Sources */,
 				42DAF47314113F8D00936536 /* Channel.m in Sources */,
 				428B0255141FFE2500C88063 /* STVUserView.m in Sources */,
+				428B02AC14216FDA00C88063 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

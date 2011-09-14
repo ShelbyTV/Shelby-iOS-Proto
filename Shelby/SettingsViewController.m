@@ -95,6 +95,7 @@
     User *user = [ShelbyApp sharedApp].networkManager.user;
     _nameField.text = user.name;
     _nicknameField.text = user.nickname;
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated 

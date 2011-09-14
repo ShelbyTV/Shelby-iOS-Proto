@@ -34,8 +34,11 @@
 
 - (void)loadVideos
 {
-    //[videoTableData loadVideos];
+#ifdef OFFLINE_MODE
+    [videoTableData loadVideos];
+#else
     [[ShelbyApp sharedApp].networkManager fetchBroadcasts];
+#endif
 }
 
 - (void)doneLoadingTableViewData

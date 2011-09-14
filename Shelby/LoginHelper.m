@@ -241,7 +241,7 @@
                  inManagedObjectContext:_context];
     [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
     [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
-    [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image"];
+    [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image_url"];
     [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
 
     NSError *error;
@@ -250,7 +250,6 @@
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
     return user;
-
 }
 
 - (User *)retrieveUser {
