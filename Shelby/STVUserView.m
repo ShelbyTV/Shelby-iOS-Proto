@@ -8,6 +8,9 @@
 
 #import "STVUserView.h"
 
+#define IMAGE_WIDTH 36
+#define IMAGE_MARGIN 5
+
 @implementation STVUserView
 
 @synthesize image;
@@ -72,17 +75,19 @@
 }
 
 - (void)layoutSubviews {
+
+
     self.image.frame = CGRectMake(
-        86,
-        5,
-        36,
-        36
+        self.bounds.size.width - (IMAGE_WIDTH + IMAGE_MARGIN),
+        IMAGE_MARGIN,
+        IMAGE_WIDTH,
+        IMAGE_WIDTH
         );
 
     self.name.frame = CGRectMake(
-        5,
-        5,
-        74,
+        IMAGE_MARGIN,
+        IMAGE_MARGIN,
+        self.bounds.size.width - (IMAGE_WIDTH + (2 * IMAGE_MARGIN) + IMAGE_MARGIN),
         21
         );
 
