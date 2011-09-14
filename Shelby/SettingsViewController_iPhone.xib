@@ -457,6 +457,30 @@
 					</object>
 					<int key="connectionID">40</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="323367394"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_nameField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="738071784"/>
+					</object>
+					<int key="connectionID">59</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_nicknameField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="277715735"/>
+					</object>
+					<int key="connectionID">60</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -692,7 +716,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">57</int>
+			<int key="maxID">60</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -734,11 +758,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_emailField</string>
+							<string>_nameField</string>
+							<string>_nicknameField</string>
 							<string>contactSwitch</string>
 							<string>whereToSwitch</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UITextField</string>
+							<string>UITextField</string>
+							<string>UITextField</string>
 							<string>UICustomSwitch</string>
 							<string>UICustomSwitch</string>
 						</object>
@@ -747,11 +777,26 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_emailField</string>
+							<string>_nameField</string>
+							<string>_nicknameField</string>
 							<string>contactSwitch</string>
 							<string>whereToSwitch</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_emailField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_nameField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_nicknameField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">contactSwitch</string>
 								<string key="candidateClassName">UICustomSwitch</string>

@@ -18,6 +18,9 @@
 @end
 
 @interface SettingsViewController : UIViewController {
+  IBOutlet UITextField *_nameField;
+  IBOutlet UITextField *_nicknameField;
+  IBOutlet UITextField *_emailField;
 }
 
 @property(nonatomic, assign) id <SettingsViewControllerDelegate> delegate;

@@ -10,6 +10,7 @@
 #import "UICustomSwitch.h"
 #import "ShelbyApp.h"
 #import "NetworkManager.h"
+#import "User.h"
 
 @implementation SettingsViewController
 
@@ -86,6 +87,10 @@
     //self.contactSwitch.leftLabel.frame = frame;
     //self.contactSwitch.rightLabel.frame = frame;
         
+    // Init user info.
+    User *user = [ShelbyApp sharedApp].networkManager.user;
+    _nameField.text = user.name;
+    _nicknameField.text = user.nickname;
 }
 
 - (void)viewDidUnload
