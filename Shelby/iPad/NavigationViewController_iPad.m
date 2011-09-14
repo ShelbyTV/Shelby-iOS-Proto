@@ -66,6 +66,14 @@ static const float ANIMATION_TIME = 0.5f;
     _videoPlayer.frame = tempFrame;
 }
 
+- (void)showSettings {
+    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
+        // If we're not already showing settings, show settings.
+        SettingsViewController *vc = [SettingsViewController viewController];
+        [_navigationController pushViewController: vc animated: YES];
+    }
+}
+
 #pragma mark - UI Callbacks
 
 - (IBAction)shelbyIconWasPressed:(id)sender {
@@ -83,9 +91,13 @@ static const float ANIMATION_TIME = 0.5f;
 - (IBAction)settingsButtonWasPressed:(id)sender {
     // Open up the settings ViewController
     LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
+    [self showSettings];
+}
 
-    SettingsViewController *vc = [SettingsViewController viewController];
-    [_navigationController pushViewController: vc animated: YES];
+#pragma mark - STVUserViewDelegate Methods
+
+- (void)userViewWasPressed:(STVUserView *)userView {
+    [self showSettings];
 }
 
 #pragma mark - VideoPlayerDelegate Methods

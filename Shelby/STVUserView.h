@@ -25,6 +25,7 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *image;
 @property (nonatomic, retain) IBOutlet UILabel *name;
+@property (nonatomic, retain) IBOutlet UIButton *button;
 @property (nonatomic, assign) id<STVUserViewDelegate> delegate;
 
 - (IBAction)buttonWasPressed:(id)sender;

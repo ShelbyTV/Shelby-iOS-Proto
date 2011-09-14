@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
+#import "STVUserView.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
-@class STVUserView;
+//@class STVUserView;
 
-@interface NavigationViewController : UIViewController <VideoPlayerDelegate, UINavigationControllerDelegate>
+@interface NavigationViewController : UIViewController <VideoPlayerDelegate, UINavigationControllerDelegate, STVUserViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *videoTableHolder; // this view just tells us where in device .xib file to show the video table
@@ -22,6 +23,8 @@
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
     IBOutlet STVUserView *_userView; 
 }
+
+@property (nonatomic, readonly) STVUserView *userView; 
 
 - (void)loadUserData;
 

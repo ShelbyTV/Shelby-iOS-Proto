@@ -19,6 +19,8 @@
 
 @implementation NavigationViewController
 
+@synthesize userView = _userView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,11 +50,17 @@
 {
     User *user = [ShelbyApp sharedApp].networkManager.user;
     // Draw user image & name.
-    _userView.name.text = user.name;
+    self.userView.name.text = user.name;
     //_userView.image.image =
 
     // Refresh Video list.
     [videoTable loadVideos];
+}
+
+#pragma mark - STVUserViewDelegate Methods
+
+- (void)userViewWasPressed:(STVUserView *)userView {
+    // Override in subclass.
 }
 
 #pragma mark - VideoPlayerDelegate Methods
@@ -128,6 +136,8 @@
     //    [[UITapGestureRecognizer alloc] initWithTarget:self
     //                                            action:@selector(handleSingleTap:)];
     //[_videoPlayer.moviePlayer.view addGestureRecognizer:singleFingerTap];
+
+    self.userView.delegate = self;
 
     //Background.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];

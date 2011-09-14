@@ -12,6 +12,7 @@
 
 @synthesize image;
 @synthesize name;
+@synthesize button;
 @synthesize delegate;
 
 - (void)initialize {
@@ -27,8 +28,16 @@
     self.name.textAlignment = UITextAlignmentRight;
     self.name.backgroundColor = [UIColor clearColor];
 
+    self.button = [UIButton buttonWithType: UIButtonTypeCustom];
+    [self.button addTarget: self
+                    action: @selector(buttonWasPressed:)
+          forControlEvents: UIControlEventTouchUpInside
+                    ];
+
     [self addSubview: self.image];
     [self addSubview: self.name];
+    [self addSubview: self.button];
+
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -55,6 +64,7 @@
 }
 
 - (IBAction)buttonWasPressed:(id)sender {
+    LOG(@"[STVUserView buttonWasPressed]");
     if (self.delegate) {
         [self.delegate userViewWasPressed: self];
     }
@@ -67,12 +77,18 @@
         36,
         36
         );
+
     self.name.frame = CGRectMake(
         5,
         5,
         74,
         21
         );
+
+    self.button.frame = self.bounds;
+    LogRect(@"button frame", self.button.frame);
+    LogRect(@"bounds", self.bounds);
+    [self bringSubviewToFront: self.button];
 }
 
 /*
