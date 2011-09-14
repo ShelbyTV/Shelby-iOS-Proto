@@ -37,7 +37,6 @@
 		4200E51A13F42BB100609C3E /* ButtonListNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51613F42BB100609C3E /* ButtonListNormal.png */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
-		42531BCD13F9B1E5004F44AB /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42531BCB13F9B1E5004F44AB /* SettingsViewController_iPad.xib */; };
 		427A621E13F46D5B00C945E2 /* CancelButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 427A621A13F46D5B00C945E2 /* CancelButton.jpg */; };
 		427A621F13F46D5B00C945E2 /* CheckboxChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621B13F46D5B00C945E2 /* CheckboxChecked.png */; };
 		427A622013F46D5B00C945E2 /* CheckboxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */; };
@@ -51,6 +50,7 @@
 		428B0255141FFE2500C88063 /* STVUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0254141FFE2500C88063 /* STVUserView.m */; };
 		428B0258141FFE9300C88063 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B0257141FFE9300C88063 /* STVUserView.xib */; };
 		428B029C1421344200C88063 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029B1421344200C88063 /* SettingsViewController_iPhone.xib */; };
+		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
 		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
 		42925B221401C01B00333F46 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B191401C01B00333F46 /* blackArrow.png */; };
 		42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1A1401C01B00333F46 /* blackArrow@2x.png */; };
@@ -178,7 +178,6 @@
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
 		4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerControlBar.m; sourceTree = "<group>"; };
-		42531BCC13F9B1E5004F44AB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/SettingsViewController_iPad.xib; sourceTree = "<group>"; };
 		427A621A13F46D5B00C945E2 /* CancelButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = CancelButton.jpg; path = Resources/Images/CancelButton.jpg; sourceTree = "<group>"; };
 		427A621B13F46D5B00C945E2 /* CheckboxChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxChecked.png; path = Resources/Images/CheckboxChecked.png; sourceTree = "<group>"; };
 		427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxEmpty.png; path = Resources/Images/CheckboxEmpty.png; sourceTree = "<group>"; };
@@ -195,6 +194,7 @@
 		428B0254141FFE2500C88063 /* STVUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVUserView.m; sourceTree = "<group>"; };
 		428B0257141FFE9300C88063 /* STVUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STVUserView.xib; sourceTree = "<group>"; };
 		428B029B1421344200C88063 /* SettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		42925B191401C01B00333F46 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -424,7 +424,7 @@
 		0AD9A37213D53BD300EFECE0 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				42531BCB13F9B1E5004F44AB /* SettingsViewController_iPad.xib */,
+				428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */,
 				42C4C60013E9CBE30034AC97 /* MainWindow_iPad.xib */,
 				42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */,
 				42C4C58A13E8AB1D0034AC97 /* Navigation_iPad.xib */,
@@ -851,7 +851,6 @@
 				427A622C13F4719800C945E2 /* switchBlueBg.png in Resources */,
 				427A622D13F4719800C945E2 /* switchOffPlain.png in Resources */,
 				427A622E13F4719800C945E2 /* switchThumb.png in Resources */,
-				42531BCD13F9B1E5004F44AB /* SettingsViewController_iPad.xib in Resources */,
 				42AB21C313FEE40500A8FC00 /* OAuth-Info.plist in Resources */,
 				42925B221401C01B00333F46 /* blackArrow.png in Resources */,
 				42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */,
@@ -863,6 +862,7 @@
 				42925B291401C01B00333F46 /* whiteArrow@2x.png in Resources */,
 				428B0258141FFE9300C88063 /* STVUserView.xib in Resources */,
 				428B029C1421344200C88063 /* SettingsViewController_iPhone.xib in Resources */,
+				428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,13 +981,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		42531BCB13F9B1E5004F44AB /* SettingsViewController_iPad.xib */ = {
+		428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				42531BCC13F9B1E5004F44AB /* en */,
+				428B029E1421395D00C88063 /* en */,
 			);
 			name = SettingsViewController_iPad.xib;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */ = {
