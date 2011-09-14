@@ -13,6 +13,7 @@
 
 @implementation SettingsViewController
 
+@synthesize delegate;
 @synthesize contactSwitch;
 @synthesize whereToSwitch;
 
@@ -20,9 +21,9 @@
     NSString *nibName;
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         //nibName = @"SettingsViewController_iPad";
-        nibName = @"SettingsViewController";
+        nibName = @"SettingsViewController_iPad";
 	} else {
-        nibName = @"SettingsViewController";
+        nibName = @"SettingsViewController_iPhone";
 	}
     return [[[SettingsViewController alloc] initWithNibName: nibName
                                                      bundle: nil] autorelease];
@@ -104,6 +105,12 @@
 
 - (IBAction)logoutWasPressed:(id)sender {
     [[ShelbyApp sharedApp].networkManager logout];
+}
+
+- (IBAction)doneWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate settingsViewControllerDone: self];
+    }
 }
 
 @end

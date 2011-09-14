@@ -12,6 +12,7 @@
  */
 
 #import "NavigationViewController_iPhone.h"
+#import "SettingsViewController.h"
 
 @implementation NavigationViewController_iPhone
 
@@ -21,6 +22,43 @@
     //return (interfaceOrientation == UIInterfaceOrientationPortrait);
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
+
+#pragma mark - 
+
+- (void)showSettings {
+    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
+        // If we're not already showing settings, show settings.
+        SettingsViewController *vc = [SettingsViewController viewController];
+        vc.delegate = self;
+        
+        UIBarButtonItem *doneButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:vc action:@selector(doneWasPressed:)
+                                       ] autorelease];
+        vc.navigationItem.leftBarButtonItem = doneButton;
+        
+        UINavigationController *navController =  [[[UINavigationController alloc] initWithRootViewController: vc] autorelease];
+        navController.navigationBar.barStyle = UIBarStyleBlack;
+        //[_navigationController pushViewController: vc animated: YES];
+        [self presentModalViewController: navController
+                                animated: YES
+                          ];
+    }
+}
+
+#pragma mark - SettingsViewControllerDelegate Methods
+
+- (void)settingsViewControllerDone:(SettingsViewController *)settingsController
+{
+    [self dismissModalViewControllerAnimated: YES];
+}
+
+#pragma mark - STVUserViewDelegate Methods
+
+- (void)userViewWasPressed:(STVUserView *)userView
+{
+    [self showSettings];
+}
+
+#pragma mark - 
 
 - (void)playVideo:(Video *)video
 {

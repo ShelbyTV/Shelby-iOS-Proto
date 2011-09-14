@@ -9,14 +9,23 @@
 #import <UIKit/UIKit.h>
 
 @class UICustomSwitch;
+@class SettingsViewController;
+
+@protocol SettingsViewControllerDelegate
+
+- (void)settingsViewControllerDone:(SettingsViewController *)settingsController;
+
+@end
 
 @interface SettingsViewController : UIViewController {
-    
 }
 
-@property(nonatomic, retain) IBOutlet UICustomSwitch * contactSwitch;
-@property(nonatomic, retain) IBOutlet UICustomSwitch * whereToSwitch;
+@property(nonatomic, assign) id <SettingsViewControllerDelegate> delegate;
+@property(nonatomic, retain) IBOutlet UICustomSwitch *contactSwitch;
+@property(nonatomic, retain) IBOutlet UICustomSwitch *whereToSwitch;
 
 + (SettingsViewController *)viewController;
+
+- (IBAction)doneWasPressed:(id)sender;
 
 @end
