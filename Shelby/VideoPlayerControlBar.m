@@ -14,11 +14,18 @@
 @synthesize delegate;
 
 static NSString *NIB_NAME = @"VideoPlayerControlBar";
+static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
 #pragma mark - Factory
 
 + (VideoPlayerControlBar *)controlBarFromNib {
-    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:NIB_NAME owner:self options:nil];
+    NSString *nibName;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        nibName = IPHONE_NIB_NAME;
+    } else {
+        nibName = NIB_NAME;
+    }
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
 
     return [objects objectAtIndex:0];
 }

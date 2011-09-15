@@ -15,7 +15,8 @@
 static const float kHideControlsInterval = 3.0f;
 static const float kHideControlsDuration = 0.5f;
 
-static const float kControlBarHeight = 44.0f;
+static const float kControlBarHeightIpad   = 44.0f;
+static const float kControlBarHeightIphone = 88.0f;
 
 @implementation VideoPlayer
 
@@ -317,6 +318,16 @@ static const float kControlBarHeight = 44.0f;
 
 #pragma mark - Layout
 
+- (float)controlBarHeight {
+    float height;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        height = kControlBarHeightIphone;
+    } else {
+        height = kControlBarHeightIpad;
+    }
+    return height;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -366,9 +377,9 @@ static const float kControlBarHeight = 44.0f;
     float controlBarWidth = width;
     _controlBar.frame = CGRectMake(
             controlBarX,
-            height - buttonSize.width,
+            height - [self controlBarHeight],
             controlBarWidth - (2 * controlBarX),
-            kControlBarHeight
+            [self controlBarHeight]
             );
     [_controlBar setNeedsLayout];
 }

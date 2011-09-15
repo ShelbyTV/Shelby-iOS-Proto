@@ -58,6 +58,7 @@
 		428B02BB14217EB400C88063 /* SliderGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02B914217EB300C88063 /* SliderGray.png */; };
 		428B02BC14217EB400C88063 /* SliderPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BA14217EB400C88063 /* SliderPurple.png */; };
 		428B02BE14217F7F00C88063 /* SliderThumbWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BD14217F7F00C88063 /* SliderThumbWhite.png */; };
+		428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */; };
 		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
 		42925B221401C01B00333F46 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B191401C01B00333F46 /* blackArrow.png */; };
 		42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1A1401C01B00333F46 /* blackArrow@2x.png */; };
@@ -209,6 +210,7 @@
 		428B02B914217EB300C88063 /* SliderGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderGray.png; path = Resources/Images/SliderGray.png; sourceTree = "<group>"; };
 		428B02BA14217EB400C88063 /* SliderPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderPurple.png; path = Resources/Images/SliderPurple.png; sourceTree = "<group>"; };
 		428B02BD14217F7F00C88063 /* SliderThumbWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderThumbWhite.png; path = Resources/Images/SliderThumbWhite.png; sourceTree = "<group>"; };
+		428B02C014227C4F00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/VideoPlayerControlBar_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		42925B191401C01B00333F46 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 		0AD9A36B13D53BD300EFECE0 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
 				428B029B1421344200C88063 /* SettingsViewController_iPhone.xib */,
 				42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */,
 				42C4C57B13E8AADF0034AC97 /* MainWindow_iPhone.xib */,
@@ -887,6 +890,7 @@
 				428B02BB14217EB400C88063 /* SliderGray.png in Resources */,
 				428B02BC14217EB400C88063 /* SliderPurple.png in Resources */,
 				428B02BE14217F7F00C88063 /* SliderThumbWhite.png in Resources */,
+				428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,6 +1015,14 @@
 				428B029E1421395D00C88063 /* en */,
 			);
 			name = SettingsViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				428B02C014227C4F00C88063 /* en */,
+			);
+			name = VideoPlayerControlBar_iPhone.xib;
 			sourceTree = "<group>";
 		};
 		42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */ = {
