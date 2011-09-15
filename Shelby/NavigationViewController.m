@@ -50,7 +50,8 @@
 {
     User *user = [ShelbyApp sharedApp].networkManager.user;
     // Draw user image & name.
-    self.userView.name.text = user.name;
+    //self.userView.name.text = user.name;
+    self.userView.name.text = user.nickname;
     if (user.image) {
         _userView.image.image = [UIImage imageWithData: user.image];
     } else {
