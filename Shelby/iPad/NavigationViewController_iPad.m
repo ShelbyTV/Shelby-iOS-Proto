@@ -20,7 +20,8 @@
 static const float RIGHT_PANEL_WIDTH = 330.0f;
 // This is the amount of the Shelby Logo that spills over the edge.
 static const float SHELBY_LOGO_OVERSHOOT = 25.0f;
-#define OFFSET (RIGHT_PANEL_WIDTH + SHELBY_LOGO_OVERSHOOT)
+//#define OFFSET (RIGHT_PANEL_WIDTH + SHELBY_LOGO_OVERSHOOT)
+#define OFFSET RIGHT_PANEL_WIDTH 
 static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - Rotation
