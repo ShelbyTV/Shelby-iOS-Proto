@@ -336,8 +336,6 @@ static const float kControlBarHeight = 44.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     const CGSize buttonSize = CGSizeMake(62, 62);
 
-    //self.backgroundColor = [UIColor redColor];
-
     _moviePlayer.view.frame = self.bounds;
 
     // Place titleBar at the top center.

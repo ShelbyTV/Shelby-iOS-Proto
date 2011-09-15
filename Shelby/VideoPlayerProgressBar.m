@@ -40,8 +40,11 @@
     //_slider.maximumValue = 100.0;
     //_slider.value = 50.0;
 
-
     _label = [[UILabel alloc] init];
+    _label.textColor = [UIColor whiteColor];
+    _label.shadowColor = [UIColor blackColor];
+    //_label.font = [UIFont fontWithName: @"Verdana" size: 17.0];
+    //_label.font = [UIFont fontWithName: @"Helvetica-Bold" size: 17.0];
     _label.backgroundColor = [UIColor clearColor];
     
     [self addSubview: _slider];
