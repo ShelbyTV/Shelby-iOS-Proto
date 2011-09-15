@@ -13,7 +13,7 @@
 
 @synthesize delegate;
 
-static NSString *NIB_NAME = @"VideoPlayerControlBar";
+static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
 #pragma mark - Factory
@@ -23,7 +23,7 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         nibName = IPHONE_NIB_NAME;
     } else {
-        nibName = NIB_NAME;
+        nibName = IPAD_NIB_NAME;
     }
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
 
