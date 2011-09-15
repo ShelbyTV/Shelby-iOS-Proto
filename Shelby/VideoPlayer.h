@@ -14,6 +14,7 @@
 @class VideoPlayer;
 @class VideoPlayerProgressBar;
 @class VideoPlayerTitleBar;
+@class VideoPlayerFooterBar;
 @class VideoPlayerControlBar;
 @class Video;
 
@@ -46,6 +47,7 @@
 
 @property (assign) id<VideoPlayerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
+@property (nonatomic, retain) IBOutlet VideoPlayerFooterBar *footerBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
 
 - (void)play;

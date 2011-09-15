@@ -10,4 +10,8 @@
 
 @interface VideoPlayerFooterBar : UIView
 
+@property(nonatomic, retain) IBOutlet UILabel *title;
+
++ (VideoPlayerFooterBar *)footerBarFromNib;
+
 @end

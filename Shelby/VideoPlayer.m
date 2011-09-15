@@ -9,6 +9,7 @@
 #import "VideoPlayer.h"
 #import "VideoPlayerProgressBar.h"
 #import "VideoPlayerTitleBar.h"
+#import "VideoPlayerFooterBar.h"
 #import "VideoPlayerControlBar.h"
 #import "Video.h"
 
@@ -22,6 +23,7 @@ static const float kControlBarHeightIphone = 88.0f;
 
 @synthesize delegate;
 @synthesize titleBar;
+@synthesize footerBar;
 @synthesize moviePlayer = _moviePlayer;
 
 #pragma mark - Notification Handling
@@ -71,6 +73,9 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Title Bar
     self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
+    
+    // Footer Bar
+    self.footerBar = [VideoPlayerFooterBar footerBarFromNib];
 
     // Movie Player
     _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
@@ -83,6 +88,7 @@ static const float kControlBarHeightIphone = 88.0f;
     [self addSubview: _moviePlayer.view];
 
     [self addSubview: self.titleBar];
+    [self addSubview: self.footerBar];
     [self addSubview: _nextButton];
     [self addSubview: _prevButton];
     [self addSubview: _controlBar];
@@ -92,6 +98,7 @@ static const float kControlBarHeightIphone = 88.0f;
         _prevButton,
         _controlBar,
         self.titleBar,
+        self.footerBar,
         nil];
 
     // Timer to update the progressBar after each second.
@@ -134,9 +141,12 @@ static const float kControlBarHeightIphone = 88.0f;
     // Set internal lock so our notification doesn't go haywire.
     _changingVideo = YES;
 
-    // Change our titlebar
-    self.titleBar.title.text = video.title;
+    // Change our titleBar
+    self.titleBar.title.text = video.sharerComment;
     self.titleBar.sharerPic.image = video.sharerImage;
+    
+    // Change our footerBar.
+    self.footerBar.title.text = video.title;
 
     // Reset our duration.
     _duration = 0.0f;
@@ -345,7 +355,7 @@ static const float kControlBarHeightIphone = 88.0f;
 
     const float titleBarHeight = 41.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
-    const CGSize buttonSize = CGSizeMake(62, 62);
+    //const CGSize buttonSize = CGSizeMake(62, 62);
 
     _moviePlayer.view.frame = self.bounds;
 
@@ -382,6 +392,14 @@ static const float kControlBarHeightIphone = 88.0f;
             [self controlBarHeight]
             );
     [_controlBar setNeedsLayout];
+
+    // Place footerBar just above the controlBar.
+    self.footerBar.frame = CGRectMake(
+            controlBarX,
+            height - (2 * [self controlBarHeight]),
+            controlBarWidth - (2 * controlBarX),
+            [self controlBarHeight]
+            );
 }
 
 #pragma mark - Touch Delegate

@@ -60,6 +60,8 @@
 		428B02BE14217F7F00C88063 /* SliderThumbWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BD14217F7F00C88063 /* SliderThumbWhite.png */; };
 		428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */; };
 		428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */; };
+		428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B02C61422AE2400C88063 /* VideoPlayerFooterBar.m */; };
+		428B02C91422AE7E00C88063 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02C81422AE7D00C88063 /* VideoPlayerFooterBar.xib */; };
 		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
 		42925B221401C01B00333F46 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B191401C01B00333F46 /* blackArrow.png */; };
 		42925B231401C01B00333F46 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1A1401C01B00333F46 /* blackArrow@2x.png */; };
@@ -212,6 +214,9 @@
 		428B02BD14217F7F00C88063 /* SliderThumbWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderThumbWhite.png; path = Resources/Images/SliderThumbWhite.png; sourceTree = "<group>"; };
 		428B02C014227C4F00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/VideoPlayerControlBar_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		428B02C314227F6A00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/VideoPlayerControlBar_iPad.xib; sourceTree = SOURCE_ROOT; };
+		428B02C51422AE2300C88063 /* VideoPlayerFooterBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerFooterBar.h; sourceTree = "<group>"; };
+		428B02C61422AE2400C88063 /* VideoPlayerFooterBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerFooterBar.m; sourceTree = "<group>"; };
+		428B02C81422AE7D00C88063 /* VideoPlayerFooterBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		42925B161401C01B00333F46 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		42925B191401C01B00333F46 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -706,6 +711,9 @@
 				4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */,
 				4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */,
 				4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */,
+				428B02C51422AE2300C88063 /* VideoPlayerFooterBar.h */,
+				428B02C61422AE2400C88063 /* VideoPlayerFooterBar.m */,
+				428B02C81422AE7D00C88063 /* VideoPlayerFooterBar.xib */,
 			);
 			name = VideoPlayer;
 			sourceTree = "<group>";
@@ -891,6 +899,7 @@
 				428B02BE14217F7F00C88063 /* SliderThumbWhite.png in Resources */,
 				428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */,
 				428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */,
+				428B02C91422AE7E00C88063 /* VideoPlayerFooterBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,6 +979,7 @@
 				42DAF47314113F8D00936536 /* Channel.m in Sources */,
 				428B0255141FFE2500C88063 /* STVUserView.m in Sources */,
 				428B02AC14216FDA00C88063 /* User.m in Sources */,
+				428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

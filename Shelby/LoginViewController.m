@@ -131,15 +131,6 @@
     [self fade: NO];
 }
 
-- (void)beginLogin
-{
-#ifdef OFFLINE_MODE
-    [self allDone];
-#else
-    [_networkManager beginOAuthHandshake];
-#endif
-}
-
 /**
  * Once we've completed logging in, this removes the view.
  */
@@ -147,6 +138,15 @@
 {
     [callbackObject performSelector:callbackSelector];
     [self fadeOut];
+}
+
+- (void)beginLogin
+{
+#ifdef OFFLINE_MODE
+    [self allDone];
+#else
+    [_networkManager beginOAuthHandshake];
+#endif
 }
 
 #pragma mark - Notification Handlers
