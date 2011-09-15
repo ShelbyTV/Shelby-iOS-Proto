@@ -25,6 +25,7 @@
   UILabel *_label;
   // This lets us know that somebody is manipulating the slider by hand.
   BOOL _adjustingSlider;
+
 }
 
 @property(assign) id <VideoProgressBarDelegate> delegate;

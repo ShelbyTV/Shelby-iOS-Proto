@@ -18,9 +18,31 @@
 - (void)initViews {
     // We currently use a slider for our progress bar. In the future, we can replace this with a custom UIView.
     _slider = [[UISlider alloc] init];
-    [self addSubview: _slider];
+
+    // in case the parent view draws with a custom color or gradient, use a transparent color
+    _slider.backgroundColor = [UIColor clearColor];	
+    //UIImage *stetchLeftTrack = [[UIImage imageNamed:@"orangeslide.png"]
+    UIImage *stetchLeftTrack = [[UIImage imageNamed:@"SliderPurple.png"]
+                   stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+    //UIImage *stetchRightTrack = [[UIImage imageNamed:@"yellowslide.png"]
+    UIImage *stetchRightTrack = [[UIImage imageNamed:@"SliderGray.png"]
+                    stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+    //[_slider setThumbImage: [UIImage imageNamed:@"slider_ball.png"] forState:UIControlStateNormal];
+    [_slider setThumbImage: [UIImage imageNamed:@"SliderThumbWhite.png"] forState:UIControlStateNormal];
+    [_slider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
+    [_slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
+
+    //_slider.continuous = YES;
+
+    //_slider.minimumValue = 0.0;
+    //_slider.maximumValue = 100.0;
+    //_slider.value = 50.0;
+
 
     _label = [[UILabel alloc] init];
+    _label.backgroundColor = [UIColor clearColor];
+    
+    [self addSubview: _slider];
     [self addSubview: _label];
 
     // We use this to maintain a close eye on the slider value.
@@ -54,6 +76,8 @@
 - (NSString *)floatToMinutes:(float)value {
     // Use truncation to get to integers.
     int seconds = value;
+    // Round down to zero. Helps catch a 0.0 duration bug.
+    if (seconds == 1) seconds = 0;
 
     int minutes = seconds / 60;
     int remainder = seconds % 60;
@@ -72,7 +96,11 @@
         _adjustingSlider = NO;
 
         // Set our label to M:SS format.
-        [_label setText: [self floatToMinutes: progress]];
+        //_label.text = [self floatToMinutes: progress];
+        _label.text = [NSString stringWithFormat: @"%@ / %@", 
+                            [self floatToMinutes: progress],
+                            [self floatToMinutes: [self duration]]
+            ];
     }
 }
 
@@ -116,11 +144,14 @@
     float labelHeight = frame.size.height - sliderHeight;
 
     CGRect tempFrame = frame;
-    tempFrame.size.height = sliderHeight;
-    _slider.frame = tempFrame;
+    //tempFrame.size.height = sliderHeight;
+    //_slider.frame = tempFrame;
+    _slider.frame = frame;
 
     tempFrame = frame;
-    tempFrame.origin.y = sliderHeight;
+    //tempFrame.origin.y = sliderHeight;
+    tempFrame.origin.x = sliderHeight;
+    tempFrame.origin.y = (frame.size.height / 2) - (labelHeight / 2);
     tempFrame.size.height = labelHeight;
     _label.frame = tempFrame;
 }
