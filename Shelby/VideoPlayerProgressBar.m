@@ -6,8 +6,10 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#import "VideoPlayerProgressBar.h"
+#define LABEL_OFFSET 40
+#define LABEL_HEIGHT 40
 
+#import "VideoPlayerProgressBar.h"
 
 @implementation VideoPlayerProgressBar
 
@@ -139,20 +141,19 @@
 - (void)layoutSubviews {
     CGRect frame = self.bounds;
 
-    const float sliderSplit = 0.7;
-    float sliderHeight = frame.size.height * sliderSplit;
-    float labelHeight = frame.size.height - sliderHeight;
+    //const float sliderSplit = 0.7;
+    //float sliderHeight = frame.size.height * sliderSplit;
+    //float labelHeight = frame.size.height - sliderHeight;
 
     CGRect tempFrame = frame;
-    //tempFrame.size.height = sliderHeight;
-    //_slider.frame = tempFrame;
     _slider.frame = frame;
 
+    //float labelHeight = LABEL_HEIGHT;
+    float labelHeight = frame.size.height;
     tempFrame = frame;
-    //tempFrame.origin.y = sliderHeight;
-    tempFrame.origin.x = sliderHeight;
+    tempFrame.origin.x = LABEL_OFFSET;
     tempFrame.origin.y = (frame.size.height / 2) - (labelHeight / 2);
-    tempFrame.size.height = labelHeight;
+    //tempFrame.size.height = labelHeight;
     _label.frame = tempFrame;
 }
 

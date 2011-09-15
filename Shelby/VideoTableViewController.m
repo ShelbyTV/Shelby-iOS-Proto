@@ -16,6 +16,8 @@
 
 @synthesize videoCell;
 
+#pragma mark - Initialization
+
 - (id)initWithStyle:(UITableViewStyle)style
      callbackObject:(id)object
    callbackSelector:(SEL)selector
@@ -28,6 +30,15 @@
         callbackSelector = selector;
     }
     return self;
+}
+
+#pragma mark - Video Mode
+
+// Alternate between favorites and timeline.
+
+- (void)changeVideoMode 
+{
+
 }
 
 #pragma mark - Data Refresh
@@ -47,6 +58,64 @@
 	_reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
+#pragma mark - Next/Previous Videos
+
+- (Video *)videoAtTableDataIndex:(NSUInteger)index
+{
+    Video *video = [[[Video alloc] init] autorelease];
+
+    video.contentURL = [videoTableData videoContentURLAtIndex: index];
+
+    video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
+    video.title = [videoTableData videoTitleAtIndex: index];
+
+    video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
+    video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
+    video.contentURL = [videoTableData videoContentURLAtIndex: index];
+
+    return video;
+}
+
+- (Video *)getNextVideo 
+{
+    _currentVideoIndex++;
+    if (_currentVideoIndex >= [videoTableData numItems]) {
+        // Set to first index.
+        _currentVideoIndex = 0;
+    }
+
+    // Scroll to the next table cell.
+    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
+                          atScrollPosition: UITableViewScrollPositionMiddle
+                                  animated: YES];
+
+    // Return the next video.
+    return [self videoAtTableDataIndex: _currentVideoIndex];
+}
+
+- (Video *)getPreviousVideo 
+{
+    _currentVideoIndex--;
+    if (_currentVideoIndex < 0) {
+        // Set to last index.
+        _currentVideoIndex = [videoTableData numItems] - 1;
+    }
+
+    // Scroll to the previous table cell.
+    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
+                          atScrollPosition: UITableViewScrollPositionMiddle
+                                  animated: YES];
+
+    // Return the previous video.
+    return [self videoAtTableDataIndex: _currentVideoIndex];
+}
+
+#pragma mark - UI Callbacks
+
+- (IBAction)toolbarButtonWasPressed:(id)sender 
+{
+    LOG(@"toolbarButtonWasPressed %@", sender);
+}
 
 #pragma mark - UIScrollViewDelegate Methods
 
@@ -63,20 +132,23 @@
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view {
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view 
+{
 
 	[self loadVideos];
 	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
 
 }
 
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view {
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view 
+{
 
 	return _reloading; // should return if data source model is reloading
 
 }
 
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view {
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view 
+{
 
 	return [NSDate date]; // should return date data source was last changed
 
@@ -84,63 +156,9 @@
 
 #pragma mark - VideoTableDataDelegate Methods
 
-- (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData {
+- (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData 
+{
     [self doneLoadingTableViewData];
-}
-
-#pragma mark - UI Callbacks
-
-- (IBAction)toolbarButtonWasPressed:(id)sender {
-    LOG(@"toolbarButtonWasPressed %@", sender);
-}
-
-#pragma mark - Next/Previous Videos
-
-- (Video *)videoAtTableDataIndex:(NSUInteger)index {
-    Video *video = [[[Video alloc] init] autorelease];
-
-    video.contentURL = [videoTableData videoContentURLAtIndex: index];
-
-    video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
-    video.title = [videoTableData videoTitleAtIndex: index];
-
-    video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
-    video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
-    video.contentURL = [videoTableData videoContentURLAtIndex: index];
-
-    return video;
-}
-
-- (Video *)getNextVideo {
-    _currentVideoIndex++;
-    if (_currentVideoIndex >= [videoTableData numItems]) {
-        // Set to first index.
-        _currentVideoIndex = 0;
-    }
-
-    // Scroll to the next table cell.
-    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
-                          atScrollPosition: UITableViewScrollPositionMiddle
-                                  animated: YES];
-
-    // Return the next video.
-    return [self videoAtTableDataIndex: _currentVideoIndex];
-}
-
-- (Video *)getPreviousVideo {
-    _currentVideoIndex--;
-    if (_currentVideoIndex < 0) {
-        // Set to last index.
-        _currentVideoIndex = [videoTableData numItems] - 1;
-    }
-
-    // Scroll to the previous table cell.
-    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
-                          atScrollPosition: UITableViewScrollPositionMiddle
-                                  animated: YES];
-
-    // Return the previous video.
-    return [self videoAtTableDataIndex: _currentVideoIndex];
 }
 
 #pragma mark - View lifecycle
@@ -172,6 +190,9 @@
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
 
+#if 0
+    // Button-based BarButtonItem.
+
     // Init the segmented control.
     UIButton *timeButton = [UIButton buttonWithType: UIButtonTypeCustom];
     UIImage *timeImageNormal = [UIImage imageNamed: @"ButtonListNormal"];
@@ -195,29 +216,30 @@
             0,
             likeImageNormal.size.width,
             42);
-
+    
+    UIView *customView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 120, 42)];
+    [customView addSubview: timeButton];
+    [customView addSubview: likeButton];
+    
+    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: customView];
+#else 
+    // Init the segmented control.
     UIImage *likeImageCropped = [UIImage imageNamed: @"ButtonFavoritesCropped"];
     UIImage *timeImageCropped = [UIImage imageNamed: @"ButtonTimeCropped"];
     
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems: [NSArray arrayWithObjects:
         //likeImageNormal,
         //timeImageNormal,
-
         likeImageCropped,
         timeImageCropped,
-
         nil]
         ];
     //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
     segmentedControl.tintColor = [UIColor blackColor];
 
-    UIView *customView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 120, 42)];
-    [customView addSubview: timeButton];
-    [customView addSubview: likeButton];
-
-    //UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: customView];
     UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: segmentedControl];
+#endif
     [self.navigationItem setLeftBarButtonItem:customItem animated: NO];
 }
 

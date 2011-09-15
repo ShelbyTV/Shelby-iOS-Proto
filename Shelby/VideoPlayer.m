@@ -15,6 +15,8 @@
 static const float kHideControlsInterval = 3.0f;
 static const float kHideControlsDuration = 0.5f;
 
+static const float kControlBarHeight = 44.0f;
+
 @implementation VideoPlayer
 
 @synthesize delegate;
@@ -368,7 +370,7 @@ static const float kHideControlsDuration = 0.5f;
             controlBarX,
             height - buttonSize.width,
             controlBarWidth - (2 * controlBarX),
-            buttonSize.height
+            kControlBarHeight
             );
     [_controlBar setNeedsLayout];
 }
