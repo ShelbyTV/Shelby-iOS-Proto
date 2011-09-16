@@ -52,6 +52,8 @@
 		428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5AE1423EFE000E692B9 /* STVUserView.xib */; };
 		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
 		428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */; };
+		428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */; };
+		428AA5BA142409BD00E692B9 /* HomeScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B9142409BD00E692B9 /* HomeScreen.png */; };
 		428B0255141FFE2500C88063 /* STVUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0254141FFE2500C88063 /* STVUserView.m */; };
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
 		428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */; };
@@ -117,7 +119,6 @@
 		42C4C5E213E8D28B0034AC97 /* Login_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */; };
 		42C4C5EA13E9AA100034AC97 /* VideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C5E913E9AA100034AC97 /* VideoPlayer.m */; };
 		42C4C60213E9CBE30034AC97 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C60013E9CBE30034AC97 /* MainWindow_iPad.xib */; };
-		42C4C60913E9CCC00034AC97 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C60613E9CCC00034AC97 /* NavigationViewController_iPad.m */; };
 		42C4C60A13E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C60813E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m */; };
 		42C4C61013E9CCDA0034AC97 /* NavigationViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C60D13E9CCDA0034AC97 /* NavigationViewController_iPhone.m */; };
 		42C4C61113E9CCDA0034AC97 /* ShelbyAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C60F13E9CCDA0034AC97 /* ShelbyAppDelegate_iPhone.m */; };
@@ -207,6 +208,8 @@
 		428AA5AF1423EFE000E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/STVUserView.xib; sourceTree = "<group>"; };
 		428AA5B21423EFE500E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		428AA5B51423EFF800E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/SettingsViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
+		428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController_iPad.m; path = iPad/NavigationViewController_iPad.m; sourceTree = "<group>"; };
+		428AA5B9142409BD00E692B9 /* HomeScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeScreen.png; path = Resources/Images/HomeScreen.png; sourceTree = "<group>"; };
 		428B0253141FFE2500C88063 /* STVUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVUserView.h; sourceTree = "<group>"; };
 		428B0254141FFE2500C88063 /* STVUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVUserView.m; sourceTree = "<group>"; };
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -300,7 +303,6 @@
 		42C4C5E913E9AA100034AC97 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayer.m; sourceTree = "<group>"; };
 		42C4C60113E9CBE30034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/MainWindow_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C60513E9CCC00034AC97 /* NavigationViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationViewController_iPad.h; path = iPad/NavigationViewController_iPad.h; sourceTree = "<group>"; };
-		42C4C60613E9CCC00034AC97 /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController_iPad.m; path = iPad/NavigationViewController_iPad.m; sourceTree = "<group>"; };
 		42C4C60713E9CCC00034AC97 /* ShelbyAppDelegate_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShelbyAppDelegate_iPad.h; path = iPad/ShelbyAppDelegate_iPad.h; sourceTree = "<group>"; };
 		42C4C60813E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShelbyAppDelegate_iPad.m; path = iPad/ShelbyAppDelegate_iPad.m; sourceTree = "<group>"; };
 		42C4C60C13E9CCDA0034AC97 /* NavigationViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationViewController_iPhone.h; path = iPhone/NavigationViewController_iPhone.h; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				428AA5B9142409BD00E692B9 /* HomeScreen.png */,
 				428B02BD14217F7F00C88063 /* SliderThumbWhite.png */,
 				428B02B914217EB300C88063 /* SliderGray.png */,
 				428B02BA14217EB400C88063 /* SliderPurple.png */,
@@ -725,7 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				42C4C60513E9CCC00034AC97 /* NavigationViewController_iPad.h */,
-				42C4C60613E9CCC00034AC97 /* NavigationViewController_iPad.m */,
+				428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */,
 				42C4C60713E9CCC00034AC97 /* ShelbyAppDelegate_iPad.h */,
 				42C4C60813E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m */,
 			);
@@ -905,6 +908,7 @@
 				428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */,
 				428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */,
 				428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */,
+				428AA5BA142409BD00E692B9 /* HomeScreen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,7 +951,6 @@
 				0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */,
 				0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */,
 				42C4C5EA13E9AA100034AC97 /* VideoPlayer.m in Sources */,
-				42C4C60913E9CCC00034AC97 /* NavigationViewController_iPad.m in Sources */,
 				42C4C60A13E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m in Sources */,
 				42C4C61013E9CCDA0034AC97 /* NavigationViewController_iPhone.m in Sources */,
 				42C4C61113E9CCDA0034AC97 /* ShelbyAppDelegate_iPhone.m in Sources */,
@@ -986,6 +989,7 @@
 				428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */,
 				428AA5A01423A7C100E692B9 /* User.m in Sources */,
 				428AA5A61423CF9100E692B9 /* Broadcast.m in Sources */,
+				428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
