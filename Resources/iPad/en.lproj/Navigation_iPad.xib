@@ -58,7 +58,7 @@
 					</object>
 					<object class="IBUIView" id="129868568">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">305</int>
+						<int key="NSvFlags">289</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIButton" id="256397958">
@@ -484,19 +484,59 @@
 					<string key="className">VideoPlayer</string>
 					<string key="superclassName">UIView</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">titleBar</string>
-						<string key="NS.object.0">VideoPlayerTitleBar</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>footerBar</string>
+							<string>titleBar</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>VideoPlayerFooterBar</string>
+							<string>VideoPlayerTitleBar</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">titleBar</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">titleBar</string>
-							<string key="candidateClassName">VideoPlayerTitleBar</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>footerBar</string>
+							<string>titleBar</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">footerBar</string>
+								<string key="candidateClassName">VideoPlayerFooterBar</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">titleBar</string>
+								<string key="candidateClassName">VideoPlayerTitleBar</string>
+							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/VideoPlayer.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VideoPlayerFooterBar</string>
+					<string key="superclassName">UIView</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">title</string>
+						<string key="NS.object.0">UILabel</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">title</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">title</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VideoPlayerFooterBar.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
