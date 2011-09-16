@@ -7,6 +7,7 @@
 //
 
 #import "VideoTableData.h"
+#import "Broadcast.h"
 
 @interface URLIndex : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
@@ -365,12 +366,44 @@ static NSString *fakeAPIData[] = {
     }
 }
 
+- (void)gotNewCoreDataBroadcasts:(NSArray *)broadcasts
+{
+    //for (Broadcast *broadcast in broadcasts) {
+    //    if ([broadcast.provider isEqualToString: @"youtube"]) {
+    //        // We only handle youtube for now.
+    //        if (NOTNULL(broadcast.providerId)) {
+    //            youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
+    //        }
+
+    //        if (NOTNULL(youTubeVideo)) {
+    //            URLIndex *video = [[URLIndex alloc] init];
+
+    //            // We need the video to get anything done
+    //            video.youTubeVideoInfoURL = youTubeVideo;
+    //            if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
+    //            if (NOTNULL(title)) video.title = title;
+
+    //            if (NOTNULL(sharerName)) video.sharer = sharerName;
+    //            if (NOTNULL(comment)) video.sharerComment = comment;
+    //            if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
+
+    //            NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+    //                                                                                    selector:@selector(retrieveAndStoreYouTubeVideoData:)
+    //                                                                                      object:video];
+
+    //            [operationQueue addOperation:operation];
+    //        }
+    //    }
+    //}
+}
+
 #pragma mark - Notifications
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
     NSArray *broadcasts = [notification.userInfo objectForKey: @"broadcasts"];
     [self gotNewJSONBroadcasts: broadcasts];
+    //[self gotNewCoreDataBroadcasts: broadcasts];
 }
 
 #pragma mark - Cleanup
