@@ -9,6 +9,7 @@
 #import "LoginHelper.h"
 #import "User.h"
 #import "Channel.h"
+#import "Broadcast.h"
 #import "ShelbyAppDelegate.h"
 
 #import "NSURLConnection+AsyncBlock.h"
@@ -106,7 +107,7 @@
     self.accessToken = [defaults stringForKey: kAccessTokenName];
     self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
     self.user = [self retrieveUser];
-    self.channel = [[self retrieveChannels] objectAtIndex: 0];
+    self.channel = [self getPublicChannel: 0 fromArray: [self retrieveChannels]];
 }
 
 - (void)logout {
@@ -270,6 +271,17 @@
 
 #pragma mark - Channels
 
+- (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels 
+{
+    for (Channel *channel in channels) {
+        if ([channel.public integerValue] == public) {
+            return channel;
+            break;
+        }
+    }
+    return nil;
+}
+
 - (BOOL)fetchChannels
 {
     NSURL *url = [NSURL URLWithString: kFetchChannelsUrl];
@@ -351,17 +363,7 @@
     }
 }
 
-#pragma mark - Login Complete
-
-- (void)loginComplete
-{
-    [self storeTokens];
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
-                                                        object: self
-                                                        ];
-}
-
-#pragma mark - Access Resources
+#pragma mark - Broadcasts
 
 - (BOOL)fetchBroadcasts {
     if (self.user) {
@@ -399,6 +401,75 @@
     }
 }
 
+- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel {
+    for (NSDictionary *dict in array) {
+        LOG(@"Broadcast dict: %@", dict);
+        Broadcast *broadcast = [NSEntityDescription
+          insertNewObjectForEntityForName:@"Broadcast"
+                   inManagedObjectContext:_context];
+
+        NSString *shelbyId  =[dict objectForKey: @"_id"];
+        if (NOTNULL(shelbyId)) {
+            broadcast.shelbyId = shelbyId ;
+        }
+        NSString *providerId  =[dict objectForKey: @"video_id_at_provider"];
+        if (NOTNULL(providerId)) {
+            broadcast.providerId = providerId ;
+        }
+        NSString *thumbnailImage  =[dict objectForKey: @"video_thumbnail_url"];
+        if (NOTNULL(thumbnailImage)) {
+            broadcast.thumbnailImage = thumbnailImage ;
+        }
+        NSString *title  = [dict objectForKey: @"video_title"];
+        if (NOTNULL(title)) {
+            broadcast.title = title ;
+        }
+        NSString *sharerComment  =[dict objectForKey: @"description"];
+        if (NOTNULL(sharerComment)) {
+            broadcast.sharerComment = sharerComment ;
+        }
+        NSString *sharerName  =[dict objectForKey: @"video_originator_user_name"];
+        if (NOTNULL(sharerName)) {
+            broadcast.sharerName = sharerName ;
+        }
+        NSString *sharerImage  =[dict objectForKey: @"video_originator_user_image"];
+        if (NOTNULL(sharerImage)) {
+            broadcast.sharerImage = sharerImage ;
+        }
+
+        //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];
+        //Description - tweet
+        //video_description - youtube description
+        //video_title - youtube title
+
+        if (channel) broadcast.channel = channel;
+    }
+
+    NSError *error;
+    if (![_context save:&error]) {
+        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if(detailedErrors != nil && [detailedErrors count] > 0) {
+            for(NSError* detailedError in detailedErrors) {
+                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+            }
+        }
+        else {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
+#pragma mark - Login Complete
+
+- (void)loginComplete
+{
+    [self storeTokens];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
+                                                        object: self
+                                                        ];
+}
+
 #pragma mark SBJsonStreamParserDelegate methods
 
 - (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
@@ -419,12 +490,7 @@
            LOG(@"CHANNEL array found: %@", array);
            [self storeChannelsWithArray: array];
            NSArray *channels = [self retrieveChannels];
-           for (Channel *channel in channels) {
-               if ([channel.public integerValue] == 0) {
-                   self.channel = channel;
-                   break;
-               }
-           }
+        self.channel = [self getPublicChannel: 0 fromArray: channels];
            if (self.channel) {
                [self loginComplete];
            } else {
@@ -434,6 +500,7 @@
         case STVParserModeBroadcasts:
             // For some reason, the compiler requires a log statement just after the 'case' statemnet.
            LOG(@"woohoo");
+           [self storeBroadcastsWithArray: array channel: self.channel];
            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                array, @"broadcasts",
                nil];

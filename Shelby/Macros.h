@@ -18,3 +18,4 @@
                                       rect.size.width, \
                                       rect.size.height)
 
+#define NOTNULL(x) (x && ![x isKindOfClass:[NSNull class]])

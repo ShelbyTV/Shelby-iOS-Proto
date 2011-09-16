@@ -8,8 +8,6 @@
 
 #import "VideoTableData.h"
 
-#define NOTNULL(x) (x && ![x isKindOfClass:[NSNull class]])
-
 @interface URLIndex : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
 @property (nonatomic, retain) NSURL *thumbnailURL;
@@ -405,10 +403,10 @@ static NSString *fakeAPIData[] = {
 
         videoDataArray = [[NSMutableArray alloc] init];
 
-				[[NSNotificationCenter defaultCenter] addObserver: self
-																								 selector: @selector(receivedBroadcastsNotification:)
-																										 name: @"LoginHelperReceivedBroadcasts"
-																									 object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(receivedBroadcastsNotification:)
+                                                     name: @"LoginHelperReceivedBroadcasts"
+                                                   object: nil];
     }
 
     return self;
