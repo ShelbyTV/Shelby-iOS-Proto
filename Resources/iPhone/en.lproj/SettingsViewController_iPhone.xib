@@ -72,7 +72,7 @@
 					<object class="IBUILabel" id="528533366">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{43, 231}, {235, 29}}</string>
+						<string key="NSFrame">{{43, 211}, {235, 29}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="225609816"/>
@@ -208,7 +208,7 @@
 					<object class="IBUILabel" id="225609816">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{28, 273}, {81, 21}}</string>
+						<string key="NSFrame">{{28, 253}, {81, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="275095098"/>
@@ -228,7 +228,7 @@
 					<object class="IBUILabel" id="740003783">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{169, 331}, {48, 21}}</string>
+						<string key="NSFrame">{{165, 306}, {48, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="519911134"/>
@@ -251,7 +251,7 @@
 					<object class="IBUILabel" id="765906072">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{262, 331}, {48, 21}}</string>
+						<string key="NSFrame">{{258, 306}, {48, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="519299848"/>
@@ -292,7 +292,7 @@
 					<object class="IBUIView" id="275095098">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{136, 273}, {158, 27}}</string>
+						<string key="NSFrame">{{136, 253}, {158, 27}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="372301742"/>
@@ -308,7 +308,7 @@
 					<object class="IBUILabel" id="372301742">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{14, 331}, {95, 21}}</string>
+						<string key="NSFrame">{{14, 306}, {95, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="585793060"/>
@@ -328,7 +328,7 @@
 					<object class="IBUILabel" id="519299848">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 396}, {101, 21}}</string>
+						<string key="NSFrame">{{8, 361}, {101, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="883254088"/>
@@ -348,7 +348,7 @@
 					<object class="IBUIView" id="519911134">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{215, 320}, {44, 44}}</string>
+						<string key="NSFrame">{{215, 294}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="765906072"/>
@@ -361,7 +361,7 @@
 					<object class="IBUIView" id="585793060">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{124, 320}, {44, 44}}</string>
+						<string key="NSFrame">{{124, 294}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="740003783"/>
@@ -371,7 +371,7 @@
 					<object class="IBUILabel" id="437848563">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{169, 396}, {48, 21}}</string>
+						<string key="NSFrame">{{165, 361}, {48, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1029861292"/>
@@ -390,7 +390,7 @@
 					<object class="IBUILabel" id="374013895">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{262, 396}, {48, 21}}</string>
+						<string key="NSFrame">{{258, 361}, {48, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -409,7 +409,7 @@
 					<object class="IBUIView" id="1029861292">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{215, 385}, {44, 44}}</string>
+						<string key="NSFrame">{{215, 349}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="374013895"/>
@@ -419,7 +419,7 @@
 					<object class="IBUIView" id="883254088">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{124, 385}, {44, 44}}</string>
+						<string key="NSFrame">{{124, 349}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="437848563"/>
@@ -456,6 +456,30 @@
 						<reference key="destination" ref="107495702"/>
 					</object>
 					<int key="connectionID">40</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="323367394"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_nameField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="738071784"/>
+					</object>
+					<int key="connectionID">59</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_nicknameField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="277715735"/>
+					</object>
+					<int key="connectionID">60</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -692,7 +716,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">54</int>
+			<int key="maxID">60</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -719,15 +743,32 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SettingsViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">doneWasPressed:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">doneWasPressed:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">doneWasPressed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_emailField</string>
+							<string>_nameField</string>
+							<string>_nicknameField</string>
 							<string>contactSwitch</string>
 							<string>whereToSwitch</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UITextField</string>
+							<string>UITextField</string>
+							<string>UITextField</string>
 							<string>UICustomSwitch</string>
 							<string>UICustomSwitch</string>
 						</object>
@@ -736,11 +777,26 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_emailField</string>
+							<string>_nameField</string>
+							<string>_nicknameField</string>
 							<string>contactSwitch</string>
 							<string>whereToSwitch</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_emailField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_nameField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_nicknameField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">contactSwitch</string>
 								<string key="candidateClassName">UICustomSwitch</string>
