@@ -36,9 +36,10 @@
 
 // Alternate between favorites and timeline.
 
-- (void)changeVideoMode 
+- (void)changeVideoMode:(NSInteger)mode
 {
-
+    LOG(@"changeVideoMode %d", mode);
+    
 }
 
 #pragma mark - Data Refresh
@@ -111,6 +112,14 @@
 }
 
 #pragma mark - UI Callbacks
+
+- (IBAction)segmentAction:(UISegmentedControl *)sender 
+{
+    LOG(@"segmentAction %@", sender);
+    NSInteger index = sender.selectedSegmentIndex;
+    [self changeVideoMode: index];
+
+}
 
 - (IBAction)toolbarButtonWasPressed:(id)sender 
 {
@@ -234,6 +243,8 @@
         timeImageCropped,
         nil]
         ];
+    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+
     //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
     segmentedControl.tintColor = [UIColor blackColor];
