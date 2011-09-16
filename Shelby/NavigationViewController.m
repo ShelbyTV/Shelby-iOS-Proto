@@ -34,6 +34,12 @@
         // So instead, we pull the view out via its tag.
         _videoPlayer = (VideoPlayer *) [self.view viewWithTag: 1];
         _videoPlayer.delegate = self;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(userLoggedOut:)
+                                                     name:@"NetworkManagerLoggedOut"
+                                                   object:nil];
+
     }
     return self;
 }
@@ -169,6 +175,15 @@
     [videoTableHolder addSubview:[_navigationController view]];
 }
 
+#pragma mark - Notification Handlers
+
+- (void)userLoggedOut:(NSNotification*)aNotification
+{
+    // Stop video playback.
+    [_videoPlayer stop];
+}
+
+
 #pragma mark - Cleanup
 
 - (void)viewDidUnload
@@ -180,6 +195,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+
     [_videoPlayer release];
 
     [super dealloc];
