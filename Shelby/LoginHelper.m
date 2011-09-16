@@ -242,7 +242,7 @@
                  inManagedObjectContext:_context];
     [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
     [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
-    [user setValue:[dict objectForKey:@"user_image"]  forKey:@"image_url"];
+    [user setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
     [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
 
     NSError *error;
@@ -416,9 +416,9 @@
         if (NOTNULL(providerId)) {
             broadcast.providerId = providerId ;
         }
-        NSString *thumbnailImage  =[dict objectForKey: @"video_thumbnail_url"];
-        if (NOTNULL(thumbnailImage)) {
-            broadcast.thumbnailImage = thumbnailImage ;
+        NSString *thumbnailImageUrl  =[dict objectForKey: @"video_thumbnail_url"];
+        if (NOTNULL(thumbnailImageUrl)) {
+            broadcast.thumbnailImageUrl = thumbnailImageUrl ;
         }
         NSString *title  = [dict objectForKey: @"video_title"];
         if (NOTNULL(title)) {
@@ -432,9 +432,9 @@
         if (NOTNULL(sharerName)) {
             broadcast.sharerName = sharerName ;
         }
-        NSString *sharerImage  =[dict objectForKey: @"video_originator_user_image"];
-        if (NOTNULL(sharerImage)) {
-            broadcast.sharerImage = sharerImage ;
+        NSString *sharerImageUrl  =[dict objectForKey: @"video_originator_user_image"];
+        if (NOTNULL(sharerImageUrl)) {
+            broadcast.sharerImageUrl = sharerImageUrl ;
         }
 
         //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];

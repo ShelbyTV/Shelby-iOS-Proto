@@ -75,8 +75,6 @@
 }
 
 - (void)layoutSubviews {
-
-
     self.image.frame = CGRectMake(
         self.bounds.size.width - (IMAGE_WIDTH + IMAGE_MARGIN),
         IMAGE_MARGIN,

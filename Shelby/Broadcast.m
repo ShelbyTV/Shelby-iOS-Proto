@@ -20,6 +20,8 @@
 @dynamic sharerImage;
 @dynamic thumbnailImage;
 @dynamic providerId;
+@dynamic thumbnailImageUrl;
+@dynamic sharerImageUrl;
 @dynamic channel;
 
 @end

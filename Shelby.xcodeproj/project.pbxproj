@@ -47,14 +47,14 @@
 		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
-		428AA5911423A0DC00E692B9 /* Broadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA5901423A0DC00E692B9 /* Broadcast.m */; };
+		428AA59D1423A7C100E692B9 /* Broadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA59C1423A7C000E692B9 /* Broadcast.m */; };
+		428AA5A01423A7C100E692B9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA59F1423A7C100E692B9 /* User.m */; };
 		428B0255141FFE2500C88063 /* STVUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0254141FFE2500C88063 /* STVUserView.m */; };
 		428B0258141FFE9300C88063 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B0257141FFE9300C88063 /* STVUserView.xib */; };
 		428B029C1421344200C88063 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029B1421344200C88063 /* SettingsViewController_iPhone.xib */; };
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
 		428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */; };
 		428B02A91421411C00C88063 /* ButtonTimeCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A81421411C00C88063 /* ButtonTimeCropped.png */; };
-		428B02AC14216FDA00C88063 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B02AB14216FDA00C88063 /* User.m */; };
 		428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02AD1421713D00C88063 /* PlaceholderFace.png */; };
 		428B02BB14217EB400C88063 /* SliderGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02B914217EB300C88063 /* SliderGray.png */; };
 		428B02BC14217EB400C88063 /* SliderPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BA14217EB400C88063 /* SliderPurple.png */; };
@@ -200,8 +200,10 @@
 		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		427A623113F4843200C945E2 /* STVCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVCheckBox.h; sourceTree = "<group>"; };
 		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
-		428AA58F1423A0DC00E692B9 /* Broadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Broadcast.h; sourceTree = "<group>"; };
-		428AA5901423A0DC00E692B9 /* Broadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Broadcast.m; sourceTree = "<group>"; };
+		428AA59B1423A7C000E692B9 /* Broadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Broadcast.h; sourceTree = "<group>"; };
+		428AA59C1423A7C000E692B9 /* Broadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Broadcast.m; sourceTree = "<group>"; };
+		428AA59E1423A7C100E692B9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		428AA59F1423A7C100E692B9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		428B0253141FFE2500C88063 /* STVUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVUserView.h; sourceTree = "<group>"; };
 		428B0254141FFE2500C88063 /* STVUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVUserView.m; sourceTree = "<group>"; };
 		428B0257141FFE9300C88063 /* STVUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STVUserView.xib; sourceTree = "<group>"; };
@@ -209,8 +211,6 @@
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
 		428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesCropped.png; path = Resources/Images/ButtonFavoritesCropped.png; sourceTree = "<group>"; };
 		428B02A81421411C00C88063 /* ButtonTimeCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonTimeCropped.png; path = Resources/Images/ButtonTimeCropped.png; sourceTree = "<group>"; };
-		428B02AA14216FDA00C88063 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		428B02AB14216FDA00C88063 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		428B02AD1421713D00C88063 /* PlaceholderFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlaceholderFace.png; path = Resources/Images/PlaceholderFace.png; sourceTree = "<group>"; };
 		428B02B914217EB300C88063 /* SliderGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderGray.png; path = Resources/Images/SliderGray.png; sourceTree = "<group>"; };
 		428B02BA14217EB400C88063 /* SliderPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderPurple.png; path = Resources/Images/SliderPurple.png; sourceTree = "<group>"; };
@@ -746,11 +746,11 @@
 		42DAF45B141129C500936536 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				428AA58F1423A0DC00E692B9 /* Broadcast.h */,
-				428AA5901423A0DC00E692B9 /* Broadcast.m */,
+				428AA59E1423A7C100E692B9 /* User.h */,
+				428AA59F1423A7C100E692B9 /* User.m */,
+				428AA59B1423A7C000E692B9 /* Broadcast.h */,
+				428AA59C1423A7C000E692B9 /* Broadcast.m */,
 				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
-				428B02AA14216FDA00C88063 /* User.h */,
-				428B02AB14216FDA00C88063 /* User.m */,
 				42DAF47114113F8D00936536 /* Channel.h */,
 				42DAF47214113F8D00936536 /* Channel.m */,
 			);
@@ -983,9 +983,9 @@
 				42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */,
 				42DAF47314113F8D00936536 /* Channel.m in Sources */,
 				428B0255141FFE2500C88063 /* STVUserView.m in Sources */,
-				428B02AC14216FDA00C88063 /* User.m in Sources */,
 				428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */,
-				428AA5911423A0DC00E692B9 /* Broadcast.m in Sources */,
+				428AA59D1423A7C100E692B9 /* Broadcast.m in Sources */,
+				428AA5A01423A7C100E692B9 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

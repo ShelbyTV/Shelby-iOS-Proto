@@ -2,7 +2,7 @@
 //  User.m
 //  Shelby
 //
-//  Created by David Kay on 9/14/11.
+//  Created by David Kay on 9/16/11.
 //  Copyright (c) 2011 Gargoyle Software. All rights reserved.
 //
 
@@ -11,11 +11,11 @@
 
 
 @implementation User
-@dynamic image_url;
+@dynamic image;
+@dynamic imageUrl;
 @dynamic name;
 @dynamic nickname;
 @dynamic shelbyId;
-@dynamic image;
 @dynamic channels;
 
 @end

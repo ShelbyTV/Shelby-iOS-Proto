@@ -2,7 +2,7 @@
 //  User.h
 //  Shelby
 //
-//  Created by David Kay on 9/14/11.
+//  Created by David Kay on 9/16/11.
 //  Copyright (c) 2011 Gargoyle Software. All rights reserved.
 //
 
@@ -14,11 +14,11 @@
 @interface User : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * image_url;
+@property (nonatomic, retain) NSData * image;
+@property (nonatomic, retain) NSString * imageUrl;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * nickname;
 @property (nonatomic, retain) NSString * shelbyId;
-@property (nonatomic, retain) NSData * image;
 @property (nonatomic, retain) NSSet *channels;
 @end
 

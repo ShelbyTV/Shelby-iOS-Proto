@@ -337,7 +337,6 @@ static NSString *fakeAPIData[] = {
             NSString *sharerName   = [broadcast objectForKey: @"video_originator_user_name"];
             NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
 
-
             NSURL *youTubeVideo;
             if (NOTNULL(videoId)) {
                 youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];

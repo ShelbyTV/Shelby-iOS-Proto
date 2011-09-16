@@ -20,9 +20,11 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * sharerComment;
 @property (nonatomic, retain) NSString * sharerName;
-@property (nonatomic, retain) NSString * sharerImage;
-@property (nonatomic, retain) NSString * thumbnailImage;
+@property (nonatomic, retain) NSData * sharerImage;
+@property (nonatomic, retain) NSData * thumbnailImage;
 @property (nonatomic, retain) NSString * providerId;
+@property (nonatomic, retain) NSString * thumbnailImageUrl;
+@property (nonatomic, retain) NSString * sharerImageUrl;
 @property (nonatomic, retain) Channel *channel;
 
 @end
