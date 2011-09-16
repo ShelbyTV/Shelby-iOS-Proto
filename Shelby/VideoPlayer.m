@@ -142,7 +142,11 @@ static const float kControlBarHeightIphone = 88.0f;
     _changingVideo = YES;
 
     // Change our titleBar
-    self.titleBar.title.text = video.sharerComment;
+    //self.titleBar.title.text = video.sharerComment;
+    self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@", 
+        video.sharer,
+        video.sharerComment
+    ];
     self.titleBar.sharerPic.image = video.sharerImage;
     
     // Change our footerBar.
