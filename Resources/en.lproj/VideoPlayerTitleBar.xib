@@ -43,50 +43,13 @@
 				<int key="NSvFlags">314</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="42894641">
+					<object class="IBUIView" id="920093502">
 						<reference key="NSNextResponder" ref="759562499"/>
 						<int key="NSvFlags">314</int>
-						<object class="NSMutableArray" key="NSSubviews">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUILabel" id="113638569">
-								<reference key="NSNextResponder" ref="42894641"/>
-								<int key="NSvFlags">318</int>
-								<string key="NSFrame">{{115, 0}, {484, 48}}</string>
-								<reference key="NSSuperview" ref="42894641"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="978124853"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<int key="IBUITag">2</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<string key="IBUIText">Cosmos 2011 COPA First Round Highlights - NYC Liberia v. Poland</string>
-								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">17</double>
-									<int key="NSfFlags">16</int>
-								</object>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
-								<nil key="IBUIHighlightedColor"/>
-								<object class="NSColor" key="IBUIShadowColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-								</object>
-								<int key="IBUIBaselineAdjustment">1</int>
-								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-								<float key="IBUIMinimumFontSize">10</float>
-								<int key="IBUINumberOfLines">0</int>
-								<int key="IBUILineBreakMode">0</int>
-							</object>
-						</object>
-						<string key="NSFrame">{{-60, 0}, {674, 48}}</string>
+						<string key="NSFrameSize">{554, 48}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="113638569"/>
+						<reference key="NSNextKeyView" ref="978124853"/>
 						<string key="NSReuseIdentifierKey">_NS:195</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -95,13 +58,47 @@
 						<float key="IBUIAlpha">0.30000001192092896</float>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
+					<object class="IBUILabel" id="113638569">
+						<reference key="NSNextResponder" ref="759562499"/>
+						<int key="NSvFlags">318</int>
+						<string key="NSFrame">{{53, 0}, {484, 48}}</string>
+						<reference key="NSSuperview" ref="759562499"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<int key="IBUITag">2</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<string key="IBUIText">Cosmos 2011 COPA First Round Highlights - NYC Liberia v. Poland</string>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">17</double>
+							<int key="NSfFlags">16</int>
+						</object>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+						</object>
+						<nil key="IBUIHighlightedColor"/>
+						<object class="NSColor" key="IBUIShadowColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MAA</bytes>
+						</object>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUINumberOfLines">0</int>
+						<int key="IBUILineBreakMode">0</int>
+					</object>
 					<object class="IBUIImageView" id="978124853">
 						<reference key="NSNextResponder" ref="759562499"/>
 						<int key="NSvFlags">300</int>
 						<string key="NSFrame">{{20, 11}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="113638569"/>
 						<int key="IBUITag">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -114,7 +111,7 @@
 				<string key="NSFrameSize">{554, 48}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="42894641"/>
+				<reference key="NSNextKeyView" ref="920093502"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MCAwAA</bytes>
@@ -168,7 +165,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="978124853"/>
-							<reference ref="42894641"/>
+							<reference ref="113638569"/>
+							<reference ref="920093502"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -179,10 +177,9 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
-						<reference key="object" ref="42894641"/>
+						<reference key="object" ref="920093502"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="113638569"/>
 						</object>
 						<reference key="parent" ref="759562499"/>
 						<string key="objectName">View</string>
@@ -190,7 +187,7 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
 						<reference key="object" ref="113638569"/>
-						<reference key="parent" ref="42894641"/>
+						<reference key="parent" ref="759562499"/>
 					</object>
 				</object>
 			</object>
