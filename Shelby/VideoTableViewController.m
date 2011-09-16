@@ -70,6 +70,7 @@
     video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
     video.title = [videoTableData videoTitleAtIndex: index];
 
+    video.sharer = [videoTableData videoSharerAtIndex: index];
     video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
     video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
     video.contentURL = [videoTableData videoContentURLAtIndex: index];
