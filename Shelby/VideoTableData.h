@@ -36,6 +36,7 @@
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (void)loadVideos;
+- (void)clearVideos;
 
 - (void)retrieveAndStoreYouTubeVideoData:(id)youTubeURL;
 - (void)updateTableView;

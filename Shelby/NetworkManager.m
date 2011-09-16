@@ -48,6 +48,15 @@
     return self.loginHelper.user;
 }
 
+#pragma mark - Settings
+
+- (void)changeChannel:(NSInteger)newChannel {
+    // Change the channel.
+    self.loginHelper.channel = [self.loginHelper getPublicChannel: newChannel fromArray: [self.loginHelper retrieveChannels]];
+    // Fetch new broadcasts.
+    [self fetchBroadcasts];
+}
+
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake {
     [self.loginHelper getRequestToken];

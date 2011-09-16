@@ -39,7 +39,15 @@
 - (void)changeVideoMode:(NSInteger)mode
 {
     LOG(@"changeVideoMode %d", mode);
+    // Clear out the table.
+    [videoTableData clearVideos];
+    [self.tableView reloadData];
+
+    // Change the channel.
+    [[ShelbyApp sharedApp].networkManager changeChannel: mode];
     
+    // Wait for new data.
+
 }
 
 #pragma mark - Data Refresh

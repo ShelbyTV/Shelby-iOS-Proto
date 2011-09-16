@@ -318,6 +318,14 @@ static NSString *fakeAPIData[] = {
     }
 }
 
+- (void)clearVideos
+{
+    @synchronized(videoDataArray)
+    {
+        [videoDataArray removeAllObjects];
+    }
+}
+
 /**
  * This method called when we've pulled down new data from the API.
  */
