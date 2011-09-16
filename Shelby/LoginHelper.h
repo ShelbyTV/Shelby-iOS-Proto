@@ -59,6 +59,9 @@ typedef enum {
 #pragma mark - Initialization
 - (id)initWithContext:(NSManagedObjectContext *)context;
 
+#pragma mark - Settings
+- (void)changeChannel:(NSInteger)newChannel;
+
 #pragma mark - OAuth Handshake
 - (void)getRequestToken;
 - (void)verifierReturnedFromAuth:(NSString *)verifier;

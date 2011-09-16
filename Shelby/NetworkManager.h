@@ -23,6 +23,9 @@
 @property (nonatomic, readonly) BOOL loggedIn;
 @property (nonatomic, readonly) User *user;
 
+#pragma mark - Settings
+- (void)changeChannel:(NSInteger)newChannel;
+
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake;
 - (void)oAuthVerifierReturned:(NSString *)verifier;

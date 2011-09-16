@@ -52,7 +52,7 @@
 
 - (void)changeChannel:(NSInteger)newChannel {
     // Change the channel.
-    self.loginHelper.channel = [self.loginHelper getPublicChannel: newChannel fromArray: [self.loginHelper retrieveChannels]];
+    [self.loginHelper changeChannel: newChannel];
     // Fetch new broadcasts.
     [self fetchBroadcasts];
 }

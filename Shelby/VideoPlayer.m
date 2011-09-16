@@ -19,6 +19,12 @@ static const float kHideControlsDuration = 0.5f;
 static const float kControlBarHeightIpad   = 44.0f;
 static const float kControlBarHeightIphone = 88.0f;
 
+@interface VideoPlayer ()
+
+- (void)drawControls;
+
+@end
+
 @implementation VideoPlayer
 
 @synthesize delegate;

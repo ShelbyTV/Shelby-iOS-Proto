@@ -50,9 +50,10 @@
 - (void)storeTokens;
 - (void)clearTokens;
 
+- (BOOL)fetchUserId;
 - (User *)retrieveUser;
 - (NSArray *)retrieveChannels;
-- (BOOL)fetchUserId;
+- (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels;
 
 @end
 
@@ -85,6 +86,13 @@
     }
 
     return self;
+}
+
+#pragma mark - Settings
+
+- (void)changeChannel:(NSInteger)newChannel {
+    // Change the channel.
+    self.channel = [self getPublicChannel: newChannel fromArray: [self retrieveChannels]];
 }
 
 #pragma mark - Token Storage
