@@ -15,6 +15,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+static const float kProgressUpdateInterval = 1.0f;
+
+static const float kProgressUpdateBuffer = 0.25f;
 
 static const float kHideControlsStall = 1.0f;
 static const float kHideControlsInterval = 3.0f;
@@ -118,7 +121,7 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Timer to update the progressBar after each second.
     // TODO: Shut this down when we're not playing a video. Or replace it with KVO.
-    [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
+    [NSTimer scheduledTimerWithTimeInterval: kProgressUpdateInterval target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
 
     [self addNotificationListeners];
 }
@@ -288,7 +291,7 @@ static const float kControlBarHeightIphone = 88.0f;
 - (void)resetTimer {
     double now = CACurrentMediaTime();
     _lastTapTime = now;
-    NSLog(@"MaintainControls : %f", _lastTapTime);
+    NSLog(@"resetTimer : %f", _lastTapTime);
     if (_controlsVisible) {
     } else {
         [self drawControls];
@@ -339,18 +342,24 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 - (void)timerAction:(NSTimer *)timer {
-  [self updateProgress];
+    double now = CACurrentMediaTime();
+    if (now - _lastTapTime > kProgressUpdateBuffer) {
+      [self updateProgress];
+    }
 }
 
 #pragma mark - VideoProgressBarDelegate Methods
 
 - (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time {
     LOG(@"videoProgressBarWasAdjusted: %f", time);
-    // Update playback time.
-    _moviePlayer.currentPlaybackTime = time;
 
-    // Update the progress bar.
-    [self updateProgress];
+    float delta = fabs(time - _moviePlayer.currentPlaybackTime);
+    if (delta > 1.0f) {
+        // Update playback time.
+        _moviePlayer.currentPlaybackTime = time;
+        //// Update the progress bar.
+        [self updateProgress];
+    }
 
     [self resetTimer];
 }

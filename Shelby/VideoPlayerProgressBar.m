@@ -10,6 +10,9 @@
 #define LABEL_HEIGHT 40
 
 #import "VideoPlayerProgressBar.h"
+#import <QuartzCore/QuartzCore.h>
+
+static const float kProgressUpdateBuffer = 0.25f;
 
 @implementation VideoPlayerProgressBar
 
@@ -34,7 +37,7 @@
     [_slider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
     [_slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
 
-    //_slider.continuous = YES;
+    _slider.continuous = YES;
 
     //_slider.minimumValue = 0.0;
     //_slider.maximumValue = 100.0;
@@ -94,18 +97,21 @@
 
 - (void)setProgress:(float)progress {
     if (progress >= 0.0f)  {
-        // Set our slider, making sure that when we adjust it,
-        // we don't send false events.
-        _adjustingSlider = YES;
-        _slider.value = progress;
-        _adjustingSlider = NO;
+
+        // Only update the slider if we haven't touched it in a while
+        CFTimeInterval now = CACurrentMediaTime();
+        if (now - _lastTouchTime > kProgressUpdateBuffer) {
+            // Set our slider, making sure that when we adjust it,
+            // we don't send false events.
+            _adjustingSlider = YES;
+            _slider.value = progress;
+            _adjustingSlider = NO;
+        }
 
         // Set our label to M:SS format.
-        //_label.text = [self floatToMinutes: progress];
         _label.text = [NSString stringWithFormat: @"%@ / %@", 
                             [self floatToMinutes: progress],
-                            [self floatToMinutes: [self duration]]
-            ];
+                            [self floatToMinutes: [self duration]]];
     }
 }
 
@@ -133,6 +139,7 @@
 #pragma mark - Notify
 
 - (void)videoProgressBarWasAdjusted {
+    _lastTouchTime = CACurrentMediaTime();
     //Notify our delegate that we've changed.
     if (self.delegate) {
         [self.delegate videoProgressBarWasAdjusted: self value: _slider.value];
