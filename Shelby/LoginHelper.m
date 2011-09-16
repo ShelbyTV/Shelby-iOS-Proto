@@ -271,7 +271,7 @@
 
 #pragma mark - Channels
 
-- (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels 
+- (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels
 {
     for (Channel *channel in channels) {
         if ([channel.public integerValue] == public) {
@@ -435,6 +435,15 @@
         NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
         if (NOTNULL(sharerImageUrl)) {
             broadcast.sharerImageUrl = sharerImageUrl ;
+        }
+
+        //"liked_by_owner": true,
+        //"liked_by_user": null,
+        NSString *liked = [dict objectForKey: @"liked_by_user"];
+        if (NOTNULL(liked)) {
+            if ([liked isEqualToString: @"true"]) {
+                broadcast.liked = YES;
+            }
         }
 
         //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];

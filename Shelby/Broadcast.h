@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSString * providerId;
 @property (nonatomic, retain) NSString * thumbnailImageUrl;
 @property (nonatomic, retain) NSString * sharerImageUrl;
+@property (nonatomic, retain) NSNumber * liked;
 @property (nonatomic, retain) Channel *channel;
 
 @end

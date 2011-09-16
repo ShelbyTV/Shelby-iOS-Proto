@@ -22,6 +22,7 @@
 @dynamic providerId;
 @dynamic thumbnailImageUrl;
 @dynamic sharerImageUrl;
+@dynamic liked;
 @dynamic channel;
 
 @end
