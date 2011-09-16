@@ -418,7 +418,13 @@
         case STVParserModeChannels:
            LOG(@"CHANNEL array found: %@", array);
            [self storeChannelsWithArray: array];
-           self.channel = [[self retrieveChannels] objectAtIndex: 0];
+           NSArray *channels = [self retrieveChannels];
+           for (Channel *channel in channels) {
+               if ([channel.public integerValue] == 0) {
+                   self.channel = channel;
+                   break;
+               }
+           }
            if (self.channel) {
                [self loginComplete];
            } else {
