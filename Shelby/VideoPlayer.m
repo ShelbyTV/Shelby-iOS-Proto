@@ -155,6 +155,9 @@ static const float kControlBarHeightIphone = 88.0f;
     [_moviePlayer play];
 
     _changingVideo = NO;
+    
+    [self drawControls];
+    //[self hideControlsWithDelay];
 }
 
 - (void)play {
@@ -187,6 +190,10 @@ static const float kControlBarHeightIphone = 88.0f;
 
 #pragma mark - Controls Visibility
 
+- (void)hideControlsWithDelay {
+    [NSTimer scheduledTimerWithTimeInterval: kHideControlsInterval target: self selector: @selector(hideControls) userInfo: nil repeats: NO];
+}
+
 - (void)hideControls {
     LOG(@"hideControls");
     [UIView animateWithDuration:kHideControlsDuration animations:^{
@@ -215,7 +222,7 @@ static const float kControlBarHeightIphone = 88.0f;
     completion:^(BOOL finished){
         if (finished) {
             // Set a timer to hide the controls in three seconds.
-            [NSTimer scheduledTimerWithTimeInterval: kHideControlsInterval target: self selector: @selector(hideControls) userInfo: nil repeats: NO];
+            [self hideControlsWithDelay];
         }
     }];
 }
@@ -354,6 +361,7 @@ static const float kControlBarHeightIphone = 88.0f;
     const CGFloat height = frame.size.height;
 
     const float titleBarHeight = 41.0f;
+    //const float titleBarHeight = 121.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     //const CGSize buttonSize = CGSizeMake(62, 62);
 
