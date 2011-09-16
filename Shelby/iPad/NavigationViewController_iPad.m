@@ -65,6 +65,9 @@ static const float ANIMATION_TIME = 0.5f;
     CGRect tempFrame = _videoPlayer.frame;
     tempFrame.size.width += offset;
     _videoPlayer.frame = tempFrame;
+
+    // Make header transparent when tray is closed.
+    header.alpha = right ? 1.0 : 0.5;
 }
 
 - (void)showSettings {
