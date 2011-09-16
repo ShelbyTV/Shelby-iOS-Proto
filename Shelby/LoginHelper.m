@@ -460,6 +460,25 @@
     }
 }
 
+- (NSArray *)retrieveBroadcastsForChannel:(Channel *)channel {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+        entityForName:@"Broadcast" inManagedObjectContext: _context];
+    [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+        @"(channel == %@)", channel];
+    [fetchRequest setPredicate:predicate];
+    NSError *error;
+    NSArray *broadcasts = [_context executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
+    if ([broadcasts count] > 0) {
+        return broadcasts;
+    } else {
+        LOG(@"Found no broadcasts for channel: %@. Error: %@", channel, error);
+        return nil;
+    }
+}
+
 #pragma mark - Login Complete
 
 - (void)loginComplete
@@ -501,8 +520,9 @@
             // For some reason, the compiler requires a log statement just after the 'case' statemnet.
            LOG(@"woohoo");
            [self storeBroadcastsWithArray: array channel: self.channel];
+           NSArray *broadcasts = [self retrieveBroadcastsForChannel: self.channel];
            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-               array, @"broadcasts",
+               broadcasts, @"broadcasts",
                nil];
            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
                                                                object: self
