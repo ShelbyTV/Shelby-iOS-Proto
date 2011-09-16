@@ -104,6 +104,12 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     }
 }
 
+- (IBAction)soundButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate controlBarSoundButtonWasPressed: self];
+    }
+}
+
 #pragma mark - Layout
 
 /*

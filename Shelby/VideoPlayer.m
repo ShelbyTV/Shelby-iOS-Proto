@@ -13,6 +13,10 @@
 #import "VideoPlayerControlBar.h"
 #import "Video.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+
+static const float kHideControlsStall = 1.0f;
 static const float kHideControlsInterval = 3.0f;
 static const float kHideControlsDuration = 0.5f;
 
@@ -22,6 +26,11 @@ static const float kControlBarHeightIphone = 88.0f;
 @interface VideoPlayer ()
 
 - (void)drawControls;
+- (void)hideControls;
+
+- (void)resetTimer;
+- (void)stopTimer;
+- (void)beginTimer;
 
 @end
 
@@ -79,7 +88,7 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Title Bar
     self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
-    
+
     // Footer Bar
     self.footerBar = [VideoPlayerFooterBar footerBarFromNib];
 
@@ -108,19 +117,10 @@ static const float kControlBarHeightIphone = 88.0f;
         nil];
 
     // Timer to update the progressBar after each second.
-    // TODO: Shut this down when we're not playing a video.
+    // TODO: Shut this down when we're not playing a video. Or replace it with KVO.
     [NSTimer scheduledTimerWithTimeInterval: 1.0f target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
 
     [self addNotificationListeners];
-
-    //The setup code (in viewDidLoad in your view controller)
-    UITapGestureRecognizer *singleFingerTap =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(handleSingleTap:)];
-    [_moviePlayer.view addGestureRecognizer:singleFingerTap];
-    singleFingerTap.delegate = self;
-    [singleFingerTap release];
-
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -149,12 +149,12 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Change our titleBar
     //self.titleBar.title.text = video.sharerComment;
-    self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@", 
+    self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
         video.sharer,
         video.sharerComment
     ];
     self.titleBar.sharerPic.image = video.sharerImage;
-    
+
     // Change our footerBar.
     self.footerBar.title.text = video.title;
 
@@ -165,8 +165,9 @@ static const float kControlBarHeightIphone = 88.0f;
     [_moviePlayer play];
 
     _changingVideo = NO;
-    
-    [self drawControls];
+
+    [self beginTimer];
+    //[self maintainControls];
     //[self hideControlsWithDelay];
 }
 
@@ -188,53 +189,115 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 #pragma mark - Touch Handling
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    // Reset timer.
+    [self stopTimer];
+}
 
-//The event handling method
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    //LOG(@"VideoPlayer handleSingleTap: %@", recognizer);
-    LOG(@"VideoPlayer handleSingleTap");
-    //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    // Reset timer.
+    [self stopTimer];
+}
 
-    //Do stuff here...
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    // Begin timer.
+    [self beginTimer];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    // Begin timer.
+    [self beginTimer];
 }
 
 #pragma mark - Controls Visibility
 
 - (void)hideControlsWithDelay {
-    [NSTimer scheduledTimerWithTimeInterval: kHideControlsInterval target: self selector: @selector(hideControls) userInfo: nil repeats: NO];
+    [NSTimer scheduledTimerWithTimeInterval: kHideControlsInterval target: self selector: @selector(checkHideTime) userInfo: nil repeats: NO];
+    _stopTimer = NO;
+}
+
+- (void)checkHideTime {
+    if (_stopTimer) {
+        return;
+    }
+
+    double now = CACurrentMediaTime();
+    double delta = now - _lastTapTime;
+    NSLog(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTapTime, delta);
+    if (delta > kHideControlsInterval) {
+        [self hideControls];
+    } else {
+        [NSTimer scheduledTimerWithTimeInterval: kHideControlsStall target: self selector: @selector(checkHideTime) userInfo: nil repeats: NO];
+    }
 }
 
 - (void)hideControls {
     LOG(@"hideControls");
-    [UIView animateWithDuration:kHideControlsDuration animations:^{
-          for (UIView *control in _controls) {
-             control.alpha = 0.0;
-          }
-    }
-    completion:^(BOOL finished){
-        if (finished) {
-            //for (UIView *control : _controls) {
-            //      [control setHidden:YES];
-            //}
+    //if (_controlsVisible) {
+        [UIView animateWithDuration:kHideControlsDuration animations:^{
+            for (UIView *control in _controls) {
+                control.alpha = 0.0;
+            }
         }
-    }];
+        completion:^(BOOL finished){
+               if (finished) {
+                   _controlsVisible = NO;
+                   for (UIView *control in _controls) {
+                      //[control setHidden:YES];
+                      //control.userInteractionEnabled = NO;
+                   }
+               }
+           }];
+    //}
+}
+
+- (void)drawControlsWithClose:(BOOL)close {
+    //if (!_controlsVisible) {
+        for (UIView *control in _controls) {
+           //[control setHidden:NO];
+            //control.userInteractionEnabled = YES;
+        }
+        [UIView animateWithDuration:kHideControlsDuration animations:^{
+            for (UIView *control in _controls) {
+                control.alpha = 1.0;
+            }
+        }
+        completion:^(BOOL finished){
+           if (finished) {
+               _controlsVisible = YES;
+               if (close) {
+                   // Set a timer to hide the controls in three seconds.
+                   [self hideControlsWithDelay];
+               }
+           }
+       }];
+    //}
 }
 
 - (void)drawControls {
     LOG(@"drawControls");
-    //[self setHidden: NO];
-    [UIView animateWithDuration:kHideControlsDuration animations:^{
-          for (UIView *control in _controls) {
-              control.alpha = 1.0;
-              //[control setHidden:YES];
-          }
+    [self drawControlsWithClose: NO];
+}
+
+- (void)stopTimer {
+    NSLog(@"stopTimer");
+    [self drawControls];
+    _stopTimer = YES;
+}
+
+- (void)resetTimer {
+    double now = CACurrentMediaTime();
+    _lastTapTime = now;
+    NSLog(@"MaintainControls : %f", _lastTapTime);
+    if (_controlsVisible) {
+    } else {
+        [self drawControls];
     }
-    completion:^(BOOL finished){
-        if (finished) {
-            // Set a timer to hide the controls in three seconds.
-            [self hideControlsWithDelay];
-        }
-    }];
+}
+
+- (void)beginTimer {
+    NSLog(@"beginTimer");
+    [self hideControlsWithDelay];
 }
 
 #pragma mark - Notification Handlers
@@ -288,11 +351,14 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Update the progress bar.
     [self updateProgress];
+
+    [self resetTimer];
 }
 
 #pragma mark - ControlBarDelegate Callbacks
 
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    [self resetTimer];
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
     } else {
@@ -304,6 +370,7 @@ static const float kControlBarHeightIphone = 88.0f;
  * Currently just a mockup.
  */
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    [self resetTimer];
     // Show an action sheet for now.
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
     popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
@@ -315,6 +382,7 @@ static const float kControlBarHeightIphone = 88.0f;
  * Currently just a mockup.
  */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    [self resetTimer];
     // open an alert with just an OK button
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked" message:@"Your friends will see you like this video!"
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -324,9 +392,14 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    [self resetTimer];
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
     }
+}
+
+- (void)controlBarSoundButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    [self resetTimer];
 }
 
 #pragma mark - Delegate Callbacks
@@ -418,21 +491,6 @@ static const float kControlBarHeightIphone = 88.0f;
             controlBarWidth - (2 * controlBarX),
             [self controlBarHeight]
             );
-}
-
-#pragma mark - Touch Delegate
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-
-    //LOG(@"VideoPlayer shouldReceiveTouch: %@", touch);
-    LOG(@"VideoPlayer shouldReceiveTouch");
-    [self drawControls];
-    //// Disallow recognition of tap gestures in the segmented control.
-    //if ((touch.view == segmentedControl) && (gestureRecognizer == tapRecognizer)) {
-    //    return NO;
-    //}
-
-    return YES;
 }
 
 #pragma mark - Cleanup
