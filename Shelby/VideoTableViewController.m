@@ -72,6 +72,7 @@
 	_reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
+
 #pragma mark - Next/Previous Videos
 
 - (Video *)videoAtTableDataIndex:(NSUInteger)index
@@ -159,8 +160,6 @@
 {
 
 	[self loadVideos];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view 

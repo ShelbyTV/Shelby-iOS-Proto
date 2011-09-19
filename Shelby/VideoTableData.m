@@ -38,7 +38,7 @@
 
 @synthesize delegate;
 
-/* 
+/*
  * The following should only be used to @synchronize tableView updates.
  * Using it elsewhere could result in a lock ordering problem and deadlocks.
  */
@@ -269,7 +269,7 @@ static NSString *fakeAPIData[] = {
 - (void)updateTableView
 {
     /*
-     * We need to be careful with lock ordering here. updateTableViewSync needs to be 
+     * We need to be careful with lock ordering here. updateTableViewSync needs to be
      * ordered correctly with the videoDataArray synchronization variable.
      */
     @synchronized(updateTableViewSync)
@@ -279,7 +279,7 @@ static NSString *fakeAPIData[] = {
         @synchronized(videoDataArray)
         {
             currentCount = [videoDataArray count];
-        
+
             if (lastInserted != currentCount) {
                 NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
 
@@ -334,7 +334,7 @@ static NSString *fakeAPIData[] = {
 - (void)clearVideos
 {
     /*
-     * We need to be careful with lock ordering here. updateTableViewSync needs to be 
+     * We need to be careful with lock ordering here. updateTableViewSync needs to be
      * ordered correctly with the videoDataArray synchronization variable.
      */
     @synchronized(updateTableViewSync)
@@ -344,7 +344,7 @@ static NSString *fakeAPIData[] = {
             [videoDataArray removeAllObjects];
             lastInserted = 0;
         }
-        
+
         [tableView reloadData];
     }
 }
@@ -429,6 +429,26 @@ static NSString *fakeAPIData[] = {
     //}
 }
 
+#pragma mark - KVO
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                         change:(NSDictionary *)change context:(void *)context
+{
+    if (object == operationQueue && [keyPath isEqualToString:@"operations"]) {
+        if ([operationQueue.operations count] == 0) {
+            LOG(@"queue has completed");
+            if (self.delegate) {
+                // Inform the delegate
+                [self.delegate videoTableDataDidFinishRefresh: self];
+            }
+        }
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object
+                               change:change context:context];
+    }
+}
+
 #pragma mark - Notifications
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
@@ -455,7 +475,8 @@ static NSString *fakeAPIData[] = {
     self = [super init];
     if (self) {
         operationQueue = [[NSOperationQueue alloc] init];
-        [operationQueue setMaxConcurrentOperationCount:2];
+        [operationQueue setMaxConcurrentOperationCount: 2];
+        [operationQueue addObserver:self forKeyPath:@"operations" options:0 context:NULL];
 
         // we use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
