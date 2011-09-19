@@ -41,7 +41,6 @@
     LOG(@"changeVideoMode %d", mode);
     // Clear out the table.
     [videoTableData clearVideos];
-    [self.tableView reloadData];
 
     // Change the channel.
     [[ShelbyApp sharedApp].networkManager changeChannel: mode];
@@ -51,6 +50,12 @@
 }
 
 #pragma mark - Data Refresh
+
+- (void)clearVideos
+{
+    // Clear out the table.
+    [videoTableData clearVideos];
+}
 
 - (void)loadVideos
 {

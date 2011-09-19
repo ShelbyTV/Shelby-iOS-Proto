@@ -39,8 +39,8 @@
 @synthesize delegate;
 
 /* 
- * The following should only be used with @synchronize inside the updateTableView method.
- * Using it elsewhere could result in a lock ranking problem and deadlocks.
+ * The following should only be used to @synchronize tableView updates.
+ * Using it elsewhere could result in a lock ordering problem and deadlocks.
  */
 static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView updates";
 
@@ -269,8 +269,8 @@ static NSString *fakeAPIData[] = {
 - (void)updateTableView
 {
     /*
-     * We need to be careful with lock ordering here. updateTableViewSync should
-     * only be used inside of this method, where we can guarantee the sync ordering.
+     * We need to be careful with lock ordering here. updateTableViewSync needs to be 
+     * ordered correctly with the videoDataArray synchronization variable.
      */
     @synchronized(updateTableViewSync)
     {
@@ -279,20 +279,20 @@ static NSString *fakeAPIData[] = {
         @synchronized(videoDataArray)
         {
             currentCount = [videoDataArray count];
-        }
+        
+            if (lastInserted != currentCount) {
+                NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
 
-        if (lastInserted != currentCount) {
-            NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+                for (int i = lastInserted; i < currentCount; i++) {
+                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
 
-            for (int i = lastInserted; i < currentCount; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                [tableView beginUpdates];
+                [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+                [tableView endUpdates];
+
+                lastInserted = currentCount;
             }
-
-            [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-            [tableView endUpdates];
-
-            lastInserted = currentCount;
         }
     }
 }
@@ -333,9 +333,19 @@ static NSString *fakeAPIData[] = {
 
 - (void)clearVideos
 {
-    @synchronized(videoDataArray)
+    /*
+     * We need to be careful with lock ordering here. updateTableViewSync needs to be 
+     * ordered correctly with the videoDataArray synchronization variable.
+     */
+    @synchronized(updateTableViewSync)
     {
-        [videoDataArray removeAllObjects];
+        @synchronized(videoDataArray)
+        {
+            [videoDataArray removeAllObjects];
+            lastInserted = 0;
+        }
+        
+        [tableView reloadData];
     }
 }
 
@@ -345,7 +355,7 @@ static NSString *fakeAPIData[] = {
 - (void)gotNewJSONBroadcasts:(NSArray *)broadcasts
 {
     // Clear out the old broadcasts.
-    [videoDataArray removeAllObjects];
+    [self clearVideos];
 
     // Load up the new broadcasts.
     for (NSDictionary *broadcast in broadcasts) {

@@ -181,6 +181,9 @@
 {
     // Stop video playback.
     [_videoPlayer stop];
+    
+    // Clear out the video table
+    [videoTable clearVideos];
 }
 
 

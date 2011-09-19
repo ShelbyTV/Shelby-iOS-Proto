@@ -34,6 +34,7 @@
      callbackObject:(id)object
    callbackSelector:(SEL)selector;
 
+- (void)clearVideos;
 - (void)loadVideos;
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
