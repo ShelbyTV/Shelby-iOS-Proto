@@ -32,6 +32,7 @@
        callbackObject:(id)object
      callbackSelector:(SEL)selector;
 
+- (void)allDone;
 - (void)fadeOut;
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;

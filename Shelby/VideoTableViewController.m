@@ -213,46 +213,11 @@
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
 
-#if 0
-    // Button-based BarButtonItem.
-
-    // Init the segmented control.
-    UIButton *timeButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    UIImage *timeImageNormal = [UIImage imageNamed: @"ButtonListNormal"];
-    [timeButton setImage: timeImageNormal
-            forState: UIControlStateNormal ];
-    [timeButton setImage: [UIImage imageNamed: @"ButtonListHighlighted"]
-            forState: UIControlStateHighlighted ];
-    timeButton.frame = CGRectMake(0, 0,
-            timeImageNormal.size.width,
-            //timeImageNormal.frame.size.height
-            42
-            );
-
-    UIButton *likeButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    UIImage *likeImageNormal = [UIImage imageNamed: @"ButtonFavoritesNormal"];
-    [likeButton setImage: likeImageNormal
-            forState: UIControlStateNormal ];
-    [likeButton setImage: [UIImage imageNamed: @"ButtonFavoritesHighlighted"]
-            forState: UIControlStateHighlighted ];
-    likeButton.frame = CGRectMake(CGRectGetMaxX(timeButton.frame),
-            0,
-            likeImageNormal.size.width,
-            42);
-    
-    UIView *customView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 120, 42)];
-    [customView addSubview: timeButton];
-    [customView addSubview: likeButton];
-    
-    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: customView];
-#else 
     // Init the segmented control.
     UIImage *likeImageCropped = [UIImage imageNamed: @"ButtonFavoritesCropped"];
     UIImage *timeImageCropped = [UIImage imageNamed: @"ButtonTimeCropped"];
     
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems: [NSArray arrayWithObjects:
-        //likeImageNormal,
-        //timeImageNormal,
         likeImageCropped,
         timeImageCropped,
         nil]
@@ -264,7 +229,6 @@
     segmentedControl.tintColor = [UIColor blackColor];
 
     UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: segmentedControl];
-#endif
     [self.navigationItem setLeftBarButtonItem:customItem animated: NO];
 }
 
