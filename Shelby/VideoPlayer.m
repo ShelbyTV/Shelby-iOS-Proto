@@ -20,7 +20,7 @@ static const float kProgressUpdateInterval = 1.0f;
 static const float kProgressUpdateBuffer = 0.25f;
 
 static const float kHideControlsStall = 1.0f;
-static const float kHideControlsInterval = 3.0f;
+static const float kHideControlsInterval = 5.0f;
 static const float kHideControlsDuration = 0.5f;
 
 static const float kControlBarHeightIpad   = 44.0f;
