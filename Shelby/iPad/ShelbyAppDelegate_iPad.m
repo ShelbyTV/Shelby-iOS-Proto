@@ -38,7 +38,9 @@
         //loginViewController.view.frame = rootViewController.view.bounds;
         loginViewController.view.frame = navigationViewController.view.bounds;
         //[rootViewController.view addSubview:loginViewController.view];
+        [loginViewController viewWillAppear: NO];
         [navigationViewController.view addSubview:loginViewController.view];
+        [loginViewController viewDidAppear: NO];
     }
 
     [self.window addSubview: navigationViewController.view];

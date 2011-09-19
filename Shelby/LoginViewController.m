@@ -10,6 +10,9 @@
 #import "LoginViewController.h"
 #import "NetworkManager.h"
 #import "ShelbyApp.h"
+#import "Reachability.h"
+#import "STVOfflineView.h"
+
 
 @implementation LoginViewController
 
@@ -76,14 +79,38 @@
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
 
+    //username.keyboardType = UIKeyboardTypeDefault;
+    //password.keyboardType = UIKeyboardTypeDefault
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    LOG(@"viewWillAppear");
+    [super viewWillAppear: animated];
     // Add keyboard notification listeners so we can animate the view up/down.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 
-    //username.keyboardType = UIKeyboardTypeDefault;
-    //password.keyboardType = UIKeyboardTypeDefault
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    LOG(@"viewDidAppear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    LOG(@"viewDidDisappear");
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    LOG(@"viewWillDisappear");
+    [super viewWillDisappear: animated];
+    
+    // Remove keyboard notification listeners.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload
@@ -91,10 +118,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-
-    // Remove keyboard notification listeners.
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 
 }
 
@@ -115,9 +138,9 @@
         self.view.alpha = alpha;
     }
     completion:^(BOOL finished){
-        if (finished) {
-            [self.view setHidden: hidden];
-        }
+       if (finished) {
+           [self.view setHidden: hidden];
+       }
     }];
 }
 
@@ -230,7 +253,7 @@
     //[self allDone];
     [self beginLogin];
 
-//    LOG(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
+    //    LOG(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
@@ -238,8 +261,7 @@
     //[self allDone];
     [self beginLogin];
 
-
-//    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
+    //    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)registerWasPressed:(id)sender {
@@ -263,8 +285,8 @@
 }
 
 - (IBAction)accessTokenWasPressed:(id)sender {
-     //[_networkManager getAccessToken: _networkManager.requestToken verifier: ];
-     //[_networkManager getAccessToken];
+//[_networkManager getAccessToken: _networkManager.requestToken verifier: ];
+//[_networkManager getAccessToken];
 }
 
 @end

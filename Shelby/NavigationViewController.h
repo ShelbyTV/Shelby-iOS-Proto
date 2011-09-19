@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
 #import "STVUserView.h"
+#import "ConnectivityViewController.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
 //@class STVUserView;
 
-@interface NavigationViewController : UIViewController <VideoPlayerDelegate, UINavigationControllerDelegate, STVUserViewDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, UINavigationControllerDelegate, STVUserViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *videoTableHolder; // this view just tells us where in device .xib file to show the video table

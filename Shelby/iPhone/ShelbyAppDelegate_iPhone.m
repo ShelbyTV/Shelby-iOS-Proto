@@ -39,7 +39,9 @@
                                                           callbackSelector:@selector(loadUserData)];
 
         loginViewController.view.frame = navigationViewController.view.bounds;
+        [loginViewController viewWillAppear: NO];
         [navigationViewController.view addSubview:loginViewController.view];
+        [loginViewController viewDidAppear: NO];
     }
 
     [self.window addSubview: navigationViewController.view];

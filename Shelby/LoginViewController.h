@@ -7,24 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConnectivityViewController.h"
 
 @class NetworkManager;
+@class Reachability;
 
-@interface LoginViewController : UIViewController {
+@interface LoginViewController : ConnectivityViewController {
     IBOutlet UITextField *username;
     IBOutlet UITextField *password;
     id callbackObject;
     SEL callbackSelector;
 
-    // These are all to implement keyboard scrolling.
+    // These are all to implement keyboard scrolling
     IBOutlet UIScrollView *_scrollView;
     CGPoint _originalOffset;
     UIView *_activeField;
 
-    // Actual login stuff.
+    // Actual login stuff
     NetworkManager *_networkManager;
 }
-
+    
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
        callbackObject:(id)object
