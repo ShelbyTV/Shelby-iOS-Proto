@@ -38,6 +38,12 @@
 
 @synthesize delegate;
 
+/* 
+ * The following should only be used with @synchronize inside the updateTableView method.
+ * Using it elsewhere could result in a lock ranking problem and deadlocks.
+ */
+static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView updates";
+
 /*
  * Eventually we'll be getting data like this from the Shelby API -- the "broadcast" data
  * structure should pretty much have this data and more.
@@ -98,7 +104,7 @@ static NSString *fakeAPIData[] = {
 {
     @synchronized(videoDataArray)
     {
-        return [[videoDataArray objectAtIndex:index] sharer];
+        return [(VideoData *)[videoDataArray objectAtIndex:index] sharer];
     }
 }
 
@@ -106,7 +112,7 @@ static NSString *fakeAPIData[] = {
 {
     @synchronized(videoDataArray)
     {
-        return [[videoDataArray objectAtIndex:index] sharerImage];
+        return [(VideoData *)[videoDataArray objectAtIndex:index] sharerImage];
     }
 }
 
@@ -114,7 +120,7 @@ static NSString *fakeAPIData[] = {
 {
     @synchronized(videoDataArray)
     {
-        return [[videoDataArray objectAtIndex:index] sharerComment];
+        return [(VideoData *)[videoDataArray objectAtIndex:index] sharerComment];
     }
 }
 
@@ -122,7 +128,7 @@ static NSString *fakeAPIData[] = {
 {
     @synchronized(videoDataArray)
     {
-        return [[videoDataArray objectAtIndex:index] thumbnailImage];
+        return [(VideoData *)[videoDataArray objectAtIndex:index] thumbnailImage];
     }
 }
 
@@ -262,25 +268,32 @@ static NSString *fakeAPIData[] = {
 
 - (void)updateTableView
 {
-    NSUInteger currentCount;
-
-    @synchronized(videoDataArray)
+    /*
+     * We need to be careful with lock ordering here. updateTableViewSync should
+     * only be used inside of this method, where we can guarantee the sync ordering.
+     */
+    @synchronized(updateTableViewSync)
     {
-        currentCount = [videoDataArray count];
-    }
+        NSUInteger currentCount;
 
-    if (lastInserted != currentCount) {
-        NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-
-        for (int i = lastInserted; i < currentCount; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        @synchronized(videoDataArray)
+        {
+            currentCount = [videoDataArray count];
         }
 
-        [tableView beginUpdates];
-        [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-        [tableView endUpdates];
+        if (lastInserted != currentCount) {
+            NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
 
-        lastInserted = currentCount;
+            for (int i = lastInserted; i < currentCount; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+
+            [tableView beginUpdates];
+            [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+            [tableView endUpdates];
+
+            lastInserted = currentCount;
+        }
     }
 }
 
