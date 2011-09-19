@@ -356,7 +356,8 @@ static NSString *fakeAPIData[] = {
             //NSString *description  = [broadcast objectForKey: @"video_description"];
 
             NSString *comment      = [broadcast objectForKey: @"description"];
-            NSString *sharerName   = [broadcast objectForKey: @"video_originator_user_name"];
+            // We'll eventually need to check a video_origin field (once it's in the API) to insert "@" for Twitter names
+            NSString *sharerName   = [[broadcast objectForKey: @"video_originator_user_nickname"] uppercaseString];
             NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
 
             NSURL *youTubeVideo;
