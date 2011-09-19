@@ -21,7 +21,7 @@ static const float RIGHT_PANEL_WIDTH = 330.0f;
 // This is the amount of the Shelby Logo that spills over the edge.
 static const float SHELBY_LOGO_OVERSHOOT = 25.0f;
 //#define OFFSET (RIGHT_PANEL_WIDTH + SHELBY_LOGO_OVERSHOOT)
-#define OFFSET RIGHT_PANEL_WIDTH 
+#define OFFSET RIGHT_PANEL_WIDTH
 static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - Rotation
@@ -33,11 +33,19 @@ static const float ANIMATION_TIME = 0.5f;
     return YES;
 }
 
-//- (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+#pragma mark - View lifecycle
 
-//- (void)didAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    [self setNeedsLayout];
-//}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    // Listen for swipes on the Shelby logo.
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(shelbyIconWasPanned:)];
+	[panRecognizer setMinimumNumberOfTouches:1];
+	[panRecognizer setMaximumNumberOfTouches:1];
+	[_logoButton addGestureRecognizer:panRecognizer];
+}
+
 
 #pragma mark - View Animations
 
@@ -70,6 +78,20 @@ static const float ANIMATION_TIME = 0.5f;
     header.alpha = right ? 1.0 : 0.5;
 }
 
+- (void)toggleTray {
+    if (!_traySliding) {
+        _traySliding = YES;
+        [UIView animateWithDuration:ANIMATION_TIME animations:^{
+            [self slideTray: _trayClosed];
+        }
+        completion:^(BOOL finished){
+            // NOP
+            _traySliding = NO;
+        }];
+        _trayClosed = !_trayClosed;
+    }
+}
+
 - (void)showSettings {
     if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
         // If we're not already showing settings, show settings.
@@ -80,16 +102,26 @@ static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - UI Callbacks
 
+- (IBAction)shelbyIconWasPanned:(id)sender {
+    UIPanGestureRecognizer *gestureRecognizer = (UIPanGestureRecognizer *) sender;
+
+    CGPoint velocity = [gestureRecognizer velocityInView: _logoButton];
+
+    //if(abs(velocity.x) > abs(velocity.y)) {
+    if(
+            // Slide right when open
+            (velocity.x > 0 && !_trayClosed) ||
+            // Slide left when closed
+            (velocity.x < 0 && _trayClosed)
+    ) {
+        LOG(@"horizontal gesture");
+        [self toggleTray];
+    }
+}
+
 - (IBAction)shelbyIconWasPressed:(id)sender {
     // Slide the tray in and out.
-
-    [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        [self slideTray: _trayClosed];
-    }
-    completion:^(BOOL finished){
-        // NOP
-    }];
-    _trayClosed = !_trayClosed;
+    [self toggleTray];
 }
 
 - (IBAction)settingsButtonWasPressed:(id)sender {
