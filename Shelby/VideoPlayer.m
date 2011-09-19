@@ -169,7 +169,8 @@ static const float kControlBarHeightIphone = 88.0f;
 
     _changingVideo = NO;
 
-    [self beginTimer];
+    [self resetTimer];
+    //[self beginTimer];
     //[self maintainControls];
     //[self hideControlsWithDelay];
 }
@@ -294,7 +295,7 @@ static const float kControlBarHeightIphone = 88.0f;
     NSLog(@"resetTimer : %f", _lastTapTime);
     if (_controlsVisible) {
     } else {
-        [self drawControls];
+        [self drawControlsWithClose: YES];
     }
 }
 
