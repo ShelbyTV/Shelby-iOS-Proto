@@ -244,16 +244,38 @@
     }
 }
 
-- (User *)storeUserWithDictionary:(NSDictionary *)dict {
-    User *user = [NSEntityDescription
-        insertNewObjectForEntityForName:@"User"
-                 inManagedObjectContext:_context];
+- (NSData *)fetchUserImageDataWithDictionary:(NSDictionary *)dict
+{
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSURL *url = [[[NSURL alloc] initWithString:[dict objectForKey:@"user_image"]] autorelease];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    /* 
+     * if there's an error, this should just return NULL, which will result in the default
+     * blank face user image eventually being shown.
+     *
+     * bad news is a slow response might make us hang here for a little while, so it would
+     * be nice to make this async and have it just update the UI to show the image if it
+     * gets handled after the UI is all laid out.
+     */
+    return [[NSURLConnection sendSynchronousRequest:request
+                                  returningResponse:&response
+                                              error:&error] retain];
+}
+
+- (User *)storeUserWithDictionary:(NSDictionary *)dict
+                    withImageData:(NSData *)imageData
+{
+    User *user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
+                                               inManagedObjectContext:_context];
     [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
     [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
     [user setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
     [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
-
-    NSError *error;
+    [user setValue:imageData forKey:@"image"];
+    
+    NSError *error = nil;
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
@@ -516,7 +538,7 @@
             LOG(@"USER Array found: %@", array);
 
             NSDictionary *dict = [array objectAtIndex: 0];
-            self.user = [self storeUserWithDictionary: dict];
+            self.user = [self storeUserWithDictionary:dict withImageData:[self fetchUserImageDataWithDictionary:dict]];
 
             [self storeTokens];
             [self fetchChannels];
