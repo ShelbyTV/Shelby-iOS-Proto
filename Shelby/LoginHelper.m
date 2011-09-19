@@ -462,6 +462,10 @@
         if (NOTNULL(sharerName)) {
             broadcast.sharerName = sharerName ;
         }
+        NSString *videoOrigin = [dict objectForKey: @"video_origin"];
+        if (NOTNULL(videoOrigin)) {
+            broadcast.origin = videoOrigin ;
+        }
         NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
         if (NOTNULL(sharerImageUrl)) {
             broadcast.sharerImageUrl = sharerImageUrl ;

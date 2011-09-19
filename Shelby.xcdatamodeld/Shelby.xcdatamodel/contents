@@ -2,6 +2,7 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="11B26" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Broadcast" representedClassName="Broadcast">
         <attribute name="liked" optional="YES" attributeType="Boolean"/>
+        <attribute name="origin" optional="YES" attributeType="String"/>
         <attribute name="provider" optional="YES" attributeType="String"/>
         <attribute name="providerId" optional="YES" attributeType="String"/>
         <attribute name="sharerComment" optional="YES" attributeType="String"/>
