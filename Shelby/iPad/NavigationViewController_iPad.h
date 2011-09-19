@@ -14,7 +14,9 @@
   // This is the little bit of "trim" in the top right between the two major
   // views.
   IBOutlet UIView *_trimView;
+  IBOutlet UIButton *_logoButton;
   BOOL _trayClosed;
+  BOOL _traySliding;
   // Are we in fullscreen mode?
   BOOL _fullscreen;
   // The original (non-fullscreen) frame for the videoPlayer.
