@@ -15,6 +15,7 @@
 @dynamic shelbyId;
 @dynamic url;
 @dynamic title;
+@dynamic origin;
 @dynamic sharerComment;
 @dynamic sharerName;
 @dynamic sharerImage;

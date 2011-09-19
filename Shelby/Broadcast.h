@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * shelbyId;
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * origin;
 @property (nonatomic, retain) NSString * sharerComment;
 @property (nonatomic, retain) NSString * sharerName;
 @property (nonatomic, retain) NSData * sharerImage;
