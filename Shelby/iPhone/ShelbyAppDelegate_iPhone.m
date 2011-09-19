@@ -18,30 +18,23 @@
 {
     // Override point for customization after application launch.
 
-    // Windows don't work very well at passing events to multiple subviews. Use rootView to contain everything.
-    //rootViewController = [[RootViewController alloc] initWithNibName:@"Root_iPhone" bundle:nil];
-
     navigationViewController = [[NavigationViewController_iPhone alloc] initWithNibName:@"Navigation_iPhone" bundle:nil];
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
     navigationViewController.view.frame = frame;
-    //navigationViewController.view.frame = rootViewController.view.bounds;
-    //navigationViewController.view.frame = [[UIApplication sharedApplication] keyWindow].bounds;
 
-    //[rootViewController.view addSubview:navigationViewController.view];
+    // If we're not logged in, let's ask the user to log in.
+    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPad"
+                                                                bundle:nil
+                                                        callbackObject:navigationViewController
+                                                      callbackSelector:@selector(loadUserData)];
+    loginViewController.view.frame = navigationViewController.view.bounds;
+    [loginViewController viewWillAppear: NO];
+    [navigationViewController.view addSubview:loginViewController.view];
+    [loginViewController viewDidAppear: NO];
 
     if ([ShelbyApp sharedApp].networkManager.loggedIn) {
         // If we're logged in, we can bypass login.
-        [navigationViewController loadUserData];
-    } else {
-        loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone"
-                                                                    bundle:nil
-                                                            callbackObject:navigationViewController
-                                                          callbackSelector:@selector(loadUserData)];
-
-        loginViewController.view.frame = navigationViewController.view.bounds;
-        [loginViewController viewWillAppear: NO];
-        [navigationViewController.view addSubview:loginViewController.view];
-        [loginViewController viewDidAppear: NO];
+        [loginViewController allDone];
     }
 
     [self.window addSubview: navigationViewController.view];
