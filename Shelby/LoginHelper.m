@@ -25,11 +25,11 @@
 #define kAccessTokenName @"access"
 #define kAccessTokenSecretName @"access_secret"
 
-#define kShelbyConsumerKey		@"RXbwSMUr8l810IwUz64fcHGsww2ZZXRItCbmNgmv"
-#define kShelbyConsumerSecret		@"UaH7vX7e695nmEfgtLpPQVLeHZTOdBgnox0XfYfn"
+#define kShelbyConsumerKey		@"oQjjKJ0GvQc8TX9VliW1gN16KKXkPHh9nLfGAGBB"
+#define kShelbyConsumerSecret		@"WInhWrxHCje3T1U3hk3qHj7m5Lj2ThwwQ53OefA9"
 
-#define kShelbyRequestToken	@"XNMyurKpFC8NIvGez5IgJzMuy78HhzmgoZ2gCW8B"
-#define kShelbyRequestTokenSecret		@"eZB8bcVcNudzBYMORHUfsvzQtdxf3ylMbCvyjCLf"
+//#define kShelbyRequestToken	@"XNMyurKpFC8NIvGez5IgJzMuy78HhzmgoZ2gCW8B"
+//#define kShelbyRequestTokenSecret		@"eZB8bcVcNudzBYMORHUfsvzQtdxf3ylMbCvyjCLf"
 
 #define kRequestTokenUrl      @"http://dev.shelby.tv/oauth/request_token"
 #define kUserAuthorizationUrl @"http://dev.shelby.tv/oauth/authorize"
