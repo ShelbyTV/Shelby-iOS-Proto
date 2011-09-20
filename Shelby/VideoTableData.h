@@ -29,6 +29,7 @@
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
 - (NSUInteger)numItems;
+- (NSString *)videoSourceAtIndex:(NSUInteger)index;
 - (NSString *)videoTitleAtIndex:(NSUInteger)index;
 - (NSString *)videoSharerAtIndex:(NSUInteger)index;
 - (UIImage *)videoSharerImageAtIndex:(NSUInteger)index;

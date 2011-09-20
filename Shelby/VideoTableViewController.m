@@ -306,7 +306,16 @@
      * "The Technique for Dynamic Row Content"
      */
 
-    // tag 1 is source tag icon (triangular upper left image) -- not setting this yet
+    // currently not correctly setting icon for watched/unwatched yet
+    UIImageView *sourceTag = (UIImageView *)[cell viewWithTag:1];
+    NSString *videoSource = [videoTableData videoSourceAtIndex:row];
+    if ([videoSource isEqualToString:@"twitter"]) {
+        sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
+    } else if ([videoSource isEqualToString:@"facebook"]) {
+        sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
+    } else if ([videoSource isEqualToString:@"tumblr"]) {
+        sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
+    }
 
     UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
     videoThumbnail.image = [videoTableData videoThumbnailAtIndex:row];
