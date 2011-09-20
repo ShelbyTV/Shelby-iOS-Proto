@@ -290,6 +290,15 @@
             [[NSBundle mainBundle] loadNibNamed:@"VideoCell_iPad" owner:self options:nil];
         }
         cell = videoCell;
+
+        // Set the gradient as the background
+        UIImage *image = [UIImage imageNamed:@"CellGradient.png"];
+        if (cell.backgroundView) {
+            ((UIImageView *)cell.backgroundView).image = image;
+        } else {
+            cell.backgroundView = [[[UIImageView alloc] initWithImage: image] autorelease];
+        }
+            
         self.videoCell = nil;
     }
 

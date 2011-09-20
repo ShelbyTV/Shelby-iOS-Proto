@@ -162,6 +162,7 @@
         videoTable.tableView.rowHeight = 232;
     }
     [videoTable.tableView setBackgroundColor:[UIColor lightGrayColor]];
+
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     _navigationController = [[UINavigationController alloc] initWithRootViewController: videoTable];

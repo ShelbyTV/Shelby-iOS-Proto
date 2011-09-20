@@ -51,6 +51,8 @@
 		42084C8C1427DC3300C3C556 /* ConnectivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
+		423FFDA514291A2400F8FF54 /* CellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 423FFDA414291A2400F8FF54 /* CellGradient.png */; };
+		423FFDAA1429269600F8FF54 /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 423FFDA91429269600F8FF54 /* SampleMovie.mov */; };
 		427A621E13F46D5B00C945E2 /* CancelButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 427A621A13F46D5B00C945E2 /* CancelButton.jpg */; };
 		427A621F13F46D5B00C945E2 /* CheckboxChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621B13F46D5B00C945E2 /* CheckboxChecked.png */; };
 		427A622013F46D5B00C945E2 /* CheckboxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */; };
@@ -89,7 +91,6 @@
 		42925B281401C01B00333F46 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1F1401C01B00333F46 /* whiteArrow.png */; };
 		42925B291401C01B00333F46 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B201401C01B00333F46 /* whiteArrow@2x.png */; };
 		42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42925B2B1401C2AA00333F46 /* QuartzCore.framework */; };
-		429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 429A99E813EDDAC80095DFED /* SampleMovie.mov */; };
 		42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* LoginHelper.m */; };
 		42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214B13FEE40500A8FC00 /* NSData+Base64.m */; };
 		42AB21C113FEE40500A8FC00 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214D13FEE40500A8FC00 /* NSString+URLEncoding.m */; };
@@ -213,6 +214,8 @@
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
 		4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerControlBar.m; sourceTree = "<group>"; };
+		423FFDA414291A2400F8FF54 /* CellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellGradient.png; path = Resources/Images/CellGradient.png; sourceTree = "<group>"; };
+		423FFDA91429269600F8FF54 /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
 		427A621A13F46D5B00C945E2 /* CancelButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = CancelButton.jpg; path = Resources/Images/CancelButton.jpg; sourceTree = "<group>"; };
 		427A621B13F46D5B00C945E2 /* CheckboxChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxChecked.png; path = Resources/Images/CheckboxChecked.png; sourceTree = "<group>"; };
 		427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxEmpty.png; path = Resources/Images/CheckboxEmpty.png; sourceTree = "<group>"; };
@@ -258,7 +261,6 @@
 		42925B1F1401C01B00333F46 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		42925B201401C01B00333F46 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		42925B2B1401C2AA00333F46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		429A99E813EDDAC80095DFED /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
 		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHelper.m; sourceTree = "<group>"; };
 		42A09B4813FC6CD100570DBE /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
 		42AB214A13FEE40500A8FC00 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "OAuth/NSData+Base64.h"; sourceTree = "<group>"; };
@@ -669,7 +671,7 @@
 		42C4C55513E8A6A50034AC97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				429A99E813EDDAC80095DFED /* SampleMovie.mov */,
+				423FFDA91429269600F8FF54 /* SampleMovie.mov */,
 				42C4C57313E8A6F00034AC97 /* NIBs */,
 				42C4C55613E8A6AC0034AC97 /* Images */,
 			);
@@ -679,6 +681,7 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				423FFDA414291A2400F8FF54 /* CellGradient.png */,
 				0A65E3B91428639D00A325C1 /* BackgroundStripes.png */,
 				0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */,
 				0A08E9F814281C8700D964E7 /* FacebookNew.png */,
@@ -913,7 +916,6 @@
 				42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */,
 				42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */,
 				42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */,
-				429A99E913EDDAC80095DFED /* SampleMovie.mov in Resources */,
 				4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */,
 				4200E51813F42BB100609C3E /* ButtonFavoritesNormal.png in Resources */,
 				4200E51913F42BB100609C3E /* ButtonListHighlighted.png in Resources */,
@@ -958,6 +960,8 @@
 				0A08EA0314281C8700D964E7 /* TwitterWatched.png in Resources */,
 				0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */,
 				0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */,
+				423FFDA514291A2400F8FF54 /* CellGradient.png in Resources */,
+				423FFDAA1429269600F8FF54 /* SampleMovie.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
