@@ -13,15 +13,8 @@
 @class Reachability;
 
 @interface LoginViewController : ConnectivityViewController {
-    IBOutlet UITextField *username;
-    IBOutlet UITextField *password;
     id callbackObject;
     SEL callbackSelector;
-
-    // These are all to implement keyboard scrolling
-    IBOutlet UIScrollView *_scrollView;
-    CGPoint _originalOffset;
-    UIView *_activeField;
 
     // Actual login stuff
     NetworkManager *_networkManager;
@@ -36,7 +29,5 @@
 - (void)fadeOut;
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;
-- (IBAction)registerWasPressed:(id)sender;
-- (IBAction)loginWasPressed:(id)sender;
 
 @end

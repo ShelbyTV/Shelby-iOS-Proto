@@ -23,7 +23,7 @@
     navigationViewController.view.frame = frame;
 
     // If we're not logged in, let's ask the user to log in.
-    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPad"
+    loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone"
                                                                 bundle:nil
                                                         callbackObject:navigationViewController
                                                       callbackSelector:@selector(loadUserData)];

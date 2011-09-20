@@ -45,14 +45,18 @@
 
 - (void)showInternetUp
 {
-#ifndef OFFLINE_MODE
+    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet Working!" message:@"Your Internet connection is awesome."
+    //                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    //[alert show];
+    //[alert release];
+
+    //[self.view removeSubview: [self offlineView]];
+
     [[self offlineView] removeFromSuperview];
-#endif
 }
 
 - (void)showInternetDown
 {
-#ifndef OFFLINE_MODE
     UIView *offlineView = [self offlineView];
 
     // Center the view.
@@ -62,7 +66,6 @@
     offlineView.frame = frame;
 
     [self.view addSubview: offlineView];
-#endif
 }
 
 - (void)showShelbyUp
