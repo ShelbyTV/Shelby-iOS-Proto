@@ -146,6 +146,15 @@ static const float kControlBarHeightIphone = 88.0f;
 
 #pragma mark - Public Methods
 
+- (BOOL)isIdle {
+    MPMoviePlaybackState state = self.moviePlayer.playbackState;
+    if (state == MPMoviePlaybackStateStopped) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (void)playVideo:(Video *)video {
     // Set internal lock so our notification doesn't go haywire.
     _changingVideo = YES;

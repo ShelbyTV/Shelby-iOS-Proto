@@ -70,7 +70,6 @@
 - (void)doneLoadingTableViewData
 {
 	// Tell the UI.
-	_reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 
     // Tell the world?
@@ -100,6 +99,11 @@
     video.contentURL = [videoTableData videoContentURLAtIndex: index];
 
     return video;
+}
+
+- (Video *)getCurrentVideo
+{
+    return [self videoAtTableDataIndex: _currentVideoIndex];
 }
 
 - (Video *)getNextVideo
@@ -173,16 +177,12 @@
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-
-	return _reloading; // should return if data source model is reloading
-
+	return [videoTableData isLoading]; // return if data source model is reloading
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-
 	return [NSDate date]; // should return date data source was last changed
-
 }
 
 #pragma mark - VideoTableDataDelegate Methods

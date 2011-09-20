@@ -145,6 +145,11 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
 
 #pragma mark - Loading Data
 
+- (BOOL)isLoading
+{
+    return ([operationQueue.operations count] != 0);
+}
+
 #ifdef OFFLINE_MODE
 // DEBUG Only
 - (NSURL *)movieURL
@@ -380,7 +385,7 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
             NSString *comment      = [broadcast objectForKey: @"description"];
             NSString *sharerName = [[broadcast objectForKey: @"video_originator_user_nickname"] uppercaseString];
             if ([[broadcast objectForKey: @"video_origin"] isEqualToString:@"twitter"]) {
-                sharerName = [NSString stringWithFormat:@"@%@", sharerName]; 
+                sharerName = [NSString stringWithFormat:@"@%@", sharerName];
             }
             NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
             NSString *source = [broadcast objectForKey: @"video_origin"];

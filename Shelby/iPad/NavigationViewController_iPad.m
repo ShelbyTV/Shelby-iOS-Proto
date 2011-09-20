@@ -134,8 +134,10 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
     // If our videoplayer isn't doesn't have a video cued (isn't playing or paused), let's play a video.
-    Video *video = [videoTable getNextVideo];
-    [_videoPlayer playVideo: video];
+    if (_videoPlayer.isIdle) {
+        Video *video = [videoTable getCurrentVideo];
+        [_videoPlayer performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:YES];
+    }
 }
 
 #pragma mark - STVUserViewDelegate Methods
