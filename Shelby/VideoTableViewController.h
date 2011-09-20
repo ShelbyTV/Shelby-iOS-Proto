@@ -29,10 +29,6 @@
     NSInteger _currentVideoIndex;
 
     EGORefreshTableHeaderView *_refreshHeaderView;
-
-    //  Reloading var should really be your tableviews datasource
-    //  Putting it here for demo purposes
-    BOOL _reloading;
 }
 
 @property (nonatomic, assign) id <VideoTableViewControllerDelegate> delegate;
@@ -44,6 +40,7 @@
 
 - (void)clearVideos;
 - (void)loadVideos;
+- (Video *)getCurrentVideo;
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
 

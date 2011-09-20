@@ -48,7 +48,8 @@
     NSArray *_controls;
 }
 
-@property (assign) id<VideoPlayerDelegate> delegate;
+@property (assign) id <VideoPlayerDelegate> delegate;
+@property (readonly) BOOL isIdle;
 @property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
 @property (nonatomic, retain) IBOutlet VideoPlayerFooterBar *footerBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
