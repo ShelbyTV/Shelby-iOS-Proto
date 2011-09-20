@@ -29,6 +29,8 @@
         videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
                                                       //callbackObject:self callbackSelector:@selector(playContentURL:)];
                                                       callbackObject:self callbackSelector:@selector(playVideo:)];
+        videoTable.delegate = self;
+
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
         // So instead, we pull the view out via its tag.
@@ -68,6 +70,13 @@
     [videoTable loadVideos];
 }
 
+#pragma mark - VideoTableViewControllerDelegate Methods
+
+- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
+    // Override in subclass.
+    // TODO: Convert to optional method in protocol using respondsToSelector:
+}
+
 #pragma mark - STVUserViewDelegate Methods
 
 - (void)userViewWasPressed:(STVUserView *)userView {
@@ -91,9 +100,9 @@
     // Tell player to pause playing.
     [_videoPlayer pause];
     // Fetch the video next in queue.
-    Video *url = [videoTable getNextVideo];
+    Video *video = [videoTable getNextVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playVideo: url];
+    [_videoPlayer playVideo: video];
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
@@ -176,13 +185,14 @@
     [videoTableHolder addSubview:[_navigationController view]];
 }
 
+
 #pragma mark - Notification Handlers
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
     // Stop video playback.
     [_videoPlayer stop];
-    
+
     // Clear out the video table
     [videoTable clearVideos];
 }

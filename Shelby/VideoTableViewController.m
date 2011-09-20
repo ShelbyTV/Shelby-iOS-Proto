@@ -15,6 +15,7 @@
 @implementation VideoTableViewController
 
 @synthesize videoCell;
+@synthesize delegate;
 
 #pragma mark - Initialization
 
@@ -44,7 +45,7 @@
 
     // Change the channel.
     [[ShelbyApp sharedApp].networkManager changeChannel: mode];
-    
+
     // Wait for new data.
 
 }
@@ -68,9 +69,18 @@
 
 - (void)doneLoadingTableViewData
 {
-	//  model should call this when its done loading
+	// Tell the UI.
 	_reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+
+    // Tell the world?
+    if (self.delegate) {
+        [self.delegate videoTableViewControllerFinishedRefresh: self];
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"VideoTableViewControllerFinishedRefresh"
+                                                        object: self
+                                                        ];
 }
 
 #pragma mark - Next/Previous Videos
@@ -92,7 +102,7 @@
     return video;
 }
 
-- (Video *)getNextVideo 
+- (Video *)getNextVideo
 {
     _currentVideoIndex++;
     if (_currentVideoIndex >= [videoTableData numItems]) {
@@ -109,7 +119,7 @@
     return [self videoAtTableDataIndex: _currentVideoIndex];
 }
 
-- (Video *)getPreviousVideo 
+- (Video *)getPreviousVideo
 {
     _currentVideoIndex--;
     if (_currentVideoIndex < 0) {
@@ -128,7 +138,7 @@
 
 #pragma mark - UI Callbacks
 
-- (IBAction)segmentAction:(UISegmentedControl *)sender 
+- (IBAction)segmentAction:(UISegmentedControl *)sender
 {
     LOG(@"segmentAction %@", sender);
     NSInteger index = sender.selectedSegmentIndex;
@@ -136,7 +146,7 @@
 
 }
 
-- (IBAction)toolbarButtonWasPressed:(id)sender 
+- (IBAction)toolbarButtonWasPressed:(id)sender
 {
     LOG(@"toolbarButtonWasPressed %@", sender);
 }
@@ -156,20 +166,19 @@
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view 
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
-
 	[self loadVideos];
 }
 
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view 
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
 
 	return _reloading; // should return if data source model is reloading
 
 }
 
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view 
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
 
 	return [NSDate date]; // should return date data source was last changed
@@ -178,7 +187,7 @@
 
 #pragma mark - VideoTableDataDelegate Methods
 
-- (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData 
+- (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData
 {
     [self doneLoadingTableViewData];
 }
@@ -215,7 +224,7 @@
     // Init the segmented control.
     UIImage *likeImageCropped = [UIImage imageNamed: @"ButtonFavoritesCropped"];
     UIImage *timeImageCropped = [UIImage imageNamed: @"ButtonTimeCropped"];
-    
+
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems: [NSArray arrayWithObjects:
         likeImageCropped,
         timeImageCropped,
@@ -298,7 +307,7 @@
         } else {
             cell.backgroundView = [[[UIImageView alloc] initWithImage: image] autorelease];
         }
-            
+
         self.videoCell = nil;
     }
 
