@@ -133,7 +133,7 @@
         alpha = 0.0f;
         hidden = YES;
     }
-    //Note: this won't work on iOS3.
+    // Note: this won't work on iOS3.
     [UIView animateWithDuration:0.25 animations:^{
         self.view.alpha = alpha;
     }
@@ -185,67 +185,6 @@
     [self fadeIn];
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    LOG(@"keyboardWasShown");
-    NSDictionary* info = [aNotification userInfo];
-    CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    kbRect = [self.view convertRect:kbRect toView:nil];
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbRect.size.height, 0.0);
-    _scrollView.contentInset = contentInsets;
-    _scrollView.scrollIndicatorInsets = contentInsets;
-
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbRect.size.height;
-    // Offset for a toolbar on the top of the screen.
-    //aRect.size.height -= self.toolbar.frame.size.height;
-    CGPoint fieldOrigin = _activeField.frame.origin;
-    fieldOrigin.y -= _scrollView.contentOffset.y;
-    fieldOrigin = [self.view convertPoint:fieldOrigin toView:self.view.superview];
-    _originalOffset = _scrollView.contentOffset;
-    if (!CGRectContainsPoint(aRect, fieldOrigin) ) {
-        //[_scrollView scrollRectToVisible:_activeField.frame animated:YES];
-    }
-    // Add some buffer space so we don't have the textField against the top of the screen.
-
-    float BUFFER = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ?  50.0f : 200.0f;
-
-    CGPoint offset = CGPointMake(0, fieldOrigin.y - BUFFER);
-    [_scrollView setContentOffset:offset
-                         animated:YES];
-}
-
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
-    LOG(@"keyboardWillBeHidden");
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    _scrollView.contentInset = contentInsets;
-    _scrollView.scrollIndicatorInsets = contentInsets;
-    [_scrollView setContentOffset:_originalOffset animated:YES];
-}
-
-#pragma mark - UITextFieldDelegate Methods
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    // We resign the first responder
-    // This closes the keyboard
-    if (textField == username) {
-        // If we're coming from 'username', let's move focus to 'password.'
-        [password becomeFirstResponder];
-    }
-    if (textField == password) {
-        // If we're coming from 'password', we're done!
-        [self loginWasPressed: password];
-        [textField resignFirstResponder];
-    }
-
-    // Return YES to confirm the UITextField is returning
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    _activeField = textField;
-}
-
 #pragma mark - View Callbacks
 
 - (IBAction)loginWithFacebook:(id)sender
@@ -262,31 +201,6 @@
     [self beginLogin];
 
     //    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
-}
-
-- (IBAction)registerWasPressed:(id)sender {
-    // Open up a browswer to the shelby registration page?
-    NSString *registrationUrl = @"http://shelby.tv";
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: registrationUrl]];
-}
-
-- (IBAction)loginWasPressed:(id)sender {
-    LOG(@"Login not implemented");
-    //[_networkManager getRequestToken];
-}
-
-- (IBAction)requestTokenWasPressed:(id)sender {
-    [self beginLogin];
-}
-
-- (IBAction)authorizeWasPressed:(id)sender {
-   //[_networkManager authorizeToken: _networkManager.requestToken];
-   //[_networkManager authorizeToken];
-}
-
-- (IBAction)accessTokenWasPressed:(id)sender {
-//[_networkManager getAccessToken: _networkManager.requestToken verifier: ];
-//[_networkManager getAccessToken];
 }
 
 @end
