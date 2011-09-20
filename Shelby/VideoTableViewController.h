@@ -12,6 +12,13 @@
 
 @class VideoTableData;
 @class Video;
+@class VideoTableViewController;
+
+@protocol VideoTableViewControllerDelegate
+
+- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller;
+
+@end
 
 @interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate, VideoTableDataDelegate>
 {
@@ -28,6 +35,7 @@
     BOOL _reloading;
 }
 
+@property (nonatomic, assign) id <VideoTableViewControllerDelegate> delegate;
 @property (nonatomic, assign) IBOutlet UITableViewCell *videoCell;
 
 - (id)initWithStyle:(UITableViewStyle)style

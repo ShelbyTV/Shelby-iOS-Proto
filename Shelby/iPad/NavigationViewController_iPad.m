@@ -130,6 +130,14 @@ static const float ANIMATION_TIME = 0.5f;
     [self showSettings];
 }
 
+#pragma mark - VideoTableViewControllerDelegate Methods
+
+- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
+    // If our videoplayer isn't doesn't have a video cued (isn't playing or paused), let's play a video.
+    Video *video = [videoTable getNextVideo];
+    [_videoPlayer playVideo: video];
+}
+
 #pragma mark - STVUserViewDelegate Methods
 
 - (void)userViewWasPressed:(STVUserView *)userView {
