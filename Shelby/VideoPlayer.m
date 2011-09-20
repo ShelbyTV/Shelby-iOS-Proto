@@ -236,7 +236,7 @@ static const float kControlBarHeightIphone = 88.0f;
 
     double now = CACurrentMediaTime();
     double delta = now - _lastTapTime;
-    NSLog(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTapTime, delta);
+    LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTapTime, delta);
     if (delta > kHideControlsInterval) {
         [self hideControls];
     } else {
@@ -293,7 +293,7 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 - (void)stopTimer {
-    NSLog(@"stopTimer");
+    LOG(@"stopTimer");
     [self drawControls];
     _stopTimer = YES;
 }
@@ -301,7 +301,7 @@ static const float kControlBarHeightIphone = 88.0f;
 - (void)resetTimer {
     double now = CACurrentMediaTime();
     _lastTapTime = now;
-    NSLog(@"resetTimer : %f", _lastTapTime);
+    LOG(@"resetTimer : %f", _lastTapTime);
     if (_controlsVisible) {
     } else {
         [self drawControlsWithClose: YES];
@@ -309,7 +309,7 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 - (void)beginTimer {
-    NSLog(@"beginTimer");
+    LOG(@"beginTimer");
     [self hideControlsWithDelay];
 }
 
