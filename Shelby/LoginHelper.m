@@ -167,7 +167,7 @@
     handshake = [[OAuthHandshake alloc] init];
     [handshake setTokenRequestURL:[NSURL URLWithString: kRequestTokenUrl]];
     [handshake setTokenAuthURL: [NSURL URLWithString: kAccessTokenUrl]];
-    [handshake setCallbackURL: @"shelby://auth"];
+    [handshake setCallbackURL: kCallbackUrl];
     [handshake setDelegate: self];
 
     NSString *consumerKey = kShelbyConsumerKey;
