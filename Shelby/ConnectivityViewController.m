@@ -30,7 +30,7 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -64,6 +64,12 @@
     frame.origin.x = (self.view.bounds.size.width / 2) - (offlineView.bounds.size.width / 2);
     frame.origin.y = (self.view.bounds.size.height / 2) - (offlineView.bounds.size.height / 2);
     offlineView.frame = frame;
+
+    offlineView.autoresizingMask =
+        UIViewAutoresizingFlexibleLeftMargin
+        | UIViewAutoresizingFlexibleRightMargin
+        | UIViewAutoresizingFlexibleTopMargin
+        | UIViewAutoresizingFlexibleBottomMargin;
 
     [self.view addSubview: offlineView];
 }
