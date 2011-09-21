@@ -110,6 +110,10 @@
 		42AB21F113FEF35D00A8FC00 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E413FEF35D00A8FC00 /* SBJsonTokeniser.m */; };
 		42AB21F213FEF35D00A8FC00 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E613FEF35D00A8FC00 /* SBJsonUTF8Stream.m */; };
 		42AB21F313FEF35D00A8FC00 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E813FEF35D00A8FC00 /* SBJsonWriter.m */; };
+		42ACA2C3142A8F8E009FD812 /* STVShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C2142A8F8E009FD812 /* STVShareView.xib */; };
+		42ACA2C6142A9262009FD812 /* TextAreaGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C5142A9262009FD812 /* TextAreaGray.png */; };
+		42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C7142A9305009FD812 /* ButtonSend.png */; };
+		42ACA2CA142A95AB009FD812 /* ButtonSocialBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */; };
 		42AFFA53140EBAE700C64D42 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AFFA52140EBAE700C64D42 /* NetworkManager.m */; };
 		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
 		42C4C56613E8A6C00034AC97 /* FacebookActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55913E8A6C00034AC97 /* FacebookActive.png */; };
@@ -301,6 +305,10 @@
 		42AB21E613FEF35D00A8FC00 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = "Libraries/json-framework/Classes/SBJsonUTF8Stream.m"; sourceTree = "<group>"; };
 		42AB21E713FEF35D00A8FC00 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = "Libraries/json-framework/Classes/SBJsonWriter.h"; sourceTree = "<group>"; };
 		42AB21E813FEF35D00A8FC00 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = "Libraries/json-framework/Classes/SBJsonWriter.m"; sourceTree = "<group>"; };
+		42ACA2C2142A8F8E009FD812 /* STVShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STVShareView.xib; sourceTree = "<group>"; };
+		42ACA2C5142A9262009FD812 /* TextAreaGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextAreaGray.png; path = Resources/Images/TextAreaGray.png; sourceTree = "<group>"; };
+		42ACA2C7142A9305009FD812 /* ButtonSend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSend.png; path = Resources/Images/ButtonSend.png; sourceTree = "<group>"; };
+		42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSocialBackground.png; path = Resources/Images/ButtonSocialBackground.png; sourceTree = "<group>"; };
 		42AFFA51140EBAE700C64D42 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		42AFFA52140EBAE700C64D42 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		42C4C55813E8A6C00034AC97 /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Face.png; path = Resources/Images/Face.png; sourceTree = "<group>"; };
@@ -682,6 +690,9 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */,
+				42ACA2C7142A9305009FD812 /* ButtonSend.png */,
+				42ACA2C5142A9262009FD812 /* TextAreaGray.png */,
 				423FFDA414291A2400F8FF54 /* CellGradient.png */,
 				0A65E3B91428639D00A325C1 /* BackgroundStripes.png */,
 				0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */,
@@ -731,6 +742,7 @@
 		42C4C57313E8A6F00034AC97 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
+				42ACA2C2142A8F8E009FD812 /* STVShareView.xib */,
 				428AA5AE1423EFE000E692B9 /* STVUserView.xib */,
 				428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */,
 				42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */,
@@ -964,6 +976,10 @@
 				423FFDAA1429269600F8FF54 /* SampleMovie.mov in Resources */,
 				0A155E77142908280010E503 /* FacebookSignIn.png in Resources */,
 				0A155E78142908280010E503 /* TwitterSignIn.png in Resources */,
+				42ACA2C3142A8F8E009FD812 /* STVShareView.xib in Resources */,
+				42ACA2C6142A9262009FD812 /* TextAreaGray.png in Resources */,
+				42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */,
+				42ACA2CA142A95AB009FD812 /* ButtonSocialBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
