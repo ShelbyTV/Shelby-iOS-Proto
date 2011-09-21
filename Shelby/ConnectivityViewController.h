@@ -21,4 +21,6 @@
 @property(readwrite) BOOL internetActive;
 @property(readwrite) BOOL hostActive;
 
+- (void)showShelbyDown;
+
 @end

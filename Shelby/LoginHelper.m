@@ -181,12 +181,19 @@
 
 #pragma mark - User Authorization
 
-- (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token;
+- (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token
 {
     NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@",
              kUserAuthorizationUrl,
              [token URLEncodedString]];
     [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];
+}
+
+- (void)handshake:(OAuthHandshake *)handshake failedWithError:(NSError *) error
+{
+    NSLog(@"OAuth request failed with an error: %@", [error localizedDescription]);
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperOAuthHandshakeFailed"
+                                                        object: self];
 }
 
 - (void)verifierReturnedFromAuth:(NSString *)verifier {
