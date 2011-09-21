@@ -8,6 +8,7 @@
 
 #import "VideoTableData.h"
 #import "Broadcast.h"
+#import "ShelbyApp.h"
 
 @interface URLIndex : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
@@ -39,6 +40,7 @@
 @implementation VideoTableData
 
 @synthesize delegate;
+@synthesize networkCounter;
 
 /*
  * Eventually we'll be getting data like this from the Shelby API -- the "broadcast" data
@@ -456,15 +458,21 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
                          change:(NSDictionary *)change context:(void *)context
 {
     if (object == operationQueue && [keyPath isEqualToString:@"operations"]) {
-        if ([operationQueue.operations count] == 0) {
+        NSInteger operationCount = [operationQueue.operations count];
+        id object = [change objectForKey: NSKeyValueChangeOldKey];
+        //NSLog(@"Previous count: %@", object);
+        //NSInteger previousCount = [object integerValue];
+        if (operationCount == 0) {
             LOG(@"queue has completed");
             if (self.delegate) {
                 // Inform the delegate
                 [self.delegate videoTableDataDidFinishRefresh: self];
             }
+            self.networkCounter = 0;
+        } else {
+            self.networkCounter = operationCount;
         }
-    }
-    else {
+    } else {
         [super observeValueForKeyPath:keyPath ofObject:object
                                change:change context:context];
     }
@@ -497,7 +505,11 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
     if (self) {
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount: 2];
-        [operationQueue addObserver:self forKeyPath:@"operations" options:0 context:NULL];
+        [operationQueue addObserver: self
+                         forKeyPath: @"operations"
+                            options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                            context: NULL
+                            ];
 
         // we use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
@@ -513,8 +525,8 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
                                                  selector: @selector(receivedBroadcastsNotification:)
                                                      name: @"LoginHelperReceivedBroadcasts"
                                                    object: nil];
+        [[ShelbyApp sharedApp] addNetworkObject: self];
     }
-
     return self;
 }
 

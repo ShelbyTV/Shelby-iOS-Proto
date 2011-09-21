@@ -7,16 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "STVNetworkObject.h"
 
 @class VideoTableData;
 
 @protocol VideoTableDataDelegate
 
+//- (void)videoTableDataDidBeginRefresh:(VideoTableData *)videoTableData;
 - (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData;
 
 @end
 
-@interface VideoTableData : NSObject
+@interface VideoTableData : NSObject <STVNetworkObject>
 {
     NSOperationQueue *operationQueue;
     UITableView *tableView;
@@ -25,6 +27,7 @@
     NSTimer *updateTimer;
 }
 @property (assign) id <VideoTableDataDelegate> delegate;
+@property (readwrite) NSInteger networkCounter;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
