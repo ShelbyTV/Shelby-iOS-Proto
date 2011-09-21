@@ -229,15 +229,19 @@
     UIImage *timeImageCropped = [UIImage imageNamed: @"ButtonTimeCropped"];
 
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems: [NSArray arrayWithObjects:
-        likeImageCropped,
         timeImageCropped,
+        likeImageCropped,
         nil]
         ];
-    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
     //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
     segmentedControl.tintColor = [UIColor blackColor];
+
+    // start with timeline highlighted.
+    segmentedControl.selectedSegmentIndex = 0;
+
+    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
     UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: segmentedControl];
     [self.navigationItem setLeftBarButtonItem:customItem animated: NO];
