@@ -155,6 +155,41 @@ static const float kControlBarHeightIphone = 88.0f;
     }
 }
 
+- (void)fitTitleBarText
+{
+    /* 
+     * These constants are derived from the .xib file.
+     */
+    const CGFloat textOriginX = 68;
+    const CGFloat textOriginY = 15;
+    const CGFloat textRightBorder = 20;
+    const CGFloat maxTextHeight = 32;
+    const CGFloat iPadShelbyLogoOverhang = 68;
+    
+    CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        /*
+         * Right now the iPad app can either be in fullscreen mode OR have a little Shelby logo
+         * if a user touched the Shelby logo to slide away the video table. But hopefully
+         * we'll consolidate those views to be more like the Shelby-logo-slide and get rid of
+         * the fullscreen case.
+         *
+         * But this doesn't look too bad even if we do keep the fullscreen mode, and just doing
+         * this keeps the logic simpler.
+         */
+        maxTextWidth -= iPadShelbyLogoOverhang;
+    }
+   
+    CGSize textSize = [self.titleBar.title.text sizeWithFont:self.titleBar.title.font
+                                           constrainedToSize:CGSizeMake(maxTextWidth, maxTextHeight)
+                                               lineBreakMode:UILineBreakModeTailTruncation];
+    
+    self.titleBar.title.frame = CGRectMake(textOriginX, 
+                                           textOriginY, 
+                                           textSize.width, 
+                                           textSize.height);
+}
+
 - (void)playVideo:(Video *)video {
     if (NOTNULL(video)) {
         // Set internal lock so our notification doesn't go haywire.
@@ -167,6 +202,7 @@ static const float kControlBarHeightIphone = 88.0f;
             video.sharerComment
                 ];
         self.titleBar.sharerPic.image = video.sharerImage;
+        [self fitTitleBarText];
 
         // Change our footerBar.
         self.footerBar.title.text = video.title;
@@ -505,22 +541,19 @@ static const float kControlBarHeightIphone = 88.0f;
     const CGFloat width = frame.size.width;
     const CGFloat height = frame.size.height;
 
-    const float titleBarHeight = 41.0f;
-    //const float titleBarHeight = 121.0f;
+    const float titleBarHeight = 75.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
-    //const CGSize buttonSize = CGSizeMake(62, 62);
 
     _moviePlayer.view.frame = self.bounds;
 
-    // Place titleBar at the top center.
-    float titleBarX = [self titleBarX];
-    float titleBarWidth = width;
     self.titleBar.frame = CGRectMake(
-            titleBarX,
             0,
-            titleBarWidth - (2 * titleBarX),
+            0,
+            width,
             titleBarHeight
             );
+    
+    [self fitTitleBarText];
 
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(

@@ -46,56 +46,23 @@
 					<object class="IBUIView" id="920093502">
 						<reference key="NSNextResponder" ref="759562499"/>
 						<int key="NSvFlags">314</int>
-						<string key="NSFrameSize">{554, 48}</string>
+						<string key="NSFrameSize">{554, 75}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="978124853"/>
 						<string key="NSReuseIdentifierKey">_NS:195</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-						</object>
-						<float key="IBUIAlpha">0.30000001192092896</float>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-					</object>
-					<object class="IBUILabel" id="113638569">
-						<reference key="NSNextResponder" ref="759562499"/>
-						<int key="NSvFlags">318</int>
-						<string key="NSFrame">{{53, 0}, {484, 48}}</string>
-						<reference key="NSSuperview" ref="759562499"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">7</int>
-						<int key="IBUITag">2</int>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Cosmos 2011 COPA First Round Highlights - NYC Liberia v. Poland</string>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">17</double>
-							<int key="NSfFlags">16</int>
-						</object>
-						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-						</object>
-						<nil key="IBUIHighlightedColor"/>
-						<object class="NSColor" key="IBUIShadowColor">
+						<object class="NSColor" key="IBUIBackgroundColor" id="280635881">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
 						</object>
-						<int key="IBUIBaselineAdjustment">1</int>
-						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-						<float key="IBUIMinimumFontSize">10</float>
-						<int key="IBUINumberOfLines">0</int>
-						<int key="IBUILineBreakMode">0</int>
+						<bool key="IBUIOpaque">NO</bool>
+						<float key="IBUIAlpha">0.30000001192092896</float>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIImageView" id="978124853">
 						<reference key="NSNextResponder" ref="759562499"/>
 						<int key="NSvFlags">300</int>
-						<string key="NSFrame">{{20, 11}, {25, 25}}</string>
+						<string key="NSFrame">{{15, 15}, {45, 45}}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="113638569"/>
@@ -107,15 +74,45 @@
 							<string key="NSResourceName">Face.png</string>
 						</object>
 					</object>
+					<object class="IBUILabel" id="113638569">
+						<reference key="NSNextResponder" ref="759562499"/>
+						<int key="NSvFlags">318</int>
+						<string key="NSFrame">{{68, 15}, {466, 32}}</string>
+						<reference key="NSSuperview" ref="759562499"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="163751739">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<int key="IBUITag">2</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<string key="IBUIText">Cosmos 2011 COPA First Round Highlights - NYC Liberia v. Poland and even more text and even more text abysdfasdfadfasdfasfasdfasdfasdf</string>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">14</double>
+							<int key="NSfFlags">16</int>
+						</object>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+						</object>
+						<nil key="IBUIHighlightedColor"/>
+						<reference key="IBUIShadowColor" ref="280635881"/>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUINumberOfLines">2</int>
+					</object>
 				</object>
-				<string key="NSFrameSize">{554, 48}</string>
+				<string key="NSFrameSize">{554, 75}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="920093502"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MCAwAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="163751739"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 		</object>
@@ -171,11 +168,6 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="978124853"/>
-						<reference key="parent" ref="759562499"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
 						<reference key="object" ref="920093502"/>
 						<object class="NSMutableArray" key="children">
@@ -183,6 +175,11 @@
 						</object>
 						<reference key="parent" ref="759562499"/>
 						<string key="objectName">View</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4</int>
+						<reference key="object" ref="978124853"/>
+						<reference key="parent" ref="759562499"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
