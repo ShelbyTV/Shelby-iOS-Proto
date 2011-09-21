@@ -184,6 +184,8 @@
     bar.barStyle = UIBarStyleBlackOpaque;
 
     [videoTableHolder addSubview:[_navigationController view]];
+
+    //[self showNetworkActivityIndicator];
 }
 
 

@@ -9,6 +9,7 @@
 #import "ConnectivityViewController.h"
 #import "Reachability.h"
 #import "STVOfflineView.h"
+#import "ShelbyApp.h"
 
 @implementation ConnectivityViewController
 
@@ -22,6 +23,20 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _shelbyApp = [ShelbyApp sharedApp];
+        //[_shelbyApp addObserver:self forKeyPath:@"isNetworkBusy" options:0 context:NULL];
+        //[_shelbyApp addObserver:self forKeyPath:@"networkCounter" options:0 context:NULL];
+
+        //[[NSNotificationCenter defaultCenter] addObserver:self
+        //                                         selector:@selector(networkActiveNotification:)
+        //                                             name:@"ShelbyAppNetworkActive"
+        //                                           object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self
+        //                                         selector:@selector(networkInactiveNotification:)
+        //                                             name:@"ShelbyAppNetworkInactive"
+        //                                           object:nil];
+        //[[NSNotificationCenter defaultCenter] postNotificationName: @"ShelbyAppNetworkActive"
+        //[[NSNotificationCenter defaultCenter] postNotificationName: @"ShelbyAppNetworkInactive"
     }
     return self;
 }
@@ -32,6 +47,100 @@
     [super didReceiveMemoryWarning];
 
     // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - Network Activity
+
+- (UIView *)networkActivityView {
+    if (!_networkActivityView) {
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+        activityIndicator.hidesWhenStopped = NO;
+        [activityIndicator startAnimating];
+        _networkActivityView = activityIndicator;
+
+        //_networkActivityView = [[UIView alloc] init];
+        //_networkActivityView.backgroundColor = [UIColor redColor];
+
+        _networkActivityView.hidden = YES;
+        [self.view addSubview: _networkActivityView];
+    }
+    return _networkActivityView;
+}
+
+- (void)showNetworkActivityIndicator {
+    UIView *networkView = [self networkActivityView];
+    // If the network indicator is not already visible
+    if (networkView.hidden == YES) {
+
+        CGRect frame = networkView.frame;
+        frame.size = CGSizeMake(100, 100);
+        networkView.frame = frame;
+        frame.origin.x = (self.view.bounds.size.width / 2) - (networkView.bounds.size.width / 2);
+        frame.origin.y = (self.view.bounds.size.height / 2) - (networkView.bounds.size.height / 2);
+
+        networkView.frame = frame;
+        //networkView.frame = CGRectMake(0, 0, 100, 100);
+
+        //networkView.autoresizingMask =
+        //    UIViewAutoresizingFlexibleLeftMargin
+        //    | UIViewAutoresizingFlexibleRightMargin
+        //    | UIViewAutoresizingFlexibleTopMargin
+        //    | UIViewAutoresizingFlexibleBottomMargin;
+
+        [self.view bringSubviewToFront: networkView];
+        networkView.hidden = NO;
+    }
+}
+
+- (void)hideNetworkActivityIndicator {
+    [self networkActivityView].hidden = YES;
+}
+
+- (void)networkActiveNotification:(NSNotification*)notification {
+    NSLog(@"networkActiveNotification");
+    [self performSelectorOnMainThread:@selector(showNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
+}
+
+- (void)networkInactiveNotification:(NSNotification*)notification {
+    NSLog(@"networkInactiveNotification");
+    [self performSelectorOnMainThread:@selector(hideNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+#if 1
+    if (object == _shelbyApp && [keyPath isEqualToString:@"isNetworkBusy"]) {
+        if (_shelbyApp.isNetworkBusy) {
+            LOG(@"network is busy");
+            [self showNetworkActivityIndicator];
+        } else {
+            LOG(@"network is done");
+            [self hideNetworkActivityIndicator];
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object
+                               change:change context:context];
+    }
+#else
+        NSLog(@"observeKeyValueForPath");
+    if (object == _shelbyApp && [keyPath isEqualToString:@"networkCounter"]) {
+        if (_shelbyApp.networkCounter > 0) {
+            LOG(@"network is busy");
+            [self showNetworkActivityIndicator];
+        } else {
+            LOG(@"network is done");
+            [self hideNetworkActivityIndicator];
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object
+                               change:change context:context];
+    }
+#endif
 }
 
 #pragma mark - Offline Detection

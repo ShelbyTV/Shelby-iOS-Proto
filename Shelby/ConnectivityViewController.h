@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class Reachability;
+@class ShelbyApp;
 
 @interface ConnectivityViewController : UIViewController {
     // Offline view
     UIView *_offlineView;
+    UIView *_networkActivityView;
+    ShelbyApp *_shelbyApp;
 }
 
 // Offline detection

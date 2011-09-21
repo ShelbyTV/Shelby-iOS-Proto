@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "STVNetworkObject.h"
+
 @class LoginHelper;
 @class User;
 
 /**
  * This is our public-facing class for all things that go on the network.
  */
-@interface NetworkManager : NSObject {
+@interface NetworkManager : NSObject <STVNetworkObject> {
 @private
     LoginHelper *_loginHelper;
 }
@@ -22,6 +24,7 @@
 
 @property (nonatomic, readonly) BOOL loggedIn;
 @property (nonatomic, readonly) User *user;
+@property (readonly) NSInteger networkCounter;
 
 #pragma mark - Settings
 - (void)changeChannel:(NSInteger)newChannel;

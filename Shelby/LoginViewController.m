@@ -42,6 +42,16 @@
                                                  selector:@selector(showShelbyDown) 
                                                      name:@"LoginHelperOAuthHandshakeFailed" 
                                                    object:nil];
+        
+        // Network Activity
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkActiveNotification:)
+                                                     name:@"ShelbyAppNetworkActive"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkInactiveNotification:)
+                                                     name:@"ShelbyAppNetworkInactive"
+                                                   object:nil];
     }
     return self;
 }
@@ -83,6 +93,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
+
+    //[self showNetworkActivityIndicator];
 }
 
 - (void) viewWillAppear:(BOOL)animated

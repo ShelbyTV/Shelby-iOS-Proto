@@ -216,6 +216,7 @@
 		4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerControlBar.m; sourceTree = "<group>"; };
 		423FFDA414291A2400F8FF54 /* CellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellGradient.png; path = Resources/Images/CellGradient.png; sourceTree = "<group>"; };
 		423FFDA91429269600F8FF54 /* SampleMovie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = SampleMovie.mov; path = Resources/SampleMovie.mov; sourceTree = "<group>"; };
+		423FFDBB142A6CCD00F8FF54 /* STVNetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVNetworkObject.h; sourceTree = "<group>"; };
 		427A621A13F46D5B00C945E2 /* CancelButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = CancelButton.jpg; path = Resources/Images/CancelButton.jpg; sourceTree = "<group>"; };
 		427A621B13F46D5B00C945E2 /* CheckboxChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxChecked.png; path = Resources/Images/CheckboxChecked.png; sourceTree = "<group>"; };
 		427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckboxEmpty.png; path = Resources/Images/CheckboxEmpty.png; sourceTree = "<group>"; };
@@ -813,6 +814,7 @@
 			children = (
 				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
 				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
+				423FFDBB142A6CCD00F8FF54 /* STVNetworkObject.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";

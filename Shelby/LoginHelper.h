@@ -10,6 +10,8 @@
 #import "OAuthHandshake.h"
 #import "SBJsonStreamParser.h"
 
+#import "STVNetworkObject.h"
+
 typedef enum {
     STVParserModeIdle,
     STVParserModeUser,
@@ -46,6 +48,7 @@ typedef enum {
 }
 
 @property (assign) id <LoginHelperDelegate> delegate;
+@property (readwrite) NSInteger networkCounter;
 
 @property (nonatomic, readonly) BOOL loggedIn;
 @property (nonatomic, readonly) NSString *consumerToken;

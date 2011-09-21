@@ -11,6 +11,7 @@
 #import "Channel.h"
 #import "Broadcast.h"
 #import "ShelbyAppDelegate.h"
+#import "ShelbyApp.h"
 
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
@@ -60,6 +61,7 @@
 @implementation LoginHelper
 
 @synthesize delegate;
+@synthesize networkCounter;
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
@@ -86,6 +88,18 @@
     }
 
     return self;
+}
+
+#pragma mark - Network Activity
+
+- (void)incrementNetworkCounter {
+    //[self incrementNetworkCounter];
+    self.networkCounter++;
+}
+
+- (void)decrementNetworkCounter {
+    //[self decrementNetworkCounter];
+    self.networkCounter--;
 }
 
 #pragma mark - Settings
@@ -177,6 +191,8 @@
     [handshake setConsumerSecret: consumerSecret];
 
     [handshake beginHandshake];
+
+    [self incrementNetworkCounter];
 }
 
 #pragma mark - User Authorization
@@ -194,6 +210,7 @@
     NSLog(@"OAuth request failed with an error: %@", [error localizedDescription]);
     [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperOAuthHandshakeFailed"
                                                         object: self];
+    [self decrementNetworkCounter];
 }
 
 - (void)verifierReturnedFromAuth:(NSString *)verifier {
@@ -230,6 +247,7 @@
         [req signPlaintext];
 
         [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetUserResponse:data:error:forRequest:)];
+        [self incrementNetworkCounter];
         return YES;
     }
     // We failed to send the request. Let the caller know.
@@ -238,6 +256,7 @@
 
 - (void)receivedGetUserResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
 {
+    [self decrementNetworkCounter];
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"Got user: %@", string);
 
@@ -257,8 +276,8 @@
     NSError *error = nil;
     NSURL *url = [[[NSURL alloc] initWithString:[dict objectForKey:@"user_image"]] autorelease];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    /* 
+
+    /*
      * if there's an error, this should just return NULL, which will result in the default
      * blank face user image eventually being shown.
      *
@@ -281,7 +300,7 @@
     [user setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
     [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
     [user setValue:imageData forKey:@"image"];
-    
+
     NSError *error = nil;
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -329,6 +348,7 @@
         [req signPlaintext];
 
         [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetChannelsResponse:data:error:forRequest:)];
+        [self incrementNetworkCounter];
         return YES;
     }
     // We failed to send the request. Let the caller know.
@@ -337,6 +357,7 @@
 
 - (void)receivedGetChannelsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
+    [self decrementNetworkCounter];
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"Got channels: %@", string);
 
@@ -415,6 +436,7 @@
             // Set to plaintext on request because oAuth library is broken.
             [req signPlaintext];
 
+            [self incrementNetworkCounter];
             [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
             return YES;
         }
@@ -425,6 +447,7 @@
 
 - (void)receivedGetBroadcastsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
+    [self decrementNetworkCounter];
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"Got broadcasts: %@", string);
 
@@ -549,7 +572,9 @@
             LOG(@"USER Array found: %@", array);
 
             NSDictionary *dict = [array objectAtIndex: 0];
+            [self incrementNetworkCounter];
             self.user = [self storeUserWithDictionary:dict withImageData:[self fetchUserImageDataWithDictionary:dict]];
+            [self decrementNetworkCounter];
 
             [self storeTokens];
             [self fetchChannels];
@@ -604,6 +629,12 @@
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
     }
     _parserMode = STVParserModeIdle;
+}
+
+- (void)dealloc {
+    [[ShelbyApp sharedApp] removeNetworkObject: self];
+
+    [super dealloc];
 }
 
 @end

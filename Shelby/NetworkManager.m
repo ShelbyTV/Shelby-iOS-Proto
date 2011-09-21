@@ -48,6 +48,10 @@
     return self.loginHelper.user;
 }
 
+- (NSInteger)networkCounter {
+    return _loginHelper.networkCounter;
+}
+
 #pragma mark - Settings
 
 - (void)changeChannel:(NSInteger)newChannel {

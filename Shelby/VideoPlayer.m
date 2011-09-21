@@ -475,6 +475,42 @@ static const float kControlBarHeightIphone = 88.0f;
 
 #pragma mark - Layout
 
+- (float)controlBarX {
+    float x;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        //x = 5.0f;
+        x = 0.0f;
+    } else {
+        x = 20.0f;
+    }
+    return x;
+}
+
+- (float)titleBarX {
+    return [self controlBarX];
+}
+
+- (float)nextPrevXOffset {
+    float offset;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        offset = [self controlBarX];
+    } else {
+        offset = 0;
+    }
+    return offset;
+}
+
+- (float)nextPrevYOffset {
+    float offset;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        offset = -12.0f;
+    } else {
+        offset = 0;
+    }
+    return offset;
+}
+
+
 - (float)controlBarHeight {
     float height;
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -484,6 +520,17 @@ static const float kControlBarHeightIphone = 88.0f;
     }
     return height;
 }
+
+- (float)footerBarHeight {
+    float height = [self controlBarHeight];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        height = height / 2;
+    }
+
+    return height;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -516,19 +563,25 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(
-            0,
-            height / 2 - (nextPrevSize.height / 2),
+            //0,
+            [self nextPrevXOffset],
+            //height / 2 - (nextPrevSize.height / 2),
+            [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height
             );
     _nextButton.frame = CGRectMake(
-            width - nextPrevSize.width,
-            height / 2 - (nextPrevSize.height / 2),
+            //width - nextPrevSize.width,
+            width - (nextPrevSize.width + [self nextPrevXOffset]),
+            //height / 2 - (nextPrevSize.height / 2),
+            [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height);
 
     // Place controlBar at the bottom center.
-    float controlBarX = 20.0f;
+
+    float controlBarX = [self controlBarX];
+
     float controlBarWidth = width;
     _controlBar.frame = CGRectMake(
             controlBarX,
@@ -541,9 +594,9 @@ static const float kControlBarHeightIphone = 88.0f;
     // Place footerBar just above the controlBar.
     self.footerBar.frame = CGRectMake(
             controlBarX,
-            height - (2 * [self controlBarHeight]),
+            height - ([self footerBarHeight] + [self controlBarHeight]),
             controlBarWidth - (2 * controlBarX),
-            [self controlBarHeight]
+            [self footerBarHeight]
             );
 }
 
