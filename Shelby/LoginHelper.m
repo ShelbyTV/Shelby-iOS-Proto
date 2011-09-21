@@ -61,6 +61,7 @@
 @implementation LoginHelper
 
 @synthesize delegate;
+@synthesize networkCounter;
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
@@ -92,11 +93,13 @@
 #pragma mark - Network Activity
 
 - (void)incrementNetworkCounter {
-    [self incrementNetworkCounter];
+    //[self incrementNetworkCounter];
+    self.networkCounter++;
 }
 
 - (void)decrementNetworkCounter {
-    [self decrementNetworkCounter];
+    //[self decrementNetworkCounter];
+    self.networkCounter--;
 }
 
 #pragma mark - Settings
@@ -626,6 +629,12 @@
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
     }
     _parserMode = STVParserModeIdle;
+}
+
+- (void)dealloc {
+    [[ShelbyApp sharedApp] removeNetworkObject: self];
+
+    [super dealloc];
 }
 
 @end

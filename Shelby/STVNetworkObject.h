@@ -12,7 +12,7 @@
 
 //- (NSInteger)networkCount;
 //
-@property (readwrite) NSInteger networkCounter;
+@property NSInteger networkCounter;
 //- (NSInteger)networkCount;
 
 @end

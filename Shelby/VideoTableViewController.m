@@ -27,6 +27,9 @@
     if (self) {
         videoTableData = [[VideoTableData alloc] initWithUITableView:self.tableView];
         videoTableData.delegate = self;
+
+        [[ShelbyApp sharedApp] addNetworkObject: videoTableData];
+
         callbackObject = object;
         callbackSelector = selector;
     }

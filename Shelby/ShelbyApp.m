@@ -32,6 +32,7 @@ static ShelbyApp *gShelbyApp;
     if (self) {
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 5];
         self.networkManager = [[[NetworkManager alloc] init] autorelease];
+        [self addNetworkObject: self.networkManager];
     }
 
     return self;
