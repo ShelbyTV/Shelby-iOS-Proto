@@ -32,6 +32,7 @@
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
 - (BOOL)isLoading;
+- (NSUInteger)numItemsInserted;
 - (NSUInteger)numItems;
 - (NSString *)videoSourceAtIndex:(NSUInteger)index;
 - (NSString *)videoTitleAtIndex:(NSUInteger)index;

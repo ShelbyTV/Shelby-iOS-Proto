@@ -18,9 +18,6 @@
 
 // This is the size of the right side panel.
 static const float RIGHT_PANEL_WIDTH = 330.0f;
-// This is the amount of the Shelby Logo that spills over the edge.
-static const float SHELBY_LOGO_OVERSHOOT = 25.0f;
-//#define OFFSET (RIGHT_PANEL_WIDTH + SHELBY_LOGO_OVERSHOOT)
 #define OFFSET RIGHT_PANEL_WIDTH
 static const float ANIMATION_TIME = 0.5f;
 
@@ -74,13 +71,19 @@ static const float ANIMATION_TIME = 0.5f;
     tempFrame.size.width += offset;
     _videoPlayer.frame = tempFrame;
 
-    // Make header transparent when tray is closed.
-    header.alpha = right ? 1.0 : 0.5;
+    // Make header transparent while tray is closing.
+    if (!right) {
+       header.alpha = 0.5;
+    }
 }
 
 - (void)toggleTray {
     if (!_traySliding) {
         _traySliding = YES;
+        if (_trayClosed) {
+            // make header opaque immediately before sliding
+            header.alpha = 1.0;
+        }
         [UIView animateWithDuration:ANIMATION_TIME animations:^{
             [self slideTray: _trayClosed];
         }
@@ -149,19 +152,10 @@ static const float ANIMATION_TIME = 0.5f;
 #pragma mark - VideoPlayerDelegate Methods
 
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
-    LOG(@"[NavigationViewController_iPad videoPlayerFullscreenButtonWasPressed]");
+   LOG(@"[NavigationViewController_iPad videoPlayerFullscreenButtonWasPressed]");
 
-    if (_fullscreen) {
-        // Exit fullscreen.
-        _videoPlayer.frame = _videoPlayerOriginal;
-        [self.view sendSubviewToBack: _videoPlayer];
-    } else {
-        // Enter fullscreen.
-        _videoPlayerOriginal = _videoPlayer.frame;
-        _videoPlayer.frame = self.view.bounds;
-        [self.view bringSubviewToFront: _videoPlayer];
-    }
-  _fullscreen = !_fullscreen;
+   [self toggleTray];
+   _fullscreen = !_fullscreen;
 }
 
 #pragma mark - UINavigationControllerDelegate Methods

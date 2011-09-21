@@ -160,7 +160,6 @@
     self.userView.delegate = self;
 
     //Background.
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
     [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
 
     //VideoTable.
@@ -170,7 +169,9 @@
     } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         videoTable.tableView.rowHeight = 232;
     }
-    [videoTable.tableView setBackgroundColor:[UIColor lightGrayColor]];
+    
+    // this color matches the bottom color of the table cell gradient
+    [videoTable.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
 
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 

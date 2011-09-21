@@ -300,13 +300,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSInteger count = [videoTableData numItems];
-    if (count == 0) {
-        // Show the table empty view.
-    } else {
-
-    }
-    return count;
+    return [videoTableData numItemsInserted];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
