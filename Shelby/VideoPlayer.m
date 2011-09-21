@@ -439,6 +439,20 @@ static const float kControlBarHeightIphone = 88.0f;
 
 #pragma mark - Layout
 
+- (float)controlBarX {
+    float x;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        x = 5.0f;
+    } else {
+        x = 20.0f;
+    }
+    return x;
+}
+
+- (float)titleBarX {
+    return [self controlBarX];
+}
+
 - (float)controlBarHeight {
     float height;
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -448,6 +462,17 @@ static const float kControlBarHeightIphone = 88.0f;
     }
     return height;
 }
+
+- (float)footerBarHeight {
+    float height = [self controlBarHeight];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        height = height / 2;
+    }
+
+    return height;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -472,7 +497,7 @@ static const float kControlBarHeightIphone = 88.0f;
     _moviePlayer.view.frame = self.bounds;
 
     // Place titleBar at the top center.
-    float titleBarX = 20.0f;
+    float titleBarX = [self titleBarX];
     float titleBarWidth = width;
     self.titleBar.frame = CGRectMake(
             titleBarX,
@@ -495,7 +520,9 @@ static const float kControlBarHeightIphone = 88.0f;
             nextPrevSize.height);
 
     // Place controlBar at the bottom center.
-    float controlBarX = 20.0f;
+
+    float controlBarX = [self controlBarX];
+
     float controlBarWidth = width;
     _controlBar.frame = CGRectMake(
             controlBarX,
@@ -508,9 +535,9 @@ static const float kControlBarHeightIphone = 88.0f;
     // Place footerBar just above the controlBar.
     self.footerBar.frame = CGRectMake(
             controlBarX,
-            height - (2 * [self controlBarHeight]),
+            height - ([self footerBarHeight] + [self controlBarHeight]),
             controlBarWidth - (2 * controlBarX),
-            [self controlBarHeight]
+            [self footerBarHeight]
             );
 }
 
