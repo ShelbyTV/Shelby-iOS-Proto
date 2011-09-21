@@ -39,17 +39,17 @@
 			</object>
 			<object class="IBUIView" id="371682399">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">256</int>
+				<int key="NSvFlags">301</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIView" id="901122737">
 						<reference key="NSNextResponder" ref="371682399"/>
-						<int key="NSvFlags">256</int>
+						<int key="NSvFlags">301</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="917485329">
 								<reference key="NSNextResponder" ref="901122737"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">293</int>
 								<string key="NSFrame">{{20, 20}, {240, 36}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
@@ -82,11 +82,10 @@
 							</object>
 							<object class="IBUILabel" id="629616670">
 								<reference key="NSNextResponder" ref="901122737"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">293</int>
 								<string key="NSFrame">{{20, 70}, {240, 39}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:311</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
