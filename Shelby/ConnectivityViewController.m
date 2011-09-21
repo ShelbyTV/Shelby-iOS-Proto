@@ -27,14 +27,14 @@
         //[_shelbyApp addObserver:self forKeyPath:@"isNetworkBusy" options:0 context:NULL];
         //[_shelbyApp addObserver:self forKeyPath:@"networkCounter" options:0 context:NULL];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(networkActiveNotification:)
-                                                     name:@"ShelbyAppNetworkActive"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(networkInactiveNotification:)
-                                                     name:@"ShelbyAppNetworkInactive"
-                                                   object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self
+        //                                         selector:@selector(networkActiveNotification:)
+        //                                             name:@"ShelbyAppNetworkActive"
+        //                                           object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self
+        //                                         selector:@selector(networkInactiveNotification:)
+        //                                             name:@"ShelbyAppNetworkInactive"
+        //                                           object:nil];
         //[[NSNotificationCenter defaultCenter] postNotificationName: @"ShelbyAppNetworkActive"
         //[[NSNotificationCenter defaultCenter] postNotificationName: @"ShelbyAppNetworkInactive"
     }

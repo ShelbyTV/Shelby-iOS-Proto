@@ -29,6 +29,7 @@
     NSInteger _currentVideoIndex;
 
     EGORefreshTableHeaderView *_refreshHeaderView;
+    UIView *_networkActivityView;
 }
 
 @property (nonatomic, assign) id <VideoTableViewControllerDelegate> delegate;

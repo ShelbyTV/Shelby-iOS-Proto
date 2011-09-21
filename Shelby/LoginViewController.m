@@ -42,6 +42,16 @@
                                                  selector:@selector(showShelbyDown) 
                                                      name:@"LoginHelperOAuthHandshakeFailed" 
                                                    object:nil];
+        
+        // Network Activity
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkActiveNotification:)
+                                                     name:@"ShelbyAppNetworkActive"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkInactiveNotification:)
+                                                     name:@"ShelbyAppNetworkInactive"
+                                                   object:nil];
     }
     return self;
 }

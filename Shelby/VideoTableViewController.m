@@ -32,6 +32,15 @@
 
         callbackObject = object;
         callbackSelector = selector;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkActiveNotification:)
+                                                     name:@"ShelbyAppNetworkActive"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkInactiveNotification:)
+                                                     name:@"ShelbyAppNetworkInactive"
+                                                   object:nil];
     }
     return self;
 }
@@ -429,6 +438,63 @@
 
     //[callbackObject performSelector:callbackSelector withObject:contentURL];
     [callbackObject performSelector:callbackSelector withObject:video];
+}
+
+#pragma mark - Network Activity
+
+- (UIView *)networkActivityView {
+    if (!_networkActivityView) {
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+        activityIndicator.hidesWhenStopped = NO;
+        [activityIndicator startAnimating];
+        _networkActivityView = activityIndicator;
+
+        //_networkActivityView = [[UIView alloc] init];
+        //_networkActivityView.backgroundColor = [UIColor redColor];
+
+        _networkActivityView.hidden = YES;
+        [self.view addSubview: _networkActivityView];
+    }
+    return _networkActivityView;
+}
+
+- (void)showNetworkActivityIndicator {
+    UIView *networkView = [self networkActivityView];
+    // If the network indicator is not already visible
+    if (networkView.hidden == YES) {
+
+        CGRect frame = networkView.frame;
+        frame.size = CGSizeMake(100, 100);
+        networkView.frame = frame;
+        frame.origin.x = (self.view.bounds.size.width / 2) - (networkView.bounds.size.width / 2);
+        frame.origin.y = (self.view.bounds.size.height / 2) - (networkView.bounds.size.height / 2);
+
+        networkView.frame = frame;
+        //networkView.frame = CGRectMake(0, 0, 100, 100);
+
+        //networkView.autoresizingMask =
+        //    UIViewAutoresizingFlexibleLeftMargin
+        //    | UIViewAutoresizingFlexibleRightMargin
+        //    | UIViewAutoresizingFlexibleTopMargin
+        //    | UIViewAutoresizingFlexibleBottomMargin;
+
+        [self.view bringSubviewToFront: networkView];
+        networkView.hidden = NO;
+    }
+}
+
+- (void)hideNetworkActivityIndicator {
+    [self networkActivityView].hidden = YES;
+}
+
+- (void)networkActiveNotification:(NSNotification*)notification {
+    NSLog(@"networkActiveNotification");
+    [self performSelectorOnMainThread:@selector(showNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
+}
+
+- (void)networkInactiveNotification:(NSNotification*)notification {
+    NSLog(@"networkInactiveNotification");
+    [self performSelectorOnMainThread:@selector(hideNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
 }
 
 #pragma mark - Cleanup
