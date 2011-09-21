@@ -442,7 +442,8 @@ static const float kControlBarHeightIphone = 88.0f;
 - (float)controlBarX {
     float x;
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        x = 5.0f;
+        //x = 5.0f;
+        x = 0.0f;
     } else {
         x = 20.0f;
     }
@@ -452,6 +453,21 @@ static const float kControlBarHeightIphone = 88.0f;
 - (float)titleBarX {
     return [self controlBarX];
 }
+
+- (float)nextPrevXOffset {
+    return [self controlBarX];
+}
+
+- (float)nextPrevYOffset {
+    float offset;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        offset = -12.0f;
+    } else {
+        offset = 0;
+    }
+    return offset;
+}
+
 
 - (float)controlBarHeight {
     float height;
@@ -508,14 +524,18 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(
-            0,
-            height / 2 - (nextPrevSize.height / 2),
+            //0,
+            [self nextPrevXOffset],
+            //height / 2 - (nextPrevSize.height / 2),
+            [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height
             );
     _nextButton.frame = CGRectMake(
-            width - nextPrevSize.width,
-            height / 2 - (nextPrevSize.height / 2),
+            //width - nextPrevSize.width,
+            width - (nextPrevSize.width + [self nextPrevXOffset]),
+            //height / 2 - (nextPrevSize.height / 2),
+            [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height);
 
