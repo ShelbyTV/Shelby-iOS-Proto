@@ -30,7 +30,7 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -45,18 +45,12 @@
 
 - (void)showInternetUp
 {
-    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet Working!" message:@"Your Internet connection is awesome."
-    //                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    //[alert show];
-    //[alert release];
-
-    //[self.view removeSubview: [self offlineView]];
-
     [[self offlineView] removeFromSuperview];
 }
 
 - (void)showInternetDown
 {
+#ifndef OFFLINE_MODE
     UIView *offlineView = [self offlineView];
 
     // Center the view.
@@ -65,7 +59,14 @@
     frame.origin.y = (self.view.bounds.size.height / 2) - (offlineView.bounds.size.height / 2);
     offlineView.frame = frame;
 
+    offlineView.autoresizingMask =
+        UIViewAutoresizingFlexibleLeftMargin
+        | UIViewAutoresizingFlexibleRightMargin
+        | UIViewAutoresizingFlexibleTopMargin
+        | UIViewAutoresizingFlexibleBottomMargin;
+
     [self.view addSubview: offlineView];
+#endif
 }
 
 - (void)showShelbyUp

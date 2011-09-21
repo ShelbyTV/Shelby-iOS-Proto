@@ -191,33 +191,35 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 - (void)playVideo:(Video *)video {
-    // Set internal lock so our notification doesn't go haywire.
-    _changingVideo = YES;
+    if (NOTNULL(video)) {
+        // Set internal lock so our notification doesn't go haywire.
+        _changingVideo = YES;
 
-    // Change our titleBar
-    //self.titleBar.title.text = video.sharerComment;
-    self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
-        video.sharer,
-        video.sharerComment
-    ];
-    self.titleBar.sharerPic.image = video.sharerImage;
-    [self fitTitleBarText];
+        // Change our titleBar
+        //self.titleBar.title.text = video.sharerComment;
+        self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
+            video.sharer,
+            video.sharerComment
+                ];
+        self.titleBar.sharerPic.image = video.sharerImage;
+        [self fitTitleBarText];
 
-    // Change our footerBar.
-    self.footerBar.title.text = video.title;
+        // Change our footerBar.
+        self.footerBar.title.text = video.title;
 
-    // Reset our duration.
-    _duration = 0.0f;
-    // Load the video and play it.
-    _moviePlayer.contentURL = video.contentURL;
-    [_moviePlayer play];
+        // Reset our duration.
+        _duration = 0.0f;
+        // Load the video and play it.
+        _moviePlayer.contentURL = video.contentURL;
+        [_moviePlayer play];
 
-    _changingVideo = NO;
+        _changingVideo = NO;
 
-    [self resetTimer];
-    //[self beginTimer];
-    //[self maintainControls];
-    //[self hideControlsWithDelay];
+        [self resetTimer];
+        //[self beginTimer];
+        //[self maintainControls];
+        //[self hideControlsWithDelay];
+    }
 }
 
 - (void)play {

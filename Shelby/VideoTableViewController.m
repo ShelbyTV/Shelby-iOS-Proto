@@ -284,7 +284,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [videoTableData numItems];
+    NSInteger count = [videoTableData numItems];
+    if (count == 0) {
+        // Show the table empty view.
+    } else {
+
+    }
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

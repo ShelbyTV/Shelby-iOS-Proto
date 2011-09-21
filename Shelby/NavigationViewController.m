@@ -110,9 +110,9 @@
     // Tell player to pause playing.
     [_videoPlayer pause];
     // Fetch the video next in queue.
-    Video *url = [videoTable getPreviousVideo];
+    Video *video = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playVideo: url];
+    [_videoPlayer playVideo: video];
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
