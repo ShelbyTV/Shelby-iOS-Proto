@@ -491,7 +491,13 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 - (float)nextPrevXOffset {
-    return [self controlBarX];
+    float offset;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        offset = [self controlBarX];
+    } else {
+        offset = 0;
+    }
+    return offset;
 }
 
 - (float)nextPrevYOffset {
