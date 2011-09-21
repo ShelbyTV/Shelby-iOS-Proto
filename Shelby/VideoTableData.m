@@ -80,12 +80,14 @@ static NSString *fakeAPIData[] = {
     @"http://i2.ytimg.com/vi/Ul_NLXwmxVs/hqdefault.jpg",@"\"It Gets Better: CBS Employees\"",                                                 @"Ul_NLXwmxVs",@"My awesome coworkers reach out to GLBT teens, including the extra-awesome Danny Chung",@"http://graph.facebook.com/500073814/picture",@"Jessica Dolcourt",
 };
 
-
-/*
- * The following should only be used to @synchronize tableView updates.
- * Using it elsewhere could result in a lock ordering problem and deadlocks.
- */
-static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView updates";
+- (NSUInteger)numItemsInserted
+{
+    // We reuse the videoDataArray lock here for simplicity -- mostly trying to proect this and updateTableView races
+    @synchronized(videoDataArray)
+    {
+        return lastInserted;
+    }
+}
 
 - (NSUInteger)numItems
 {
@@ -287,33 +289,25 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
 
 - (void)updateTableView
 {
-    /*
-     * We need to be careful with lock ordering here. updateTableViewSync needs to be
-     * ordered correctly with the videoDataArray synchronization variable.
-     */
-    @synchronized(updateTableViewSync)
+    NSUInteger currentCount;
+    
+    @synchronized(videoDataArray)
     {
-        NSUInteger currentCount;
-
-        @synchronized(videoDataArray)
-        {
-            currentCount = [videoDataArray count];
-
-            if (lastInserted != currentCount) {
-                NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-
-                for (int i = lastInserted; i < currentCount; i++) {
-                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                }
-
-                [tableView beginUpdates];
-                [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-                [tableView endUpdates];
-
-                lastInserted = currentCount;
+        currentCount = [videoDataArray count];
+        
+        if (lastInserted != currentCount) {
+            NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+            
+            for (int i = lastInserted; i < currentCount; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
             }
+            
+            [tableView beginUpdates];
+            [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+            lastInserted = currentCount;
+            [tableView endUpdates];
         }
-    }
+    }    
 }
 
 // helper method -- maybe better to just embed in this file?
@@ -326,19 +320,19 @@ static NSString *updateTableViewSync = @"Prevents multiple concurrent tableView 
 
 - (void)clearVideos
 {
-    /*
-     * We need to be careful with lock ordering here. updateTableViewSync needs to be
-     * ordered correctly with the videoDataArray synchronization variable.
-     */
-    @synchronized(updateTableViewSync)
+    @synchronized(videoDataArray)
     {
-        @synchronized(videoDataArray)
-        {
-            [videoDataArray removeAllObjects];
-            lastInserted = 0;
+        [videoDataArray removeAllObjects];
+        
+        NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+        for (int i = 0; i < lastInserted; i++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
         }
-
-        [tableView reloadData];
+        
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+        lastInserted = 0;
+        [tableView endUpdates];
     }
 }
 
