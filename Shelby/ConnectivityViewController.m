@@ -80,10 +80,10 @@
 
 - (void)showShelbyDown
 {
-    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"Shelby seems to be down! Try again soon."
-    //                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    //[alert show];
-    //[alert release];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"Shelby seems to be down! Try again soon."
+                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
 }
 
 
@@ -117,7 +117,8 @@
             NSLog(@"A gateway to the host server is down.");
             self.hostActive = NO;
             if (self.internetActive) {
-                [self showShelbyDown];
+                // Seeing this message a lot... Need to figure out if it's legit or not.
+                // [self showShelbyDown];
             }
             break;
         case ReachableViaWiFi:

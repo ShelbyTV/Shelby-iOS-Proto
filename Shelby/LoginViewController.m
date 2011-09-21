@@ -37,6 +37,11 @@
                                                  selector:@selector(userLoggedOut:)
                                                      name:@"NetworkManagerLoggedOut"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(showShelbyDown) 
+                                                     name:@"LoginHelperOAuthHandshakeFailed" 
+                                                   object:nil];
     }
     return self;
 }
@@ -78,21 +83,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
-
-    //username.keyboardType = UIKeyboardTypeDefault;
-    //password.keyboardType = UIKeyboardTypeDefault
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     LOG(@"viewWillAppear");
     [super viewWillAppear: animated];
-    // Add keyboard notification listeners so we can animate the view up/down.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -107,10 +103,6 @@
 {
     LOG(@"viewWillDisappear");
     [super viewWillDisappear: animated];
-    
-    // Remove keyboard notification listeners.
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidUnload

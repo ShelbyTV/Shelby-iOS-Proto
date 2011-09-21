@@ -349,7 +349,7 @@ static const float kControlBarHeightIphone = 88.0f;
 
 - (void)updateProgress {
   float currentTime = [_moviePlayer currentPlaybackTime];
-  LOG(@"Current time: %f", currentTime);
+  // LOG(@"Current time: %f", currentTime);
   _controlBar.progress = currentTime;
 }
 

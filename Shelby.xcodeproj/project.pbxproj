@@ -385,7 +385,6 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
-				42084C751427ADF000C3C556 /* SystemConfiguration.framework */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
 				427A622513F4717C00C945E2 /* Libraries */,
@@ -407,6 +406,7 @@
 		0AD9A35313D53BD200EFECE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42084C751427ADF000C3C556 /* SystemConfiguration.framework */,
 				42925B2B1401C2AA00333F46 /* QuartzCore.framework */,
 				0A12934213DD2FFB009D254F /* MediaPlayer.framework */,
 				0A12934013DD2EE3009D254F /* AVFoundation.framework */,
