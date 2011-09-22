@@ -70,6 +70,11 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     return _progressBar.duration;
 }
 
+- (void)setPlayButtonIcon:(UIImage *)image
+{
+    [_playButton setImage:image forState:UIControlStateNormal];
+}
+
 #pragma mark - VideoProgressBarDelegate Methods
 
 - (void)videoProgressBarWasAdjusted:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {

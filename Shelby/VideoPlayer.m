@@ -212,6 +212,7 @@ static const float kControlBarHeightIphone = 88.0f;
         // Load the video and play it.
         _moviePlayer.contentURL = video.contentURL;
         [_moviePlayer play];
+        [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
 
         _changingVideo = NO;
 
@@ -418,8 +419,10 @@ static const float kControlBarHeightIphone = 88.0f;
     [self resetTimer];
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
+        [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     } else {
         [self play];
+        [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
     }
 }
 
