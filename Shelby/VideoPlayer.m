@@ -25,6 +25,8 @@ static const float kHideControlsDuration = 0.5f;
 
 static const float kControlBarHeightIpad   = 44.0f;
 static const float kControlBarHeightIphone = 88.0f;
+static const float kControlBarX            =  0.0f;
+static const float kNextPrevXOffset        =  0.0f;
 
 @interface VideoPlayer ()
 
@@ -212,6 +214,7 @@ static const float kControlBarHeightIphone = 88.0f;
         // Load the video and play it.
         _moviePlayer.contentURL = video.contentURL;
         [_moviePlayer play];
+        [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
 
         _changingVideo = NO;
 
@@ -418,8 +421,10 @@ static const float kControlBarHeightIphone = 88.0f;
     [self resetTimer];
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
+        [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     } else {
         [self play];
+        [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
     }
 }
 
@@ -474,31 +479,6 @@ static const float kControlBarHeightIphone = 88.0f;
 }
 
 #pragma mark - Layout
-
-- (float)controlBarX {
-    float x;
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        //x = 5.0f;
-        x = 0.0f;
-    } else {
-        x = 20.0f;
-    }
-    return x;
-}
-
-- (float)titleBarX {
-    return [self controlBarX];
-}
-
-- (float)nextPrevXOffset {
-    float offset;
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        offset = [self controlBarX];
-    } else {
-        offset = 0;
-    }
-    return offset;
-}
 
 - (float)nextPrevYOffset {
     float offset;
@@ -563,39 +543,32 @@ static const float kControlBarHeightIphone = 88.0f;
 
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(
-            //0,
-            [self nextPrevXOffset],
-            //height / 2 - (nextPrevSize.height / 2),
+            kNextPrevXOffset,
             [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height
             );
     _nextButton.frame = CGRectMake(
-            //width - nextPrevSize.width,
-            width - (nextPrevSize.width + [self nextPrevXOffset]),
-            //height / 2 - (nextPrevSize.height / 2),
+            width - (nextPrevSize.width + kNextPrevXOffset),
             [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height);
 
-    // Place controlBar at the bottom center.
-
-    float controlBarX = [self controlBarX];
-
+    // Place controlBar at the bottom left.
     float controlBarWidth = width;
     _controlBar.frame = CGRectMake(
-            controlBarX,
+            kControlBarX,
             height - [self controlBarHeight],
-            controlBarWidth - (2 * controlBarX),
+            controlBarWidth,
             [self controlBarHeight]
             );
     [_controlBar setNeedsLayout];
 
     // Place footerBar just above the controlBar.
     self.footerBar.frame = CGRectMake(
-            controlBarX,
+            kControlBarX,
             height - ([self footerBarHeight] + [self controlBarHeight]),
-            controlBarWidth - (2 * controlBarX),
+            controlBarWidth,
             [self footerBarHeight]
             );
 }

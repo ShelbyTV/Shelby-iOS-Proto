@@ -69,10 +69,6 @@
 						<int key="IBUITag">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Face.png</string>
-						</object>
 					</object>
 					<object class="IBUILabel" id="113638569">
 						<reference key="NSNextResponder" ref="759562499"/>
@@ -80,7 +76,6 @@
 						<string key="NSFrame">{{68, 15}, {466, 32}}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="163751739">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -90,7 +85,7 @@
 						<int key="IBUITag">2</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Cosmos 2011 COPA First Round Highlights - NYC Liberia v. Poland and even more text and even more text abysdfasdfadfasdfasfasdfasdfasdf</string>
+						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">14</double>
@@ -282,10 +277,6 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">Face.png</string>
-			<string key="NS.object.0">{212, 212}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">534</string>
 	</data>
 </archive>

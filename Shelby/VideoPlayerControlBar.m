@@ -16,6 +16,11 @@
 static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
+static const float kProgressBarXOffsetIphone =  0.0f;
+static const float kProgressBarXOffsetIpad   =  180.0f;
+static const float kProgressBarYOffsetIphone =  42.0f;
+static const float kProgressBarYOffsetIpad   =  0.0f;
+
 #pragma mark - Factory
 
 + (VideoPlayerControlBar *)controlBarFromNib {
@@ -70,6 +75,11 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     return _progressBar.duration;
 }
 
+- (void)setPlayButtonIcon:(UIImage *)image
+{
+    [_playButton setImage:image forState:UIControlStateNormal];
+}
+
 #pragma mark - VideoProgressBarDelegate Methods
 
 - (void)videoProgressBarWasAdjusted:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {
@@ -111,6 +121,37 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 }
 
 #pragma mark - Layout
+
+- (float)progressBarXOffset {
+    float offset;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        offset = kProgressBarXOffsetIphone;
+    } else {
+        offset = kProgressBarXOffsetIpad;
+    }
+    return offset;
+}
+
+- (float)progressBarYOffset {
+    float offset;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        offset = kProgressBarYOffsetIphone;
+    } else {
+        offset = kProgressBarYOffsetIpad;
+    }
+    return offset;
+}
+
+- (void)layoutSubviews {
+    CGRect frame = self.bounds;
+    
+    _progressBar.frame = CGRectMake([self progressBarXOffset] - 1, 
+                                    [self progressBarYOffset], 
+                                    frame.size.width - [self progressBarXOffset] + 2,
+                                    44);
+    
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -22,6 +22,7 @@
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
+		0A81C28D142AA93300311310 /* ButtonPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A81C28C142AA93300311310 /* ButtonPause.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
 		0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
@@ -77,7 +78,7 @@
 		428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02AD1421713D00C88063 /* PlaceholderFace.png */; };
 		428B02BB14217EB400C88063 /* SliderGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02B914217EB300C88063 /* SliderGray.png */; };
 		428B02BC14217EB400C88063 /* SliderPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BA14217EB400C88063 /* SliderPurple.png */; };
-		428B02BE14217F7F00C88063 /* SliderThumbWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BD14217F7F00C88063 /* SliderThumbWhite.png */; };
+		428B02BE14217F7F00C88063 /* SliderThumbLightGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BD14217F7F00C88063 /* SliderThumbLightGray.png */; };
 		428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */; };
 		428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */; };
 		428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B02C61422AE2400C88063 /* VideoPlayerFooterBar.m */; };
@@ -180,6 +181,7 @@
 		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableData.m; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
+		0A81C28C142AA93300311310 /* ButtonPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPause.png; path = Resources/Images/ButtonPause.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -250,7 +252,7 @@
 		428B02AD1421713D00C88063 /* PlaceholderFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlaceholderFace.png; path = Resources/Images/PlaceholderFace.png; sourceTree = "<group>"; };
 		428B02B914217EB300C88063 /* SliderGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderGray.png; path = Resources/Images/SliderGray.png; sourceTree = "<group>"; };
 		428B02BA14217EB400C88063 /* SliderPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderPurple.png; path = Resources/Images/SliderPurple.png; sourceTree = "<group>"; };
-		428B02BD14217F7F00C88063 /* SliderThumbWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderThumbWhite.png; path = Resources/Images/SliderThumbWhite.png; sourceTree = "<group>"; };
+		428B02BD14217F7F00C88063 /* SliderThumbLightGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderThumbLightGray.png; path = Resources/Images/SliderThumbLightGray.png; sourceTree = "<group>"; };
 		428B02C014227C4F00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/VideoPlayerControlBar_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		428B02C314227F6A00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/VideoPlayerControlBar_iPad.xib; sourceTree = SOURCE_ROOT; };
 		428B02C51422AE2300C88063 /* VideoPlayerFooterBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerFooterBar.h; sourceTree = "<group>"; };
@@ -705,7 +707,7 @@
 				0A08E9FC14281C8700D964E7 /* TwitterNew.png */,
 				0A08E9FD14281C8700D964E7 /* TwitterWatched.png */,
 				428AA5B9142409BD00E692B9 /* HomeScreen.png */,
-				428B02BD14217F7F00C88063 /* SliderThumbWhite.png */,
+				428B02BD14217F7F00C88063 /* SliderThumbLightGray.png */,
 				428B02B914217EB300C88063 /* SliderGray.png */,
 				428B02BA14217EB400C88063 /* SliderPurple.png */,
 				428B02AD1421713D00C88063 /* PlaceholderFace.png */,
@@ -723,6 +725,7 @@
 				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
 				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
 				42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */,
+				0A81C28C142AA93300311310 /* ButtonPause.png */,
 				42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */,
 				42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */,
 				42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */,
@@ -955,7 +958,7 @@
 				428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */,
 				428B02BB14217EB400C88063 /* SliderGray.png in Resources */,
 				428B02BC14217EB400C88063 /* SliderPurple.png in Resources */,
-				428B02BE14217F7F00C88063 /* SliderThumbWhite.png in Resources */,
+				428B02BE14217F7F00C88063 /* SliderThumbLightGray.png in Resources */,
 				428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */,
 				428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */,
 				428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */,
@@ -980,6 +983,7 @@
 				42ACA2C6142A9262009FD812 /* TextAreaGray.png in Resources */,
 				42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */,
 				42ACA2CA142A95AB009FD812 /* ButtonSocialBackground.png in Resources */,
+				0A81C28D142AA93300311310 /* ButtonPause.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

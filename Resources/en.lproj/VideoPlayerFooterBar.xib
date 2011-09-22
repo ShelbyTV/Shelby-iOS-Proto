@@ -52,15 +52,15 @@
 						<string key="NSReuseIdentifierKey">_NS:180</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+							<bytes key="NSWhite">MAA</bytes>
 						</object>
-						<float key="IBUIAlpha">0.5</float>
+						<float key="IBUIAlpha">0.30000001192092896</float>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUILabel" id="56164394">
 						<reference key="NSNextResponder" ref="516381436"/>
 						<int key="NSvFlags">314</int>
-						<string key="NSFrame">{{20, 0}, {363, 76}}</string>
+						<string key="NSFrame">{{8, 0}, {385, 76}}</string>
 						<reference key="NSSuperview" ref="516381436"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:311</string>
@@ -69,10 +69,10 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">This is the name of the video</string>
+						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">22</double>
+							<double key="NSSize">18</double>
 							<int key="NSfFlags">16</int>
 						</object>
 						<object class="NSColor" key="IBUITextColor">
@@ -81,6 +81,7 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<float key="IBUIMinimumFontSize">10</float>
 					</object>
 				</object>

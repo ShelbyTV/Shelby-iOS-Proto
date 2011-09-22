@@ -41,6 +41,7 @@
 
 + (VideoPlayerControlBar *)controlBarFromNib;
 
+- (void)setPlayButtonIcon:(UIImage *)image;
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;
