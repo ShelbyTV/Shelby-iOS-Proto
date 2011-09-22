@@ -51,7 +51,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIImageView" id="638489312">
 								<reference key="NSNextResponder" ref="670359591"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{20, 11}, {121, 68}}</string>
 								<reference key="NSSuperview" ref="670359591"/>
 								<reference key="NSWindow"/>
@@ -90,7 +90,6 @@
 										<string key="NSFrame">{{174, 4}, {100, 21}}</string>
 										<reference key="NSSuperview" ref="956442962"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:327</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
