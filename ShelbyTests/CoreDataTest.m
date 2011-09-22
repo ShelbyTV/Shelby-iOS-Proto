@@ -141,7 +141,7 @@
           [sampleChannel2 objectForKey: @"_id"],
           channel2.shelbyId);
     STAssertTrue([channel1.public boolValue] != [channel2.public boolValue], @"Channel public bools weren't equal");
-    STAssertTrue([channel1.shelbyId isEqualToString: [sampleChannel1 objectForKey: @"_id"]], @"Channel1's id: %@", channel1.shelbyId);
+    STAssertTrue([channel1.shelbyId isEqualToString: [sampleChannel1 objectForKey: @"_id"]], @"Channel1's id: %@ SampleChannel1's id: %@", channel1.shelbyId, [sampleChannel1 objectForKey: @"_id"]);
     STAssertTrue([channel2.shelbyId isEqualToString: [sampleChannel2 objectForKey: @"_id"]], @"Channel2's id: %@", channel2.shelbyId);
     STAssertFalse([channel1.shelbyId isEqualToString: [sampleChannel2 objectForKey: @"_id"]], @"Channel1's key shouldn't be equal to channel 2's starting key");
     STAssertFalse([channel2.shelbyId isEqualToString: [sampleChannel1 objectForKey: @"_id"]], @"Channel2's key shouldn't be equal to channel 1's starting key");

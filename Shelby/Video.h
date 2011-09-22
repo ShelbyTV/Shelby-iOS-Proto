@@ -13,6 +13,7 @@
     
 }
 
+@property(nonatomic, retain) NSString *shelbyId;
 @property(nonatomic, retain) NSURL *contentURL;
 
 @property(nonatomic, retain) UIImage *thumbnailImage;

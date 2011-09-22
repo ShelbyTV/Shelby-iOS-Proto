@@ -31,11 +31,15 @@
 
 #pragma mark - OAuth Handshake
 - (void)beginOAuthHandshake;
+- (void)beginOAuthHandshakeWithProvider:(NSString *)provider;
 - (void)oAuthVerifierReturned:(NSString *)verifier;
 
 - (void)logout;
 
 #pragma mark - API Calls
 - (BOOL)fetchBroadcasts;
+//- (void)likeBroadcast:(Broadcast *)broadcast;
+//- (void)likeVideo:(Video *)video;
+- (void)likeVideoWithId:(NSString *)videoId;
 
 @end

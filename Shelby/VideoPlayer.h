@@ -23,6 +23,7 @@
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer;
+- (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;
 
 @end

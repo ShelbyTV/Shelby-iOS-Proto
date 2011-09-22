@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "OAuthHandshake.h"
 #import "SBJsonStreamParser.h"
 
@@ -22,6 +23,7 @@ typedef enum {
 @class SBJsonStreamParser;
 @class User;
 @class Channel;
+@class Broadcast;
 
 @protocol LoginHelperDelegate
 
@@ -39,7 +41,7 @@ typedef enum {
  */
 @interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate, STVNetworkObject> {
     OAuthHandshake *handshake;
-    SBJsonStreamParser *parser;
+    SBJsonStreamParser *_parser;
     User *_user;
     Channel *_channel;
     @private
@@ -68,11 +70,14 @@ typedef enum {
 - (void)changeChannel:(NSInteger)newChannel;
 
 #pragma mark - OAuth Handshake
+- (void)getRequestTokenWithProvider:(NSString *)provider;
 - (void)getRequestToken;
 - (void)verifierReturnedFromAuth:(NSString *)verifier;
 - (void)logout;
 
 #pragma mark - API Calls
 - (BOOL)fetchBroadcasts;
+- (void)likeBroadcastWithId:(NSString *)videoId;
+- (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId;
 
 @end

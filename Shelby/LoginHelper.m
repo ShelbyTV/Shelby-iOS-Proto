@@ -12,6 +12,8 @@
 #import "Broadcast.h"
 #import "ShelbyAppDelegate.h"
 #import "ShelbyApp.h"
+#import "SBJsonParser.h"
+#import "SBJsonWriter.h"
 
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
@@ -40,6 +42,7 @@
 #define kFetchChannelsUrl     @"http://api.shelby.tv/v2/channels.json"
 #define kFetchBroadcastUrl    @"http://api.shelby.tv/v2/broadcasts/%@.json"
 #define kFetchBroadcastsUrl   @"http://api.shelby.tv/v2/channels/%@/broadcasts.json"
+#define kSocializationsUrl    @"http://api.shelby.tv/v2/socializations/.json"
 
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
@@ -82,9 +85,9 @@
     self = [super init];
     if (self) {
         _context = [context retain];
-        parser = [[SBJsonStreamParser alloc] init];
-        parser.delegate = self;
-        parser.supportMultipleDocuments = YES;
+        _parser = [[SBJsonStreamParser alloc] init];
+        _parser.delegate = self;
+        _parser.supportMultipleDocuments = YES;
         [self loadTokens];
     }
 
@@ -275,12 +278,12 @@
     NSLog(@"Got user: %@", string);
 
     _parserMode = STVParserModeUser;
-    SBJsonStreamParserStatus status = [parser parse: data];
+    SBJsonStreamParserStatus status = [_parser parse: data];
     if (status == SBJsonStreamParserWaitingForData) {
         // Woot. Good to go!
         LOG(@"User Parsing Complete!");
     } else {
-        [NSException raise:@"unexpected" format:@"User JSON Parsing error! %@", parser.error];
+        [NSException raise:@"unexpected" format:@"User JSON Parsing error! %@", _parser.error];
     }
 }
 
@@ -376,13 +379,13 @@
     NSLog(@"Got channels: %@", string);
 
     _parserMode = STVParserModeChannels;
-    SBJsonStreamParserStatus status = [parser parse: data];
+    SBJsonStreamParserStatus status = [_parser parse: data];
 
     if (status == SBJsonStreamParserWaitingForData) {
         // Woot. Good to go!
         LOG(@"Channels Parsing Complete!");
     } else {
-        [NSException raise:@"unexpected" format:@"Channels JSON Parsing error! %@", parser.error];
+        [NSException raise:@"unexpected" format:@"Channels JSON Parsing error! %@", _parser.error];
     }
 }
 
@@ -466,13 +469,62 @@
     //NSLog(@"Got broadcasts: %@", string);
 
     _parserMode = STVParserModeBroadcasts;
-    SBJsonStreamParserStatus status = [parser parse: data];
+    SBJsonStreamParserStatus status = [_parser parse: data];
     if (status == SBJsonStreamParserWaitingForData) {
         // Woot. Good to go!
         LOG(@"Broadcasts Parsing Complete!");
     } else {
         [NSException raise:@"unexpected" format:@"Broadcasts JSON Parsing error!"];
     }
+}
+
+- (Broadcast *)populateBroadcastFromDictionary:(Broadcast *)broadcast dictionary:(NSDictionary *)dict {
+   NSString *shelbyId = [dict objectForKey: @"_id"];
+   if (NOTNULL(shelbyId)) {
+       broadcast.shelbyId = shelbyId ;
+   }
+   NSString *providerId = [dict objectForKey: @"video_id_at_provider"];
+   if (NOTNULL(providerId)) {
+       broadcast.providerId = providerId ;
+   }
+   NSString *thumbnailImageUrl = [dict objectForKey: @"video_thumbnail_url"];
+   if (NOTNULL(thumbnailImageUrl)) {
+       broadcast.thumbnailImageUrl = thumbnailImageUrl ;
+   }
+   NSString *title  = [dict objectForKey: @"video_title"];
+   if (NOTNULL(title)) {
+       broadcast.title = title ;
+   }
+   NSString *sharerComment  = [dict objectForKey: @"description"];
+   if (NOTNULL(sharerComment)) {
+       broadcast.sharerComment = sharerComment ;
+   }
+   NSString *sharerName = [dict objectForKey: @"video_originator_user_name"];
+   if (NOTNULL(sharerName)) {
+       broadcast.sharerName = sharerName ;
+   }
+   NSString *videoOrigin = [dict objectForKey: @"video_origin"];
+   if (NOTNULL(videoOrigin)) {
+       broadcast.origin = videoOrigin ;
+   }
+   NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
+   if (NOTNULL(sharerImageUrl)) {
+       broadcast.sharerImageUrl = sharerImageUrl ;
+   }
+
+   //"liked_by_owner": true,
+    //"liked_by_user": null,
+    //NSString *liked = [dict objectForKey: @"liked_by_user"];
+    NSNumber *liked = [dict objectForKey: @"liked_by_owner"];
+    if (NOTNULL(liked) && [liked boolValue]) {
+        //broadcast.liked = YES;
+        broadcast.liked = [NSNumber numberWithBool: YES];
+    } else {
+        //broadcast.liked = NO;
+        broadcast.liked = [NSNumber numberWithBool: NO];
+    }
+
+    return broadcast;
 }
 
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel {
@@ -482,47 +534,7 @@
           insertNewObjectForEntityForName:@"Broadcast"
                    inManagedObjectContext:_context];
 
-        NSString *shelbyId = [dict objectForKey: @"_id"];
-        if (NOTNULL(shelbyId)) {
-            broadcast.shelbyId = shelbyId ;
-        }
-        NSString *providerId = [dict objectForKey: @"video_id_at_provider"];
-        if (NOTNULL(providerId)) {
-            broadcast.providerId = providerId ;
-        }
-        NSString *thumbnailImageUrl = [dict objectForKey: @"video_thumbnail_url"];
-        if (NOTNULL(thumbnailImageUrl)) {
-            broadcast.thumbnailImageUrl = thumbnailImageUrl ;
-        }
-        NSString *title  = [dict objectForKey: @"video_title"];
-        if (NOTNULL(title)) {
-            broadcast.title = title ;
-        }
-        NSString *sharerComment  = [dict objectForKey: @"description"];
-        if (NOTNULL(sharerComment)) {
-            broadcast.sharerComment = sharerComment ;
-        }
-        NSString *sharerName = [dict objectForKey: @"video_originator_user_name"];
-        if (NOTNULL(sharerName)) {
-            broadcast.sharerName = sharerName ;
-        }
-        NSString *videoOrigin = [dict objectForKey: @"video_origin"];
-        if (NOTNULL(videoOrigin)) {
-            broadcast.origin = videoOrigin ;
-        }
-        NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
-        if (NOTNULL(sharerImageUrl)) {
-            broadcast.sharerImageUrl = sharerImageUrl ;
-        }
-
-        //"liked_by_owner": true,
-        //"liked_by_user": null,
-        NSString *liked = [dict objectForKey: @"liked_by_user"];
-        if (NOTNULL(liked)) {
-            if ([liked isEqualToString: @"true"]) {
-                broadcast.liked = YES;
-            }
-        }
+        broadcast = [self populateBroadcastFromDictionary:broadcast dictionary: dict];
 
         //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];
         //Description - tweet
@@ -539,12 +551,54 @@
             for(NSError* detailedError in detailedErrors) {
                 NSLog(@"  DetailedError: %@", [detailedError userInfo]);
             }
-        }
-        else {
+        } else {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
+}
+
+- (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId {
+    Broadcast *broadcast = nil;
+
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: kFetchBroadcastUrl, broadcastId]];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+    [req signPlaintext];
+
+    /*
+     * if there's an error, this should just return NULL, which will result in the default
+     * blank face user image eventually being shown.
+     *
+     * bad news is a slow response might make us hang here for a little while, so it would
+     * be nice to make this async and have it just update the UI to show the image if it
+     * gets handled after the UI is all laid out.
+     */
+
+    NSData *data = [NSURLConnection sendSynchronousRequest:req
+                                         returningResponse:&response
+                                                     error:&error];
+
+    if (data) {
+        NSString *stringReply = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+         NSLog(@"Broadcast: %@", stringReply);
+        // Parse into JSON
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSArray *array = [parser objectWithData: data];
+        if (parser.error) {
+            NSLog(@"Broadcast Parser error: %@", parser.error);
+        } else {
+            NSDictionary *dict = [array objectAtIndex: 0];
+            broadcast = [NSEntityDescription
+                insertNewObjectForEntityForName:@"Broadcast"
+                         inManagedObjectContext:_context];
+            [self populateBroadcastFromDictionary: broadcast dictionary: dict];
+            [parser release];
+        }
+    }
+
+    return broadcast;
 }
 
 - (NSArray *)retrieveBroadcastsForChannel:(Channel *)channel {
@@ -566,10 +620,139 @@
     }
 }
 
+#pragma mark - Watch, Like, & Share
+
+- (void)watchBroadcastWithId:(NSString *)videoId {
+    NSString *urlString = [NSString stringWithFormat: kFetchBroadcastUrl, videoId];
+    NSURL *url = [NSURL URLWithString: urlString];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"PUT"];
+
+    if (req) {
+        // Set watched
+        [req setValue: @"true" forOAuthParameter: @"watched_by_owner" ];
+
+        // Set to plaintext on request because oAuth library is broken.
+        [req signPlaintext];
+
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeBroadcastResponse:data:error:forRequest:)];
+        [self incrementNetworkCounter];
+    } else {
+        // We failed to send the request. Let the caller know.
+    }
+}
+
+- (void)receivedWatchBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
+{
+    LOG(@"receivedWatchBroadcastResponse");
+
+    [self decrementNetworkCounter];
+
+}
+
+- (void)likeBroadcastWithId:(NSString *)videoId {
+    NSString *urlString = [NSString stringWithFormat: kFetchBroadcastUrl, videoId];
+    NSURL *url = [NSURL URLWithString: urlString];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"PUT"];
+
+    if (req) {
+        // Set liked
+
+        //[req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+
+        //NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+        //    @"true", @"liked_by_owner",
+        //nil];
+        //SBJsonWriter *writer = [[[SBJsonWriter alloc] init] autorelease];
+        //NSString *jsonString = [writer stringWithObject: dict];
+        NSString *sampleString = @"liked_by_owner=true";
+
+        //[req setHTTPBody: [jsonString dataUsingEncoding: NSUTF8StringEncoding]];
+        [req setHTTPBody: [sampleString dataUsingEncoding: NSUTF8StringEncoding]];
+
+        // Sign in HMAC-SHA1
+        [req sign];
+
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeBroadcastResponse:data:error:forRequest:)];
+        [self incrementNetworkCounter];
+    } else {
+        // We failed to send the request. Let the caller know.
+    }
+}
+
+- (void)receivedLikeBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
+{
+    if (NOTNULL(error)) {
+        LOG(@"Like Broadcast error: %@", error);
+    } else {
+        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
+        NSDictionary *dict = [parser objectWithData: data];
+        NSString *apiError = [dict objectForKey: @"err"];
+        NSNumber *success = [dict objectForKey: @"success"];
+
+        if (NOTNULL(apiError)) {
+            LOG(@"Like Broadcast error: %@", apiError);
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLikeBroadcastFailed"
+                                                                object: self];
+        } else {
+            LOG(@"Like Broadcast success");
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLikeBroadcastSucceeded"
+                                                                object: self];
+        }
+
+        //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+        //NSLog(@"receivedLikeBroadcastResponse: %@", string);
+    }
+
+    [self decrementNetworkCounter];
+}
+
+- (void)shareBroadcastWithId:(NSString *)videoId socialNetwork:(NSString *)socialNetwork comment:(NSString *)comment recipient:(NSString *)recipient {
+    NSString *urlString = [NSString stringWithFormat: kSocializationsUrl];
+    NSURL *url = [NSURL URLWithString: urlString];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"PUT"];
+
+    //POST /v2/socializations.json
+    //{destination : 'twitter,facebook,tumblr,email',
+    //broadcast_id : '4d93900f8ebcf670c0000676',
+    //     comment : 'this is the comment',
+
+    if (req) {
+        // Set which broadcast
+        [req setValue: videoId forOAuthParameter: @"broadcast_id"];
+        // Set which social network
+        [req setValue: socialNetwork forOAuthParameter: @"destination"];
+        // What we said
+        [req setValue: comment forOAuthParameter: @"comment"];
+
+        if (NOTNULL(recipient)) {
+            // If email, send who's
+            [req setValue: recipient forOAuthParameter: @"to"];
+        }
+
+        // Set to plaintext on request because oAuth library is broken.
+        [req signPlaintext];
+
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeBroadcastResponse:data:error:forRequest:)];
+        [self incrementNetworkCounter];
+    } else {
+        // We failed to send the request. Let the caller know.
+    }
+}
+
+- (void)shareBroadcastWithId:(NSString *)videoId socialNetwork:(NSString *)socialNetwork comment:(NSString *)comment {
+  [self shareBroadcastWithId: videoId socialNetwork: socialNetwork comment: comment recipient: nil];
+}
+
+- (void)receivedShareBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
+{
+    LOG(@"receivedShareBroadcastResponse");
+    [self decrementNetworkCounter];
+}
+
 #pragma mark - Login Complete
 
-- (void)loginComplete
-{
+- (void)loginComplete {
     [self storeTokens];
     [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
                                                         object: self
@@ -646,8 +829,6 @@
 }
 
 - (void)dealloc {
-    //[[ShelbyApp sharedApp] removeNetworkObject: self];
-
     [super dealloc];
 }
 

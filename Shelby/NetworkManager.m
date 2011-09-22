@@ -33,6 +33,13 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoggedOut:)
                                                      name:@"LoginHelperLoggedOut"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLikeBroadcastSucceeded:)
+                                                     name:@"LoginHelperLikeBroadcastSucceeded"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLikeBroadcastFailed:)
+                                                     name:@"LoginHelperLikeBroadcastFailed"
+                                                   object:nil];
     }
     return self;
 }
@@ -86,6 +93,11 @@
     return [self.loginHelper fetchBroadcasts];
 }
 
+- (void)likeVideoWithId:(NSString *)videoId {
+    // PUT our like to the API
+    return [self.loginHelper likeBroadcastWithId: videoId];
+}
+
 #pragma mark - Notifications
 
 - (void)loginHelperAuthorizedToken:(NSNotification *)notification {
@@ -102,5 +114,16 @@
     [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedOut"
                                                         object: self];
 }
+
+- (void)loginHelperLikeBroadcastSucceeded:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLikeBroadcastSucceeded"
+                                                        object: self];
+}
+
+- (void)loginHelperLikeBroadcastFailed:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLikeBroadcastFailed"
+                                                        object: self];
+}
+
 
 @end

@@ -11,6 +11,7 @@
 
 @implementation Video
 
+@synthesize shelbyId;
 @synthesize contentURL;
 
 @synthesize thumbnailImage;

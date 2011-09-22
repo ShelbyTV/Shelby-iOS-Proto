@@ -102,6 +102,7 @@
     video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
     video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
     video.contentURL = [videoTableData videoContentURLAtIndex: index];
+    video.shelbyId = [videoTableData videoShelbyIdAtIndex: index];
 
     return video;
 }

@@ -444,13 +444,13 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    // We touched the screen, reset the controls timer
     [self resetTimer];
-    // open an alert with just an OK button
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked" message:@"Your friends will see you like this video!"
-                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
-    [alert release];
 
+    // Inform our delegate
+    if (self.delegate) {
+        [self.delegate videoPlayerLikeButtonWasPressed: self];
+    }
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {

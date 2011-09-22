@@ -18,9 +18,10 @@
 @property (nonatomic, copy) NSString *sharerComment;
 @property (nonatomic, retain) NSURL *sharerImageURL;
 @property (nonatomic, copy) NSString *source;
+@property (nonatomic, copy) NSString *shelbyId;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, shelbyId;
 
 - (void) dealloc
 {
@@ -45,9 +46,10 @@
 @property (nonatomic, copy) NSString *sharerComment;
 @property (nonatomic, retain) UIImage *sharerImage;
 @property (nonatomic, copy) NSString *source;
+@property (nonatomic, copy) NSString *shelbyId;
 @end
 @implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source;
+@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, shelbyId;
 
 - (void) dealloc
 {
@@ -62,7 +64,6 @@
     
     [super dealloc];
 }
-
 @end
 
 @implementation VideoTableData
@@ -126,6 +127,14 @@ static NSString *fakeAPIData[] = {
 }
 
 #pragma mark - Index Methods
+
+- (NSString *)videoShelbyIdAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        return [[videoDataArray objectAtIndex:index] shelbyId];
+    }
+}
 
 - (NSString *)videoTitleAtIndex:(NSUInteger)index
 {
@@ -306,6 +315,7 @@ static NSString *fakeAPIData[] = {
     videoData.sharerComment = youTubeVideoURLIndex.sharerComment;
     videoData.sharerImage = sharerImage;
     videoData.source = youTubeVideoURLIndex.source;
+    videoData.shelbyId = youTubeVideoURLIndex.shelbyId;
 
     @synchronized(videoDataArray)
     {
@@ -401,6 +411,7 @@ static NSString *fakeAPIData[] = {
     // Load up the new broadcasts.
     for (NSDictionary *broadcast in broadcasts) {
         if ([[broadcast objectForKey: @"video_provider_name"] isEqualToString: @"youtube"]) {
+            NSString *shelbyId      = [broadcast objectForKey: @"_id"];
             NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
             NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
             NSString *title        = [broadcast objectForKey: @"video_title"];
@@ -424,6 +435,7 @@ static NSString *fakeAPIData[] = {
 
                 // We need the video to get anything done
                 video.youTubeVideoInfoURL = youTubeVideo;
+                if (NOTNULL(shelbyId)) video.shelbyId = shelbyId;
                 if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
                 if (NOTNULL(title)) video.title = title;
 
@@ -433,8 +445,8 @@ static NSString *fakeAPIData[] = {
                 if (NOTNULL(source)) video.source = source;
 
                 NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                                      selector:@selector(retrieveAndStoreYouTubeVideoData:)
-                                                                                        object:video];
+                                                                                        selector:@selector(retrieveAndStoreYouTubeVideoData:)
+                                                                                          object:video];
 
                 [operationQueue addOperation:operation];
             }

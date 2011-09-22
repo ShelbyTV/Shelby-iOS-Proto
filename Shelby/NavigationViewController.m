@@ -14,8 +14,8 @@
 #import "ShelbyApp.h"
 #import "STVUserView.h"
 #import "NetworkManager.h"
+#import "Video.h"
 
-@class Video;
 
 @implementation NavigationViewController
 
@@ -50,6 +50,15 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(networkInactiveNotification:)
                                                      name:@"ShelbyAppNetworkInactive"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(likeVideoSucceeded:)
+                                                     name:@"NetworkManagerLikeBroadcastSucceeded"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(likeVideoFailed:)
+                                                     name:@"NetworkManagerLikeBroadcastFailed"
                                                    object:nil];
 
     }
@@ -144,6 +153,17 @@
     [_videoPlayer playVideo: video];
 }
 
+- (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer {
+
+    Video *video = [videoTable getCurrentVideo];
+
+    // get ID from the video
+    NSString *videoId = video.shelbyId;
+
+    // PUT our like to the API
+    [[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
+}
+
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerVideoDidFinish]");
 
@@ -152,7 +172,6 @@
     // Tell player to start playing new video.
     [_videoPlayer playVideo: url];
 }
-
 
 #pragma mark - Touch Handling
 
@@ -213,7 +232,7 @@
     } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         videoTable.tableView.rowHeight = 232;
     }
-    
+
     // this color matches the bottom color of the table cell gradient
     [videoTable.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -225,6 +244,23 @@
 
 
 #pragma mark - Notification Handlers
+
+- (void)likeVideoSucceeded:(NSNotification *)notification {
+    // open an alert to inform the user
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked" message:@"Your friends will see you like this video!"
+                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)likeVideoFailed:(NSNotification *)notification {
+    // open an alert to inform the user
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Like Error" message:@"Couldn't Like the video. Try again soon."
+                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+
+}
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
