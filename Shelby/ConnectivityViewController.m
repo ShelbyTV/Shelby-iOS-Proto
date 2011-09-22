@@ -51,6 +51,22 @@
 
 #pragma mark - Network Activity
 
+/*
+ * This is a bit of a hack to allow us to reuse this code to create the network activity indicator
+ * somewhere other than the center of our current view.
+ *
+ * We should probably do something more generic and establish some rules about when this variable
+ * needs to be set, but this seems to work for now, as long as the _networkActivityViewParent variable
+ * is set in viewDidLoad.
+ */
+- (UIView *)networkActivityViewContainer {
+    if (NOTNULL(_networkActivityViewParent)) {
+        return _networkActivityViewParent;
+    } else {
+        return [self view];
+    }
+}
+
 - (UIView *)networkActivityView {
     if (!_networkActivityView) {
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
@@ -62,7 +78,7 @@
         //_networkActivityView.backgroundColor = [UIColor redColor];
 
         _networkActivityView.hidden = YES;
-        [self.view addSubview: _networkActivityView];
+        [[self networkActivityViewContainer] addSubview: _networkActivityView];
     }
     return _networkActivityView;
 }
@@ -76,8 +92,8 @@
         CGRect frame = networkView.frame;
         frame.size = CGSizeMake(activitySize, activitySize);
         networkView.frame = frame;
-        frame.origin.x = (self.view.bounds.size.width / 2) - (networkView.bounds.size.width / 2);
-        frame.origin.y = (self.view.bounds.size.height / 2) - (networkView.bounds.size.height / 2);
+        frame.origin.x = ([self networkActivityViewContainer].bounds.size.width / 2) - (networkView.bounds.size.width / 2);
+        frame.origin.y = ([self networkActivityViewContainer].bounds.size.height / 2) - (networkView.bounds.size.height / 2);
 
         networkView.frame = frame;
         //networkView.frame = CGRectMake(0, 0, 100, 100);
@@ -88,7 +104,7 @@
         //    | UIViewAutoresizingFlexibleTopMargin
         //    | UIViewAutoresizingFlexibleBottomMargin;
 
-        [self.view bringSubviewToFront: networkView];
+        [[self networkActivityViewContainer] bringSubviewToFront: networkView];
         networkView.hidden = NO;
     }
 }

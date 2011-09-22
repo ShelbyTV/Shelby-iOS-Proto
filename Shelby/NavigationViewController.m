@@ -24,7 +24,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self) {        
         // Custom initialization
         videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
                                                       //callbackObject:self callbackSelector:@selector(playContentURL:)];
@@ -40,6 +40,16 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedOut:)
                                                      name:@"NetworkManagerLoggedOut"
+                                                   object:nil];
+        
+        // Network Activity
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkActiveNotification:)
+                                                     name:@"ShelbyAppNetworkActive"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(networkInactiveNotification:)
+                                                     name:@"ShelbyAppNetworkInactive"
                                                    object:nil];
 
     }
@@ -169,6 +179,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _networkActivityViewParent = videoTableHolder;
 
     //DEBUG ONLY
     //UITapGestureRecognizer *singleFingerTap =

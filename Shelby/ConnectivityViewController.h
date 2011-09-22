@@ -15,6 +15,7 @@
     // Offline view
     UIView *_offlineView;
     UIView *_networkActivityView;
+    UIView *_networkActivityViewParent;
     ShelbyApp *_shelbyApp;
 }
 
