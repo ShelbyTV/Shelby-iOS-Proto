@@ -51,7 +51,6 @@
 						<string key="NSFrame">{{273, 136}, {106, 41}}</string>
 						<reference key="NSSuperview" ref="67495923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:222</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -140,7 +139,7 @@
 					<object class="IBUILabel" id="307355695">
 						<reference key="NSNextResponder" ref="67495923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{79, 146}, {79, 21}}</string>
+						<string key="NSFrame">{{79, 146}, {79, 23}}</string>
 						<reference key="NSSuperview" ref="67495923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="447002989"/>
@@ -152,7 +151,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Share On:</string>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
+							<string key="NSName">Thonburi-Bold</string>
 							<double key="NSSize">18</double>
 							<int key="NSfFlags">16</int>
 						</object>
@@ -197,7 +196,7 @@
 						<string key="IBUIText">Check out this great video that I'm watching @onShelby: shelby.tv/vid123456</string>
 						<reference key="IBUITextColor" ref="997322477"/>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica</string>
+							<string key="NSName">Thonburi</string>
 							<double key="NSSize">16</double>
 							<int key="NSfFlags">16</int>
 						</object>
@@ -221,7 +220,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Share with Friends</string>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
+							<string key="NSName">Thonburi-Bold</string>
 							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>

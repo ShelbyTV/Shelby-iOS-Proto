@@ -125,7 +125,7 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">START WATCHING</string>
 										<object class="NSFont" key="IBUIFont">
-											<string key="NSName">Impact</string>
+											<string key="NSName">Thonburi-Bold</string>
 											<double key="NSSize">18</double>
 											<int key="NSfFlags">16</int>
 										</object>
@@ -163,7 +163,6 @@
 										<string key="NSFrame">{{10, 5}, {194, 70}}</string>
 										<reference key="NSSuperview" ref="262879220"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<int key="IBUIContentMode">1</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

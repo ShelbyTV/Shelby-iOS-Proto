@@ -46,8 +46,7 @@ static const float kProgressUpdateBuffer = 0.25f;
     _label = [[UILabel alloc] init];
     _label.textColor = [UIColor whiteColor];
     _label.shadowColor = [UIColor blackColor];
-    //_label.font = [UIFont fontWithName: @"Verdana" size: 17.0];
-    //_label.font = [UIFont fontWithName: @"Helvetica-Bold" size: 17.0];
+    _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 17.0];
     _label.backgroundColor = [UIColor clearColor];
     
     [self addSubview: _slider];
