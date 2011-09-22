@@ -6,8 +6,8 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#define LABEL_OFFSET 40
-#define LABEL_HEIGHT 40
+#define LABEL_OFFSET_X 20
+#define LABEL_OFFSET_Y -2
 
 #import "VideoPlayerProgressBar.h"
 #import <QuartzCore/QuartzCore.h>
@@ -33,7 +33,7 @@ static const float kProgressUpdateBuffer = 0.25f;
     UIImage *stetchRightTrack = [[UIImage imageNamed:@"SliderGray.png"]
                     stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
     //[_slider setThumbImage: [UIImage imageNamed:@"slider_ball.png"] forState:UIControlStateNormal];
-    [_slider setThumbImage: [UIImage imageNamed:@"SliderThumbWhite.png"] forState:UIControlStateNormal];
+    [_slider setThumbImage: [UIImage imageNamed:@"SliderThumbLightGray.png"] forState:UIControlStateNormal];
     [_slider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
     [_slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
 
@@ -160,12 +160,10 @@ static const float kProgressUpdateBuffer = 0.25f;
     
     NSLog(@"slider frame is %f, %f", frame.size.width, frame.size.height);
 
-    //float labelHeight = LABEL_HEIGHT;
     float labelHeight = frame.size.height;
     tempFrame = frame;
-    tempFrame.origin.x = LABEL_OFFSET;
-    tempFrame.origin.y = (frame.size.height / 2) - (labelHeight / 2);
-    //tempFrame.size.height = labelHeight;
+    tempFrame.origin.x = LABEL_OFFSET_X;
+    tempFrame.origin.y = LABEL_OFFSET_Y;
     _label.frame = tempFrame;
 }
 
