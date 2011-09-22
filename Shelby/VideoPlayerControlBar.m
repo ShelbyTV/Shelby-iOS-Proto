@@ -16,9 +16,9 @@
 static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
-static const float kProgressBarXOffsetIphone =  0.0f;
+static const float kProgressBarXOffsetIphone =  135.0f;
 static const float kProgressBarXOffsetIpad   =  135.0f;
-static const float kProgressBarYOffsetIphone =  42.0f;
+static const float kProgressBarYOffsetIphone =  0.0f;
 static const float kProgressBarYOffsetIpad   =  0.0f;
 
 #pragma mark - Factory

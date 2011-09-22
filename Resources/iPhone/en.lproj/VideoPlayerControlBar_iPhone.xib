@@ -45,9 +45,10 @@
 					<object class="IBUIView" id="838028058">
 						<reference key="NSNextResponder" ref="85472982"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 42}, {192, 44}}</string>
+						<string key="NSFrame">{{135, 0}, {105, 45}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="438259432"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -57,11 +58,11 @@
 					</object>
 					<object class="IBUIButton" id="438259432">
 						<reference key="NSNextResponder" ref="85472982"/>
-						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{50, 0}, {42, 42}}</string>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{45, 0}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1020473785"/>
+						<reference key="NSNextKeyView" ref="54858356"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -90,11 +91,11 @@
 					</object>
 					<object class="IBUIButton" id="929594750">
 						<reference key="NSNextResponder" ref="85472982"/>
-						<int key="NSvFlags">293</int>
-						<string key="NSFrameSize">{42, 42}</string>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrameSize">{44, 44}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="438259432"/>
+						<reference key="NSNextKeyView" ref="838028058"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -114,10 +115,10 @@
 					<object class="IBUIButton" id="1020473785">
 						<reference key="NSNextResponder" ref="85472982"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{121, 0}, {0, 0}}</string>
+						<string key="NSFrame">{{37, 0}, {0, 0}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="54858356"/>
+						<reference key="NSNextKeyView" ref="929594750"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -136,11 +137,11 @@
 					</object>
 					<object class="IBUIButton" id="54858356">
 						<reference key="NSNextResponder" ref="85472982"/>
-						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{150, 0}, {42, 42}}</string>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{90, 0}, {45, 45}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="838028058"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -158,10 +159,10 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{192, 86}</string>
+				<string key="NSFrameSize">{240, 44}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="929594750"/>
+				<reference key="NSNextKeyView" ref="1020473785"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MAA</bytes>
@@ -275,10 +276,10 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="929594750"/>
-							<reference ref="838028058"/>
 							<reference ref="438259432"/>
 							<reference ref="1020473785"/>
 							<reference ref="54858356"/>
+							<reference ref="838028058"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">View</string>

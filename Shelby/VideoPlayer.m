@@ -24,7 +24,7 @@ static const float kHideControlsInterval = 5.0f;
 static const float kHideControlsDuration = 0.5f;
 
 static const float kControlBarHeightIpad   = 44.0f;
-static const float kControlBarHeightIphone = 88.0f;
+static const float kControlBarHeightIphone = 44.0f;
 static const float kControlBarX            =  0.0f;
 static const float kNextPrevXOffset        =  0.0f;
 
@@ -503,10 +503,6 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (float)footerBarHeight {
     float height = [self controlBarHeight];
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        height = height / 2;
-    }
 
     return height;
 }
