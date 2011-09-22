@@ -453,7 +453,7 @@ static NSString *fakeAPIData[] = {
 {
     if (object == operationQueue && [keyPath isEqualToString:@"operations"]) {
         NSInteger operationCount = [operationQueue.operations count];
-        id object = [change objectForKey: NSKeyValueChangeOldKey];
+        //id object = [change objectForKey: NSKeyValueChangeOldKey];
         //NSLog(@"Previous count: %@", object);
         //NSInteger previousCount = [object integerValue];
         if (operationCount == 0) {

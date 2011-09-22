@@ -37,7 +37,7 @@ typedef enum {
  * The NetworkManager uses this class internally, but no other objects should
  * have to worry about this class.
  */
-@interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate> {
+@interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate, STVNetworkObject> {
     OAuthHandshake *handshake;
     SBJsonStreamParser *parser;
     User *_user;
