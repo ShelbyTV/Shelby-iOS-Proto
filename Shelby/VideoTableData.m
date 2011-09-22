@@ -151,7 +151,7 @@ static NSString *fakeAPIData[] = {
 
 - (BOOL)isLoading
 {
-    return ([operationQueue.operations count] != 0);
+    return self.networkCounter != 0;
 }
 
 #ifdef OFFLINE_MODE
@@ -452,7 +452,7 @@ static NSString *fakeAPIData[] = {
                          change:(NSDictionary *)change context:(void *)context
 {
     if (object == operationQueue && [keyPath isEqualToString:@"operations"]) {
-        NSInteger operationCount = [operationQueue.operations count];
+        NSInteger operationCount = [operationQueue operationCount];
         //id object = [change objectForKey: NSKeyValueChangeOldKey];
         //NSLog(@"Previous count: %@", object);
         //NSInteger previousCount = [object integerValue];
