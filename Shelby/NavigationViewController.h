@@ -29,5 +29,6 @@
 @property (nonatomic, readonly) STVUserView *userView;
 
 - (void)loadUserData;
+- (void)showLogoutAlert;
 
 @end

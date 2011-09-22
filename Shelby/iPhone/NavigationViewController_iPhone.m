@@ -55,7 +55,8 @@
 
 - (void)userViewWasPressed:(STVUserView *)userView
 {
-    [self showSettings];
+    //[self showSettings];
+    [self showLogoutAlert];
 }
 
 #pragma mark - 

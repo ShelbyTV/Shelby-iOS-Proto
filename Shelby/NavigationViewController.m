@@ -70,6 +70,25 @@
     [videoTable loadVideos];
 }
 
+#pragma mark - Logout Functionality
+
+- (void)showLogoutAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log out?" message:@"Would you like to log out?"
+                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
+    [alert show];
+    [alert release];
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // Since we only have one alertview, let's be lazy and assume we have the right one.
+
+    if (buttonIndex == 1) {
+        [[ShelbyApp sharedApp].networkManager logout];
+    }
+}
+
 #pragma mark - VideoTableViewControllerDelegate Methods
 
 - (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {

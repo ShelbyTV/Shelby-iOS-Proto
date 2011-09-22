@@ -13,6 +13,8 @@
 
 #import "NavigationViewController_iPad.h"
 #import "SettingsViewController.h"
+#import "ShelbyApp.h"
+#import "NetworkManager.h"
 
 @implementation NavigationViewController_iPad
 
@@ -23,8 +25,7 @@ static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - Rotation
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     //return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
     return YES;
@@ -32,8 +33,7 @@ static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     // Listen for swipes on the Shelby logo.
@@ -42,7 +42,6 @@ static const float ANIMATION_TIME = 0.5f;
 	[panRecognizer setMaximumNumberOfTouches:1];
 	[_logoButton addGestureRecognizer:panRecognizer];
 }
-
 
 #pragma mark - View Animations
 
@@ -146,7 +145,8 @@ static const float ANIMATION_TIME = 0.5f;
 #pragma mark - STVUserViewDelegate Methods
 
 - (void)userViewWasPressed:(STVUserView *)userView {
-    [self showSettings];
+    //[self showSettings];
+    [self showLogoutAlert];
 }
 
 #pragma mark - VideoPlayerDelegate Methods
