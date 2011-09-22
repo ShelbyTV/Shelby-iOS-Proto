@@ -23,7 +23,7 @@
     self.image.image = [UIImage imageNamed: @"Face.png"];
 
     self.name  = [[[UILabel alloc] init] autorelease];
-    self.name.font = [UIFont fontWithName: @"Arial Bold" 
+    self.name.font = [UIFont fontWithName: @"Thonburi-Bold" 
                                      size: 17.0
                                      ];
     self.name.text = @"Name";

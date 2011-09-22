@@ -46,7 +46,7 @@
 					<object class="IBUILabel" id="68091200">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{104, 14}, {147, 29}}</string>
+						<string key="NSFrame">{{87, 14}, {147, 29}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="302666413"/>
@@ -56,8 +56,8 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Account Info</string>
-						<object class="NSFont" key="IBUIFont" id="358196765">
-							<string key="NSName">Helvetica-Bold</string>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Thonburi-Bold</string>
 							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>
@@ -68,6 +68,7 @@
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUITextAlignment">1</int>
 					</object>
 					<object class="IBUILabel" id="528533366">
 						<reference key="NSNextResponder" ref="107495702"/>
@@ -82,7 +83,11 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Contact Preferences</string>
-						<reference key="IBUIFont" ref="358196765"/>
+						<object class="NSFont" key="IBUIFont" id="355297010">
+							<string key="NSName">Thonburi-Bold</string>
+							<double key="NSSize">17</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -101,11 +106,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Name</string>
-						<object class="NSFont" key="IBUIFont" id="799727288">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">17</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -156,7 +157,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Nickname</string>
-						<reference key="IBUIFont" ref="799727288"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -198,7 +199,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Email</string>
-						<reference key="IBUIFont" ref="799727288"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -218,7 +219,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Updates</string>
-						<reference key="IBUIFont" ref="799727288"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -238,11 +239,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Daily</string>
-						<object class="NSFont" key="IBUIFont" id="429107011">
-							<string key="NSName">Helvetica</string>
-							<double key="NSSize">14</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -251,7 +248,7 @@
 					<object class="IBUILabel" id="765906072">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{258, 306}, {48, 21}}</string>
+						<string key="NSFrame">{{258, 306}, {49, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="519299848"/>
@@ -261,7 +258,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Weekly</string>
-						<reference key="IBUIFont" ref="429107011"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -318,7 +315,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">How Often</string>
-						<reference key="IBUIFont" ref="799727288"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -338,7 +335,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Where To</string>
-						<reference key="IBUIFont" ref="799727288"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -371,7 +368,7 @@
 					<object class="IBUILabel" id="437848563">
 						<reference key="NSNextResponder" ref="107495702"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{165, 361}, {48, 21}}</string>
+						<string key="NSFrame">{{165, 361}, {50, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1029861292"/>
@@ -381,7 +378,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Twitter</string>
-						<reference key="IBUIFont" ref="429107011"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -393,14 +390,13 @@
 						<string key="NSFrame">{{258, 361}, {48, 21}}</string>
 						<reference key="NSSuperview" ref="107495702"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Email</string>
-						<reference key="IBUIFont" ref="429107011"/>
+						<reference key="IBUIFont" ref="355297010"/>
 						<reference key="IBUITextColor" ref="65342723"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>

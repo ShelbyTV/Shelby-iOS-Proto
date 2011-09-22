@@ -69,7 +69,7 @@
 								<string key="NSFrame">{{20, 11}, {33, 33}}</string>
 								<reference key="NSSuperview" ref="670359591"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="956442962"/>
+								<reference key="NSNextKeyView" ref="5835591"/>
 								<string key="NSReuseIdentifierKey">_NS:541</string>
 								<int key="IBUITag">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -90,7 +90,7 @@
 										<string key="NSFrame">{{174, 4}, {100, 21}}</string>
 										<reference key="NSSuperview" ref="956442962"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="5835591"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:327</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -99,9 +99,9 @@
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">10 MINS AGO</string>
-										<object class="NSFont" key="IBUIFont">
-											<string key="NSName">Helvetica-Bold</string>
-											<double key="NSSize">12</double>
+										<object class="NSFont" key="IBUIFont" id="392075390">
+											<string key="NSName">Thonburi-Bold</string>
+											<double key="NSSize">14</double>
 											<int key="NSfFlags">16</int>
 										</object>
 										<object class="NSColor" key="IBUITextColor" id="596432695">
@@ -140,11 +140,7 @@
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">@markerrj</string>
-										<object class="NSFont" key="IBUIFont">
-											<string key="NSName">Helvetica-Bold</string>
-											<double key="NSSize">14</double>
-											<int key="NSfFlags">16</int>
-										</object>
+										<reference key="IBUIFont" ref="392075390"/>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -179,6 +175,7 @@
 										<string key="NSFrame">{{7, 7}, {145, 54}}</string>
 										<reference key="NSSuperview" ref="5835591"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="956442962"/>
 										<string key="NSReuseIdentifierKey">_NS:327</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -188,7 +185,7 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text </string>
 										<object class="NSFont" key="IBUIFont">
-											<string key="NSName">Helvetica-Bold</string>
+											<string key="NSName">Thonburi-Bold</string>
 											<double key="NSSize">13</double>
 											<int key="NSfFlags">16</int>
 										</object>

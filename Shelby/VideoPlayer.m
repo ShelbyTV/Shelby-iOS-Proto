@@ -165,7 +165,7 @@ static const float kNextPrevXOffset        =  0.0f;
     const CGFloat textOriginX = 68;
     const CGFloat textOriginY = 15;
     const CGFloat textRightBorder = 20;
-    const CGFloat maxTextHeight = 32;
+    const CGFloat maxTextHeight = 35;
     const CGFloat iPadShelbyLogoOverhang = 68;
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;

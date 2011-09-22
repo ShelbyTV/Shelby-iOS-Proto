@@ -62,7 +62,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Connection Error</string>
 								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica-Bold</string>
+									<string key="NSName">Thonburi-Bold</string>
 									<double key="NSSize">26</double>
 									<int key="NSfFlags">16</int>
 								</object>
@@ -86,7 +86,6 @@
 								<string key="NSFrame">{{20, 97}, {375, 55}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:311</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -95,7 +94,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Please check your internet connection.</string>
 								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica</string>
+									<string key="NSName">Thonburi</string>
 									<double key="NSSize">20</double>
 									<int key="NSfFlags">16</int>
 								</object>
