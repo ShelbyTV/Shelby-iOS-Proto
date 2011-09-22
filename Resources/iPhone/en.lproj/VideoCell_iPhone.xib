@@ -41,7 +41,7 @@
 			</object>
 			<object class="IBUITableViewCell" id="262990761">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
+				<int key="NSvFlags">298</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIView" id="670359591">
@@ -81,12 +81,12 @@
 							</object>
 							<object class="IBUIView" id="956442962">
 								<reference key="NSNextResponder" ref="670359591"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">290</int>
 								<object class="NSMutableArray" key="NSSubviews">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="IBUILabel" id="319167134">
 										<reference key="NSNextResponder" ref="956442962"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">289</int>
 										<string key="NSFrame">{{174, 4}, {100, 21}}</string>
 										<reference key="NSSuperview" ref="956442962"/>
 										<reference key="NSWindow"/>
@@ -114,7 +114,7 @@
 									</object>
 									<object class="IBUIImageView" id="17779979">
 										<reference key="NSNextResponder" ref="956442962"/>
-										<int key="NSvFlags">274</int>
+										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{12, 7}, {15, 16}}</string>
 										<reference key="NSSuperview" ref="956442962"/>
 										<reference key="NSWindow"/>
@@ -165,12 +165,12 @@
 							</object>
 							<object class="IBUIView" id="5835591">
 								<reference key="NSNextResponder" ref="670359591"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">274</int>
 								<object class="NSMutableArray" key="NSSubviews">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="IBUILabel" id="92528814">
 										<reference key="NSNextResponder" ref="5835591"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">274</int>
 										<string key="NSFrame">{{7, 7}, {145, 54}}</string>
 										<reference key="NSSuperview" ref="5835591"/>
 										<reference key="NSWindow"/>
