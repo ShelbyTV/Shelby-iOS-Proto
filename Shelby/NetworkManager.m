@@ -62,6 +62,11 @@
 }
 
 #pragma mark - OAuth Handshake
+
+- (void)beginOAuthHandshakeWithProvider:(NSString *)provider {
+    [self.loginHelper getRequestTokenWithProvider: provider];
+}
+
 - (void)beginOAuthHandshake {
     [self.loginHelper getRequestToken];
 }

@@ -167,12 +167,13 @@
     [self fadeOut];
 }
 
-- (void)beginLogin
+- (void)beginLoginWithProvider:(NSString *)provider
 {
 #ifdef OFFLINE_MODE
     [self allDone];
 #else
-    [_networkManager beginOAuthHandshake];
+    //[_networkManager beginOAuthHandshake];
+    [_networkManager beginOAuthHandshakeWithProvider: provider];
 #endif
 }
 
@@ -194,7 +195,7 @@
 - (IBAction)loginWithFacebook:(id)sender
 {
     //[self allDone];
-    [self beginLogin];
+    [self beginLoginWithProvider: @"facebook"];
 
     //    LOG(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
 }
@@ -202,7 +203,8 @@
 - (IBAction)loginWithTwitter:(id)sender
 {
     //[self allDone];
-    [self beginLogin];
+    //[self beginLogin];
+    [self beginLoginWithProvider: @"twitter"];
 
     //    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }

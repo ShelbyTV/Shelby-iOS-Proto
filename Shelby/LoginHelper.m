@@ -67,6 +67,7 @@
 @synthesize accessTokenSecret;
 @synthesize user = _user;
 @synthesize channel = _channel;
+@synthesize identityProvider;
 
 
 - (id)init
@@ -177,7 +178,9 @@
 
 #pragma mark - Request Token
 
-- (void)getRequestToken {
+- (void)getRequestTokenWithProvider:(NSString *)provider {
+    self.identityProvider = provider;
+
     handshake = [[OAuthHandshake alloc] init];
     [handshake setTokenRequestURL:[NSURL URLWithString: kRequestTokenUrl]];
     [handshake setTokenAuthURL: [NSURL URLWithString: kAccessTokenUrl]];
@@ -195,6 +198,10 @@
     [self incrementNetworkCounter];
 }
 
+- (void)getRequestToken {
+    [self getRequestTokenWithProvider: nil];
+}
+
 #pragma mark - User Authorization
 
 - (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token
@@ -202,6 +209,13 @@
     NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@",
              kUserAuthorizationUrl,
              [token URLEncodedString]];
+    if (self.identityProvider) {
+        targetURL = [NSString stringWithFormat: @"%@&provider=%@",
+            targetURL,
+            self.identityProvider];
+
+    }
+    //NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@&provider=twitter",
     [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];
 }
 
@@ -641,7 +655,7 @@
 }
 
 - (void)dealloc {
-    [[ShelbyApp sharedApp] removeNetworkObject: self];
+    //[[ShelbyApp sharedApp] removeNetworkObject: self];
 
     [super dealloc];
 }

@@ -59,6 +59,8 @@ typedef enum {
 @property (nonatomic, retain) User *user;
 @property (nonatomic, retain) Channel *channel;
 
+@property (nonatomic, retain) NSString *identityProvider;
+
 #pragma mark - Initialization
 - (id)initWithContext:(NSManagedObjectContext *)context;
 
