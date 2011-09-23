@@ -197,7 +197,7 @@
     //[self allDone];
     [self beginLoginWithProvider: @"facebook"];
 
-    //    LOG(@"loginWithFacebook! username:%@ password:%@", [username text], [password text]);
+    //    LOG(@"loginWithFace   book! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender

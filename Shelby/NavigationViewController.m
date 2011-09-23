@@ -70,7 +70,12 @@
     if (video == nil) {
         return;
     }
+    // Cue it up
     [_videoPlayer playVideo: video];
+    // Notify the api it's been watched
+    [[ShelbyApp sharedApp].networkManager watchVideoWithId: video.shelbyId];
+    // Mark it as watched locally
+    //video.watched = YES;
 }
 
 - (void)loadUserData
