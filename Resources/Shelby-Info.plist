@@ -11,12 +11,16 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>shelby57x57.png</string>
+	<string>Icon.png</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>shelby57x57.png</string>
 		<string>shelby114x114.png</string>
 		<string>shelby72x72.png</string>
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon-ipad.png</string>
+		<string>Icon~ipad.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>Shelby.${PRODUCT_NAME:rfc1034identifier}</string>
@@ -36,7 +40,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
-			<string>shelby512x512</string>
+			<string>iTunesArtwork</string>
 			<key>CFBundleURLName</key>
 			<string>tv.shelby.ios</string>
 			<key>CFBundleURLSchemes</key>
@@ -55,6 +59,8 @@
 	<string>MainWindow_iPad</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
@@ -62,6 +68,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -74,7 +81,5 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
-	<key>UIRequiresPersistentWiFi</key>
-	<true/>
 </dict>
 </plist>
