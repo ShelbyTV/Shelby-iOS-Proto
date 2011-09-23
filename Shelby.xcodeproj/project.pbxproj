@@ -23,6 +23,10 @@
 		0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
+		0A74BB41142D459800D65A02 /* shelby57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* shelby57x57.png */; };
+		0A74BB43142D45A500D65A02 /* shelby114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB42142D45A500D65A02 /* shelby114x114.png */; };
+		0A74BB45142D45C600D65A02 /* shelby72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB44142D45C600D65A02 /* shelby72x72.png */; };
+		0A74BB48142D468200D65A02 /* shelby512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB47142D468200D65A02 /* shelby512x512.png */; };
 		0A81C28D142AA93300311310 /* ButtonPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A81C28C142AA93300311310 /* ButtonPause.png */; };
 		0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */; };
 		0AB7BFB4142C421C00AB25B3 /* ButtonWatchLaterHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */; };
@@ -74,7 +78,6 @@
 		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
 		428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */; };
 		428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */; };
-		428AA5BA142409BD00E692B9 /* HomeScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B9142409BD00E692B9 /* HomeScreen.png */; };
 		428B0255141FFE2500C88063 /* STVUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0254141FFE2500C88063 /* STVUserView.m */; };
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
 		428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */; };
@@ -187,6 +190,10 @@
 		0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeartPurple.png; path = Resources/Images/ButtonHeartPurple.png; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
+		0A74BB40142D459800D65A02 /* shelby57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelby57x57.png; sourceTree = "<group>"; };
+		0A74BB42142D45A500D65A02 /* shelby114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelby114x114.png; sourceTree = "<group>"; };
+		0A74BB44142D45C600D65A02 /* shelby72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelby72x72.png; sourceTree = "<group>"; };
+		0A74BB47142D468200D65A02 /* shelby512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelby512x512.png; sourceTree = "<group>"; };
 		0A81C28C142AA93300311310 /* ButtonPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPause.png; path = Resources/Images/ButtonPause.png; sourceTree = "<group>"; };
 		0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonBackground.png; path = Resources/Images/ButtonBackground.png; sourceTree = "<group>"; };
 		0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterHighlighted.png; path = Resources/Images/ButtonWatchLaterHighlighted.png; sourceTree = "<group>"; };
@@ -252,7 +259,6 @@
 		428AA5B21423EFE500E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		428AA5B51423EFF800E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/SettingsViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController_iPad.m; path = iPad/NavigationViewController_iPad.m; sourceTree = "<group>"; };
-		428AA5B9142409BD00E692B9 /* HomeScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeScreen.png; path = Resources/Images/HomeScreen.png; sourceTree = "<group>"; };
 		428B0253141FFE2500C88063 /* STVUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVUserView.h; sourceTree = "<group>"; };
 		428B0254141FFE2500C88063 /* STVUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVUserView.m; sourceTree = "<group>"; };
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -413,6 +419,10 @@
 				0AD9A35313D53BD200EFECE0 /* Frameworks */,
 				0AD9A35113D53BD200EFECE0 /* Products */,
 				42C4C55513E8A6A50034AC97 /* Resources */,
+				0A74BB40142D459800D65A02 /* shelby57x57.png */,
+				0A74BB44142D45C600D65A02 /* shelby72x72.png */,
+				0A74BB42142D45A500D65A02 /* shelby114x114.png */,
+				0A74BB47142D468200D65A02 /* shelby512x512.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -721,7 +731,6 @@
 				0A08E9FB14281C8700D964E7 /* TumblrWatched.png */,
 				0A08E9FC14281C8700D964E7 /* TwitterNew.png */,
 				0A08E9FD14281C8700D964E7 /* TwitterWatched.png */,
-				428AA5B9142409BD00E692B9 /* HomeScreen.png */,
 				428B02BD14217F7F00C88063 /* SliderThumbLightGray.png */,
 				428B02B914217EB300C88063 /* SliderGray.png */,
 				428B02BA14217EB400C88063 /* SliderPurple.png */,
@@ -981,7 +990,6 @@
 				428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */,
 				428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */,
 				428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */,
-				428AA5BA142409BD00E692B9 /* HomeScreen.png in Resources */,
 				42084C861427D82D00C3C556 /* STVOfflineView_iPhone.xib in Resources */,
 				42084C891427DACD00C3C556 /* STVOfflineView_iPad.xib in Resources */,
 				0A08E9FE14281C8700D964E7 /* FacebookNew.png in Resources */,
@@ -1005,6 +1013,10 @@
 				0AB7BFB4142C421C00AB25B3 /* ButtonWatchLaterHighlighted.png in Resources */,
 				0AB7BFB5142C421C00AB25B3 /* ButtonWatchLaterNormal.png in Resources */,
 				0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */,
+				0A74BB41142D459800D65A02 /* shelby57x57.png in Resources */,
+				0A74BB43142D45A500D65A02 /* shelby114x114.png in Resources */,
+				0A74BB45142D45C600D65A02 /* shelby72x72.png in Resources */,
+				0A74BB48142D468200D65A02 /* shelby512x512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
