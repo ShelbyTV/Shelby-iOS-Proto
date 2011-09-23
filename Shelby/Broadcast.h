@@ -28,5 +28,6 @@
 @property (nonatomic, retain) NSString * sharerImageUrl;
 @property (nonatomic) BOOL liked;
 @property (nonatomic, retain) Channel *channel;
+@property (nonatomic, retain) NSDate *createdAt;
 
 @end

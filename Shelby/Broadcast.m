@@ -25,5 +25,6 @@
 @dynamic sharerImageUrl;
 @dynamic liked;
 @dynamic channel;
+@dynamic createdAt;
 
 @end

@@ -461,9 +461,14 @@
     }
 }
 
-- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel {
+- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel
+{    
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
     for (NSDictionary *dict in array) {
-        // LOG(@"Broadcast dict: %@", dict);
+        //LOG(@"Broadcast dict: %@", dict);
         Broadcast *broadcast = [NSEntityDescription
           insertNewObjectForEntityForName:@"Broadcast"
                    inManagedObjectContext:_context];
@@ -499,6 +504,10 @@
         NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
         if (NOTNULL(sharerImageUrl)) {
             broadcast.sharerImageUrl = sharerImageUrl ;
+        }
+        NSDate *createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
+        if (NOTNULL(createdAt)) {
+            broadcast.createdAt = createdAt ;
         }
 
         //"liked_by_owner": true,

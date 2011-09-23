@@ -18,9 +18,10 @@
 @property (nonatomic, copy) NSString *sharerComment;
 @property (nonatomic, retain) NSURL *sharerImageURL;
 @property (nonatomic, copy) NSString *source;
+@property (nonatomic, retain) NSDate *createdAt;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt;
 
 - (void) dealloc
 {
@@ -31,6 +32,7 @@
     [sharerComment release];
     [sharerImageURL release];
     [source release];
+    [createdAt release];
     
     [super dealloc];
 }
@@ -45,9 +47,10 @@
 @property (nonatomic, copy) NSString *sharerComment;
 @property (nonatomic, retain) UIImage *sharerImage;
 @property (nonatomic, copy) NSString *source;
+@property (nonatomic, retain) NSDate *createdAt;
 @end
 @implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source;
+@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, createdAt;
 
 - (void) dealloc
 {
@@ -59,6 +62,7 @@
     [sharerComment release];
     [sharerImage release];
     [source release];
+    [createdAt release];
     
     [super dealloc];
 }
@@ -173,6 +177,14 @@ static NSString *fakeAPIData[] = {
     {
         return [(VideoData *)[videoDataArray objectAtIndex:index] source];
     }
+}
+
+- (NSDate *)videoCreatedAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        return [(VideoData *)[videoDataArray objectAtIndex:index] createdAt];
+    } 
 }
 
 #pragma mark - Loading Data
@@ -306,6 +318,7 @@ static NSString *fakeAPIData[] = {
     videoData.sharerComment = youTubeVideoURLIndex.sharerComment;
     videoData.sharerImage = sharerImage;
     videoData.source = youTubeVideoURLIndex.source;
+    videoData.createdAt = youTubeVideoURLIndex.createdAt;
 
     @synchronized(videoDataArray)
     {
@@ -397,6 +410,10 @@ static NSString *fakeAPIData[] = {
 {
     // Clear out the old broadcasts.
     [self clearVideos];
+    
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
     // Load up the new broadcasts.
     for (NSDictionary *broadcast in broadcasts) {
@@ -413,6 +430,7 @@ static NSString *fakeAPIData[] = {
             }
             NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
             NSString *source = [broadcast objectForKey: @"video_origin"];
+            NSDate *date = [dateFormatter dateFromString:[broadcast objectForKey: @"created_at"]];
 
             NSURL *youTubeVideo = NULL;
             if (NOTNULL(videoId)) {
@@ -431,6 +449,7 @@ static NSString *fakeAPIData[] = {
                 if (NOTNULL(comment)) video.sharerComment = comment;
                 if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
                 if (NOTNULL(source)) video.source = source;
+                if (NOTNULL(date)) video.createdAt = date;
 
                 NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
                                                                                       selector:@selector(retrieveAndStoreYouTubeVideoData:)
