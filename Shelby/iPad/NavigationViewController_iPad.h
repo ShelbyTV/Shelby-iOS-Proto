@@ -11,10 +11,6 @@
 
 @interface NavigationViewController_iPad : NavigationViewController
 {
-
-  // This is the little bit of "trim" in the top right between the two major
-  // views.
-  IBOutlet UIView *_trimView;
   IBOutlet UIButton *_logoButton;
   BOOL _trayClosed;
   BOOL _traySliding;
@@ -25,6 +21,6 @@
 }
 
 - (IBAction)shelbyIconWasPressed:(id)sender;
-- (IBAction)settingsButtonWasPressed:(id)sender;
+//- (IBAction)settingsButtonWasPressed:(id)sender;
 
 @end

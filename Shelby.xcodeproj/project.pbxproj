@@ -23,6 +23,9 @@
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
 		0A81C28D142AA93300311310 /* ButtonPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A81C28C142AA93300311310 /* ButtonPause.png */; };
+		0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */; };
+		0AB7BFB4142C421C00AB25B3 /* ButtonWatchLaterHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */; };
+		0AB7BFB5142C421C00AB25B3 /* ButtonWatchLaterNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
 		0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
@@ -182,6 +185,9 @@
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
 		0A81C28C142AA93300311310 /* ButtonPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPause.png; path = Resources/Images/ButtonPause.png; sourceTree = "<group>"; };
+		0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonBackground.png; path = Resources/Images/ButtonBackground.png; sourceTree = "<group>"; };
+		0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterHighlighted.png; path = Resources/Images/ButtonWatchLaterHighlighted.png; sourceTree = "<group>"; };
+		0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterNormal.png; path = Resources/Images/ButtonWatchLaterNormal.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -692,6 +698,7 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */,
 				42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */,
 				42ACA2C7142A9305009FD812 /* ButtonSend.png */,
 				42ACA2C5142A9262009FD812 /* TextAreaGray.png */,
@@ -722,6 +729,8 @@
 				4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */,
 				4200E51513F42BB100609C3E /* ButtonListHighlighted.png */,
 				4200E51613F42BB100609C3E /* ButtonListNormal.png */,
+				0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */,
+				0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */,
 				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
 				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
 				42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */,
@@ -984,6 +993,9 @@
 				42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */,
 				42ACA2CA142A95AB009FD812 /* ButtonSocialBackground.png in Resources */,
 				0A81C28D142AA93300311310 /* ButtonPause.png in Resources */,
+				0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */,
+				0AB7BFB4142C421C00AB25B3 /* ButtonWatchLaterHighlighted.png in Resources */,
+				0AB7BFB5142C421C00AB25B3 /* ButtonWatchLaterNormal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

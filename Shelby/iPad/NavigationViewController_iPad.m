@@ -58,9 +58,9 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)slideTray:(BOOL)right {
     // Slide the right tray.
-    [self slideView: _trimView right: right];
     [self slideView: header right: right];
     [self slideView: videoTableHolder right: right];
+    [self slideView: buttonsHolder right: right];
 
     // Animate the video player to grow to fill the remaining space.
     // NOTE: This appears to not be working. May have to use the VideoPlayer
@@ -94,13 +94,13 @@ static const float ANIMATION_TIME = 0.5f;
     }
 }
 
-- (void)showSettings {
-    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
-        // If we're not already showing settings, show settings.
-        SettingsViewController *vc = [SettingsViewController viewController];
-        [_navigationController pushViewController: vc animated: YES];
-    }
-}
+//- (void)showSettings {
+//    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
+//        // If we're not already showing settings, show settings.
+//        SettingsViewController *vc = [SettingsViewController viewController];
+//        [_navigationController pushViewController: vc animated: YES];
+//    }
+//}
 
 #pragma mark - UI Callbacks
 
@@ -126,11 +126,11 @@ static const float ANIMATION_TIME = 0.5f;
     [self toggleTray];
 }
 
-- (IBAction)settingsButtonWasPressed:(id)sender {
-    // Open up the settings ViewController
-    LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
-    [self showSettings];
-}
+//- (IBAction)settingsButtonWasPressed:(id)sender {
+//    // Open up the settings ViewController
+//    LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
+//    [self showSettings];
+//}
 
 #pragma mark - VideoTableViewControllerDelegate Methods
 

@@ -42,15 +42,17 @@
 
 - (void)changeVideoMode:(NSInteger)mode
 {
-    LOG(@"changeVideoMode %d", mode);
-    // Clear out the table.
-    [videoTableData clearVideos];
-
-    // Change the channel.
-    [[ShelbyApp sharedApp].networkManager changeChannel: mode];
-
-    // Wait for new data.
-
+    if (mode != videoMode) {
+        LOG(@"changeVideoMode %d", mode);
+        // Clear out the table.
+        [videoTableData clearVideos];
+        
+        // Change the channel.
+        videoMode = mode;
+        [[ShelbyApp sharedApp].networkManager changeChannel: mode];
+        
+        // Wait for new data.
+    }
 }
 
 #pragma mark - Data Refresh
@@ -145,13 +147,13 @@
 
 #pragma mark - UI Callbacks
 
-- (IBAction)segmentAction:(UISegmentedControl *)sender
-{
-    LOG(@"segmentAction %@", sender);
-    NSInteger index = sender.selectedSegmentIndex;
-    [self changeVideoMode: index];
-
-}
+//- (IBAction)segmentAction:(UISegmentedControl *)sender
+//{
+//    LOG(@"segmentAction %@", sender);
+//    NSInteger index = sender.selectedSegmentIndex;
+//    [self changeVideoMode: index];
+//
+//}
 
 - (IBAction)toolbarButtonWasPressed:(id)sender
 {
@@ -223,28 +225,6 @@
     }
     //  update the last update date
     [_refreshHeaderView refreshLastUpdatedDate];
-
-    // Init the segmented control.
-    UIImage *likeImageCropped = [UIImage imageNamed: @"ButtonFavoritesCropped"];
-    UIImage *timeImageCropped = [UIImage imageNamed: @"ButtonTimeCropped"];
-
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems: [NSArray arrayWithObjects:
-        timeImageCropped,
-        likeImageCropped,
-        nil]
-        ];
-
-    //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBezeled;
-    segmentedControl.tintColor = [UIColor blackColor];
-
-    // start with timeline highlighted.
-    segmentedControl.selectedSegmentIndex = 0;
-
-    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-
-    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithCustomView: segmentedControl];
-    [self.navigationItem setLeftBarButtonItem:customItem animated: NO];
 }
 
 - (void)viewDidUnload

@@ -25,24 +25,24 @@
 
 #pragma mark - 
 
-- (void)showSettings {
-    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
-        // If we're not already showing settings, show settings.
-        SettingsViewController *vc = [SettingsViewController viewController];
-        vc.delegate = self;
-        
-        UIBarButtonItem *doneButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:vc action:@selector(doneWasPressed:)
-                                       ] autorelease];
-        vc.navigationItem.leftBarButtonItem = doneButton;
-        
-        UINavigationController *navController =  [[[UINavigationController alloc] initWithRootViewController: vc] autorelease];
-        navController.navigationBar.barStyle = UIBarStyleBlack;
-        //[_navigationController pushViewController: vc animated: YES];
-        [self presentModalViewController: navController
-                                animated: YES
-                          ];
-    }
-}
+//- (void)showSettings {
+//    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
+//        // If we're not already showing settings, show settings.
+//        SettingsViewController *vc = [SettingsViewController viewController];
+//        vc.delegate = self;
+//        
+//        UIBarButtonItem *doneButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:vc action:@selector(doneWasPressed:)
+//                                       ] autorelease];
+//        vc.navigationItem.leftBarButtonItem = doneButton;
+//        
+//        UINavigationController *navController =  [[[UINavigationController alloc] initWithRootViewController: vc] autorelease];
+//        navController.navigationBar.barStyle = UIBarStyleBlack;
+//        //[_navigationController pushViewController: vc animated: YES];
+//        [self presentModalViewController: navController
+//                                animated: YES
+//                          ];
+//    }
+//}
 
 #pragma mark - SettingsViewControllerDelegate Methods
 

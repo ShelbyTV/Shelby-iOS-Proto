@@ -164,6 +164,19 @@
     //Do stuff here...
 }
 
+- (IBAction)listButtonPressed:(id)sender
+{
+    [favoritesButton setSelected:NO];
+    [listButton setSelected:YES];
+    [videoTable changeVideoMode:0];
+}
+
+- (IBAction)favoritesButtonPressed:(id)sender
+{
+    [listButton setSelected:NO];
+    [favoritesButton setSelected:YES];
+    [videoTable changeVideoMode:1];
+}
 
 #pragma mark - View lifecycle
 
@@ -203,20 +216,11 @@
     
     // this color matches the bottom color of the table cell gradient
     [videoTable.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
-
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
-    _navigationController = [[UINavigationController alloc] initWithRootViewController: videoTable];
-    _navigationController.view.frame = videoTableHolder.bounds;
-    _navigationController.delegate = self;
-
-    UINavigationBar *bar = _navigationController.navigationBar;
-    //bar.barStyle = UIBarStyleBlackTranslucent;
-    bar.barStyle = UIBarStyleBlackOpaque;
-
-    [videoTableHolder addSubview:[_navigationController view]];
-
-    //[self showNetworkActivityIndicator];
+    [videoTableHolder addSubview:videoTable.tableView];
+    
+    [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
 }
 
 
