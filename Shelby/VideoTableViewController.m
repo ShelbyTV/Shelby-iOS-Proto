@@ -95,16 +95,20 @@
 
     video.contentURL = [videoTableData videoContentURLAtIndex: index];
 
-    video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
-    video.title = [videoTableData videoTitleAtIndex: index];
+    if (NOTNULL(video.contentURL)) {
+        video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
+        video.title = [videoTableData videoTitleAtIndex: index];
 
-    video.sharer = [videoTableData videoSharerAtIndex: index];
-    video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
-    video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
-    video.contentURL = [videoTableData videoContentURLAtIndex: index];
-    video.shelbyId = [videoTableData videoShelbyIdAtIndex: index];
+        video.sharer = [videoTableData videoSharerAtIndex: index];
+        video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
+        video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
+        video.contentURL = [videoTableData videoContentURLAtIndex: index];
+        video.shelbyId = [videoTableData videoShelbyIdAtIndex: index];
 
-    return video;
+        return video;
+    } else {
+        return nil;
+    }
 }
 
 - (Video *)getCurrentVideo
@@ -120,13 +124,19 @@
         _currentVideoIndex = 0;
     }
 
-    // Scroll to the next table cell.
-    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
-                          atScrollPosition: UITableViewScrollPositionMiddle
-                                  animated: YES];
-
     // Return the next video.
-    return [self videoAtTableDataIndex: _currentVideoIndex];
+    Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
+
+    if (NOTNULL(video)) {
+        // Scroll to the next table cell.
+        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
+                              atScrollPosition: UITableViewScrollPositionMiddle
+                                      animated: YES];
+
+        return video;
+    } else {
+        return nil;
+    }
 }
 
 - (Video *)getPreviousVideo
@@ -137,13 +147,19 @@
         _currentVideoIndex = [videoTableData numItems] - 1;
     }
 
-    // Scroll to the previous table cell.
-    [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
-                          atScrollPosition: UITableViewScrollPositionMiddle
-                                  animated: YES];
-
     // Return the previous video.
-    return [self videoAtTableDataIndex: _currentVideoIndex];
+    Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
+
+    if (NOTNULL(video)) {
+        // Scroll to the previous table cell.
+        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
+                              atScrollPosition: UITableViewScrollPositionMiddle
+                                      animated: YES];
+
+        return video;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - UI Callbacks

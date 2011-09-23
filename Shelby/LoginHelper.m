@@ -515,7 +515,7 @@
     if (NOTNULL(sharerImageUrl)) {
         broadcast.sharerImageUrl = sharerImageUrl ;
     }
-
+ 
     NSDate *createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
     if (NOTNULL(createdAt)) {
         broadcast.createdAt = createdAt ;
