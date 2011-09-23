@@ -105,7 +105,7 @@
     // Insert a user.
     NSDictionary *sampleDict = [self sampleUserDictionary];
     LoginHelper *loginHelper = [[[LoginHelper alloc] initWithContext: ctx] autorelease];
-    [loginHelper storeUserWithDictionary: sampleDict];
+    [loginHelper storeUserWithDictionary: sampleDict withImageData: nil];
     User *user = [loginHelper retrieveUser];
 
     STAssertNotNil(user, @"User was nil!");
