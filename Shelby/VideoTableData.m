@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSDate *createdAt;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt shelbyId;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId;
 
 - (void) dealloc
 {
