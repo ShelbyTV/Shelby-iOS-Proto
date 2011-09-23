@@ -171,27 +171,27 @@
 
 - (void)showInternetUp
 {
-    [[self offlineView] removeFromSuperview];
+    //[[self offlineView] removeFromSuperview];
 }
 
 - (void)showInternetDown
 {
 #ifndef OFFLINE_MODE
-    UIView *offlineView = [self offlineView];
+    //UIView *offlineView = [self offlineView];
 
-    // Center the view.
-    CGRect frame = offlineView.frame;
-    frame.origin.x = (self.view.bounds.size.width / 2) - (offlineView.bounds.size.width / 2);
-    frame.origin.y = (self.view.bounds.size.height / 2) - (offlineView.bounds.size.height / 2);
-    offlineView.frame = frame;
+    //// Center the view.
+    //CGRect frame = offlineView.frame;
+    //frame.origin.x = (self.view.bounds.size.width / 2) - (offlineView.bounds.size.width / 2);
+    //frame.origin.y = (self.view.bounds.size.height / 2) - (offlineView.bounds.size.height / 2);
+    //offlineView.frame = frame;
 
-    offlineView.autoresizingMask =
-        UIViewAutoresizingFlexibleLeftMargin
-        | UIViewAutoresizingFlexibleRightMargin
-        | UIViewAutoresizingFlexibleTopMargin
-        | UIViewAutoresizingFlexibleBottomMargin;
+    //offlineView.autoresizingMask =
+    //    UIViewAutoresizingFlexibleLeftMargin
+    //    | UIViewAutoresizingFlexibleRightMargin
+    //    | UIViewAutoresizingFlexibleTopMargin
+    //    | UIViewAutoresizingFlexibleBottomMargin;
 
-    [self.view addSubview: offlineView];
+    //[self.view addSubview: offlineView];
 #endif
 }
 
