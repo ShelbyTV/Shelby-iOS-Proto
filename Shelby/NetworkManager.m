@@ -98,6 +98,10 @@
     return [self.loginHelper likeBroadcastWithId: videoId];
 }
 
+- (void)watchVideoWithId:(NSString *)videoId {
+    return [self.loginHelper watchBroadcastWithId: videoId];
+}
+
 #pragma mark - Notifications
 
 - (void)loginHelperAuthorizedToken:(NSNotification *)notification {

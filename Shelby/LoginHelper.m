@@ -641,12 +641,15 @@
 
     if (req) {
         // Set watched
-        [req setValue: @"true" forOAuthParameter: @"watched_by_owner" ];
+        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        NSString *watchedString = @"watched_by_owner=true";
+        [req setHTTPBody: [watchedString dataUsingEncoding: NSUTF8StringEncoding]];
 
         // Set to plaintext on request because oAuth library is broken.
-        [req signPlaintext];
+        //[req signPlaintext];
+        [req sign];
 
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeBroadcastResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedWatchBroadcastResponse:data:error:forRequest:)];
         [self incrementNetworkCounter];
     } else {
         // We failed to send the request. Let the caller know.
@@ -657,8 +660,29 @@
 {
     LOG(@"receivedWatchBroadcastResponse");
 
-    [self decrementNetworkCounter];
+    if (NOTNULL(error)) {
+        LOG(@"Watch Broadcast error: %@", error);
+    } else {
+        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
+        NSDictionary *dict = [parser objectWithData: data];
+        NSString *apiError = [dict objectForKey: @"err"];
+        NSNumber *success = [dict objectForKey: @"success"];
 
+        if (NOTNULL(apiError)) {
+            LOG(@"Watch Broadcast error: %@", apiError);
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperWatchBroadcastFailed"
+                                                                object: self];
+        } else {
+            LOG(@"Watch Broadcast success");
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperWatchBroadcastSucceeded"
+                                                                object: self];
+        }
+
+        //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+        //NSLog(@"receivedWatchBroadcastResponse: %@", string);
+    }
+
+    [self decrementNetworkCounter];
 }
 
 - (void)likeBroadcastWithId:(NSString *)videoId {

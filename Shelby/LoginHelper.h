@@ -79,5 +79,7 @@ typedef enum {
 - (BOOL)fetchBroadcasts;
 - (void)likeBroadcastWithId:(NSString *)videoId;
 - (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId;
+- (void)likeBroadcastWithId:(NSString *)videoId;
+- (void)watchBroadcastWithId:(NSString *)videoId;
 
 @end

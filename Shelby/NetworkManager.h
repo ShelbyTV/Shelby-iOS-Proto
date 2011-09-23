@@ -41,5 +41,6 @@
 //- (void)likeBroadcast:(Broadcast *)broadcast;
 //- (void)likeVideo:(Video *)video;
 - (void)likeVideoWithId:(NSString *)videoId;
+- (void)watchBroadcastWithId:(NSString *)videoId;
 
 @end
