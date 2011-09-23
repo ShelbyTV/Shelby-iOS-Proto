@@ -193,7 +193,7 @@
 {
     [super viewDidLoad];
     
-    _networkActivityViewParent = videoTableHolder;
+    _networkActivityViewParent = activityHolder;
 
     //DEBUG ONLY
     //UITapGestureRecognizer *singleFingerTap =

@@ -179,12 +179,23 @@
 								<string key="NSFrame">{{103, 1}, {216, 44}}</string>
 								<reference key="NSSuperview" ref="623216898"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="676551548"/>
+								<reference key="NSNextKeyView" ref="666078329"/>
 								<string key="NSReuseIdentifierKey">_NS:180</string>
-								<object class="NSColor" key="IBUIBackgroundColor" id="298497311">
+								<object class="NSColor" key="IBUIBackgroundColor" id="204306179">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
+							<object class="IBUIView" id="666078329">
+								<reference key="NSNextResponder" ref="623216898"/>
+								<int key="NSvFlags">289</int>
+								<string key="NSFrame">{{275, 1}, {44, 44}}</string>
+								<reference key="NSSuperview" ref="623216898"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="676551548"/>
+								<string key="NSReuseIdentifierKey">_NS:195</string>
+								<reference key="IBUIBackgroundColor" ref="406797638"/>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</object>
@@ -193,7 +204,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="243693687"/>
 						<string key="NSReuseIdentifierKey">_NS:180</string>
-						<reference key="IBUIBackgroundColor" ref="298497311"/>
+						<reference key="IBUIBackgroundColor" ref="204306179"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUIView" id="397618403">
@@ -315,6 +326,14 @@
 					</object>
 					<int key="connectionID">72</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityHolder</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="666078329"/>
+					</object>
+					<int key="connectionID">74</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -385,6 +404,7 @@
 							<reference ref="222454683"/>
 							<reference ref="243693687"/>
 							<reference ref="971182416"/>
+							<reference ref="666078329"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -408,6 +428,11 @@
 						<reference key="object" ref="397618403"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Video Player</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">73</int>
+						<reference key="object" ref="666078329"/>
+						<reference key="parent" ref="623216898"/>
 					</object>
 				</object>
 			</object>
@@ -433,6 +458,7 @@
 					<string>59.IBPluginDependency</string>
 					<string>59.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>64.IBPluginDependency</string>
+					<string>73.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -454,6 +480,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -468,7 +495,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">72</int>
+			<int key="maxID">74</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -522,6 +549,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>_userView</string>
 							<string>_videoPlayer</string>
+							<string>activityHolder</string>
 							<string>buttonsFiller</string>
 							<string>buttonsHolder</string>
 							<string>favoritesButton</string>
@@ -533,6 +561,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>STVUserView</string>
 							<string>VideoPlayer</string>
+							<string>UIView</string>
 							<string>UIView</string>
 							<string>UIView</string>
 							<string>UIButton</string>
@@ -547,6 +576,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>_userView</string>
 							<string>_videoPlayer</string>
+							<string>activityHolder</string>
 							<string>buttonsFiller</string>
 							<string>buttonsHolder</string>
 							<string>favoritesButton</string>
@@ -563,6 +593,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">_videoPlayer</string>
 								<string key="candidateClassName">VideoPlayer</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">activityHolder</string>
+								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">buttonsFiller</string>

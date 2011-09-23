@@ -88,7 +88,7 @@
     // If the network indicator is not already visible
     if (networkView.hidden == YES) {
 
-        const float activitySize = 60;
+        const float activitySize = 24;
         CGRect frame = networkView.frame;
         frame.size = CGSizeMake(activitySize, activitySize);
         networkView.frame = frame;
