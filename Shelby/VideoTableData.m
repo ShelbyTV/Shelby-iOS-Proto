@@ -53,7 +53,6 @@
 @end
 @implementation VideoData
 @synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, createdAt, shelbyId;
-@end
 
 - (void) dealloc
 {
