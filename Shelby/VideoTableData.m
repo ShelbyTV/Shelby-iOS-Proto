@@ -13,28 +13,56 @@
 @interface URLIndex : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
 @property (nonatomic, retain) NSURL *thumbnailURL;
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *sharer;
-@property (nonatomic, retain) NSString *sharerComment;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *sharer;
+@property (nonatomic, copy) NSString *sharerComment;
 @property (nonatomic, retain) NSURL *sharerImageURL;
-@property (nonatomic, retain) NSString *source;
+@property (nonatomic, copy) NSString *source;
 @end
 @implementation URLIndex
 @synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source;
+
+- (void) dealloc
+{
+    [youTubeVideoInfoURL release];
+    [thumbnailURL release];
+    [title release];
+    [sharer release];
+    [sharerComment release];
+    [sharerImageURL release];
+    [source release];
+    
+    [super dealloc];
+}
 @end
 
 @interface VideoData : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
 @property (nonatomic, retain) NSURL *contentURL;
 @property (nonatomic, retain) UIImage *thumbnailImage;
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *sharer;
-@property (nonatomic, retain) NSString *sharerComment;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *sharer;
+@property (nonatomic, copy) NSString *sharerComment;
 @property (nonatomic, retain) UIImage *sharerImage;
-@property (nonatomic, retain) NSString *source;
+@property (nonatomic, copy) NSString *source;
 @end
 @implementation VideoData
 @synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source;
+
+- (void) dealloc
+{
+    [youTubeVideoInfoURL release];
+    [contentURL release];
+    [thumbnailImage release];
+    [title release];
+    [sharer release];
+    [sharerComment release];
+    [sharerImage release];
+    [source release];
+    
+    [super dealloc];
+}
+
 @end
 
 @implementation VideoTableData
@@ -253,7 +281,7 @@ static NSString *fakeAPIData[] = {
     NSURLRequest *request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.thumbnailURL];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
-    UIImage *thumbnailImage = [[UIImage imageWithData:data] retain];
+    UIImage *thumbnailImage = [UIImage imageWithData:data];
 
     /*
      * Sharer image
@@ -262,13 +290,13 @@ static NSString *fakeAPIData[] = {
     request = [NSURLRequest requestWithURL:youTubeVideoURLIndex.sharerImageURL];
     data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
-    UIImage *sharerImage = [[UIImage imageWithData:data] retain];
+    UIImage *sharerImage = [UIImage imageWithData:data];
 
     /*
      * Create data object and store it
      */
 
-    VideoData *videoData = [[[VideoData alloc] init] retain];
+    VideoData *videoData = [[[VideoData alloc] init] autorelease];
 
     videoData.youTubeVideoInfoURL = youTubeVideoURLIndex.youTubeVideoInfoURL;
     videoData.contentURL = nil;
@@ -386,7 +414,7 @@ static NSString *fakeAPIData[] = {
             NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
             NSString *source = [broadcast objectForKey: @"video_origin"];
 
-            NSURL *youTubeVideo;
+            NSURL *youTubeVideo = NULL;
             if (NOTNULL(videoId)) {
                 youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
             }

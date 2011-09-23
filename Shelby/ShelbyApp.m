@@ -80,7 +80,7 @@ static ShelbyApp *gShelbyApp;
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"observeKeyValueForPath");
+    //NSLog(@"observeKeyValueForPath");
     if ([_networkObjects containsObject: object] && [keyPath isEqualToString:@"networkCounter"]) {
         [self postNetworkActivityNotification];
     } else {

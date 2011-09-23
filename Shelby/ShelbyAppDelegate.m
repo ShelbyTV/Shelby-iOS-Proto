@@ -38,7 +38,7 @@
     // Example:
     // shelby://ios.shelby.tv/auth?oauth_token=WuhQpEQuyPaS1EczFnfRBA7ThXCwWerX3rhECBIz&oauth_verifier=NPkCVIlxYXYiBYYfGsB6
 
-    URLParser *parser = [[URLParser alloc] initWithURLString: [url absoluteString]];
+    URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
 
     NSString *oauthToken = [parser valueForVariable: @"oauth_token"];
     NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];

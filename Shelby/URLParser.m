@@ -22,7 +22,7 @@
     NSMutableArray *vars = [NSMutableArray new];
     [scanner scanUpToString:@"?" intoString:nil];		//ignore the beginning of the string and skip to the vars
     while ([scanner scanUpToString:@"&" intoString:&tempString]) {
-                   [vars addObject:[tempString copy]];
+                   [vars addObject:tempString];
     }
     self.variables = vars;
     [vars release];

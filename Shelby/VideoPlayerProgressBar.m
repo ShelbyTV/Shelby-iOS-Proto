@@ -154,7 +154,7 @@ static const float kProgressUpdateBuffer = 0.25f;
     //float sliderHeight = frame.size.height * sliderSplit;
     //float labelHeight = frame.size.height - sliderHeight;
 
-    CGRect tempFrame = frame;
+    CGRect tempFrame;
     _slider.frame = frame;
     
     NSLog(@"slider frame is %f, %f", frame.size.width, frame.size.height);

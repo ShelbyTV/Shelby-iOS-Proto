@@ -114,12 +114,12 @@
 }
 
 - (void)networkActiveNotification:(NSNotification*)notification {
-    NSLog(@"networkActiveNotification");
+    //NSLog(@"networkActiveNotification");
     [self performSelectorOnMainThread:@selector(showNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
 }
 
 - (void)networkInactiveNotification:(NSNotification*)notification {
-    NSLog(@"networkInactiveNotification");
+    //NSLog(@"networkInactiveNotification");
     [self performSelectorOnMainThread:@selector(hideNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
 }
 
@@ -144,7 +144,7 @@
                                change:change context:context];
     }
 #else
-        NSLog(@"observeKeyValueForPath");
+        //NSLog(@"observeKeyValueForPath");
     if (object == _shelbyApp && [keyPath isEqualToString:@"networkCounter"]) {
         if (_shelbyApp.networkCounter > 0) {
             LOG(@"network is busy");

@@ -37,7 +37,7 @@ static const float ANIMATION_TIME = 0.5f;
     [super viewDidLoad];
 
     // Listen for swipes on the Shelby logo.
-    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(shelbyIconWasPanned:)];
+    UIPanGestureRecognizer *panRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(shelbyIconWasPanned:)] autorelease];
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
 	[_logoButton addGestureRecognizer:panRecognizer];

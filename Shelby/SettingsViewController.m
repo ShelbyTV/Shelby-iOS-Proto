@@ -37,7 +37,7 @@
         // Custom initialization
         self.navigationItem.title = @"Settings";
 
-        UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutWasPressed:)];
+        UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutWasPressed:)] autorelease];
         self.navigationItem.rightBarButtonItem = logoutButton;
     }
     return self;

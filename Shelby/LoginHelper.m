@@ -285,9 +285,9 @@
      * be nice to make this async and have it just update the UI to show the image if it
      * gets handled after the UI is all laid out.
      */
-    return [[NSURLConnection sendSynchronousRequest:request
+    return [NSURLConnection sendSynchronousRequest:request
                                   returningResponse:&response
-                                              error:&error] retain];
+                                              error:&error];
 }
 
 - (User *)storeUserWithDictionary:(NSDictionary *)dict
@@ -448,8 +448,8 @@
 - (void)receivedGetBroadcastsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
     [self decrementNetworkCounter];
-    NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    NSLog(@"Got broadcasts: %@", string);
+    //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    //NSLog(@"Got broadcasts: %@", string);
 
     _parserMode = STVParserModeBroadcasts;
     SBJsonStreamParserStatus status = [parser parse: data];
@@ -463,7 +463,7 @@
 
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel {
     for (NSDictionary *dict in array) {
-        LOG(@"Broadcast dict: %@", dict);
+        // LOG(@"Broadcast dict: %@", dict);
         Broadcast *broadcast = [NSEntityDescription
           insertNewObjectForEntityForName:@"Broadcast"
                    inManagedObjectContext:_context];
