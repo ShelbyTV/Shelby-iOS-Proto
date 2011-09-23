@@ -275,6 +275,28 @@
     return [videoTableData numItemsInserted];
 }
 
+- (NSString *)prettyDateDiff:(NSDate *)date
+{
+    
+    NSTimeInterval diff = abs([date timeIntervalSinceNow]);
+    NSInteger days = floor(diff / 86400.0);
+
+	if (days == 0) {
+        if (diff < 60) return @"JUST NOW";
+        if (diff < 120) return @"1 MINUTE AGO";
+        if (diff < 3600) return [NSString stringWithFormat:@"%d MINUTES AGO", (int)floor(diff/60.0)];
+        if (diff < 7200) return @"1 HOUR AGO";
+        if (diff < 86400) return [NSString stringWithFormat:@"%d HOURS AGO", (int)floor(diff/3600.0)];
+    }
+    
+    if (days == 1) return @"YESTERDAY";
+    if (days < 7) return [NSString stringWithFormat:@"%d DAYS AGO", days];
+    if (days < 14) return @"LAST WEEK";
+    if (days < 31) return [NSString stringWithFormat:@"%d WEEKS AGO", (int)ceil(days/7.0)];
+    
+    return @"FOREVER-AGO";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"VideoCell";
@@ -335,7 +357,8 @@
     UILabel *sharer = (UILabel *)[cell viewWithTag:5];
     sharer.text = [videoTableData videoSharerAtIndex:row];
 
-    // tag 6 is time in minutes/hours ago -- not setting this yet
+    UILabel *createdAt = (UILabel *)[cell viewWithTag:6];
+    createdAt.text = [self prettyDateDiff:[videoTableData videoCreatedAtIndex:row]];
 
     return cell;
 }

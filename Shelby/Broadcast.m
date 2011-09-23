@@ -25,6 +25,7 @@
 @dynamic title;
 @dynamic url;
 @dynamic channel;
+@dynamic createdAt;
 
 - (NSString *)description {
 

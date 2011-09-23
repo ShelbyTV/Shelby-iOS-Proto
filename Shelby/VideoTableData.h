@@ -35,6 +35,7 @@
 - (NSUInteger)numItemsInserted;
 - (NSUInteger)numItems;
 - (NSString *)videoShelbyIdAtIndex:(NSUInteger)index;
+- (NSDate *)videoCreatedAtIndex:(NSUInteger)index;
 - (NSString *)videoSourceAtIndex:(NSUInteger)index;
 - (NSString *)videoTitleAtIndex:(NSUInteger)index;
 - (NSString *)videoSharerAtIndex:(NSUInteger)index;

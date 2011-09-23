@@ -479,41 +479,50 @@
 }
 
 - (Broadcast *)populateBroadcastFromDictionary:(Broadcast *)broadcast dictionary:(NSDictionary *)dict {
-   NSString *shelbyId = [dict objectForKey: @"_id"];
-   if (NOTNULL(shelbyId)) {
-       broadcast.shelbyId = shelbyId ;
-   }
-   NSString *providerId = [dict objectForKey: @"video_id_at_provider"];
-   if (NOTNULL(providerId)) {
-       broadcast.providerId = providerId ;
-   }
-   NSString *thumbnailImageUrl = [dict objectForKey: @"video_thumbnail_url"];
-   if (NOTNULL(thumbnailImageUrl)) {
-       broadcast.thumbnailImageUrl = thumbnailImageUrl ;
-   }
-   NSString *title  = [dict objectForKey: @"video_title"];
-   if (NOTNULL(title)) {
-       broadcast.title = title ;
-   }
-   NSString *sharerComment  = [dict objectForKey: @"description"];
-   if (NOTNULL(sharerComment)) {
-       broadcast.sharerComment = sharerComment ;
-   }
-   NSString *sharerName = [dict objectForKey: @"video_originator_user_name"];
-   if (NOTNULL(sharerName)) {
-       broadcast.sharerName = sharerName ;
-   }
-   NSString *videoOrigin = [dict objectForKey: @"video_origin"];
-   if (NOTNULL(videoOrigin)) {
-       broadcast.origin = videoOrigin ;
-   }
-   NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
-   if (NOTNULL(sharerImageUrl)) {
-       broadcast.sharerImageUrl = sharerImageUrl ;
-   }
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
-   //"liked_by_owner": true,
-    //"liked_by_user": null,
+    NSString *shelbyId = [dict objectForKey: @"_id"];
+    if (NOTNULL(shelbyId)) {
+        broadcast.shelbyId = shelbyId ;
+    }
+    NSString *providerId = [dict objectForKey: @"video_id_at_provider"];
+    if (NOTNULL(providerId)) {
+        broadcast.providerId = providerId ;
+    }
+    NSString *thumbnailImageUrl = [dict objectForKey: @"video_thumbnail_url"];
+    if (NOTNULL(thumbnailImageUrl)) {
+        broadcast.thumbnailImageUrl = thumbnailImageUrl ;
+    }
+    NSString *title  = [dict objectForKey: @"video_title"];
+    if (NOTNULL(title)) {
+        broadcast.title = title ;
+    }
+    NSString *sharerComment  = [dict objectForKey: @"description"];
+    if (NOTNULL(sharerComment)) {
+        broadcast.sharerComment = sharerComment ;
+    }
+    NSString *sharerName = [dict objectForKey: @"video_originator_user_name"];
+    if (NOTNULL(sharerName)) {
+        broadcast.sharerName = sharerName ;
+    }
+    NSString *videoOrigin = [dict objectForKey: @"video_origin"];
+    if (NOTNULL(videoOrigin)) {
+        broadcast.origin = videoOrigin ;
+    }
+    NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
+    if (NOTNULL(sharerImageUrl)) {
+        broadcast.sharerImageUrl = sharerImageUrl ;
+    }
+
+    NSDate *createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
+    if (NOTNULL(createdAt)) {
+        broadcast.createdAt = createdAt ;
+    }
+
+    //"liked_by_owner": true,
+     //"liked_by_user": null,
     //NSString *liked = [dict objectForKey: @"liked_by_user"];
     NSNumber *liked = [dict objectForKey: @"liked_by_owner"];
     if (NOTNULL(liked) && [liked boolValue]) {
@@ -527,14 +536,17 @@
     return broadcast;
 }
 
-- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel {
+- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel
+{    
+    
     for (NSDictionary *dict in array) {
-        // LOG(@"Broadcast dict: %@", dict);
+        //LOG(@"Broadcast dict: %@", dict);
         Broadcast *broadcast = [NSEntityDescription
           insertNewObjectForEntityForName:@"Broadcast"
                    inManagedObjectContext:_context];
 
         broadcast = [self populateBroadcastFromDictionary:broadcast dictionary: dict];
+        
 
         //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];
         //Description - tweet
