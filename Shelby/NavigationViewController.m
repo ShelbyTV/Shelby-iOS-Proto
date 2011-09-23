@@ -139,8 +139,10 @@
     [_videoPlayer pause];
     // Fetch the video next in queue.
     Video *video = [videoTable getNextVideo];
+  
     // Tell player to start playing new video.
     [_videoPlayer playVideo: video];
+    
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
