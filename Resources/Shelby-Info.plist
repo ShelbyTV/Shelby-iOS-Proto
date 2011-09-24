@@ -14,13 +14,9 @@
 	<string>Icon.png</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>shelby57x57.png</string>
-		<string>shelby114x114.png</string>
-		<string>shelby72x72.png</string>
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
-		<string>Icon-ipad.png</string>
-		<string>Icon~ipad.png</string>
+		<string>Icon-iPad.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>tv.shelby.${PRODUCT_NAME:rfc1034identifier}</string>
