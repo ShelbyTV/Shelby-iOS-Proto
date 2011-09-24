@@ -20,9 +20,10 @@
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, retain) NSDate *createdAt;
+@property (readwrite) NSUInteger arrayGeneration;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId, arrayGeneration;
 
 - (void) dealloc
 {
@@ -74,6 +75,7 @@
 
 @synthesize delegate;
 @synthesize networkCounter;
+@synthesize likedOnly;
 
 /*
  * Eventually we'll be getting data like this from the Shelby API -- the "broadcast" data
@@ -229,6 +231,11 @@ static NSString *fakeAPIData[] = {
 
     @synchronized(videoDataArray)
     {
+        if (index >= [videoDataArray count])
+        {
+            // something racy happened, and our index is no longer valid
+            return nil;
+        }
         videoData = [[[videoDataArray objectAtIndex:index] retain] autorelease];
     }
 
@@ -292,6 +299,11 @@ static NSString *fakeAPIData[] = {
 - (void)retrieveAndStoreYouTubeVideoData:(id)youTubeVideo
 {
     URLIndex *youTubeVideoURLIndex = (URLIndex *)youTubeVideo;
+    
+    // early exit if user's been switching channels
+    if (youTubeVideoURLIndex.arrayGeneration != currentArrayGeneration) {
+        return;
+    }
 
     /*
      * Thumbnail image
@@ -332,7 +344,10 @@ static NSString *fakeAPIData[] = {
 
     @synchronized(videoDataArray)
     {
-        [videoDataArray addObject:videoData];
+        // this makes sure we don't accidentally keep adding videos when people switch channels
+        if (youTubeVideoURLIndex.arrayGeneration == currentArrayGeneration) {
+            [videoDataArray addObject:videoData];
+        }
     }
 
     [youTubeVideo release];
@@ -369,10 +384,18 @@ static NSString *fakeAPIData[] = {
     return [baseURL stringByAppendingString:video];
 }
 
+
+/*
+ * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
+ * clear the existing video table, and update the table view to delete all entries
+ */
 - (void)clearVideos
 {
     @synchronized(videoDataArray)
     {
+        currentArrayGeneration++;
+        //[operationQueue cancelAllOperations];
+        
         [videoDataArray removeAllObjects];
         
         NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
@@ -404,12 +427,16 @@ static NSString *fakeAPIData[] = {
         youTubeVideoIndex.sharer = fakeAPIData[i * 6 + 5];
         youTubeVideoIndex.sharerComment = fakeAPIData[i * 6 + 3];
         youTubeVideoIndex.sharerImageURL = [[NSURL alloc] initWithString:fakeAPIData[i * 6 + 4]];
+        youTubeVideoIndex.arrayGeneration = currentArrayGeneration;
 
         NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
                                                                                 selector:@selector(retrieveAndStoreYouTubeVideoData:)
                                                                                   object:youTubeVideoIndex];
 
-        [operationQueue addOperation:operation];
+        @synchronized(videoDataArray)
+        {
+            [operationQueue addOperation:operation];
+        }
     }
 }
 
@@ -428,46 +455,53 @@ static NSString *fakeAPIData[] = {
     // Load up the new broadcasts.
     for (NSDictionary *broadcast in broadcasts) {
         if ([[broadcast objectForKey: @"video_provider_name"] isEqualToString: @"youtube"]) {
-            NSString *shelbyId      = [broadcast objectForKey: @"_id"];
-            NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
-            NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
-            NSString *title        = [broadcast objectForKey: @"video_title"];
-            //NSString *description  = [broadcast objectForKey: @"video_description"];
-
-            NSString *comment      = [broadcast objectForKey: @"description"];
-            NSString *sharerName = [[broadcast objectForKey: @"video_originator_user_nickname"] uppercaseString];
-            if ([[broadcast objectForKey: @"video_origin"] isEqualToString:@"twitter"]) {
-                sharerName = [NSString stringWithFormat:@"@%@", sharerName];
-            }
-            NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
-            NSString *source = [broadcast objectForKey: @"video_origin"];
-            NSDate *date = [dateFormatter dateFromString:[broadcast objectForKey: @"created_at"]];
-
-            NSURL *youTubeVideo = NULL;
-            if (NOTNULL(videoId)) {
-                youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
-            }
-
-            if (NOTNULL(youTubeVideo)) {
-                URLIndex *video = [[URLIndex alloc] init];
-
-                // We need the video to get anything done
-                video.youTubeVideoInfoURL = youTubeVideo;
-                if (NOTNULL(shelbyId)) video.shelbyId = shelbyId;
-                if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
-                if (NOTNULL(title)) video.title = title;
-
-                if (NOTNULL(sharerName)) video.sharer = sharerName;
-                if (NOTNULL(comment)) video.sharerComment = comment;
-                if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
-                if (NOTNULL(source)) video.source = source;
-                if (NOTNULL(date)) video.createdAt = date;
-
-                NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                                        selector:@selector(retrieveAndStoreYouTubeVideoData:)
-                                                                                          object:video];
-
-                [operationQueue addOperation:operation];
+            NSNumber *liked = [broadcast objectForKey: @"liked_by_owner"];
+            if (NOTNULL(liked) && ([liked boolValue] || ! likedOnly)) {
+                NSString *shelbyId      = [broadcast objectForKey: @"_id"];
+                NSString *videoId      = [broadcast objectForKey: @"video_id_at_provider"];
+                NSString *thumbnailUrl = [broadcast objectForKey: @"video_thumbnail_url"];
+                NSString *title        = [broadcast objectForKey: @"video_title"];
+                //NSString *description  = [broadcast objectForKey: @"video_description"];
+                
+                NSString *comment      = [broadcast objectForKey: @"description"];
+                NSString *sharerName = [[broadcast objectForKey: @"video_originator_user_nickname"] uppercaseString];
+                if ([[broadcast objectForKey: @"video_origin"] isEqualToString:@"twitter"]) {
+                    sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+                }
+                NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
+                NSString *source = [broadcast objectForKey: @"video_origin"];
+                NSDate *date = [dateFormatter dateFromString:[broadcast objectForKey: @"created_at"]];
+                
+                NSURL *youTubeVideo = NULL;
+                if (NOTNULL(videoId)) {
+                    youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
+                }
+                
+                if (NOTNULL(youTubeVideo)) {
+                    URLIndex *video = [[URLIndex alloc] init];
+                    
+                    // We need the video to get anything done
+                    video.youTubeVideoInfoURL = youTubeVideo;
+                    if (NOTNULL(shelbyId)) video.shelbyId = shelbyId;
+                    if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
+                    if (NOTNULL(title)) video.title = title;
+                    
+                    if (NOTNULL(sharerName)) video.sharer = sharerName;
+                    if (NOTNULL(comment)) video.sharerComment = comment;
+                    if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
+                    if (NOTNULL(source)) video.source = source;
+                    if (NOTNULL(date)) video.createdAt = date;
+                    video.arrayGeneration = currentArrayGeneration;
+                    
+                    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                                            selector:@selector(retrieveAndStoreYouTubeVideoData:)
+                                                                                              object:video];
+                    
+                    @synchronized(videoDataArray)
+                    {
+                        [operationQueue addOperation:operation];
+                    }
+                }
             }
         }
         // For now, we only handle YouTube.
@@ -511,7 +545,11 @@ static NSString *fakeAPIData[] = {
                          change:(NSDictionary *)change context:(void *)context
 {
     if (object == operationQueue && [keyPath isEqualToString:@"operations"]) {
-        NSInteger operationCount = [operationQueue operationCount];
+        NSInteger operationCount = 0;
+        @synchronized(videoDataArray)
+        {
+            operationCount = [operationQueue operationCount];
+        }
         //id object = [change objectForKey: NSKeyValueChangeOldKey];
         //NSLog(@"Previous count: %@", object);
         //NSInteger previousCount = [object integerValue];
@@ -573,6 +611,7 @@ static NSString *fakeAPIData[] = {
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTableView) userInfo:nil repeats:YES];
 
         videoDataArray = [[NSMutableArray alloc] init];
+        currentArrayGeneration = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)

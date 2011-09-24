@@ -23,11 +23,13 @@
     NSOperationQueue *operationQueue;
     UITableView *tableView;
     NSMutableArray *videoDataArray;
+    NSUInteger currentArrayGeneration;
     NSUInteger lastInserted;
     NSTimer *updateTimer;
 }
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readwrite) NSInteger networkCounter;
+@property (readwrite) BOOL likedOnly;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
