@@ -206,7 +206,7 @@
 		0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonBackground.png; path = Resources/Images/ButtonBackground.png; sourceTree = "<group>"; };
 		0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterHighlighted.png; path = Resources/Images/ButtonWatchLaterHighlighted.png; sourceTree = "<group>"; };
 		0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterNormal.png; path = Resources/Images/ButtonWatchLaterNormal.png; sourceTree = "<group>"; };
-		0AD9A35013D53BD200EFECE0 /* Shelby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AD9A35013D53BD200EFECE0 /* Shelby.tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.tv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -441,7 +441,7 @@
 		0AD9A35113D53BD200EFECE0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AD9A35013D53BD200EFECE0 /* Shelby.app */,
+				0AD9A35013D53BD200EFECE0 /* Shelby.tv.app */,
 				0AD9A37E13D53BD300EFECE0 /* ShelbyTests.octest */,
 			);
 			name = Products;
@@ -889,7 +889,7 @@
 			);
 			name = Shelby;
 			productName = Shelby;
-			productReference = 0AD9A35013D53BD200EFECE0 /* Shelby.app */;
+			productReference = 0AD9A35013D53BD200EFECE0 /* Shelby.tv.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0AD9A37D13D53BD300EFECE0 /* ShelbyTests */ = {
@@ -1323,6 +1323,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = Shelby.tv;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1332,13 +1333,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = Shelby.tv;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "15157E14-1105-4BCA-BBF6-E6E9893560D8";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1354,7 +1357,7 @@
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shelby.tv;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1363,12 +1366,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shelby.tv;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "15157E14-1105-4BCA-BBF6-E6E9893560D8";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1432,6 +1437,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = Shelby.tv;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1447,7 +1453,7 @@
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shelby.tv;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Offline;
