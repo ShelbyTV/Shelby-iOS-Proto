@@ -75,6 +75,7 @@
 		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
+		42896BA3142EECD300E2405D /* STVShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42896BA2142EECD300E2405D /* STVShareView.m */; };
 		428AA5A01423A7C100E692B9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA59F1423A7C100E692B9 /* User.m */; };
 		428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5AE1423EFE000E692B9 /* STVUserView.xib */; };
 		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
@@ -258,6 +259,8 @@
 		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		427A623113F4843200C945E2 /* STVCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVCheckBox.h; sourceTree = "<group>"; };
 		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
+		42896BA1142EECD300E2405D /* STVShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVShareView.h; sourceTree = "<group>"; };
+		42896BA2142EECD300E2405D /* STVShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVShareView.m; sourceTree = "<group>"; };
 		428AA59E1423A7C100E692B9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		428AA59F1423A7C100E692B9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		428AA5AF1423EFE000E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/STVUserView.xib; sourceTree = "<group>"; };
@@ -593,6 +596,8 @@
 				428B0254141FFE2500C88063 /* STVUserView.m */,
 				42084C7B1427B99A00C3C556 /* STVOfflineView.h */,
 				42084C7C1427B99A00C3C556 /* STVOfflineView.m */,
+				42896BA1142EECD300E2405D /* STVShareView.h */,
+				42896BA2142EECD300E2405D /* STVShareView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1113,6 +1118,7 @@
 				42084C7D1427B99A00C3C556 /* STVOfflineView.m in Sources */,
 				42084C8C1427DC3300C3C556 /* ConnectivityViewController.m in Sources */,
 				4240B36C142BF8F500819AC8 /* Broadcast.m in Sources */,
+				42896BA3142EECD300E2405D /* STVShareView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

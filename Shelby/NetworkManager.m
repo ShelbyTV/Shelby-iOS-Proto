@@ -33,7 +33,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoggedOut:)
                                                      name:@"LoginHelperLoggedOut"
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLikeBroadcastSucceeded:)
                                                      name:@"LoginHelperLikeBroadcastSucceeded"
                                                    object:nil];
@@ -100,6 +100,12 @@
 
 - (void)watchVideoWithId:(NSString *)videoId {
     return [self.loginHelper watchBroadcastWithId: videoId];
+}
+
+- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks {
+    [self.loginHelper shareBroadcastWithId: videoId
+                                   comment: comment
+                                  networks: networks];
 }
 
 #pragma mark - Notifications

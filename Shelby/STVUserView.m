@@ -41,7 +41,6 @@
     [self addSubview: self.image];
     [self addSubview: self.name];
     [self addSubview: self.button];
-
 }
 
 - (id)initWithFrame:(CGRect)frame

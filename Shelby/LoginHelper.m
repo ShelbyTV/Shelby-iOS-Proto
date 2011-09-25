@@ -42,7 +42,7 @@
 #define kFetchChannelsUrl     @"http://api.shelby.tv/v2/channels.json"
 #define kFetchBroadcastUrl    @"http://api.shelby.tv/v2/broadcasts/%@.json"
 #define kFetchBroadcastsUrl   @"http://api.shelby.tv/v2/channels/%@/broadcasts.json"
-#define kSocializationsUrl    @"http://api.shelby.tv/v2/socializations/.json"
+#define kSocializationsUrl    @"http://api.shelby.tv/v2/socializations.json"
 
 #define kCallbackUrl       @"shelby://ios.shelby.tv"
 
@@ -743,10 +743,10 @@
     [self decrementNetworkCounter];
 }
 
-- (void)shareBroadcastWithId:(NSString *)videoId socialNetwork:(NSString *)socialNetwork comment:(NSString *)comment recipient:(NSString *)recipient {
+- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks recipient:(NSString *)recipient {
     NSString *urlString = [NSString stringWithFormat: kSocializationsUrl];
     NSURL *url = [NSURL URLWithString: urlString];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"PUT"];
+    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"POST"];
 
     //POST /v2/socializations.json
     //{destination : 'twitter,facebook,tumblr,email',
@@ -754,35 +754,86 @@
     //     comment : 'this is the comment',
 
     if (req) {
-        // Set which broadcast
-        [req setValue: videoId forOAuthParameter: @"broadcast_id"];
-        // Set which social network
-        [req setValue: socialNetwork forOAuthParameter: @"destination"];
-        // What we said
-        [req setValue: comment forOAuthParameter: @"comment"];
-
-        if (NOTNULL(recipient)) {
-            // If email, send who's
-            [req setValue: recipient forOAuthParameter: @"to"];
+        NSString *networksString = nil;
+        for (NSString *network in networks) {
+            if (!networksString) {
+                networksString = network;
+            } else {
+                networksString = [NSString stringWithFormat: @"%@,%@", networksString, network];
+            }
         }
+        
+        //if (NOTNULL(recipient)) {
+        //    // If email, send who's
+        //    [req setValue: recipient forOAuthParameter: @"to"];
+        //}
 
-        // Set to plaintext on request because oAuth library is broken.
-        [req signPlaintext];
+        //NSMutableArray *array = [NSMutableArray array];
 
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeBroadcastResponse:data:error:forRequest:)];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+            networksString, @"destination", 
+            videoId, @"broadcast_id", 
+            [comment URLEncodedString], @"comment", 
+            nil];
+
+        NSString *formString = nil;
+        for (NSString *key in [params allKeys]) {
+            NSString *pair = [NSString stringWithFormat: @"%@=%@", key, [params objectForKey: key]];
+            if (!formString) {
+                formString = pair;
+            } else {
+                formString = [NSString stringWithFormat: @"%@&%@", formString, pair];
+            }
+        }
+        
+        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [req setHTTPBody: [formString dataUsingEncoding: NSUTF8StringEncoding]];
+
+        [req sign];
+        //// Set to plaintext on request because oAuth library is broken.
+        //[req signPlaintext];
+
+        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedShareBroadcastResponse:data:error:forRequest:)];
         [self incrementNetworkCounter];
     } else {
         // We failed to send the request. Let the caller know.
     }
 }
 
-- (void)shareBroadcastWithId:(NSString *)videoId socialNetwork:(NSString *)socialNetwork comment:(NSString *)comment {
-  [self shareBroadcastWithId: videoId socialNetwork: socialNetwork comment: comment recipient: nil];
+- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks {
+  [self shareBroadcastWithId: videoId comment: comment networks: networks recipient: nil];
 }
 
 - (void)receivedShareBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
 {
     LOG(@"receivedShareBroadcastResponse");
+    if (NOTNULL(error)) {
+        LOG(@"Share Broadcast error: %@", error);
+    } else {
+        if ([resp statusCode] != 200) {
+            LOG(@"Share Broadcast error! Status code: %d", [resp statusCode]);
+            
+        } else {
+            SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
+            NSDictionary *dict = [parser objectWithData: data];
+            NSString *apiError = [dict objectForKey: @"err"];
+            NSNumber *success = [dict objectForKey: @"success"];
+
+            if (NOTNULL(apiError)) {
+                LOG(@"Share Broadcast error: %@", apiError);
+                [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperShareBroadcastFailed"
+                                                                    object: self];
+            } else {
+                LOG(@"Share Broadcast success");
+                [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperShareBroadcastSucceeded"
+                                                                    object: self];
+            }
+
+            //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+            //NSLog(@"receivedShareBroadcastResponse: %@", string);
+        }
+    }
+
     [self decrementNetworkCounter];
 }
 

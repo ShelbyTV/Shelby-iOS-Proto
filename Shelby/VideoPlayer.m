@@ -433,11 +433,10 @@ static const float kNextPrevXOffset        =  0.0f;
  */
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
     [self resetTimer];
-    // Show an action sheet for now.
-    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
-    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [popupQuery showInView: self];
-    [popupQuery release];
+    // Inform our delegate
+    if (self.delegate) {
+        [self.delegate videoPlayerShareButtonWasPressed: self];
+    }
 }
 
 /*

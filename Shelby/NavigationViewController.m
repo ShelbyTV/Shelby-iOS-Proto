@@ -5,16 +5,17 @@
 //  Created by Mark Johnson on 7/24/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
-
+#import <MediaPlayer/MediaPlayer.h>
 #import "NavigationViewController.h"
+
 #import "VideoTableViewController.h"
 #import "VideoPlayer.h"
-#import <MediaPlayer/MediaPlayer.h>
 #import "User.h"
 #import "ShelbyApp.h"
 #import "STVUserView.h"
 #import "NetworkManager.h"
 #import "Video.h"
+#import "STVShareView.h"
 
 
 @implementation NavigationViewController
@@ -113,6 +114,21 @@
     }
 }
 
+#pragma mark - STVShareViewDelegate Methods
+
+ - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
+
+    Video *video = [videoTable getCurrentVideo];
+    // get ID from the video
+    NSString *videoId = video.shelbyId;
+
+    // POST message to API
+    [[ShelbyApp sharedApp].networkManager shareBroadcastWithId: videoId
+                                                       comment: message
+                                                      networks: networks];
+    [shareView removeFromSuperview];
+}
+
 #pragma mark - VideoTableViewControllerDelegate Methods
 
 - (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
@@ -169,6 +185,36 @@
 
     // PUT our like to the API
     [[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
+}
+
+- (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
+
+    Video *video = [videoTable getCurrentVideo];
+    // get ID from the video
+    NSString *videoId = video.shelbyId;
+
+    // show share UI
+    //[[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
+
+    // Show an action sheet for now.
+    //UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
+    //popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    //[popupQuery showInView: self.view];
+    //[popupQuery release];
+    
+    //ShareViewController *controller = [ShareViewController viewController];
+    //[self presentModalViewController: controller
+    //                        animated: YES];
+    
+    STVShareView *shareView = [STVShareView viewFromNib];
+    shareView.delegate = self;
+    
+    CGRect frame = shareView.frame;
+    frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
+    frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
+    shareView.frame = frame;
+    [self.view addSubview: shareView];
+        
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
