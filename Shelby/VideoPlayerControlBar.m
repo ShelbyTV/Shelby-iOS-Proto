@@ -142,16 +142,15 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     return offset;
 }
 
-- (void)layoutSubviews {
-    CGRect frame = self.bounds;
-    
-    _progressBar.frame = CGRectMake([self progressBarXOffset] - 1, 
-                                    [self progressBarYOffset], 
-                                    frame.size.width - [self progressBarXOffset] + 2,
-                                    44);
-    
-}
-
+//- (void)layoutSubviews {
+//    CGRect frame = self.bounds;
+//
+//    _progressBar.frame = CGRectMake([self progressBarXOffset] - 1,
+//                                    [self progressBarYOffset],
+//                                    frame.size.width - [self progressBarXOffset] + 2,
+//                                    44);
+//
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.
