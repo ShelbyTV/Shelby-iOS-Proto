@@ -24,6 +24,8 @@
 
 @property (assign) id <STVShareViewDelegate> delegate;
 
++ (STVShareView *)viewFromNib;
+
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;

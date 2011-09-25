@@ -666,7 +666,6 @@
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         NSDictionary *dict = [parser objectWithData: data];
         NSString *apiError = [dict objectForKey: @"err"];
-        NSNumber *success = [dict objectForKey: @"success"];
 
         if (NOTNULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
@@ -724,7 +723,6 @@
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         NSDictionary *dict = [parser objectWithData: data];
         NSString *apiError = [dict objectForKey: @"err"];
-        NSNumber *success = [dict objectForKey: @"success"];
 
         if (NOTNULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
@@ -806,18 +804,19 @@
 
 - (void)receivedShareBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
 {
+    NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
+    
     LOG(@"receivedShareBroadcastResponse");
     if (NOTNULL(error)) {
         LOG(@"Share Broadcast error: %@", error);
     } else {
-        if ([resp statusCode] != 200) {
-            LOG(@"Share Broadcast error! Status code: %d", [resp statusCode]);
+        if ([httpResp statusCode] != 200) {
+            LOG(@"Share Broadcast error! Status code: %d", [httpResp statusCode]);
             
         } else {
             SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
             NSDictionary *dict = [parser objectWithData: data];
             NSString *apiError = [dict objectForKey: @"err"];
-            NSNumber *success = [dict objectForKey: @"success"];
 
             if (NOTNULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);

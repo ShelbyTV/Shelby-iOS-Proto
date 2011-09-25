@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
 #import "STVUserView.h"
+#import "STVShareView.h"
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
 
@@ -16,7 +17,7 @@
 @class VideoPlayer;
 //@class STVUserView;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, UINavigationControllerDelegate, STVUserViewDelegate, VideoTableViewControllerDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, UINavigationControllerDelegate, STVUserViewDelegate, VideoTableViewControllerDelegate, STVShareViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;

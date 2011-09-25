@@ -189,10 +189,6 @@
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
 
-    Video *video = [videoTable getCurrentVideo];
-    // get ID from the video
-    NSString *videoId = video.shelbyId;
-
     // show share UI
     //[[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
 
