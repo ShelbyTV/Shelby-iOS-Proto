@@ -19,40 +19,10 @@
 #import "NSString+URLEncoding.h"
 #import "OAuthMutableURLRequest.h"
 
-#define kAppName @"Shelby.tv iOS"
-#define kProviderName @"shelby.tv"
-
-#define kUserIdName @"user_id"
-#define kChannelIdName @"channel_id"
-#define kRequestTokenName @"request"
-#define kAccessTokenName @"access"
-#define kAccessTokenSecretName @"access_secret"
-
-#define kShelbyConsumerKey		@"oQjjKJ0GvQc8TX9VliW1gN16KKXkPHh9nLfGAGBB"
-#define kShelbyConsumerSecret		@"WInhWrxHCje3T1U3hk3qHj7m5Lj2ThwwQ53OefA9"
-
-//#define kShelbyRequestToken	@"XNMyurKpFC8NIvGez5IgJzMuy78HhzmgoZ2gCW8B"
-//#define kShelbyRequestTokenSecret		@"eZB8bcVcNudzBYMORHUfsvzQtdxf3ylMbCvyjCLf"
-
-#define kRequestTokenUrl      @"http://dev.shelby.tv/oauth/request_token"
-#define kUserAuthorizationUrl @"http://dev.shelby.tv/oauth/authorize"
-#define kAccessTokenUrl       @"http://dev.shelby.tv/oauth/access_token"
-
-#define kFetchUserUrl         @"http://api.shelby.tv/v2/users.json"
-#define kFetchChannelsUrl     @"http://api.shelby.tv/v2/channels.json"
-#define kFetchBroadcastUrl    @"http://api.shelby.tv/v2/broadcasts/%@.json"
-#define kFetchBroadcastsUrl   @"http://api.shelby.tv/v2/channels/%@/broadcasts.json"
-#define kSocializationsUrl    @"http://api.shelby.tv/v2/socializations.json"
-
-#define kCallbackUrl       @"shelby://ios.shelby.tv"
-
+#import "ApiConstants.h"
+#import "ApiHelper.h"
 
 @interface LoginHelper ()
-
-#pragma mark - Persistence
-- (void)loadTokens;
-- (void)storeTokens;
-- (void)clearTokens;
 
 - (BOOL)fetchUserId;
 - (User *)retrieveUser;
@@ -65,9 +35,6 @@
 
 @synthesize delegate;
 @synthesize networkCounter;
-
-@synthesize accessToken;
-@synthesize accessTokenSecret;
 @synthesize user;
 @synthesize channel;
 @synthesize identityProvider;
@@ -88,7 +55,8 @@
         _parser = [[SBJsonStreamParser alloc] init];
         _parser.delegate = self;
         _parser.supportMultipleDocuments = YES;
-        [self loadTokens];
+        self.user = [self retrieveUser];
+        self.channel = [self getPublicChannel: 0 fromArray: [self retrieveChannels]];
     }
 
     return self;
@@ -113,70 +81,23 @@
     self.channel = [self getPublicChannel: newChannel fromArray: [self retrieveChannels]];
 }
 
-#pragma mark - Token Storage
 
 - (BOOL)loggedIn {
     // If we have stored both the accessToken and the secret, we're logged in.
-    return (self.accessToken && self.accessTokenSecret && self.user && self.channel);
+    return ([ShelbyApp sharedApp].apiHelper.accessToken && 
+            [ShelbyApp sharedApp].apiHelper.accessTokenSecret && 
+            self.user && 
+            self.channel);
 }
 
-- (NSString *)consumerTokenSecret {
-    return kShelbyConsumerSecret;
-}
-
-- (NSString *)consumerToken {
-    return kShelbyConsumerKey;
-}
-
-- (void)loadTokens {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.accessToken = [defaults stringForKey: kAccessTokenName];
-    self.accessTokenSecret = [defaults stringForKey: kAccessTokenSecretName];
-    self.user = [self retrieveUser];
-    self.channel = [self getPublicChannel: 0 fromArray: [self retrieveChannels]];
-}
 
 - (void)logout {
-    [self clearTokens];
+    [[ShelbyApp sharedApp].apiHelper clearTokens];
     //DEBUG ONLY!
     //[[NSThread mainThread] exit];
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedOut"
                                                         object: self
                                                         ];
-}
-
-/**
- * For now, we're using NSUserDefaults. However, this is insecure.
- * We should move to the keychain in the future.
- */
-- (void)storeTokens {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject: self.accessToken
-                 forKey: kAccessTokenName];
-    [defaults setObject: self.accessTokenSecret
-                 forKey: kAccessTokenSecretName];
-    [defaults synchronize];
-}
-
-- (void)clearTokens {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey: kAccessTokenName];
-    [defaults removeObjectForKey: kAccessTokenSecretName];
-    [defaults synchronize];
-}
-
-#pragma mark - Load Old Credentials
-
-- (OAuthMutableURLRequest *) requestForURL: (NSURL *) url withMethod: (NSString *) method;
-{
-    OAuthMutableURLRequest *request = [[[OAuthMutableURLRequest alloc] initWithURL: url] autorelease];
-
-    [request setConsumerKey: self.consumerToken secret: self.consumerTokenSecret];
-    if (self.accessToken != nil) [request setToken: self.accessToken secret: self.accessTokenSecret];
-
-    [request setHTTPMethod: method];
-
-    return request;
 }
 
 #pragma mark - Request Token
@@ -241,12 +162,10 @@
     NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
 
     // Store token for later use.
-    self.accessToken = token;
-    self.accessTokenSecret = tokenSecret;
-    [self storeTokens];
+    [[ShelbyApp sharedApp].apiHelper storeAccessToken:token accessTokenSecret:tokenSecret];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"OAuthAuthorizedAccessToken"
-                                                        object: self
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OAuthAuthorizedAccessToken"
+                                                        object:self
                                                         ];
 
     [self fetchUserId];
@@ -257,13 +176,13 @@
 - (BOOL)fetchUserId
 {
     NSURL *url = [NSURL URLWithString: kFetchUserUrl];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
     if (req) {
         // Set to plaintext on request because oAuth library is broken.
         [req signPlaintext];
 
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetUserResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedGetUserResponse:data:error:forRequest:)];
         [self incrementNetworkCounter];
         return YES;
     }
@@ -274,7 +193,7 @@
 - (void)receivedGetUserResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
 {
     [self decrementNetworkCounter];
-    NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
     NSLog(@"Got user: %@", string);
 
     _parserMode = STVParserModeUser;
@@ -357,7 +276,7 @@
 - (BOOL)fetchChannels
 {
     NSURL *url = [NSURL URLWithString: kFetchChannelsUrl];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
     if (req) {
         // Set to plaintext on request because oAuth library is broken.
@@ -446,7 +365,7 @@
         LOG(@"Fetching broadcasts from: %@", url);
 
         //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
-        OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+        OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
         if (req) {
             // Set to plaintext on request because oAuth library is broken.
@@ -575,7 +494,7 @@
     NSURLResponse *response = nil;
     NSError *error = nil;
     NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: kFetchBroadcastUrl, broadcastId]];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"GET"];
+    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
     [req signPlaintext];
 
     /*
@@ -631,220 +550,15 @@
     }
 }
 
-#pragma mark - Watch, Like, & Share
-
-- (void)watchBroadcastWithId:(NSString *)videoId {
-    NSString *urlString = [NSString stringWithFormat: kFetchBroadcastUrl, videoId];
-    NSURL *url = [NSURL URLWithString: urlString];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"PUT"];
-
-    if (req) {
-        // Set watched
-        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        NSString *watchedString = @"watched_by_owner=true";
-        [req setHTTPBody: [watchedString dataUsingEncoding: NSUTF8StringEncoding]];
-
-        // Set to plaintext on request because oAuth library is broken.
-        //[req signPlaintext];
-        [req sign];
-
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedWatchBroadcastResponse:data:error:forRequest:)];
-        [self incrementNetworkCounter];
-    } else {
-        // We failed to send the request. Let the caller know.
-    }
-}
-
-- (void)receivedWatchBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
-{
-    LOG(@"receivedWatchBroadcastResponse");
-
-    if (NOTNULL(error)) {
-        LOG(@"Watch Broadcast error: %@", error);
-    } else {
-        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
-        NSDictionary *dict = [parser objectWithData: data];
-        NSString *apiError = [dict objectForKey: @"err"];
-
-        if (NOTNULL(apiError)) {
-            LOG(@"Watch Broadcast error: %@", apiError);
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"WatchBroadcastFailed"
-                                                                object: self];
-        } else {
-            LOG(@"Watch Broadcast success");
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"WatchBroadcastSucceeded"
-                                                                object: self];
-        }
-
-        //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        //NSLog(@"receivedWatchBroadcastResponse: %@", string);
-    }
-
-    [self decrementNetworkCounter];
-}
-
-- (void)likeBroadcastWithId:(NSString *)videoId {
-    NSString *urlString = [NSString stringWithFormat: kFetchBroadcastUrl, videoId];
-    NSURL *url = [NSURL URLWithString: urlString];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"PUT"];
-
-    if (req) {
-        // Set liked
-
-        //[req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-
-        //NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        //    @"true", @"liked_by_owner",
-        //nil];
-        //SBJsonWriter *writer = [[[SBJsonWriter alloc] init] autorelease];
-        //NSString *jsonString = [writer stringWithObject: dict];
-        NSString *sampleString = @"liked_by_owner=true";
-
-        //[req setHTTPBody: [jsonString dataUsingEncoding: NSUTF8StringEncoding]];
-        [req setHTTPBody: [sampleString dataUsingEncoding: NSUTF8StringEncoding]];
-
-        // Sign in HMAC-SHA1
-        [req sign];
-
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeBroadcastResponse:data:error:forRequest:)];
-        [self incrementNetworkCounter];
-    } else {
-        // We failed to send the request. Let the caller know.
-    }
-}
-
-- (void)receivedLikeBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
-{
-    if (NOTNULL(error)) {
-        LOG(@"Like Broadcast error: %@", error);
-    } else {
-        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
-        NSDictionary *dict = [parser objectWithData: data];
-        NSString *apiError = [dict objectForKey: @"err"];
-
-        if (NOTNULL(apiError)) {
-            LOG(@"Like Broadcast error: %@", apiError);
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LikeBroadcastFailed"
-                                                                object: self];
-        } else {
-            LOG(@"Like Broadcast success");
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LikeBroadcastSucceeded"
-                                                                object: self];
-        }
-
-        //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        //NSLog(@"receivedLikeBroadcastResponse: %@", string);
-    }
-
-    [self decrementNetworkCounter];
-}
-
-- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks recipient:(NSString *)recipient {
-    NSString *urlString = [NSString stringWithFormat: kSocializationsUrl];
-    NSURL *url = [NSURL URLWithString: urlString];
-    OAuthMutableURLRequest *req = [self requestForURL:url withMethod:@"POST"];
-
-    //POST /v2/socializations.json
-    //{destination : 'twitter,facebook,tumblr,email',
-    //broadcast_id : '4d93900f8ebcf670c0000676',
-    //     comment : 'this is the comment',
-
-    if (req) {
-        NSString *networksString = nil;
-        for (NSString *network in networks) {
-            if (!networksString) {
-                networksString = network;
-            } else {
-                networksString = [NSString stringWithFormat: @"%@,%@", networksString, network];
-            }
-        }
-        
-        //if (NOTNULL(recipient)) {
-        //    // If email, send who's
-        //    [req setValue: recipient forOAuthParameter: @"to"];
-        //}
-
-        //NSMutableArray *array = [NSMutableArray array];
-
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-            networksString, @"destination", 
-            videoId, @"broadcast_id", 
-            [comment URLEncodedString], @"comment", 
-            nil];
-
-        NSString *formString = nil;
-        for (NSString *key in [params allKeys]) {
-            NSString *pair = [NSString stringWithFormat: @"%@=%@", key, [params objectForKey: key]];
-            if (!formString) {
-                formString = pair;
-            } else {
-                formString = [NSString stringWithFormat: @"%@&%@", formString, pair];
-            }
-        }
-        
-        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [req setHTTPBody: [formString dataUsingEncoding: NSUTF8StringEncoding]];
-
-        [req sign];
-        //// Set to plaintext on request because oAuth library is broken.
-        //[req signPlaintext];
-
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedShareBroadcastResponse:data:error:forRequest:)];
-        [self incrementNetworkCounter];
-    } else {
-        // We failed to send the request. Let the caller know.
-    }
-}
-
-- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks {
-  [self shareBroadcastWithId: videoId comment: comment networks: networks recipient: nil];
-}
-
-- (void)receivedShareBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
-{
-    NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
-    
-    LOG(@"receivedShareBroadcastResponse");
-    if (NOTNULL(error)) {
-        LOG(@"Share Broadcast error: %@", error);
-    } else {
-        if ([httpResp statusCode] != 200) {
-            LOG(@"Share Broadcast error! Status code: %d", [httpResp statusCode]);
-            
-        } else {
-            SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
-            NSDictionary *dict = [parser objectWithData: data];
-            NSString *apiError = [dict objectForKey: @"err"];
-
-            if (NOTNULL(apiError)) {
-                LOG(@"Share Broadcast error: %@", apiError);
-                [[NSNotificationCenter defaultCenter] postNotificationName: @"ShareBroadcastFailed"
-                                                                    object: self];
-            } else {
-                LOG(@"Share Broadcast success");
-                [[NSNotificationCenter defaultCenter] postNotificationName: @"ShareBroadcastSucceeded"
-                                                                    object: self];
-            }
-
-            //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-            //NSLog(@"receivedShareBroadcastResponse: %@", string);
-        }
-    }
-
-    [self decrementNetworkCounter];
-}
-
 #pragma mark - Login Complete
 
 - (void)loginComplete {
-    [self storeTokens];
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedIn"
                                                         object: self
                                                         ];
 }
 
-#pragma mark SBJsonStreamParserDelegate methods
+#pragma mark - SBJsonStreamParserDelegate methods
 
 - (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
     // Pass the data to VideoTableData.
@@ -858,7 +572,6 @@
             self.user = [self storeUserWithDictionary:dict withImageData:[self fetchUserImageDataWithDictionary:dict]];
             [self decrementNetworkCounter];
 
-            [self storeTokens];
             [self fetchChannels];
 
             break;

@@ -8,10 +8,12 @@
 
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
+#import "ApiHelper.h"
 
 @implementation ShelbyApp
 
 @synthesize loginHelper;
+@synthesize apiHelper;
 
 #pragma mark - Singleton
 
@@ -31,7 +33,10 @@ static ShelbyApp *gShelbyApp;
     if (self) {
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 5];
         self.loginHelper = [[[LoginHelper alloc] init] autorelease];
+        self.apiHelper = [[[ApiHelper alloc] init] autorelease];
+        [self.apiHelper loadTokens];
         [self addNetworkObject: self.loginHelper];
+        [self addNetworkObject: self.apiHelper];
     }
 
     return self;

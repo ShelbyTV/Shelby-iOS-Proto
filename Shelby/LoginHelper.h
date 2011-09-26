@@ -51,10 +51,7 @@ typedef enum {
 @property (readwrite) NSInteger networkCounter;
 
 @property (nonatomic, readonly) BOOL loggedIn;
-@property (nonatomic, readonly) NSString *consumerToken;
-@property (nonatomic, readonly) NSString *consumerTokenSecret;
-@property (nonatomic, retain) NSString *accessToken;
-@property (nonatomic, retain) NSString *accessTokenSecret;
+
 
 @property (nonatomic, retain) User *user;
 @property (nonatomic, retain) Channel *channel;
@@ -75,11 +72,7 @@ typedef enum {
 
 #pragma mark - API Calls
 - (BOOL)fetchBroadcasts;
-- (void)likeBroadcastWithId:(NSString *)videoId;
 - (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId;
-- (void)likeBroadcastWithId:(NSString *)videoId;
-- (void)watchBroadcastWithId:(NSString *)videoId;
-- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks recipient:(NSString *)recipient;
-- (void)shareBroadcastWithId:(NSString *)videoId comment:(NSString *)comment networks:(NSArray *)networks;
+
 
 @end

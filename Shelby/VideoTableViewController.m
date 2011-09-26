@@ -10,7 +10,7 @@
 #import "VideoTableData.h"
 #import "Video.h"
 #import "ShelbyApp.h"
-#import "NetworkManager.h"
+#import "LoginHelper.h"
 
 @implementation VideoTableViewController
 

@@ -14,6 +14,7 @@
 #import "ShelbyApp.h"
 #import "STVUserView.h"
 #import "LoginHelper.h"
+#import "BroadcastApi.h"
 #import "Video.h"
 #import "STVShareView.h"
 
@@ -74,7 +75,7 @@
     // Cue it up
     [_videoPlayer playVideo: video];
     // Notify the api it's been watched
-    [[ShelbyApp sharedApp].loginHelper watchBroadcastWithId:video.shelbyId];
+    [BroadcastApi watch:video.shelbyId];
     // Mark it as watched locally
     //video.watched = YES;
 }
@@ -116,16 +117,17 @@
 
 #pragma mark - STVShareViewDelegate Methods
 
- - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
-
+- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
+    
     Video *video = [videoTable getCurrentVideo];
     // get ID from the video
     NSString *videoId = video.shelbyId;
-
+    
     // POST message to API
-    [[ShelbyApp sharedApp].loginHelper shareBroadcastWithId:videoId
-                                                    comment:message
-                                                   networks:networks];
+    [BroadcastApi share:videoId
+                comment:message
+               networks:networks
+              recipient:nil];
     [shareView removeFromSuperview];
 }
 
@@ -184,7 +186,7 @@
     NSString *videoId = video.shelbyId;
 
     // PUT our like to the API
-    [[ShelbyApp sharedApp].loginHelper likeBroadcastWithId: videoId];
+    [BroadcastApi like:videoId];
 }
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {

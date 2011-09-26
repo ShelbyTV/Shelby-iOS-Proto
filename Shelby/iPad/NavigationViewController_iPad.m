@@ -14,7 +14,6 @@
 #import "NavigationViewController_iPad.h"
 #import "SettingsViewController.h"
 #import "ShelbyApp.h"
-#import "NetworkManager.h"
 
 @implementation NavigationViewController_iPad
 

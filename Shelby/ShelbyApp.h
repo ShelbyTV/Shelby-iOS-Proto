@@ -10,6 +10,7 @@
 #import "STVNetworkObject.h"
 
 @class LoginHelper;
+@class ApiHelper;
 
 /*
  * Global singleton for maintaining state.
@@ -20,6 +21,8 @@
 }
 
 @property (nonatomic, retain) LoginHelper *loginHelper;
+@property (nonatomic, retain) ApiHelper *apiHelper;
+
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 
 + (ShelbyApp *)sharedApp;
