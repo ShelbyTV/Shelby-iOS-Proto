@@ -468,7 +468,7 @@
 			children = (
 				42DAF45B141129C500936536 /* Model */,
 				42FAA3AB13FD840B00BC1D28 /* Utility */,
-				42A09B4313FC6CC400570DBE /* Login */,
+				42A09B4313FC6CC400570DBE /* API */,
 				427A623013F4840E00C945E2 /* Views */,
 				42C4C60B13E9CCD10034AC97 /* iPhone */,
 				42C4C60413E9CCB80034AC97 /* iPad */,
@@ -654,7 +654,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		42A09B4313FC6CC400570DBE /* Login */ = {
+		42A09B4313FC6CC400570DBE /* API */ = {
 			isa = PBXGroup;
 			children = (
 				42AFFA51140EBAE700C64D42 /* NetworkManager.h */,
@@ -662,7 +662,7 @@
 				42A09B4613FC6CD100570DBE /* LoginHelper.m */,
 				42A09B4813FC6CD100570DBE /* LoginHelper.h */,
 			);
-			name = Login;
+			name = API;
 			sourceTree = "<group>";
 		};
 		42AB209013FEE40500A8FC00 /* OAuth */ = {
