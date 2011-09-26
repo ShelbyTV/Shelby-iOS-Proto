@@ -12,9 +12,13 @@
 
 @implementation ApiHelper
 
+#pragma mark - Properties
+
 @synthesize accessToken;
 @synthesize accessTokenSecret;
 @synthesize networkCounter;
+
+#pragma mark - Init
 
 - (id)init
 {
@@ -75,6 +79,8 @@
     [defaults removeObjectForKey: kAccessTokenSecretName];
     [defaults synchronize];
 }
+
+#pragma mark - Network Op Counts
 
 - (void)incrementNetworkCounter {
     self.networkCounter++;
