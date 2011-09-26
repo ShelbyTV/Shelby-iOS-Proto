@@ -29,11 +29,11 @@
         // Set watched
         [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         NSString *watchedString = @"watched_by_owner=true";
-        [req setHTTPBody: [watchedString dataUsingEncoding: NSUTF8StringEncoding]];
+        [req setHTTPBody:[watchedString dataUsingEncoding:NSUTF8StringEncoding]];
         
         [req sign];
         
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedWatchResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     } else {
         // We failed to send the request. Let the caller know.
@@ -51,17 +51,17 @@
         LOG(@"Watch Broadcast error: %@", error);
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
-        NSDictionary *dict = [parser objectWithData: data];
-        NSString *apiError = [dict objectForKey: @"err"];
+        NSDictionary *dict = [parser objectWithData:data];
+        NSString *apiError = [dict objectForKey:@"err"];
         
         if (NOTNULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"WatchBroadcastFailed"
-                                                                object: self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastFailed"
+                                                                object:self];
         } else {
             LOG(@"Watch Broadcast success");
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"WatchBroadcastSucceeded"
-                                                                object: self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastSucceeded"
+                                                                object:self];
         }
         
         //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -84,12 +84,12 @@
         
         NSString *likeString = @"liked_by_owner=true";
         
-        [req setHTTPBody: [likeString dataUsingEncoding: NSUTF8StringEncoding]];
+        [req setHTTPBody: [likeString dataUsingEncoding:NSUTF8StringEncoding]];
         
         // Sign in HMAC-SHA1
         [req sign];
         
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedLikeResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
         
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     } else {
@@ -106,17 +106,17 @@
         LOG(@"Like Broadcast error: %@", error);
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
-        NSDictionary *dict = [parser objectWithData: data];
-        NSString *apiError = [dict objectForKey: @"err"];
+        NSDictionary *dict = [parser objectWithData:data];
+        NSString *apiError = [dict objectForKey:@"err"];
         
         if (NOTNULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LikeBroadcastFailed"
-                                                                object: self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastFailed"
+                                                                object:self];
         } else {
             LOG(@"Like Broadcast success");
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LikeBroadcastSucceeded"
-                                                                object: self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastSucceeded"
+                                                                object:self];
         }
         
         //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -133,8 +133,8 @@
      networks:(NSArray *)networks 
     recipient:(NSString *)recipient
 {
-    NSString *urlString = [NSString stringWithFormat: kSocializationsUrl];
-    NSURL *url = [NSURL URLWithString: urlString];
+    NSString *urlString = [NSString stringWithFormat:kSocializationsUrl];
+    NSURL *url = [NSURL URLWithString:urlString];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"POST"];
     
     //POST /v2/socializations.json
@@ -148,7 +148,7 @@
             if (!networksString) {
                 networksString = network;
             } else {
-                networksString = [NSString stringWithFormat: @"%@,%@", networksString, network];
+                networksString = [NSString stringWithFormat:@"%@,%@", networksString, network];
             }
         }
         
@@ -165,27 +165,30 @@
         
         NSString *formString = nil;
         for (NSString *key in [params allKeys]) {
-            NSString *pair = [NSString stringWithFormat: @"%@=%@", key, [params objectForKey: key]];
+            NSString *pair = [NSString stringWithFormat:@"%@=%@", key, [params objectForKey: key]];
             if (!formString) {
                 formString = pair;
             } else {
-                formString = [NSString stringWithFormat: @"%@&%@", formString, pair];
+                formString = [NSString stringWithFormat:@"%@&%@", formString, pair];
             }
         }
         
         [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [req setHTTPBody: [formString dataUsingEncoding: NSUTF8StringEncoding]];
+        [req setHTTPBody: [formString dataUsingEncoding:NSUTF8StringEncoding]];
         
         [req sign];
         
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedShareBroadcastResponse:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedShareBroadcastResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     } else {
         // We failed to send the request. Let the caller know.
     }
 }
 
-+ (void)receivedShareBroadcastResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
++ (void)receivedShareBroadcastResponse:(NSURLResponse *)resp 
+                                  data:(NSData *)data
+                                 error:(NSError *)error 
+                            forRequest:(NSURLRequest *)request
 {
     NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
     
@@ -198,17 +201,17 @@
             
         } else {
             SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
-            NSDictionary *dict = [parser objectWithData: data];
-            NSString *apiError = [dict objectForKey: @"err"];
+            NSDictionary *dict = [parser objectWithData:data];
+            NSString *apiError = [dict objectForKey:@"err"];
             
             if (NOTNULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);
-                [[NSNotificationCenter defaultCenter] postNotificationName: @"ShareBroadcastFailed"
-                                                                    object: self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastFailed"
+                                                                    object:self];
             } else {
                 LOG(@"Share Broadcast success");
-                [[NSNotificationCenter defaultCenter] postNotificationName: @"ShareBroadcastSucceeded"
-                                                                    object: self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastSucceeded"
+                                                                    object:self];
             }
             
             //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
