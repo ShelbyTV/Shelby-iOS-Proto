@@ -15,7 +15,33 @@
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
 
+static NSMutableDictionary *requestsDict = nil;
+
 @implementation BroadcastApi
+
++ (void)initialize
+{
+    if (nil == requestsDict) {
+        requestsDict = [[NSMutableDictionary dictionaryWithCapacity:1000] retain];
+    }
+}
+
++ (void) associateVideoId:(NSString *)videoId
+              withRequest:(OAuthMutableURLRequest *)req
+{
+    // using valueWithPointer here guarantees no one will accidentally remove our object
+    [requestsDict setObject:videoId forKey:[NSValue valueWithPointer:req]];
+}
+
++ (NSString *) getVideoIdForRequest:(NSURLRequest *)request
+{
+    // note that we must use object for key, not value for key
+    NSValue *key = [NSValue valueWithPointer:request];
+    NSString *videoId = [requestsDict objectForKey:key];
+    [requestsDict removeObjectForKey:key]; // clean up dictionary
+    
+    return videoId;
+}
 
 #pragma mark - Watch
 
@@ -33,6 +59,8 @@
         
         [req sign];
         
+        [self associateVideoId:videoId withRequest:req];
+        
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     } else {
@@ -45,7 +73,9 @@
                         error:(NSError *)error
                    forRequest:(NSURLRequest *)request
 {
-    LOG(@"receivedWatchBroadcastResponse");
+    NSString *videoId = [self getVideoIdForRequest:request];
+
+    LOG(@"receivedWatchBroadcastResponse %@", videoId);
     
     if (NOTNULL(error)) {
         LOG(@"Watch Broadcast error: %@", error);
@@ -57,11 +87,13 @@
         if (NOTNULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastFailed"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id",nil]];
         } else {
             LOG(@"Watch Broadcast success");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastSucceeded"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id",nil]];
         }
         
         //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -89,6 +121,8 @@
         // Sign in HMAC-SHA1
         [req sign];
         
+        [self associateVideoId:videoId withRequest:req];
+        
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
         
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
@@ -102,6 +136,10 @@
                        error:(NSError *)error
                   forRequest:(NSURLRequest *)request
 {
+    NSString *videoId = [self getVideoIdForRequest:request];
+
+    LOG(@"receivedLikeBroadcastResponse %@", videoId);
+    
     if (NOTNULL(error)) {
         LOG(@"Like Broadcast error: %@", error);
     } else {
@@ -112,11 +150,13 @@
         if (NOTNULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastFailed"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id",nil]];
         } else {
             LOG(@"Like Broadcast success");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastSucceeded"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id",nil]];
         }
         
         //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -178,6 +218,8 @@
         
         [req sign];
         
+        [self associateVideoId:videoId withRequest:req];
+        
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedShareBroadcastResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     } else {
@@ -190,9 +232,12 @@
                                  error:(NSError *)error 
                             forRequest:(NSURLRequest *)request
 {
+    NSString *videoId = [self getVideoIdForRequest:request];
+
+    NSLog(@"receivedShareBroadcastResponse %@", videoId);
+    
     NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
     
-    LOG(@"receivedShareBroadcastResponse");
     if (NOTNULL(error)) {
         LOG(@"Share Broadcast error: %@", error);
     } else {
@@ -207,11 +252,13 @@
             if (NOTNULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastFailed"
-                                                                    object:self];
+                                                                    object:self
+                                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id",nil]];
             } else {
                 LOG(@"Share Broadcast success");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastSucceeded"
-                                                                    object:self];
+                                                                    object:self
+                                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id",nil]];
             }
             
             //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
