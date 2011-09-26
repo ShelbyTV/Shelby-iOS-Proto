@@ -140,7 +140,7 @@
     [self clearTokens];
     //DEBUG ONLY!
     //[[NSThread mainThread] exit];
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoggedOut"
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedOut"
                                                         object: self
                                                         ];
 }
@@ -225,7 +225,7 @@
 - (void)handshake:(OAuthHandshake *)handshake failedWithError:(NSError *) error
 {
     NSLog(@"OAuth request failed with an error: %@", [error localizedDescription]);
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperOAuthHandshakeFailed"
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"OAuthHandshakeFailed"
                                                         object: self];
     [self decrementNetworkCounter];
 }
@@ -245,7 +245,7 @@
     self.accessTokenSecret = tokenSecret;
     [self storeTokens];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperAuthorizedAccessToken"
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"OAuthAuthorizedAccessToken"
                                                         object: self
                                                         ];
 
@@ -669,11 +669,11 @@
 
         if (NOTNULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperWatchBroadcastFailed"
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"WatchBroadcastFailed"
                                                                 object: self];
         } else {
             LOG(@"Watch Broadcast success");
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperWatchBroadcastSucceeded"
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"WatchBroadcastSucceeded"
                                                                 object: self];
         }
 
@@ -726,11 +726,11 @@
 
         if (NOTNULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLikeBroadcastFailed"
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LikeBroadcastFailed"
                                                                 object: self];
         } else {
             LOG(@"Like Broadcast success");
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLikeBroadcastSucceeded"
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"LikeBroadcastSucceeded"
                                                                 object: self];
         }
 
@@ -820,11 +820,11 @@
 
             if (NOTNULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);
-                [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperShareBroadcastFailed"
+                [[NSNotificationCenter defaultCenter] postNotificationName: @"ShareBroadcastFailed"
                                                                     object: self];
             } else {
                 LOG(@"Share Broadcast success");
-                [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperShareBroadcastSucceeded"
+                [[NSNotificationCenter defaultCenter] postNotificationName: @"ShareBroadcastSucceeded"
                                                                     object: self];
             }
 
@@ -840,7 +840,7 @@
 
 - (void)loginComplete {
     [self storeTokens];
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperLoginComplete"
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedIn"
                                                         object: self
                                                         ];
 }
@@ -883,7 +883,7 @@
            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                broadcasts, @"broadcasts",
                nil];
-           [[NSNotificationCenter defaultCenter] postNotificationName: @"LoginHelperReceivedBroadcasts"
+           [[NSNotificationCenter defaultCenter] postNotificationName: @"ReceivedBroadcasts"
                                                                object: self
                                                              userInfo: userInfo];
            break;

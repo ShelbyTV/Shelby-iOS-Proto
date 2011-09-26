@@ -40,7 +40,7 @@
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedOut:)
-                                                     name:@"NetworkManagerLoggedOut"
+                                                     name:@"UserLoggedOut"
                                                    object:nil];
         
         // Network Activity
@@ -55,11 +55,11 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(likeVideoSucceeded:)
-                                                     name:@"NetworkManagerLikeBroadcastSucceeded"
+                                                     name:@"LikeBroadcastSucceeded"
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(likeVideoFailed:)
-                                                     name:@"NetworkManagerLikeBroadcastFailed"
+                                                     name:@"LikeBroadcastFailed"
                                                    object:nil];
 
     }

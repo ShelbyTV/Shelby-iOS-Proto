@@ -583,7 +583,7 @@ static NSString *fakeAPIData[] = {
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"LoginHelperReceivedBroadcasts"
+                                                    name: @"ReceivedBroadcasts"
                                                   object: nil];
 	[super dealloc];
 }
@@ -615,7 +615,7 @@ static NSString *fakeAPIData[] = {
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)
-                                                     name: @"LoginHelperReceivedBroadcasts"
+                                                     name: @"ReceivedBroadcasts"
                                                    object: nil];
         [[ShelbyApp sharedApp] addNetworkObject: self];
     }

@@ -31,16 +31,16 @@
         _networkManager = [ShelbyApp sharedApp].networkManager;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedIn:)
-                                                     name:@"NetworkManagerLoggedIn"
+                                                     name:@"UserLoggedIn"
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedOut:)
-                                                     name:@"NetworkManagerLoggedOut"
+                                                     name:@"UserLoggedOut"
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(showShelbyDown) 
-                                                     name:@"LoginHelperOAuthHandshakeFailed" 
+                                                     name:@"OAuthHandshakeFailed" 
                                                    object:nil];
         
         // Network Activity

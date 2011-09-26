@@ -23,23 +23,6 @@
     if (self) {
         // Initialization code here.
         self.loginHelper = [[[LoginHelper alloc] init] autorelease];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperAuthorizedToken:)
-                                                     name:@"LoginHelperAuthorizedAccessToken"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoginComplete:)
-                                                     name:@"LoginHelperLoginComplete"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLoggedOut:)
-                                                     name:@"LoginHelperLoggedOut"
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLikeBroadcastSucceeded:)
-                                                     name:@"LoginHelperLikeBroadcastSucceeded"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHelperLikeBroadcastFailed:)
-                                                     name:@"LoginHelperLikeBroadcastFailed"
-                                                   object:nil];
     }
     return self;
 }
@@ -106,33 +89,6 @@
     [self.loginHelper shareBroadcastWithId: videoId
                                    comment: comment
                                   networks: networks];
-}
-
-#pragma mark - Notifications
-
-- (void)loginHelperAuthorizedToken:(NSNotification *)notification {
-    //[[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedIn"
-    //                                                    object: self];
-}
-
-- (void)loginHelperLoginComplete:(NSNotification *)notification {
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedIn"
-                                                        object: self];
-}
-
-- (void)loginHelperLoggedOut:(NSNotification *)notification {
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLoggedOut"
-                                                        object: self];
-}
-
-- (void)loginHelperLikeBroadcastSucceeded:(NSNotification *)notification {
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLikeBroadcastSucceeded"
-                                                        object: self];
-}
-
-- (void)loginHelperLikeBroadcastFailed:(NSNotification *)notification {
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"NetworkManagerLikeBroadcastFailed"
-                                                        object: self];
 }
 
 
