@@ -1,3 +1,11 @@
+//
+//  ApiConstants.h
+//  Shelby
+//
+//  Created by Mark Johnson on 9/25/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
 #define kAppName @"Shelby.tv iOS"
 #define kProviderName @"shelby.tv"
 
