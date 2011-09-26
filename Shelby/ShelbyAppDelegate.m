@@ -9,7 +9,7 @@
 #import "ShelbyAppDelegate.h"
 #import "URLParser.h"
 #import "ShelbyApp.h"
-#import "NetworkManager.h"
+#import "LoginHelper.h"
 
 @implementation ShelbyAppDelegate
 
@@ -47,8 +47,8 @@
     LOG(@"oauthVerifier: %@", oauthVerifier);
 
     // If we're coming from oAuth, capture the incoming verifier.
-    NetworkManager *networkManager = [ShelbyApp sharedApp].networkManager;
-    [networkManager oAuthVerifierReturned: oauthVerifier];
+    LoginHelper *loginHelper = [ShelbyApp sharedApp].loginHelper;
+    [loginHelper verifierReturnedFromAuth:oauthVerifier];
 
     return YES;
   }

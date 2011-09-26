@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 #import "UICustomSwitch.h"
 #import "ShelbyApp.h"
-#import "NetworkManager.h"
+#import "LoginHelper.h"
 #import "User.h"
 
 @implementation SettingsViewController
@@ -92,7 +92,7 @@
 - (void)viewWillAppear:(BOOL)animated 
 {
     // Load user info.
-    User *user = [ShelbyApp sharedApp].networkManager.user;
+    User *user = [ShelbyApp sharedApp].loginHelper.user;
     _nameField.text = user.name;
     _nicknameField.text = user.nickname;
 
@@ -101,7 +101,7 @@
 - (void)viewWillDisappear:(BOOL)animated 
 {
     // Store all changes.
-    User *user = [ShelbyApp sharedApp].networkManager.user;
+    User *user = [ShelbyApp sharedApp].loginHelper.user;
     user.name = _nameField.text;
     user.nickname = _nicknameField.text;
 }
@@ -115,7 +115,7 @@
 #pragma mark - UI Callbacks
 
 - (IBAction)logoutWasPressed:(id)sender {
-    [[ShelbyApp sharedApp].networkManager logout];
+    [[ShelbyApp sharedApp].loginHelper logout];
 }
 
 - (IBAction)doneWasPressed:(id)sender {

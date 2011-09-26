@@ -10,7 +10,6 @@
 #import "STVNetworkObject.h"
 
 @class LoginHelper;
-@class NetworkManager;
 
 /*
  * Global singleton for maintaining state.
@@ -20,7 +19,7 @@
   NSMutableSet *_networkObjects;
 }
 
-@property (nonatomic, retain) NetworkManager *networkManager;
+@property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 
 + (ShelbyApp *)sharedApp;

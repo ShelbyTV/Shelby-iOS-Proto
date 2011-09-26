@@ -55,7 +55,9 @@
         
         // Change the channel.
         videoMode = mode;
-        [[ShelbyApp sharedApp].networkManager changeChannel: 0];
+        [[ShelbyApp sharedApp].loginHelper changeChannel: 0];
+        [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
+
         
         // Wait for new data.
     }
@@ -74,7 +76,7 @@
 #ifdef OFFLINE_MODE
     [videoTableData loadVideos];
 #else
-    [[ShelbyApp sharedApp].networkManager fetchBroadcasts];
+    [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
 #endif
 }
 

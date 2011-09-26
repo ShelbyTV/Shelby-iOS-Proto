@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "NavigationViewController_iPhone.h"
 #import "ShelbyApp.h"
-#import "NetworkManager.h"
+#import "LoginHelper.h"
 
 @implementation ShelbyAppDelegate_iPhone
 
@@ -32,7 +32,7 @@
     [navigationViewController.view addSubview:loginViewController.view];
     [loginViewController viewDidAppear: NO];
 
-    if ([ShelbyApp sharedApp].networkManager.loggedIn) {
+    if ([ShelbyApp sharedApp].loginHelper.loggedIn) {
         // If we're logged in, we can bypass login.
         [loginViewController allDone];
     }

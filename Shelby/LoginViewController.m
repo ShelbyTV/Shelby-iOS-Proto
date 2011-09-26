@@ -8,7 +8,7 @@
 //
 
 #import "LoginViewController.h"
-#import "NetworkManager.h"
+#import "LoginHelper.h"
 #import "ShelbyApp.h"
 #import "Reachability.h"
 #import "STVOfflineView.h"
@@ -28,7 +28,7 @@
         callbackObject = object;
         callbackSelector = selector;
 
-        _networkManager = [ShelbyApp sharedApp].networkManager;
+        _loginHelper = [ShelbyApp sharedApp].loginHelper;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedIn:)
                                                      name:@"UserLoggedIn"
@@ -172,8 +172,7 @@
 #ifdef OFFLINE_MODE
     [self allDone];
 #else
-    //[_networkManager beginOAuthHandshake];
-    [_networkManager beginOAuthHandshakeWithProvider: provider];
+    [_loginHelper getRequestTokenWithProvider:provider];
 #endif
 }
 

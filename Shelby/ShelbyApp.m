@@ -8,11 +8,10 @@
 
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
-#import "NetworkManager.h"
 
 @implementation ShelbyApp
 
-@synthesize networkManager;
+@synthesize loginHelper;
 
 #pragma mark - Singleton
 
@@ -31,8 +30,8 @@ static ShelbyApp *gShelbyApp;
     self = [super init];
     if (self) {
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 5];
-        self.networkManager = [[[NetworkManager alloc] init] autorelease];
-        [self addNetworkObject: self.networkManager];
+        self.loginHelper = [[[LoginHelper alloc] init] autorelease];
+        [self addNetworkObject: self.loginHelper];
     }
 
     return self;
@@ -41,12 +40,12 @@ static ShelbyApp *gShelbyApp;
 #pragma mark - Network Activity
 
 - (BOOL)isNetworkBusy {
-    NSInteger networkCount = 0;
-    // count up the network counters
     for (id <STVNetworkObject> networkObject in _networkObjects) {
-        networkCount += networkObject.networkCounter;
+        if (networkObject.networkCounter > 0) {
+            return YES; 
+        }
     }
-    return (networkCount > 0);
+    return NO;
 }
 
 - (void)postNetworkActivityNotification {

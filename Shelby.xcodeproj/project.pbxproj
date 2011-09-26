@@ -126,7 +126,6 @@
 		42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C7142A9305009FD812 /* ButtonSend.png */; };
 		42ACA2CA142A95AB009FD812 /* ButtonSocialBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */; };
 		42ACA2E6142BF1C1009FD812 /* ApiTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ACA2E5142BF1C1009FD812 /* ApiTest.m */; };
-		42AFFA53140EBAE700C64D42 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AFFA52140EBAE700C64D42 /* NetworkManager.m */; };
 		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
 		42C4C56613E8A6C00034AC97 /* FacebookActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55913E8A6C00034AC97 /* FacebookActive.png */; };
 		42C4C56713E8A6C00034AC97 /* FacebookDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */; };
@@ -336,8 +335,6 @@
 		42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSocialBackground.png; path = Resources/Images/ButtonSocialBackground.png; sourceTree = "<group>"; };
 		42ACA2E4142BF1C1009FD812 /* ApiTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiTest.h; sourceTree = "<group>"; };
 		42ACA2E5142BF1C1009FD812 /* ApiTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiTest.m; sourceTree = "<group>"; };
-		42AFFA51140EBAE700C64D42 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
-		42AFFA52140EBAE700C64D42 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		42C4C55813E8A6C00034AC97 /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Face.png; path = Resources/Images/Face.png; sourceTree = "<group>"; };
 		42C4C55913E8A6C00034AC97 /* FacebookActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookActive.png; path = Resources/Images/FacebookActive.png; sourceTree = "<group>"; };
 		42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookDisabled.png; path = Resources/Images/FacebookDisabled.png; sourceTree = "<group>"; };
@@ -657,10 +654,8 @@
 		42A09B4313FC6CC400570DBE /* API */ = {
 			isa = PBXGroup;
 			children = (
-				42AFFA51140EBAE700C64D42 /* NetworkManager.h */,
-				42AFFA52140EBAE700C64D42 /* NetworkManager.m */,
-				42A09B4613FC6CD100570DBE /* LoginHelper.m */,
 				42A09B4813FC6CD100570DBE /* LoginHelper.h */,
+				42A09B4613FC6CD100570DBE /* LoginHelper.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1107,7 +1102,6 @@
 				42AB21F213FEF35D00A8FC00 /* SBJsonUTF8Stream.m in Sources */,
 				42AB21F313FEF35D00A8FC00 /* SBJsonWriter.m in Sources */,
 				42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */,
-				42AFFA53140EBAE700C64D42 /* NetworkManager.m in Sources */,
 				42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */,
 				42DAF47314113F8D00936536 /* Channel.m in Sources */,
 				428B0255141FFE2500C88063 /* STVUserView.m in Sources */,

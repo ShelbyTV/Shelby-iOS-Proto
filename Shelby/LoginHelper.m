@@ -68,8 +68,8 @@
 
 @synthesize accessToken;
 @synthesize accessTokenSecret;
-@synthesize user = _user;
-@synthesize channel = _channel;
+@synthesize user;
+@synthesize channel;
 @synthesize identityProvider;
 
 
@@ -310,20 +310,20 @@
 - (User *)storeUserWithDictionary:(NSDictionary *)dict
                     withImageData:(NSData *)imageData
 {
-    User *user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
+    User *newUser = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                inManagedObjectContext:_context];
-    [user setValue:[dict objectForKey:@"name"]  forKey:@"name"];
-    [user setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
-    [user setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
-    [user setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
-    [user setValue:imageData forKey:@"image"];
+    [newUser setValue:[dict objectForKey:@"name"]  forKey:@"name"];
+    [newUser setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
+    [newUser setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
+    [newUser setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
+    [newUser setValue:imageData forKey:@"image"];
 
     NSError *error = nil;
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
-    return user;
+    return newUser;
 }
 
 - (User *)retrieveUser {
@@ -335,8 +335,7 @@
     NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     if ([objects count] > 0) {
-        User *user = [objects objectAtIndex: 0];
-        return user;
+        return [objects objectAtIndex: 0];
     } else {
         return nil;
     }
@@ -346,9 +345,9 @@
 
 - (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels
 {
-    for (Channel *channel in channels) {
-        if ([channel.public integerValue] == public) {
-            return channel;
+    for (Channel *c in channels) {
+        if ([c.public integerValue] == public) {
+            return c;
             break;
         }
     }
@@ -389,19 +388,19 @@
     }
 }
 
-- (void)storeChannelsWithArray:(NSArray *)array user:(User *)user {
+- (void)storeChannelsWithArray:(NSArray *)array user:(User *)newUser {
     for (NSDictionary *dict in array) {
         LOG(@"Channel dict: %@", dict);
-        Channel *channel = [NSEntityDescription
+        Channel *newChannel = [NSEntityDescription
           insertNewObjectForEntityForName:@"Channel"
                    inManagedObjectContext:_context];
         NSNumber *public = [dict objectForKey:@"public"];
-        [channel setValue: public forKey:@"public"];
+        [newChannel setValue: public forKey:@"public"];
         NSString *name = [dict objectForKey:@"name"];
-        [channel setValue: name forKey:@"name"];
+        [newChannel setValue: name forKey:@"name"];
         NSString *shelbyId = [dict objectForKey:@"_id"];
-        [channel setValue: shelbyId forKey:@"shelbyId"];
-        if (user) channel.user = user;
+        [newChannel setValue: shelbyId forKey:@"shelbyId"];
+        if (newUser) newChannel.user = newUser;
     }
 
     NSError *error;
@@ -536,7 +535,7 @@
     return broadcast;
 }
 
-- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)channel
+- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
 {    
     
     for (NSDictionary *dict in array) {
@@ -553,7 +552,7 @@
         //video_description - youtube description
         //video_title - youtube title
 
-        if (channel) broadcast.channel = channel;
+        if (newChannel) broadcast.channel = newChannel;
     }
 
     NSError *error;
@@ -613,13 +612,13 @@
     return broadcast;
 }
 
-- (NSArray *)retrieveBroadcastsForChannel:(Channel *)channel {
+- (NSArray *)retrieveBroadcastsForChannel:(Channel *)c {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
         entityForName:@"Broadcast" inManagedObjectContext: _context];
     [fetchRequest setEntity:entity];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-        @"(channel == %@)", channel];
+        @"(channel == %@)", c];
     [fetchRequest setPredicate:predicate];
     NSError *error;
     NSArray *broadcasts = [_context executeFetchRequest:fetchRequest error:&error];
@@ -627,7 +626,7 @@
     if ([broadcasts count] > 0) {
         return broadcasts;
     } else {
-        LOG(@"Found no broadcasts for channel: %@. Error: %@", channel, error);
+        LOG(@"Found no broadcasts for channel: %@. Error: %@", c, error);
         return nil;
     }
 }

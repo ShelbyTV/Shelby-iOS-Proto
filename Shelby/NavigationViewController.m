@@ -13,7 +13,7 @@
 #import "User.h"
 #import "ShelbyApp.h"
 #import "STVUserView.h"
-#import "NetworkManager.h"
+#import "LoginHelper.h"
 #import "Video.h"
 #import "STVShareView.h"
 
@@ -74,14 +74,14 @@
     // Cue it up
     [_videoPlayer playVideo: video];
     // Notify the api it's been watched
-    [[ShelbyApp sharedApp].networkManager watchVideoWithId: video.shelbyId];
+    [[ShelbyApp sharedApp].loginHelper watchBroadcastWithId:video.shelbyId];
     // Mark it as watched locally
     //video.watched = YES;
 }
 
 - (void)loadUserData
 {
-    User *user = [ShelbyApp sharedApp].networkManager.user;
+    User *user = [ShelbyApp sharedApp].loginHelper.user;
     // Draw user image & name.
     //self.userView.name.text = user.name;
     self.userView.name.text = user.nickname;
@@ -110,7 +110,7 @@
     // Since we only have one alertview, let's be lazy and assume we have the right one.
 
     if (buttonIndex == 1) {
-        [[ShelbyApp sharedApp].networkManager logout];
+        [[ShelbyApp sharedApp].loginHelper logout];
     }
 }
 
@@ -123,9 +123,9 @@
     NSString *videoId = video.shelbyId;
 
     // POST message to API
-    [[ShelbyApp sharedApp].networkManager shareBroadcastWithId: videoId
-                                                       comment: message
-                                                      networks: networks];
+    [[ShelbyApp sharedApp].loginHelper shareBroadcastWithId:videoId
+                                                    comment:message
+                                                   networks:networks];
     [shareView removeFromSuperview];
 }
 
@@ -184,7 +184,7 @@
     NSString *videoId = video.shelbyId;
 
     // PUT our like to the API
-    [[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
+    [[ShelbyApp sharedApp].loginHelper likeBroadcastWithId: videoId];
 }
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {

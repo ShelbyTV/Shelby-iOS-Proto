@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ConnectivityViewController.h"
 
-@class NetworkManager;
+@class LoginHelper;
 @class Reachability;
 
 @interface LoginViewController : ConnectivityViewController {
@@ -17,7 +17,7 @@
     SEL callbackSelector;
 
     // Actual login stuff
-    NetworkManager *_networkManager;
+    LoginHelper *_loginHelper;
 }
     
 - (id)initWithNibName:(NSString *)nibNameOrNil

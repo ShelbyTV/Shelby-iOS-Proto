@@ -42,8 +42,6 @@ typedef enum {
 @interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate, STVNetworkObject> {
     OAuthHandshake *handshake;
     SBJsonStreamParser *_parser;
-    User *_user;
-    Channel *_channel;
     @private
     STVParserMode _parserMode;
     NSManagedObjectContext *_context;
