@@ -126,7 +126,6 @@
 		42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C7142A9305009FD812 /* ButtonSend.png */; };
 		42ACA2CA142A95AB009FD812 /* ButtonSocialBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */; };
 		42ACA2E6142BF1C1009FD812 /* ApiTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ACA2E5142BF1C1009FD812 /* ApiTest.m */; };
-		42C4C56513E8A6C00034AC97 /* Face.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55813E8A6C00034AC97 /* Face.png */; };
 		42C4C56613E8A6C00034AC97 /* FacebookActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55913E8A6C00034AC97 /* FacebookActive.png */; };
 		42C4C56713E8A6C00034AC97 /* FacebookDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */; };
 		42C4C56913E8A6C00034AC97 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C55C13E8A6C00034AC97 /* Logo.png */; };
@@ -335,7 +334,6 @@
 		42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSocialBackground.png; path = Resources/Images/ButtonSocialBackground.png; sourceTree = "<group>"; };
 		42ACA2E4142BF1C1009FD812 /* ApiTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiTest.h; sourceTree = "<group>"; };
 		42ACA2E5142BF1C1009FD812 /* ApiTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiTest.m; sourceTree = "<group>"; };
-		42C4C55813E8A6C00034AC97 /* Face.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Face.png; path = Resources/Images/Face.png; sourceTree = "<group>"; };
 		42C4C55913E8A6C00034AC97 /* FacebookActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookActive.png; path = Resources/Images/FacebookActive.png; sourceTree = "<group>"; };
 		42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookDisabled.png; path = Resources/Images/FacebookDisabled.png; sourceTree = "<group>"; };
 		42C4C55C13E8A6C00034AC97 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo.png; path = Resources/Images/Logo.png; sourceTree = "<group>"; };
@@ -416,6 +414,103 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AC849611430333D00FDF996 /* VideoPlayerControls */ = {
+			isa = PBXGroup;
+			children = (
+				42C4C61213E9D1370034AC97 /* ButtonNext.png */,
+				42C4C61313E9D1370034AC97 /* ButtonPlay.png */,
+				42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */,
+				42C4C61413E9D1370034AC97 /* ButtonPrevious.png */,
+				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
+				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
+				42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */,
+				0A81C28C142AA93300311310 /* ButtonPause.png */,
+				42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */,
+				428B02BD14217F7F00C88063 /* SliderThumbLightGray.png */,
+				428B02B914217EB300C88063 /* SliderGray.png */,
+				428B02BA14217EB400C88063 /* SliderPurple.png */,
+				0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */,
+			);
+			name = VideoPlayerControls;
+			sourceTree = "<group>";
+		};
+		0AC849621430336100FDF996 /* VideoTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				0A08E9F814281C8700D964E7 /* FacebookNew.png */,
+				0A08E9F914281C8700D964E7 /* FacebookWatched.png */,
+				0A08E9FA14281C8700D964E7 /* TumblrNew.png */,
+				0A08E9FB14281C8700D964E7 /* TumblrWatched.png */,
+				0A08E9FC14281C8700D964E7 /* TwitterNew.png */,
+				0A08E9FD14281C8700D964E7 /* TwitterWatched.png */,
+				423FFDA414291A2400F8FF54 /* CellGradient.png */,
+			);
+			name = VideoTableCell;
+			sourceTree = "<group>";
+		};
+		0AC84963143033B700FDF996 /* VideoTableControls */ = {
+			isa = PBXGroup;
+			children = (
+				0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */,
+				0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */,
+				4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */,
+				4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */,
+				4200E51513F42BB100609C3E /* ButtonListHighlighted.png */,
+				4200E51613F42BB100609C3E /* ButtonListNormal.png */,
+			);
+			name = VideoTableControls;
+			sourceTree = "<group>";
+		};
+		0AC84964143034A000FDF996 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				428B02AD1421713D00C88063 /* PlaceholderFace.png */,
+				42C4C55913E8A6C00034AC97 /* FacebookActive.png */,
+				42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */,
+				42C4C56213E8A6C00034AC97 /* TwitterActive.png */,
+				42C4C56313E8A6C00034AC97 /* TwitterDisabled.png */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		0AC849651430354300FDF996 /* Unused */ = {
+			isa = PBXGroup;
+			children = (
+				428B02A81421411C00C88063 /* ButtonTimeCropped.png */,
+				428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */,
+				42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */,
+			);
+			name = Unused;
+			sourceTree = "<group>";
+		};
+		0AC849661430356100FDF996 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0A65E3B91428639D00A325C1 /* BackgroundStripes.png */,
+				0A155E75142908280010E503 /* FacebookSignIn.png */,
+				0A155E76142908280010E503 /* TwitterSignIn.png */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		0AC849671430366F00FDF996 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				427A621B13F46D5B00C945E2 /* CheckboxChecked.png */,
+				427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		0AC84968143036DC00FDF996 /* Logo */ = {
+			isa = PBXGroup;
+			children = (
+				0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */,
+				42C4C55C13E8A6C00034AC97 /* Logo.png */,
+			);
+			name = Logo;
+			sourceTree = "<group>";
+		};
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
@@ -476,9 +571,9 @@
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
 				4200E50213F41F0C00609C3E /* Video.h */,
 				4200E50313F41F0C00609C3E /* Video.m */,
-				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
 				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
 				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
+				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
 			);
 			path = Shelby;
 			sourceTree = "<group>";
@@ -724,55 +819,21 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */,
+				0AC849661430356100FDF996 /* Login */,
+				0AC84968143036DC00FDF996 /* Logo */,
+				0AC849671430366F00FDF996 /* Settings */,
+				0AC84964143034A000FDF996 /* User */,
+				0AC849621430336100FDF996 /* VideoTableCell */,
+				0AC849611430333D00FDF996 /* VideoPlayerControls */,
+				0AC84963143033B700FDF996 /* VideoTableControls */,
 				0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */,
 				42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */,
 				42ACA2C7142A9305009FD812 /* ButtonSend.png */,
 				42ACA2C5142A9262009FD812 /* TextAreaGray.png */,
-				423FFDA414291A2400F8FF54 /* CellGradient.png */,
-				0A65E3B91428639D00A325C1 /* BackgroundStripes.png */,
-				0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */,
-				0A155E75142908280010E503 /* FacebookSignIn.png */,
-				0A155E76142908280010E503 /* TwitterSignIn.png */,
-				0A08E9F814281C8700D964E7 /* FacebookNew.png */,
-				0A08E9F914281C8700D964E7 /* FacebookWatched.png */,
-				0A08E9FA14281C8700D964E7 /* TumblrNew.png */,
-				0A08E9FB14281C8700D964E7 /* TumblrWatched.png */,
-				0A08E9FC14281C8700D964E7 /* TwitterNew.png */,
-				0A08E9FD14281C8700D964E7 /* TwitterWatched.png */,
-				428B02BD14217F7F00C88063 /* SliderThumbLightGray.png */,
-				428B02B914217EB300C88063 /* SliderGray.png */,
-				428B02BA14217EB400C88063 /* SliderPurple.png */,
-				428B02AD1421713D00C88063 /* PlaceholderFace.png */,
-				428B02A81421411C00C88063 /* ButtonTimeCropped.png */,
-				428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */,
 				427A622313F46ECA00C945E2 /* SaveChanges.png */,
 				427A621A13F46D5B00C945E2 /* CancelButton.jpg */,
-				427A621B13F46D5B00C945E2 /* CheckboxChecked.png */,
-				427A621C13F46D5B00C945E2 /* CheckboxEmpty.png */,
 				427A621D13F46D5B00C945E2 /* TextFieldGray.png */,
-				4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */,
-				4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */,
-				4200E51513F42BB100609C3E /* ButtonListHighlighted.png */,
-				4200E51613F42BB100609C3E /* ButtonListNormal.png */,
-				0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */,
-				0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */,
-				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
-				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
-				42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */,
-				0A81C28C142AA93300311310 /* ButtonPause.png */,
-				42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */,
-				42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */,
-				42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */,
-				42C4C61213E9D1370034AC97 /* ButtonNext.png */,
-				42C4C61313E9D1370034AC97 /* ButtonPlay.png */,
-				42C4C61413E9D1370034AC97 /* ButtonPrevious.png */,
-				42C4C55813E8A6C00034AC97 /* Face.png */,
-				42C4C55913E8A6C00034AC97 /* FacebookActive.png */,
-				42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */,
-				42C4C55C13E8A6C00034AC97 /* Logo.png */,
-				42C4C56213E8A6C00034AC97 /* TwitterActive.png */,
-				42C4C56313E8A6C00034AC97 /* TwitterDisabled.png */,
+				0AC849651430354300FDF996 /* Unused */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -942,7 +1003,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AD9A36113D53BD300EFECE0 /* InfoPlist.strings in Resources */,
-				42C4C56513E8A6C00034AC97 /* Face.png in Resources */,
 				42C4C56613E8A6C00034AC97 /* FacebookActive.png in Resources */,
 				42C4C56713E8A6C00034AC97 /* FacebookDisabled.png in Resources */,
 				42C4C56913E8A6C00034AC97 /* Logo.png in Resources */,
