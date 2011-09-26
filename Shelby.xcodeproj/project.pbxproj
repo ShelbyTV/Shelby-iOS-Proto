@@ -31,6 +31,8 @@
 		0A74BB52142D4C8F00D65A02 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB51142D4C8F00D65A02 /* Default-Portrait~ipad.png */; };
 		0A74BB54142D4CA200D65A02 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB53142D4CA200D65A02 /* Default-Landscape~ipad.png */; };
 		0A81C28D142AA93300311310 /* ButtonPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A81C28C142AA93300311310 /* ButtonPause.png */; };
+		0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB364FF143137A100DCEAFD /* GraphiteStats.m */; };
+		0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB3650314313E6A00DCEAFD /* CFNetwork.framework */; };
 		0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */; };
 		0AB7BFB4142C421C00AB25B3 /* ButtonWatchLaterHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */; };
 		0AB7BFB5142C421C00AB25B3 /* ButtonWatchLaterNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */; };
@@ -203,6 +205,9 @@
 		0A74BB51142D4C8F00D65A02 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		0A74BB53142D4CA200D65A02 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		0A81C28C142AA93300311310 /* ButtonPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPause.png; path = Resources/Images/ButtonPause.png; sourceTree = "<group>"; };
+		0AB364FE143137A100DCEAFD /* GraphiteStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphiteStats.h; sourceTree = "<group>"; };
+		0AB364FF143137A100DCEAFD /* GraphiteStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphiteStats.m; sourceTree = "<group>"; };
+		0AB3650314313E6A00DCEAFD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonBackground.png; path = Resources/Images/ButtonBackground.png; sourceTree = "<group>"; };
 		0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterHighlighted.png; path = Resources/Images/ButtonWatchLaterHighlighted.png; sourceTree = "<group>"; };
 		0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterNormal.png; path = Resources/Images/ButtonWatchLaterNormal.png; sourceTree = "<group>"; };
@@ -397,6 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */,
 				42084C761427ADF000C3C556 /* SystemConfiguration.framework in Frameworks */,
 				42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */,
 				0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */,
@@ -551,6 +557,7 @@
 		0AD9A35313D53BD200EFECE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0AB3650314313E6A00DCEAFD /* CFNetwork.framework */,
 				42084C751427ADF000C3C556 /* SystemConfiguration.framework */,
 				42925B2B1401C2AA00333F46 /* QuartzCore.framework */,
 				0A12934213DD2FFB009D254F /* MediaPlayer.framework */,
@@ -939,6 +946,8 @@
 				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
 				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
 				423FFDBB142A6CCD00F8FF54 /* STVNetworkObject.h */,
+				0AB364FE143137A100DCEAFD /* GraphiteStats.h */,
+				0AB364FF143137A100DCEAFD /* GraphiteStats.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1189,6 +1198,7 @@
 				42896BA3142EECD300E2405D /* STVShareView.m in Sources */,
 				0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */,
 				0AC849701430524700FDF996 /* ApiHelper.m in Sources */,
+				0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

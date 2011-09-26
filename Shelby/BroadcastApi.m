@@ -12,6 +12,7 @@
 #import "SBJsonParser.h"
 #import "ShelbyApp.h"
 #import "ApiHelper.h"
+#import "GraphiteStats.h"
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
 
@@ -35,6 +36,9 @@
                 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
+        
+        // initial stat uploaded to graphite -- the way of doing this may change drastically soon...
+        [[ShelbyApp sharedApp].graphiteStats sendData:[@"ios.watchVideo:1|c" dataUsingEncoding:NSUTF8StringEncoding]];
     } else {
         // We failed to send the request. Let the caller know.
     }
@@ -192,9 +196,7 @@
                                  error:(NSError *)error 
                             forRequest:(NSURLRequest *)request
 {
-    NSString *videoId = [self getVideoIdForRequest:request];
-
-    NSLog(@"receivedShareBroadcastResponse %@", videoId);
+    LOG(@"receivedShareBroadcastResponse");
     
     NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
     
