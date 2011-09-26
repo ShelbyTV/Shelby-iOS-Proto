@@ -21,7 +21,7 @@
 
 + (void)watch:(NSString *)videoId
 {
-    NSString *urlString = [NSString stringWithFormat: kFetchBroadcastUrl, videoId];
+    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
     NSURL *url = [NSURL URLWithString: urlString];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
     
@@ -75,7 +75,7 @@
 
 + (void)like:(NSString *)videoId
 {
-    NSString *urlString = [NSString stringWithFormat: kFetchBroadcastUrl, videoId];
+    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
     NSURL *url = [NSURL URLWithString: urlString];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
     

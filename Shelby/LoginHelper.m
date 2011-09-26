@@ -175,7 +175,7 @@
 
 - (BOOL)fetchUserId
 {
-    NSURL *url = [NSURL URLWithString: kFetchUserUrl];
+    NSURL *url = [NSURL URLWithString: kUserUrl];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
     if (req) {
@@ -275,7 +275,7 @@
 
 - (BOOL)fetchChannels
 {
-    NSURL *url = [NSURL URLWithString: kFetchChannelsUrl];
+    NSURL *url = [NSURL URLWithString: kChannelsUrl];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
     if (req) {
@@ -361,7 +361,7 @@
 - (BOOL)fetchBroadcasts {
     if (self.user) {
         NSURL *url = [NSURL URLWithString:
-               [NSString stringWithFormat: kFetchBroadcastsUrl, self.channel.shelbyId]];
+               [NSString stringWithFormat: kBroadcastsUrl, self.channel.shelbyId]];
         LOG(@"Fetching broadcasts from: %@", url);
 
         //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
@@ -493,7 +493,7 @@
 
     NSURLResponse *response = nil;
     NSError *error = nil;
-    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: kFetchBroadcastUrl, broadcastId]];
+    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: kBroadcastUrl, broadcastId]];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
     [req signPlaintext];
 
