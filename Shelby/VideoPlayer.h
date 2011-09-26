@@ -29,7 +29,10 @@
 
 @end
 
-@interface VideoPlayer : UIView <VideoPlayerControlBarDelegate, UIGestureRecognizerDelegate> {
+@interface VideoPlayer : UIView <VideoPlayerControlBarDelegate, UIGestureRecognizerDelegate>
+{
+    Video *_videoPlaying;
+    
     // Current video's duration.
     float _duration;
     // Is the user currently changing the video?

@@ -20,10 +20,11 @@
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, retain) NSDate *createdAt;
+@property (nonatomic) BOOL isLiked;
 @property (readwrite) NSUInteger arrayGeneration;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId, arrayGeneration;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId, isLiked, arrayGeneration;
 
 - (void) dealloc
 {
@@ -51,9 +52,10 @@
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, retain) NSDate *createdAt;
+@property (nonatomic) BOOL isLiked;
 @end
 @implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, createdAt, shelbyId;
+@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, createdAt, shelbyId, isLiked;
 
 - (void) dealloc
 {
@@ -195,6 +197,14 @@ static NSString *fakeAPIData[] = {
     @synchronized(videoDataArray)
     {
         return [(VideoData *)[videoDataArray objectAtIndex:index] createdAt];
+    } 
+}
+
+- (BOOL)videoLikedAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        return [(VideoData *)[videoDataArray objectAtIndex:index] isLiked];
     } 
 }
 
@@ -341,6 +351,7 @@ static NSString *fakeAPIData[] = {
     videoData.source = youTubeVideoURLIndex.source;
     videoData.shelbyId = youTubeVideoURLIndex.shelbyId;
     videoData.createdAt = youTubeVideoURLIndex.createdAt;
+    videoData.isLiked = youTubeVideoURLIndex.isLiked;
 
     @synchronized(videoDataArray)
     {
@@ -471,6 +482,7 @@ static NSString *fakeAPIData[] = {
                 NSString *sharerThumbnailUrl   = [broadcast objectForKey: @"video_originator_user_image"];
                 NSString *source = [broadcast objectForKey: @"video_origin"];
                 NSDate *date = [dateFormatter dateFromString:[broadcast objectForKey: @"created_at"]];
+                BOOL liked = [[broadcast objectForKey: @"liked_by_owner"] boolValue];
                 
                 NSURL *youTubeVideo = NULL;
                 if (NOTNULL(videoId)) {
@@ -491,6 +503,8 @@ static NSString *fakeAPIData[] = {
                     if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
                     if (NOTNULL(source)) video.source = source;
                     if (NOTNULL(date)) video.createdAt = date;
+                    video.isLiked = liked;
+                    
                     video.arrayGeneration = currentArrayGeneration;
                     
                     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self

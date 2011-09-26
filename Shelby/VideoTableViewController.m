@@ -112,6 +112,7 @@
         video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
         video.contentURL = [videoTableData videoContentURLAtIndex: index];
         video.shelbyId = [videoTableData videoShelbyIdAtIndex: index];
+        video.isLiked = [videoTableData videoLikedAtIndex:index];
 
         return video;
     } else {

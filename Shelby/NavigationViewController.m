@@ -54,10 +54,7 @@
                                                      name:@"ShelbyAppNetworkInactive"
                                                    object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(likeVideoSucceeded:)
-                                                     name:@"LikeBroadcastSucceeded"
-                                                   object:nil];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(likeVideoFailed:)
                                                      name:@"LikeBroadcastFailed"
@@ -295,14 +292,6 @@
 
 
 #pragma mark - Notification Handlers
-
-- (void)likeVideoSucceeded:(NSNotification *)notification {
-    // open an alert to inform the user
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked" message:@"Your friends will see you like this video!"
-                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
-    [alert release];
-}
 
 - (void)likeVideoFailed:(NSNotification *)notification {
     // open an alert to inform the user

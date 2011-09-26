@@ -62,6 +62,11 @@ static const float kNextPrevXOffset        =  0.0f;
            selector:@selector(movieDidFinish:)
                name:MPMoviePlayerPlaybackDidFinishNotification
              object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(likeVideoSucceeded:)
+                                                 name:@"LikeBroadcastSucceeded"
+                                               object:nil];
 }
 
 - (void)removeNotificationListeners {
@@ -195,33 +200,38 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)playVideo:(Video *)video {
     if (NOTNULL(video)) {
         // Set internal lock so our notification doesn't go haywire.
-        _changingVideo = YES;
-
-        // Change our titleBar
-        //self.titleBar.title.text = video.sharerComment;
-        self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
-            video.sharer,
-            video.sharerComment
-                ];
-        self.titleBar.sharerPic.image = video.sharerImage;
-        [self fitTitleBarText];
-
-        // Change our footerBar.
-        self.footerBar.title.text = video.title;
-
-        // Reset our duration.
-        _duration = 0.0f;
-        // Load the video and play it.
-        _moviePlayer.contentURL = video.contentURL;
-        [_moviePlayer play];
-        [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
-
-        _changingVideo = NO;
-
-        [self resetTimer];
-        //[self beginTimer];
-        //[self maintainControls];
-        //[self hideControlsWithDelay];
+        @synchronized(self) {
+            _changingVideo = YES;
+            
+            _videoPlaying = video;
+            
+            // Change our titleBar
+            //self.titleBar.title.text = video.sharerComment;
+            self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
+                                        video.sharer,
+                                        video.sharerComment
+                                        ];
+            self.titleBar.sharerPic.image = video.sharerImage;
+            [self fitTitleBarText];
+            
+            // Change our footerBar.
+            self.footerBar.title.text = video.title;
+            
+            // Reset our duration.
+            _duration = 0.0f;
+            // Load the video and play it.
+            _moviePlayer.contentURL = video.contentURL;
+            [_moviePlayer play];
+            [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
+            [_controlBar setFavoriteButtonSelected:[video isLiked]];
+            
+            _changingVideo = NO;
+            
+            [self resetTimer];
+            //[self beginTimer];
+            //[self maintainControls];
+            //[self hideControlsWithDelay];
+        }
     }
 }
 
@@ -371,6 +381,22 @@ static const float kNextPrevXOffset        =  0.0f;
 
     if (self.delegate) {
         [self.delegate videoPlayerVideoDidFinish: self];
+    }
+}
+
+
+- (void)likeVideoSucceeded:(NSNotification *)notification
+{
+    @synchronized(self) {
+        if (_changingVideo) {
+            return;
+        }
+        
+        // REALLY need to check if _videoPlaying.shelbyId is same as notified video
+        if (_videoPlaying != nil) 
+        {
+            [_controlBar setFavoriteButtonSelected:YES];
+        }
     }
 }
 
