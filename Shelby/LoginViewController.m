@@ -12,6 +12,7 @@
 #import "ShelbyApp.h"
 #import "Reachability.h"
 #import "STVOfflineView.h"
+#import "GraphiteStats.h"
 
 
 @implementation LoginViewController
@@ -179,7 +180,9 @@
 #pragma mark - Notification Handlers
 
 - (void)userLoggedIn:(NSNotification*)aNotification
-{
+{    
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoggedIn"];
+
     [self allDone];
 }
 
@@ -193,6 +196,8 @@
 
 - (IBAction)loginWithFacebook:(id)sender
 {
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoginViaFacebookAttempt"];
+
     //[self allDone];
     [self beginLoginWithProvider: @"facebook"];
 
@@ -201,6 +206,8 @@
 
 - (IBAction)loginWithTwitter:(id)sender
 {
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoginViaTwitterAttempt"];
+
     //[self allDone];
     //[self beginLogin];
     [self beginLoginWithProvider: @"twitter"];

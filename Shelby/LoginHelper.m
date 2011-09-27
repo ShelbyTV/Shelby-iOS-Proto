@@ -22,6 +22,8 @@
 #import "ApiConstants.h"
 #import "ApiHelper.h"
 
+#import "GraphiteStats.h"
+
 @interface LoginHelper ()
 
 - (BOOL)fetchUserId;
@@ -92,6 +94,8 @@
 
 
 - (void)logout {
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoggedOut"];
+
     [[ShelbyApp sharedApp].apiHelper clearTokens];
     //DEBUG ONLY!
     //[[NSThread mainThread] exit];

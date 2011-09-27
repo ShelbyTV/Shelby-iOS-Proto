@@ -12,6 +12,8 @@
 #import "VideoPlayerFooterBar.h"
 #import "VideoPlayerControlBar.h"
 #import "Video.h"
+#import "ShelbyApp.h"
+#import "GraphiteStats.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -202,6 +204,9 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)playVideo:(Video *)video {
     if (NOTNULL(video)) {
+        
+        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
+
         // Set internal lock so our notification doesn't go haywire.
         @synchronized(self) {
             _changingVideo = YES;
@@ -496,12 +501,14 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"nextButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
     }
 }
 
 - (IBAction)prevButtonWasPressed:(id)sender {
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"previousButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
     }

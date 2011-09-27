@@ -11,6 +11,7 @@
 #import "Video.h"
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
+#import "GraphiteStats.h"
 
 @implementation VideoTableViewController
 
@@ -439,6 +440,8 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
     */
+    
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"tableVideoSelected"];
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;

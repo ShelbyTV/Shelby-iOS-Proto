@@ -39,7 +39,7 @@
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
         
-        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
+        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchedByOwnerRequest"];
     } else {
         // We failed to send the request. Let the caller know.
     }
@@ -65,7 +65,7 @@
                                                                 object:self
                                                               userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         } else {
-            LOG(@"Watch Broadcast success");
+            LOG(@"Watch Broadcast success");            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastSucceeded"
                                                                 object:self
                                                               userInfo:((ApiMutableURLRequest *)request).userInfoDict];
@@ -103,6 +103,8 @@
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
         
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
+        
+        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"likedByOwnerRequest"];
     } else {
         // We failed to send the request. Let the caller know.
     }
@@ -160,11 +162,27 @@
     if (req) {
         NSString *networksString = nil;
         for (NSString *network in networks) {
+            
+            if ([network isEqualToString:@"twitter"]) {
+                [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaTwitterRequest"];
+            } else if ([network isEqualToString:@"facebook"]) {
+                [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaFacebookRequest"];
+            } else if ([network isEqualToString:@"tumblr"]) {
+                [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaTumblrRequest"];
+            } else if ([network isEqualToString:@"email"]) {
+                [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaEmailRequest"];
+            }
+
             if (!networksString) {
                 networksString = network;
             } else {
                 networksString = [NSString stringWithFormat:@"%@,%@", networksString, network];
             }
+        }
+        
+        // no networks passed in
+        if (networksString = nil) {
+            return;
         }
         
         //if (NOTNULL(recipient)) {

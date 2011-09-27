@@ -419,7 +419,16 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 
 - (void)incrementCounter:(NSString *)counterName
 {
-    NSString *command = [NSString stringWithFormat:@"ios.%@:1|c", counterName];
+    NSString *device = nil;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        device = @"iphone";
+    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        device = @"ipad";
+    } else {
+        device = @"other";
+    }
+    
+    NSString *command = [NSString stringWithFormat:@"ios.%@.%@:1|c", device, counterName];
     [self sendData:[command dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
