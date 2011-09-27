@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		0A08E9FE14281C8700D964E7 /* FacebookNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9F814281C8700D964E7 /* FacebookNew.png */; };
 		0A08E9FF14281C8700D964E7 /* FacebookWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9F914281C8700D964E7 /* FacebookWatched.png */; };
-		0A08EA0014281C8700D964E7 /* TumblrNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FA14281C8700D964E7 /* TumblrNew.png */; };
-		0A08EA0114281C8700D964E7 /* TumblrWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FB14281C8700D964E7 /* TumblrWatched.png */; };
-		0A08EA0214281C8700D964E7 /* TwitterNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FC14281C8700D964E7 /* TwitterNew.png */; };
-		0A08EA0314281C8700D964E7 /* TwitterWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FD14281C8700D964E7 /* TwitterWatched.png */; };
+		0A08EA0014281C8700D964E7 /* TwitterNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FA14281C8700D964E7 /* TwitterNew.png */; };
+		0A08EA0114281C8700D964E7 /* TwitterWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FB14281C8700D964E7 /* TwitterWatched.png */; };
+		0A08EA0214281C8700D964E7 /* TumblrNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FC14281C8700D964E7 /* TumblrNew.png */; };
+		0A08EA0314281C8700D964E7 /* TumblrWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FD14281C8700D964E7 /* TumblrWatched.png */; };
 		0A12931613DCD300009D254F /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931513DCD300009D254F /* NavigationViewController.m */; };
 		0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12933A13DD0DC0009D254F /* VideoTableViewController.m */; };
 		0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934013DD2EE3009D254F /* AVFoundation.framework */; };
@@ -180,10 +180,10 @@
 /* Begin PBXFileReference section */
 		0A08E9F814281C8700D964E7 /* FacebookNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookNew.png; path = Resources/Images/FacebookNew.png; sourceTree = "<group>"; };
 		0A08E9F914281C8700D964E7 /* FacebookWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookWatched.png; path = Resources/Images/FacebookWatched.png; sourceTree = "<group>"; };
-		0A08E9FA14281C8700D964E7 /* TumblrNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrNew.png; path = Resources/Images/TumblrNew.png; sourceTree = "<group>"; };
-		0A08E9FB14281C8700D964E7 /* TumblrWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrWatched.png; path = Resources/Images/TumblrWatched.png; sourceTree = "<group>"; };
-		0A08E9FC14281C8700D964E7 /* TwitterNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterNew.png; path = Resources/Images/TwitterNew.png; sourceTree = "<group>"; };
-		0A08E9FD14281C8700D964E7 /* TwitterWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterWatched.png; path = Resources/Images/TwitterWatched.png; sourceTree = "<group>"; };
+		0A08E9FA14281C8700D964E7 /* TwitterNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterNew.png; path = Resources/Images/TwitterNew.png; sourceTree = "<group>"; };
+		0A08E9FB14281C8700D964E7 /* TwitterWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterWatched.png; path = Resources/Images/TwitterWatched.png; sourceTree = "<group>"; };
+		0A08E9FC14281C8700D964E7 /* TumblrNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrNew.png; path = Resources/Images/TumblrNew.png; sourceTree = "<group>"; };
+		0A08E9FD14281C8700D964E7 /* TumblrWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrWatched.png; path = Resources/Images/TumblrWatched.png; sourceTree = "<group>"; };
 		0A12931413DCD300009D254F /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		0A12931513DCD300009D254F /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		0A12933913DD0DBF009D254F /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
@@ -453,10 +453,10 @@
 			children = (
 				0A08E9F814281C8700D964E7 /* FacebookNew.png */,
 				0A08E9F914281C8700D964E7 /* FacebookWatched.png */,
-				0A08E9FA14281C8700D964E7 /* TumblrNew.png */,
-				0A08E9FB14281C8700D964E7 /* TumblrWatched.png */,
-				0A08E9FC14281C8700D964E7 /* TwitterNew.png */,
-				0A08E9FD14281C8700D964E7 /* TwitterWatched.png */,
+				0A08E9FA14281C8700D964E7 /* TwitterNew.png */,
+				0A08E9FB14281C8700D964E7 /* TwitterWatched.png */,
+				0A08E9FC14281C8700D964E7 /* TumblrNew.png */,
+				0A08E9FD14281C8700D964E7 /* TumblrWatched.png */,
 				423FFDA414291A2400F8FF54 /* CellGradient.png */,
 			);
 			name = VideoTableCell;
@@ -1085,10 +1085,10 @@
 				42084C891427DACD00C3C556 /* STVOfflineView_iPad.xib in Resources */,
 				0A08E9FE14281C8700D964E7 /* FacebookNew.png in Resources */,
 				0A08E9FF14281C8700D964E7 /* FacebookWatched.png in Resources */,
-				0A08EA0014281C8700D964E7 /* TumblrNew.png in Resources */,
-				0A08EA0114281C8700D964E7 /* TumblrWatched.png in Resources */,
-				0A08EA0214281C8700D964E7 /* TwitterNew.png in Resources */,
-				0A08EA0314281C8700D964E7 /* TwitterWatched.png in Resources */,
+				0A08EA0014281C8700D964E7 /* TwitterNew.png in Resources */,
+				0A08EA0114281C8700D964E7 /* TwitterWatched.png in Resources */,
+				0A08EA0214281C8700D964E7 /* TumblrNew.png in Resources */,
+				0A08EA0314281C8700D964E7 /* TumblrWatched.png in Resources */,
 				0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */,
 				0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */,
 				423FFDA514291A2400F8FF54 /* CellGradient.png in Resources */,
