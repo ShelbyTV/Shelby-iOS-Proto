@@ -17,7 +17,7 @@
 
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
-#import "OAuthMutableURLRequest.h"
+#import "ApiMutableURLRequest.h"
 
 #import "ApiConstants.h"
 #import "ApiHelper.h"
@@ -176,7 +176,7 @@
 - (BOOL)fetchUserId
 {
     NSURL *url = [NSURL URLWithString: kUserUrl];
-    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
     if (req) {
         // Set to plaintext on request because oAuth library is broken.
@@ -276,7 +276,7 @@
 - (BOOL)fetchChannels
 {
     NSURL *url = [NSURL URLWithString: kChannelsUrl];
-    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
     if (req) {
         // Set to plaintext on request because oAuth library is broken.
@@ -364,8 +364,8 @@
                [NSString stringWithFormat: kBroadcastsUrl, self.channel.shelbyId]];
         LOG(@"Fetching broadcasts from: %@", url);
 
-        //OAuthMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
-        OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+        //ApiMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
+        ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
         if (req) {
             // Set to plaintext on request because oAuth library is broken.
@@ -494,7 +494,7 @@
     NSURLResponse *response = nil;
     NSError *error = nil;
     NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: kBroadcastUrl, broadcastId]];
-    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
     [req signPlaintext];
 
     /*

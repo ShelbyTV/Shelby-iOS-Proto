@@ -37,10 +37,13 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)stopTimer;
 - (void)beginTimer;
 
+@property (nonatomic, retain) Video *currentVideo;
+
 @end
 
 @implementation VideoPlayer
 
+@synthesize currentVideo;
 @synthesize delegate;
 @synthesize titleBar;
 @synthesize footerBar;
@@ -203,7 +206,7 @@ static const float kNextPrevXOffset        =  0.0f;
         @synchronized(self) {
             _changingVideo = YES;
             
-            _videoPlaying = video;
+            self.currentVideo = video;
             
             // Change our titleBar
             //self.titleBar.title.text = video.sharerComment;
@@ -392,8 +395,9 @@ static const float kNextPrevXOffset        =  0.0f;
             return;
         }
         
-        // REALLY need to check if _videoPlaying.shelbyId is same as notified video
-        if (_videoPlaying != nil) 
+        if (NOTNULL(self.currentVideo) &&
+            NOTNULL(notification.userInfo) &&
+            [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:YES];
         }

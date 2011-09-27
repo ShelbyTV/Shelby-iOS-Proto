@@ -8,7 +8,7 @@
 
 #import "BroadcastApi.h"
 #import "ApiConstants.h"
-#import "OAuthMutableURLRequest.h"
+#import "ApiMutableURLRequest.h"
 #import "SBJsonParser.h"
 #import "ShelbyApp.h"
 #import "ApiHelper.h"
@@ -24,7 +24,7 @@
 {
     NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
     NSURL *url = [NSURL URLWithString: urlString];
-    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
     
     if (req) {
         // Set watched
@@ -33,6 +33,8 @@
         [req setHTTPBody:[watchedString dataUsingEncoding:NSUTF8StringEncoding]];
         
         [req sign];
+        
+        [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil]];
                 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
@@ -60,11 +62,13 @@
         if (NOTNULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastFailed"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         } else {
             LOG(@"Watch Broadcast success");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastSucceeded"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         }
         
         //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -80,7 +84,7 @@
 {
     NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
     NSURL *url = [NSURL URLWithString: urlString];
-    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
     
     if (req) {        
         [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -91,7 +95,11 @@
         
         // Sign in HMAC-SHA1
         [req sign];
-                
+        
+        req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil];
+        
+        NSLog(@"video_id => %@", [req.userInfoDict objectForKey:@"video_id"]);
+        
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
         
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
@@ -117,11 +125,13 @@
         if (NOTNULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastFailed"
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         } else {
             LOG(@"Like Broadcast success");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastSucceeded"
-                                                                object:self];
+                                                                object:nil
+                                                              userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         }
         
         //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -140,7 +150,7 @@
 {
     NSString *urlString = [NSString stringWithFormat:kSocializationsUrl];
     NSURL *url = [NSURL URLWithString:urlString];
-    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"POST"];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"POST"];
     
     //POST /v2/socializations.json
     //{destination : 'twitter,facebook,tumblr,email',
@@ -182,6 +192,8 @@
         [req setHTTPBody: [formString dataUsingEncoding:NSUTF8StringEncoding]];
         
         [req sign];
+        
+        [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil]];
                 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedShareBroadcastResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
@@ -213,11 +225,13 @@
             if (NOTNULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastFailed"
-                                                                    object:self];
+                                                                    object:self
+                                                                  userInfo:((ApiMutableURLRequest *)request).userInfoDict];
             } else {
                 LOG(@"Share Broadcast success");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastSucceeded"
-                                                                    object:self];
+                                                                    object:self
+                                                                  userInfo:((ApiMutableURLRequest *)request).userInfoDict];
             }
             
             //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];

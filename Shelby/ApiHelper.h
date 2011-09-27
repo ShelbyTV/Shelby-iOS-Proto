@@ -10,7 +10,7 @@
 
 #import "STVNetworkObject.h"
 
-@class OAuthMutableURLRequest;
+@class ApiMutableURLRequest;
 
 @interface ApiHelper : NSObject <STVNetworkObject>
 
@@ -20,7 +20,7 @@
 @property (nonatomic, retain) NSString *accessTokenSecret;
 
 #pragma mark - URL Request
-- (OAuthMutableURLRequest *)requestForURL: (NSURL *) url withMethod: (NSString *) method;
+- (ApiMutableURLRequest *)requestForURL: (NSURL *) url withMethod: (NSString *) method;
 
 #pragma mark - Token Storage
 - (void)storeAccessToken:(NSString *)newAccessToken
