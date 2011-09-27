@@ -14,12 +14,6 @@
 
 @interface GraphiteStats ()
 
-// redeclare as readwrite for private use
-
-@property (nonatomic, copy,   readwrite) NSString *             hostName;
-@property (nonatomic, copy,   readwrite) NSData *               hostAddress;
-@property (nonatomic, assign, readwrite) NSUInteger             port;
-
 // forward declarations
 
 - (void)_stopHostResolution;
@@ -47,10 +41,6 @@
     [super dealloc];
 }
 
-@synthesize hostName    = _hostName;
-@synthesize hostAddress = _hostAddress;
-@synthesize port        = _port;
-
 - (void)_sendData:(NSData *)data toAddress:(NSData *)addr
     // Called by both -sendData: and the server echoing code to send data 
     // via the socket.  addr is nil in the client case, whereupon the 
@@ -70,7 +60,7 @@
     assert(sock >= 0);
 
     if (addr == nil) {
-        addr = self.hostAddress;
+        addr = _hostAddress;
         assert(addr != nil);
         addrPtr = NULL;
         addrLen = 0;
@@ -250,10 +240,10 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     Boolean             resolved;
     NSArray *           resolvedAddresses;
     
-    assert(self.port != 0);
+    assert(_port != 0);
     assert(self->_cfHost != NULL);
     assert(self->_cfSocket == NULL);
-    assert(self.hostAddress == nil);
+    assert(_hostAddress == nil);
     
     error = nil;
     
@@ -277,14 +267,14 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
             if ( 
                 (addrPtr->sa_family == AF_INET) 
                 ) {
-                success = [self _setupSocketConnectedToAddress:address port:self.port error:&error];
+                success = [self _setupSocketConnectedToAddress:address port:_port error:&error];
                 if (success) {
                     CFDataRef   hostAddress;
                     
                     hostAddress = CFSocketCopyPeerAddress(self->_cfSocket);
                     assert(hostAddress != NULL);
                     
-                    self.hostAddress = (NSData *) hostAddress;
+                    _hostAddress = (NSData *) hostAddress;
                     
                     CFRelease(hostAddress);
                 }
@@ -297,7 +287,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     
     // If we didn't get an address and didn't get an error, synthesise a host not found error.
     
-    if ( (self.hostAddress == nil) && (error == nil) ) {
+    if ( (_hostAddress == nil) && (error == nil) ) {
         error = [NSError errorWithDomain:(NSString *)kCFErrorDomainCFNetwork code:kCFHostErrorHostNotFound userInfo:nil];
     }
     
@@ -336,8 +326,8 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
     assert(hostName != nil);
     assert( (port > 0) && (port < 65536) );
     
-    assert(self.port == 0);     // don't try and start a started object
-    if (self.port == 0) {
+    assert(_port == 0);     // don't try and start a started object
+    if (_port == 0) {
         Boolean             success;
         CFHostClientContext context = {0, self, NULL, NULL, NULL};
         CFStreamError       streamError;
@@ -353,8 +343,8 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
         
         success = CFHostStartInfoResolution(self->_cfHost, kCFHostAddresses, &streamError);
         if (success) {
-            self.hostName = hostName;
-            self.port = port;
+            _hostName = hostName;
+            _port = port;
             // ... continue in HostResolveCallback
         } else {
             [self _stopWithStreamError:streamError];
@@ -367,7 +357,7 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 {
     // If you call -sendData: on an object in client mode 
     // that's not fully set up (hostAddress is nil), we just ignore you.
-    if (self.hostAddress == nil) {
+    if (_hostAddress == nil) {
         assert(NO);
     } else {
         [self _sendData:data toAddress:nil];
@@ -389,9 +379,9 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 - (void)stop
     // See comment in header.
 {
-    self.hostName = nil;
-    self.hostAddress = nil;
-    self.port = 0;
+    _hostName = nil;
+    _hostAddress = nil;
+    _port = 0;
     [self _stopHostResolution];
     if (self->_cfSocket != NULL) {
         CFSocketInvalidate(self->_cfSocket);
@@ -425,6 +415,12 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
     assert(error != nil);
     
     [self _stopWithError:error];
+}
+
+- (void)incrementCounter:(NSString *)counterName
+{
+    NSString *command = [NSString stringWithFormat:@"ios.%@:1|c", counterName];
+    [self sendData:[command dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 @end

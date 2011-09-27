@@ -18,10 +18,6 @@
     CFSocketRef             _cfSocket;
 }
 
-- (void)sendData:(NSData *)data;
-
-@property (nonatomic, copy,   readonly ) NSString *             hostName;       // valid in client mode
-@property (nonatomic, copy,   readonly ) NSData *               hostAddress;    // valid in client mode after successful start
-@property (nonatomic, assign, readonly ) NSUInteger             port;           // valid in client and server mode
+- (void)incrementCounter:(NSString *)counterName;
 
 @end

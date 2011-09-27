@@ -37,8 +37,7 @@
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
         
-        // initial stat uploaded to graphite -- the way of doing this may change drastically soon...
-        [[ShelbyApp sharedApp].graphiteStats sendData:[@"ios.watchVideo:1|c" dataUsingEncoding:NSUTF8StringEncoding]];
+        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
     } else {
         // We failed to send the request. Let the caller know.
     }
