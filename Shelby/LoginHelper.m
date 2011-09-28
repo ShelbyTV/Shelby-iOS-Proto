@@ -566,14 +566,8 @@
             // For some reason, the compiler requires a log statement just after the 'case' statemnet.
            LOG(@"woohoo");
            [self storeBroadcastsWithArray: array channel: self.channel];
-           //NSArray *broadcasts = [self retrieveBroadcastsForChannel: self.channel];
-           NSArray *broadcasts = array;
-           NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-               broadcasts, @"broadcasts",
-               nil];
            [[NSNotificationCenter defaultCenter] postNotificationName: @"ReceivedBroadcasts"
-                                                               object: self
-                                                             userInfo: userInfo];
+                                                               object: self];
            break;
         default:
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
