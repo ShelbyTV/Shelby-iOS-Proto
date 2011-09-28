@@ -481,43 +481,46 @@ static NSString *fakeAPIData[] = {
         [self clearVideos];
         
         // Load up the new broadcasts.
-        for (NSManagedObject *broadcast in broadcasts) {
+        for (Broadcast *broadcast in broadcasts) {
             // For now, we only handle YouTube.
-            if (![[broadcast valueForKey:@"provider"] isEqualToString: @"youtube"]) {
+            if (IS_NULL(broadcast.provider) || ![broadcast.provider isEqualToString: @"youtube"]) {
                 continue;
             }
             
-            if (likedOnly && (NULL == [broadcast valueForKey:@"liked"] || ![[broadcast valueForKey:@"liked"] boolValue])) {
+            if (likedOnly && (IS_NULL(broadcast.liked) || ![broadcast.liked boolValue])) {
                 continue;
             }
             
-            if (NULL == [broadcast valueForKey:@"providerId"]) {
+            if (IS_NULL(broadcast.providerId)) {
                 continue;
             }
             
-            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:[broadcast valueForKey:@"providerId"]]];
+            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:broadcast.providerId]];
             NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
             
             
             URLIndex *video = [[URLIndex alloc] init];
             NSAssert(NOT_NULL(video), @"URLIndex allocation failed. Must be out of memory. Give up.");
             
-            NSString *sharerName = [[broadcast valueForKey:@"sharerName"] uppercaseString];
-            if ([[broadcast valueForKey:@"origin"] isEqualToString:@"twitter"]) {
+            NSString *sharerName = [broadcast.sharerName uppercaseString];
+            if ([broadcast.origin isEqualToString:@"twitter"]) {
                 sharerName = [NSString stringWithFormat:@"@%@", sharerName];
             }
                         
             // We need the video to get anything done
             video.youTubeVideoInfoURL = youTubeVideo;
-            if (NOT_NULL([broadcast valueForKey:@"shelbyId"])) video.shelbyId = [broadcast valueForKey:@"shelbyId"];
-            if (NOT_NULL([broadcast valueForKey:@"thumbnailImageUrl"])) video.thumbnailURL = [NSURL URLWithString: [broadcast valueForKey:@"thumbnailImageUrl"]];
-            if (NOT_NULL([broadcast valueForKey:@"title"])) video.title = [broadcast valueForKey:@"title"];
-            if (NOT_NULL(sharerName)) video.sharer = sharerName;
-            if (NOT_NULL([broadcast valueForKey:@"sharerComment"])) video.sharerComment = [broadcast valueForKey:@"sharerComment"];
-            if (NOT_NULL([broadcast valueForKey:@"sharerImageUrl"])) video.sharerImageURL = [NSURL URLWithString: [broadcast valueForKey:@"sharerImageUrl"]];
-            if (NOT_NULL([broadcast valueForKey:@"origin"])) video.source = [broadcast valueForKey:@"origin"];
-            if (NOT_NULL([broadcast valueForKey:@"createdAt"])) video.createdAt = [broadcast valueForKey:@"createdAt"];
-            video.isLiked = [[broadcast valueForKey:@"liked"] boolValue];
+            
+            if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
+            if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
+
+            SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
+            SET_IF_NOT_NULL(video.title, broadcast.title)
+            SET_IF_NOT_NULL(video.sharer, sharerName)
+            SET_IF_NOT_NULL(video.sharerComment, broadcast.sharerComment)
+            SET_IF_NOT_NULL(video.source, broadcast.origin)
+            SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
+            
+            if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
             
             video.arrayGeneration = currentArrayGeneration;
             
