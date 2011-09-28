@@ -26,6 +26,7 @@
 @dynamic thumbnailImage;
 @dynamic thumbnailImageUrl;
 @dynamic title;
+@dynamic watched;
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 {
@@ -44,6 +45,13 @@
         self.liked = [NSNumber numberWithBool: YES];
     } else {
         self.liked = [NSNumber numberWithBool: NO];
+    }
+    
+    NSNumber *watched = [dict objectForKey:@"watched_by_owner"];
+    if (NOT_NULL(watched) && [watched boolValue]) {
+        self.watched = [NSNumber numberWithBool: YES];
+    } else {
+        self.watched = [NSNumber numberWithBool: NO];
     }
                       
     SET_IF_NOT_NULL(self.origin,            [dict objectForKey:@"video_origin"])

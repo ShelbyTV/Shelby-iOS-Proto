@@ -363,12 +363,26 @@
     // currently not correctly setting icon for watched/unwatched yet
     UIImageView *sourceTag = (UIImageView *)[cell viewWithTag:1];
     NSString *videoSource = [videoTableData videoSourceAtIndex:row];
+    BOOL isWatched = [videoTableData videoWatchedAtIndex:row];
+    
     if ([videoSource isEqualToString:@"twitter"]) {
-        sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
+        if (!isWatched) {
+            sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
+        } else {
+            sourceTag.image = [UIImage imageNamed:@"TwitterWatched"];
+        }
     } else if ([videoSource isEqualToString:@"facebook"]) {
-        sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
+        if (!isWatched) {
+            sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
+        } else {
+            sourceTag.image = [UIImage imageNamed:@"FacebookWatched"];
+        }
     } else if ([videoSource isEqualToString:@"tumblr"]) {
-        sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
+        if (!isWatched) {
+            sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
+        } else {
+            sourceTag.image = [UIImage imageNamed:@"TumblrWatched"];
+        }
     }
 
     UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];

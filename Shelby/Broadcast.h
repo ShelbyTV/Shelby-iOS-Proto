@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSData   *thumbnailImage;
 @property (nonatomic, retain) NSString *thumbnailImageUrl;
 @property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSNumber *watched;
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 

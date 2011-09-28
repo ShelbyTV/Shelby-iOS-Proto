@@ -14,6 +14,7 @@
         <attribute name="thumbnailImage" optional="YES" attributeType="Binary"/>
         <attribute name="thumbnailImageUrl" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="watched" optional="YES" attributeType="Boolean"/>
         <relationship name="channel" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Channel" inverseName="broadcasts" inverseEntity="Channel"/>
     </entity>
     <entity name="Channel" representedClassName="Channel">
@@ -32,7 +33,7 @@
         <relationship name="channels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Channel" inverseName="user" inverseEntity="Channel"/>
     </entity>
     <elements>
-        <element name="Broadcast" positionX="27" positionY="438" width="128" height="120"/>
+        <element name="Broadcast" positionX="27" positionY="438" width="128" height="270"/>
         <element name="Channel" positionX="-173" positionY="207" width="128" height="120"/>
         <element name="User" positionX="315" positionY="213" width="128" height="135"/>
     </elements>

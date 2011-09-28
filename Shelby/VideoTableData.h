@@ -46,6 +46,7 @@
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (BOOL)videoLikedAtIndex:(NSUInteger)index;
+- (BOOL)videoWatchedAtIndex:(NSUInteger)index;
 - (void)clearVideos;
 #ifdef OFFLINE_MODE
 - (void)loadVideos;

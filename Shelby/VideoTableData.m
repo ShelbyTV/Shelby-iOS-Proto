@@ -22,10 +22,11 @@
 @property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic) BOOL isLiked;
+@property (nonatomic) BOOL isWatched;
 @property (readwrite) NSUInteger arrayGeneration;
 @end
 @implementation URLIndex
-@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId, isLiked, arrayGeneration;
+@synthesize youTubeVideoInfoURL, thumbnailURL, title, sharer, sharerComment, sharerImageURL, source, createdAt, shelbyId, isLiked, isWatched, arrayGeneration;
 
 - (void) dealloc
 {
@@ -54,9 +55,10 @@
 @property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic) BOOL isLiked;
+@property (nonatomic) BOOL isWatched;
 @end
 @implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, createdAt, shelbyId, isLiked;
+@synthesize youTubeVideoInfoURL, contentURL, thumbnailImage, title, sharer, sharerComment, sharerImage, source, createdAt, shelbyId, isLiked, isWatched;
 
 - (void) dealloc
 {
@@ -209,6 +211,14 @@ static NSString *fakeAPIData[] = {
     } 
 }
 
+- (BOOL)videoWatchedAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        return [(VideoData *)[videoDataArray objectAtIndex:index] isWatched];
+    } 
+}
+
 #pragma mark - Loading Data
 
 - (BOOL)isLoading
@@ -297,7 +307,7 @@ static NSString *fakeAPIData[] = {
             NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 
             // useful for debugging YouTube page changes
-            // LOG(@"movieURLString = %@", movieURLString);
+            LOG(@"movieURLString = %@", movieURLString);
 
             videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
         }
@@ -353,6 +363,7 @@ static NSString *fakeAPIData[] = {
     videoData.shelbyId = youTubeVideoURLIndex.shelbyId;
     videoData.createdAt = youTubeVideoURLIndex.createdAt;
     videoData.isLiked = youTubeVideoURLIndex.isLiked;
+    videoData.isWatched = youTubeVideoURLIndex.isWatched;
 
     @synchronized(videoDataArray)
     {
@@ -521,6 +532,8 @@ static NSString *fakeAPIData[] = {
             SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
             
             if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
+            if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
+
             
             video.arrayGeneration = currentArrayGeneration;
             
