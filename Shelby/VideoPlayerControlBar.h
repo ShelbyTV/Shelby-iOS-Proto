@@ -18,7 +18,6 @@
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar;
-- (void)controlBarSoundButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time;
 
 @end
@@ -28,7 +27,6 @@
     IBOutlet UIButton *_shareButton;
     IBOutlet UIButton *_playButton;
     IBOutlet UIButton *_fullscreenButton;
-    IBOutlet UIButton *_soundButton;
     
     IBOutlet VideoPlayerProgressBar *_progressBar;
 
@@ -47,6 +45,5 @@
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;
 - (IBAction)favoriteButtonWasPressed:(id)sender;
-- (IBAction)soundButtonWasPressed:(id)sender;
 
 @end

@@ -119,12 +119,6 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     }
 }
 
-- (IBAction)soundButtonWasPressed:(id)sender {
-    if (self.delegate) {
-        [self.delegate controlBarSoundButtonWasPressed: self];
-    }
-}
-
 #pragma mark - Layout
 
 - (float)progressBarXOffset {

@@ -21,9 +21,9 @@ static const float kProgressUpdateInterval = 1.0f;
 
 static const float kProgressUpdateBuffer = 0.25f;
 
-static const float kHideControlsStall = 1.0f;
-static const float kHideControlsInterval = 5.0f;
-static const float kHideControlsDuration = 0.5f;
+static const float kHideControlsCheckLoop = 1.0f;
+static const float kHideControlsInterval  = 4.0f;
+static const float kFadeControlsDuration  = 0.5f;
 
 static const float kControlBarHeightIpad   = 44.0f;
 static const float kControlBarHeightIphone = 44.0f;
@@ -34,10 +34,6 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)drawControls;
 - (void)hideControls;
-
-- (void)resetTimer;
-- (void)stopTimer;
-- (void)beginTimer;
 
 @property (nonatomic, retain) Video *currentVideo;
 
@@ -130,11 +126,17 @@ static const float kNextPrevXOffset        =  0.0f;
         self.titleBar,
         self.footerBar,
         nil];
+    
+    double now = CACurrentMediaTime();
+    _lastTimeControlsBecameVisible = now;
+    _controlsVisible = YES;
 
     // Timer to update the progressBar after each second.
-    // TODO: Shut this down when we're not playing a video. Or replace it with KVO.
     [NSTimer scheduledTimerWithTimeInterval: kProgressUpdateInterval target: self selector: @selector(timerAction: ) userInfo: nil repeats: YES];
-
+    
+    // Timer to check if we need to hide controls
+    [NSTimer scheduledTimerWithTimeInterval:kHideControlsCheckLoop target:self selector:@selector(checkHideTime) userInfo:nil repeats:YES];
+ 
     [self addNotificationListeners];
 }
 
@@ -234,11 +236,6 @@ static const float kNextPrevXOffset        =  0.0f;
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             
             _changingVideo = NO;
-            
-            [self resetTimer];
-            //[self beginTimer];
-            //[self maintainControls];
-            //[self hideControlsWithDelay];
         }
     }
 }
@@ -261,52 +258,38 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 #pragma mark - Touch Handling
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Reset timer.
-    [self stopTimer];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Reset timer.
-    [self stopTimer];
-}
-
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Begin timer.
-    [self beginTimer];
+    if (_controlsVisible) {
+        [self hideControls]; 
+    } else {
+        [self drawControls];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Begin timer.
-    [self beginTimer];
+    if (_controlsVisible) {
+        [self hideControls]; 
+    } else {
+        [self drawControls];
+    }
 }
 
 #pragma mark - Controls Visibility
-
-- (void)hideControlsWithDelay {
-    [NSTimer scheduledTimerWithTimeInterval: kHideControlsInterval target: self selector: @selector(checkHideTime) userInfo: nil repeats: NO];
-    _stopTimer = NO;
-}
-
 - (void)checkHideTime {
-    if (_stopTimer) {
+    if (!_controlsVisible) {
         return;
     }
-
     double now = CACurrentMediaTime();
-    double delta = now - _lastTapTime;
-    LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTapTime, delta);
+    double delta = now - _lastTimeControlsBecameVisible;
+    // LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTimeControlsBecameVisible, delta);
     if (delta > kHideControlsInterval) {
         [self hideControls];
-    } else {
-        [NSTimer scheduledTimerWithTimeInterval: kHideControlsStall target: self selector: @selector(checkHideTime) userInfo: nil repeats: NO];
     }
 }
 
 - (void)hideControls {
-    LOG(@"hideControls");
-    //if (_controlsVisible) {
-        [UIView animateWithDuration:kHideControlsDuration animations:^{
+    // LOG(@"hideControls");
+    [UIView animateWithDuration:kFadeControlsDuration animations:^{
             for (UIView *control in _controls) {
                 control.alpha = 0.0;
             }
@@ -314,62 +297,25 @@ static const float kNextPrevXOffset        =  0.0f;
         completion:^(BOOL finished){
                if (finished) {
                    _controlsVisible = NO;
-                   for (UIView *control in _controls) {
-                      //[control setHidden:YES];
-                      //control.userInteractionEnabled = NO;
-                   }
                }
-           }];
-    //}
-}
-
-- (void)drawControlsWithClose:(BOOL)close {
-    //if (!_controlsVisible) {
-        for (UIView *control in _controls) {
-           //[control setHidden:NO];
-            //control.userInteractionEnabled = YES;
-        }
-        [UIView animateWithDuration:kHideControlsDuration animations:^{
-            for (UIView *control in _controls) {
-                control.alpha = 1.0;
-            }
-        }
-        completion:^(BOOL finished){
-           if (finished) {
-               _controlsVisible = YES;
-               if (close) {
-                   // Set a timer to hide the controls in three seconds.
-                   [self hideControlsWithDelay];
-               }
-           }
-       }];
-    //}
+        }];
 }
 
 - (void)drawControls {
-    LOG(@"drawControls");
-    [self drawControlsWithClose: NO];
-}
-
-- (void)stopTimer {
-    LOG(@"stopTimer");
-    [self drawControls];
-    _stopTimer = YES;
-}
-
-- (void)resetTimer {
+    // LOG(@"drawControls");
     double now = CACurrentMediaTime();
-    _lastTapTime = now;
-    LOG(@"resetTimer : %f", _lastTapTime);
-    if (_controlsVisible) {
-    } else {
-        [self drawControlsWithClose: YES];
+    _lastTimeControlsBecameVisible = now;
+    
+    [UIView animateWithDuration:kFadeControlsDuration animations:^{
+        for (UIView *control in _controls) {
+            control.alpha = 1.0;
+        }
     }
-}
-
-- (void)beginTimer {
-    LOG(@"beginTimer");
-    [self hideControlsWithDelay];
+                     completion:^(BOOL finished){
+                         if (finished) {
+                             _controlsVisible = YES;
+                         }
+                     }];
 }
 
 #pragma mark - Notification Handlers
@@ -428,10 +374,7 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)timerAction:(NSTimer *)timer {
-    double now = CACurrentMediaTime();
-    if (now - _lastTapTime > kProgressUpdateBuffer) {
       [self updateProgress];
-    }
 }
 
 #pragma mark - VideoProgressBarDelegate Methods
@@ -446,14 +389,11 @@ static const float kNextPrevXOffset        =  0.0f;
         //// Update the progress bar.
         [self updateProgress];
     }
-
-    [self resetTimer];
 }
 
 #pragma mark - ControlBarDelegate Callbacks
 
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    [self resetTimer];
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
         [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
@@ -467,7 +407,6 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    [self resetTimer];
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerShareButtonWasPressed: self];
@@ -478,9 +417,6 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    // We touched the screen, reset the controls timer
-    [self resetTimer];
-
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerLikeButtonWasPressed: self];
@@ -488,14 +424,9 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    [self resetTimer];
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
     }
-}
-
-- (void)controlBarSoundButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    [self resetTimer];
 }
 
 #pragma mark - Delegate Callbacks
