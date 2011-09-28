@@ -10,9 +10,11 @@
 #import "LoginHelper.h"
 #import "ApiHelper.h"
 #import "GraphiteStats.h"
+#import "ShelbyAppDelegate.h"
 
 @implementation ShelbyApp
 
+@synthesize context;
 @synthesize loginHelper;
 @synthesize apiHelper;
 @synthesize graphiteStats;
@@ -33,8 +35,12 @@ static ShelbyApp *gShelbyApp;
 - (id)init {
     self = [super init];
     if (self) {
-        _networkObjects = [[NSMutableSet alloc] initWithCapacity: 5];
-        self.loginHelper = [[[LoginHelper alloc] init] autorelease];
+        _networkObjects = [[NSMutableSet alloc] initWithCapacity: 20];
+        
+        ShelbyAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        context = appDelegate.managedObjectContext;
+        
+        self.loginHelper = [[[LoginHelper alloc] initWithContext:context] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
         self.graphiteStats = [[[GraphiteStats alloc] init] autorelease];
         [self.apiHelper loadTokens];

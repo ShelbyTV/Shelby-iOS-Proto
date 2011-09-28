@@ -41,14 +41,6 @@
 @synthesize channel;
 @synthesize identityProvider;
 
-
-- (id)init
-{
-    ShelbyAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *context = appDelegate.managedObjectContext;
-    return [self initWithContext: context];
-}
-
 - (id)initWithContext:(NSManagedObjectContext *)context
 {
     self = [super init];
@@ -230,23 +222,55 @@
                                               error:&error];
 }
 
+- (id)getExistingUniqueEntity:(NSString *)entityName withShelbyId:(NSString *)shelbyId
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName 
+                                              inManagedObjectContext:_context];
+    
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"shelbyId=%@", shelbyId];
+    
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = NULL;
+    NSArray *existingEntities = [_context executeFetchRequest:fetchRequest error:&error];
+    
+    [fetchRequest release];
+    
+    id toReturn = NULL;
+    
+    if (NOTNULL(existingEntities) && [existingEntities count] == 1) {
+        toReturn = [existingEntities objectAtIndex:0];
+    } else {
+        NSAssert(existingEntities == nil || [existingEntities count] == 0, @"Found %d existing channels with same ID", [existingEntities count]);
+    }
+    
+    return toReturn;
+}
+
 - (User *)storeUserWithDictionary:(NSDictionary *)dict
                     withImageData:(NSData *)imageData
 {
-    User *newUser = [NSEntityDescription insertNewObjectForEntityForName:@"User"
+    User *upsert = [self getExistingUniqueEntity:@"User" withShelbyId:[dict objectForKey:@"_id"]];
+    
+    if (NULL == upsert) {
+        upsert = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                inManagedObjectContext:_context];
-    [newUser setValue:[dict objectForKey:@"name"]  forKey:@"name"];
-    [newUser setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
-    [newUser setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
-    [newUser setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
-    [newUser setValue:imageData forKey:@"image"];
+    }
+    [upsert setValue:[dict objectForKey:@"name"]  forKey:@"name"];
+    [upsert setValue:[dict objectForKey:@"nickname"]  forKey:@"nickname"];
+    [upsert setValue:[dict objectForKey:@"user_image"]  forKey:@"imageUrl"];
+    [upsert setValue:[dict objectForKey:@"_id"]  forKey:@"shelbyId"];
+    [upsert setValue:imageData forKey:@"image"];
 
     NSError *error = nil;
     if (![_context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
-    return newUser;
+    return upsert;
 }
 
 - (User *)retrieveUser {
@@ -311,19 +335,27 @@
     }
 }
 
-- (void)storeChannelsWithArray:(NSArray *)array user:(User *)newUser {
+- (void)storePrivateChannelsWithArray:(NSArray *)array user:(User *)newUser
+{
     for (NSDictionary *dict in array) {
         LOG(@"Channel dict: %@", dict);
-        Channel *newChannel = [NSEntityDescription
-          insertNewObjectForEntityForName:@"Channel"
-                   inManagedObjectContext:_context];
-        NSNumber *public = [dict objectForKey:@"public"];
-        [newChannel setValue: public forKey:@"public"];
-        NSString *name = [dict objectForKey:@"name"];
-        [newChannel setValue: name forKey:@"name"];
-        NSString *shelbyId = [dict objectForKey:@"_id"];
-        [newChannel setValue: shelbyId forKey:@"shelbyId"];
-        if (newUser) newChannel.user = newUser;
+        if ([(NSNumber *)[dict objectForKey:@"public"] intValue] == 0) {
+
+            Channel *upsert = [self getExistingUniqueEntity:@"Channel" withShelbyId:[dict objectForKey:@"_id"]];
+            
+            if (NULL == upsert) {
+                upsert = [NSEntityDescription
+                                   insertNewObjectForEntityForName:@"Channel"
+                                   inManagedObjectContext:_context];
+            }
+            NSNumber *public = [dict objectForKey:@"public"];
+            [upsert setValue: public forKey:@"public"];
+            NSString *name = [dict objectForKey:@"name"];
+            [upsert setValue: name forKey:@"name"];
+            NSString *shelbyId = [dict objectForKey:@"_id"];
+            [upsert setValue: shelbyId forKey:@"shelbyId"];
+            if (newUser) upsert.user = newUser;
+        }
     }
 
     NSError *error;
@@ -341,8 +373,8 @@
     }
 }
 
-- (void)storeChannelsWithArray:(NSArray *)array {
-    [self storeChannelsWithArray: array user: self.user];
+- (void)storePrivateChannelsWithArray:(NSArray *)array {
+    [self storePrivateChannelsWithArray: array user: self.user];
 }
 
 - (NSArray *)retrieveChannels {
@@ -400,7 +432,8 @@
     }
 }
 
-- (Broadcast *)populateBroadcastFromDictionary:(Broadcast *)broadcast dictionary:(NSDictionary *)dict {
+- (void)populateBroadcastFromDictionary:(Broadcast *)broadcast dictionary:(NSDictionary *)dict
+{
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
@@ -437,45 +470,33 @@
     if (NOTNULL(sharerImageUrl)) {
         broadcast.sharerImageUrl = sharerImageUrl ;
     }
- 
     NSDate *createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
     if (NOTNULL(createdAt)) {
         broadcast.createdAt = createdAt ;
     }
-
-    //"liked_by_owner": true,
-     //"liked_by_user": null,
-    //NSString *liked = [dict objectForKey: @"liked_by_user"];
     NSNumber *liked = [dict objectForKey: @"liked_by_owner"];
     if (NOTNULL(liked) && [liked boolValue]) {
-        //broadcast.liked = YES;
         broadcast.liked = [NSNumber numberWithBool: YES];
     } else {
-        //broadcast.liked = NO;
         broadcast.liked = [NSNumber numberWithBool: NO];
     }
-
-    return broadcast;
 }
 
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
 {    
-    
     for (NSDictionary *dict in array) {
-        //LOG(@"Broadcast dict: %@", dict);
-        Broadcast *broadcast = [NSEntityDescription
-          insertNewObjectForEntityForName:@"Broadcast"
-                   inManagedObjectContext:_context];
-
-        broadcast = [self populateBroadcastFromDictionary:broadcast dictionary: dict];
+        Broadcast *upsert = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"]];
         
-
-        //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];
-        //Description - tweet
-        //video_description - youtube description
-        //video_title - youtube title
-
-        if (newChannel) broadcast.channel = newChannel;
+        if (NULL == upsert ) 
+        {
+            upsert = [NSEntityDescription
+                      insertNewObjectForEntityForName:@"Broadcast"
+                      inManagedObjectContext:_context];
+        }
+        
+        [self populateBroadcastFromDictionary:upsert dictionary: dict];
+        
+        if (newChannel) upsert.channel = newChannel;
     }
 
     NSError *error;
@@ -492,7 +513,8 @@
     }
 }
 
-- (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId {
+- (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId 
+{
     Broadcast *broadcast = nil;
 
     NSURLResponse *response = nil;
@@ -581,9 +603,9 @@
             break;
         case STVParserModeChannels:
            LOG(@"CHANNEL array found: %@", array);
-           [self storeChannelsWithArray: array];
+           [self storePrivateChannelsWithArray: array];
            NSArray *channels = [self retrieveChannels];
-        self.channel = [self getPublicChannel: 0 fromArray: channels];
+        self.channel = [self getPublicChannel:0 fromArray:channels];
            if (self.channel) {
                [self loginComplete];
            } else {

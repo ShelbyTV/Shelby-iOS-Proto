@@ -54,6 +54,8 @@
 - (void)retrieveAndStoreYouTubeVideoData:(id)youTubeURL;
 - (void)updateTableView;
 
+- (void)gotNewCoreDataBroadcasts;
+
 + (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video;
 
 @end

@@ -21,6 +21,7 @@
   NSMutableSet *_networkObjects;
 }
 
+@property (nonatomic, retain) NSManagedObjectContext *context;
 @property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
 @property (nonatomic, retain) GraphiteStats *graphiteStats;

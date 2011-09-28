@@ -14,7 +14,6 @@
         <attribute name="thumbnailImage" optional="YES" attributeType="Binary"/>
         <attribute name="thumbnailImageUrl" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="String"/>
         <relationship name="channel" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Channel" inverseName="broadcasts" inverseEntity="Channel"/>
     </entity>
     <entity name="Channel" representedClassName="Channel">

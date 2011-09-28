@@ -23,7 +23,6 @@
 @dynamic thumbnailImage;
 @dynamic thumbnailImageUrl;
 @dynamic title;
-@dynamic url;
 @dynamic channel;
 @dynamic createdAt;
 
@@ -31,7 +30,6 @@
 
     NSMutableArray *array = [NSMutableArray array];
     [array addObject: [NSString stringWithFormat: @"title: %@", self.title]];
-    [array addObject: [NSString stringWithFormat: @"url: %@", self.url]];
     [array addObject: [NSString stringWithFormat: @"shelbyId: %@", self.shelbyId]];
     [array addObject: [NSString stringWithFormat: @"liked: %d", [self.liked boolValue]]];
 

@@ -10,6 +10,7 @@
 #import "Broadcast.h"
 #import "ShelbyApp.h"
 
+
 @interface URLIndex : NSObject
 @property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
 @property (nonatomic, retain) NSURL *thumbnailURL;
@@ -522,35 +523,33 @@ static NSString *fakeAPIData[] = {
     }
 }
 
-- (void)gotNewCoreDataBroadcasts:(NSArray *)broadcasts
+- (void)gotNewCoreDataBroadcasts
 {
-    //for (Broadcast *broadcast in broadcasts) {
-    //    if ([broadcast.provider isEqualToString: @"youtube"]) {
-    //        // We only handle youtube for now.
-    //        if (NOTNULL(broadcast.providerId)) {
-    //            youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo: videoId]];
-    //        }
-
-    //        if (NOTNULL(youTubeVideo)) {
-    //            URLIndex *video = [[URLIndex alloc] init];
-
-    //            // We need the video to get anything done
-    //            video.youTubeVideoInfoURL = youTubeVideo;
-    //            if (NOTNULL(thumbnailUrl)) video.thumbnailURL = [NSURL URLWithString: thumbnailUrl];
-    //            if (NOTNULL(title)) video.title = title;
-
-    //            if (NOTNULL(sharerName)) video.sharer = sharerName;
-    //            if (NOTNULL(comment)) video.sharerComment = comment;
-    //            if (NOTNULL(sharerThumbnailUrl)) video.sharerImageURL = [NSURL URLWithString: sharerThumbnailUrl];
-
-    //            NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-    //                                                                                    selector:@selector(retrieveAndStoreYouTubeVideoData:)
-    //                                                                                      object:video];
-
-    //            [operationQueue addOperation:operation];
-    //        }
-    //    }
-    //}
+    NSLog(@"here in gotNewCoreDataBroadcasts");
+    NSManagedObjectContext *context = [ShelbyApp sharedApp].context;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
+                                              inManagedObjectContext:context];
+    
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel.public=0"];
+    
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
+    
+    [fetchRequest release];
+    
+    if (NULL == broadcasts) {
+        LOG(@"broadcasts is nil");
+    } else if ([broadcasts count] >= 0) {
+        LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
+    } else {
+        LOG(@"Found no broadcasts for channel.public=0. Error: %@", error);
+    }
 }
 
 #pragma mark - KVO
@@ -587,9 +586,8 @@ static NSString *fakeAPIData[] = {
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
-    NSArray *broadcasts = [notification.userInfo objectForKey: @"broadcasts"];
-    [self gotNewJSONBroadcasts: broadcasts];
-    //[self gotNewCoreDataBroadcasts: broadcasts];
+    [self gotNewJSONBroadcasts:[notification.userInfo objectForKey: @"broadcasts"]];
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(gotNewCoreDataBroadcasts) userInfo:nil repeats:NO];
 }
 
 #pragma mark - Cleanup
