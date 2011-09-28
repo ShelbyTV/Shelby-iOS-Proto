@@ -244,7 +244,7 @@
     if (NOT_NULL(existingEntities) && [existingEntities count] == 1) {
         toReturn = [existingEntities objectAtIndex:0];
     } else {
-        NSAssert(existingEntities == nil || [existingEntities count] == 0, @"Found %d existing channels with same ID", [existingEntities count]);
+        NSAssert(existingEntities == nil || [existingEntities count] == 0, @"Found > 1 existing entities with same ID");
     }
     
     return toReturn;
