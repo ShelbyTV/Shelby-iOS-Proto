@@ -442,6 +442,10 @@
     if (NOTNULL(shelbyId)) {
         broadcast.shelbyId = shelbyId ;
     }
+    NSString *provider = [dict objectForKey: @"video_provider_name"];
+    if (NOTNULL(provider)) {
+        broadcast.provider = provider;
+    }
     NSString *providerId = [dict objectForKey: @"video_id_at_provider"];
     if (NOTNULL(providerId)) {
         broadcast.providerId = providerId ;
@@ -458,7 +462,7 @@
     if (NOTNULL(sharerComment)) {
         broadcast.sharerComment = sharerComment ;
     }
-    NSString *sharerName = [dict objectForKey: @"video_originator_user_name"];
+    NSString *sharerName = [dict objectForKey: @"video_originator_user_nickname"];
     if (NOTNULL(sharerName)) {
         broadcast.sharerName = sharerName ;
     }
