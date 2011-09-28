@@ -14,19 +14,24 @@
 @interface Broadcast : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSNumber * liked;
-@property (nonatomic, retain) NSString * origin;
-@property (nonatomic, retain) NSString * provider;
-@property (nonatomic, retain) NSString * providerId;
-@property (nonatomic, retain) NSString * sharerComment;
-@property (nonatomic, retain) NSData * sharerImage;
-@property (nonatomic, retain) NSString * sharerImageUrl;
-@property (nonatomic, retain) NSString * sharerName;
-@property (nonatomic, retain) NSString * shelbyId;
-@property (nonatomic, retain) NSData * thumbnailImage;
-@property (nonatomic, retain) NSString * thumbnailImageUrl;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) Channel *channel;
-@property (nonatomic, retain) NSDate *createdAt;
+
+@property (nonatomic, retain) Channel  *channel;
+
+@property (nonatomic, retain) NSDate   *createdAt;
+@property (nonatomic, retain) NSNumber *liked;
+@property (nonatomic, retain) NSString *origin;
+@property (nonatomic, retain) NSString *provider;
+@property (nonatomic, retain) NSString *providerId;
+@property (nonatomic, retain) NSString *sharerComment;
+@property (nonatomic, retain) NSData   *sharerImage;
+@property (nonatomic, retain) NSString *sharerImageUrl;
+@property (nonatomic, retain) NSString *sharerName;
+@property (nonatomic, retain) NSString *shelbyId;
+@property (nonatomic, retain) NSData   *thumbnailImage;
+@property (nonatomic, retain) NSString *thumbnailImageUrl;
+@property (nonatomic, retain) NSString *title;
+
+- (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
+
 
 @end

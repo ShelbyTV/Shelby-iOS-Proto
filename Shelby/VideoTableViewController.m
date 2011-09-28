@@ -104,7 +104,7 @@
 
     video.contentURL = [videoTableData videoContentURLAtIndex: index];
 
-    if (NOTNULL(video.contentURL)) {
+    if (NOT_NULL(video.contentURL)) {
         video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
         video.title = [videoTableData videoTitleAtIndex: index];
 
@@ -137,7 +137,7 @@
     // Return the next video.
     Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
 
-    if (NOTNULL(video)) {
+    if (NOT_NULL(video)) {
         // Scroll to the next table cell.
         [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
                               atScrollPosition: UITableViewScrollPositionMiddle
@@ -160,7 +160,7 @@
     // Return the previous video.
     Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
 
-    if (NOTNULL(video)) {
+    if (NOT_NULL(video)) {
         // Scroll to the previous table cell.
         [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
                               atScrollPosition: UITableViewScrollPositionMiddle

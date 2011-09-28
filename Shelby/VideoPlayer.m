@@ -203,7 +203,7 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)playVideo:(Video *)video {
-    if (NOTNULL(video)) {
+    if (NOT_NULL(video)) {
         
         [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
 
@@ -400,8 +400,8 @@ static const float kNextPrevXOffset        =  0.0f;
             return;
         }
         
-        if (NOTNULL(self.currentVideo) &&
-            NOTNULL(notification.userInfo) &&
+        if (NOT_NULL(self.currentVideo) &&
+            NOT_NULL(notification.userInfo) &&
             [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:YES];

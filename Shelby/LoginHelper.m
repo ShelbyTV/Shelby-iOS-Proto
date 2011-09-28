@@ -241,7 +241,7 @@
     
     id toReturn = NULL;
     
-    if (NOTNULL(existingEntities) && [existingEntities count] == 1) {
+    if (NOT_NULL(existingEntities) && [existingEntities count] == 1) {
         toReturn = [existingEntities objectAtIndex:0];
     } else {
         NSAssert(existingEntities == nil || [existingEntities count] == 0, @"Found %d existing channels with same ID", [existingEntities count]);
@@ -432,60 +432,6 @@
     }
 }
 
-- (void)populateBroadcastFromDictionary:(Broadcast *)broadcast dictionary:(NSDictionary *)dict
-{
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-
-    NSString *shelbyId = [dict objectForKey: @"_id"];
-    if (NOTNULL(shelbyId)) {
-        broadcast.shelbyId = shelbyId ;
-    }
-    NSString *provider = [dict objectForKey: @"video_provider_name"];
-    if (NOTNULL(provider)) {
-        broadcast.provider = provider;
-    }
-    NSString *providerId = [dict objectForKey: @"video_id_at_provider"];
-    if (NOTNULL(providerId)) {
-        broadcast.providerId = providerId ;
-    }
-    NSString *thumbnailImageUrl = [dict objectForKey: @"video_thumbnail_url"];
-    if (NOTNULL(thumbnailImageUrl)) {
-        broadcast.thumbnailImageUrl = thumbnailImageUrl ;
-    }
-    NSString *title  = [dict objectForKey: @"video_title"];
-    if (NOTNULL(title)) {
-        broadcast.title = title ;
-    }
-    NSString *sharerComment  = [dict objectForKey: @"description"];
-    if (NOTNULL(sharerComment)) {
-        broadcast.sharerComment = sharerComment ;
-    }
-    NSString *sharerName = [dict objectForKey: @"video_originator_user_nickname"];
-    if (NOTNULL(sharerName)) {
-        broadcast.sharerName = sharerName ;
-    }
-    NSString *videoOrigin = [dict objectForKey: @"video_origin"];
-    if (NOTNULL(videoOrigin)) {
-        broadcast.origin = videoOrigin ;
-    }
-    NSString *sharerImageUrl = [dict objectForKey: @"video_originator_user_image"];
-    if (NOTNULL(sharerImageUrl)) {
-        broadcast.sharerImageUrl = sharerImageUrl ;
-    }
-    NSDate *createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
-    if (NOTNULL(createdAt)) {
-        broadcast.createdAt = createdAt ;
-    }
-    NSNumber *liked = [dict objectForKey: @"liked_by_owner"];
-    if (NOTNULL(liked) && [liked boolValue]) {
-        broadcast.liked = [NSNumber numberWithBool: YES];
-    } else {
-        broadcast.liked = [NSNumber numberWithBool: NO];
-    }
-}
-
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
 {    
     for (NSDictionary *dict in array) {
@@ -498,7 +444,7 @@
                       inManagedObjectContext:_context];
         }
         
-        [self populateBroadcastFromDictionary:upsert dictionary: dict];
+        [upsert populateFromApiJSONDictionary: dict];
         
         if (newChannel) upsert.channel = newChannel;
     }
@@ -553,7 +499,7 @@
             broadcast = [NSEntityDescription
                 insertNewObjectForEntityForName:@"Broadcast"
                          inManagedObjectContext:_context];
-            [self populateBroadcastFromDictionary: broadcast dictionary: dict];
+            [broadcast populateFromApiJSONDictionary:dict];
             [parser release];
         }
     }

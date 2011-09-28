@@ -391,7 +391,7 @@ static NSString *fakeAPIData[] = {
 // helper method -- maybe better to just embed in this file?
 + (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
 {
-    assert(NOTNULL(video));
+    assert(NOT_NULL(video));
     NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
     return [baseURL stringByAppendingString:video];
 }
@@ -496,11 +496,11 @@ static NSString *fakeAPIData[] = {
             }
             
             NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:[broadcast valueForKey:@"providerId"]]];
-            NSAssert(NOTNULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
+            NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
             
             
             URLIndex *video = [[URLIndex alloc] init];
-            NSAssert(NOTNULL(video), @"URLIndex allocation failed. Must be out of memory. Give up.");
+            NSAssert(NOT_NULL(video), @"URLIndex allocation failed. Must be out of memory. Give up.");
             
             NSString *sharerName = [[broadcast valueForKey:@"sharerName"] uppercaseString];
             if ([[broadcast valueForKey:@"origin"] isEqualToString:@"twitter"]) {
@@ -509,14 +509,14 @@ static NSString *fakeAPIData[] = {
                         
             // We need the video to get anything done
             video.youTubeVideoInfoURL = youTubeVideo;
-            if (NOTNULL([broadcast valueForKey:@"shelbyId"])) video.shelbyId = [broadcast valueForKey:@"shelbyId"];
-            if (NOTNULL([broadcast valueForKey:@"thumbnailImageUrl"])) video.thumbnailURL = [NSURL URLWithString: [broadcast valueForKey:@"thumbnailImageUrl"]];
-            if (NOTNULL([broadcast valueForKey:@"title"])) video.title = [broadcast valueForKey:@"title"];
-            if (NOTNULL(sharerName)) video.sharer = sharerName;
-            if (NOTNULL([broadcast valueForKey:@"sharerComment"])) video.sharerComment = [broadcast valueForKey:@"sharerComment"];
-            if (NOTNULL([broadcast valueForKey:@"sharerImageUrl"])) video.sharerImageURL = [NSURL URLWithString: [broadcast valueForKey:@"sharerImageUrl"]];
-            if (NOTNULL([broadcast valueForKey:@"origin"])) video.source = [broadcast valueForKey:@"origin"];
-            if (NOTNULL([broadcast valueForKey:@"createdAt"])) video.createdAt = [broadcast valueForKey:@"createdAt"];
+            if (NOT_NULL([broadcast valueForKey:@"shelbyId"])) video.shelbyId = [broadcast valueForKey:@"shelbyId"];
+            if (NOT_NULL([broadcast valueForKey:@"thumbnailImageUrl"])) video.thumbnailURL = [NSURL URLWithString: [broadcast valueForKey:@"thumbnailImageUrl"]];
+            if (NOT_NULL([broadcast valueForKey:@"title"])) video.title = [broadcast valueForKey:@"title"];
+            if (NOT_NULL(sharerName)) video.sharer = sharerName;
+            if (NOT_NULL([broadcast valueForKey:@"sharerComment"])) video.sharerComment = [broadcast valueForKey:@"sharerComment"];
+            if (NOT_NULL([broadcast valueForKey:@"sharerImageUrl"])) video.sharerImageURL = [NSURL URLWithString: [broadcast valueForKey:@"sharerImageUrl"]];
+            if (NOT_NULL([broadcast valueForKey:@"origin"])) video.source = [broadcast valueForKey:@"origin"];
+            if (NOT_NULL([broadcast valueForKey:@"createdAt"])) video.createdAt = [broadcast valueForKey:@"createdAt"];
             video.isLiked = [[broadcast valueForKey:@"liked"] boolValue];
             
             video.arrayGeneration = currentArrayGeneration;

@@ -52,14 +52,14 @@
 {
     LOG(@"receivedWatchBroadcastResponse");
     
-    if (NOTNULL(error)) {
+    if (NOT_NULL(error)) {
         LOG(@"Watch Broadcast error: %@", error);
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         NSDictionary *dict = [parser objectWithData:data];
         NSString *apiError = [dict objectForKey:@"err"];
         
-        if (NOTNULL(apiError)) {
+        if (NOT_NULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastFailed"
                                                                 object:self
@@ -117,14 +117,14 @@
 {
     LOG(@"receivedLikeBroadcastResponse");
     
-    if (NOTNULL(error)) {
+    if (NOT_NULL(error)) {
         LOG(@"Like Broadcast error: %@", error);
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         NSDictionary *dict = [parser objectWithData:data];
         NSString *apiError = [dict objectForKey:@"err"];
         
-        if (NOTNULL(apiError)) {
+        if (NOT_NULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastFailed"
                                                                 object:self
@@ -185,7 +185,7 @@
             return;
         }
         
-        //if (NOTNULL(recipient)) {
+        //if (NOT_NULL(recipient)) {
         //    // If email, send who's
         //    [req setValue: recipient forOAuthParameter: @"to"];
         //}
@@ -229,7 +229,7 @@
     
     NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
     
-    if (NOTNULL(error)) {
+    if (NOT_NULL(error)) {
         LOG(@"Share Broadcast error: %@", error);
     } else {
         if ([httpResp statusCode] != 200) {
@@ -240,7 +240,7 @@
             NSDictionary *dict = [parser objectWithData:data];
             NSString *apiError = [dict objectForKey:@"err"];
             
-            if (NOTNULL(apiError)) {
+            if (NOT_NULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastFailed"
                                                                     object:self
