@@ -11,6 +11,7 @@
 #import "Video.h"
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
+#import "GraphiteStats.h"
 
 @implementation VideoTableViewController
 
@@ -103,7 +104,7 @@
 
     video.contentURL = [videoTableData videoContentURLAtIndex: index];
 
-    if (NOTNULL(video.contentURL)) {
+    if (NOT_NULL(video.contentURL)) {
         video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
         video.title = [videoTableData videoTitleAtIndex: index];
 
@@ -112,6 +113,7 @@
         video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
         video.contentURL = [videoTableData videoContentURLAtIndex: index];
         video.shelbyId = [videoTableData videoShelbyIdAtIndex: index];
+        video.isLiked = [videoTableData videoLikedAtIndex:index];
 
         return video;
     } else {
@@ -135,7 +137,7 @@
     // Return the next video.
     Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
 
-    if (NOTNULL(video)) {
+    if (NOT_NULL(video)) {
         // Scroll to the next table cell.
         [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
                               atScrollPosition: UITableViewScrollPositionMiddle
@@ -158,7 +160,7 @@
     // Return the previous video.
     Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
 
-    if (NOTNULL(video)) {
+    if (NOT_NULL(video)) {
         // Scroll to the previous table cell.
         [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow: _currentVideoIndex inSection: 0]
                               atScrollPosition: UITableViewScrollPositionMiddle
@@ -361,19 +363,44 @@
     // currently not correctly setting icon for watched/unwatched yet
     UIImageView *sourceTag = (UIImageView *)[cell viewWithTag:1];
     NSString *videoSource = [videoTableData videoSourceAtIndex:row];
+    BOOL isWatched = [videoTableData videoWatchedAtIndex:row];
+    
     if ([videoSource isEqualToString:@"twitter"]) {
-        sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
+        if (!isWatched) {
+            sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
+        } else {
+            sourceTag.image = [UIImage imageNamed:@"TwitterWatched"];
+        }
     } else if ([videoSource isEqualToString:@"facebook"]) {
-        sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
+        if (!isWatched) {
+            sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
+        } else {
+            sourceTag.image = [UIImage imageNamed:@"FacebookWatched"];
+        }
     } else if ([videoSource isEqualToString:@"tumblr"]) {
-        sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
+        if (!isWatched) {
+            sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
+        } else {
+            sourceTag.image = [UIImage imageNamed:@"TumblrWatched"];
+        }
+    } else if ([videoSource isEqualToString:@"bookmarklet"]) {
+        // clear image, so no watched/unwatched. easier than hiding/unhiding in this case.
+        sourceTag.image = [UIImage imageNamed:@"Bookmarklet"];
     }
 
     UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
     videoThumbnail.image = [videoTableData videoThumbnailAtIndex:row];
 
     UILabel *sharerComment = (UILabel *)[cell viewWithTag:3];
-    sharerComment.text = [videoTableData videoSharerCommentAtIndex:row];
+    UIView *sharerCommentBackground = (UIView *)[cell viewWithTag:7];
+    NSString *sharerCommentText = [videoTableData videoSharerCommentAtIndex:row];
+    if (NOT_NULL(sharerCommentText)) {
+        sharerComment.text = sharerCommentText;
+        sharerCommentBackground.hidden = NO;
+    } else {
+        sharerComment.text = @"";
+        sharerCommentBackground.hidden = YES;
+    }
 
     UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
     sharerImage.image = [videoTableData videoSharerImageAtIndex:row];;
@@ -438,6 +465,8 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
     */
+    
+    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"tableVideoSelected"];
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;

@@ -60,7 +60,7 @@
  * is set in viewDidLoad.
  */
 - (UIView *)networkActivityViewContainer {
-    if (NOTNULL(_networkActivityViewParent)) {
+    if (NOT_NULL(_networkActivityViewParent)) {
         return _networkActivityViewParent;
     } else {
         return [self view];

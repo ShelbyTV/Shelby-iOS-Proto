@@ -18,4 +18,6 @@
                                       rect.size.width, \
                                       rect.size.height)
 
-#define NOTNULL(x) (x && ![x isKindOfClass:[NSNull class]])
+#define IS_NULL(x) ([(x) isKindOfClass:[NSNull class]])
+#define NOT_NULL(x) ((x) && ![(x) isKindOfClass:[NSNull class]])
+#define SET_IF_NOT_NULL(y, z) {if (NOT_NULL(z)) { y = z; } }

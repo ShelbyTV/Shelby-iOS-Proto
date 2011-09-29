@@ -8,7 +8,7 @@
 
 #import "ApiHelper.h"
 #import "ApiConstants.h"
-#import "OAuthMutableURLRequest.h"
+#import "ApiMutableURLRequest.h"
 
 @implementation ApiHelper
 
@@ -32,10 +32,10 @@
 
 #pragma mark - URL Request
 
-- (OAuthMutableURLRequest *)requestForURL:(NSURL *)url 
+- (ApiMutableURLRequest *)requestForURL:(NSURL *)url 
                                withMethod:(NSString *)method;
 {
-    OAuthMutableURLRequest *request = [[[OAuthMutableURLRequest alloc] initWithURL: url] autorelease];
+    ApiMutableURLRequest *request = [[[ApiMutableURLRequest alloc] initWithURL: url] autorelease];
     
     [request setConsumerKey:kShelbyConsumerKey secret:kShelbyConsumerSecret];
     if (self.accessToken != nil) [request setToken: self.accessToken secret: self.accessTokenSecret];

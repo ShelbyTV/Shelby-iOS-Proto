@@ -21,4 +21,6 @@
 @synthesize sharerComment;
 @synthesize sharerImage;
 
+@synthesize isLiked;
+
 @end

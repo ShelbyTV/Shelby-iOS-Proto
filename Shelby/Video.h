@@ -23,4 +23,6 @@
 @property(nonatomic, retain) NSString *sharerComment;
 @property(nonatomic, retain) UIImage *sharerImage;
 
+@property(nonatomic) BOOL isLiked;
+
 @end

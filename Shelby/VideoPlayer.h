@@ -29,16 +29,16 @@
 
 @end
 
-@interface VideoPlayer : UIView <VideoPlayerControlBarDelegate, UIGestureRecognizerDelegate> {
+@interface VideoPlayer : UIView <VideoPlayerControlBarDelegate, UIGestureRecognizerDelegate>
+{
     // Current video's duration.
     float _duration;
     // Is the user currently changing the video?
     BOOL _changingVideo;
     // Are the controls currently visible?
     BOOL _controlsVisible;
-    // When did the user last tap the screen?
-    double _lastTapTime;
-    BOOL _stopTimer;
+    // When did the controls last become visible?
+    double _lastTimeControlsBecameVisible;
 
     // UI
     UIButton *_nextButton;
