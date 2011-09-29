@@ -63,17 +63,9 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)slideTray:(BOOL)right {
     // Slide the right tray.
-    [self slideView: header right: right];
-    [self slideView: videoTableHolder right: right];
-    [self slideView: buttonsHolder right: right];
-
-    // Animate the video player to grow to fill the remaining space.
-    // NOTE: This appears to not be working. May have to use the VideoPlayer
-    // object and not the holder.
-    float offset = right ? -OFFSET : OFFSET;
-    CGRect tempFrame = _videoPlayer.frame;
-    tempFrame.size.width += offset;
-    _videoPlayer.frame = tempFrame;
+    [self slideView: header right:right];
+    [self slideView: videoTableHolder right:right];
+    [self slideView: buttonsHolder right:right];
 
     // Make header transparent while tray is closing.
     if (!right) {
@@ -87,11 +79,20 @@ static const float ANIMATION_TIME = 0.5f;
         if (_trayClosed) {
             // make header opaque immediately before sliding
             header.alpha = 1.0;
+        } else {
+            CGRect tempFrame = _videoPlayer.frame;
+            tempFrame.size.width += OFFSET;
+            _videoPlayer.frame = tempFrame;
         }
         [UIView animateWithDuration:ANIMATION_TIME animations:^{
             [self slideTray: _trayClosed];
         }
         completion:^(BOOL finished){
+            if (finished && !_trayClosed) {
+                CGRect tempFrame = _videoPlayer.frame;
+                tempFrame.size.width -= OFFSET;
+                _videoPlayer.frame = tempFrame;
+            }
             // NOP
             _traySliding = NO;
         }];

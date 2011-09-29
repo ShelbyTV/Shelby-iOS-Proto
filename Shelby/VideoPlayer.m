@@ -254,11 +254,6 @@ static const float kNextPrevXOffset        =  0.0f;
     [_moviePlayer stop];
 }
 
-- (void)toggleFullscreen {
-    [_moviePlayer setFullscreen: !_moviePlayer.isFullscreen
-                       animated: YES];
-}
-
 #pragma mark - Touch Handling
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_controlsVisible) {
