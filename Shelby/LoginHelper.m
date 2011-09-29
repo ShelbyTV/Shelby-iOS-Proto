@@ -27,6 +27,7 @@
 @interface LoginHelper ()
 
 - (BOOL)fetchUserId;
+- (void)deleteUser;
 - (User *)retrieveUser;
 - (NSArray *)retrieveChannels;
 - (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels;
@@ -337,6 +338,22 @@
     // We failed to send the request. Let the caller know.
 }
 
+- (void)storeAuthentications:(NSArray *)authentications {
+    User *user = [self retrieveUser];
+    for (NSString *authentication in authentications) {
+        if ([authentication isEqualToString: @"twitter"]) {
+            user.auth_twitter = [NSNumber numberWithBool: YES];
+        }
+        if ([authentication isEqualToString: @"facebook"]) {
+            user.auth_facebook = [NSNumber numberWithBool: YES];
+        }
+        //NSString *authName = [NSString stringWithFormat: @"auth_%@", authentication];
+        ////[user setValue: [NSNumber numberWithBool: YES] forKey: authName];
+        //[user setValue: YES forKey: authName];
+    }
+    // Save state to context.
+}
+
 - (void)receivedGetAuthenticationsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
 {
     [self decrementNetworkCounter];
@@ -354,21 +371,6 @@
     [parser release];
 }
 
-- (void)storeAuthentications:(NSArray *)authentications {
-    User *user = [self retrieveUser];
-    for (NSString *authentication in authentications) {
-        if ([authentication isEqualToString: @"twitter"]) {
-            user.auth_twitter = [NSNumber numberWithBool: YES];
-        }
-        if ([authentication isEqualToString: @"facebook"]) {
-            user.auth_facebook = [NSNumber numberWithBool: YES];
-        }
-        //NSString *authName = [NSString stringWithFormat: @"auth_%@", authentication];
-        ////[user setValue: [NSNumber numberWithBool: YES] forKey: authName];
-        //[user setValue: YES forKey: authName];
-    }
-    // Save state to context.
-}
 
 #pragma mark - Channels
 

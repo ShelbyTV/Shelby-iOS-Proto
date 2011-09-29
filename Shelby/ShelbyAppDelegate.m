@@ -40,10 +40,9 @@
 
     URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
 
-    NSString *oauthToken = [parser valueForVariable: @"oauth_token"];
     NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];
 
-    LOG(@"oauthToken: %@", oauthToken);
+    LOG(@"oauthToken: %@", [parser valueForVariable: @"oauth_token"]);
     LOG(@"oauthVerifier: %@", oauthVerifier);
 
     // If we're coming from oAuth, capture the incoming verifier.
