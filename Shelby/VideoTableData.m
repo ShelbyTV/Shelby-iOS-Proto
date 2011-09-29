@@ -478,76 +478,78 @@ static NSString *fakeAPIData[] = {
     
     [fetchRequest setPredicate:predicate];
     
+    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sorter]];
+    
     NSError *error = nil;
     NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
     
     [fetchRequest release];
+    [sorter release];
     
-    if (NULL == broadcasts) {
-        LOG(@"broadcasts is nil");
-    } else if ([broadcasts count] >= 0) {
-        LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
-        
-        // Clear out the old broadcasts.
-        [self clearVideos];
-        
-        // Load up the new broadcasts.
-        for (Broadcast *broadcast in broadcasts) {
-            // For now, we only handle YouTube.
-            if (IS_NULL(broadcast.provider) || ![broadcast.provider isEqualToString: @"youtube"]) {
-                continue;
-            }
-            
-            if (likedOnly && (IS_NULL(broadcast.liked) || ![broadcast.liked boolValue])) {
-                continue;
-            }
-            
-            if (IS_NULL(broadcast.providerId)) {
-                continue;
-            }
-            
-            NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:broadcast.providerId]];
-            NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
-            
-            
-            URLIndex *video = [[URLIndex alloc] init];
-            NSAssert(NOT_NULL(video), @"URLIndex allocation failed. Must be out of memory. Give up.");
-            
-            NSString *sharerName = [broadcast.sharerName uppercaseString];
-            if ([broadcast.origin isEqualToString:@"twitter"]) {
-                sharerName = [NSString stringWithFormat:@"@%@", sharerName];
-            }
-                        
-            // We need the video to get anything done
-            video.youTubeVideoInfoURL = youTubeVideo;
-            
-            if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
-            if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
-
-            SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
-            SET_IF_NOT_NULL(video.title, broadcast.title)
-            SET_IF_NOT_NULL(video.sharer, sharerName)
-            SET_IF_NOT_NULL(video.sharerComment, broadcast.sharerComment)
-            SET_IF_NOT_NULL(video.source, broadcast.origin)
-            SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
-            
-            if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
-            if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
-
-            
-            video.arrayGeneration = currentArrayGeneration;
-            
-            NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                                    selector:@selector(retrieveAndStoreYouTubeVideoData:)
-                                                                                      object:video];
-            
-            @synchronized(videoDataArray)
-            {
-                [operationQueue addOperation:operation];
-            }
+    if (IS_NULL(broadcasts)) {
+        return;
+    } 
+    
+    LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
+    
+    // Clear out the old broadcasts.
+    [self clearVideos];
+    
+    // Load up the new broadcasts.
+    for (Broadcast *broadcast in broadcasts) {
+        // For now, we only handle YouTube.
+        if (IS_NULL(broadcast.provider) || ![broadcast.provider isEqualToString: @"youtube"]) {
+            continue;
         }
-    } else {
-        LOG(@"Found no broadcasts for channel.public=0. Error: %@", error);
+        
+        if (likedOnly && (IS_NULL(broadcast.liked) || ![broadcast.liked boolValue])) {
+            continue;
+        }
+        
+        if (IS_NULL(broadcast.providerId)) {
+            continue;
+        }
+        
+        NSURL *youTubeVideo = [[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:broadcast.providerId]];
+        NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
+        
+        
+        URLIndex *video = [[URLIndex alloc] init];
+        NSAssert(NOT_NULL(video), @"URLIndex allocation failed. Must be out of memory. Give up.");
+        
+        NSString *sharerName = [broadcast.sharerName uppercaseString];
+        if ([broadcast.origin isEqualToString:@"twitter"]) {
+            sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+        }
+        
+        // We need the video to get anything done
+        video.youTubeVideoInfoURL = youTubeVideo;
+        
+        if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
+        if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
+        
+        SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
+        SET_IF_NOT_NULL(video.title, broadcast.title)
+        SET_IF_NOT_NULL(video.sharer, sharerName)
+        SET_IF_NOT_NULL(video.sharerComment, broadcast.sharerComment)
+        SET_IF_NOT_NULL(video.source, broadcast.origin)
+        SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
+        
+        if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
+        if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
+                
+        video.arrayGeneration = currentArrayGeneration;
+        
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                                selector:@selector(retrieveAndStoreYouTubeVideoData:)
+                                                                                  object:video];
+        
+        @synchronized(videoDataArray)
+        {
+            [operationQueue addOperation:operation];
+        }
     }
 }
 
