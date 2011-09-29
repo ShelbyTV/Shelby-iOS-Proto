@@ -72,11 +72,10 @@
 					</object>
 					<object class="IBUILabel" id="113638569">
 						<reference key="NSNextResponder" ref="759562499"/>
-						<int key="NSvFlags">318</int>
+						<int key="NSvFlags">300</int>
 						<string key="NSFrame">{{68, 15}, {466, 35}}</string>
 						<reference key="NSSuperview" ref="759562499"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="163751739">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
