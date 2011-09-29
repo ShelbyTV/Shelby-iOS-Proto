@@ -308,9 +308,6 @@
 
     self.userView.delegate = self;
 
-    //Background.
-    [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
-
     //VideoTable.
     videoTable.tableView.frame = videoTableHolder.bounds;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {

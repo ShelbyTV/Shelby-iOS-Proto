@@ -40,7 +40,13 @@ static const float ANIMATION_TIME = 0.5f;
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
 	[_logoButton addGestureRecognizer:panRecognizer];
+    
+    //Background.
+    [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"iPadHeaderBackground" ofType:@"png"]]]];
+    [header.layer setOpaque:NO];
+    header.opaque = NO;
 }
+
 
 #pragma mark - View Animations
 
