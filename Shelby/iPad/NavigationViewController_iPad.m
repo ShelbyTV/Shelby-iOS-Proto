@@ -67,6 +67,11 @@ static const float ANIMATION_TIME = 0.5f;
     [self slideView: videoTableHolder right:right];
     [self slideView: buttonsHolder right:right];
 
+    CGRect tempFrame = _videoPlayer.frame;
+    tempFrame.size.width += right ? -OFFSET : OFFSET;
+    _videoPlayer.frame = tempFrame;
+    [_videoPlayer layoutSubviews];
+    
     // Make header transparent while tray is closing.
     if (!right) {
        header.alpha = 0.5;
@@ -80,19 +85,12 @@ static const float ANIMATION_TIME = 0.5f;
             // make header opaque immediately before sliding
             header.alpha = 1.0;
         } else {
-            CGRect tempFrame = _videoPlayer.frame;
-            tempFrame.size.width += OFFSET;
-            _videoPlayer.frame = tempFrame;
+
         }
         [UIView animateWithDuration:ANIMATION_TIME animations:^{
             [self slideTray: _trayClosed];
         }
         completion:^(BOOL finished){
-            if (finished && !_trayClosed) {
-                CGRect tempFrame = _videoPlayer.frame;
-                tempFrame.size.width -= OFFSET;
-                _videoPlayer.frame = tempFrame;
-            }
             // NOP
             _traySliding = NO;
         }];
