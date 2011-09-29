@@ -64,7 +64,7 @@
 							<object class="IBUIButton" id="256397958">
 								<reference key="NSNextResponder" ref="129868568"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{-7, 7}, {201, 62}}</string>
+								<string key="NSFrame">{{15, 7}, {201, 62}}</string>
 								<reference key="NSSuperview" ref="129868568"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="498810016"/>
@@ -92,13 +92,13 @@
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Logo.png</string>
+									<string key="NSResourceName">Logo_iPad.png</string>
 								</object>
 							</object>
 							<object class="IBUIView" id="498810016">
 								<reference key="NSNextResponder" ref="129868568"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{202, 15}, {183, 46}}</string>
+								<string key="NSFrame">{{202, 15}, {213, 46}}</string>
 								<reference key="NSSuperview" ref="129868568"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1020838563"/>
@@ -107,7 +107,7 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 						</object>
-						<string key="NSFrame">{{629, 0}, {395, 75}}</string>
+						<string key="NSFrame">{{599, 0}, {425, 75}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="256397958"/>
@@ -708,14 +708,18 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>button</string>
+							<string>facebook</string>
 							<string>image</string>
 							<string>name</string>
+							<string>twitter</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
 							<string>UIImageView</string>
+							<string>UIImageView</string>
 							<string>UILabel</string>
+							<string>UIImageView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -723,8 +727,10 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>button</string>
+							<string>facebook</string>
 							<string>image</string>
 							<string>name</string>
+							<string>twitter</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -733,12 +739,20 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">facebook</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">image</string>
 								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">name</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">twitter</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 						</object>
 					</object>
@@ -864,7 +878,7 @@
 				<string>ButtonFavoritesNormal.png</string>
 				<string>ButtonListHighlighted.png</string>
 				<string>ButtonListNormal.png</string>
-				<string>Logo.png</string>
+				<string>Logo_iPad.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
@@ -872,7 +886,7 @@
 				<string>{50, 44}</string>
 				<string>{50, 44}</string>
 				<string>{50, 44}</string>
-				<string>{306, 93}</string>
+				<string>{326, 93}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">534</string>

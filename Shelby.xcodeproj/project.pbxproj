@@ -56,6 +56,9 @@
 		0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */; };
 		0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */; };
 		0ADF88F11433ED1A001BCCF8 /* Bookmarklet.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF88F01433ED1A001BCCF8 /* Bookmarklet.png */; };
+		0ADF890514344B02001BCCF8 /* TumblrActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890314344B02001BCCF8 /* TumblrActive.png */; };
+		0ADF890614344B02001BCCF8 /* TumblrDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890414344B02001BCCF8 /* TumblrDisabled.png */; };
+		0ADF890914344B10001BCCF8 /* Logo_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890814344B10001BCCF8 /* Logo_iPad.png */; };
 		4200E50413F41F0C00609C3E /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50313F41F0C00609C3E /* Video.m */; };
 		4200E50913F4263900609C3E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50713F4263900609C3E /* SettingsViewController.m */; };
 		4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */; };
@@ -238,6 +241,9 @@
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0ADF88F01433ED1A001BCCF8 /* Bookmarklet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Bookmarklet.png; path = Resources/Images/Bookmarklet.png; sourceTree = "<group>"; };
+		0ADF890314344B02001BCCF8 /* TumblrActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrActive.png; path = Resources/Images/TumblrActive.png; sourceTree = "<group>"; };
+		0ADF890414344B02001BCCF8 /* TumblrDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrDisabled.png; path = Resources/Images/TumblrDisabled.png; sourceTree = "<group>"; };
+		0ADF890814344B10001BCCF8 /* Logo_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo_iPad.png; path = Resources/Images/Logo_iPad.png; sourceTree = "<group>"; };
 		4200E50213F41F0C00609C3E /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		4200E50313F41F0C00609C3E /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		4200E50613F4263900609C3E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -487,6 +493,8 @@
 				428B02AD1421713D00C88063 /* PlaceholderFace.png */,
 				42C4C55913E8A6C00034AC97 /* FacebookActive.png */,
 				42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */,
+				0ADF890314344B02001BCCF8 /* TumblrActive.png */,
+				0ADF890414344B02001BCCF8 /* TumblrDisabled.png */,
 				42C4C56213E8A6C00034AC97 /* TwitterActive.png */,
 				42C4C56313E8A6C00034AC97 /* TwitterDisabled.png */,
 			);
@@ -527,6 +535,7 @@
 			children = (
 				0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */,
 				42C4C55C13E8A6C00034AC97 /* Logo.png */,
+				0ADF890814344B10001BCCF8 /* Logo_iPad.png */,
 			);
 			name = Logo;
 			sourceTree = "<group>";
@@ -1121,6 +1130,9 @@
 				42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */,
 				0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */,
 				0ADF88F11433ED1A001BCCF8 /* Bookmarklet.png in Resources */,
+				0ADF890514344B02001BCCF8 /* TumblrActive.png in Resources */,
+				0ADF890614344B02001BCCF8 /* TumblrDisabled.png in Resources */,
+				0ADF890914344B10001BCCF8 /* Logo_iPad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

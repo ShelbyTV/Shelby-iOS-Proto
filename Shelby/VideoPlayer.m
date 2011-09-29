@@ -178,7 +178,7 @@ static const float kNextPrevXOffset        =  0.0f;
     const CGFloat textOriginY = 15;
     const CGFloat textRightBorder = 20;
     const CGFloat maxTextHeight = 35;
-    const CGFloat iPadShelbyLogoOverhang = 68;
+    const CGFloat iPadShelbyLogoOverhang = 95;
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
