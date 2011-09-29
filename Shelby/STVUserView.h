@@ -23,6 +23,10 @@
 @interface STVUserView : UIView {
 }
 
+
+@property (nonatomic, retain) IBOutlet UIImageView *twitter;
+@property (nonatomic, retain) IBOutlet UIImageView *facebook;
+
 @property (nonatomic, retain) IBOutlet UIImageView *image;
 @property (nonatomic, retain) IBOutlet UILabel *name;
 @property (nonatomic, retain) IBOutlet UIButton *button;

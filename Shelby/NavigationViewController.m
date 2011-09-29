@@ -1,4 +1,4 @@
-//
+	//
 //  NavigationViewController.m
 //  Shelby
 //
@@ -26,7 +26,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {        
+    if (self) {
         // Custom initialization
         videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
                                                       //callbackObject:self callbackSelector:@selector(playContentURL:)];
@@ -43,7 +43,7 @@
                                                  selector:@selector(userLoggedOut:)
                                                      name:@"UserLoggedOut"
                                                    object:nil];
-        
+
         // Network Activity
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(networkActiveNotification:)
@@ -53,7 +53,7 @@
                                                  selector:@selector(networkInactiveNotification:)
                                                      name:@"ShelbyAppNetworkInactive"
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(likeVideoSucceeded:)
                                                      name:@"LikeBroadcastSucceeded"
@@ -63,11 +63,17 @@
                                                      name:@"LikeBroadcastFailed"
                                                    object:nil];
 
+        _authorizations = [[NSSet alloc] initWithObjects:
+            @"auth_twitter",
+            @"auth_facebook",
+            //@"auth_tumblr,"
+            nil];
     }
     return self;
 }
 
-- (void)playVideo:(Video *)video {
+- (void)playVideo:(Video *)video
+{
     LOG(@"playVideo: %@", video);
     if (video == nil) {
         return;
@@ -80,9 +86,40 @@
     //video.watched = YES;
 }
 
+- (void)updateAuthorizations:(User *)user
+{
+    if ([user.auth_twitter boolValue]) {
+        // Set twitter view visible
+        NSLog(@"Authed into twitter!");
+        _userView.twitter.highlighted = YES;
+    } else {
+        // Set twitter view invisible
+        NSLog(@"No go twitter!");
+        _userView.twitter.highlighted = NO;
+    }
+
+    if ([user.auth_facebook boolValue]) {
+        // Set facebook view visible
+        NSLog(@"Authed into facebook!");
+        _userView.facebook.highlighted = YES;
+    } else {
+        // Set facebook view invisible
+        NSLog(@"No go facebook!");
+        _userView.facebook.highlighted = NO;
+    }
+}
+
 - (void)loadUserData
 {
     User *user = [ShelbyApp sharedApp].loginHelper.user;
+
+    for (NSString *auth in _authorizations) {
+        //[user removeObserver:self forKeyPath:auth];
+        [user addObserver:self forKeyPath:auth options:0 context:NULL];
+    }
+
+    [self updateAuthorizations: user];
+
     // Draw user image & name.
     //self.userView.name.text = user.name;
     self.userView.name.text = user.nickname;
@@ -91,6 +128,7 @@
     } else {
         _userView.image.image = [UIImage imageNamed: @"PlaceholderFace"];
     }
+
 
     // Refresh Video list.
     [videoTable loadVideos];
@@ -118,11 +156,11 @@
 #pragma mark - STVShareViewDelegate Methods
 
 - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
-    
+
     Video *video = [videoTable getCurrentVideo];
     // get ID from the video
     NSString *videoId = video.shelbyId;
-    
+
     // POST message to API
     [BroadcastApi share:videoId
                 comment:message
@@ -162,10 +200,10 @@
     [_videoPlayer pause];
     // Fetch the video next in queue.
     Video *video = [videoTable getNextVideo];
-  
+
     // Tell player to start playing new video.
     [_videoPlayer playVideo: video];
-    
+
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
@@ -199,20 +237,20 @@
     //popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     //[popupQuery showInView: self.view];
     //[popupQuery release];
-    
+
     //ShareViewController *controller = [ShareViewController viewController];
     //[self presentModalViewController: controller
     //                        animated: YES];
-    
+
     STVShareView *shareView = [STVShareView viewFromNib];
     shareView.delegate = self;
-    
+
     CGRect frame = shareView.frame;
     frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
     frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
     shareView.frame = frame;
     [self.view addSubview: shareView];
-        
+
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
@@ -262,7 +300,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     _networkActivityViewParent = activityHolder;
 
     //DEBUG ONLY
@@ -289,7 +327,7 @@
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     [videoTableHolder addSubview:videoTable.tableView];
-    
+
     [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
 }
 
@@ -322,6 +360,26 @@
     [videoTable clearVideos];
 }
 
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+//@property (nonatomic, retain) NSNumber * auth_twitter;
+//@property (nonatomic, retain) NSNumber * auth_facebook;
+//@property (nonatomic, retain) NSNumber * auth_tumblr;
+
+    //if ([object isKindOfClass: [NSManagedObject class] && [_authorizations containsObject: keyPath]) {
+    if ([object isKindOfClass: [User class]] && [_authorizations containsObject: keyPath]) {
+        User *user = (User *) object;
+        [self updateAuthorizations: user];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object
+                               change:change context:context];
+    }
+}
 
 #pragma mark - Cleanup
 
@@ -335,6 +393,9 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+//    for (NSString *auth in _authorizations) {
+//        [user removeObserver:self forKeyPath:auth];
+//    }
 
     [_videoPlayer release];
 

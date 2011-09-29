@@ -29,6 +29,8 @@
     IBOutlet UIButton *favoritesButton;
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
     IBOutlet STVUserView *_userView;
+
+    NSSet *_authorizations;
 }
 
 @property (nonatomic, readonly) STVUserView *userView;

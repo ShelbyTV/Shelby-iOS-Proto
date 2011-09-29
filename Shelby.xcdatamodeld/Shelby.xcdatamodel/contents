@@ -25,6 +25,9 @@
         <relationship name="user" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="channels" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User">
+        <attribute name="auth_facebook" attributeType="Boolean" defaultValueString="NO"/>
+        <attribute name="auth_tumblr" attributeType="Boolean" defaultValueString="NO"/>
+        <attribute name="auth_twitter" attributeType="Boolean" defaultValueString="NO"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>

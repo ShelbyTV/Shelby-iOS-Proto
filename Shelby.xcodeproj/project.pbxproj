@@ -79,7 +79,7 @@
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
 		42896BA3142EECD300E2405D /* STVShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42896BA2142EECD300E2405D /* STVShareView.m */; };
-		428AA5A01423A7C100E692B9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA59F1423A7C100E692B9 /* User.m */; };
+		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
 		428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5AE1423EFE000E692B9 /* STVUserView.xib */; };
 		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
 		428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */; };
@@ -267,8 +267,8 @@
 		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
 		42896BA1142EECD300E2405D /* STVShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVShareView.h; sourceTree = "<group>"; };
 		42896BA2142EECD300E2405D /* STVShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVShareView.m; sourceTree = "<group>"; };
-		428AA59E1423A7C100E692B9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		428AA59F1423A7C100E692B9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		428AA5AF1423EFE000E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/STVUserView.xib; sourceTree = "<group>"; };
 		428AA5B21423EFE500E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		428AA5B51423EFF800E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/SettingsViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
@@ -922,9 +922,9 @@
 		42DAF45B141129C500936536 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				428AA59E1423A7C100E692B9 /* User.h */,
-				428AA59F1423A7C100E692B9 /* User.m */,
 				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
+				4289EB7A1433D82E008311A7 /* User.h */,
+				4289EB7B1433D82E008311A7 /* User.m */,
 				4240B36A142BF8F500819AC8 /* Broadcast.h */,
 				4240B36B142BF8F500819AC8 /* Broadcast.m */,
 				42DAF47114113F8D00936536 /* Channel.h */,
@@ -1180,7 +1180,6 @@
 				42DAF47314113F8D00936536 /* Channel.m in Sources */,
 				428B0255141FFE2500C88063 /* STVUserView.m in Sources */,
 				428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */,
-				428AA5A01423A7C100E692B9 /* User.m in Sources */,
 				428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */,
 				42084C701427AB4800C3C556 /* Reachability.m in Sources */,
 				42084C7D1427B99A00C3C556 /* STVOfflineView.m in Sources */,
@@ -1189,6 +1188,7 @@
 				42896BA3142EECD300E2405D /* STVShareView.m in Sources */,
 				0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */,
 				0AC849701430524700FDF996 /* ApiHelper.m in Sources */,
+				4289EB7C1433D82E008311A7 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

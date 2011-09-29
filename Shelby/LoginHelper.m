@@ -35,7 +35,7 @@
 
 @synthesize delegate;
 @synthesize networkCounter;
-@synthesize user;
+@synthesize user = _user;
 @synthesize channel;
 @synthesize identityProvider;
 
@@ -84,15 +84,17 @@
 
 - (BOOL)loggedIn {
     // If we have stored both the accessToken and the secret, we're logged in.
-    return ([ShelbyApp sharedApp].apiHelper.accessToken && 
-            [ShelbyApp sharedApp].apiHelper.accessTokenSecret && 
-            self.user && 
+    return ([ShelbyApp sharedApp].apiHelper.accessToken &&
+            [ShelbyApp sharedApp].apiHelper.accessTokenSecret &&
+            self.user &&
             self.channel);
 }
 
 
 - (void)logout {
     [[ShelbyApp sharedApp].apiHelper clearTokens];
+    self.user = nil;
+    [self deleteUser];
     //DEBUG ONLY!
     //[[NSThread mainThread] exit];
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedOut"
@@ -226,6 +228,35 @@
                                               error:&error];
 }
 
+- (void)deleteEntityType:(NSString *)entityName {
+    NSFetchRequest * allEntities = [[NSFetchRequest alloc] init];
+    [allEntities setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_context]];
+    [allEntities setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+
+    NSError * error = nil;
+    NSArray * entities = [_context executeFetchRequest:allEntities error:&error];
+    [allEntities release];
+    //error handling goes here
+    for (NSManagedObject * entity in entities) {
+        [_context deleteObject:entity];
+    }
+    if (error) {
+        NSLog(@"Error deleting entity: %@! Error: %@", entityName, error);
+    }
+}
+
+- (void)deleteUser {
+    [self deleteEntityType: @"User"];
+    [self deleteEntityType: @"Channel"];
+    [self deleteEntityType: @"Broadcast"];
+
+    NSError *error = nil;
+    [_context save:&error];
+    if (error) {
+        NSLog(@"Error saving deleted user! %@", error);
+    }
+}
+
 - (User *)storeUserWithDictionary:(NSDictionary *)dict
                     withImageData:(NSData *)imageData
 {
@@ -258,6 +289,57 @@
     } else {
         return nil;
     }
+}
+
+#pragma mark - Authentications
+
+- (void)fetchAuthentications
+{
+    NSURL *url = [NSURL URLWithString: kAuthenticationsUrl];
+    OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+
+    if (req) {
+        // Set to plaintext on request because oAuth library is broken.
+        [req signPlaintext];
+
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedGetAuthenticationsResponse:data:error:forRequest:)];
+        [self incrementNetworkCounter];
+
+    }
+    // We failed to send the request. Let the caller know.
+}
+
+- (void)receivedGetAuthenticationsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
+{
+    [self decrementNetworkCounter];
+    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    NSLog(@"Got authentications: %@", string);
+
+    // Parse into JSON
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSArray *array = [parser objectWithData: data];
+    if (parser.error) {
+        NSLog(@"Broadcast Parser error: %@", parser.error);
+    } else {
+        [self storeAuthentications: array];
+    }
+    [parser release];
+}
+
+- (void)storeAuthentications:(NSArray *)authentications {
+    User *user = [self retrieveUser];
+    for (NSString *authentication in authentications) {
+        if ([authentication isEqualToString: @"twitter"]) {
+            user.auth_twitter = [NSNumber numberWithBool: YES];
+        }
+        if ([authentication isEqualToString: @"facebook"]) {
+            user.auth_facebook = [NSNumber numberWithBool: YES];
+        }
+        //NSString *authName = [NSString stringWithFormat: @"auth_%@", authentication];
+        ////[user setValue: [NSNumber numberWithBool: YES] forKey: authName];
+        //[user setValue: YES forKey: authName];
+    }
+    // Save state to context.
 }
 
 #pragma mark - Channels
@@ -433,7 +515,7 @@
     if (NOTNULL(sharerImageUrl)) {
         broadcast.sharerImageUrl = sharerImageUrl ;
     }
- 
+
     NSDate *createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
     if (NOTNULL(createdAt)) {
         broadcast.createdAt = createdAt ;
@@ -455,8 +537,8 @@
 }
 
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
-{    
-    
+{
+
     for (NSDictionary *dict in array) {
         //LOG(@"Broadcast dict: %@", dict);
         Broadcast *broadcast = [NSEntityDescription
@@ -464,7 +546,7 @@
                    inManagedObjectContext:_context];
 
         broadcast = [self populateBroadcastFromDictionary:broadcast dictionary: dict];
-        
+
 
         //NSString *youtubeDescription  = [broadcast objectForKey: @"video_description"];
         //Description - tweet
@@ -524,8 +606,8 @@
                 insertNewObjectForEntityForName:@"Broadcast"
                          inManagedObjectContext:_context];
             [self populateBroadcastFromDictionary: broadcast dictionary: dict];
-            [parser release];
         }
+        [parser release];
     }
 
     return broadcast;
@@ -572,6 +654,7 @@
             self.user = [self storeUserWithDictionary:dict withImageData:[self fetchUserImageDataWithDictionary:dict]];
             [self decrementNetworkCounter];
 
+            [self fetchAuthentications];
             [self fetchChannels];
 
             break;

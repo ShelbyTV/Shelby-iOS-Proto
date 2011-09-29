@@ -2,7 +2,7 @@
 //  User.h
 //  Shelby
 //
-//  Created by David Kay on 9/16/11.
+//  Created by David Kay on 9/28/11.
 //  Copyright (c) 2011 Gargoyle Software. All rights reserved.
 //
 
@@ -19,6 +19,9 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * nickname;
 @property (nonatomic, retain) NSString * shelbyId;
+@property (nonatomic, retain) NSNumber * auth_twitter;
+@property (nonatomic, retain) NSNumber * auth_facebook;
+@property (nonatomic, retain) NSNumber * auth_tumblr;
 @property (nonatomic, retain) NSSet *channels;
 @end
 
