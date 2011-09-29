@@ -219,7 +219,7 @@ static const float kNextPrevXOffset        =  0.0f;
             //self.titleBar.title.text = video.sharerComment;
             self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
                                         video.sharer,
-                                        video.sharerComment
+                                        NOT_NULL(video.sharerComment) ? video.sharerComment : @""
                                         ];
             self.titleBar.sharerPic.image = video.sharerImage;
             [self fitTitleBarText];

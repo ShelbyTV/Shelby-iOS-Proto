@@ -383,13 +383,24 @@
         } else {
             sourceTag.image = [UIImage imageNamed:@"TumblrWatched"];
         }
+    } else if ([videoSource isEqualToString:@"bookmarklet"]) {
+        // clear image, so no watched/unwatched. easier than hiding/unhiding in this case.
+        sourceTag.image = [UIImage imageNamed:@"Bookmarklet"];
     }
 
     UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
     videoThumbnail.image = [videoTableData videoThumbnailAtIndex:row];
 
     UILabel *sharerComment = (UILabel *)[cell viewWithTag:3];
-    sharerComment.text = [videoTableData videoSharerCommentAtIndex:row];
+    UIView *sharerCommentBackground = (UIView *)[cell viewWithTag:7];
+    NSString *sharerCommentText = [videoTableData videoSharerCommentAtIndex:row];
+    if (NOT_NULL(sharerCommentText)) {
+        sharerComment.text = sharerCommentText;
+        sharerCommentBackground.hidden = NO;
+    } else {
+        sharerComment.text = @"";
+        sharerCommentBackground.hidden = YES;
+    }
 
     UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
     sharerImage.image = [videoTableData videoSharerImageAtIndex:row];;

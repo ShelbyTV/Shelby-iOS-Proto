@@ -55,6 +55,7 @@
 		0AD9A38D13D53BD300EFECE0 /* ShelbyTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */; };
 		0AD9A38F13D53BD300EFECE0 /* ShelbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */; };
 		0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */; };
+		0ADF88F11433ED1A001BCCF8 /* Bookmarklet.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF88F01433ED1A001BCCF8 /* Bookmarklet.png */; };
 		4200E50413F41F0C00609C3E /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50313F41F0C00609C3E /* Video.m */; };
 		4200E50913F4263900609C3E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50713F4263900609C3E /* SettingsViewController.m */; };
 		4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */; };
@@ -236,6 +237,7 @@
 		0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyTests.m; sourceTree = "<group>"; };
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0ADF88F01433ED1A001BCCF8 /* Bookmarklet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Bookmarklet.png; path = Resources/Images/Bookmarklet.png; sourceTree = "<group>"; };
 		4200E50213F41F0C00609C3E /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		4200E50313F41F0C00609C3E /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		4200E50613F4263900609C3E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 		0AC849621430336100FDF996 /* VideoTableCell */ = {
 			isa = PBXGroup;
 			children = (
+				0ADF88F01433ED1A001BCCF8 /* Bookmarklet.png */,
 				0A08E9F814281C8700D964E7 /* FacebookNew.png */,
 				0A08E9F914281C8700D964E7 /* FacebookWatched.png */,
 				0A08E9FA14281C8700D964E7 /* TwitterNew.png */,
@@ -1117,6 +1120,7 @@
 				0A74BB54142D4CA200D65A02 /* Default-Landscape~ipad.png in Resources */,
 				42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */,
 				0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */,
+				0ADF88F11433ED1A001BCCF8 /* Bookmarklet.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -194,6 +194,7 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MCAwLjUAA</bytes>
 								</object>
+								<int key="IBUITag">7</int>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<object class="IBUIImageView" id="1034201714">
@@ -207,10 +208,6 @@
 								<int key="IBUITag">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">FacebookNew.png</string>
-								</object>
 							</object>
 						</object>
 						<string key="NSFrameSize">{330, 232}</string>
@@ -421,10 +418,6 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">FacebookNew.png</string>
-			<string key="NS.object.0">{33, 33}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">534</string>
 	</data>
 </archive>
