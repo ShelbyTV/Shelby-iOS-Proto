@@ -197,11 +197,12 @@ static const float kNextPrevXOffset        =  0.0f;
     CGSize textSize = [self.titleBar.title.text sizeWithFont:self.titleBar.title.font
                                            constrainedToSize:CGSizeMake(maxTextWidth, maxTextHeight)
                                                lineBreakMode:UILineBreakModeTailTruncation];
-    
+    [UIView setAnimationsEnabled:NO];
     self.titleBar.title.frame = CGRectMake(textOriginX, 
                                            textOriginY, 
                                            textSize.width, 
                                            textSize.height);
+    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)playVideo:(Video *)video {
@@ -534,7 +535,7 @@ static const float kNextPrevXOffset        =  0.0f;
             controlBarWidth,
             [self controlBarHeight]
             );
-    [_controlBar setNeedsLayout];
+    [_controlBar layoutSubviews];
 
     // Place footerBar just above the controlBar.
     self.footerBar.frame = CGRectMake(
