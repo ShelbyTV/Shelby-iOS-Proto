@@ -59,7 +59,7 @@
         _authorizations = [[NSSet alloc] initWithObjects:
             @"auth_twitter",
             @"auth_facebook",
-            //@"auth_tumblr,"
+            @"auth_tumblr",
             nil];
     }
     return self;

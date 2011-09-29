@@ -347,9 +347,9 @@
         if ([authentication isEqualToString: @"facebook"]) {
             user.auth_facebook = [NSNumber numberWithBool: YES];
         }
-        //NSString *authName = [NSString stringWithFormat: @"auth_%@", authentication];
-        ////[user setValue: [NSNumber numberWithBool: YES] forKey: authName];
-        //[user setValue: YES forKey: authName];
+        if ([authentication isEqualToString: @"tumblr"]) {
+            user.auth_tumblr = [NSNumber numberWithBool: YES];
+        }
     }
     // Save state to context.
 }
