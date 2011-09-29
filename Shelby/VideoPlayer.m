@@ -128,7 +128,7 @@ static const float kNextPrevXOffset        =  0.0f;
         nil];
     
     double now = CACurrentMediaTime();
-    _lastTimeControlsBecameVisible = now;
+    _lastButtonPressOrControlsVisible = now;
     _controlsVisible = YES;
 
     // Timer to update the progressBar after each second.
@@ -280,8 +280,8 @@ static const float kNextPrevXOffset        =  0.0f;
         return;
     }
     double now = CACurrentMediaTime();
-    double delta = now - _lastTimeControlsBecameVisible;
-    // LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTimeControlsBecameVisible, delta);
+    double delta = now - _lastButtonPressOrControlsVisible;
+    // LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastButtonPressOrControlsVisible, delta);
     if (delta > kHideControlsInterval) {
         [self hideControls];
     }
@@ -304,7 +304,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)drawControls {
     // LOG(@"drawControls");
     double now = CACurrentMediaTime();
-    _lastTimeControlsBecameVisible = now;
+    _lastButtonPressOrControlsVisible = now;
     
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
         for (UIView *control in _controls) {
@@ -394,6 +394,8 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - ControlBarDelegate Callbacks
 
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
         [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
@@ -407,6 +409,8 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerShareButtonWasPressed: self];
@@ -417,6 +421,8 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerLikeButtonWasPressed: self];
@@ -424,6 +430,8 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
     }
@@ -432,6 +440,8 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"nextButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
@@ -439,6 +449,8 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (IBAction)prevButtonWasPressed:(id)sender {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"previousButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
