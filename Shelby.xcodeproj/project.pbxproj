@@ -88,11 +88,9 @@
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
 		42896BA3142EECD300E2405D /* STVShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42896BA2142EECD300E2405D /* STVShareView.m */; };
 		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
-		428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5AE1423EFE000E692B9 /* STVUserView.xib */; };
 		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
 		428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */; };
 		428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */; };
-		428B0255141FFE2500C88063 /* STVUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B0254141FFE2500C88063 /* STVUserView.m */; };
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
 		428B02A214213E3600C88063 /* ButtonFavoritesCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */; };
 		428B02A91421411C00C88063 /* ButtonTimeCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02A81421411C00C88063 /* ButtonTimeCropped.png */; };
@@ -287,12 +285,9 @@
 		42896BA2142EECD300E2405D /* STVShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVShareView.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		428AA5AF1423EFE000E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/STVUserView.xib; sourceTree = "<group>"; };
 		428AA5B21423EFE500E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		428AA5B51423EFF800E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/SettingsViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController_iPad.m; path = iPad/NavigationViewController_iPad.m; sourceTree = "<group>"; };
-		428B0253141FFE2500C88063 /* STVUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVUserView.h; sourceTree = "<group>"; };
-		428B0254141FFE2500C88063 /* STVUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVUserView.m; sourceTree = "<group>"; };
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
 		428B02A014213E3600C88063 /* ButtonFavoritesCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesCropped.png; path = Resources/Images/ButtonFavoritesCropped.png; sourceTree = "<group>"; };
 		428B02A81421411C00C88063 /* ButtonTimeCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonTimeCropped.png; path = Resources/Images/ButtonTimeCropped.png; sourceTree = "<group>"; };
@@ -717,8 +712,6 @@
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
 				427A623113F4843200C945E2 /* STVCheckBox.h */,
 				427A623213F4843200C945E2 /* STVCheckBox.m */,
-				428B0253141FFE2500C88063 /* STVUserView.h */,
-				428B0254141FFE2500C88063 /* STVUserView.m */,
 				42084C7B1427B99A00C3C556 /* STVOfflineView.h */,
 				42084C7C1427B99A00C3C556 /* STVOfflineView.m */,
 				42896BA1142EECD300E2405D /* STVShareView.h */,
@@ -882,7 +875,6 @@
 			isa = PBXGroup;
 			children = (
 				42ACA2C2142A8F8E009FD812 /* STVShareView.xib */,
-				428AA5AE1423EFE000E692B9 /* STVUserView.xib */,
 				428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */,
 				42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
@@ -1098,7 +1090,6 @@
 				428B02BE14217F7F00C88063 /* SliderThumbLightGray.png in Resources */,
 				428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */,
 				428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */,
-				428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */,
 				428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */,
 				428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */,
 				42084C861427D82D00C3C556 /* STVOfflineView_iPhone.xib in Resources */,
@@ -1212,7 +1203,6 @@
 				42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */,
 				42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */,
 				42DAF47314113F8D00936536 /* Channel.m in Sources */,
-				428B0255141FFE2500C88063 /* STVUserView.m in Sources */,
 				428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */,
 				428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */,
 				42084C701427AB4800C3C556 /* Reachability.m in Sources */,
@@ -1280,14 +1270,6 @@
 				42084C881427DACD00C3C556 /* en */,
 			);
 			name = STVOfflineView_iPad.xib;
-			sourceTree = "<group>";
-		};
-		428AA5AE1423EFE000E692B9 /* STVUserView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				428AA5AF1423EFE000E692B9 /* en */,
-			);
-			name = STVUserView.xib;
 			sourceTree = "<group>";
 		};
 		428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */ = {

@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
-#import "STVUserView.h"
 #import "STVShareView.h"
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
-//@class STVUserView;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, UINavigationControllerDelegate, STVUserViewDelegate, VideoTableViewControllerDelegate, STVShareViewDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, STVShareViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -28,13 +26,18 @@
     IBOutlet UIButton *listButton;
     IBOutlet UIButton *favoritesButton;
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
-    IBOutlet STVUserView *_userView;
 
+    IBOutlet UIImageView *userImage;
+    IBOutlet UILabel     *userName;
+    IBOutlet UIImageView *userFacebook;
+    IBOutlet UIImageView *userTwitter;
+    IBOutlet UIImageView *userTumblr;
+    IBOutlet UIImageView *userButton;
+    
     NSSet *_authorizations;
 }
 
-@property (nonatomic, readonly) STVUserView *userView;
-
+- (IBAction)userViewWasPressed:(id)sender;
 - (IBAction)listButtonPressed:(id)sender;
 - (IBAction)favoritesButtonPressed:(id)sender;
 

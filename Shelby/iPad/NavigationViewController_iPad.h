@@ -7,7 +7,6 @@
 //
 
 #import "NavigationViewController.h"
-//#import "VideoTableViewController.h"
 
 @interface NavigationViewController_iPad : NavigationViewController
 {

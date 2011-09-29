@@ -60,9 +60,9 @@
     [self dismissModalViewControllerAnimated: YES];
 }
 
-#pragma mark - STVUserViewDelegate Methods
+#pragma mark - User Button Methods
 
-- (void)userViewWasPressed:(STVUserView *)userView
+- (IBAction)userViewWasPressed:(id)sender
 {
     //[self showSettings];
     [self showLogoutAlert];
