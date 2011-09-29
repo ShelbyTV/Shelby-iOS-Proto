@@ -236,6 +236,8 @@ static const float kNextPrevXOffset        =  0.0f;
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             
             _changingVideo = NO;
+            
+            [self drawControls];
         }
     }
 }
