@@ -15,6 +15,8 @@
 @interface LoginViewController : ConnectivityViewController {
     id callbackObject;
     SEL callbackSelector;
+    
+    IBOutlet UIView *activityHolder;
 
     // Actual login stuff
     LoginHelper *_loginHelper;
