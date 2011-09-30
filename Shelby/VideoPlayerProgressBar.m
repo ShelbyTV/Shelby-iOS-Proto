@@ -83,9 +83,6 @@ static const float kProgressUpdateBuffer = 0.25f;
 - (NSString *)floatToMinutes:(float)value {
     // Use truncation to get to integers.
     int seconds = value;
-    // Round down to zero. Helps catch a 0.0 duration bug.
-    if (seconds == 1) seconds = 0;
-
     int minutes = seconds / 60;
     int remainder = seconds % 60;
 

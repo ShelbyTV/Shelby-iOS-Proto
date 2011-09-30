@@ -17,7 +17,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static const float kProgressUpdateInterval = 1.0f;
+static const float kProgressUpdateInterval = 0.25f;
 
 static const float kProgressUpdateBuffer = 0.25f;
 
