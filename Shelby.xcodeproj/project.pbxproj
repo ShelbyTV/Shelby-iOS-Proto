@@ -84,6 +84,10 @@
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
 		42896BA3142EECD300E2405D /* STVShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42896BA2142EECD300E2405D /* STVShareView.m */; };
 		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
+		4289EB9614365A9D008311A7 /* SharePattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9514365A9D008311A7 /* SharePattern.png */; };
+		4289EB9914366010008311A7 /* ButtonClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9814366010008311A7 /* ButtonClose.png */; };
+		4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */; };
+		4289EB9D143665F1008311A7 /* ButtonShareTabInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */; };
 		428AA5B01423EFE000E692B9 /* STVUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5AE1423EFE000E692B9 /* STVUserView.xib */; };
 		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
 		428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */; };
@@ -279,6 +283,10 @@
 		42896BA2142EECD300E2405D /* STVShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVShareView.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		4289EB9514365A9D008311A7 /* SharePattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SharePattern.png; path = Resources/Images/SharePattern.png; sourceTree = "<group>"; };
+		4289EB9814366010008311A7 /* ButtonClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonClose.png; path = Resources/Images/ButtonClose.png; sourceTree = "<group>"; };
+		4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShareTabActive.png; path = Resources/Images/ButtonShareTabActive.png; sourceTree = "<group>"; };
+		4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShareTabInactive.png; path = Resources/Images/ButtonShareTabInactive.png; sourceTree = "<group>"; };
 		428AA5AF1423EFE000E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/STVUserView.xib; sourceTree = "<group>"; };
 		428AA5B21423EFE500E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		428AA5B51423EFF800E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/SettingsViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
@@ -855,8 +863,12 @@
 				0AC849611430333D00FDF996 /* VideoPlayerControls */,
 				0AC84963143033B700FDF996 /* VideoTableControls */,
 				0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */,
+				4289EB9814366010008311A7 /* ButtonClose.png */,
 				42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */,
 				42ACA2C7142A9305009FD812 /* ButtonSend.png */,
+				4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */,
+				4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */,
+				4289EB9514365A9D008311A7 /* SharePattern.png */,
 				42ACA2C5142A9262009FD812 /* TextAreaGray.png */,
 				427A622313F46ECA00C945E2 /* SaveChanges.png */,
 				427A621A13F46D5B00C945E2 /* CancelButton.jpg */,
@@ -1121,6 +1133,10 @@
 				42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */,
 				0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */,
 				0ADF88F11433ED1A001BCCF8 /* Bookmarklet.png in Resources */,
+				4289EB9614365A9D008311A7 /* SharePattern.png in Resources */,
+				4289EB9914366010008311A7 /* ButtonClose.png in Resources */,
+				4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */,
+				4289EB9D143665F1008311A7 /* ButtonShareTabInactive.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

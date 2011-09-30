@@ -91,14 +91,14 @@ static ShelbyApp *gShelbyApp;
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
-                       context:(void *)context
+                       context:(void *)aContext
 {
     //NSLog(@"observeKeyValueForPath");
     if ([_networkObjects containsObject: object] && [keyPath isEqualToString:@"networkCounter"]) {
         [self postNetworkActivityNotification];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object
-                               change:change context:context];
+                               change:change context:aContext];
     }
 }
 

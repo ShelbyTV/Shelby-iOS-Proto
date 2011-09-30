@@ -25,7 +25,7 @@
     NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
     NSURL *url = [NSURL URLWithString: urlString];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
-    
+
     if (req) {
         // Set watched
         [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -33,12 +33,12 @@
         [req setHTTPBody:[watchedString dataUsingEncoding:NSUTF8StringEncoding]];
 
         [req sign];
-        
+
         [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil]];
-                
+
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
-        
+
         [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchedByOwnerRequest"];
     } else {
         // We failed to send the request. Let the caller know.
@@ -51,21 +51,21 @@
                    forRequest:(NSURLRequest *)request
 {
     LOG(@"receivedWatchBroadcastResponse");
-    
+
     if (NOT_NULL(error)) {
         LOG(@"Watch Broadcast error: %@", error);
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         NSDictionary *dict = [parser objectWithData:data];
         NSString *apiError = [dict objectForKey:@"err"];
-        
+
         if (NOT_NULL(apiError)) {
             LOG(@"Watch Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastFailed"
                                                                 object:self
                                                               userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         } else {
-            LOG(@"Watch Broadcast success");            
+            LOG(@"Watch Broadcast success");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchBroadcastSucceeded"
                                                                 object:self
                                                               userInfo:((ApiMutableURLRequest *)request).userInfoDict];
@@ -85,8 +85,8 @@
     NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
     NSURL *url = [NSURL URLWithString: urlString];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
-    
-    if (req) {        
+
+    if (req) {
         [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 
         NSString *likeString = @"liked_by_owner=true";
@@ -95,15 +95,15 @@
 
         // Sign in HMAC-SHA1
         [req sign];
-        
+
         req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil];
-        
+
         NSLog(@"video_id => %@", [req.userInfoDict objectForKey:@"video_id"]);
-        
+
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
 
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
-        
+
         [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"likedByOwnerRequest"];
     } else {
         // We failed to send the request. Let the caller know.
@@ -116,14 +116,14 @@
                   forRequest:(NSURLRequest *)request
 {
     LOG(@"receivedLikeBroadcastResponse");
-    
+
     if (NOT_NULL(error)) {
         LOG(@"Like Broadcast error: %@", error);
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         NSDictionary *dict = [parser objectWithData:data];
         NSString *apiError = [dict objectForKey:@"err"];
-        
+
         if (NOT_NULL(apiError)) {
             LOG(@"Like Broadcast error: %@", apiError);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"LikeBroadcastFailed"
@@ -153,7 +153,7 @@
     NSString *urlString = [NSString stringWithFormat:kSocializationsUrl];
     NSURL *url = [NSURL URLWithString:urlString];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"POST"];
-    
+
     //POST /v2/socializations.json
     //{destination : 'twitter,facebook,tumblr,email',
     //broadcast_id : '4d93900f8ebcf670c0000676',
@@ -162,7 +162,7 @@
     if (req) {
         NSString *networksString = nil;
         for (NSString *network in networks) {
-            
+
             if ([network isEqualToString:@"twitter"]) {
                 [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaTwitterRequest"];
             } else if ([network isEqualToString:@"facebook"]) {
@@ -179,22 +179,22 @@
                 networksString = [NSString stringWithFormat:@"%@,%@", networksString, network];
             }
         }
-        
+
         // no networks passed in
         if (networksString == nil) {
             return;
         }
-        
-        //if (NOT_NULL(recipient)) {
-        //    // If email, send who's
-        //    [req setValue: recipient forOAuthParameter: @"to"];
-        //}
 
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                 networksString, @"destination",
                                 videoId, @"broadcast_id",
                                 [comment URLEncodedString], @"comment",
                                 nil];
+
+        if (NOT_NULL(recipient)) {
+            // If email, send who's
+            [params setObject: recipient forKey: @"to"];
+        }
 
         NSString *formString = nil;
         for (NSString *key in [params allKeys]) {
@@ -210,9 +210,9 @@
         [req setHTTPBody: [formString dataUsingEncoding:NSUTF8StringEncoding]];
 
         [req sign];
-        
+
         [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil]];
-                
+
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedShareBroadcastResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     } else {
@@ -226,9 +226,9 @@
                             forRequest:(NSURLRequest *)request
 {
     LOG(@"receivedShareBroadcastResponse");
-    
+
     NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)resp;
-    
+
     if (NOT_NULL(error)) {
         LOG(@"Share Broadcast error: %@", error);
     } else {
@@ -239,7 +239,7 @@
             SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
             NSDictionary *dict = [parser objectWithData:data];
             NSString *apiError = [dict objectForKey:@"err"];
-            
+
             if (NOT_NULL(apiError)) {
                 LOG(@"Share Broadcast error: %@", apiError);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ShareBroadcastFailed"
