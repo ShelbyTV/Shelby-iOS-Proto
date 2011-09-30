@@ -40,7 +40,13 @@ static const float ANIMATION_TIME = 0.5f;
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
 	[_logoButton addGestureRecognizer:panRecognizer];
+    
+    //Background.
+    [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"iPadHeaderBackground" ofType:@"png"]]]];
+    [header.layer setOpaque:NO];
+    header.opaque = NO;
 }
+
 
 #pragma mark - View Animations
 
@@ -57,18 +63,15 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)slideTray:(BOOL)right {
     // Slide the right tray.
-    [self slideView: header right: right];
-    [self slideView: videoTableHolder right: right];
-    [self slideView: buttonsHolder right: right];
+    [self slideView: header right:right];
+    [self slideView: videoTableHolder right:right];
+    [self slideView: buttonsHolder right:right];
 
-    // Animate the video player to grow to fill the remaining space.
-    // NOTE: This appears to not be working. May have to use the VideoPlayer
-    // object and not the holder.
-    float offset = right ? -OFFSET : OFFSET;
     CGRect tempFrame = _videoPlayer.frame;
-    tempFrame.size.width += offset;
+    tempFrame.size.width += right ? -OFFSET : OFFSET;
     _videoPlayer.frame = tempFrame;
-
+    [_videoPlayer layoutSubviews];
+    
     // Make header transparent while tray is closing.
     if (!right) {
        header.alpha = 0.5;
@@ -81,6 +84,8 @@ static const float ANIMATION_TIME = 0.5f;
         if (_trayClosed) {
             // make header opaque immediately before sliding
             header.alpha = 1.0;
+        } else {
+
         }
         [UIView animateWithDuration:ANIMATION_TIME animations:^{
             [self slideTray: _trayClosed];
@@ -137,13 +142,14 @@ static const float ANIMATION_TIME = 0.5f;
     // If our videoplayer isn't doesn't have a video cued (isn't playing or paused), let's play a video.
     if (_videoPlayer.isIdle) {
         Video *video = [videoTable getCurrentVideo];
-        [_videoPlayer performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:YES];
+        [_videoPlayer performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:NO];
     }
 }
 
-#pragma mark - STVUserViewDelegate Methods
+#pragma mark - User Button Methods
 
-- (void)userViewWasPressed:(STVUserView *)userView {
+- (IBAction)userViewWasPressed:(id)sender
+{
     //[self showSettings];
     [self showLogoutAlert];
 }

@@ -12,16 +12,12 @@
 #import "VideoPlayer.h"
 #import "User.h"
 #import "ShelbyApp.h"
-#import "STVUserView.h"
 #import "LoginHelper.h"
 #import "BroadcastApi.h"
 #import "Video.h"
 #import "STVShareView.h"
 
-
 @implementation NavigationViewController
-
-@synthesize userView = _userView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,7 +59,7 @@
         _authorizations = [[NSSet alloc] initWithObjects:
             @"auth_twitter",
             @"auth_facebook",
-            //@"auth_tumblr,"
+            @"auth_tumblr",
             nil];
     }
     return self;
@@ -88,21 +84,31 @@
     if ([user.auth_twitter boolValue]) {
         // Set twitter view visible
         NSLog(@"Authed into twitter!");
-        _userView.twitter.highlighted = YES;
+        userTwitter.highlighted = YES;
     } else {
         // Set twitter view invisible
         NSLog(@"No go twitter!");
-        _userView.twitter.highlighted = NO;
+        userTwitter.highlighted = NO;
     }
 
     if ([user.auth_facebook boolValue]) {
         // Set facebook view visible
         NSLog(@"Authed into facebook!");
-        _userView.facebook.highlighted = YES;
+        userFacebook.highlighted = YES;
     } else {
         // Set facebook view invisible
         NSLog(@"No go facebook!");
-        _userView.facebook.highlighted = NO;
+        userFacebook.highlighted = NO;
+    }
+    
+    if ([user.auth_tumblr boolValue]) {
+        // Set tumblr view visible
+        NSLog(@"Authed into tumblr!");
+        userTumblr.highlighted = YES;
+    } else {
+        // Set facebook view invisible
+        NSLog(@"No go tumblr!");
+        userTumblr.highlighted = NO;
     }
 }
 
@@ -118,12 +124,11 @@
     [self updateAuthorizations: user];
 
     // Draw user image & name.
-    //self.userView.name.text = user.name;
-    self.userView.name.text = user.nickname;
+    userName.text = user.nickname;
     if (user.image) {
-        _userView.image.image = [UIImage imageWithData: user.image];
+        userImage.image = [UIImage imageWithData: user.image];
     } else {
-        _userView.image.image = [UIImage imageNamed: @"PlaceholderFace"];
+        userImage.image = [UIImage imageNamed: @"PlaceholderFace"];
     }
 
 
@@ -171,17 +176,18 @@
     [shareView removeFromSuperview];
 }
 
+#pragma mark - User Button Methods
+
+- (IBAction)userViewWasPressed:(id)sender
+{
+    // Override in subclass.
+}
+
 #pragma mark - VideoTableViewControllerDelegate Methods
 
 - (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
     // Override in subclass.
     // TODO: Convert to optional method in protocol using respondsToSelector:
-}
-
-#pragma mark - STVUserViewDelegate Methods
-
-- (void)userViewWasPressed:(STVUserView *)userView {
-    // Override in subclass.
 }
 
 #pragma mark - VideoPlayerDelegate Methods
@@ -310,11 +316,6 @@
     //    [[UITapGestureRecognizer alloc] initWithTarget:self
     //                                            action:@selector(handleSingleTap:)];
     //[_videoPlayer.moviePlayer.view addGestureRecognizer:singleFingerTap];
-
-    self.userView.delegate = self;
-
-    //Background.
-    [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
 
     //VideoTable.
     videoTable.tableView.frame = videoTableHolder.bounds;

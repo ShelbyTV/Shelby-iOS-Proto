@@ -115,12 +115,12 @@
 
 - (void)networkActiveNotification:(NSNotification*)notification {
     //NSLog(@"networkActiveNotification");
-    [self performSelectorOnMainThread:@selector(showNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(showNetworkActivityIndicator) withObject:nil waitUntilDone:NO];
 }
 
 - (void)networkInactiveNotification:(NSNotification*)notification {
     //NSLog(@"networkInactiveNotification");
-    [self performSelectorOnMainThread:@selector(hideNetworkActivityIndicator) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(hideNetworkActivityIndicator) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark - KVO

@@ -87,9 +87,9 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
 
 #pragma mark - VideoProgressBarDelegate Methods
 
-- (void)videoProgressBarWasAdjusted:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {
+- (void)videoProgressBarWasAdjustedManually:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {
     if (self.delegate) {
-        [self.delegate controlBarChangedTime: self time: value];
+        [self.delegate controlBarChangedTimeManually: self time: value];
     }
 }
 
@@ -141,15 +141,9 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     return offset;
 }
 
-//- (void)layoutSubviews {
-//    CGRect frame = self.bounds;
-//
-//    _progressBar.frame = CGRectMake([self progressBarXOffset] - 1,
-//                                    [self progressBarYOffset],
-//                                    frame.size.width - [self progressBarXOffset] + 2,
-//                                    44);
-//
-//}
+- (void)layoutSubviews {
+    [_progressBar layoutSubviews];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

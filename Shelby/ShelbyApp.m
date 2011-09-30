@@ -11,6 +11,7 @@
 #import "ApiHelper.h"
 #import "GraphiteStats.h"
 #import "ShelbyAppDelegate.h"
+#import "TestFlight.h"
 
 @implementation ShelbyApp
 
@@ -35,6 +36,9 @@ static ShelbyApp *gShelbyApp;
 - (id)init {
     self = [super init];
     if (self) {
+        //uncomment this for TestFlight builds to get crash, session reporting
+        //[TestFlight takeOff:@"9ea2465d15ab5a7cff8f30e985670aa2_MzExNDQyMDExLTA5LTMwIDAwOjMzOjA2LjYzNzY0OA"];
+
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 20];
         
         ShelbyAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -54,12 +58,16 @@ static ShelbyApp *gShelbyApp;
 #pragma mark - Network Activity
 
 - (BOOL)isNetworkBusy {
-    for (id <STVNetworkObject> networkObject in _networkObjects) {
+    BOOL toReturn = NO;
+    for (id <STVNetworkObject> networkObject in _networkObjects) 
+    {
+        //NSLog(@"networkObject: %@ networkCounter: %d", [[networkObject class] description], networkObject.networkCounter);
         if (networkObject.networkCounter > 0) {
-            return YES; 
+            toReturn = YES; // should really just return here, but it's nice for debugging to have the above log print out for everything
         }
-    }
-    return NO;
+    }        
+    
+    return toReturn;
 }
 
 - (void)postNetworkActivityNotification {
@@ -91,14 +99,14 @@ static ShelbyApp *gShelbyApp;
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
-                       context:(void *)aContext
+                       context:(void *)keyPathContext
 {
     //NSLog(@"observeKeyValueForPath");
     if ([_networkObjects containsObject: object] && [keyPath isEqualToString:@"networkCounter"]) {
         [self postNetworkActivityNotification];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object
-                               change:change context:aContext];
+                               change:change context:keyPathContext];
     }
 }
 

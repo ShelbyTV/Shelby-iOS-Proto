@@ -16,6 +16,15 @@
 
 @implementation NavigationViewController_iPhone
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    //Background.
+    [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -51,9 +60,9 @@
     [self dismissModalViewControllerAnimated: YES];
 }
 
-#pragma mark - STVUserViewDelegate Methods
+#pragma mark - User Button Methods
 
-- (void)userViewWasPressed:(STVUserView *)userView
+- (IBAction)userViewWasPressed:(id)sender
 {
     //[self showSettings];
     [self showLogoutAlert];

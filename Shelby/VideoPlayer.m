@@ -17,12 +17,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static const float kProgressUpdateInterval = 1.0f;
+static const float kProgressUpdateInterval = 0.25f;
 
 static const float kProgressUpdateBuffer = 0.25f;
 
-static const float kHideControlsCheckLoop = 1.0f;
-static const float kHideControlsInterval  = 4.0f;
+static const float kHideControlsCheckLoop = 0.1f;
+static const float kHideControlsInterval  = 6.0f;
 static const float kFadeControlsDuration  = 0.5f;
 
 static const float kControlBarHeightIpad   = 44.0f;
@@ -128,7 +128,7 @@ static const float kNextPrevXOffset        =  0.0f;
         nil];
     
     double now = CACurrentMediaTime();
-    _lastTimeControlsBecameVisible = now;
+    _lastButtonPressOrControlsVisible = now;
     _controlsVisible = YES;
 
     // Timer to update the progressBar after each second.
@@ -178,7 +178,7 @@ static const float kNextPrevXOffset        =  0.0f;
     const CGFloat textOriginY = 15;
     const CGFloat textRightBorder = 20;
     const CGFloat maxTextHeight = 35;
-    const CGFloat iPadShelbyLogoOverhang = 68;
+    const CGFloat iPadShelbyLogoOverhang = 95;
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -197,11 +197,12 @@ static const float kNextPrevXOffset        =  0.0f;
     CGSize textSize = [self.titleBar.title.text sizeWithFont:self.titleBar.title.font
                                            constrainedToSize:CGSizeMake(maxTextWidth, maxTextHeight)
                                                lineBreakMode:UILineBreakModeTailTruncation];
-    
+    [UIView setAnimationsEnabled:NO];
     self.titleBar.title.frame = CGRectMake(textOriginX, 
                                            textOriginY, 
                                            textSize.width, 
                                            textSize.height);
+    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)playVideo:(Video *)video {
@@ -236,6 +237,8 @@ static const float kNextPrevXOffset        =  0.0f;
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             
             _changingVideo = NO;
+            
+            [self drawControls];
         }
     }
 }
@@ -250,11 +253,6 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)stop {
     [_moviePlayer stop];
-}
-
-- (void)toggleFullscreen {
-    [_moviePlayer setFullscreen: !_moviePlayer.isFullscreen
-                       animated: YES];
 }
 
 #pragma mark - Touch Handling
@@ -280,8 +278,8 @@ static const float kNextPrevXOffset        =  0.0f;
         return;
     }
     double now = CACurrentMediaTime();
-    double delta = now - _lastTimeControlsBecameVisible;
-    // LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastTimeControlsBecameVisible, delta);
+    double delta = now - _lastButtonPressOrControlsVisible;
+    // LOG(@"Hidetime. Now: %f. Then: %f. Delta: %f", now, _lastButtonPressOrControlsVisible, delta);
     if (delta > kHideControlsInterval) {
         [self hideControls];
     }
@@ -304,7 +302,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)drawControls {
     // LOG(@"drawControls");
     double now = CACurrentMediaTime();
-    _lastTimeControlsBecameVisible = now;
+    _lastButtonPressOrControlsVisible = now;
     
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
         for (UIView *control in _controls) {
@@ -379,9 +377,11 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - VideoProgressBarDelegate Methods
 
-- (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time {
+- (void)controlBarChangedTimeManually:(VideoPlayerControlBar *)controlBar time:(float)time {
     LOG(@"videoProgressBarWasAdjusted: %f", time);
-
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    
     float delta = fabs(time - _moviePlayer.currentPlaybackTime);
     if (delta > 1.0f) {
         // Update playback time.
@@ -394,6 +394,8 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - ControlBarDelegate Callbacks
 
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
         [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
@@ -407,6 +409,8 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerShareButtonWasPressed: self];
@@ -417,6 +421,8 @@ static const float kNextPrevXOffset        =  0.0f;
  * Currently just a mockup.
  */
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerLikeButtonWasPressed: self];
@@ -424,6 +430,8 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
     }
@@ -432,6 +440,8 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"nextButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
@@ -439,6 +449,8 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (IBAction)prevButtonWasPressed:(id)sender {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
     [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"previousButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
@@ -525,7 +537,7 @@ static const float kNextPrevXOffset        =  0.0f;
             controlBarWidth,
             [self controlBarHeight]
             );
-    [_controlBar setNeedsLayout];
+    [_controlBar layoutSubviews];
 
     // Place footerBar just above the controlBar.
     self.footerBar.frame = CGRectMake(

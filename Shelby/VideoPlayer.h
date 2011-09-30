@@ -38,7 +38,7 @@
     // Are the controls currently visible?
     BOOL _controlsVisible;
     // When did the controls last become visible?
-    double _lastTimeControlsBecameVisible;
+    double _lastButtonPressOrControlsVisible;
 
     // UI
     UIButton *_nextButton;
