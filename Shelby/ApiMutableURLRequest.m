@@ -22,4 +22,11 @@
     return self;
 }
 
+- (void) dealloc
+{
+    [userInfoDict release];
+    
+    [super dealloc];
+}
+
 @end

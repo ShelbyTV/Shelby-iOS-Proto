@@ -23,12 +23,10 @@
     NSOperationQueue *operationQueue;
     UITableView *tableView;
     NSMutableArray *videoDataArray;
-    NSUInteger currentArrayGeneration;
     NSUInteger lastInserted;
-    NSTimer *updateTimer;
 }
 @property (assign) id <VideoTableDataDelegate> delegate;
-@property (readwrite) NSInteger networkCounter;
+@property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL likedOnly;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
@@ -51,12 +49,5 @@
 #ifdef OFFLINE_MODE
 - (void)loadVideos;
 #endif
-
-- (void)retrieveAndStoreYouTubeVideoData:(id)youTubeURL;
-- (void)updateTableView;
-
-- (void)gotNewCoreDataBroadcasts;
-
-+ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video;
 
 @end

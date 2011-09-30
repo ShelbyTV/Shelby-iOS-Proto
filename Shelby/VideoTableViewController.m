@@ -33,6 +33,7 @@
 
         callbackObject = object;
         callbackSelector = selector;
+        cellBackgroundImage = [[UIImage imageNamed:@"CellGradient.png"] retain];
     }
     return self;
 }
@@ -326,7 +327,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"VideoCell";
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -337,11 +338,10 @@
         cell = videoCell;
 
         // Set the gradient as the background
-        UIImage *image = [UIImage imageNamed:@"CellGradient.png"];
         if (cell.backgroundView) {
-            ((UIImageView *)cell.backgroundView).image = image;
+            ((UIImageView *)cell.backgroundView).image = cellBackgroundImage;
         } else {
-            cell.backgroundView = [[[UIImageView alloc] initWithImage: image] autorelease];
+            cell.backgroundView = [[[UIImageView alloc] initWithImage:cellBackgroundImage] autorelease];
         }
 
         self.videoCell = nil;
@@ -403,7 +403,7 @@
     }
 
     UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
-    sharerImage.image = [videoTableData videoSharerImageAtIndex:row];;
+    sharerImage.image = [videoTableData videoSharerImageAtIndex:row];
 
     UILabel *sharer = (UILabel *)[cell viewWithTag:5];
     sharer.text = [videoTableData videoSharerAtIndex:row];
