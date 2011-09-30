@@ -22,6 +22,7 @@
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
 		0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */; };
 		0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3E77B01434713500800018 /* iPadHeaderBackground.png */; };
+		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
@@ -200,6 +201,8 @@
 		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableData.m; sourceTree = "<group>"; };
 		0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeartPurple.png; path = Resources/Images/ButtonHeartPurple.png; sourceTree = "<group>"; };
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
+		0A3E791014357D5600800018 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Libraries/TestFlight/libTestFlight.a; sourceTree = "<group>"; };
+		0A3E791314357D8100800018 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = Libraries/TestFlight/TestFlight.h; sourceTree = "<group>"; };
 		0A4DB3DC1432512D00618605 /* ApiMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiMutableURLRequest.h; sourceTree = "<group>"; };
 		0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiMutableURLRequest.m; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
@@ -409,6 +412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */,
 				0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */,
 				42084C761427ADF000C3C556 /* SystemConfiguration.framework in Frameworks */,
 				42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */,
@@ -435,6 +439,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */ = {
+			isa = PBXGroup;
+			children = (
+				0A3E791314357D8100800018 /* TestFlight.h */,
+				0A3E791014357D5600800018 /* libTestFlight.a */,
+			);
+			name = "***MUST REMOVE BEFORE RELEASING TO APP STORE***";
+			sourceTree = "<group>";
+		};
 		0AC849611430333D00FDF996 /* VideoPlayerControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +553,7 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
+				0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
 				427A622513F4717C00C945E2 /* Libraries */,
@@ -1444,6 +1458,10 @@
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries/TestFlight\"",
+				);
 				PRODUCT_NAME = Shelby.tv;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1454,14 +1472,18 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
-				COPY_PHASE_STRIP = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Johnson (74ZK87E24M)";
+				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries/TestFlight\"",
+				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "93F8C58F-B5BC-4C26-A271-28158A696141";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2F66BCBC-B122-4433-8FF1-6CD598AB9B7C";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1541,6 +1563,10 @@
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries/TestFlight\"",
+				);
 				PRODUCT_NAME = Shelby.tv;
 				WRAPPER_EXTENSION = app;
 			};
