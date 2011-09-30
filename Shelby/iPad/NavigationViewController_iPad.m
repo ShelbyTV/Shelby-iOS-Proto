@@ -142,7 +142,7 @@ static const float ANIMATION_TIME = 0.5f;
     // If our videoplayer isn't doesn't have a video cued (isn't playing or paused), let's play a video.
     if (_videoPlayer.isIdle) {
         Video *video = [videoTable getCurrentVideo];
-        [_videoPlayer performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:YES];
+        [_videoPlayer performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:NO];
     }
 }
 

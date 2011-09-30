@@ -12,7 +12,7 @@
 
 @protocol VideoProgressBarDelegate
 
-- (void)videoProgressBarWasAdjusted:(VideoPlayerProgressBar *)videoProgressBar value:(float)value;
+- (void)videoProgressBarWasAdjustedManually:(VideoPlayerProgressBar *)videoProgressBar value:(float)value;
 
 @end
 

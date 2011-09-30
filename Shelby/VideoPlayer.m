@@ -377,9 +377,11 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - VideoProgressBarDelegate Methods
 
-- (void)controlBarChangedTime:(VideoPlayerControlBar *)controlBar time:(float)time {
+- (void)controlBarChangedTimeManually:(VideoPlayerControlBar *)controlBar time:(float)time {
     LOG(@"videoProgressBarWasAdjusted: %f", time);
-
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    
     float delta = fabs(time - _moviePlayer.currentPlaybackTime);
     if (delta > 1.0f) {
         // Update playback time.

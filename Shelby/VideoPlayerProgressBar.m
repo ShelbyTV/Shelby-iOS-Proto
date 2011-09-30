@@ -12,7 +12,7 @@
 #import "VideoPlayerProgressBar.h"
 #import <QuartzCore/QuartzCore.h>
 
-static const float kProgressUpdateBuffer = 0.25f;
+static const float kProgressUpdateBuffer = 1.0f;
 
 @implementation VideoPlayerProgressBar
 
@@ -134,11 +134,11 @@ static const float kProgressUpdateBuffer = 0.25f;
 
 #pragma mark - Notify
 
-- (void)videoProgressBarWasAdjusted {
+- (void)videoProgressBarWasAdjustedManually {
     _lastTouchTime = CACurrentMediaTime();
     //Notify our delegate that we've changed.
     if (self.delegate) {
-        [self.delegate videoProgressBarWasAdjusted: self value: _slider.value];
+        [self.delegate videoProgressBarWasAdjustedManually: self value: _slider.value];
     }
 }
 
@@ -146,18 +146,17 @@ static const float kProgressUpdateBuffer = 0.25f;
 
 - (void)layoutSubviews {
     CGRect frame = self.bounds;
-
-    //const float sliderSplit = 0.7;
-    //float sliderHeight = frame.size.height * sliderSplit;
-    //float labelHeight = frame.size.height - sliderHeight;
-
-    CGRect tempFrame;
+    
+    // We needed a bigger touch area on the actual slider. This hacky adjustment is being done to
+    // make things still look nice. We use black UIViews in the control bar NIBs to cover this up appropriately.
+    frame.origin.x -= 20;
+    frame.size.width += 30;
     _slider.frame = frame;
     
     NSLog(@"slider frame is %f, %f", frame.size.width, frame.size.height);
 
     //float labelHeight = frame.size.height;
-    tempFrame = frame;
+    CGRect tempFrame = self.bounds;
     tempFrame.origin.x = LABEL_OFFSET_X;
     tempFrame.origin.y = LABEL_OFFSET_Y;
     _label.frame = tempFrame;
@@ -177,7 +176,7 @@ static const float kProgressUpdateBuffer = 0.25f;
 
 - (void)sliderWasMoved:(id)sender {
     if (!_adjustingSlider) {
-        [self videoProgressBarWasAdjusted];
+        [self videoProgressBarWasAdjustedManually];
     }
 }
 

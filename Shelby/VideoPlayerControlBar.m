@@ -87,9 +87,9 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
 
 #pragma mark - VideoProgressBarDelegate Methods
 
-- (void)videoProgressBarWasAdjusted:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {
+- (void)videoProgressBarWasAdjustedManually:(VideoPlayerProgressBar *)videoProgressBar value:(float)value {
     if (self.delegate) {
-        [self.delegate controlBarChangedTime: self time: value];
+        [self.delegate controlBarChangedTimeManually: self time: value];
     }
 }
 
