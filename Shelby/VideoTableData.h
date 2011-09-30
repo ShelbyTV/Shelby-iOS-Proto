@@ -10,6 +10,7 @@
 #import "STVNetworkObject.h"
 
 @class VideoTableData;
+@class Video;
 
 @protocol VideoTableDataDelegate
 
@@ -45,6 +46,8 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (BOOL)videoLikedAtIndex:(NSUInteger)index;
 - (BOOL)videoWatchedAtIndex:(NSUInteger)index;
+- (Video *)videoAtIndex:(NSUInteger)index;
+
 - (void)clearVideos;
 #ifdef OFFLINE_MODE
 - (void)loadVideos;

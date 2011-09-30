@@ -71,7 +71,7 @@
 									<object class="IBUIImageView" id="185188762">
 										<reference key="NSNextResponder" ref="116529763"/>
 										<int key="NSvFlags">301</int>
-										<string key="NSFrame">{{12, 7}, {15, 16}}</string>
+										<string key="NSFrame">{{12, 7}, {16, 16}}</string>
 										<reference key="NSSuperview" ref="116529763"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="518010163"/>
@@ -94,7 +94,7 @@
 										<int key="IBUITag">5</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-										<string key="IBUIText">@markerrj</string>
+										<string key="IBUIText"/>
 										<object class="NSFont" key="IBUIFont" id="443226444">
 											<string key="NSName">Thonburi-Bold</string>
 											<double key="NSSize">16</double>
@@ -117,7 +117,6 @@
 										<string key="NSFrame">{{179, 4}, {99, 21}}</string>
 										<reference key="NSSuperview" ref="116529763"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:327</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -125,7 +124,7 @@
 										<int key="IBUITag">6</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-										<string key="IBUIText">10 MINS AGO</string>
+										<string key="IBUIText"/>
 										<object class="NSFont" key="IBUIFont">
 											<string key="NSName">Thonburi-Bold</string>
 											<double key="NSSize">14</double>
@@ -171,7 +170,7 @@
 										<int key="IBUITag">3</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-										<string key="IBUIText">Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text </string>
+										<string key="IBUIText"/>
 										<reference key="IBUIFont" ref="443226444"/>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>

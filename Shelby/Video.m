@@ -11,16 +11,23 @@
 
 @implementation Video
 
-@synthesize shelbyId;
-@synthesize contentURL;
+@synthesize youTubeVideoInfoURL, contentURL, thumbnailURL, thumbnailImage, title, sharer, sharerComment, sharerImageURL, sharerImage, source, createdAt, shelbyId, isLiked, isWatched;
 
-@synthesize thumbnailImage;
-@synthesize title;
-
-@synthesize sharer;
-@synthesize sharerComment;
-@synthesize sharerImage;
-
-@synthesize isLiked;
+- (void) dealloc
+{
+    [youTubeVideoInfoURL release];
+    [contentURL release];
+    [thumbnailURL release];
+    [thumbnailImage release];
+    [title release];
+    [sharer release];
+    [sharerComment release];
+    [sharerImageURL release];
+    [sharerImage release];
+    [source release];
+    [createdAt release];
+    
+    [super dealloc];
+}
 
 @end

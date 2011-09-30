@@ -86,7 +86,6 @@
 										<string key="NSFrame">{{174, 4}, {100, 21}}</string>
 										<reference key="NSSuperview" ref="956442962"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:327</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -94,7 +93,7 @@
 										<int key="IBUITag">6</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">10 MINS AGO</string>
+										<string key="IBUIText"/>
 										<object class="NSFont" key="IBUIFont" id="177496626">
 											<string key="NSName">Thonburi-Bold</string>
 											<double key="NSSize">14</double>
@@ -112,7 +111,7 @@
 									<object class="IBUIImageView" id="17779979">
 										<reference key="NSNextResponder" ref="956442962"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{12, 7}, {15, 16}}</string>
+										<string key="NSFrame">{{12, 7}, {16, 16}}</string>
 										<reference key="NSSuperview" ref="956442962"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="783725919"/>
@@ -135,7 +134,7 @@
 										<int key="IBUITag">5</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">@markerrj</string>
+										<string key="IBUIText"/>
 										<reference key="IBUIFont" ref="177496626"/>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
@@ -194,7 +193,7 @@
 										<int key="IBUITag">3</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text Sample Text </string>
+										<string key="IBUIText"/>
 										<reference key="IBUIFont" ref="177496626"/>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>

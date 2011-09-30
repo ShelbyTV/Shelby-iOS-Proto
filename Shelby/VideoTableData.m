@@ -10,47 +10,12 @@
 #import "Broadcast.h"
 #import "ShelbyApp.h"
 #import "NSURLConnection+AsyncBlock.h"
-
-
-@interface VideoData : NSObject
-@property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
-@property (nonatomic, retain) NSURL *contentURL;
-@property (nonatomic, retain) NSURL *thumbnailURL;
-@property (nonatomic, retain) UIImage *thumbnailImage;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *sharer;
-@property (nonatomic, copy) NSString *sharerComment;
-@property (nonatomic, retain) NSURL *sharerImageURL;
-@property (nonatomic, retain) UIImage *sharerImage;
-@property (nonatomic, copy) NSString *source;
-@property (nonatomic, copy) NSString *shelbyId;
-@property (nonatomic, retain) NSDate *createdAt;
-@property (nonatomic) BOOL isLiked;
-@property (nonatomic) BOOL isWatched;
-@end
-@implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailURL, thumbnailImage, title, sharer, sharerComment, sharerImageURL, sharerImage, source, createdAt, shelbyId, isLiked, isWatched;
-
-- (void) dealloc
-{
-    [youTubeVideoInfoURL release];
-    [contentURL release];
-    [thumbnailURL release];
-    [thumbnailImage release];
-    [title release];
-    [sharer release];
-    [sharerComment release];
-    [sharerImageURL release];
-    [sharerImage release];
-    [source release];
-    [createdAt release];
-    
-    [super dealloc];
-}
-@end
+#import "UIImage+Resize.h"
+#import "UIImage+Alpha.h"
+#import "Video.h"
 
 @interface VideoDataURLRequest : NSURLRequest
-@property (nonatomic, retain) VideoData *video;
+@property (nonatomic, retain) Video *video;
 @end
 
 @implementation VideoDataURLRequest
@@ -148,7 +113,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] sharer];
+        return [(Video *)[videoDataArray objectAtIndex:index] sharer];
     }
 }
 
@@ -156,7 +121,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] sharerImage];
+        return [(Video *)[videoDataArray objectAtIndex:index] sharerImage];
     }
 }
 
@@ -164,7 +129,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] sharerComment];
+        return [(Video *)[videoDataArray objectAtIndex:index] sharerComment];
     }
 }
 
@@ -172,7 +137,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] thumbnailImage];
+        return [(Video *)[videoDataArray objectAtIndex:index] thumbnailImage];
     }
 }
 
@@ -180,7 +145,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] source];
+        return [(Video *)[videoDataArray objectAtIndex:index] source];
     }
 }
 
@@ -188,7 +153,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] createdAt];
+        return [(Video *)[videoDataArray objectAtIndex:index] createdAt];
     } 
 }
 
@@ -196,7 +161,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] isLiked];
+        return [(Video *)[videoDataArray objectAtIndex:index] isLiked];
     } 
 }
 
@@ -204,8 +169,13 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] isWatched];
+        return [(Video *)[videoDataArray objectAtIndex:index] isWatched];
     } 
+}
+
+- (Video *)videoAtIndex:(NSUInteger)index
+{
+    return (Video *)[videoDataArray objectAtIndex:index];
 }
 
 #ifdef OFFLINE_MODE
@@ -229,7 +199,7 @@
 #ifdef OFFLINE_MODE
     return [self movieURL];
 #else
-    VideoData *videoData = nil;
+    Video *videoData = nil;
     NSURL *contentURL = nil;
 
     @synchronized(videoDataArray)
@@ -299,7 +269,7 @@
 #endif
 }
 
-- (void)updateTableVideoThumbnail:(VideoData *)video
+- (void)updateTableVideoThumbnail:(Video *)video
 {
     @synchronized(videoDataArray)
     {
@@ -313,7 +283,7 @@
     }
 }
 
-- (void)updateTableSharerImage:(VideoData *)video
+- (void)updateTableSharerImage:(Video *)video
 {
     @synchronized(videoDataArray)
     {
@@ -358,7 +328,7 @@
     }
 }
 
-- (void)downloadSharerImage:(VideoData *)video
+- (void)downloadSharerImage:(Video *)video
 {
     VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.sharerImageURL];
     
@@ -381,14 +351,15 @@
     if (NOT_NULL(error)) {
         LOG(@"receivedSharerImage error: %@", error);
     } else {
-        ((VideoDataURLRequest*)request).video.sharerImage = [UIImage imageWithData:data];
+        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+        ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:CGSizeMake(45, 45) interpolationQuality:kCGInterpolationHigh];
         [self updateTableSharerImage:((VideoDataURLRequest*)request).video];
     }
     
     [self decrementNetworkCounter];
 }
 
-- (void)downloadVideoThumbnail:(VideoData *)video
+- (void)downloadVideoThumbnail:(Video *)video
 {
     VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.thumbnailURL];
     
@@ -411,7 +382,8 @@
     if (NOT_NULL(error)) {
         LOG(@"receivedVideoThumbnail error: %@", error);
     } else {
-        ((VideoDataURLRequest*)request).video.thumbnailImage = [UIImage imageWithData:data];
+        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+        ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:CGSizeMake(290, 163) interpolationQuality:kCGInterpolationHigh];
         [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
     }
     
@@ -472,8 +444,8 @@
             NSURL *youTubeVideo = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:broadcast.providerId]] autorelease];
             NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
             
-            VideoData *video = [[[VideoData alloc] init] autorelease];
-            NSAssert(NOT_NULL(video), @"VideoData allocation failed. Must be out of memory. Give up.");
+            Video *video = [[[Video alloc] init] autorelease];
+            NSAssert(NOT_NULL(video), @"Video allocation failed. Must be out of memory. Give up.");
             
             NSString *sharerName = [broadcast.sharerName uppercaseString];
             if ([broadcast.origin isEqualToString:@"twitter"]) {
@@ -509,7 +481,7 @@
         }
     }
     
-    [self.delegate videoTableDataDidFinishRefresh: self];
+    [self.delegate videoTableDataDidFinishRefresh:self];
 }
 
 #pragma mark - Notifications
