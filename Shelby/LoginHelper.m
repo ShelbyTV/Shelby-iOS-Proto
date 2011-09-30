@@ -158,6 +158,7 @@
 
 - (void)handshake:(OAuthHandshake *)handshake authenticatedToken:(NSString *)token withSecret:(NSString *)tokenSecret;
 {
+    [self decrementNetworkCounter];
     NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
 
     // Store token for later use.

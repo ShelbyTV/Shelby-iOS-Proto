@@ -54,12 +54,15 @@ static ShelbyApp *gShelbyApp;
 #pragma mark - Network Activity
 
 - (BOOL)isNetworkBusy {
-    for (id <STVNetworkObject> networkObject in _networkObjects) {
+    BOOL toReturn = NO;
+    for (id <STVNetworkObject> networkObject in _networkObjects) 
+    {
+        //NSLog(@"networkObject: %@ networkCounter: %d", [[networkObject class] description], networkObject.networkCounter);
         if (networkObject.networkCounter > 0) {
-            return YES; 
+            toReturn = YES; // should really just return here, but it's nice for debugging to have the above log print out for everything
         }
     }
-    return NO;
+    return toReturn;
 }
 
 - (void)postNetworkActivityNotification {
