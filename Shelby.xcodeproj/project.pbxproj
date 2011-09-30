@@ -369,7 +369,6 @@
 		42C4C59513E8AB420034AC97 /* Shelby-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Shelby-Info.plist"; path = "Resources/Shelby-Info.plist"; sourceTree = SOURCE_ROOT; };
 		42C4C59913E8AB5E0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		42C4C5E113E8D28B0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Login_iPad.xib; sourceTree = SOURCE_ROOT; };
-		42C4C5E413E8D2900034AC97 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = Resources/iPad/fr.lproj/Login_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C5E813E9AA100034AC97 /* VideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
 		42C4C5E913E9AA100034AC97 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayer.m; sourceTree = "<group>"; };
 		42C4C60113E9CBE30034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/MainWindow_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -1376,7 +1375,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				42C4C5E113E8D28B0034AC97 /* en */,
-				42C4C5E413E8D2900034AC97 /* fr */,
 			);
 			name = Login_iPad.xib;
 			sourceTree = "<group>";
