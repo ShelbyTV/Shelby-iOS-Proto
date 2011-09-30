@@ -181,7 +181,7 @@
         }
         
         // no networks passed in
-        if (networksString = nil) {
+        if (networksString == nil) {
             return;
         }
         
@@ -190,14 +190,10 @@
         //    [req setValue: recipient forOAuthParameter: @"to"];
         //}
 
-        // Strip out the single quotesj
-        NSString *sanitizedComment = [comment stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
-        NSLog(@"Comment before: %@", comment);
-        NSLog(@"Comment after: %@", sanitizedComment);
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                 networksString, @"destination",
                                 videoId, @"broadcast_id",
-                                [sanitizedComment URLEncodedString], @"comment",
+                                [comment URLEncodedString], @"comment",
                                 nil];
 
         NSString *formString = nil;
