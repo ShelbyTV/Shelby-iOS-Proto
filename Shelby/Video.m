@@ -11,7 +11,22 @@
 
 @implementation Video
 
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailURL, thumbnailImage, title, sharer, sharerComment, sharerImageURL, sharerImage, source, createdAt, shelbyId, isLiked, isWatched;
+@synthesize youTubeVideoInfoURL;
+@synthesize contentURL;
+@synthesize thumbnailURL;
+@synthesize thumbnailImage;
+@synthesize title;
+@synthesize sharer;
+@synthesize sharerComment;
+@synthesize sharerImageURL;
+@synthesize sharerImage;
+@synthesize source;
+@synthesize createdAt;
+@synthesize shelbyId;
+@synthesize isLiked;
+@synthesize isWatched;
+@synthesize arrayGeneration;
+
 
 - (void) dealloc
 {

@@ -46,8 +46,6 @@
 {
     if (mode != videoMode) {
         LOG(@"changeVideoMode %d", mode);
-        // Clear out the table.
-        [videoTableData clearVideos];
         if (mode == 1)
         {
             videoTableData.likedOnly = YES;
@@ -57,11 +55,7 @@
         
         // Change the channel.
         videoMode = mode;
-        [[ShelbyApp sharedApp].loginHelper changeChannel: 0];
-        [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
-
-        
-        // Wait for new data.
+        [videoTableData reloadCoreDataBroadcasts];
     }
 }
 

@@ -278,6 +278,10 @@
 {
     @synchronized(videoDataArray)
     {
+        if (video.arrayGeneration != arrayGeneration) {
+            return;
+        }
+        
         // might be able to do this faster by just storing the index in the Video
         int videoIndex = [videoDataArray indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
@@ -292,6 +296,10 @@
 {
     @synchronized(videoDataArray)
     {
+        if (video.arrayGeneration != arrayGeneration) {
+            return;
+        }
+        
         // might be able to do this faster by just storing the index in the Video
         int videoIndex = [videoDataArray indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
@@ -315,26 +323,35 @@
  * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
  * clear the existing video table, and update the table view to delete all entries
  */
+
+- (void)clearVideosWithArrayLockHeld
+{
+    [videoDataArray removeAllObjects];
+    
+    arrayGeneration++;
+    
+    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+    for (int i = 0; i < lastInserted; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    lastInserted = 0;
+    [tableView endUpdates];
+}
+
 - (void)clearVideos
 {
     @synchronized(videoDataArray)
     {
-        [videoDataArray removeAllObjects];
-        
-        NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-        for (int i = 0; i < lastInserted; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-        }
-        
-        [tableView beginUpdates];
-        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-        lastInserted = 0;
-        [tableView endUpdates];
+        [self clearVideosWithArrayLockHeld];
     }
 }
 
 - (void)downloadSharerImage:(Video *)video
 {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.sharerImageURL];
     
     if (req) {
@@ -344,6 +361,7 @@
     } else {
         // We failed to send the request. Let the caller know.
     }
+    [pool release];
 }
 
 - (void)receivedSharerImage:(NSURLResponse *)resp
@@ -369,6 +387,7 @@
 
 - (void)downloadVideoThumbnail:(Video *)video
 {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.thumbnailURL];
     
     if (req) {
@@ -378,6 +397,7 @@
     } else {
         // We failed to send the request. Let the caller know.
     }
+    [pool release];
 }
 
 - (void)receivedVideoThumbnail:(NSURLResponse *)resp
@@ -401,9 +421,9 @@
     [self decrementNetworkCounter];
 }
 
-- (void)gotNewCoreDataBroadcasts
+- (void)reloadCoreDataBroadcasts
 {
-    NSLog(@"here in gotNewCoreDataBroadcasts");
+    NSLog(@"here in reloadCoreDataBroadcasts");
     NSManagedObjectContext *context = [ShelbyApp sharedApp].context;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -432,11 +452,11 @@
     
     LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
     
-    // Clear out the old broadcasts.
-    [self clearVideos];
-    
     @synchronized(videoDataArray)
     {
+        // Clear out the old broadcasts.
+        [self clearVideosWithArrayLockHeld];
+        
         // Load up the new broadcasts.
         for (Broadcast *broadcast in broadcasts) {
             // For now, we only handle YouTube.
@@ -479,6 +499,8 @@
             if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
             if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
             
+            video.arrayGeneration = arrayGeneration;
+            
             int index = [videoDataArray count];
             [videoDataArray addObject:video];
             
@@ -487,8 +509,8 @@
             lastInserted = index + 1;
             [tableView endUpdates];
             
-            [self downloadVideoThumbnail:video];
-            [self downloadSharerImage:video];
+            [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
+            [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
         }
     }
     
@@ -499,7 +521,7 @@
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
-    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(gotNewCoreDataBroadcasts) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadCoreDataBroadcasts) userInfo:nil repeats:NO];
 }
 
 #pragma mark - Cleanup
@@ -523,6 +545,7 @@
 
         lastInserted = 0;
         videoDataArray = [[NSMutableArray alloc] init];
+        arrayGeneration = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)
