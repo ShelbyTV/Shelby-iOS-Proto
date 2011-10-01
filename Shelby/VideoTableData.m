@@ -392,8 +392,8 @@
     } else {
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
         ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
-                                                                                                                                   bounds:CGSizeMake(kMaxSharerImageWidth,
-                                                                                                                                                     kMaxSharerImageHeight) 
+                                                                                                                                   bounds:CGSizeMake(kMaxVideoThumbnailWidth,
+                                                                                                                                                     kMaxVideoThumbnailHeight) 
                                                                                                                      interpolationQuality:kCGInterpolationHigh];
         [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
     }
