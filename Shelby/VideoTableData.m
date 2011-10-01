@@ -353,6 +353,7 @@
     } else {
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
         ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:CGSizeMake(45, 45) interpolationQuality:kCGInterpolationHigh];
+        //((VideoDataURLRequest*)request).video.sharerImage = [UIImage imageWithData:data];
         [self updateTableSharerImage:((VideoDataURLRequest*)request).video];
     }
     
@@ -384,6 +385,7 @@
     } else {
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
         ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:CGSizeMake(290, 163) interpolationQuality:kCGInterpolationHigh];
+        //((VideoDataURLRequest*)request).video.thumbnailImage = [UIImage imageWithData:data];
         [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
     }
     

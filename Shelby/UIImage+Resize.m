@@ -122,7 +122,7 @@
                                                 CGImageGetBitsPerComponent(imageRef),
                                                 0,
                                                 CGImageGetColorSpace(imageRef),
-                                                CGImageGetBitmapInfo(imageRef));
+                                                kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedFirst);
     
     // Rotate and/or flip the image if required by its orientation
     CGContextConcatCTM(bitmap, transform);
@@ -136,7 +136,7 @@
     // Get the resized image from the context and a UIImage
     CGImageRef newImageRef = CGBitmapContextCreateImage(bitmap);
     UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
-    
+
     // Clean up
     CGContextRelease(bitmap);
     CGImageRelease(newImageRef);
