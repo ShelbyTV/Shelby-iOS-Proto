@@ -14,6 +14,11 @@
 #import "UIImage+Alpha.h"
 #import "Video.h"
 
+#define kMaxVideoThumbnailHeight 163
+#define kMaxVideoThumbnailWidth 290
+#define kMaxSharerImageHeight 45
+#define kMaxSharerImageWidth 45
+
 @interface VideoDataURLRequest : NSURLRequest
 @property (nonatomic, retain) Video *video;
 @end
@@ -352,8 +357,10 @@
         LOG(@"receivedSharerImage error: %@", error);
     } else {
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:CGSizeMake(45, 45) interpolationQuality:kCGInterpolationHigh];
-        //((VideoDataURLRequest*)request).video.sharerImage = [UIImage imageWithData:data];
+        ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
+                                                                                                                                bounds:CGSizeMake(kMaxSharerImageWidth,
+                                                                                                                                                  kMaxSharerImageHeight) 
+                                                                                                                  interpolationQuality:kCGInterpolationHigh];
         [self updateTableSharerImage:((VideoDataURLRequest*)request).video];
     }
     
@@ -384,8 +391,10 @@
         LOG(@"receivedVideoThumbnail error: %@", error);
     } else {
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:CGSizeMake(290, 163) interpolationQuality:kCGInterpolationHigh];
-        //((VideoDataURLRequest*)request).video.thumbnailImage = [UIImage imageWithData:data];
+        ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
+                                                                                                                                   bounds:CGSizeMake(kMaxSharerImageWidth,
+                                                                                                                                                     kMaxSharerImageHeight) 
+                                                                                                                     interpolationQuality:kCGInterpolationHigh];
         [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
     }
     
