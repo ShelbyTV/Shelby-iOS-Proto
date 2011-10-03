@@ -36,6 +36,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)drawControls;
 - (void)hideControls;
+- (void)fitTitleBarText;
 
 @property (nonatomic, retain) Video *currentVideo;
 
@@ -161,6 +162,28 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 #pragma mark - Public Methods
+
+- (void)reset
+{
+    _changingVideo = YES;
+    self.currentVideo = NULL;
+    
+    // Change our titleBar
+    //self.titleBar.title.text = video.sharerComment;
+    self.titleBar.title.text = @"";
+    self.titleBar.sharerPic.image = NULL;
+    [self fitTitleBarText];
+    
+    // Change our footerBar.
+    self.footerBar.title.text = @"";
+    
+    // Reset our duration.
+    _duration = 0.0f;
+
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
+    [_controlBar setFavoriteButtonSelected:NO];
+    _changingVideo = NO;
+}
 
 - (BOOL)isIdle {
     MPMoviePlaybackState state = self.moviePlayer.playbackState;

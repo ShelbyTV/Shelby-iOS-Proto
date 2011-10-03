@@ -60,5 +60,6 @@
 - (void)pause;
 - (void)stop;
 - (void)playVideo:(Video *)video;
+- (void)reset;
 
 @end

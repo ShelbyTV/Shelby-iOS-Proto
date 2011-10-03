@@ -65,6 +65,7 @@
 {
     // Clear out the table.
     [videoTableData clearVideos];
+    _currentVideoIndex = 0;
 }
 
 - (void)loadVideos
