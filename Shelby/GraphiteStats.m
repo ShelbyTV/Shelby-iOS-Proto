@@ -165,6 +165,10 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
     // Bind or connect the socket, depending on whether we're in server or client mode.
     
     if (err == 0) {
+        // This tells the system: don't generate an exception when we can't write to a socket...
+        int on = 0;
+        setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, (void *)&on, sizeof(int));
+        
         struct sockaddr_in      addr;
         
         memset(&addr, 0, sizeof(addr));
