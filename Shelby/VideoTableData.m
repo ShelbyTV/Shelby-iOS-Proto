@@ -546,11 +546,9 @@
             [tableView endUpdates];
             
             if (IS_NULL(video.thumbnailImage)) {
-                NSLog(@"Downloading video thumbnail.");
                 [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
             }
             if (IS_NULL(video.sharerImage)) {
-                NSLog(@"Downloading sharer image.");
                 [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
             }
         }
