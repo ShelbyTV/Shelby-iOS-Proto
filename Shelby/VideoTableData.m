@@ -10,8 +10,6 @@
 #import "Broadcast.h"
 #import "ShelbyApp.h"
 #import "NSURLConnection+AsyncBlock.h"
-#import "UIImage+Resize.h"
-#import "UIImage+Alpha.h"
 #import "Video.h"
 #import "LoginHelper.h"
 
@@ -365,6 +363,31 @@
     [pool release];
 }
 
+- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
+{
+    //If scaleFactor is not touched, no scaling will occur      
+    CGFloat scaleFactor = 1.0;
+    
+    if (!((scaleFactor = (targetSize.width / image.size.width)) > (targetSize.height / image.size.height))) //scale to fit width, or
+        scaleFactor = targetSize.height / image.size.height; // scale to fit heigth.
+    
+    UIGraphicsBeginImageContext(targetSize); 
+    
+    //Creating the rect where the scaled image is drawn in
+    CGRect rect = CGRectMake((targetSize.width - image.size.width * scaleFactor) / 2,
+                             (targetSize.height -  image.size.height * scaleFactor) / 2,
+                             image.size.width * scaleFactor, image.size.height * scaleFactor);
+    
+    //Draw the image into the rect
+    [image drawInRect:rect];
+    
+    //Saving the image, ending image context
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
+
 - (void)receivedSharerImage:(NSURLResponse *)resp
                        data:(NSData *)data
                       error:(NSError *)error
@@ -382,10 +405,8 @@
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
-                                                                                                                                bounds:CGSizeMake(kMaxSharerImageWidth,
-                                                                                                                                                  kMaxSharerImageHeight) 
-                                                                                                                  interpolationQuality:kCGInterpolationHigh];
+        ((VideoDataURLRequest*)request).video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
+                                                                                                                            kMaxSharerImageHeight)];
         
         [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
                                            withSharerImageData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.sharerImage)
@@ -431,10 +452,8 @@
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
-                                                                                                                                   bounds:CGSizeMake(kMaxVideoThumbnailWidth,
-                                                                                                                                                     kMaxVideoThumbnailHeight) 
-                                                                                                                     interpolationQuality:kCGInterpolationHigh];
+        ((VideoDataURLRequest*)request).video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
+                                                                                                                                kMaxVideoThumbnailHeight)];
         
         [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
                                              withThumbnailData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.thumbnailImage)
