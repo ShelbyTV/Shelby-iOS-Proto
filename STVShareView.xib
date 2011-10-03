@@ -244,7 +244,7 @@
 							<object class="IBUITextView" id="299758661">
 								<reference key="NSNextResponder" ref="67495923"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 52}, {377, 71}}</string>
+								<string key="NSFrame">{{20, 52}, {377, 68}}</string>
 								<reference key="NSSuperview" ref="67495923"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="307355695"/>
@@ -342,7 +342,7 @@
 							<object class="IBUIImageView" id="387995374">
 								<reference key="NSNextResponder" ref="558491996"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 99}, {377, 70}}</string>
+								<string key="NSFrame">{{20, 99}, {377, 80}}</string>
 								<reference key="NSSuperview" ref="558491996"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="358547213"/>
@@ -672,6 +672,30 @@
 					</object>
 					<int key="connectionID">62</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="375009394"/>
+						<reference key="destination" ref="10821415"/>
+					</object>
+					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="358547213"/>
+						<reference key="destination" ref="10821415"/>
+					</object>
+					<int key="connectionID">64</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="299758661"/>
+						<reference key="destination" ref="10821415"/>
+					</object>
+					<int key="connectionID">66</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -807,6 +831,7 @@
 						<int key="objectID">37</int>
 						<reference key="object" ref="358547213"/>
 						<reference key="parent" ref="558491996"/>
+						<string key="objectName">Text View</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">39</int>
@@ -833,6 +858,7 @@
 					<string>-1.IBPluginDependency</string>
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
+					<string>10.CustomClassName</string>
 					<string>10.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>12.IBPluginDependency</string>
@@ -840,6 +866,7 @@
 					<string>21.CustomClassName</string>
 					<string>21.IBPluginDependency</string>
 					<string>34.IBPluginDependency</string>
+					<string>37.CustomClassName</string>
 					<string>37.IBPluginDependency</string>
 					<string>39.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
@@ -864,6 +891,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>STVZeroEdgeTextView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -871,6 +899,7 @@
 					<string>STVShareView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>STVZeroEdgeTextView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -903,7 +932,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">62</int>
+			<int key="maxID">66</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1064,6 +1093,14 @@
 						<string key="minorKey">./Classes/STVShareView.h</string>
 					</object>
 				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">STVZeroEdgeTextView</string>
+					<string key="superclassName">UITextView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/STVZeroEdgeTextView.h</string>
+					</object>
+				</object>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
@@ -1097,12 +1134,12 @@
 				<string>{100, 44}</string>
 				<string>{100, 44}</string>
 				<string>{36, 35}</string>
-				<string>{25, 25}</string>
-				<string>{25, 25}</string>
+				<string>{29, 29}</string>
+				<string>{29, 29}</string>
 				<string>{355, 70}</string>
 				<string>{179, 30}</string>
-				<string>{25, 25}</string>
-				<string>{25, 25}</string>
+				<string>{29, 29}</string>
+				<string>{29, 29}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">534</string>

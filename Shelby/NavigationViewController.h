@@ -33,9 +33,14 @@
     IBOutlet UIImageView *userTwitter;
     IBOutlet UIImageView *userTumblr;
     IBOutlet UIImageView *userButton;
-    
+
+    BOOL keyboardIsShown;
+    STVShareView *_shareView;
+
     NSSet *_authorizations;
 }
+
+@property (nonatomic, retain) STVShareView *shareView;
 
 - (IBAction)userViewWasPressed:(id)sender;
 - (IBAction)listButtonPressed:(id)sender;
