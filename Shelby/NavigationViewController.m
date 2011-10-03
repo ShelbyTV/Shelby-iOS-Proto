@@ -1,4 +1,4 @@
-	//
+//
 //  NavigationViewController.m
 //  Shelby
 //
@@ -17,7 +17,11 @@
 #import "Video.h"
 #import "STVShareView.h"
 
+#define kKeyboardAnimationDuration 1.0
+
 @implementation NavigationViewController
+
+@synthesize shareView = _shareView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,7 +53,7 @@
                                                  selector:@selector(networkInactiveNotification:)
                                                      name:@"ShelbyAppNetworkInactive"
                                                    object:nil];
-        
+
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(likeVideoFailed:)
@@ -100,7 +104,7 @@
         NSLog(@"No go facebook!");
         userFacebook.highlighted = NO;
     }
-    
+
     if ([user.auth_tumblr boolValue]) {
         // Set tumblr view visible
         NSLog(@"Authed into tumblr!");
@@ -136,6 +140,17 @@
     [videoTable loadVideos];
 }
 
+#pragma mark - Layout
+
+- (CGRect)centerFrame:(CGRect)frame
+{
+    frame.origin.x = (self.view.bounds.size.width / 2) - (frame.size.width / 2);
+    frame.origin.y = (self.view.bounds.size.height / 2) - (frame.size.height / 2);
+
+    //frame.origin.y = 0;
+    return frame;
+}
+
 #pragma mark - Logout Functionality
 
 - (void)showLogoutAlert {
@@ -159,6 +174,7 @@
 
 - (void)shareViewClosePressed:(STVShareView*)shareView {
     [shareView removeFromSuperview];
+    self.shareView = nil;
 }
 
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
@@ -253,12 +269,13 @@
     STVShareView *shareView = [STVShareView viewFromNib];
     shareView.delegate = self;
 
-    CGRect frame = shareView.frame;
-    frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
-    frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
-    shareView.frame = frame;
+    //CGRect frame = shareView.frame;
+    //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
+    //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
+    shareView.frame = [self centerFrame: shareView.frame];
     [self.view addSubview: shareView];
 
+    self.shareView = shareView;
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
@@ -332,6 +349,18 @@
     [videoTableHolder addSubview:videoTable.tableView];
 
     [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
+
+    // register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:self.view.window];
+    // register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:self.view.window];
+    keyboardIsShown = NO;
 }
 
 
@@ -354,6 +383,76 @@
 
     // Clear out the video table
     [videoTable clearVideos];
+}
+
+#pragma mark Keyboard Handlers
+
+- (void)keyboardWillHide:(NSNotification *)n
+{
+    //NSDictionary* userInfo = [n userInfo];
+
+    // get the size of the keyboard
+    //NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
+    //NSValue* beginValue = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
+
+    //CGRect endRect      = [endValue CGRectValue];
+    //CGRect beginRect    = [beginValue CGRectValue];
+
+    //CGRect convertedRect = [self.view convertRect: endRect fromView: nil];
+    //CGSize keyboardSize = convertedRect.size;
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+
+    // move the shareView
+    self.shareView.frame = [self centerFrame: self.shareView.frame];
+
+    [UIView commitAnimations];
+
+    keyboardIsShown = NO;
+}
+
+- (void)keyboardWillShow:(NSNotification *)n
+{
+    // This is an ivar I'm using to ensure that we do not do the frame size adjustment on the UIScrollView if the keyboard is already shown.  This can happen if the user, after fixing editing a UITextField, scrolls the resized UIScrollView to another UITextField and attempts to edit the next UITextField.  If we were to resize the UIScrollView again, it would be disastrous.  NOTE: The keyboard notification will fire even when the keyboard is already shown.
+    if (keyboardIsShown) {
+        return;
+    }
+
+    NSDictionary* userInfo = [n userInfo];
+
+    // get the size of the keyboard
+    NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
+    //NSValue* beginValue = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
+
+    CGRect endRect      = [endValue CGRectValue];
+    //CGRect beginRect    = [beginValue CGRectValue];
+
+    CGRect convertedRect = [self.view convertRect: endRect fromView: nil];
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+
+    if (self.shareView) {
+        CGRect frame = self.shareView.frame;
+        CGRect intersect = CGRectIntersection(
+                convertedRect,
+                frame
+        );
+        if (!CGRectEqualToRect(intersect, CGRectNull)) {
+            // Move the shareView up out of the way
+            //frame.origin.y -= intersect.size.height;
+            frame.origin.y = (convertedRect.origin.y - frame.size.height);
+            self.shareView.frame = frame;
+        } else {
+
+        }
+    }
+    [UIView commitAnimations];
+
+    keyboardIsShown = YES;
 }
 
 #pragma mark - KVO
@@ -384,6 +483,15 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
 - (void)dealloc

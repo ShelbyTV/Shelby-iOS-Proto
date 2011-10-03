@@ -193,7 +193,8 @@
 
         if (NOT_NULL(recipient)) {
             // If email, send who's
-            [params setObject: recipient forKey: @"to"];
+            //[params setObject: recipient forKey: @"to"];
+            [params setObject: [recipient URLEncodedString] forKey: @"to"];
         }
 
         NSString *formString = nil;

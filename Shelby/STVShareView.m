@@ -8,6 +8,11 @@
 
 #import "STVShareView.h"
 
+@interface STVShareView ()
+
+- (void)makeSocialViewActive:(BOOL)isSocialView;
+
+@end
 
 @implementation STVShareView
 
@@ -156,6 +161,64 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     if (self.delegate) {
         [self.delegate shareView:self sentMessage:message withNetworks:networks andRecipients:recipients];
     }
+}
+
+#pragma mark - UITextViewDelegate
+
+//- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+//
+//}
+//
+//- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+//
+//}
+
+//- (void)textViewDidBeginEditing:(UITextView *)textView;
+//- (void)textViewDidEndEditing:(UITextView *)textView;
+
+//- (void)textViewDidChange:(UITextView *)textView;
+//
+//- (void)textViewDidChangeSelection:(UITextView *)textView;
+
+- (BOOL)textView:(UITextView *)aTextView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString*)aText
+{
+    NSString* newText = [aTextView.text stringByReplacingCharactersInRange:aRange withString:aText];
+
+    // TODO - find out why the size of the string is smaller than the actual width, so that you get extra, wrapped characters unless you take something off
+    CGSize tallerSize = CGSizeMake(aTextView.frame.size.width-15,aTextView.frame.size.height*2); // pretend there's more vertical space to get that extra line to check on
+    CGSize newSize = [newText sizeWithFont:aTextView.font constrainedToSize:tallerSize lineBreakMode:UILineBreakModeWordWrap];
+
+    if (newSize.height > aTextView.frame.size.height) {
+        {
+            LOG(@"error. too big!");
+            // TODO: Consider hitting send if they hit enter again at this point.
+
+            //[myAppDelegate beep];
+            return NO;
+        }
+    } else {
+        return YES;
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;        // return NO to disallow editing.
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+
+//- (void)textFieldDidBeginEditing:(UITextField *)textField;           // became first responder
+//- (void)textFieldDidEndEditing:(UITextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
+
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;               // called when clear button pressed. return NO to ignore (no notifications)
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;              // called when 'return' key pressed. return NO to ignore.
+{
+    if (textField == _emailRecipientView) {
+        [_emailTextView becomeFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 /*
