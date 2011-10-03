@@ -157,7 +157,12 @@
 
 #pragma mark - STVShareViewDelegate Methods
 
-- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
+- (void)shareViewClosePressed:(STVShareView*)shareView {
+    [shareView removeFromSuperview];
+}
+
+//- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
+  - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
 
     Video *video = [videoTable getCurrentVideo];
     // get ID from the video
@@ -167,7 +172,7 @@
     [BroadcastApi share:videoId
                 comment:message
                networks:networks
-              recipient:nil];
+              recipient:recipients];
     [shareView removeFromSuperview];
 }
 
