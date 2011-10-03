@@ -13,6 +13,7 @@
 #import "UIImage+Resize.h"
 #import "UIImage+Alpha.h"
 #import "Video.h"
+#import "LoginHelper.h"
 
 #define kMaxVideoThumbnailHeight 163
 #define kMaxVideoThumbnailWidth 290
@@ -374,11 +375,24 @@
     if (NOT_NULL(error)) {
         LOG(@"receivedSharerImage error: %@", error);
     } else {
+        
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
         ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
                                                                                                                                 bounds:CGSizeMake(kMaxSharerImageWidth,
                                                                                                                                                   kMaxSharerImageHeight) 
                                                                                                                   interpolationQuality:kCGInterpolationHigh];
+        
+        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
+                                           withSharerImageData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.sharerImage)
+                                                     inContext:context];
+        
+        [context release];
+        
         [self updateTableSharerImage:((VideoDataURLRequest*)request).video];
     }
     
@@ -406,15 +420,28 @@
                     forRequest:(NSURLRequest *)request
 {
     //LOG(@"receivedVideoThumbnail");
-    
+
     if (NOT_NULL(error)) {
         LOG(@"receivedVideoThumbnail error: %@", error);
     } else {
+        
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
         ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
                                                                                                                                    bounds:CGSizeMake(kMaxVideoThumbnailWidth,
                                                                                                                                                      kMaxVideoThumbnailHeight) 
                                                                                                                      interpolationQuality:kCGInterpolationHigh];
+        
+        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
+                                             withThumbnailData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.thumbnailImage)
+                                                     inContext:context];
+        
+        [context release];
+        
         [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
     }
     
@@ -424,7 +451,9 @@
 - (void)reloadCoreDataBroadcasts
 {
     NSLog(@"here in reloadCoreDataBroadcasts");
-    NSManagedObjectContext *context = [ShelbyApp sharedApp].context;
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setPersistentStoreCoordinator:psCoordinator];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
@@ -489,6 +518,13 @@
             if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
             if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
             
+            if (NOT_NULL(broadcast.thumbnailImage)) {
+                video.thumbnailImage = [UIImage imageWithData:broadcast.thumbnailImage];
+            }
+            if (NOT_NULL(broadcast.sharerImage)) {
+                video.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
+            }
+            
             SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
             SET_IF_NOT_NULL(video.title, broadcast.title)
             SET_IF_NOT_NULL(video.sharer, sharerName)
@@ -509,10 +545,18 @@
             lastInserted = index + 1;
             [tableView endUpdates];
             
-            [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
-            [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
+            if (IS_NULL(video.thumbnailImage)) {
+                NSLog(@"Downloading video thumbnail.");
+                [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
+            }
+            if (IS_NULL(video.sharerImage)) {
+                NSLog(@"Downloading sharer image.");
+                [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
+            }
         }
     }
+    
+    [context release];
     
     [self.delegate videoTableDataDidFinishRefresh:self];
 }

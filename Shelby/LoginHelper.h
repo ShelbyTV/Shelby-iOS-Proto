@@ -24,6 +24,7 @@ typedef enum {
 @class User;
 @class Channel;
 @class Broadcast;
+@class Video;
 
 @protocol LoginHelperDelegate
 
@@ -75,5 +76,8 @@ typedef enum {
 - (BOOL)fetchBroadcasts;
 - (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId;
 
+#pragma mark - Broadcast CoreData Storage
+- (void)storeBroadcastVideo:(Video *)video withThumbnailData:(NSData *)thumbnailData inContext:(NSManagedObjectContext *)context;
+- (void)storeBroadcastVideo:(Video *)video withSharerImageData:(NSData *)sharerImageData inContext:(NSManagedObjectContext *)context;
 
 @end

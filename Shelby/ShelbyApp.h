@@ -17,11 +17,12 @@
  * Global singleton for maintaining state.
  */
 @interface ShelbyApp : NSObject {
-  NSInteger _networkCounter;
-  NSMutableSet *_networkObjects;
+    NSInteger _networkCounter;
+    NSMutableSet *_networkObjects;
+    NSManagedObjectContext *context; // context for LoginHelper
 }
 
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
 @property (nonatomic, retain) GraphiteStats *graphiteStats;
