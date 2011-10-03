@@ -46,8 +46,6 @@
 {
     if (mode != videoMode) {
         LOG(@"changeVideoMode %d", mode);
-        // Clear out the table.
-        [videoTableData clearVideos];
         if (mode == 1)
         {
             videoTableData.likedOnly = YES;
@@ -57,11 +55,7 @@
         
         // Change the channel.
         videoMode = mode;
-        [[ShelbyApp sharedApp].loginHelper changeChannel: 0];
-        [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
-
-        
-        // Wait for new data.
+        [videoTableData reloadCoreDataBroadcasts];
     }
 }
 
@@ -71,6 +65,7 @@
 {
     // Clear out the table.
     [videoTableData clearVideos];
+    _currentVideoIndex = 0;
 }
 
 - (void)loadVideos
@@ -103,20 +98,10 @@
 {
     Video *video = [[[Video alloc] init] autorelease];
 
-    video.contentURL = [videoTableData videoContentURLAtIndex: index];
+    video.contentURL = [videoTableData videoContentURLAtIndex:index];
 
     if (NOT_NULL(video.contentURL)) {
-        video.thumbnailImage = [videoTableData videoThumbnailAtIndex: index];
-        video.title = [videoTableData videoTitleAtIndex: index];
-
-        video.sharer = [videoTableData videoSharerAtIndex: index];
-        video.sharerImage = [videoTableData videoSharerImageAtIndex: index];
-        video.sharerComment = [videoTableData videoSharerCommentAtIndex: index];
-        video.contentURL = [videoTableData videoContentURLAtIndex: index];
-        video.shelbyId = [videoTableData videoShelbyIdAtIndex: index];
-        video.isLiked = [videoTableData videoLikedAtIndex:index];
-
-        return video;
+        return [videoTableData videoAtIndex:index];
     } else {
         return nil;
     }

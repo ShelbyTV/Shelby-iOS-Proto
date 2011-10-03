@@ -10,6 +10,7 @@
 #import "STVNetworkObject.h"
 
 @class VideoTableData;
+@class Video;
 
 @protocol VideoTableDataDelegate
 
@@ -24,6 +25,7 @@
     UITableView *tableView;
     NSMutableArray *videoDataArray;
     NSUInteger lastInserted;
+    int arrayGeneration;
 }
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
@@ -45,9 +47,9 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (BOOL)videoLikedAtIndex:(NSUInteger)index;
 - (BOOL)videoWatchedAtIndex:(NSUInteger)index;
+- (Video *)videoAtIndex:(NSUInteger)index;
+
 - (void)clearVideos;
-#ifdef OFFLINE_MODE
-- (void)loadVideos;
-#endif
+- (void)reloadCoreDataBroadcasts;
 
 @end

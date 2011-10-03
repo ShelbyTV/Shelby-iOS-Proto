@@ -13,16 +13,20 @@
     
 }
 
-@property(nonatomic, retain) NSString *shelbyId;
-@property(nonatomic, retain) NSURL *contentURL;
-
-@property(nonatomic, retain) UIImage *thumbnailImage;
-@property(nonatomic, retain) NSString *title;
-
-@property(nonatomic, retain) NSString *sharer;
-@property(nonatomic, retain) NSString *sharerComment;
-@property(nonatomic, retain) UIImage *sharerImage;
-
-@property(nonatomic) BOOL isLiked;
+@property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
+@property (nonatomic, retain) NSURL *contentURL;
+@property (nonatomic, retain) NSURL *thumbnailURL;
+@property (nonatomic, retain) UIImage *thumbnailImage;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *sharer;
+@property (nonatomic, copy) NSString *sharerComment;
+@property (nonatomic, retain) NSURL *sharerImageURL;
+@property (nonatomic, retain) UIImage *sharerImage;
+@property (nonatomic, copy) NSString *source;
+@property (nonatomic, copy) NSString *shelbyId;
+@property (nonatomic, retain) NSDate *createdAt;
+@property (nonatomic) BOOL isLiked;
+@property (nonatomic) BOOL isWatched;
+@property (nonatomic) int arrayGeneration;
 
 @end

@@ -14,6 +14,7 @@
 #import "ShelbyApp.h"
 #import "SBJsonParser.h"
 #import "SBJsonWriter.h"
+#import "Video.h"
 
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
@@ -47,6 +48,7 @@
     self = [super init];
     if (self) {
         _context = [context retain];
+        [_context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         _parser = [[SBJsonStreamParser alloc] init];
         _parser.delegate = self;
         _parser.supportMultipleDocuments = YES;
@@ -198,6 +200,8 @@
 
     _parserMode = STVParserModeUser;
     SBJsonStreamParserStatus status = [_parser parse: data];
+    
+    // might need to check status and NOT_NULL(self.user). if data is blank, we seem to think that's a success case.
     if (status == SBJsonStreamParserWaitingForData) {
         // Woot. Good to go!
         LOG(@"User Parsing Complete!");
@@ -255,11 +259,11 @@
     }
 }
 
-- (id)getExistingUniqueEntity:(NSString *)entityName withShelbyId:(NSString *)shelbyId
+- (id)getExistingUniqueEntity:(NSString *)entityName withShelbyId:(NSString *)shelbyId inContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName 
-                                              inManagedObjectContext:_context];
+                                              inManagedObjectContext:context];
     
     [fetchRequest setEntity:entity];
     
@@ -268,7 +272,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error = NULL;
-    NSArray *existingEntities = [_context executeFetchRequest:fetchRequest error:&error];
+    NSArray *existingEntities = [context executeFetchRequest:fetchRequest error:&error];
     
     [fetchRequest release];
     
@@ -286,7 +290,7 @@
 - (User *)storeUserWithDictionary:(NSDictionary *)dict
                     withImageData:(NSData *)imageData
 {
-    User *upsert = [self getExistingUniqueEntity:@"User" withShelbyId:[dict objectForKey:@"_id"]];
+    User *upsert = [self getExistingUniqueEntity:@"User" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
     
     if (NULL == upsert) {
         upsert = [NSEntityDescription insertNewObjectForEntityForName:@"User"
@@ -426,7 +430,7 @@
         LOG(@"Channel dict: %@", dict);
         if ([(NSNumber *)[dict objectForKey:@"public"] intValue] == 0) {
 
-            Channel *upsert = [self getExistingUniqueEntity:@"Channel" withShelbyId:[dict objectForKey:@"_id"]];
+            Channel *upsert = [self getExistingUniqueEntity:@"Channel" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
             
             if (NULL == upsert) {
                 upsert = [NSEntityDescription
@@ -520,7 +524,7 @@
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
 {    
     for (NSDictionary *dict in array) {
-        Broadcast *upsert = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"]];
+        Broadcast *upsert = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
         
         if (NULL == upsert ) 
         {
@@ -536,6 +540,59 @@
 
     NSError *error;
     if (![_context save:&error]) {
+        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if(detailedErrors != nil && [detailedErrors count] > 0) {
+            for(NSError* detailedError in detailedErrors) {
+                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+            }
+        } else {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
+- (void)storeBroadcastVideo:(Video *)video withSharerImageData:(NSData *)sharerImageData inContext:(NSManagedObjectContext *)context
+{
+    Broadcast *update = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
+    
+    if (NULL == update ) 
+    {
+        // maybe should throw an error of some sort?
+        return;
+    }
+    
+    update.sharerImage = sharerImageData;
+    
+    NSError *error;
+    if (![context save:&error]) {
+        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if(detailedErrors != nil && [detailedErrors count] > 0) {
+            for(NSError* detailedError in detailedErrors) {
+                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+            }
+        } else {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
+
+- (void)storeBroadcastVideo:(Video *)video withThumbnailData:(NSData *)thumbnailData inContext:(NSManagedObjectContext *)context
+{
+    Broadcast *update = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
+    
+    if (NULL == update ) 
+    {
+        // maybe should throw an error of some sort?
+        return;
+    }
+    
+    update.thumbnailImage = thumbnailData;
+    
+    NSError *error;
+    if (![context save:&error]) {
         NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
         if(detailedErrors != nil && [detailedErrors count] > 0) {
             for(NSError* detailedError in detailedErrors) {

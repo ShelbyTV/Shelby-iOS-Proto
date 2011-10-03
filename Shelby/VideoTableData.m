@@ -10,47 +10,18 @@
 #import "Broadcast.h"
 #import "ShelbyApp.h"
 #import "NSURLConnection+AsyncBlock.h"
+#import "UIImage+Resize.h"
+#import "UIImage+Alpha.h"
+#import "Video.h"
+#import "LoginHelper.h"
 
-
-@interface VideoData : NSObject
-@property (nonatomic, retain) NSURL *youTubeVideoInfoURL;
-@property (nonatomic, retain) NSURL *contentURL;
-@property (nonatomic, retain) NSURL *thumbnailURL;
-@property (nonatomic, retain) UIImage *thumbnailImage;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *sharer;
-@property (nonatomic, copy) NSString *sharerComment;
-@property (nonatomic, retain) NSURL *sharerImageURL;
-@property (nonatomic, retain) UIImage *sharerImage;
-@property (nonatomic, copy) NSString *source;
-@property (nonatomic, copy) NSString *shelbyId;
-@property (nonatomic, retain) NSDate *createdAt;
-@property (nonatomic) BOOL isLiked;
-@property (nonatomic) BOOL isWatched;
-@end
-@implementation VideoData
-@synthesize youTubeVideoInfoURL, contentURL, thumbnailURL, thumbnailImage, title, sharer, sharerComment, sharerImageURL, sharerImage, source, createdAt, shelbyId, isLiked, isWatched;
-
-- (void) dealloc
-{
-    [youTubeVideoInfoURL release];
-    [contentURL release];
-    [thumbnailURL release];
-    [thumbnailImage release];
-    [title release];
-    [sharer release];
-    [sharerComment release];
-    [sharerImageURL release];
-    [sharerImage release];
-    [source release];
-    [createdAt release];
-    
-    [super dealloc];
-}
-@end
+#define kMaxVideoThumbnailHeight 163
+#define kMaxVideoThumbnailWidth 290
+#define kMaxSharerImageHeight 45
+#define kMaxSharerImageWidth 45
 
 @interface VideoDataURLRequest : NSURLRequest
-@property (nonatomic, retain) VideoData *video;
+@property (nonatomic, retain) Video *video;
 @end
 
 @implementation VideoDataURLRequest
@@ -148,7 +119,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] sharer];
+        return [(Video *)[videoDataArray objectAtIndex:index] sharer];
     }
 }
 
@@ -156,7 +127,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] sharerImage];
+        return [(Video *)[videoDataArray objectAtIndex:index] sharerImage];
     }
 }
 
@@ -164,7 +135,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] sharerComment];
+        return [(Video *)[videoDataArray objectAtIndex:index] sharerComment];
     }
 }
 
@@ -172,7 +143,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] thumbnailImage];
+        return [(Video *)[videoDataArray objectAtIndex:index] thumbnailImage];
     }
 }
 
@@ -180,7 +151,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] source];
+        return [(Video *)[videoDataArray objectAtIndex:index] source];
     }
 }
 
@@ -188,7 +159,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] createdAt];
+        return [(Video *)[videoDataArray objectAtIndex:index] createdAt];
     } 
 }
 
@@ -196,7 +167,7 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] isLiked];
+        return [(Video *)[videoDataArray objectAtIndex:index] isLiked];
     } 
 }
 
@@ -204,8 +175,13 @@
 {
     @synchronized(videoDataArray)
     {
-        return [(VideoData *)[videoDataArray objectAtIndex:index] isWatched];
+        return [(Video *)[videoDataArray objectAtIndex:index] isWatched];
     } 
+}
+
+- (Video *)videoAtIndex:(NSUInteger)index
+{
+    return (Video *)[videoDataArray objectAtIndex:index];
 }
 
 #ifdef OFFLINE_MODE
@@ -229,7 +205,7 @@
 #ifdef OFFLINE_MODE
     return [self movieURL];
 #else
-    VideoData *videoData = nil;
+    Video *videoData = nil;
     NSURL *contentURL = nil;
 
     @synchronized(videoDataArray)
@@ -299,10 +275,14 @@
 #endif
 }
 
-- (void)updateTableVideoThumbnail:(VideoData *)video
+- (void)updateTableVideoThumbnail:(Video *)video
 {
     @synchronized(videoDataArray)
     {
+        if (video.arrayGeneration != arrayGeneration) {
+            return;
+        }
+        
         // might be able to do this faster by just storing the index in the Video
         int videoIndex = [videoDataArray indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
@@ -313,10 +293,14 @@
     }
 }
 
-- (void)updateTableSharerImage:(VideoData *)video
+- (void)updateTableSharerImage:(Video *)video
 {
     @synchronized(videoDataArray)
     {
+        if (video.arrayGeneration != arrayGeneration) {
+            return;
+        }
+        
         // might be able to do this faster by just storing the index in the Video
         int videoIndex = [videoDataArray indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
@@ -340,26 +324,35 @@
  * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
  * clear the existing video table, and update the table view to delete all entries
  */
+
+- (void)clearVideosWithArrayLockHeld
+{
+    [videoDataArray removeAllObjects];
+    
+    arrayGeneration++;
+    
+    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+    for (int i = 0; i < lastInserted; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    lastInserted = 0;
+    [tableView endUpdates];
+}
+
 - (void)clearVideos
 {
     @synchronized(videoDataArray)
     {
-        [videoDataArray removeAllObjects];
-        
-        NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-        for (int i = 0; i < lastInserted; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-        }
-        
-        [tableView beginUpdates];
-        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-        lastInserted = 0;
-        [tableView endUpdates];
+        [self clearVideosWithArrayLockHeld];
     }
 }
 
-- (void)downloadSharerImage:(VideoData *)video
+- (void)downloadSharerImage:(Video *)video
 {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.sharerImageURL];
     
     if (req) {
@@ -369,6 +362,7 @@
     } else {
         // We failed to send the request. Let the caller know.
     }
+    [pool release];
 }
 
 - (void)receivedSharerImage:(NSURLResponse *)resp
@@ -381,15 +375,33 @@
     if (NOT_NULL(error)) {
         LOG(@"receivedSharerImage error: %@", error);
     } else {
-        ((VideoDataURLRequest*)request).video.sharerImage = [UIImage imageWithData:data];
+        
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
+        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+        ((VideoDataURLRequest*)request).video.sharerImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
+                                                                                                                                bounds:CGSizeMake(kMaxSharerImageWidth,
+                                                                                                                                                  kMaxSharerImageHeight) 
+                                                                                                                  interpolationQuality:kCGInterpolationHigh];
+        
+        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
+                                           withSharerImageData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.sharerImage)
+                                                     inContext:context];
+        
+        [context release];
+        
         [self updateTableSharerImage:((VideoDataURLRequest*)request).video];
     }
     
     [self decrementNetworkCounter];
 }
 
-- (void)downloadVideoThumbnail:(VideoData *)video
+- (void)downloadVideoThumbnail:(Video *)video
 {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.thumbnailURL];
     
     if (req) {
@@ -399,6 +411,7 @@
     } else {
         // We failed to send the request. Let the caller know.
     }
+    [pool release];
 }
 
 - (void)receivedVideoThumbnail:(NSURLResponse *)resp
@@ -407,21 +420,40 @@
                     forRequest:(NSURLRequest *)request
 {
     //LOG(@"receivedVideoThumbnail");
-    
+
     if (NOT_NULL(error)) {
         LOG(@"receivedVideoThumbnail error: %@", error);
     } else {
-        ((VideoDataURLRequest*)request).video.thumbnailImage = [UIImage imageWithData:data];
+        
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
+        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+        ((VideoDataURLRequest*)request).video.thumbnailImage = [[[UIImage imageWithData:data] imageWithAlpha] resizedImageWithContentMode:UIViewContentModeScaleAspectFill 
+                                                                                                                                   bounds:CGSizeMake(kMaxVideoThumbnailWidth,
+                                                                                                                                                     kMaxVideoThumbnailHeight) 
+                                                                                                                     interpolationQuality:kCGInterpolationHigh];
+        
+        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
+                                             withThumbnailData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.thumbnailImage)
+                                                     inContext:context];
+        
+        [context release];
+        
         [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
     }
     
     [self decrementNetworkCounter];
 }
 
-- (void)gotNewCoreDataBroadcasts
+- (void)reloadCoreDataBroadcasts
 {
-    NSLog(@"here in gotNewCoreDataBroadcasts");
-    NSManagedObjectContext *context = [ShelbyApp sharedApp].context;
+    NSLog(@"here in reloadCoreDataBroadcasts");
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setPersistentStoreCoordinator:psCoordinator];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
@@ -449,11 +481,11 @@
     
     LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
     
-    // Clear out the old broadcasts.
-    [self clearVideos];
-    
     @synchronized(videoDataArray)
     {
+        // Clear out the old broadcasts.
+        [self clearVideosWithArrayLockHeld];
+        
         // Load up the new broadcasts.
         for (Broadcast *broadcast in broadcasts) {
             // For now, we only handle YouTube.
@@ -472,8 +504,8 @@
             NSURL *youTubeVideo = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:broadcast.providerId]] autorelease];
             NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
             
-            VideoData *video = [[[VideoData alloc] init] autorelease];
-            NSAssert(NOT_NULL(video), @"VideoData allocation failed. Must be out of memory. Give up.");
+            Video *video = [[[Video alloc] init] autorelease];
+            NSAssert(NOT_NULL(video), @"Video allocation failed. Must be out of memory. Give up.");
             
             NSString *sharerName = [broadcast.sharerName uppercaseString];
             if ([broadcast.origin isEqualToString:@"twitter"]) {
@@ -486,6 +518,13 @@
             if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
             if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
             
+            if (NOT_NULL(broadcast.thumbnailImage)) {
+                video.thumbnailImage = [UIImage imageWithData:broadcast.thumbnailImage];
+            }
+            if (NOT_NULL(broadcast.sharerImage)) {
+                video.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
+            }
+            
             SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
             SET_IF_NOT_NULL(video.title, broadcast.title)
             SET_IF_NOT_NULL(video.sharer, sharerName)
@@ -496,6 +535,8 @@
             if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
             if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
             
+            video.arrayGeneration = arrayGeneration;
+            
             int index = [videoDataArray count];
             [videoDataArray addObject:video];
             
@@ -504,19 +545,25 @@
             lastInserted = index + 1;
             [tableView endUpdates];
             
-            [self downloadVideoThumbnail:video];
-            [self downloadSharerImage:video];
+            if (IS_NULL(video.thumbnailImage)) {
+                [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
+            }
+            if (IS_NULL(video.sharerImage)) {
+                [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
+            }
         }
     }
     
-    [self.delegate videoTableDataDidFinishRefresh: self];
+    [context release];
+    
+    [self.delegate videoTableDataDidFinishRefresh:self];
 }
 
 #pragma mark - Notifications
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
-    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(gotNewCoreDataBroadcasts) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadCoreDataBroadcasts) userInfo:nil repeats:NO];
 }
 
 #pragma mark - Cleanup
@@ -540,6 +587,7 @@
 
         lastInserted = 0;
         videoDataArray = [[NSMutableArray alloc] init];
+        arrayGeneration = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)

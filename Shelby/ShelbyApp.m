@@ -15,7 +15,7 @@
 
 @implementation ShelbyApp
 
-@synthesize context;
+@synthesize persistentStoreCoordinator;
 @synthesize loginHelper;
 @synthesize apiHelper;
 @synthesize graphiteStats;
@@ -42,7 +42,9 @@ static ShelbyApp *gShelbyApp;
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 20];
         
         ShelbyAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        context = appDelegate.managedObjectContext;
+        context = appDelegate.managedObjectContext; // just for loginHelper and app open/close
+        
+        persistentStoreCoordinator = appDelegate.persistentStoreCoordinator; // used to create other contexts for other threads / subsystems
         
         self.loginHelper = [[[LoginHelper alloc] initWithContext:context] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];

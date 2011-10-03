@@ -17,6 +17,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+static const float kCheckSharerImageInterval = 0.25f;
+
 static const float kProgressUpdateInterval = 0.25f;
 
 static const float kProgressUpdateBuffer = 0.25f;
@@ -34,6 +36,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)drawControls;
 - (void)hideControls;
+- (void)fitTitleBarText;
 
 @property (nonatomic, retain) Video *currentVideo;
 
@@ -160,6 +163,28 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Public Methods
 
+- (void)reset
+{
+    _changingVideo = YES;
+    self.currentVideo = NULL;
+    
+    // Change our titleBar
+    //self.titleBar.title.text = video.sharerComment;
+    self.titleBar.title.text = @"";
+    self.titleBar.sharerPic.image = NULL;
+    [self fitTitleBarText];
+    
+    // Change our footerBar.
+    self.footerBar.title.text = @"";
+    
+    // Reset our duration.
+    _duration = 0.0f;
+
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
+    [_controlBar setFavoriteButtonSelected:NO];
+    _changingVideo = NO;
+}
+
 - (BOOL)isIdle {
     MPMoviePlaybackState state = self.moviePlayer.playbackState;
     if (state == MPMoviePlaybackStateStopped) {
@@ -205,7 +230,25 @@ static const float kNextPrevXOffset        =  0.0f;
     [UIView setAnimationsEnabled:YES];
 }
 
-- (void)playVideo:(Video *)video {
+- (void)checkSharerImage
+{
+    if NOT_NULL(self.titleBar.sharerPic.image) {
+        NSLog(@"something already set sharerPic");
+        return;
+    } else {
+        if (NOT_NULL(self.currentVideo.sharerImage)) {
+            NSLog(@"setting sharerPic");
+            self.titleBar.sharerPic.image = self.currentVideo.sharerImage;
+            return;
+        }
+    }
+    
+    NSLog(@"insider timer callback. still no sharer image. scheduling timer");
+    [NSTimer scheduledTimerWithTimeInterval:kCheckSharerImageInterval target: self selector: @selector(checkSharerImage) userInfo:nil repeats:NO];
+}
+
+- (void)playVideo:(Video *)video
+{
     if (NOT_NULL(video)) {
         
         [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
@@ -222,7 +265,13 @@ static const float kNextPrevXOffset        =  0.0f;
                                         video.sharer,
                                         NOT_NULL(video.sharerComment) ? video.sharerComment : @""
                                         ];
-            self.titleBar.sharerPic.image = video.sharerImage;
+            if NOT_NULL(video.sharerImage) {
+                self.titleBar.sharerPic.image = video.sharerImage;
+            } else {
+                NSLog(@"no sharer image. scheduling timer");
+                self.titleBar.sharerPic.image = nil;
+                [NSTimer scheduledTimerWithTimeInterval:kCheckSharerImageInterval target: self selector: @selector(checkSharerImage) userInfo:nil repeats:NO];
+            }
             [self fitTitleBarText];
             
             // Change our footerBar.
