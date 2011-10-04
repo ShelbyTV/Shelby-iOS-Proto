@@ -467,6 +467,34 @@
     [self decrementNetworkCounter];
 }
 
+- (void)copyBroadcast:(Broadcast *)broadcast intoVideo:(Video *)video
+{
+    NSString *sharerName = [broadcast.sharerName uppercaseString];
+    if ([broadcast.origin isEqualToString:@"twitter"]) {
+        sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+    }
+    
+    if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
+    if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
+    
+    if (NOT_NULL(broadcast.thumbnailImage)) {
+        video.thumbnailImage = [UIImage imageWithData:broadcast.thumbnailImage];
+    }
+    if (NOT_NULL(broadcast.sharerImage)) {
+        video.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
+    }
+    
+    SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
+    SET_IF_NOT_NULL(video.title, broadcast.title)
+    SET_IF_NOT_NULL(video.sharer, sharerName)
+    SET_IF_NOT_NULL(video.sharerComment, broadcast.sharerComment)
+    SET_IF_NOT_NULL(video.source, broadcast.origin)
+    SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
+    
+    if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
+    if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
+}
+
 - (void)reloadCoreDataBroadcasts
 {
     NSLog(@"here in reloadCoreDataBroadcasts");
@@ -507,15 +535,19 @@
         
         // Load up the new broadcasts.
         for (Broadcast *broadcast in broadcasts) {
+            BOOL dupe = FALSE;
+            
             // For now, we only handle YouTube.
             if (IS_NULL(broadcast.provider) || ![broadcast.provider isEqualToString: @"youtube"]) {
                 continue;
             }
             
+            // If we're in the like view, only keep videos that are liked...
             if (likedOnly && (IS_NULL(broadcast.liked) || ![broadcast.liked boolValue])) {
                 continue;
             }
             
+            // Need provider (checked above) and providerId to be able to display the video
             if (IS_NULL(broadcast.providerId)) {
                 continue;
             }
@@ -526,35 +558,22 @@
             Video *video = [[[Video alloc] init] autorelease];
             NSAssert(NOT_NULL(video), @"Video allocation failed. Must be out of memory. Give up.");
             
-            NSString *sharerName = [broadcast.sharerName uppercaseString];
-            if ([broadcast.origin isEqualToString:@"twitter"]) {
-                sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+            if ([videoDupeDict objectForKey:[NSString stringWithFormat:@"%@%@", broadcast.provider, broadcast.providerId]] != nil) {
+                dupe = TRUE;
+                NSLog(@"Dupe. Ignoring.");
+                continue;
+            } else {
+                
+                [videoDupeDict setObject:video forKey:[NSString stringWithFormat:@"%@%@", broadcast.provider, broadcast.providerId]];
+                NSLog(@"Not a dupe");
             }
-            
-            // We need the video to get anything done
+
+            // create Video from Broadcast
+            [self copyBroadcast:broadcast intoVideo:video];
             video.youTubeVideoInfoURL = youTubeVideo;
-            
-            if (NOT_NULL(broadcast.thumbnailImageUrl)) video.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
-            if (NOT_NULL(broadcast.sharerImageUrl)) video.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
-            
-            if (NOT_NULL(broadcast.thumbnailImage)) {
-                video.thumbnailImage = [UIImage imageWithData:broadcast.thumbnailImage];
-            }
-            if (NOT_NULL(broadcast.sharerImage)) {
-                video.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
-            }
-            
-            SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
-            SET_IF_NOT_NULL(video.title, broadcast.title)
-            SET_IF_NOT_NULL(video.sharer, sharerName)
-            SET_IF_NOT_NULL(video.sharerComment, broadcast.sharerComment)
-            SET_IF_NOT_NULL(video.source, broadcast.origin)
-            SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
-            
-            if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
-            if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
-            
             video.arrayGeneration = arrayGeneration;
+            
+            
             
             int index = [videoDataArray count];
             [videoDataArray addObject:video];
@@ -606,6 +625,7 @@
 
         lastInserted = 0;
         videoDataArray = [[NSMutableArray alloc] init];
+        videoDupeDict = [[NSMutableDictionary alloc] init];
         arrayGeneration = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver: self

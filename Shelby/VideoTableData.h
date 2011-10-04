@@ -24,6 +24,7 @@
     NSOperationQueue *operationQueue;
     UITableView *tableView;
     NSMutableArray *videoDataArray;
+    NSMutableDictionary *videoDupeDict;
     NSUInteger lastInserted;
     int arrayGeneration;
 }
