@@ -160,21 +160,24 @@
     [alert release];
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - User Button Methods
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    // Since we only have one alertview, let's be lazy and assume we have the right one.
-
-    if (buttonIndex == 1) {
-        [[ShelbyApp sharedApp].loginHelper logout];
-    }
+- (IBAction)userViewWasPressed:(id)sender
+{
+    // Override in subclass.
 }
 
 #pragma mark - STVShareViewDelegate Methods
 
+- (void)closeShareView {
+    if (self.shareView) {
+        [self.shareView removeFromSuperview];
+        self.shareView = nil;
+    }
+}
+
 - (void)shareViewClosePressed:(STVShareView*)shareView {
-    [shareView removeFromSuperview];
-    self.shareView = nil;
+    [self closeShareView];
 }
 
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
@@ -193,11 +196,17 @@
     [shareView removeFromSuperview];
 }
 
-#pragma mark - User Button Methods
+#pragma mark - UIAlertViewDelegate Methods
 
-- (IBAction)userViewWasPressed:(id)sender
-{
-    // Override in subclass.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // Since we only have one alertview, let's be lazy and assume we have the right one.
+
+    if (buttonIndex == 1) {
+        // close the shareview, if visible
+        [self closeShareView];
+        // actually log out
+        [[ShelbyApp sharedApp].loginHelper logout];
+    }
 }
 
 #pragma mark - VideoTableViewControllerDelegate Methods
