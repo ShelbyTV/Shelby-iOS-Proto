@@ -140,13 +140,17 @@
 
 #pragma mark - Layout
 
+- (CGRect)centerFrame:(CGRect)frame inFrame:(CGRect)parent {
+    frame.origin.x = (parent.size.width / 2) - (frame.size.width / 2);
+    frame.origin.y = (parent.size.height / 2) - (frame.size.height / 2);
+
+    return frame;
+}
+
 - (CGRect)centerFrame:(CGRect)frame
 {
-    frame.origin.x = (self.view.bounds.size.width / 2) - (frame.size.width / 2);
-    frame.origin.y = (self.view.bounds.size.height / 2) - (frame.size.height / 2);
-
-    //frame.origin.y = 0;
-    return frame;
+    return [self centerFrame:frame
+                     inFrame:self.view.bounds];
 }
 
 #pragma mark - Logout Functionality
@@ -274,8 +278,10 @@
         //CGRect frame = shareView.frame;
         //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
         //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
-        shareView.frame = [self centerFrame: shareView.frame];
-        [self.view addSubview: shareView];
+        shareView.frame = [self centerFrame: shareView.frame inFrame: _videoPlayer.bounds];
+
+        //[self.view addSubview: shareView];
+        [_videoPlayer addSubview: shareView];
 
         self.shareView = shareView;
 
