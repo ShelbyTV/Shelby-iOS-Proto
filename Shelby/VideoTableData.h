@@ -24,6 +24,7 @@
     NSOperationQueue *operationQueue;
     UITableView *tableView;
     NSMutableArray *videoDataArray;
+    NSMutableDictionary *videoDupeDict;
     NSUInteger lastInserted;
     int arrayGeneration;
 }
@@ -47,6 +48,7 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (BOOL)videoLikedAtIndex:(NSUInteger)index;
 - (BOOL)videoWatchedAtIndex:(NSUInteger)index;
+- (int)videoDupeCountAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
 
 - (void)clearVideos;

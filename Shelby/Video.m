@@ -11,7 +11,8 @@
 
 @implementation Video
 
-@synthesize youTubeVideoInfoURL;
+@synthesize provider;
+@synthesize providerId;
 @synthesize contentURL;
 @synthesize thumbnailURL;
 @synthesize thumbnailImage;
@@ -31,7 +32,8 @@
 
 - (void) dealloc
 {
-    [youTubeVideoInfoURL release];
+    [provider release];    
+    [providerId release];
     [contentURL release];
     [thumbnailURL release];
     [thumbnailImage release];
