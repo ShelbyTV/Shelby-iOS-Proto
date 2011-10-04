@@ -25,6 +25,8 @@
 @synthesize socialView;
 @synthesize activeView;
 @synthesize video = _video;
+@synthesize socialTextView = _socialTextView;
+@synthesize emailTextView = _emailTextView;
 
 #pragma mark - Factory
 

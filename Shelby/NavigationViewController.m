@@ -278,6 +278,8 @@
         [self.view addSubview: shareView];
 
         self.shareView = shareView;
+
+        [shareView.socialTextView becomeFirstResponder];
     }
 }
 
