@@ -17,8 +17,6 @@
 #import "Video.h"
 #import "STVShareView.h"
 
-#define kKeyboardAnimationDuration 1.0
-
 @implementation NavigationViewController
 
 @synthesize shareView = _shareView;
@@ -394,7 +392,8 @@
 
 - (void)keyboardWillHide:(NSNotification *)n
 {
-    //NSDictionary* userInfo = [n userInfo];
+    NSDictionary* userInfo = [n userInfo];
+    double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 
     // get the size of the keyboard
     //NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
@@ -408,7 +407,7 @@
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+    [UIView setAnimationDuration: animationDuration];
 
     // move the shareView
     self.shareView.frame = [self centerFrame: self.shareView.frame];
@@ -427,6 +426,8 @@
 
     NSDictionary* userInfo = [n userInfo];
 
+    double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+
     // get the size of the keyboard
     NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
     //NSValue* beginValue = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
@@ -438,7 +439,7 @@
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+    [UIView setAnimationDuration: animationDuration];
 
     if (self.shareView) {
         CGRect frame = self.shareView.frame;
