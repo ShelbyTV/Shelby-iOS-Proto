@@ -41,7 +41,8 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
 
     STVShareView *view = [objects objectAtIndex:0];
-    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePattern.png"]];
+    //UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePattern.png"]];
+    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePatternSquare.png"]];
     //view.backgroundColor = backgroundPattern;
     //view.mainView.backgroundColor = backgroundPattern;
     view.socialView.backgroundColor = backgroundPattern;

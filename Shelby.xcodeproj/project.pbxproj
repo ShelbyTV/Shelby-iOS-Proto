@@ -89,7 +89,6 @@
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
 		42896BA3142EECD300E2405D /* STVShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42896BA2142EECD300E2405D /* STVShareView.m */; };
 		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
-		4289EB9614365A9D008311A7 /* SharePattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9514365A9D008311A7 /* SharePattern.png */; };
 		4289EB9914366010008311A7 /* ButtonClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9814366010008311A7 /* ButtonClose.png */; };
 		4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */; };
 		4289EB9D143665F1008311A7 /* ButtonShareTabInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */; };
@@ -172,6 +171,7 @@
 		42DAF46D1411390000936536 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46B1411389E00936536 /* CoreDataTest.m */; };
 		42DAF47314113F8D00936536 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF47214113F8D00936536 /* Channel.m */; };
 		42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DFDA03142D6E0D00686829 /* Icon-iPad.png */; };
+		42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB02143AA285009FCFCE /* SharePatternSquare.png */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
 		42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */; };
@@ -293,7 +293,6 @@
 		42896BA2142EECD300E2405D /* STVShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVShareView.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		4289EB9514365A9D008311A7 /* SharePattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SharePattern.png; path = Resources/Images/SharePattern.png; sourceTree = "<group>"; };
 		4289EB9814366010008311A7 /* ButtonClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonClose.png; path = Resources/Images/ButtonClose.png; sourceTree = "<group>"; };
 		4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShareTabActive.png; path = Resources/Images/ButtonShareTabActive.png; sourceTree = "<group>"; };
 		4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShareTabInactive.png; path = Resources/Images/ButtonShareTabInactive.png; sourceTree = "<group>"; };
@@ -411,6 +410,7 @@
 		42DAF47114113F8D00936536 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		42DAF47214113F8D00936536 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		42DFDA03142D6E0D00686829 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
+		42E1BB02143AA285009FCFCE /* SharePatternSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SharePatternSquare.png; path = Resources/Images/SharePatternSquare.png; sourceTree = "<group>"; };
 		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
 		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
 		42FAA3AE13FD841900BC1D28 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
@@ -891,7 +891,7 @@
 				42ACA2C7142A9305009FD812 /* ButtonSend.png */,
 				4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */,
 				4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */,
-				4289EB9514365A9D008311A7 /* SharePattern.png */,
+				42E1BB02143AA285009FCFCE /* SharePatternSquare.png */,
 				42ACA2C5142A9262009FD812 /* TextAreaGray.png */,
 				427A622313F46ECA00C945E2 /* SaveChanges.png */,
 				427A621A13F46D5B00C945E2 /* CancelButton.jpg */,
@@ -1154,7 +1154,6 @@
 				42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */,
 				0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */,
 				0ADF88F11433ED1A001BCCF8 /* Bookmarklet.png in Resources */,
-				4289EB9614365A9D008311A7 /* SharePattern.png in Resources */,
 				4289EB9914366010008311A7 /* ButtonClose.png in Resources */,
 				4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */,
 				4289EB9D143665F1008311A7 /* ButtonShareTabInactive.png in Resources */,
@@ -1162,6 +1161,7 @@
 				0ADF890614344B02001BCCF8 /* TumblrDisabled.png in Resources */,
 				0ADF890914344B10001BCCF8 /* Logo_iPad.png in Resources */,
 				0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */,
+				42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
