@@ -390,8 +390,14 @@
     UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
     sharerImage.image = [videoTableData videoSharerImageAtIndex:row];
 
+    int dupeCount = [videoTableData videoDupeCountAtIndex:row];
+    
     UILabel *sharer = (UILabel *)[cell viewWithTag:5];
-    sharer.text = [videoTableData videoSharerAtIndex:row];
+    if (dupeCount != 0) {
+        sharer.text = [NSString stringWithFormat:@"%@ + %d MORE", [videoTableData videoSharerAtIndex:row], dupeCount];
+    } else {
+        sharer.text = [videoTableData videoSharerAtIndex:row];
+    }
 
     UILabel *createdAt = (UILabel *)[cell viewWithTag:6];
     createdAt.text = [self prettyDateDiff:[videoTableData videoCreatedAtIndex:row]];

@@ -48,6 +48,7 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (BOOL)videoLikedAtIndex:(NSUInteger)index;
 - (BOOL)videoWatchedAtIndex:(NSUInteger)index;
+- (int)videoDupeCountAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
 
 - (void)clearVideos;

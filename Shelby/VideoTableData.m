@@ -54,6 +54,11 @@
 @synthesize networkCounter;
 @synthesize likedOnly;
 
+- (NSString *)dupeKeyWithProvider:(NSString *)provider withId:(NSString *)providerId
+{
+    return [NSString stringWithFormat:@"%@%@", provider, providerId];
+}
+
 - (void)incrementNetworkCounter
 {
     // sync just needed for writes to make sure two simultaneous inc/decrements don't result in same value
@@ -177,6 +182,15 @@
     } 
 }
 
+- (int)videoDupeCountAtIndex:(NSUInteger)index
+{
+    @synchronized(videoDataArray)
+    {
+        Video *video = [videoDataArray objectAtIndex:index];
+        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
+    } 
+}
+
 - (Video *)videoAtIndex:(NSUInteger)index
 {
     return (Video *)[videoDataArray objectAtIndex:index];
@@ -197,6 +211,15 @@
     }
 }
 #endif
+
+
+// helper method -- maybe better to just embed in this file?
++ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
+{
+    assert(NOT_NULL(video));
+    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
+    return [baseURL stringByAppendingString:video];
+}
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
@@ -223,8 +246,7 @@
         /*
          * Content URL
          */
-
-        NSURL *youTubeURL = videoData.youTubeVideoInfoURL;
+        NSURL *youTubeURL = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:videoData.providerId]] autorelease];
         NSError *error = nil;
         NSString *youTubeVideoDataRaw = [[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error];
         NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
@@ -309,14 +331,6 @@
     }
 }
 
-// helper method -- maybe better to just embed in this file?
-+ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
-{
-    assert(NOT_NULL(video));
-    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
-    return [baseURL stringByAppendingString:video];
-}
-
 
 /*
  * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
@@ -325,6 +339,7 @@
 
 - (void)clearVideosWithArrayLockHeld
 {
+    [videoDupeDict removeAllObjects];
     [videoDataArray removeAllObjects];
     
     arrayGeneration++;
@@ -484,6 +499,8 @@
         video.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
     }
     
+    SET_IF_NOT_NULL(video.provider, broadcast.provider);
+    SET_IF_NOT_NULL(video.providerId, broadcast.providerId);
     SET_IF_NOT_NULL(video.shelbyId, broadcast.shelbyId);
     SET_IF_NOT_NULL(video.title, broadcast.title)
     SET_IF_NOT_NULL(video.sharer, sharerName)
@@ -496,11 +513,9 @@
     if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
 }
 
-- (void)reloadCoreDataBroadcasts
+- (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
 {
-    NSLog(@"here in reloadCoreDataBroadcasts");
     NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     [context setPersistentStoreCoordinator:psCoordinator];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -523,6 +538,14 @@
     [fetchRequest release];
     [sorter release];
     
+    return broadcasts;
+}
+
+- (void)reloadCoreDataBroadcasts
+{
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    NSArray *broadcasts = [self fetchBroadcastsFromCoreDataContext:context];
+
     if (IS_NULL(broadcasts)) {
         return;
     } 
@@ -534,45 +557,67 @@
         // Clear out the old broadcasts.
         [self clearVideosWithArrayLockHeld];
         
+        NSMutableArray *uniqueVideoKeys = [[NSMutableArray alloc] init];
+        
         // Load up the new broadcasts.
-        for (Broadcast *broadcast in broadcasts) {
-            BOOL dupe = FALSE;
-            
+        for (Broadcast *broadcast in broadcasts) {            
             // For now, we only handle YouTube.
             if (IS_NULL(broadcast.provider) || ![broadcast.provider isEqualToString: @"youtube"]) {
                 continue;
             }
-            
-            // If we're in the like view, only keep videos that are liked...
-            if (likedOnly && (IS_NULL(broadcast.liked) || ![broadcast.liked boolValue])) {
-                continue;
-            }
-            
+
             // Need provider (checked above) and providerId to be able to display the video
             if (IS_NULL(broadcast.providerId)) {
                 continue;
             }
             
-            NSURL *youTubeVideo = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:broadcast.providerId]] autorelease];
-            NSAssert(NOT_NULL(youTubeVideo), @"NSURL allocation failed. Must be out of memory. Give up.");
-            
             Video *video = [[[Video alloc] init] autorelease];
-            NSAssert(NOT_NULL(video), @"Video allocation failed. Must be out of memory. Give up.");
-            
-            if ([videoDupeDict objectForKey:[NSString stringWithFormat:@"%@%@", broadcast.provider, broadcast.providerId]] != nil) {
-                dupe = TRUE;
-                NSLog(@"Dupe. Ignoring.");
-                continue;
+
+            NSMutableArray *dupeArray = [videoDupeDict objectForKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+            if (NOT_NULL(dupeArray)) {
+                [dupeArray insertObject:video atIndex:0];
             } else {
-                
-                [videoDupeDict setObject:video forKey:[NSString stringWithFormat:@"%@%@", broadcast.provider, broadcast.providerId]];
-                NSLog(@"Not a dupe");
+                dupeArray = [[NSMutableArray alloc] init];
+                [dupeArray addObject:video];
+                [videoDupeDict setObject:dupeArray forKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+                [uniqueVideoKeys addObject:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             }
 
             // create Video from Broadcast
             [self copyBroadcast:broadcast intoVideo:video];
-            video.youTubeVideoInfoURL = youTubeVideo;
             video.arrayGeneration = arrayGeneration;  
+
+            // need the sharerImage even for dupes
+            if (IS_NULL(video.sharerImage)) {
+                [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
+            }
+            
+            // could optimize to not re-download for dupes, but don't bother for now...
+            if (IS_NULL(video.thumbnailImage)) {
+                [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
+            }
+        }
+        
+        for (NSString *key in uniqueVideoKeys)
+        {
+            NSArray *dupeArray = [videoDupeDict objectForKey:key];
+            
+            // If we're in the like view, only keep videos that are liked...
+            if (likedOnly) {
+                BOOL likedDupe = NO;
+                for (Video *video in dupeArray) {
+                    if (video.isLiked) {
+                        likedDupe = YES;
+                        break;
+                    }
+                }
+                if (!likedDupe)
+                {
+                    continue;
+                }
+            }
+            
+            Video *video = [dupeArray objectAtIndex:0];
             
             int index = [videoDataArray count];
             [videoDataArray addObject:video];
@@ -581,13 +626,6 @@
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
             lastInserted = index + 1;
             [tableView endUpdates];
-            
-            if (IS_NULL(video.thumbnailImage)) {
-                [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
-            }
-            if (IS_NULL(video.sharerImage)) {
-                [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
-            }
         }
     }
     
