@@ -10,6 +10,7 @@
 
 @class STVShareView;
 @class Video;
+@class User;
 
 @protocol STVShareViewDelegate 
 
@@ -44,5 +45,7 @@
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
+
+- (void)updateAuthorizations:(User *)user;
 
 @end

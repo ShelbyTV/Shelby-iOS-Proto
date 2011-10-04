@@ -8,6 +8,7 @@
 
 #import "STVShareView.h"
 #import "Video.h"
+#import "User.h"
 
 @interface STVShareView ()
 
@@ -176,6 +177,13 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     _socialTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
     _emailTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
 }
+
+- (void)updateAuthorizations:(User *)user {
+    // Set twitter view visible
+    _twitterButton.enabled  = [user.auth_twitter boolValue];
+    _facebookButton.enabled = [user.auth_facebook boolValue];
+}
+
 
 #pragma mark - UITextViewDelegate
 
