@@ -262,36 +262,25 @@
 }
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
+    if (!self.shareView) {
+        // show share UI
+        STVShareView *shareView = [STVShareView viewFromNib];
+        shareView.delegate = self;
 
-    // show share UI
-    //[[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
+        // Set up the shareView with the video info.
+        Video *video = [videoTable getCurrentVideo];
+        shareView.video = video;
 
-    // Show an action sheet for now.
-    //UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
-    //popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    //[popupQuery showInView: self.view];
-    //[popupQuery release];
+        [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
-    //ShareViewController *controller = [ShareViewController viewController];
-    //[self presentModalViewController: controller
-    //                        animated: YES];
+        //CGRect frame = shareView.frame;
+        //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
+        //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
+        shareView.frame = [self centerFrame: shareView.frame];
+        [self.view addSubview: shareView];
 
-    STVShareView *shareView = [STVShareView viewFromNib];
-    shareView.delegate = self;
-
-    // Set up the shareView with the video info.
-    Video *video = [videoTable getCurrentVideo];
-    shareView.video = video;
-
-    [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
-
-    //CGRect frame = shareView.frame;
-    //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
-    //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
-    shareView.frame = [self centerFrame: shareView.frame];
-    [self.view addSubview: shareView];
-
-    self.shareView = shareView;
+        self.shareView = shareView;
+    }
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
