@@ -34,6 +34,8 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [_videoPlayer setFullscreen:FALSE];
 
     // Listen for swipes on the Shelby logo.
     UIPanGestureRecognizer *panRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(shelbyIconWasPanned:)] autorelease];
@@ -74,7 +76,10 @@ static const float ANIMATION_TIME = 0.5f;
     
     // Make header transparent while tray is closing.
     if (!right) {
-       header.alpha = 0.5;
+        header.alpha = 0.5;
+        [_videoPlayer setFullscreen:TRUE];
+    } else {
+        [_videoPlayer setFullscreen:FALSE];
     }
 }
 
@@ -84,8 +89,6 @@ static const float ANIMATION_TIME = 0.5f;
         if (_trayClosed) {
             // make header opaque immediately before sliding
             header.alpha = 1.0;
-        } else {
-
         }
         [UIView animateWithDuration:ANIMATION_TIME animations:^{
             [self slideTray: _trayClosed];
