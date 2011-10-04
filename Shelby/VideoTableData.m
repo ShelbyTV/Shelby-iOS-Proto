@@ -529,6 +529,7 @@
             SET_IF_NOT_NULL(video.title, broadcast.title)
             SET_IF_NOT_NULL(video.sharer, sharerName)
             SET_IF_NOT_NULL(video.sharerComment, broadcast.sharerComment)
+            SET_IF_NOT_NULL(video.shortPermalink, broadcast.shortPermalink)
             SET_IF_NOT_NULL(video.source, broadcast.origin)
             SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
             

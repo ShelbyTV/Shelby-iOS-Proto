@@ -180,7 +180,8 @@
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
   - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
 
-    Video *video = [videoTable getCurrentVideo];
+    //Video *video = [videoTable getCurrentVideo];
+    Video *video = shareView.video;
     // get ID from the video
     NSString *videoId = video.shelbyId;
 
@@ -268,6 +269,10 @@
 
     STVShareView *shareView = [STVShareView viewFromNib];
     shareView.delegate = self;
+
+    // Set up the shareView with the video info.
+    Video *video = [videoTable getCurrentVideo];
+    shareView.video = video;
 
     //CGRect frame = shareView.frame;
     //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);

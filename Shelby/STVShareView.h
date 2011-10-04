@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class STVShareView;
+@class Video;
 
 @protocol STVShareViewDelegate 
 
@@ -25,6 +26,7 @@
   IBOutlet UITextView *_socialTextView;
   IBOutlet UITextView *_emailTextView;
   IBOutlet UITextField *_emailRecipientView;
+  Video *_video;
 }
 
 @property (assign) id <STVShareViewDelegate> delegate;
@@ -33,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet UIView *emailView;
 @property (nonatomic, retain) IBOutlet UIView *socialView;
 @property (nonatomic, assign) UIView *activeView;
+@property (nonatomic, retain) Video *video;
 
 + (STVShareView *)viewFromNib;
 

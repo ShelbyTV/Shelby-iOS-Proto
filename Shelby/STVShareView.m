@@ -7,6 +7,7 @@
 //
 
 #import "STVShareView.h"
+#import "Video.h"
 
 @interface STVShareView ()
 
@@ -22,6 +23,7 @@
 @synthesize emailView;
 @synthesize socialView;
 @synthesize activeView;
+@synthesize video = _video;
 
 #pragma mark - Factory
 
@@ -161,6 +163,18 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     if (self.delegate) {
         [self.delegate shareView:self sentMessage:message withNetworks:networks andRecipients:recipients];
     }
+}
+
+#pragma mark - Setter/Getter
+
+- (void)setVideo:(Video *)video {
+    // Standard retain/release.
+    [_video release];
+    _video = [video retain];
+
+    // Populate the UI.
+    _socialTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
+    _emailTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
 }
 
 #pragma mark - UITextViewDelegate

@@ -23,6 +23,7 @@
 @synthesize source;
 @synthesize createdAt;
 @synthesize shelbyId;
+@synthesize shortPermalink;
 @synthesize isLiked;
 @synthesize isWatched;
 @synthesize arrayGeneration;

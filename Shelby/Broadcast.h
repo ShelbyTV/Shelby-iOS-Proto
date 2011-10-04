@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSString *sharerImageUrl;
 @property (nonatomic, retain) NSString *sharerName;
 @property (nonatomic, retain) NSString *shelbyId;
+@property (nonatomic, retain) NSString *shortPermalink;
 @property (nonatomic, retain) NSData   *thumbnailImage;
 @property (nonatomic, retain) NSString *thumbnailImageUrl;
 @property (nonatomic, retain) NSString *title;
