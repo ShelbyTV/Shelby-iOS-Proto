@@ -39,11 +39,12 @@
     BOOL _controlsVisible;
     // When did the controls last become visible?
     double _lastButtonPressOrControlsVisible;
-
-    // UI
+    
     UIButton *_nextButton;
     UIButton *_prevButton;
-
+    
+    BOOL _fullscreen;
+    
     VideoPlayerControlBar *_controlBar;
     MPMoviePlayerController *_moviePlayer;
 
@@ -61,5 +62,6 @@
 - (void)stop;
 - (void)playVideo:(Video *)video;
 - (void)reset;
+- (void)setFullscreen:(BOOL)fullscreen;
 
 @end

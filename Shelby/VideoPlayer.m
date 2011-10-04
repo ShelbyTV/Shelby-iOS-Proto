@@ -81,6 +81,10 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - Initialization
 
 - (void)initViews {
+    
+    // this will be immediately set to false by the iPad NavigationViewController
+    _fullscreen = TRUE;
+    
     // Buttons
     _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
     [_nextButton setImage: [UIImage imageNamed: @"ButtonNext.png"]
@@ -123,8 +127,6 @@ static const float kNextPrevXOffset        =  0.0f;
     [self addSubview: _controlBar];
 
     _controls = [[NSArray alloc] initWithObjects:
-        _nextButton,
-        _prevButton,
         _controlBar,
         self.titleBar,
         self.footerBar,
@@ -304,6 +306,18 @@ static const float kNextPrevXOffset        =  0.0f;
     [_moviePlayer stop];
 }
 
+- (void)setFullscreen:(BOOL)fullscreen
+{
+    _fullscreen = fullscreen;
+    if (_controlsVisible && fullscreen) {
+        _nextButton.alpha = 1.0;
+        _prevButton.alpha = 1.0;
+    } else if (_controlsVisible && !fullscreen) {
+        _nextButton.alpha = 0.0;
+        _prevButton.alpha = 0.0;
+    }
+}
+
 #pragma mark - Touch Handling
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_controlsVisible) {
@@ -340,6 +354,8 @@ static const float kNextPrevXOffset        =  0.0f;
             for (UIView *control in _controls) {
                 control.alpha = 0.0;
             }
+            _nextButton.alpha = 0.0;
+            _prevButton.alpha = 0.0;
         }
         completion:^(BOOL finished){
                if (finished) {
@@ -356,6 +372,10 @@ static const float kNextPrevXOffset        =  0.0f;
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
         for (UIView *control in _controls) {
             control.alpha = 1.0;
+        }
+        if (_fullscreen) {
+            _nextButton.alpha = 1.0;
+            _prevButton.alpha = 1.0;
         }
     }
                      completion:^(BOOL finished){
