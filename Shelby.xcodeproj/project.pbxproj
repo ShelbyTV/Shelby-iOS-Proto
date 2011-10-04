@@ -23,9 +23,6 @@
 		0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */; };
 		0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3E77B01434713500800018 /* iPadHeaderBackground.png */; };
 		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
-		0A3E791D14367E3900800018 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E791814367E3800800018 /* UIImage+Alpha.m */; };
-		0A3E791E14367E3900800018 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E791A14367E3800800018 /* UIImage+Resize.m */; };
-		0A3E791F14367E3900800018 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E791C14367E3800800018 /* UIImage+RoundedCorner.m */; };
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
@@ -211,12 +208,6 @@
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
 		0A3E791014357D5600800018 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Libraries/TestFlight/libTestFlight.a; sourceTree = "<group>"; };
 		0A3E791314357D8100800018 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = Libraries/TestFlight/TestFlight.h; sourceTree = "<group>"; };
-		0A3E791714367E3800800018 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
-		0A3E791814367E3800800018 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
-		0A3E791914367E3800800018 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		0A3E791A14367E3800800018 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		0A3E791B14367E3800800018 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
-		0A3E791C14367E3800800018 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		0A4DB3DC1432512D00618605 /* ApiMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiMutableURLRequest.h; sourceTree = "<group>"; };
 		0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiMutableURLRequest.m; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
@@ -994,12 +985,6 @@
 		42FAA3AB13FD840B00BC1D28 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				0A3E791714367E3800800018 /* UIImage+Alpha.h */,
-				0A3E791814367E3800800018 /* UIImage+Alpha.m */,
-				0A3E791914367E3800800018 /* UIImage+Resize.h */,
-				0A3E791A14367E3800800018 /* UIImage+Resize.m */,
-				0A3E791B14367E3800800018 /* UIImage+RoundedCorner.h */,
-				0A3E791C14367E3800800018 /* UIImage+RoundedCorner.m */,
 				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
 				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
 				423FFDBB142A6CCD00F8FF54 /* STVNetworkObject.h */,
@@ -1265,9 +1250,6 @@
 				0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */,
 				0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */,
 				42D1FDB0143A5266007E7A9B /* STVZeroEdgeTextView.m in Sources */,
-				0A3E791D14367E3900800018 /* UIImage+Alpha.m in Sources */,
-				0A3E791E14367E3900800018 /* UIImage+Resize.m in Sources */,
-				0A3E791F14367E3900800018 /* UIImage+RoundedCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
