@@ -160,21 +160,24 @@
     [alert release];
 }
 
-#pragma mark - UIAlertViewDelegate Methods
+#pragma mark - User Button Methods
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    // Since we only have one alertview, let's be lazy and assume we have the right one.
-
-    if (buttonIndex == 1) {
-        [[ShelbyApp sharedApp].loginHelper logout];
-    }
+- (IBAction)userViewWasPressed:(id)sender
+{
+    // Override in subclass.
 }
 
 #pragma mark - STVShareViewDelegate Methods
 
+- (void)closeShareView {
+    if (self.shareView) {
+        [self.shareView removeFromSuperview];
+        self.shareView = nil;
+    }
+}
+
 - (void)shareViewClosePressed:(STVShareView*)shareView {
-    [shareView removeFromSuperview];
-    self.shareView = nil;
+    [self closeShareView];
 }
 
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
@@ -193,11 +196,17 @@
     [shareView removeFromSuperview];
 }
 
-#pragma mark - User Button Methods
+#pragma mark - UIAlertViewDelegate Methods
 
-- (IBAction)userViewWasPressed:(id)sender
-{
-    // Override in subclass.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // Since we only have one alertview, let's be lazy and assume we have the right one.
+
+    if (buttonIndex == 1) {
+        // close the shareview, if visible
+        [self closeShareView];
+        // actually log out
+        [[ShelbyApp sharedApp].loginHelper logout];
+    }
 }
 
 #pragma mark - VideoTableViewControllerDelegate Methods
@@ -253,36 +262,25 @@
 }
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
+    if (!self.shareView) {
+        // show share UI
+        STVShareView *shareView = [STVShareView viewFromNib];
+        shareView.delegate = self;
 
-    // show share UI
-    //[[ShelbyApp sharedApp].networkManager likeVideoWithId: videoId];
+        // Set up the shareView with the video info.
+        Video *video = [videoTable getCurrentVideo];
+        shareView.video = video;
 
-    // Show an action sheet for now.
-    //UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Facebook" otherButtonTitles:@"Twitter", @"Tumblr", nil];
-    //popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    //[popupQuery showInView: self.view];
-    //[popupQuery release];
+        [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
-    //ShareViewController *controller = [ShareViewController viewController];
-    //[self presentModalViewController: controller
-    //                        animated: YES];
+        //CGRect frame = shareView.frame;
+        //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
+        //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
+        shareView.frame = [self centerFrame: shareView.frame];
+        [self.view addSubview: shareView];
 
-    STVShareView *shareView = [STVShareView viewFromNib];
-    shareView.delegate = self;
-
-    // Set up the shareView with the video info.
-    Video *video = [videoTable getCurrentVideo];
-    shareView.video = video;
-
-    [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
-
-    //CGRect frame = shareView.frame;
-    //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
-    //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
-    shareView.frame = [self centerFrame: shareView.frame];
-    [self.view addSubview: shareView];
-
-    self.shareView = shareView;
+        self.shareView = shareView;
+    }
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {

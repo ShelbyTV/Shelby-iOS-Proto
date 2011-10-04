@@ -172,6 +172,8 @@
 		42DAF47314113F8D00936536 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF47214113F8D00936536 /* Channel.m */; };
 		42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DFDA03142D6E0D00686829 /* Icon-iPad.png */; };
 		42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB02143AA285009FCFCE /* SharePatternSquare.png */; };
+		42E1BB12143B983B009FCFCE /* TwitterDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB11143B983B009FCFCE /* TwitterDead.png */; };
+		42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB14143B9844009FCFCE /* FacebookDead.png */; };
 		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
 		42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */; };
@@ -411,6 +413,8 @@
 		42DAF47214113F8D00936536 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		42DFDA03142D6E0D00686829 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		42E1BB02143AA285009FCFCE /* SharePatternSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SharePatternSquare.png; path = Resources/Images/SharePatternSquare.png; sourceTree = "<group>"; };
+		42E1BB11143B983B009FCFCE /* TwitterDead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterDead.png; path = Resources/Images/TwitterDead.png; sourceTree = "<group>"; };
+		42E1BB14143B9844009FCFCE /* FacebookDead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookDead.png; path = Resources/Images/FacebookDead.png; sourceTree = "<group>"; };
 		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
 		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
 		42FAA3AE13FD841900BC1D28 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
@@ -510,6 +514,8 @@
 		0AC84964143034A000FDF996 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				42E1BB14143B9844009FCFCE /* FacebookDead.png */,
+				42E1BB11143B983B009FCFCE /* TwitterDead.png */,
 				428B02AD1421713D00C88063 /* PlaceholderFace.png */,
 				42C4C55913E8A6C00034AC97 /* FacebookActive.png */,
 				42C4C55A13E8A6C00034AC97 /* FacebookDisabled.png */,
@@ -1162,6 +1168,8 @@
 				0ADF890914344B10001BCCF8 /* Logo_iPad.png in Resources */,
 				0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */,
 				42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */,
+				42E1BB12143B983B009FCFCE /* TwitterDead.png in Resources */,
+				42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

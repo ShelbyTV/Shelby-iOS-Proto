@@ -175,8 +175,14 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     _video = [video retain];
 
     // Populate the UI.
-    _socialTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
-    _emailTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
+    NSString *comment = nil;
+    if (video.shortPermalink) {
+        comment = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
+    } else {
+        comment = @"Check out this great video I'm watching @onShelby!", video.shortPermalink;
+    }
+    _socialTextView.text = comment;
+    _emailTextView.text  = comment;
 }
 
 - (void)updateAuthorizations:(User *)user {

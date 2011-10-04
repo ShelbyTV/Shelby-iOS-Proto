@@ -162,6 +162,10 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="192979874"/>
+								<object class="NSCustomResource" key="IBUIDisabledImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">FacebookDead.png</string>
+								</object>
 								<object class="NSCustomResource" key="IBUISelectedImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">FacebookActive.png</string>
@@ -170,11 +174,12 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">FacebookDisabled.png</string>
 								</object>
-								<object class="NSCustomResource" key="IBUISelectedBackgroundImage" id="172226655">
+								<object class="NSCustomResource" key="IBUIDisabledBackgroundImage" id="109809636">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">ButtonSocialBackground.png</string>
 								</object>
-								<reference key="IBUINormalBackgroundImage" ref="172226655"/>
+								<reference key="IBUISelectedBackgroundImage" ref="109809636"/>
+								<reference key="IBUINormalBackgroundImage" ref="109809636"/>
 							</object>
 							<object class="IBUIButton" id="447002989">
 								<reference key="NSNextResponder" ref="67495923"/>
@@ -195,6 +200,10 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="192979874"/>
+								<object class="NSCustomResource" key="IBUIDisabledImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">TwitterDead.png</string>
+								</object>
 								<object class="NSCustomResource" key="IBUISelectedImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">TwitterActive.png</string>
@@ -203,8 +212,9 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">TwitterDisabled.png</string>
 								</object>
-								<reference key="IBUISelectedBackgroundImage" ref="172226655"/>
-								<reference key="IBUINormalBackgroundImage" ref="172226655"/>
+								<reference key="IBUIDisabledBackgroundImage" ref="109809636"/>
+								<reference key="IBUISelectedBackgroundImage" ref="109809636"/>
+								<reference key="IBUINormalBackgroundImage" ref="109809636"/>
 							</object>
 							<object class="IBUILabel" id="307355695">
 								<reference key="NSNextResponder" ref="67495923"/>
@@ -495,6 +505,7 @@
 						<string key="NSFrame">{{465, 0}, {46, 44}}</string>
 						<reference key="NSSuperview" ref="10821415"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:222</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -910,12 +921,12 @@
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="2"/>
+					<real value="3"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="2"/>
+					<real value="3"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -1120,10 +1131,12 @@
 				<string>ButtonShareTabInactive.png</string>
 				<string>ButtonSocialBackground.png</string>
 				<string>FacebookActive.png</string>
+				<string>FacebookDead.png</string>
 				<string>FacebookDisabled.png</string>
 				<string>TextAreaGray.png</string>
 				<string>TextFieldGray.png</string>
 				<string>TwitterActive.png</string>
+				<string>TwitterDead.png</string>
 				<string>TwitterDisabled.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -1135,8 +1148,10 @@
 				<string>{36, 35}</string>
 				<string>{29, 29}</string>
 				<string>{29, 29}</string>
+				<string>{29, 29}</string>
 				<string>{355, 70}</string>
 				<string>{179, 30}</string>
+				<string>{29, 29}</string>
 				<string>{29, 29}</string>
 				<string>{29, 29}</string>
 			</object>
