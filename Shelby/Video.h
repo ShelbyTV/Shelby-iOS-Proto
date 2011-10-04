@@ -24,6 +24,7 @@
 @property (nonatomic, retain) UIImage *sharerImage;
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSString *shelbyId;
+@property (nonatomic, copy) NSString *shortPermalink;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic) BOOL isLiked;
 @property (nonatomic) BOOL isWatched;

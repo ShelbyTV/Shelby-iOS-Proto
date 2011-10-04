@@ -7,6 +7,8 @@
 //
 
 #import "STVShareView.h"
+#import "Video.h"
+#import "User.h"
 
 @interface STVShareView ()
 
@@ -22,6 +24,7 @@
 @synthesize emailView;
 @synthesize socialView;
 @synthesize activeView;
+@synthesize video = _video;
 
 #pragma mark - Factory
 
@@ -38,7 +41,8 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
 
     STVShareView *view = [objects objectAtIndex:0];
-    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePattern.png"]];
+    //UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePattern.png"]];
+    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePatternSquare.png"]];
     //view.backgroundColor = backgroundPattern;
     //view.mainView.backgroundColor = backgroundPattern;
     view.socialView.backgroundColor = backgroundPattern;
@@ -162,6 +166,25 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
         [self.delegate shareView:self sentMessage:message withNetworks:networks andRecipients:recipients];
     }
 }
+
+#pragma mark - Setter/Getter
+
+- (void)setVideo:(Video *)video {
+    // Standard retain/release.
+    [_video release];
+    _video = [video retain];
+
+    // Populate the UI.
+    _socialTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
+    _emailTextView.text = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
+}
+
+- (void)updateAuthorizations:(User *)user {
+    // Set twitter view visible
+    _twitterButton.enabled  = [user.auth_twitter boolValue];
+    _facebookButton.enabled = [user.auth_facebook boolValue];
+}
+
 
 #pragma mark - UITextViewDelegate
 

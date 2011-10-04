@@ -23,6 +23,7 @@
 @dynamic sharerImageUrl;
 @dynamic sharerName;
 @dynamic shelbyId;
+@dynamic shortPermalink;
 @dynamic thumbnailImage;
 @dynamic thumbnailImageUrl;
 @dynamic title;
@@ -62,6 +63,7 @@
     SET_IF_NOT_NULL(self.sharerImageUrl,    [dict objectForKey:@"video_originator_user_image"])
     SET_IF_NOT_NULL(self.sharerName,        [dict objectForKey:@"video_originator_user_nickname"])
     SET_IF_NOT_NULL(self.shelbyId,          [dict objectForKey:@"_id"])
+    SET_IF_NOT_NULL(self.shortPermalink,    [dict objectForKey:@"shortened_permalink"])
     //self.thumbnailImage not provided by API
     SET_IF_NOT_NULL(self.thumbnailImageUrl, [dict objectForKey:@"video_thumbnail_url"])
     SET_IF_NOT_NULL(self.title,             [dict objectForKey:@"video_title"])

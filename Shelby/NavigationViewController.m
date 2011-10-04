@@ -87,31 +87,31 @@
 {
     if ([user.auth_twitter boolValue]) {
         // Set twitter view visible
-        NSLog(@"Authed into twitter!");
+        LOG(@"Authed into twitter!");
         userTwitter.highlighted = YES;
     } else {
         // Set twitter view invisible
-        NSLog(@"No go twitter!");
+        LOG(@"No go twitter!");
         userTwitter.highlighted = NO;
     }
 
     if ([user.auth_facebook boolValue]) {
         // Set facebook view visible
-        NSLog(@"Authed into facebook!");
+        LOG(@"Authed into facebook!");
         userFacebook.highlighted = YES;
     } else {
         // Set facebook view invisible
-        NSLog(@"No go facebook!");
+        LOG(@"No go facebook!");
         userFacebook.highlighted = NO;
     }
 
     if ([user.auth_tumblr boolValue]) {
         // Set tumblr view visible
-        NSLog(@"Authed into tumblr!");
+        LOG(@"Authed into tumblr!");
         userTumblr.highlighted = YES;
     } else {
         // Set facebook view invisible
-        NSLog(@"No go tumblr!");
+        LOG(@"No go tumblr!");
         userTumblr.highlighted = NO;
     }
 }
@@ -180,7 +180,8 @@
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
   - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
 
-    Video *video = [videoTable getCurrentVideo];
+    //Video *video = [videoTable getCurrentVideo];
+    Video *video = shareView.video;
     // get ID from the video
     NSString *videoId = video.shelbyId;
 
@@ -268,6 +269,12 @@
 
     STVShareView *shareView = [STVShareView viewFromNib];
     shareView.delegate = self;
+
+    // Set up the shareView with the video info.
+    Video *video = [videoTable getCurrentVideo];
+    shareView.video = video;
+
+    [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
     //CGRect frame = shareView.frame;
     //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
@@ -462,9 +469,6 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-//@property (nonatomic, retain) NSNumber * auth_twitter;
-//@property (nonatomic, retain) NSNumber * auth_facebook;
-//@property (nonatomic, retain) NSNumber * auth_tumblr;
 
     //if ([object isKindOfClass: [NSManagedObject class] && [_authorizations containsObject: keyPath]) {
     if ([object isKindOfClass: [User class]] && [_authorizations containsObject: keyPath]) {

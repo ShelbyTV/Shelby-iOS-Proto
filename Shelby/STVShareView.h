@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class STVShareView;
+@class Video;
+@class User;
 
 @protocol STVShareViewDelegate 
 
@@ -25,6 +27,7 @@
   IBOutlet UITextView *_socialTextView;
   IBOutlet UITextView *_emailTextView;
   IBOutlet UITextField *_emailRecipientView;
+  Video *_video;
 }
 
 @property (assign) id <STVShareViewDelegate> delegate;
@@ -33,6 +36,7 @@
 @property (nonatomic, retain) IBOutlet UIView *emailView;
 @property (nonatomic, retain) IBOutlet UIView *socialView;
 @property (nonatomic, assign) UIView *activeView;
+@property (nonatomic, retain) Video *video;
 
 + (STVShareView *)viewFromNib;
 
@@ -41,5 +45,7 @@
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
+
+- (void)updateAuthorizations:(User *)user;
 
 @end
