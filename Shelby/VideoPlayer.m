@@ -353,7 +353,7 @@ static const float kNextPrevXOffset        =  0.0f;
     _lastButtonPressOrControlsVisible = now;
 
     // treat short presses as a tap and close controls if visible
-    if (now - _lastTouchesBegan < kTapTime) {
+    if (now - _lastTouchesBegan < kTapTime && !_paused) {
         if (_controlsVisible) {
             [self hideControls];
         }
