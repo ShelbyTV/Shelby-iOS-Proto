@@ -417,7 +417,7 @@
     [UIView setAnimationDuration: animationDuration];
 
     // move the shareView
-    self.shareView.frame = [self centerFrame: self.shareView.frame];
+    self.shareView.frame = [self centerFrame: self.shareView.frame inFrame: _videoPlayer.bounds];
 
     [UIView commitAnimations];
 
