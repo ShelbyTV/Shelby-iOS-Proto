@@ -98,8 +98,6 @@
 
         req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil];
 
-        NSLog(@"video_id => %@", [req.userInfoDict objectForKey:@"video_id"]);
-
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
 
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
@@ -135,11 +133,66 @@
                                                                 object:nil
                                                               userInfo:((ApiMutableURLRequest *)request).userInfoDict];
         }
-
-        //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        //NSLog(@"receivedLikeBroadcastResponse: %@", string);
     }
 
+    [[ShelbyApp sharedApp].apiHelper decrementNetworkCounter];
+}
+
++ (void)dislike:(NSString *)videoId
+{
+    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
+    NSURL *url = [NSURL URLWithString: urlString];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
+    
+    if (req) {
+        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        
+        NSString *likeString = @"liked_by_owner=false";
+        
+        [req setHTTPBody: [likeString dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        // Sign in HMAC-SHA1
+        [req sign];
+        
+        req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil];
+                
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedDislikeResponse:data:error:forRequest:)];
+        
+        [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
+        
+        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"dislikedByOwnerRequest"];
+    } else {
+        // We failed to send the request. Let the caller know.
+    }
+}
+
++ (void)receivedDislikeResponse:(NSURLResponse *)resp
+                           data:(NSData *)data
+                          error:(NSError *)error
+                     forRequest:(NSURLRequest *)request
+{
+    LOG(@"receivedDislikeBroadcastResponse");
+    
+    if (NOT_NULL(error)) {
+        LOG(@"Dislike Broadcast error: %@", error);
+    } else {
+        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
+        NSDictionary *dict = [parser objectWithData:data];
+        NSString *apiError = [dict objectForKey:@"err"];
+        
+        if (NOT_NULL(apiError)) {
+            LOG(@"Dislike Broadcast error: %@", apiError);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DislikeBroadcastFailed"
+                                                                object:self
+                                                              userInfo:((ApiMutableURLRequest *)request).userInfoDict];
+        } else {
+            LOG(@"Dislike Broadcast success");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DislikeBroadcastSucceeded"
+                                                                object:nil
+                                                              userInfo:((ApiMutableURLRequest *)request).userInfoDict];
+        }
+    }
+    
     [[ShelbyApp sharedApp].apiHelper decrementNetworkCounter];
 }
 

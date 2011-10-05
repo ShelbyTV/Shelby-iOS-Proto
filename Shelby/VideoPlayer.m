@@ -72,6 +72,11 @@ static const float kNextPrevXOffset        =  0.0f;
                                              selector:@selector(likeVideoSucceeded:)
                                                  name:@"LikeBroadcastSucceeded"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dislikeVideoSucceeded:)
+                                                 name:@"DislikeBroadcastSucceeded"
+                                               object:nil];
 }
 
 - (void)removeNotificationListeners {
@@ -324,6 +329,11 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
+- (BOOL)isFavoriteButtonSelected
+{
+    return [_controlBar isFavoriteButtonSelected];
+}
+
 #pragma mark - Touch Handling
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     _touchOccurring = TRUE;
@@ -433,7 +443,6 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-
 - (void)likeVideoSucceeded:(NSNotification *)notification
 {
     @synchronized(self) {
@@ -446,6 +455,22 @@ static const float kNextPrevXOffset        =  0.0f;
             [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:YES];
+        }
+    }
+}
+
+- (void)dislikeVideoSucceeded:(NSNotification *)notification
+{    
+    @synchronized(self) {
+        if (_changingVideo) {
+            return;
+        }
+        
+        if (NOT_NULL(self.currentVideo) &&
+            NOT_NULL(notification.userInfo) &&
+            [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
+        {
+            [_controlBar setFavoriteButtonSelected:NO];
         }
     }
 }

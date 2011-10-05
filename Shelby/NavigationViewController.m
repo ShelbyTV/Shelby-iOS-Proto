@@ -255,11 +255,13 @@
 
     Video *video = [videoTable getCurrentVideo];
 
-    // get ID from the video
     NSString *videoId = video.shelbyId;
 
-    // PUT our like to the API
-    [BroadcastApi like:videoId];
+    if ([videoPlayer isFavoriteButtonSelected]) {
+        [BroadcastApi dislike:videoId];
+    } else {
+        [BroadcastApi like:videoId];
+    }
 }
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {

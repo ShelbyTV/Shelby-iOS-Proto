@@ -10,6 +10,7 @@
 
 @interface BroadcastApi : NSObject
 
++ (void)dislike:(NSString *)videoId;
 + (void)like:(NSString *)videoId;
 + (void)watch:(NSString *)videoId;
 + (void)share:(NSString *)videoId 

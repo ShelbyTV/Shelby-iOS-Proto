@@ -68,5 +68,6 @@
 - (void)playVideo:(Video *)video;
 - (void)reset;
 - (void)setFullscreen:(BOOL)fullscreen;
+- (BOOL)isFavoriteButtonSelected;
 
 @end
