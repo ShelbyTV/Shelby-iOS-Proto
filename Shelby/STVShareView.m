@@ -25,6 +25,8 @@
 @synthesize socialView;
 @synthesize activeView;
 @synthesize video = _video;
+@synthesize socialTextView = _socialTextView;
+@synthesize emailTextView = _emailTextView;
 
 #pragma mark - Factory
 
@@ -187,8 +189,20 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
 
 - (void)updateAuthorizations:(User *)user {
     // Set twitter view visible
-    _twitterButton.enabled  = [user.auth_twitter boolValue];
-    _facebookButton.enabled = [user.auth_facebook boolValue];
+
+    if ([user.auth_twitter boolValue]) {
+        _twitterButton.enabled   = YES;
+        _twitterButton.selected  = YES;
+    } else {
+        _twitterButton.enabled  = NO;
+    }
+
+    if ([user.auth_facebook boolValue]) {
+        _facebookButton.enabled   = YES;
+        _facebookButton.selected  = YES;
+    } else {
+        _facebookButton.enabled  = NO;
+    }
 }
 
 

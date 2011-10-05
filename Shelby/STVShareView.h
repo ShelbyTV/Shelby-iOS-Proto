@@ -31,6 +31,8 @@
 }
 
 @property (assign) id <STVShareViewDelegate> delegate;
+@property (nonatomic, retain) IBOutlet UITextView *socialTextView;
+@property (nonatomic, retain) IBOutlet UITextView *emailTextView;
 @property (nonatomic, retain) IBOutlet UIView *mainView;
 @property (nonatomic, retain) IBOutlet UIView *topBackground;
 @property (nonatomic, retain) IBOutlet UIView *emailView;
