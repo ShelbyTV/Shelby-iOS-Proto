@@ -19,8 +19,9 @@
 
 static const float kCheckSharerImageInterval = 0.25f;
 
-static const float kProgressUpdateInterval = 0.25f;
+static const float kTapTime = 0.5f;
 
+static const float kProgressUpdateInterval = 0.25f;
 static const float kProgressUpdateBuffer = 0.25f;
 
 static const float kHideControlsCheckLoop = 0.1f;
@@ -84,6 +85,8 @@ static const float kNextPrevXOffset        =  0.0f;
     
     // this will be immediately set to false by the iPad NavigationViewController
     _fullscreen = TRUE;
+    
+    _touchOccurring = FALSE;
     
     // Buttons
     _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
@@ -319,25 +322,47 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 #pragma mark - Touch Handling
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_controlsVisible) {
-        [self hideControls]; 
-    } else {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    _touchOccurring = TRUE;
+    _lastTouchesBegan = CACurrentMediaTime();
+    if (!_controlsVisible) {
         [self drawControls];
     }
 }
 
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    // nothing to do here
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    _touchOccurring = FALSE;
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+
+    // treat short presses as a tap and close controls if visible
+    if (now - _lastTouchesBegan < kTapTime) {
+        if (_controlsVisible) {
+            [self hideControls];
+        }
+    }
+}
+
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_controlsVisible) {
-        [self hideControls]; 
-    } else {
-        [self drawControls];
+    _touchOccurring = FALSE;
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    
+    // treat short presses as a tap and close controls if visible
+    if (now - _lastTouchesBegan < kTapTime) {
+        if (_controlsVisible) {
+            [self hideControls];
+        }
     }
 }
 
 #pragma mark - Controls Visibility
 - (void)checkHideTime {
-    if (!_controlsVisible) {
+    if (!_controlsVisible || _touchOccurring) {
         return;
     }
     double now = CACurrentMediaTime();

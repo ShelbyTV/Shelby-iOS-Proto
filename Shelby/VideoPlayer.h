@@ -40,10 +40,14 @@
     // When did the controls last become visible?
     double _lastButtonPressOrControlsVisible;
     
+    double _lastTouchesBegan;
+    
     UIButton *_nextButton;
     UIButton *_prevButton;
     
     BOOL _fullscreen;
+    
+    BOOL _touchOccurring;
     
     VideoPlayerControlBar *_controlBar;
     MPMoviePlayerController *_moviePlayer;
