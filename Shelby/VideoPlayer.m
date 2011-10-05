@@ -218,15 +218,6 @@ static const float kNextPrevXOffset        =  0.0f;
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        /*
-         * Right now the iPad app can either be in fullscreen mode OR have a little Shelby logo
-         * if a user touched the Shelby logo to slide away the video table. But hopefully
-         * we'll consolidate those views to be more like the Shelby-logo-slide and get rid of
-         * the fullscreen case.
-         *
-         * But this doesn't look too bad even if we do keep the fullscreen mode, and just doing
-         * this keeps the logic simpler.
-         */
         maxTextWidth -= iPadShelbyLogoOverhang;
     }
    
