@@ -443,7 +443,7 @@ static const float kNextPrevXOffset        =  0.0f;
         
         if (NOT_NULL(self.currentVideo) &&
             NOT_NULL(notification.userInfo) &&
-            [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
+            [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:YES];
         }
@@ -459,7 +459,7 @@ static const float kNextPrevXOffset        =  0.0f;
         
         if (NOT_NULL(self.currentVideo) &&
             NOT_NULL(notification.userInfo) &&
-            [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
+            [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:NO];
         }

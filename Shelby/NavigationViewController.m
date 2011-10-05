@@ -76,7 +76,7 @@
     // Cue it up
     [_videoPlayer playVideo: video];
     // Notify the api it's been watched
-    [BroadcastApi watch:video.shelbyId];
+    [BroadcastApi watch:video];
     // Mark it as watched locally
     //video.watched = YES;
 }
@@ -186,11 +186,9 @@
 
     //Video *video = [videoTable getCurrentVideo];
     Video *video = shareView.video;
-    // get ID from the video
-    NSString *videoId = video.shelbyId;
 
     // POST message to API
-    [BroadcastApi share:videoId
+    [BroadcastApi share:video
                 comment:message
                networks:networks
               recipient:recipients];
@@ -254,13 +252,10 @@
 - (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer {
 
     Video *video = [videoTable getCurrentVideo];
-
-    NSString *videoId = video.shelbyId;
-
     if ([videoPlayer isFavoriteButtonSelected]) {
-        [BroadcastApi dislike:videoId];
+        [BroadcastApi dislike:video];
     } else {
-        [BroadcastApi like:videoId];
+        [BroadcastApi like:video];
     }
 }
 
@@ -397,7 +392,7 @@
     [videoTable clearVideos];
 }
 
-#pragma mark Keyboard Handlers
+#pragma mark - Keyboard Handlers
 
 - (void)keyboardWillHide:(NSNotification *)n
 {

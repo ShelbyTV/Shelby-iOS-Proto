@@ -12,11 +12,16 @@
 #import "NSURLConnection+AsyncBlock.h"
 #import "Video.h"
 #import "LoginHelper.h"
+#import "CoreDataHelper.h"
+
+#pragma mark - Constants
 
 #define kMaxVideoThumbnailHeight 163
 #define kMaxVideoThumbnailWidth 290
 #define kMaxSharerImageHeight 45
 #define kMaxSharerImageWidth 45
+
+#pragma mark - VideoDataURLRequest
 
 @interface VideoDataURLRequest : NSURLRequest
 @property (nonatomic, retain) Video *video;
@@ -42,6 +47,8 @@
 }
 @end
 
+#pragma mark - VideoTableData
+
 @interface VideoTableData ()
 // redeclare as readwrite for internal use; setter still accessible, but should generate
 // compiler warnings if used outside
@@ -53,6 +60,8 @@
 @synthesize delegate;
 @synthesize networkCounter;
 @synthesize likedOnly;
+
+#pragma mark - Utility Methods
 
 - (NSString *)dupeKeyWithProvider:(NSString *)provider withId:(NSString *)providerId
 {
@@ -79,6 +88,57 @@
     }
 }
 
+#ifdef OFFLINE_MODE
+// DEBUG Only
+- (NSURL *)movieURL
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *moviePath = [bundle
+                           pathForResource:@"SampleMovie"
+                           ofType:@"mov"];
+    if (moviePath) {
+        return [NSURL fileURLWithPath:moviePath];
+    } else {
+        return nil;
+    }
+}
+#endif
+
+
+// helper method -- maybe better to just embed in this file?
++ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
+{
+    assert(NOT_NULL(video));
+    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
+    return [baseURL stringByAppendingString:video];
+}
+
+- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
+{
+    //If scaleFactor is not touched, no scaling will occur      
+    CGFloat scaleFactor = 1.0;
+    
+    if (!((scaleFactor = (targetSize.width / image.size.width)) > (targetSize.height / image.size.height))) //scale to fit width, or
+        scaleFactor = targetSize.height / image.size.height; // scale to fit heigth.
+    
+    UIGraphicsBeginImageContext(targetSize); 
+    
+    //Creating the rect where the scaled image is drawn in
+    CGRect rect = CGRectMake((targetSize.width - image.size.width * scaleFactor) / 2,
+                             (targetSize.height -  image.size.height * scaleFactor) / 2,
+                             image.size.width * scaleFactor, image.size.height * scaleFactor);
+    
+    //Draw the image into the rect
+    [image drawInRect:rect];
+    
+    //Saving the image, ending image context
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
+
+#pragma mark - Accessors
 
 - (BOOL)isLoading
 {
@@ -99,8 +159,6 @@
         return [videoDataArray count];
     }
 }
-
-#pragma mark - Index Methods
 
 - (NSString *)videoShelbyIdAtIndex:(NSUInteger)index
 {
@@ -196,31 +254,6 @@
     return (Video *)[videoDataArray objectAtIndex:index];
 }
 
-#ifdef OFFLINE_MODE
-// DEBUG Only
-- (NSURL *)movieURL
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *moviePath = [bundle
-        pathForResource:@"SampleMovie"
-                 ofType:@"mov"];
-    if (moviePath) {
-        return [NSURL fileURLWithPath:moviePath];
-    } else {
-        return nil;
-    }
-}
-#endif
-
-
-// helper method -- maybe better to just embed in this file?
-+ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
-{
-    assert(NOT_NULL(video));
-    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
-    return [baseURL stringByAppendingString:video];
-}
-
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
 #ifdef OFFLINE_MODE
@@ -295,6 +328,8 @@
 #endif
 }
 
+#pragma mark - Table Updates
+
 - (void)updateTableVideoThumbnail:(Video *)video
 {
     @synchronized(videoDataArray)
@@ -331,37 +366,50 @@
     }
 }
 
-
-/*
- * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
- * clear the existing video table, and update the table view to delete all entries
- */
-
-- (void)clearVideosWithArrayLockHeld
-{
-    [videoDupeDict removeAllObjects];
-    [videoDataArray removeAllObjects];
-    
-    arrayGeneration++;
-    
-    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-    for (int i = 0; i < lastInserted; i++) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-    }
-    
-    [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-    lastInserted = 0;
-    [tableView endUpdates];
-}
-
-- (void)clearVideos
+- (void)updateTableVideoWatchStatus:(Video *)video
 {
     @synchronized(videoDataArray)
     {
-        [self clearVideosWithArrayLockHeld];
+        if (video.arrayGeneration != arrayGeneration) {
+            return;
+        }
+        
+        // might be able to do this faster by just storing the index in the Video
+        int videoIndex = [videoDataArray indexOfObject:video];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
+        
+        // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
+        UIImageView *sourceTag = (UIImageView *)[cell viewWithTag:1];
+        NSString *videoSource = video.source;
+        BOOL isWatched = video.isWatched;
+        
+        if ([videoSource isEqualToString:@"twitter"]) {
+            if (!isWatched) {
+                sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
+            } else {
+                sourceTag.image = [UIImage imageNamed:@"TwitterWatched"];
+            }
+        } else if ([videoSource isEqualToString:@"facebook"]) {
+            if (!isWatched) {
+                sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
+            } else {
+                sourceTag.image = [UIImage imageNamed:@"FacebookWatched"];
+            }
+        } else if ([videoSource isEqualToString:@"tumblr"]) {
+            if (!isWatched) {
+                sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
+            } else {
+                sourceTag.image = [UIImage imageNamed:@"TumblrWatched"];
+            }
+        } else if ([videoSource isEqualToString:@"bookmarklet"]) {
+            // clear image, so no watched/unwatched. easier than hiding/unhiding in this case.
+            sourceTag.image = [UIImage imageNamed:@"Bookmarklet"];
+        }
+
     }
 }
+
+#pragma mark - Async Image Downloading
 
 - (void)downloadSharerImage:(Video *)video
 {
@@ -376,31 +424,6 @@
         // We failed to send the request. Let the caller know.
     }
     [pool release];
-}
-
-- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
-{
-    //If scaleFactor is not touched, no scaling will occur      
-    CGFloat scaleFactor = 1.0;
-    
-    if (!((scaleFactor = (targetSize.width / image.size.width)) > (targetSize.height / image.size.height))) //scale to fit width, or
-        scaleFactor = targetSize.height / image.size.height; // scale to fit heigth.
-    
-    UIGraphicsBeginImageContext(targetSize); 
-    
-    //Creating the rect where the scaled image is drawn in
-    CGRect rect = CGRectMake((targetSize.width - image.size.width * scaleFactor) / 2,
-                             (targetSize.height -  image.size.height * scaleFactor) / 2,
-                             image.size.width * scaleFactor, image.size.height * scaleFactor);
-    
-    //Draw the image into the rect
-    [image drawInRect:rect];
-    
-    //Saving the image, ending image context
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return scaledImage;
 }
 
 - (void)receivedSharerImage:(NSURLResponse *)resp
@@ -481,6 +504,41 @@
     
     [self decrementNetworkCounter];
 }
+
+#pragma mark - Clearing
+
+/*
+ * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
+ * clear the existing video table, and update the table view to delete all entries
+ */
+
+- (void)clearVideosWithArrayLockHeld
+{
+    [videoDupeDict removeAllObjects];
+    [videoDataArray removeAllObjects];
+    
+    arrayGeneration++;
+    
+    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+    for (int i = 0; i < lastInserted; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    lastInserted = 0;
+    [tableView endUpdates];
+}
+
+- (void)clearVideos
+{
+    @synchronized(videoDataArray)
+    {
+        [self clearVideosWithArrayLockHeld];
+    }
+}
+
+#pragma mark - Loading
 
 - (void)copyBroadcast:(Broadcast *)broadcast intoVideo:(Video *)video
 {
@@ -641,6 +699,76 @@
     [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadCoreDataBroadcasts) userInfo:nil repeats:NO];
 }
 
+- (void)updateLikeStatusForVideo:(Video *)video withStatus:(BOOL)status
+{
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    [context setPersistentStoreCoordinator:psCoordinator];
+    
+    video.isLiked = status;
+    
+    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                        withShelbyId:video.shelbyId
+                                                           inContext:context];
+    if (IS_NULL(broadcast)) {
+        return;
+    }
+    
+    broadcast.liked = [NSNumber numberWithBool:status];
+    
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
+- (void)likeVideoSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        [self updateLikeStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:TRUE];
+    }
+}
+
+- (void)dislikeVideoSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        [self updateLikeStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:FALSE];
+    }
+}
+
+- (void)watchVideoSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        Video *video = [notification.userInfo objectForKey:@"video"];
+        
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        [context setPersistentStoreCoordinator:psCoordinator];
+        
+        video.isWatched = TRUE;
+        
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        if (IS_NULL(broadcast)) {
+            return;
+        }
+        
+        broadcast.watched = [NSNumber numberWithBool:TRUE];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+        }
+        
+        [self updateTableVideoWatchStatus:video];
+    }
+}
+
 #pragma mark - Cleanup
 
 - (void)dealloc
@@ -669,6 +797,22 @@
                                                  selector: @selector(receivedBroadcastsNotification:)
                                                      name: @"ReceivedBroadcasts"
                                                    object: nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(likeVideoSucceeded:)
+                                                     name:@"LikeBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dislikeVideoSucceeded:)
+                                                     name:@"DislikeBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(watchVideoSucceeded:)
+                                                     name:@"WatchBroadcastSucceeded"
+                                                   object:nil];
+        
         [[ShelbyApp sharedApp] addNetworkObject: self];
     }
     return self;

@@ -15,14 +15,15 @@
 #import "GraphiteStats.h"
 #import "NSURLConnection+AsyncBlock.h"
 #import "NSString+URLEncoding.h"
+#import "Video.h"
 
 @implementation BroadcastApi
 
 #pragma mark - Watch
 
-+ (void)watch:(NSString *)videoId
++ (void)watch:(Video *)video
 {
-    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
+    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, video.shelbyId];
     NSURL *url = [NSURL URLWithString: urlString];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
 
@@ -34,7 +35,7 @@
 
         [req sign];
 
-        [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil]];
+        [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:video, @"video", nil]];
 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedWatchResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
@@ -80,9 +81,9 @@
 
 #pragma mark - Like
 
-+ (void)like:(NSString *)videoId
++ (void)like:(Video *)video
 {
-    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
+    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, video.shelbyId];
     NSURL *url = [NSURL URLWithString: urlString];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
 
@@ -96,7 +97,7 @@
         // Sign in HMAC-SHA1
         [req sign];
 
-        req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil];
+        req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:video, @"video", nil];
 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedLikeResponse:data:error:forRequest:)];
 
@@ -138,9 +139,9 @@
     [[ShelbyApp sharedApp].apiHelper decrementNetworkCounter];
 }
 
-+ (void)dislike:(NSString *)videoId
++ (void)dislike:(Video *)video
 {
-    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, videoId];
+    NSString *urlString = [NSString stringWithFormat: kBroadcastUrl, video.shelbyId];
     NSURL *url = [NSURL URLWithString: urlString];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
     
@@ -154,7 +155,7 @@
         // Sign in HMAC-SHA1
         [req sign];
         
-        req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil];
+        req.userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:video, @"video", nil];
                 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedDislikeResponse:data:error:forRequest:)];
         
@@ -198,7 +199,7 @@
 
 #pragma mark - Share
 
-+ (void)share:(NSString *)videoId
++ (void)share:(Video *)video
       comment:(NSString *)comment
      networks:(NSArray *)networks
     recipient:(NSString *)recipient
@@ -240,7 +241,7 @@
 
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                 networksString, @"destination",
-                                videoId, @"broadcast_id",
+                                video.shelbyId, @"broadcast_id",
                                 [comment URLEncodedString], @"comment",
                                 nil];
 
@@ -265,7 +266,7 @@
 
         [req sign];
 
-        [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:videoId, @"video_id", nil]];
+        [req setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:video, @"video", nil]];
 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedShareBroadcastResponse:data:error:forRequest:)];
         [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
