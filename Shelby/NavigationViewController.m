@@ -133,7 +133,6 @@
         userImage.image = [UIImage imageNamed: @"PlaceholderFace"];
     }
 
-
     // Refresh Video list.
     [videoTable loadVideos];
 }
