@@ -87,6 +87,7 @@ static const float kNextPrevXOffset        =  0.0f;
     _fullscreen = TRUE;
     
     _touchOccurring = FALSE;
+    _paused = FALSE;
     
     // Buttons
     _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
@@ -286,7 +287,7 @@ static const float kNextPrevXOffset        =  0.0f;
             _duration = 0.0f;
             // Load the video and play it.
             _moviePlayer.contentURL = video.contentURL;
-            [_moviePlayer play];
+            [self play];
             [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             
@@ -299,10 +300,12 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)play {
     [_moviePlayer play];
+    _paused = FALSE;
 }
 
 - (void)pause {
     [_moviePlayer pause];
+    _paused = TRUE;
 }
 
 - (void)stop {
@@ -362,7 +365,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Controls Visibility
 - (void)checkHideTime {
-    if (!_controlsVisible || _touchOccurring) {
+    if (!_controlsVisible || _touchOccurring || _paused) {
         return;
     }
     double now = CACurrentMediaTime();

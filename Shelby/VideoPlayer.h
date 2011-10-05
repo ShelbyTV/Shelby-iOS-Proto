@@ -46,6 +46,7 @@
     UIButton *_prevButton;
     
     BOOL _fullscreen;
+    BOOL _paused;
     
     BOOL _touchOccurring;
     
