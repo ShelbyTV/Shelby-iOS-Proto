@@ -334,12 +334,11 @@
 {
     @synchronized(tableVideos)
     {
-        if (video.arrayGeneration != arrayGeneration) {
+        int videoIndex = [tableVideos indexOfObject:video];
+        if (videoIndex == NSNotFound) {
             return;
         }
         
-        // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [tableVideos indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
         
         // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
@@ -352,12 +351,11 @@
 {
     @synchronized(tableVideos)
     {
-        if (video.arrayGeneration != arrayGeneration) {
+        int videoIndex = [tableVideos indexOfObject:video];
+        if (videoIndex == NSNotFound) {
             return;
         }
         
-        // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [tableVideos indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
         
         // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
@@ -370,12 +368,11 @@
 {
     @synchronized(tableVideos)
     {
-        if (video.arrayGeneration != arrayGeneration) {
+        int videoIndex = [tableVideos indexOfObject:video];
+        if (videoIndex == NSNotFound) {
             return;
         }
         
-        // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [tableVideos indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
         
         // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
@@ -508,16 +505,13 @@
 #pragma mark - Clearing
 
 /*
- * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
- * clear the existing video table, and update the table view to delete all entries
+ * Clear the existing video table, and update the table view to delete all entries
  */
 
 - (void)clearVideoTableWithArrayLockHeld
 {
     [tableVideos removeAllObjects];
-    
-    arrayGeneration++;
-    
+        
     NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
     for (int i = 0; i < lastInserted; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -621,8 +615,7 @@
             }
         }
         
-        Video *video = [dupeArray objectAtIndex:0];
-        
+        Video *video = [dupeArray objectAtIndex:0];        
         int index = [tableVideos count];
         [tableVideos addObject:video];
         
@@ -684,7 +677,6 @@
 
             // create Video from Broadcast
             [self copyBroadcast:broadcast intoVideo:video];
-            video.arrayGeneration = arrayGeneration;  
 
             // need the sharerImage even for dupes
             if (IS_NULL(video.sharerImage)) {
@@ -806,7 +798,6 @@
         tableVideos = [[NSMutableArray alloc] init];
         videoDupeDict = [[NSMutableDictionary alloc] init];
         uniqueVideoKeys = [[NSMutableArray alloc] init];
-        arrayGeneration = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)

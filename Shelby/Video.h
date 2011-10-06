@@ -29,6 +29,5 @@
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic) BOOL isLiked;
 @property (nonatomic) BOOL isWatched;
-@property (nonatomic) int arrayGeneration;
 
 @end

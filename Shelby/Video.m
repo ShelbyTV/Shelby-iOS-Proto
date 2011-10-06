@@ -27,7 +27,6 @@
 @synthesize shortPermalink;
 @synthesize isLiked;
 @synthesize isWatched;
-@synthesize arrayGeneration;
 
 
 - (void) dealloc

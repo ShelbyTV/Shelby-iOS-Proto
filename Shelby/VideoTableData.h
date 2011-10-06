@@ -27,8 +27,8 @@
     NSMutableArray *uniqueVideoKeys;
     NSMutableDictionary *videoDupeDict;
     NSUInteger lastInserted;
-    int arrayGeneration;
 }
+
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL likedOnly;
