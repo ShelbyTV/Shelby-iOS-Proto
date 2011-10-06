@@ -23,7 +23,8 @@
 {
     NSOperationQueue *operationQueue;
     UITableView *tableView;
-    NSMutableArray *videoDataArray;
+    NSMutableArray *tableVideos;
+    NSMutableArray *uniqueVideoKeys;
     NSMutableDictionary *videoDupeDict;
     NSUInteger lastInserted;
     int arrayGeneration;
@@ -51,7 +52,7 @@
 - (int)videoDupeCountAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
 
-- (void)clearVideos;
-- (void)reloadCoreDataBroadcasts;
+- (void)clearVideoTableData;
+- (void)reloadTableVideos;
 
 @end

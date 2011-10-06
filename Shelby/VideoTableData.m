@@ -154,104 +154,104 @@
 
 - (NSUInteger)numItems
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [videoDataArray count];
+        return [tableVideos count];
     }
 }
 
 - (NSString *)videoShelbyIdAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [[videoDataArray objectAtIndex:index] shelbyId];
+        return [[tableVideos objectAtIndex:index] shelbyId];
     }
 }
 
 - (NSString *)videoTitleAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [[videoDataArray objectAtIndex:index] title];
+        return [[tableVideos objectAtIndex:index] title];
     }
 }
 
 - (NSString *)videoSharerAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] sharer];
+        return [(Video *)[tableVideos objectAtIndex:index] sharer];
     }
 }
 
 - (UIImage *)videoSharerImageAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] sharerImage];
+        return [(Video *)[tableVideos objectAtIndex:index] sharerImage];
     }
 }
 
 - (NSString *)videoSharerCommentAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] sharerComment];
+        return [(Video *)[tableVideos objectAtIndex:index] sharerComment];
     }
 }
 
 - (UIImage *)videoThumbnailAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] thumbnailImage];
+        return [(Video *)[tableVideos objectAtIndex:index] thumbnailImage];
     }
 }
 
 - (NSString *)videoSourceAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] source];
+        return [(Video *)[tableVideos objectAtIndex:index] source];
     }
 }
 
 - (NSDate *)videoCreatedAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] createdAt];
+        return [(Video *)[tableVideos objectAtIndex:index] createdAt];
     } 
 }
 
 - (BOOL)videoLikedAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] isLiked];
+        return [(Video *)[tableVideos objectAtIndex:index] isLiked];
     } 
 }
 
 - (BOOL)videoWatchedAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        return [(Video *)[videoDataArray objectAtIndex:index] isWatched];
+        return [(Video *)[tableVideos objectAtIndex:index] isWatched];
     } 
 }
 
 - (int)videoDupeCountAtIndex:(NSUInteger)index
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        Video *video = [videoDataArray objectAtIndex:index];
+        Video *video = [tableVideos objectAtIndex:index];
         return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
     } 
 }
 
 - (Video *)videoAtIndex:(NSUInteger)index
 {
-    return (Video *)[videoDataArray objectAtIndex:index];
+    return (Video *)[tableVideos objectAtIndex:index];
 }
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
@@ -262,17 +262,17 @@
     Video *videoData = nil;
     NSURL *contentURL = nil;
 
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        if (index >= [videoDataArray count])
+        if (index >= [tableVideos count])
         {
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        videoData = [[[videoDataArray objectAtIndex:index] retain] autorelease];
+        videoData = [[[tableVideos objectAtIndex:index] retain] autorelease];
     }
 
-    contentURL = [[[[videoDataArray objectAtIndex:index] contentURL] retain] autorelease];
+    contentURL = [[[[tableVideos objectAtIndex:index] contentURL] retain] autorelease];
 
     if (contentURL == nil) {
 
@@ -332,14 +332,14 @@
 
 - (void)updateTableVideoThumbnail:(Video *)video
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
         if (video.arrayGeneration != arrayGeneration) {
             return;
         }
         
         // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [videoDataArray indexOfObject:video];
+        int videoIndex = [tableVideos indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
         
         // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
@@ -350,14 +350,14 @@
 
 - (void)updateTableSharerImage:(Video *)video
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
         if (video.arrayGeneration != arrayGeneration) {
             return;
         }
         
         // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [videoDataArray indexOfObject:video];
+        int videoIndex = [tableVideos indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
         
         // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
@@ -368,14 +368,14 @@
 
 - (void)updateTableVideoWatchStatus:(Video *)video
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
         if (video.arrayGeneration != arrayGeneration) {
             return;
         }
         
         // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [videoDataArray indexOfObject:video];
+        int videoIndex = [tableVideos indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
         
         // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
@@ -512,10 +512,9 @@
  * clear the existing video table, and update the table view to delete all entries
  */
 
-- (void)clearVideosWithArrayLockHeld
+- (void)clearVideoTableWithArrayLockHeld
 {
-    [videoDupeDict removeAllObjects];
-    [videoDataArray removeAllObjects];
+    [tableVideos removeAllObjects];
     
     arrayGeneration++;
     
@@ -525,16 +524,18 @@
     }
     
     [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     lastInserted = 0;
     [tableView endUpdates];
 }
 
-- (void)clearVideos
+- (void)clearVideoTableData
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        [self clearVideosWithArrayLockHeld];
+        [videoDupeDict removeAllObjects];
+        [uniqueVideoKeys removeAllObjects];
+        [self clearVideoTableWithArrayLockHeld];
     }
 }
 
@@ -599,23 +600,63 @@
     return broadcasts;
 }
 
-- (void)reloadCoreDataBroadcasts
+- (void)insertTableVideos
 {
+    for (NSString *key in uniqueVideoKeys)
+    {
+        NSArray *dupeArray = [videoDupeDict objectForKey:key];
+        
+        // If we're in the like view, only keep videos that are liked...
+        if (likedOnly) {
+            BOOL likedDupe = NO;
+            for (Video *video in dupeArray) {
+                if (video.isLiked) {
+                    likedDupe = YES;
+                    break;
+                }
+            }
+            if (!likedDupe)
+            {
+                continue;
+            }
+        }
+        
+        Video *video = [dupeArray objectAtIndex:0];
+        
+        int index = [tableVideos count];
+        [tableVideos addObject:video];
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        lastInserted = index + 1;
+        [tableView endUpdates];
+    }
+}
+
+- (void)reloadTableVideos
+{
+    @synchronized(tableVideos)
+    {
+        [self clearVideoTableWithArrayLockHeld];
+        [self insertTableVideos];
+    }
+}
+
+- (void)reloadBroadcastsFromCoreData
+{    
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     NSArray *broadcasts = [self fetchBroadcastsFromCoreDataContext:context];
 
     if (IS_NULL(broadcasts)) {
         return;
     } 
-    
-    LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
-    
-    @synchronized(videoDataArray)
+        
+    @synchronized(tableVideos)
     {
         // Clear out the old broadcasts.
-        [self clearVideosWithArrayLockHeld];
-        
-        NSMutableArray *uniqueVideoKeys = [[NSMutableArray alloc] init];
+        [videoDupeDict removeAllObjects];
+        [uniqueVideoKeys removeAllObjects];
+        [self clearVideoTableWithArrayLockHeld];
         
         // Load up the new broadcasts.
         for (Broadcast *broadcast in broadcasts) {            
@@ -655,36 +696,9 @@
                 [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
             }
         }
-        
-        for (NSString *key in uniqueVideoKeys)
-        {
-            NSArray *dupeArray = [videoDupeDict objectForKey:key];
             
-            // If we're in the like view, only keep videos that are liked...
-            if (likedOnly) {
-                BOOL likedDupe = NO;
-                for (Video *video in dupeArray) {
-                    if (video.isLiked) {
-                        likedDupe = YES;
-                        break;
-                    }
-                }
-                if (!likedDupe)
-                {
-                    continue;
-                }
-            }
-            
-            Video *video = [dupeArray objectAtIndex:0];
-            
-            int index = [videoDataArray count];
-            [videoDataArray addObject:video];
-            
-            [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
-            lastInserted = index + 1;
-            [tableView endUpdates];
-        }
+        [self insertTableVideos];
+
     }
     
     [context release];
@@ -696,7 +710,7 @@
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
-    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadCoreDataBroadcasts) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadBroadcastsFromCoreData) userInfo:nil repeats:NO];
 }
 
 - (void)updateLikeStatusForVideo:(Video *)video withStatus:(BOOL)status
@@ -789,8 +803,9 @@
         tableView = linkedTableView;
 
         lastInserted = 0;
-        videoDataArray = [[NSMutableArray alloc] init];
+        tableVideos = [[NSMutableArray alloc] init];
         videoDupeDict = [[NSMutableDictionary alloc] init];
+        uniqueVideoKeys = [[NSMutableArray alloc] init];
         arrayGeneration = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver: self

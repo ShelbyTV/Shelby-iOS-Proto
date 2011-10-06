@@ -389,7 +389,7 @@
     [_videoPlayer reset];
 
     // Clear out the video table
-    [videoTable clearVideos];
+    [videoTable clearVideoTableData];
 }
 
 #pragma mark - Keyboard Handlers

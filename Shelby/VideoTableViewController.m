@@ -55,16 +55,16 @@
         
         // Change the channel.
         videoMode = mode;
-        [videoTableData reloadCoreDataBroadcasts];
+        [videoTableData reloadTableVideos];
     }
 }
 
 #pragma mark - Data Refresh
 
-- (void)clearVideos
+- (void)clearVideoTableData
 {
     // Clear out the table.
-    [videoTableData clearVideos];
+    [videoTableData clearVideoTableData];
     _currentVideoIndex = 0;
 }
 
