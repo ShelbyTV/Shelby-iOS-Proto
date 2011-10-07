@@ -25,10 +25,8 @@
     VideoTableData *videoTableData;
     id callbackObject;
     SEL callbackSelector;
-    UITableViewCell *videoCell;
     NSInteger _currentVideoIndex;
     NSInteger videoMode;
-    UIImage *cellBackgroundImage;
 
     EGORefreshTableHeaderView *_refreshHeaderView;
 }

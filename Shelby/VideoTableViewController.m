@@ -12,6 +12,7 @@
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
 #import "GraphiteStats.h"
+#import "VideoTableViewCell.h"
 
 @implementation VideoTableViewController
 
@@ -33,7 +34,6 @@
 
         callbackObject = object;
         callbackSelector = selector;
-        cellBackgroundImage = [[UIImage imageNamed:@"CellGradient.png"] retain];
     }
     return self;
 }
@@ -160,14 +160,6 @@
 
 #pragma mark - UI Callbacks
 
-//- (IBAction)segmentAction:(UISegmentedControl *)sender
-//{
-//    LOG(@"segmentAction %@", sender);
-//    NSInteger index = sender.selectedSegmentIndex;
-//    [self changeVideoMode: index];
-//
-//}
-
 - (IBAction)toolbarButtonWasPressed:(id)sender
 {
     LOG(@"toolbarButtonWasPressed %@", sender);
@@ -215,19 +207,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    //UIBarButtonItem *imageItem = [[UIBarButtonItem alloc]
-    //    initWithImage:[UIImage imageNamed: @"ButtonFavoritesNormal.png"]
-    //            style:UIBarButtonItemStylePlain
-    //           target:self
-    //           action:@selector(toolbarButtonWasPressed:)];
-
     // Init the pull-to-refresh header.
     if (_refreshHeaderView == nil) {
       EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
@@ -287,189 +266,36 @@
     return [videoTableData numItemsInserted];
 }
 
-- (NSString *)prettyDateDiff:(NSDate *)date
-{
-    
-    NSTimeInterval diff = abs([date timeIntervalSinceNow]);
-    NSInteger days = floor(diff / 86400.0);
-
-	if (days == 0) {
-        if (diff < 60) return @"JUST NOW";
-        if (diff < 120) return @"1 MINUTE AGO";
-        if (diff < 3600) return [NSString stringWithFormat:@"%d MINUTES AGO", (int)floor(diff/60.0)];
-        if (diff < 7200) return @"1 HOUR AGO";
-        if (diff < 86400) return [NSString stringWithFormat:@"%d HOURS AGO", (int)floor(diff/3600.0)];
-    }
-    
-    if (days == 1) return @"YESTERDAY";
-    if (days < 7) return [NSString stringWithFormat:@"%d DAYS AGO", days];
-    if (days < 14) return @"LAST WEEK";
-    if (days < 31) return [NSString stringWithFormat:@"%d WEEKS AGO", (int)ceil(days/7.0)];
-    
-    return @"FOREVER-AGO";
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"VideoCell";
+    static NSString *CellIdentifier = @"VideoTableViewCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            [[NSBundle mainBundle] loadNibNamed:@"VideoCell_iPhone" owner:self options:nil];
-        } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            [[NSBundle mainBundle] loadNibNamed:@"VideoCell_iPad" owner:self options:nil];
-        }
-        cell = videoCell;
-
-        // Set the gradient as the background
-        if (cell.backgroundView) {
-            ((UIImageView *)cell.backgroundView).image = cellBackgroundImage;
-        } else {
-            cell.backgroundView = [[[UIImageView alloc] initWithImage:cellBackgroundImage] autorelease];
-        }
-
-        self.videoCell = nil;
+    VideoTableViewCell *dynVideoCell = (VideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (dynVideoCell == nil) {
+        dynVideoCell = [[[VideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-
-    // Configure the cell...
+    
     NSUInteger row = indexPath.row;
-
-    /*
-     * This method of loading UITableViewCells from NIB/XIB files and setting the properties
-     * via view tags is recommended by Apple here:
-     *
-     * http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html
-     *
-     * See the "Loading Custom Table-View Cells From Nib Files" section and sub-section
-     * "The Technique for Dynamic Row Content"
-     */
-
-    // currently not correctly setting icon for watched/unwatched yet
-    UIImageView *sourceTag = (UIImageView *)[cell viewWithTag:1];
-    NSString *videoSource = [videoTableData videoSourceAtIndex:row];
-    BOOL isWatched = [videoTableData videoWatchedAtIndex:row];
+    dynVideoCell.video = [videoTableData videoAtIndex:row];
+    dynVideoCell.videoTableData = videoTableData;
+    [dynVideoCell setNeedsDisplay];
     
-    if ([videoSource isEqualToString:@"twitter"]) {
-        if (!isWatched) {
-            sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
-        } else {
-            sourceTag.image = [UIImage imageNamed:@"TwitterWatched"];
-        }
-    } else if ([videoSource isEqualToString:@"facebook"]) {
-        if (!isWatched) {
-            sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
-        } else {
-            sourceTag.image = [UIImage imageNamed:@"FacebookWatched"];
-        }
-    } else if ([videoSource isEqualToString:@"tumblr"]) {
-        if (!isWatched) {
-            sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
-        } else {
-            sourceTag.image = [UIImage imageNamed:@"TumblrWatched"];
-        }
-    } else if ([videoSource isEqualToString:@"bookmarklet"]) {
-        // clear image, so no watched/unwatched. easier than hiding/unhiding in this case.
-        sourceTag.image = [UIImage imageNamed:@"Bookmarklet"];
-    }
-
-    UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
-    videoThumbnail.image = [videoTableData videoThumbnailAtIndex:row];
-
-    UILabel *sharerComment = (UILabel *)[cell viewWithTag:3];
-    UIView *sharerCommentBackground = (UIView *)[cell viewWithTag:7];
-    NSString *sharerCommentText = [videoTableData videoSharerCommentAtIndex:row];
-    if (NOT_NULL(sharerCommentText)) {
-        sharerComment.text = sharerCommentText;
-        sharerCommentBackground.hidden = NO;
-    } else {
-        sharerComment.text = @"";
-        sharerCommentBackground.hidden = YES;
-    }
-
-    UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
-    sharerImage.image = [videoTableData videoSharerImageAtIndex:row];
-
-    int dupeCount = [videoTableData videoDupeCountAtIndex:row];
-    
-    UILabel *sharer = (UILabel *)[cell viewWithTag:5];
-    if (dupeCount != 0) {
-        sharer.text = [NSString stringWithFormat:@"%@ + %d MORE", [videoTableData videoSharerAtIndex:row], dupeCount];
-    } else {
-        sharer.text = [videoTableData videoSharerAtIndex:row];
-    }
-
-    UILabel *createdAt = (UILabel *)[cell viewWithTag:6];
-    createdAt.text = [self prettyDateDiff:[videoTableData videoCreatedAtIndex:row]];
-
-    return cell;
+    return dynVideoCell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-       <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-    */
-    
     [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"tableVideoSelected"];
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
-
-
     Video *video = [self videoAtTableDataIndex: row];
-
-    //NSURL *contentURL = [videoTableData videoContentURLAtIndex: row];
-
     _currentVideoIndex = row;
 
-    //[callbackObject performSelector:callbackSelector withObject:contentURL];
     [callbackObject performSelector:callbackSelector withObject:video];
 }
 

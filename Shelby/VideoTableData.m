@@ -240,6 +240,14 @@
     } 
 }
 
+- (int)videoDupeCount:(Video *)video
+{
+    @synchronized(tableVideos)
+    {
+        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
+    } 
+}
+
 - (int)videoDupeCountAtIndex:(NSUInteger)index
 {
     @synchronized(tableVideos)
@@ -250,8 +258,11 @@
 }
 
 - (Video *)videoAtIndex:(NSUInteger)index
-{
-    return (Video *)[tableVideos objectAtIndex:index];
+{    
+    @synchronized(tableVideos)
+    {
+        return (Video *)[tableVideos objectAtIndex:index];
+    }
 }
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
@@ -340,10 +351,7 @@
         }
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
-        
-        // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
-        UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
-        videoThumbnail.image = video.thumbnailImage;
+        [cell setNeedsDisplay];
     }
 }
 
@@ -357,10 +365,7 @@
         }
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
-        
-        // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
-        UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
-        sharerImage.image = video.sharerImage;
+        [cell setNeedsDisplay];
     }
 }
 
@@ -374,35 +379,7 @@
         }
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
-        
-        // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
-        UIImageView *sourceTag = (UIImageView *)[cell viewWithTag:1];
-        NSString *videoSource = video.source;
-        BOOL isWatched = video.isWatched;
-        
-        if ([videoSource isEqualToString:@"twitter"]) {
-            if (!isWatched) {
-                sourceTag.image = [UIImage imageNamed:@"TwitterNew"];
-            } else {
-                sourceTag.image = [UIImage imageNamed:@"TwitterWatched"];
-            }
-        } else if ([videoSource isEqualToString:@"facebook"]) {
-            if (!isWatched) {
-                sourceTag.image = [UIImage imageNamed:@"FacebookNew"];
-            } else {
-                sourceTag.image = [UIImage imageNamed:@"FacebookWatched"];
-            }
-        } else if ([videoSource isEqualToString:@"tumblr"]) {
-            if (!isWatched) {
-                sourceTag.image = [UIImage imageNamed:@"TumblrNew"];
-            } else {
-                sourceTag.image = [UIImage imageNamed:@"TumblrWatched"];
-            }
-        } else if ([videoSource isEqualToString:@"bookmarklet"]) {
-            // clear image, so no watched/unwatched. easier than hiding/unhiding in this case.
-            sourceTag.image = [UIImage imageNamed:@"Bookmarklet"];
-        }
-
+        [cell setNeedsDisplay];
     }
 }
 
