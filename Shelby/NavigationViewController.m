@@ -181,16 +181,6 @@
 
 #pragma mark - STVShareView Methods
 
-- (void)centerShareViewAnimated:(double)animated {
-    double duration = (animated) ? 0.3 : 0.0;
-    [self centerShareViewWithAnimationDuration: duration];
-}
-
-- (void)centerShareViewWithAnimationDuration:(double)duration {
-    [self centerShareViewInRect: _videoPlayer.bounds
-          withAnimationDuration: duration];
-}
-
 - (void)centerShareViewInRect:(CGRect)parentRect withAnimationDuration:(double)duration {
     CGRect centerFrame = [self centerFrame: self.shareView.frame inFrame: parentRect];
     CGRect newFrame = CGRectNull;
@@ -221,6 +211,16 @@
 
         [UIView commitAnimations];
     }
+}
+
+- (void)centerShareViewWithAnimationDuration:(double)duration {
+    [self centerShareViewInRect: _videoPlayer.bounds
+          withAnimationDuration: duration];
+}
+
+- (void)centerShareViewAnimated:(double)animated {
+    double duration = (animated) ? 0.3 : 0.0;
+    [self centerShareViewWithAnimationDuration: duration];
 }
 
 - (void)closeShareView {
@@ -486,7 +486,7 @@
 
     NSDictionary* userInfo = [n userInfo];
 
-    double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    //double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 
     // get the size of the keyboard
     NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];

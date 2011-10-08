@@ -50,4 +50,6 @@
 - (void)loadUserData;
 - (void)showLogoutAlert;
 
+- (void)centerShareViewAnimated:(double)animated;
+
 @end
