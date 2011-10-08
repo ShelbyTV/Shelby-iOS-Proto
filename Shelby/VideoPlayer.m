@@ -265,7 +265,7 @@ static const float kNextPrevXOffset        =  0.0f;
             //self.titleBar.title.text = video.sharerComment;
             self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
                                         video.sharer,
-                                        NOT_NULL(video.sharerComment) ? video.sharerComment : @""
+                                        NOT_NULL(video.sharerComment) ? video.sharerComment : video.title
                                         ];
             if NOT_NULL(video.sharerImage) {
                 self.titleBar.sharerPic.image = video.sharerImage;
