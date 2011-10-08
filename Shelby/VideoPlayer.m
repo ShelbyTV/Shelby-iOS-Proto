@@ -19,8 +19,9 @@
 
 static const float kCheckSharerImageInterval = 0.25f;
 
-static const float kProgressUpdateInterval = 0.25f;
+static const float kTapTime = 0.5f;
 
+static const float kProgressUpdateInterval = 0.25f;
 static const float kProgressUpdateBuffer = 0.25f;
 
 static const float kHideControlsCheckLoop = 0.1f;
@@ -71,6 +72,11 @@ static const float kNextPrevXOffset        =  0.0f;
                                              selector:@selector(likeVideoSucceeded:)
                                                  name:@"LikeBroadcastSucceeded"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dislikeVideoSucceeded:)
+                                                 name:@"DislikeBroadcastSucceeded"
+                                               object:nil];
 }
 
 - (void)removeNotificationListeners {
@@ -84,6 +90,9 @@ static const float kNextPrevXOffset        =  0.0f;
     
     // this will be immediately set to false by the iPad NavigationViewController
     _fullscreen = TRUE;
+    
+    _touchOccurring = FALSE;
+    _paused = FALSE;
     
     // Buttons
     _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
@@ -209,15 +218,6 @@ static const float kNextPrevXOffset        =  0.0f;
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        /*
-         * Right now the iPad app can either be in fullscreen mode OR have a little Shelby logo
-         * if a user touched the Shelby logo to slide away the video table. But hopefully
-         * we'll consolidate those views to be more like the Shelby-logo-slide and get rid of
-         * the fullscreen case.
-         *
-         * But this doesn't look too bad even if we do keep the fullscreen mode, and just doing
-         * this keeps the logic simpler.
-         */
         maxTextWidth -= iPadShelbyLogoOverhang;
     }
    
@@ -265,7 +265,7 @@ static const float kNextPrevXOffset        =  0.0f;
             //self.titleBar.title.text = video.sharerComment;
             self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
                                         video.sharer,
-                                        NOT_NULL(video.sharerComment) ? video.sharerComment : @""
+                                        NOT_NULL(video.sharerComment) ? video.sharerComment : video.title
                                         ];
             if NOT_NULL(video.sharerImage) {
                 self.titleBar.sharerPic.image = video.sharerImage;
@@ -283,7 +283,7 @@ static const float kNextPrevXOffset        =  0.0f;
             _duration = 0.0f;
             // Load the video and play it.
             _moviePlayer.contentURL = video.contentURL;
-            [_moviePlayer play];
+            [self play];
             [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             
@@ -296,10 +296,12 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)play {
     [_moviePlayer play];
+    _paused = FALSE;
 }
 
 - (void)pause {
     [_moviePlayer pause];
+    _paused = TRUE;
 }
 
 - (void)stop {
@@ -318,26 +320,53 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
+- (BOOL)isFavoriteButtonSelected
+{
+    return [_controlBar isFavoriteButtonSelected];
+}
+
 #pragma mark - Touch Handling
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_controlsVisible) {
-        [self hideControls]; 
-    } else {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    _touchOccurring = TRUE;
+    _lastTouchesBegan = CACurrentMediaTime();
+    if (!_controlsVisible) {
         [self drawControls];
     }
 }
 
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    // nothing to do here
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    _touchOccurring = FALSE;
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+
+    // treat short presses as a tap and close controls if visible
+    if (now - _lastTouchesBegan < kTapTime && !_paused) {
+        if (_controlsVisible) {
+            [self hideControls];
+        }
+    }
+}
+
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (_controlsVisible) {
-        [self hideControls]; 
-    } else {
-        [self drawControls];
+    _touchOccurring = FALSE;
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    
+    // treat short presses as a tap and close controls if visible
+    if (now - _lastTouchesBegan < kTapTime) {
+        if (_controlsVisible) {
+            [self hideControls];
+        }
     }
 }
 
 #pragma mark - Controls Visibility
 - (void)checkHideTime {
-    if (!_controlsVisible) {
+    if (!_controlsVisible || _touchOccurring || _paused) {
         return;
     }
     double now = CACurrentMediaTime();
@@ -405,7 +434,6 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-
 - (void)likeVideoSucceeded:(NSNotification *)notification
 {
     @synchronized(self) {
@@ -415,9 +443,25 @@ static const float kNextPrevXOffset        =  0.0f;
         
         if (NOT_NULL(self.currentVideo) &&
             NOT_NULL(notification.userInfo) &&
-            [(NSString *)[notification.userInfo objectForKey:@"video_id"] isEqualToString:self.currentVideo.shelbyId]) 
+            [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:YES];
+        }
+    }
+}
+
+- (void)dislikeVideoSucceeded:(NSNotification *)notification
+{    
+    @synchronized(self) {
+        if (_changingVideo) {
+            return;
+        }
+        
+        if (NOT_NULL(self.currentVideo) &&
+            NOT_NULL(notification.userInfo) &&
+            [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
+        {
+            [_controlBar setFavoriteButtonSelected:NO];
         }
     }
 }

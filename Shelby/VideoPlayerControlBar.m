@@ -59,6 +59,11 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
 
 #pragma mark - Properties
 
+- (BOOL)isFavoriteButtonSelected
+{
+    return _favoriteButton.selected;
+}
+
 - (void)setFavoriteButtonSelected:(BOOL)selected
 {
     _favoriteButton.selected = selected;

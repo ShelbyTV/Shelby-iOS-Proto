@@ -23,11 +23,12 @@
 {
     NSOperationQueue *operationQueue;
     UITableView *tableView;
-    NSMutableArray *videoDataArray;
+    NSMutableArray *tableVideos;
+    NSMutableArray *uniqueVideoKeys;
     NSMutableDictionary *videoDupeDict;
     NSUInteger lastInserted;
-    int arrayGeneration;
 }
+
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL likedOnly;
@@ -48,10 +49,12 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (BOOL)videoLikedAtIndex:(NSUInteger)index;
 - (BOOL)videoWatchedAtIndex:(NSUInteger)index;
+- (int)videoDupeCount:(Video *)video;
 - (int)videoDupeCountAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
+- (NSArray *)videoDupes:(Video *)video;
 
-- (void)clearVideos;
-- (void)reloadCoreDataBroadcasts;
+- (void)clearVideoTableData;
+- (void)reloadTableVideos;
 
 @end

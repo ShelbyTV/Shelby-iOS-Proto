@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class Video;
+
 @interface BroadcastApi : NSObject
 
-+ (void)like:(NSString *)videoId;
-+ (void)watch:(NSString *)videoId;
-+ (void)share:(NSString *)videoId 
++ (void)dislike:(Video *)video;
++ (void)like:(Video *)video;
++ (void)watch:(Video *)video;
++ (void)share:(Video *)video 
       comment:(NSString *)comment 
      networks:(NSArray *)networks    // twitter, facebook
     recipient:(NSString *)recipient; // email

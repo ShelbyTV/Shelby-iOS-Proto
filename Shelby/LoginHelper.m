@@ -22,6 +22,7 @@
 
 #import "ApiConstants.h"
 #import "ApiHelper.h"
+#import "CoreDataHelper.h"
 
 #import "GraphiteStats.h"
 
@@ -259,38 +260,10 @@
     }
 }
 
-- (id)getExistingUniqueEntity:(NSString *)entityName withShelbyId:(NSString *)shelbyId inContext:(NSManagedObjectContext *)context
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName 
-                                              inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"shelbyId=%@", shelbyId];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error = NULL;
-    NSArray *existingEntities = [context executeFetchRequest:fetchRequest error:&error];
-    
-    [fetchRequest release];
-    
-    id toReturn = NULL;
-    
-    if (NOT_NULL(existingEntities) && [existingEntities count] == 1) {
-        toReturn = [existingEntities objectAtIndex:0];
-    } else {
-        NSAssert(existingEntities == nil || [existingEntities count] == 0, @"Found > 1 existing entities with same ID");
-    }
-    
-    return toReturn;
-}
-
 - (User *)storeUserWithDictionary:(NSDictionary *)dict
                     withImageData:(NSData *)imageData
 {
-    User *upsert = [self getExistingUniqueEntity:@"User" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
+    User *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"User" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
     
     if (NULL == upsert) {
         upsert = [NSEntityDescription insertNewObjectForEntityForName:@"User"
@@ -430,7 +403,7 @@
         LOG(@"Channel dict: %@", dict);
         if ([(NSNumber *)[dict objectForKey:@"public"] intValue] == 0) {
 
-            Channel *upsert = [self getExistingUniqueEntity:@"Channel" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
+            Channel *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Channel" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
             
             if (NULL == upsert) {
                 upsert = [NSEntityDescription
@@ -524,7 +497,7 @@
 - (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
 {    
     for (NSDictionary *dict in array) {
-        Broadcast *upsert = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
+        Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
         
         if (NULL == upsert ) 
         {
@@ -554,7 +527,7 @@
 
 - (void)storeBroadcastVideo:(Video *)video withSharerImageData:(NSData *)sharerImageData inContext:(NSManagedObjectContext *)context
 {
-    Broadcast *update = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
+    Broadcast *update = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
     
     if (NULL == update ) 
     {
@@ -581,7 +554,7 @@
 
 - (void)storeBroadcastVideo:(Video *)video withThumbnailData:(NSData *)thumbnailData inContext:(NSManagedObjectContext *)context
 {
-    Broadcast *update = [self getExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
+    Broadcast *update = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
     
     if (NULL == update ) 
     {

@@ -34,6 +34,8 @@
 		0A74BB52142D4C8F00D65A02 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB51142D4C8F00D65A02 /* Default-Portrait~ipad.png */; };
 		0A74BB54142D4CA200D65A02 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB53142D4CA200D65A02 /* Default-Landscape~ipad.png */; };
 		0A81C28D142AA93300311310 /* ButtonPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A81C28C142AA93300311310 /* ButtonPause.png */; };
+		0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871145143D0FBA001AE70D /* CoreDataHelper.m */; };
+		0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871149143D74E7001AE70D /* VideoTableViewCell.m */; };
 		0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB364FF143137A100DCEAFD /* GraphiteStats.m */; };
 		0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB3650314313E6A00DCEAFD /* CFNetwork.framework */; };
 		0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */; };
@@ -222,6 +224,10 @@
 		0A74BB51142D4C8F00D65A02 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		0A74BB53142D4CA200D65A02 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		0A81C28C142AA93300311310 /* ButtonPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPause.png; path = Resources/Images/ButtonPause.png; sourceTree = "<group>"; };
+		0A871144143D0FBA001AE70D /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
+		0A871145143D0FBA001AE70D /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		0A871148143D74E6001AE70D /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
+		0A871149143D74E7001AE70D /* VideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
 		0AB364FE143137A100DCEAFD /* GraphiteStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphiteStats.h; sourceTree = "<group>"; };
 		0AB364FF143137A100DCEAFD /* GraphiteStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphiteStats.m; sourceTree = "<group>"; };
 		0AB3650314313E6A00DCEAFD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -625,6 +631,8 @@
 				42C4C5E613E9A9800034AC97 /* ViewControllers */,
 				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
 				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
+				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
+				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
 				0A220C9513DE8193004BE680 /* VideoTableData.h */,
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
 				4200E50213F41F0C00609C3E /* Video.h */,
@@ -996,6 +1004,8 @@
 				423FFDBB142A6CCD00F8FF54 /* STVNetworkObject.h */,
 				0AB364FE143137A100DCEAFD /* GraphiteStats.h */,
 				0AB364FF143137A100DCEAFD /* GraphiteStats.m */,
+				0A871144143D0FBA001AE70D /* CoreDataHelper.h */,
+				0A871145143D0FBA001AE70D /* CoreDataHelper.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1258,6 +1268,8 @@
 				0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */,
 				0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */,
 				42D1FDB0143A5266007E7A9B /* STVZeroEdgeTextView.m in Sources */,
+				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
+				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1513,7 +1525,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6C3737CE-4A00-4E41-9C52-4A05B5E45890";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2C73A303-EC60-4872-B28C-49DE2EE54C67";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

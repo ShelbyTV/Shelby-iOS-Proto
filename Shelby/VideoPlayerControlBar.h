@@ -39,6 +39,7 @@
 
 + (VideoPlayerControlBar *)controlBarFromNib;
 
+- (BOOL)isFavoriteButtonSelected;
 - (void)setFavoriteButtonSelected:(BOOL)selected;
 - (void)setPlayButtonIcon:(UIImage *)image;
 - (IBAction)playButtonWasPressed:(id)sender;

@@ -12,11 +12,16 @@
 #import "NSURLConnection+AsyncBlock.h"
 #import "Video.h"
 #import "LoginHelper.h"
+#import "CoreDataHelper.h"
+
+#pragma mark - Constants
 
 #define kMaxVideoThumbnailHeight 163
 #define kMaxVideoThumbnailWidth 290
 #define kMaxSharerImageHeight 45
 #define kMaxSharerImageWidth 45
+
+#pragma mark - VideoDataURLRequest
 
 @interface VideoDataURLRequest : NSURLRequest
 @property (nonatomic, retain) Video *video;
@@ -42,6 +47,8 @@
 }
 @end
 
+#pragma mark - VideoTableData
+
 @interface VideoTableData ()
 // redeclare as readwrite for internal use; setter still accessible, but should generate
 // compiler warnings if used outside
@@ -53,6 +60,8 @@
 @synthesize delegate;
 @synthesize networkCounter;
 @synthesize likedOnly;
+
+#pragma mark - Utility Methods
 
 - (NSString *)dupeKeyWithProvider:(NSString *)provider withId:(NSString *)providerId
 {
@@ -79,131 +88,14 @@
     }
 }
 
-
-- (BOOL)isLoading
-{
-    // no synchronized needed for reads, since networkCounter is an int
-    return self.networkCounter != 0;
-}
-
-- (NSUInteger)numItemsInserted
-{
-    return lastInserted;
-
-}
-
-- (NSUInteger)numItems
-{
-    @synchronized(videoDataArray)
-    {
-        return [videoDataArray count];
-    }
-}
-
-#pragma mark - Index Methods
-
-- (NSString *)videoShelbyIdAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [[videoDataArray objectAtIndex:index] shelbyId];
-    }
-}
-
-- (NSString *)videoTitleAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [[videoDataArray objectAtIndex:index] title];
-    }
-}
-
-- (NSString *)videoSharerAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] sharer];
-    }
-}
-
-- (UIImage *)videoSharerImageAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] sharerImage];
-    }
-}
-
-- (NSString *)videoSharerCommentAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] sharerComment];
-    }
-}
-
-- (UIImage *)videoThumbnailAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] thumbnailImage];
-    }
-}
-
-- (NSString *)videoSourceAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] source];
-    }
-}
-
-- (NSDate *)videoCreatedAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] createdAt];
-    } 
-}
-
-- (BOOL)videoLikedAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] isLiked];
-    } 
-}
-
-- (BOOL)videoWatchedAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        return [(Video *)[videoDataArray objectAtIndex:index] isWatched];
-    } 
-}
-
-- (int)videoDupeCountAtIndex:(NSUInteger)index
-{
-    @synchronized(videoDataArray)
-    {
-        Video *video = [videoDataArray objectAtIndex:index];
-        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
-    } 
-}
-
-- (Video *)videoAtIndex:(NSUInteger)index
-{
-    return (Video *)[videoDataArray objectAtIndex:index];
-}
-
 #ifdef OFFLINE_MODE
 // DEBUG Only
 - (NSURL *)movieURL
 {
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *moviePath = [bundle
-        pathForResource:@"SampleMovie"
-                 ofType:@"mov"];
+                           pathForResource:@"SampleMovie"
+                           ofType:@"mov"];
     if (moviePath) {
         return [NSURL fileURLWithPath:moviePath];
     } else {
@@ -221,6 +113,166 @@
     return [baseURL stringByAppendingString:video];
 }
 
+- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
+{
+    //If scaleFactor is not touched, no scaling will occur      
+    CGFloat scaleFactor = 1.0;
+    
+    if (!((scaleFactor = (targetSize.width / image.size.width)) > (targetSize.height / image.size.height))) //scale to fit width, or
+        scaleFactor = targetSize.height / image.size.height; // scale to fit heigth.
+    
+    UIGraphicsBeginImageContext(targetSize); 
+    
+    //Creating the rect where the scaled image is drawn in
+    CGRect rect = CGRectMake((targetSize.width - image.size.width * scaleFactor) / 2,
+                             (targetSize.height -  image.size.height * scaleFactor) / 2,
+                             image.size.width * scaleFactor, image.size.height * scaleFactor);
+    
+    //Draw the image into the rect
+    [image drawInRect:rect];
+    
+    //Saving the image, ending image context
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
+
+#pragma mark - Accessors
+
+- (BOOL)isLoading
+{
+    // no synchronized needed for reads, since networkCounter is an int
+    return self.networkCounter != 0;
+}
+
+- (NSUInteger)numItemsInserted
+{
+    return lastInserted;
+
+}
+
+- (NSUInteger)numItems
+{
+    @synchronized(tableVideos)
+    {
+        return [tableVideos count];
+    }
+}
+
+- (NSString *)videoShelbyIdAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [[tableVideos objectAtIndex:index] shelbyId];
+    }
+}
+
+- (NSString *)videoTitleAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [[tableVideos objectAtIndex:index] title];
+    }
+}
+
+- (NSString *)videoSharerAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] sharer];
+    }
+}
+
+- (UIImage *)videoSharerImageAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] sharerImage];
+    }
+}
+
+- (NSString *)videoSharerCommentAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] sharerComment];
+    }
+}
+
+- (UIImage *)videoThumbnailAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] thumbnailImage];
+    }
+}
+
+- (NSString *)videoSourceAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] source];
+    }
+}
+
+- (NSDate *)videoCreatedAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] createdAt];
+    } 
+}
+
+- (BOOL)videoLikedAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] isLiked];
+    } 
+}
+
+- (BOOL)videoWatchedAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        return [(Video *)[tableVideos objectAtIndex:index] isWatched];
+    } 
+}
+
+- (int)videoDupeCount:(Video *)video
+{
+    @synchronized(tableVideos)
+    {
+        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
+    } 
+}
+
+- (int)videoDupeCountAtIndex:(NSUInteger)index
+{
+    @synchronized(tableVideos)
+    {
+        Video *video = [tableVideos objectAtIndex:index];
+        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
+    } 
+}
+
+- (NSArray *)videoDupes:(Video *)video
+{
+    @synchronized(tableVideos)
+    {
+        return [videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
+    } 
+}
+
+- (Video *)videoAtIndex:(NSUInteger)index
+{    
+    @synchronized(tableVideos)
+    {
+        return (Video *)[tableVideos objectAtIndex:index];
+    }
+}
+
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
 #ifdef OFFLINE_MODE
@@ -229,17 +281,17 @@
     Video *videoData = nil;
     NSURL *contentURL = nil;
 
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        if (index >= [videoDataArray count])
+        if (index >= [tableVideos count])
         {
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        videoData = [[[videoDataArray objectAtIndex:index] retain] autorelease];
+        videoData = [[[tableVideos objectAtIndex:index] retain] autorelease];
     }
 
-    contentURL = [[[[videoDataArray objectAtIndex:index] contentURL] retain] autorelease];
+    contentURL = [[[[tableVideos objectAtIndex:index] contentURL] retain] autorelease];
 
     if (contentURL == nil) {
 
@@ -295,73 +347,51 @@
 #endif
 }
 
+#pragma mark - Table Updates
+
 - (void)updateTableVideoThumbnail:(Video *)video
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        if (video.arrayGeneration != arrayGeneration) {
+        int videoIndex = [tableVideos indexOfObject:video];
+        if (videoIndex == NSNotFound) {
             return;
         }
         
-        // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [videoDataArray indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
-        
-        // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
-        UIImageView *videoThumbnail = (UIImageView *)[cell viewWithTag:2];
-        videoThumbnail.image = video.thumbnailImage;
+        [cell setNeedsDisplay];
     }
 }
 
 - (void)updateTableSharerImage:(Video *)video
 {
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        if (video.arrayGeneration != arrayGeneration) {
+        int videoIndex = [tableVideos indexOfObject:video];
+        if (videoIndex == NSNotFound) {
             return;
         }
         
-        // might be able to do this faster by just storing the index in the Video
-        int videoIndex = [videoDataArray indexOfObject:video];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
-        
-        // sucks that this knowledge is leaking out of VideoTableViewController... need to make this nicer
-        UIImageView *sharerImage = (UIImageView *)[cell viewWithTag:4];
-        sharerImage.image = video.sharerImage;
+        [cell setNeedsDisplay];
     }
 }
 
-
-/*
- * Cancel any pending operations, bump array generation number so any in-flight ops are no-ops,
- * clear the existing video table, and update the table view to delete all entries
- */
-
-- (void)clearVideosWithArrayLockHeld
+- (void)updateTableVideoWatchStatus:(Video *)video
 {
-    [videoDupeDict removeAllObjects];
-    [videoDataArray removeAllObjects];
-    
-    arrayGeneration++;
-    
-    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-    for (int i = 0; i < lastInserted; i++) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-    }
-    
-    [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-    lastInserted = 0;
-    [tableView endUpdates];
-}
-
-- (void)clearVideos
-{
-    @synchronized(videoDataArray)
+    @synchronized(tableVideos)
     {
-        [self clearVideosWithArrayLockHeld];
+        int videoIndex = [tableVideos indexOfObject:video];
+        if (videoIndex == NSNotFound) {
+            return;
+        }
+        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:videoIndex inSection:0]];
+        [cell setNeedsDisplay];
     }
 }
+
+#pragma mark - Async Image Downloading
 
 - (void)downloadSharerImage:(Video *)video
 {
@@ -376,31 +406,6 @@
         // We failed to send the request. Let the caller know.
     }
     [pool release];
-}
-
-- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
-{
-    //If scaleFactor is not touched, no scaling will occur      
-    CGFloat scaleFactor = 1.0;
-    
-    if (!((scaleFactor = (targetSize.width / image.size.width)) > (targetSize.height / image.size.height))) //scale to fit width, or
-        scaleFactor = targetSize.height / image.size.height; // scale to fit heigth.
-    
-    UIGraphicsBeginImageContext(targetSize); 
-    
-    //Creating the rect where the scaled image is drawn in
-    CGRect rect = CGRectMake((targetSize.width - image.size.width * scaleFactor) / 2,
-                             (targetSize.height -  image.size.height * scaleFactor) / 2,
-                             image.size.width * scaleFactor, image.size.height * scaleFactor);
-    
-    //Draw the image into the rect
-    [image drawInRect:rect];
-    
-    //Saving the image, ending image context
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return scaledImage;
 }
 
 - (void)receivedSharerImage:(NSURLResponse *)resp
@@ -482,6 +487,39 @@
     [self decrementNetworkCounter];
 }
 
+#pragma mark - Clearing
+
+/*
+ * Clear the existing video table, and update the table view to delete all entries
+ */
+
+- (void)clearVideoTableWithArrayLockHeld
+{
+    [tableVideos removeAllObjects];
+        
+    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
+    for (int i = 0; i < lastInserted; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    lastInserted = 0;
+    [tableView endUpdates];
+}
+
+- (void)clearVideoTableData
+{
+    @synchronized(tableVideos)
+    {
+        [videoDupeDict removeAllObjects];
+        [uniqueVideoKeys removeAllObjects];
+        [self clearVideoTableWithArrayLockHeld];
+    }
+}
+
+#pragma mark - Loading
+
 - (void)copyBroadcast:(Broadcast *)broadcast intoVideo:(Video *)video
 {
     NSString *sharerName = [broadcast.sharerName uppercaseString];
@@ -541,23 +579,62 @@
     return broadcasts;
 }
 
-- (void)reloadCoreDataBroadcasts
+- (void)insertTableVideos
 {
+    for (NSString *key in uniqueVideoKeys)
+    {
+        NSArray *dupeArray = [videoDupeDict objectForKey:key];
+        
+        // If we're in the like view, only keep videos that are liked...
+        if (likedOnly) {
+            BOOL likedDupe = NO;
+            for (Video *video in dupeArray) {
+                if (video.isLiked) {
+                    likedDupe = YES;
+                    break;
+                }
+            }
+            if (!likedDupe)
+            {
+                continue;
+            }
+        }
+        
+        Video *video = [dupeArray objectAtIndex:0];        
+        int index = [tableVideos count];
+        [tableVideos addObject:video];
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        lastInserted = index + 1;
+        [tableView endUpdates];
+    }
+}
+
+- (void)reloadTableVideos
+{
+    @synchronized(tableVideos)
+    {
+        [self clearVideoTableWithArrayLockHeld];
+        [self insertTableVideos];
+    }
+}
+
+- (void)reloadBroadcastsFromCoreData
+{    
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     NSArray *broadcasts = [self fetchBroadcastsFromCoreDataContext:context];
 
     if (IS_NULL(broadcasts)) {
         return;
     } 
-    
-    LOG(@"Found %d broadcasts for channel.public=0.", [broadcasts count]);
-    
-    @synchronized(videoDataArray)
+        
+    @synchronized(tableVideos)
     {
         // Clear out the old broadcasts.
-        [self clearVideosWithArrayLockHeld];
-        
-        NSMutableArray *uniqueVideoKeys = [[NSMutableArray alloc] init];
+        [videoDupeDict removeAllObjects];
+        [uniqueVideoKeys removeAllObjects];
+        [self clearVideoTableWithArrayLockHeld];
         
         // Load up the new broadcasts.
         for (Broadcast *broadcast in broadcasts) {            
@@ -585,7 +662,6 @@
 
             // create Video from Broadcast
             [self copyBroadcast:broadcast intoVideo:video];
-            video.arrayGeneration = arrayGeneration;  
 
             // need the sharerImage even for dupes
             if (IS_NULL(video.sharerImage)) {
@@ -597,36 +673,9 @@
                 [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
             }
         }
-        
-        for (NSString *key in uniqueVideoKeys)
-        {
-            NSArray *dupeArray = [videoDupeDict objectForKey:key];
             
-            // If we're in the like view, only keep videos that are liked...
-            if (likedOnly) {
-                BOOL likedDupe = NO;
-                for (Video *video in dupeArray) {
-                    if (video.isLiked) {
-                        likedDupe = YES;
-                        break;
-                    }
-                }
-                if (!likedDupe)
-                {
-                    continue;
-                }
-            }
-            
-            Video *video = [dupeArray objectAtIndex:0];
-            
-            int index = [videoDataArray count];
-            [videoDataArray addObject:video];
-            
-            [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
-            lastInserted = index + 1;
-            [tableView endUpdates];
-        }
+        [self insertTableVideos];
+
     }
     
     [context release];
@@ -638,7 +687,77 @@
 
 - (void)receivedBroadcastsNotification:(NSNotification *)notification
 {
-    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadCoreDataBroadcasts) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(reloadBroadcastsFromCoreData) userInfo:nil repeats:NO];
+}
+
+- (void)updateLikeStatusForVideo:(Video *)video withStatus:(BOOL)status
+{
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    [context setPersistentStoreCoordinator:psCoordinator];
+    
+    video.isLiked = status;
+    
+    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                        withShelbyId:video.shelbyId
+                                                           inContext:context];
+    if (IS_NULL(broadcast)) {
+        return;
+    }
+    
+    broadcast.liked = [NSNumber numberWithBool:status];
+    
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
+- (void)likeVideoSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        [self updateLikeStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:TRUE];
+    }
+}
+
+- (void)dislikeVideoSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        [self updateLikeStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:FALSE];
+    }
+}
+
+- (void)watchVideoSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        Video *video = [notification.userInfo objectForKey:@"video"];
+        
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        [context setPersistentStoreCoordinator:psCoordinator];
+        
+        video.isWatched = TRUE;
+        
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        if (IS_NULL(broadcast)) {
+            return;
+        }
+        
+        broadcast.watched = [NSNumber numberWithBool:TRUE];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+        }
+        
+        [self updateTableVideoWatchStatus:video];
+    }
 }
 
 #pragma mark - Cleanup
@@ -661,14 +780,30 @@
         tableView = linkedTableView;
 
         lastInserted = 0;
-        videoDataArray = [[NSMutableArray alloc] init];
+        tableVideos = [[NSMutableArray alloc] init];
         videoDupeDict = [[NSMutableDictionary alloc] init];
-        arrayGeneration = 0;
+        uniqueVideoKeys = [[NSMutableArray alloc] init];
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)
                                                      name: @"ReceivedBroadcasts"
                                                    object: nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(likeVideoSucceeded:)
+                                                     name:@"LikeBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dislikeVideoSucceeded:)
+                                                     name:@"DislikeBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(watchVideoSucceeded:)
+                                                     name:@"WatchBroadcastSucceeded"
+                                                   object:nil];
+        
         [[ShelbyApp sharedApp] addNetworkObject: self];
     }
     return self;

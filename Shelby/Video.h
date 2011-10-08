@@ -29,6 +29,9 @@
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic) BOOL isLiked;
 @property (nonatomic) BOOL isWatched;
-@property (nonatomic) int arrayGeneration;
+@property (nonatomic) float cellHeightAllComments;
+@property (nonatomic) BOOL hasBeenDisplayed;
+@property (nonatomic) BOOL allComments;
+@property (nonatomic) float cellHeightCurrent;
 
 @end

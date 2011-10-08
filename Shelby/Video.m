@@ -27,8 +27,10 @@
 @synthesize shortPermalink;
 @synthesize isLiked;
 @synthesize isWatched;
-@synthesize arrayGeneration;
-
+@synthesize cellHeightAllComments;
+@synthesize hasBeenDisplayed;
+@synthesize allComments;
+@synthesize cellHeightCurrent;
 
 - (void) dealloc
 {
@@ -46,6 +48,11 @@
     [createdAt release];
     
     [super dealloc];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"provider: %@\nproviderId: %@\ncontentURL: %@\nthumbnailURL: %@\nthumbnailImage: not displaying\ntitle: %@\nsharer: %@\nsharerComment: %@\nsharerImageURL: %@\nsharerImage: not displaying\nsource: %@\nshelbyId: %@\nshortPermalink: %@\ncreatedAt: not displaying\nisLiked: %@\nisWatched: %@\ncellHeightAllComments: %f\nhasBeenDisplayed: %@\nallComments: %@\ncellHeightCurrent: %f\n", self.provider, self.providerId, [self.contentURL description], [self.thumbnailURL description], self.title, self.sharer, self.sharerComment, [self.sharerImageURL description], self.source, self.shelbyId, self.shortPermalink, self.isLiked ? @"TRUE" : @"FALSE", self.isWatched ? @"TRUE" : @"FALSE", self.cellHeightAllComments, self.hasBeenDisplayed ? @"TRUE" : @"FALSE", self.allComments ? @"TRUE" : @"FALSE",  self.cellHeightCurrent]; 
 }
 
 @end
