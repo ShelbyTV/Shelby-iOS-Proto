@@ -256,7 +256,7 @@
 								<string key="NSFrame">{{52, 1}, {50, 44}}</string>
 								<reference key="NSSuperview" ref="623216898"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="971182416"/>
+								<reference key="NSNextKeyView" ref="702940619"/>
 								<string key="NSReuseIdentifierKey">_NS:222</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -278,10 +278,38 @@
 									<string key="NSResourceName">ButtonFavoritesNormal.png</string>
 								</object>
 							</object>
+							<object class="IBUIButton" id="702940619">
+								<reference key="NSNextResponder" ref="623216898"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{103, 1}, {50, 44}}</string>
+								<reference key="NSSuperview" ref="623216898"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="971182416"/>
+								<string key="NSReuseIdentifierKey">_NS:222</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIFont" ref="769974462"/>
+								<reference key="IBUIHighlightedTitleColor" ref="392116144"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="147814258"/>
+								<object class="NSCustomResource" key="IBUISelectedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">ButtonWatchLaterHighlighted.png</string>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">ButtonWatchLaterNormal.png</string>
+								</object>
+							</object>
 							<object class="IBUIView" id="971182416">
 								<reference key="NSNextResponder" ref="623216898"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{103, 1}, {216, 44}}</string>
+								<string key="NSFrame">{{154, 1}, {175, 44}}</string>
 								<reference key="NSSuperview" ref="623216898"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="666078329"/>
@@ -550,6 +578,7 @@
 							<reference ref="243693687"/>
 							<reference ref="971182416"/>
 							<reference ref="666078329"/>
+							<reference ref="702940619"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -613,6 +642,11 @@
 						<reference key="object" ref="94840193"/>
 						<reference key="parent" ref="267012245"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">88</int>
+						<reference key="object" ref="702940619"/>
+						<reference key="parent" ref="623216898"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -642,6 +676,8 @@
 					<string>79.IBPluginDependency</string>
 					<string>80.IBPluginDependency</string>
 					<string>86.IBPluginDependency</string>
+					<string>88.IBPluginDependency</string>
+					<string>88.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -668,6 +704,8 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -682,7 +720,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">87</int>
+			<int key="maxID">89</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -983,6 +1021,8 @@
 				<string>ButtonFavoritesNormal.png</string>
 				<string>ButtonListHighlighted.png</string>
 				<string>ButtonListNormal.png</string>
+				<string>ButtonWatchLaterHighlighted.png</string>
+				<string>ButtonWatchLaterNormal.png</string>
 				<string>FacebookActive.png</string>
 				<string>FacebookDisabled.png</string>
 				<string>Logo.png</string>
@@ -993,6 +1033,8 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{50, 44}</string>
+				<string>{50, 44}</string>
 				<string>{50, 44}</string>
 				<string>{50, 44}</string>
 				<string>{50, 44}</string>
