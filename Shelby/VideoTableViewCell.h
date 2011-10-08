@@ -23,8 +23,10 @@
     UIView *_videoFooterView;
     UIImageView *_sharerView;
     UILabel *_sharerComment;
-    UIButton *_sharerName;
+    UILabel *_sharerName;
     UILabel *_shareTime;
+    
+    UIButton *_expandButton;
     
     BOOL _selected;
     
