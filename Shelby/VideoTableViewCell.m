@@ -340,7 +340,7 @@
                 textSize = [self getCommentTextSize:dupe.title];
             }
             
-            UILabel *dupeComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_VIDEO_FOOTER_HEIGHT + IPAD_VIDEO_HEIGHT - 4, textSize.width, textSize.height)];
+            UILabel *dupeComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_VIDEO_FOOTER_HEIGHT + IPAD_VIDEO_HEIGHT, textSize.width, textSize.height)];
             dupeComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
             dupeComment.numberOfLines = 4;
             if (NOT_NULL(dupe.sharerComment)) {
@@ -355,7 +355,7 @@
             [_clipView addSubview:dupeComment];
             
             additionalHeight += textSize.height;
-            additionalHeight += IPAD_EXPANDED_COMMENT_MARGIN - 4;
+            additionalHeight += IPAD_EXPANDED_COMMENT_MARGIN;
             
             first = FALSE;
         } else {
@@ -369,7 +369,7 @@
             UIImageView *dupeSharerImage = [[UIImageView alloc] initWithFrame:CGRectMake(IPAD_SHARER_ORIGIN_X, IPAD_SHARER_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight, IPAD_SHARER_WIDTH, IPAD_SHARER_HEIGHT)];
             dupeSharerImage.image = dupe.sharerImage;
             
-            UILabel *dupeSharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_SHARER_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight - 4, IPAD_SHARER_NAME_WIDTH, IPAD_SHARER_NAME_HEIGHT)];
+            UILabel *dupeSharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_SHARER_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight + 2, IPAD_SHARER_NAME_WIDTH, IPAD_SHARER_NAME_HEIGHT)];
             
             dupeSharerName.textAlignment = UITextAlignmentLeft;
             dupeSharerName.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
@@ -380,7 +380,7 @@
             dupeSharerName.numberOfLines = 1;
             dupeSharerName.text = dupe.sharer;
             
-            UILabel *dupeShareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARETIME_ORIGIN_X, IPAD_SHARETIME_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight - 4, IPAD_SHARETIME_WIDTH, IPAD_SHARETIME_HEIGHT)];
+            UILabel *dupeShareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARETIME_ORIGIN_X, IPAD_SHARETIME_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight + 2, IPAD_SHARETIME_WIDTH, IPAD_SHARETIME_HEIGHT)];
             
             dupeShareTime.font = [UIFont fontWithName:@"Thonburi-Bold" size:14.0];
             dupeShareTime.textColor = [UIColor lightGrayColor];
