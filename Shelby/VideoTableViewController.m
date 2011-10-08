@@ -293,7 +293,11 @@
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
     } else {
-        return 232;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            return 232;
+        } else {
+            return 118;
+        }
     }
 }
 

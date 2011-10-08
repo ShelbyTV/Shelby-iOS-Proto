@@ -68,33 +68,33 @@
 #define IPHONE_BADGE_WIDTH 33
 #define IPHONE_BADGE_HEIGHT 33
 
-#define IPHONE_COMMENT_VIEW_ORIGIN_X 141
+#define IPHONE_COMMENT_VIEW_ORIGIN_X 121
 #define IPHONE_COMMENT_VIEW_ORIGIN_Y 10
 #define IPHONE_COMMENT_VIEW_WIDTH 159
 #define IPHONE_COMMENT_VIEW_HEIGHT 69
 
 #define IPHONE_VIDEO_FOOTER_ORIGIN_X 20
-#define IPHONE_VIDEO_FOOTER_ORIGIN_Y 79
+#define IPHONE_VIDEO_FOOTER_ORIGIN_Y 69
 #define IPHONE_VIDEO_FOOTER_WIDTH 280
 #define IPHONE_VIDEO_FOOTER_HEIGHT 29
 
-#define IPHONE_SHARER_ORIGIN_X 27
-#define IPHONE_SHARER_ORIGIN_Y 86
+#define IPHONE_SHARER_ORIGIN_X 7
+#define IPHONE_SHARER_ORIGIN_Y 76
 #define IPHONE_SHARER_WIDTH 16
 #define IPHONE_SHARER_HEIGHT 16
 
-#define IPHONE_COMMENT_ORIGIN_X 148
-#define IPHONE_COMMENT_ORIGIN_Y 17
+#define IPHONE_COMMENT_ORIGIN_X 128
+#define IPHONE_COMMENT_ORIGIN_Y 7
 #define IPHONE_COMMENT_WIDTH 145
 #define IPHONE_COMMENT_HEIGHT 55
 
-#define IPHONE_SHARER_NAME_ORIGIN_X 55
-#define IPHONE_SHARER_NAME_ORIGIN_Y 83
+#define IPHONE_SHARER_NAME_ORIGIN_X 35
+#define IPHONE_SHARER_NAME_ORIGIN_Y 74
 #define IPHONE_SHARER_NAME_WIDTH 136
 #define IPHONE_SHARER_NAME_HEIGHT 21
 
 #define IPHONE_SHARETIME_ORIGIN_X 174
-#define IPHONE_SHARETIME_ORIGIN_Y 83
+#define IPHONE_SHARETIME_ORIGIN_Y 73
 #define IPHONE_SHARETIME_WIDTH 99
 #define IPHONE_SHARETIME_HEIGHT 21
 
@@ -126,13 +126,14 @@
             _sharerComment.numberOfLines = 2;
             _sharerName.frame = CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_SHARER_NAME_ORIGIN_Y, IPAD_SHARER_NAME_WIDTH, IPAD_SHARER_NAME_HEIGHT);
             _shareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARETIME_ORIGIN_X, IPAD_SHARETIME_ORIGIN_Y, IPAD_SHARETIME_WIDTH, IPAD_SHARETIME_HEIGHT)];
+            _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_CELL_HORIZ_MARGIN, IPAD_CELL_VERT_MARGIN, IPAD_VIDEO_WIDTH, IPAD_VIDEO_HEIGHT + IPAD_VIDEO_FOOTER_HEIGHT)];
         } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             self.frame = CGRectMake(0, 0, IPHONE_CELL_WIDTH, IPHONE_CELL_HEIGHT);
-            _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(IPHONE_CELL_HORIZ_MARGIN, IPHONE_CELL_VERT_MARGIN, IPHONE_VIDEO_WIDTH, IPHONE_VIDEO_HEIGHT)];
-            _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(IPHONE_CELL_HORIZ_MARGIN, IPHONE_CELL_VERT_MARGIN, IPHONE_BADGE_WIDTH, IPHONE_BADGE_HEIGHT)];
-            _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_VIEW_ORIGIN_X, IPHONE_COMMENT_VIEW_ORIGIN_Y, IPHONE_COMMENT_VIEW_WIDTH, IPHONE_COMMENT_VIEW_HEIGHT)];
-            _commentView.backgroundColor = [UIColor darkGrayColor];
-            _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_VIDEO_FOOTER_ORIGIN_X, IPHONE_VIDEO_FOOTER_ORIGIN_Y, IPHONE_VIDEO_FOOTER_WIDTH, IPHONE_VIDEO_FOOTER_HEIGHT)];
+            _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_VIDEO_WIDTH, IPHONE_VIDEO_HEIGHT)];
+            _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_BADGE_WIDTH, IPHONE_BADGE_HEIGHT)];
+            _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_VIEW_ORIGIN_X, 0, IPHONE_COMMENT_VIEW_WIDTH, IPHONE_COMMENT_VIEW_HEIGHT)];
+            _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3];
+            _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, IPHONE_VIDEO_FOOTER_ORIGIN_Y, IPHONE_VIDEO_FOOTER_WIDTH, IPHONE_VIDEO_FOOTER_HEIGHT)];
             _sharerView = [[UIImageView alloc] initWithFrame:CGRectMake(IPHONE_SHARER_ORIGIN_X, IPHONE_SHARER_ORIGIN_Y, IPHONE_SHARER_WIDTH, IPHONE_SHARER_HEIGHT)];
             
             _sharerComment = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_ORIGIN_X, IPHONE_COMMENT_ORIGIN_Y, IPHONE_COMMENT_WIDTH, IPHONE_COMMENT_HEIGHT)];
@@ -140,12 +141,15 @@
             _sharerComment.numberOfLines = 3;
             _sharerName.frame = CGRectMake(IPHONE_SHARER_NAME_ORIGIN_X, IPHONE_SHARER_NAME_ORIGIN_Y, IPHONE_SHARER_NAME_WIDTH, IPHONE_SHARER_NAME_HEIGHT);
             _shareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_SHARETIME_ORIGIN_X, IPHONE_SHARETIME_ORIGIN_Y, IPHONE_SHARETIME_WIDTH, IPHONE_SHARETIME_HEIGHT)];
+            _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_CELL_HORIZ_MARGIN, IPHONE_CELL_VERT_MARGIN, IPHONE_VIDEO_WIDTH + IPHONE_COMMENT_VIEW_WIDTH, IPHONE_VIDEO_HEIGHT + IPHONE_VIDEO_FOOTER_HEIGHT)];
+            
+            // don't have all the right iPhone code yet...
+            [_sharerName setEnabled:NO];
         }
         
         // same for both iPhone and iPad
         _bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellGradient.png"]];
         _bgView.frame = self.bounds;
-        _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_CELL_HORIZ_MARGIN, IPAD_CELL_VERT_MARGIN, IPAD_VIDEO_WIDTH, IPAD_VIDEO_HEIGHT + IPAD_VIDEO_FOOTER_HEIGHT)];
         _clipView.clipsToBounds = TRUE;
         
         _selected = FALSE;
@@ -250,10 +254,18 @@
     
     if (!_video.hasBeenDisplayed) {
         _video.allComments = FALSE;
-        _video.cellHeightCurrent = IPAD_CELL_HEIGHT;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _video.cellHeightCurrent = IPAD_CELL_HEIGHT;
+        } else {
+            _video.cellHeightCurrent = IPHONE_CELL_HEIGHT;
+        }
     }
     
     _video.hasBeenDisplayed = TRUE;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return;
+    }
         
     for (UILabel *dupeComment in _dupeComments)
     {
