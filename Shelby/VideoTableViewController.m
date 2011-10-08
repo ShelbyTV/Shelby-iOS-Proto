@@ -278,11 +278,23 @@
     }
     
     NSUInteger row = indexPath.row;
-    dynVideoCell.video = [videoTableData videoAtIndex:row];
     dynVideoCell.videoTableData = videoTableData;
+    [dynVideoCell setVideo:[videoTableData videoAtIndex:row]];
+    dynVideoCell.viewController = self;
     [dynVideoCell setNeedsDisplay];
     
     return dynVideoCell;
+}
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger row = indexPath.row;
+    Video *video = [videoTableData videoAtIndex:row];
+    if (video.cellHeightCurrent != 0.0f) {
+        return video.cellHeightCurrent;
+    } else {
+        return 232;
+    }
 }
 
 #pragma mark - Table view delegate

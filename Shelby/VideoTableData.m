@@ -257,6 +257,14 @@
     } 
 }
 
+- (NSArray *)videoDupes:(Video *)video
+{
+    @synchronized(tableVideos)
+    {
+        return [videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
+    } 
+}
+
 - (Video *)videoAtIndex:(NSUInteger)index
 {    
     @synchronized(tableVideos)

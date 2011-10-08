@@ -52,6 +52,7 @@
 - (int)videoDupeCount:(Video *)video;
 - (int)videoDupeCountAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
+- (NSArray *)videoDupes:(Video *)video;
 
 - (void)clearVideoTableData;
 - (void)reloadTableVideos;
