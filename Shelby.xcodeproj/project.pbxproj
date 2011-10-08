@@ -44,6 +44,8 @@
 		0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496A14303B1800FDF996 /* BroadcastApi.m */; };
 		0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8496C1430425300FDF996 /* ApiConstants.h */; };
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
+		0AD9448B14410659000B8657 /* TimelineOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */; };
+		0AD9448D1441093D000B8657 /* FavoritesOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
 		0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
@@ -239,6 +241,8 @@
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
 		0AC8496E1430524600FDF996 /* ApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		0AC8496F1430524600FDF996 /* ApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiHelper.m; sourceTree = "<group>"; };
+		0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineOnboardCell.xib; sourceTree = "<group>"; };
+		0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoritesOnboardCell.xib; path = Resources/FavoritesOnboardCell.xib; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.tv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -921,6 +925,8 @@
 				42ACA2C2142A8F8E009FD812 /* STVShareView.xib */,
 				428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */,
 				42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */,
+				0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */,
+				0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
 				0AD9A36B13D53BD300EFECE0 /* iPhone */,
 			);
@@ -1180,6 +1186,8 @@
 				42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */,
 				42E1BB12143B983B009FCFCE /* TwitterDead.png in Resources */,
 				42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */,
+				0AD9448B14410659000B8657 /* TimelineOnboardCell.xib in Resources */,
+				0AD9448D1441093D000B8657 /* FavoritesOnboardCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
