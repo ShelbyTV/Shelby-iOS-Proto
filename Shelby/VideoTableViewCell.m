@@ -174,6 +174,15 @@
         _shareTime.textAlignment = UITextAlignmentRight;
         
         _bgView.userInteractionEnabled = TRUE;
+        
+        _bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _clipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _commentView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+        _videoFooterView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+        _shareTime.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        _sharerComment.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _sharerName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
                 
         [self addSubview:_bgView];
         [_bgView addSubview:_clipView];
