@@ -23,6 +23,9 @@
 
     //Background.
     [header setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ForegroundStripes" ofType:@"png"]]]];
+    
+    // iPhone video player is always in fullscreen mode.
+    [_videoPlayer setFullscreen:TRUE];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

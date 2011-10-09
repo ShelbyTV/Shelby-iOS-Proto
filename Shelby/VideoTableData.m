@@ -613,7 +613,6 @@
             {
                 continue;
             }
-
         }
         
         Video *video = [dupeArray objectAtIndex:0];        

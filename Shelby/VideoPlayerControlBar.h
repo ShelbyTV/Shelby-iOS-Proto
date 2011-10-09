@@ -45,6 +45,7 @@
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;
+- (void)setFullscreenButtonSelected:(BOOL)selected;
 - (IBAction)favoriteButtonWasPressed:(id)sender;
 
 @end

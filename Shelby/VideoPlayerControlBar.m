@@ -69,6 +69,11 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     _favoriteButton.selected = selected;
 }
 
+- (void)setFullscreenButtonSelected:(BOOL)selected
+{
+    _fullscreenButton.selected = selected;
+}
+
 - (void)setProgress:(float)progress {
     _progressBar.progress = progress;
 }

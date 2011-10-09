@@ -311,6 +311,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)setFullscreen:(BOOL)fullscreen
 {
     _fullscreen = fullscreen;
+    [_controlBar setFullscreenButtonSelected:fullscreen];
     if (_controlsVisible && fullscreen) {
         _nextButton.alpha = 1.0;
         _prevButton.alpha = 1.0;

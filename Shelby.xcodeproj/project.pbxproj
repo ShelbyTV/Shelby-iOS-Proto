@@ -46,6 +46,8 @@
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
 		0AD9448B14410659000B8657 /* TimelineOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */; };
 		0AD9448D1441093D000B8657 /* FavoritesOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */; };
+		0AD9448F14413833000B8657 /* ButtonExpand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448E14413833000B8657 /* ButtonExpand.png */; };
+		0AD944911441383C000B8657 /* ButtonShrink.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD944901441383C000B8657 /* ButtonShrink.png */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
 		0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
@@ -168,7 +170,6 @@
 		42CA0DB913EC83FE00B9BF15 /* ButtonSound.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */; };
 		42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */; };
 		42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */; };
-		42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */; };
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
 		42D1FDB0143A5266007E7A9B /* STVZeroEdgeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D1FDAF143A5266007E7A9B /* STVZeroEdgeTextView.m */; };
 		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
@@ -243,6 +244,8 @@
 		0AC8496F1430524600FDF996 /* ApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiHelper.m; sourceTree = "<group>"; };
 		0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineOnboardCell.xib; sourceTree = "<group>"; };
 		0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoritesOnboardCell.xib; path = Resources/FavoritesOnboardCell.xib; sourceTree = "<group>"; };
+		0AD9448E14413833000B8657 /* ButtonExpand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonExpand.png; path = Resources/Images/ButtonExpand.png; sourceTree = "<group>"; };
+		0AD944901441383C000B8657 /* ButtonShrink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShrink.png; path = Resources/Images/ButtonShrink.png; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.tv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -411,7 +414,6 @@
 		42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShare.png; path = Resources/Images/ButtonShare.png; sourceTree = "<group>"; };
 		42CA0DB513EC83FE00B9BF15 /* ButtonPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlay.png; path = Resources/Images/ButtonPlay.png; sourceTree = "<group>"; };
 		42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeart.png; path = Resources/Images/ButtonHeart.png; sourceTree = "<group>"; };
-		42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFullscreen.png; path = Resources/Images/ButtonFullscreen.png; sourceTree = "<group>"; };
 		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
 		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		42D1FDAE143A5266007E7A9B /* STVZeroEdgeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVZeroEdgeTextView.h; sourceTree = "<group>"; };
@@ -476,9 +478,10 @@
 		0AC849611430333D00FDF996 /* VideoPlayerControls */ = {
 			isa = PBXGroup;
 			children = (
+				0AD9448E14413833000B8657 /* ButtonExpand.png */,
+				0AD944901441383C000B8657 /* ButtonShrink.png */,
 				42C4C61213E9D1370034AC97 /* ButtonNext.png */,
 				42C4C61313E9D1370034AC97 /* ButtonPlay.png */,
-				42CA0DB713EC83FE00B9BF15 /* ButtonFullscreen.png */,
 				42C4C61413E9D1370034AC97 /* ButtonPrevious.png */,
 				42CA0DB313EC83FE00B9BF15 /* ButtonSound.png */,
 				42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */,
@@ -1109,7 +1112,6 @@
 				42CA0DB913EC83FE00B9BF15 /* ButtonSound.png in Resources */,
 				42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */,
 				42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */,
-				42CA0DBD13EC83FE00B9BF15 /* ButtonFullscreen.png in Resources */,
 				42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */,
 				42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */,
 				4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */,
@@ -1188,6 +1190,8 @@
 				42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */,
 				0AD9448B14410659000B8657 /* TimelineOnboardCell.xib in Resources */,
 				0AD9448D1441093D000B8657 /* FavoritesOnboardCell.xib in Resources */,
+				0AD9448F14413833000B8657 /* ButtonExpand.png in Resources */,
+				0AD944911441383C000B8657 /* ButtonShrink.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
