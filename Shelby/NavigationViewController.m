@@ -21,6 +21,8 @@
 
 @synthesize shareView = _shareView;
 
+#pragma mark - Initialization
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -139,7 +141,8 @@
 
 #pragma mark - Layout
 
-- (CGRect)centerFrame:(CGRect)frame inFrame:(CGRect)parent {
+- (CGRect)centerFrame:(CGRect)frame inFrame:(CGRect)parent
+{
     frame.origin.x = (parent.size.width / 2) - (frame.size.width / 2);
     frame.origin.y = (parent.size.height / 2) - (frame.size.height / 2);
 
@@ -150,6 +153,14 @@
 {
     return [self centerFrame:frame
                      inFrame:self.view.bounds];
+}
+
+- (BOOL)keyboardIsShown 
+{
+    if (CGRectIsNull(_keyboardFrame)) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - Logout Functionality
@@ -168,7 +179,49 @@
     // Override in subclass.
 }
 
-#pragma mark - STVShareViewDelegate Methods
+#pragma mark - STVShareView Methods
+
+- (void)centerShareViewInRect:(CGRect)parentRect withAnimationDuration:(double)duration {
+    CGRect centerFrame = [self centerFrame: self.shareView.frame inFrame: parentRect];
+    CGRect newFrame = CGRectNull;
+    if ([self keyboardIsShown]) {
+        CGRect frame = centerFrame;
+        CGRect intersect = CGRectIntersection(
+                _keyboardFrame,
+                frame
+                );
+        if (!CGRectEqualToRect(intersect, CGRectNull)) {
+            // Move the shareView up out of the way
+            frame.origin.y = (_keyboardFrame.origin.y - frame.size.height);
+        } 
+        newFrame = frame;
+    } else {
+        newFrame = centerFrame;
+    }
+
+    if (duration == 0) {
+        self.shareView.frame = newFrame;
+    } else {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration: duration];
+
+        // move the shareView
+        self.shareView.frame = newFrame;
+
+        [UIView commitAnimations];
+    }
+}
+
+- (void)centerShareViewWithAnimationDuration:(double)duration {
+    [self centerShareViewInRect: _videoPlayer.bounds
+          withAnimationDuration: duration];
+}
+
+- (void)centerShareViewAnimated:(double)animated {
+    double duration = (animated) ? 0.3 : 0.0;
+    [self centerShareViewWithAnimationDuration: duration];
+}
 
 - (void)closeShareView {
     if (self.shareView) {
@@ -176,6 +229,8 @@
         self.shareView = nil;
     }
 }
+
+#pragma mark - STVShareViewDelegate Methods
 
 - (void)shareViewClosePressed:(STVShareView*)shareView {
     [self closeShareView];
@@ -271,9 +326,6 @@
 
         [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
-        //CGRect frame = shareView.frame;
-        //frame.origin.x = (self.view.bounds.size.width / 2) - (shareView.bounds.size.width / 2);
-        //frame.origin.y = (self.view.bounds.size.height / 2) - (shareView.bounds.size.height / 2);
         shareView.frame = [self centerFrame: shareView.frame inFrame: _videoPlayer.bounds];
 
         //[self.view addSubview: shareView];
@@ -281,6 +333,7 @@
 
         self.shareView = shareView;
 
+        // Use this to reveal the keyboard.
         [shareView.socialTextView becomeFirstResponder];
     }
 }
@@ -327,6 +380,7 @@
     [watchLaterButton setSelected:YES];
     [videoTable changeVideoMode:2];
 }
+
 
 #pragma mark - View lifecycle
 
@@ -377,7 +431,8 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:self.view.window];
-    keyboardIsShown = NO;
+    //keyboardIsShown = NO;
+    _keyboardFrame = CGRectNull;
 }
 
 
@@ -428,19 +483,20 @@
 
     [UIView commitAnimations];
 
-    keyboardIsShown = NO;
+    //keyboardIsShown = NO;
+    _keyboardFrame = CGRectNull;
 }
 
 - (void)keyboardWillShow:(NSNotification *)n
 {
     // This is an ivar I'm using to ensure that we do not do the frame size adjustment on the UIScrollView if the keyboard is already shown.  This can happen if the user, after fixing editing a UITextField, scrolls the resized UIScrollView to another UITextField and attempts to edit the next UITextField.  If we were to resize the UIScrollView again, it would be disastrous.  NOTE: The keyboard notification will fire even when the keyboard is already shown.
-    if (keyboardIsShown) {
+    if ([self keyboardIsShown]) {
         return;
     }
 
     NSDictionary* userInfo = [n userInfo];
 
-    double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    //double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 
     // get the size of the keyboard
     NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
@@ -450,29 +506,9 @@
     //CGRect beginRect    = [beginValue CGRectValue];
 
     CGRect convertedRect = [self.view convertRect: endRect fromView: nil];
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration: animationDuration];
-
-    if (self.shareView) {
-        CGRect frame = self.shareView.frame;
-        CGRect intersect = CGRectIntersection(
-                convertedRect,
-                frame
-        );
-        if (!CGRectEqualToRect(intersect, CGRectNull)) {
-            // Move the shareView up out of the way
-            //frame.origin.y -= intersect.size.height;
-            frame.origin.y = (convertedRect.origin.y - frame.size.height);
-            self.shareView.frame = frame;
-        } else {
-
-        }
-    }
-    [UIView commitAnimations];
-
-    keyboardIsShown = YES;
+    _keyboardFrame = convertedRect;
+    //keyboardIsShown = YES;
+    [self centerShareViewAnimated: YES];
 }
 
 #pragma mark - KVO
@@ -492,6 +528,27 @@
                                change:change context:context];
     }
 }
+
+#pragma mark - Layout
+
+- (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation duration: duration];
+}
+
+- (void)didAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    [super didAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation];
+    
+}
+
+- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateSecondHalfOfRotationFromInterfaceOrientation: fromInterfaceOrientation duration: duration];
+    
+    // Center in the NEW frame.
+    CGRect rotatedFrame = [self.view.window convertRect: self.view.bounds toView: nil];
+    [self centerShareViewInRect: rotatedFrame
+          withAnimationDuration: 0.0];
+}
+
 
 #pragma mark - Cleanup
 

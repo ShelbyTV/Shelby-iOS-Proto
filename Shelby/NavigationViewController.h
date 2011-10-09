@@ -35,7 +35,8 @@
     IBOutlet UIImageView *userTumblr;
     IBOutlet UIImageView *userButton;
 
-    BOOL keyboardIsShown;
+    //BOOL keyboardIsShown;
+    CGRect _keyboardFrame;
     STVShareView *_shareView;
 
     NSSet *_authorizations;
@@ -50,5 +51,7 @@
 
 - (void)loadUserData;
 - (void)showLogoutAlert;
+
+- (void)centerShareViewAnimated:(double)animated;
 
 @end

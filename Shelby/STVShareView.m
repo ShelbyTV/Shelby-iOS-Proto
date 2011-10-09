@@ -189,7 +189,6 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
 
 - (void)updateAuthorizations:(User *)user {
     // Set twitter view visible
-
     if ([user.auth_twitter boolValue]) {
         _twitterButton.enabled   = YES;
         _twitterButton.selected  = YES;
@@ -204,7 +203,6 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
         _facebookButton.enabled  = NO;
     }
 }
-
 
 #pragma mark - UITextViewDelegate
 
