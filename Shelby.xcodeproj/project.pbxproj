@@ -26,6 +26,9 @@
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
 		0A539516144236BC004721B9 /* OnboardCellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A539515144236BC004721B9 /* OnboardCellGradient.png */; };
 		0A53951914423AC6004721B9 /* LogoSquares.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951814423AC6004721B9 /* LogoSquares.png */; };
+		0A53951B14424066004721B9 /* TimelineOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */; };
+		0A53951D144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */; };
+		0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
@@ -46,11 +49,11 @@
 		0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496A14303B1800FDF996 /* BroadcastApi.m */; };
 		0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8496C1430425300FDF996 /* ApiConstants.h */; };
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
-		0AD9448B14410659000B8657 /* TimelineOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */; };
-		0AD9448D1441093D000B8657 /* FavoritesOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */; };
+		0AD9448B14410659000B8657 /* TimelineOnboardCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448A14410659000B8657 /* TimelineOnboardCell_iPad.xib */; };
+		0AD9448D1441093D000B8657 /* FavoritesOnboardCell_IPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448C1441093D000B8657 /* FavoritesOnboardCell_IPad.xib */; };
 		0AD9448F14413833000B8657 /* ButtonExpand.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9448E14413833000B8657 /* ButtonExpand.png */; };
 		0AD944911441383C000B8657 /* ButtonShrink.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD944901441383C000B8657 /* ButtonShrink.png */; };
-		0AD9449314414EC6000B8657 /* WatchLaterOnboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9449214414EC5000B8657 /* WatchLaterOnboardCell.xib */; };
+		0AD9449314414EC6000B8657 /* WatchLaterOnboardCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD9449214414EC5000B8657 /* WatchLaterOnboardCell_iPad.xib */; };
 		0AD9A35513D53BD200EFECE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35413D53BD200EFECE0 /* UIKit.framework */; };
 		0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35613D53BD200EFECE0 /* Foundation.framework */; };
 		0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9A35813D53BD200EFECE0 /* CoreGraphics.framework */; };
@@ -222,6 +225,9 @@
 		0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiMutableURLRequest.m; sourceTree = "<group>"; };
 		0A539515144236BC004721B9 /* OnboardCellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OnboardCellGradient.png; path = Resources/Images/OnboardCellGradient.png; sourceTree = "<group>"; };
 		0A53951814423AC6004721B9 /* LogoSquares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoSquares.png; path = Resources/Images/LogoSquares.png; sourceTree = "<group>"; };
+		0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineOnboardCell_iPhone.xib; sourceTree = "<group>"; };
+		0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesOnboardCell_iPhone.xib; sourceTree = "<group>"; };
+		0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchLaterOnboardCell_iPhone.xib; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -247,11 +253,11 @@
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
 		0AC8496E1430524600FDF996 /* ApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		0AC8496F1430524600FDF996 /* ApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiHelper.m; sourceTree = "<group>"; };
-		0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineOnboardCell.xib; sourceTree = "<group>"; };
-		0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoritesOnboardCell.xib; path = Resources/FavoritesOnboardCell.xib; sourceTree = "<group>"; };
+		0AD9448A14410659000B8657 /* TimelineOnboardCell_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimelineOnboardCell_iPad.xib; path = ../TimelineOnboardCell_iPad.xib; sourceTree = "<group>"; };
+		0AD9448C1441093D000B8657 /* FavoritesOnboardCell_IPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoritesOnboardCell_IPad.xib; path = ../Resources/FavoritesOnboardCell_IPad.xib; sourceTree = "<group>"; };
 		0AD9448E14413833000B8657 /* ButtonExpand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonExpand.png; path = Resources/Images/ButtonExpand.png; sourceTree = "<group>"; };
 		0AD944901441383C000B8657 /* ButtonShrink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShrink.png; path = Resources/Images/ButtonShrink.png; sourceTree = "<group>"; };
-		0AD9449214414EC5000B8657 /* WatchLaterOnboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchLaterOnboardCell.xib; sourceTree = "<group>"; };
+		0AD9449214414EC5000B8657 /* WatchLaterOnboardCell_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WatchLaterOnboardCell_iPad.xib; path = ../WatchLaterOnboardCell_iPad.xib; sourceTree = "<group>"; };
 		0AD9A35013D53BD200EFECE0 /* Shelby.tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelby.tv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD9A35413D53BD200EFECE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AD9A35613D53BD200EFECE0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -680,6 +686,9 @@
 				42C4C57B13E8AADF0034AC97 /* MainWindow_iPhone.xib */,
 				42C4C57D13E8AADF0034AC97 /* Navigation_iPhone.xib */,
 				42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */,
+				0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */,
+				0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */,
+				0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */,
 			);
 			name = iPhone;
 			path = Shelby;
@@ -695,6 +704,9 @@
 				42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */,
 				42C4C58A13E8AB1D0034AC97 /* Navigation_iPad.xib */,
 				42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */,
+				0AD9448A14410659000B8657 /* TimelineOnboardCell_iPad.xib */,
+				0AD9448C1441093D000B8657 /* FavoritesOnboardCell_IPad.xib */,
+				0AD9449214414EC5000B8657 /* WatchLaterOnboardCell_iPad.xib */,
 			);
 			name = iPad;
 			path = Shelby;
@@ -936,9 +948,6 @@
 				42ACA2C2142A8F8E009FD812 /* STVShareView.xib */,
 				428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */,
 				42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */,
-				0AD9448A14410659000B8657 /* TimelineOnboardCell.xib */,
-				0AD9448C1441093D000B8657 /* FavoritesOnboardCell.xib */,
-				0AD9449214414EC5000B8657 /* WatchLaterOnboardCell.xib */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
 				0AD9A36B13D53BD300EFECE0 /* iPhone */,
 			);
@@ -1197,13 +1206,16 @@
 				42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */,
 				42E1BB12143B983B009FCFCE /* TwitterDead.png in Resources */,
 				42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */,
-				0AD9448B14410659000B8657 /* TimelineOnboardCell.xib in Resources */,
-				0AD9448D1441093D000B8657 /* FavoritesOnboardCell.xib in Resources */,
+				0AD9448B14410659000B8657 /* TimelineOnboardCell_iPad.xib in Resources */,
+				0AD9448D1441093D000B8657 /* FavoritesOnboardCell_IPad.xib in Resources */,
 				0AD9448F14413833000B8657 /* ButtonExpand.png in Resources */,
 				0AD944911441383C000B8657 /* ButtonShrink.png in Resources */,
-				0AD9449314414EC6000B8657 /* WatchLaterOnboardCell.xib in Resources */,
+				0AD9449314414EC6000B8657 /* WatchLaterOnboardCell_iPad.xib in Resources */,
 				0A539516144236BC004721B9 /* OnboardCellGradient.png in Resources */,
 				0A53951914423AC6004721B9 /* LogoSquares.png in Resources */,
+				0A53951B14424066004721B9 /* TimelineOnboardCell_iPhone.xib in Resources */,
+				0A53951D144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib in Resources */,
+				0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

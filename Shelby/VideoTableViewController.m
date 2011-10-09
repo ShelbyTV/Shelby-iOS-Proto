@@ -282,7 +282,11 @@
         if (videoMode == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:timelineOnboardIdentifier];
             if (cell == nil) {
-                [[NSBundle mainBundle] loadNibNamed:@"TimelineOnboardCell" owner:self options:nil];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    [[NSBundle mainBundle] loadNibNamed:@"TimelineOnboardCell_iPad" owner:self options:nil];
+                } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                    [[NSBundle mainBundle] loadNibNamed:@"TimelineOnboardCell_iPhone" owner:self options:nil];
+                }
                 cell = timelineOnboardCell;
                 timelineOnboardCell = nil;
             }
@@ -290,7 +294,11 @@
         } else if (videoMode == 1) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:favoritesOnboardIdentifier];
             if (cell == nil) {
-                [[NSBundle mainBundle] loadNibNamed:@"FavoritesOnboardCell" owner:self options:nil];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    [[NSBundle mainBundle] loadNibNamed:@"FavoritesOnboardCell_iPad" owner:self options:nil];
+                } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                    [[NSBundle mainBundle] loadNibNamed:@"FavoritesOnboardCell_iPhone" owner:self options:nil];
+                }
                 cell = favoritesOnboardCell;
                 favoritesOnboardCell = nil;
             }
@@ -298,7 +306,11 @@
         } else if (videoMode == 2) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:watchLaterOnboardIdentifier];
             if (cell == nil) {
-                [[NSBundle mainBundle] loadNibNamed:@"WatchLaterOnboardCell" owner:self options:nil];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    [[NSBundle mainBundle] loadNibNamed:@"WatchLaterOnboardCell_iPad" owner:self options:nil];
+                } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                    [[NSBundle mainBundle] loadNibNamed:@"WatchLaterOnboardCell_iPhone" owner:self options:nil];
+                }
                 cell = watchLaterOnboardCell;
                 watchLaterOnboardCell = nil;
             }
@@ -331,9 +343,17 @@
     NSUInteger row = indexPath.row;
     if (row == 0) {
         if (videoMode == 0 || videoMode == 1) {
-            return 210;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                return 210;
+            } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                return 138;
+            }
         } else if (videoMode == 2) {
-            return 396;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                return 396;
+            } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                return 286;
+            }
         }
     }
     Video *video = [videoTableData videoAtIndex:row];
