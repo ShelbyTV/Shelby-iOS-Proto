@@ -39,19 +39,8 @@
 - (BOOL)isLoading;
 - (NSUInteger)numItemsInserted;
 - (NSUInteger)numItems;
-- (NSString *)videoShelbyIdAtIndex:(NSUInteger)index;
-- (NSDate *)videoCreatedAtIndex:(NSUInteger)index;
-- (NSString *)videoSourceAtIndex:(NSUInteger)index;
-- (NSString *)videoTitleAtIndex:(NSUInteger)index;
-- (NSString *)videoSharerAtIndex:(NSUInteger)index;
-- (UIImage *)videoSharerImageAtIndex:(NSUInteger)index;
-- (NSString *)videoSharerCommentAtIndex:(NSUInteger)index;
-- (UIImage *)videoThumbnailAtIndex:(NSUInteger)index;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
-- (BOOL)videoLikedAtIndex:(NSUInteger)index;
-- (BOOL)videoWatchedAtIndex:(NSUInteger)index;
 - (int)videoDupeCount:(Video *)video;
-- (int)videoDupeCountAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
 - (NSArray *)videoDupes:(Video *)video;
 

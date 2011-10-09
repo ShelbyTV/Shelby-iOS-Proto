@@ -161,99 +161,10 @@
     }
 }
 
-- (NSString *)videoShelbyIdAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [[tableVideos objectAtIndex:index] shelbyId];
-    }
-}
-
-- (NSString *)videoTitleAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [[tableVideos objectAtIndex:index] title];
-    }
-}
-
-- (NSString *)videoSharerAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] sharer];
-    }
-}
-
-- (UIImage *)videoSharerImageAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] sharerImage];
-    }
-}
-
-- (NSString *)videoSharerCommentAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] sharerComment];
-    }
-}
-
-- (UIImage *)videoThumbnailAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] thumbnailImage];
-    }
-}
-
-- (NSString *)videoSourceAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] source];
-    }
-}
-
-- (NSDate *)videoCreatedAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] createdAt];
-    } 
-}
-
-- (BOOL)videoLikedAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] isLiked];
-    } 
-}
-
-- (BOOL)videoWatchedAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        return [(Video *)[tableVideos objectAtIndex:index] isWatched];
-    } 
-}
-
 - (int)videoDupeCount:(Video *)video
 {
     @synchronized(tableVideos)
     {
-        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
-    } 
-}
-
-- (int)videoDupeCountAtIndex:(NSUInteger)index
-{
-    @synchronized(tableVideos)
-    {
-        Video *video = [tableVideos objectAtIndex:index];
         return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
     } 
 }
@@ -270,7 +181,7 @@
 {    
     @synchronized(tableVideos)
     {
-        return (Video *)[tableVideos objectAtIndex:index];
+        return (Video *)[tableVideos objectAtIndex:(index - 1)];
     }
 }
 
@@ -284,15 +195,15 @@
 
     @synchronized(tableVideos)
     {
-        if (index >= [tableVideos count])
+        if (index > [tableVideos count])
         {
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        videoData = [[[tableVideos objectAtIndex:index] retain] autorelease];
+        videoData = [[[tableVideos objectAtIndex:(index - 1)] retain] autorelease];
     }
 
-    contentURL = [[[[tableVideos objectAtIndex:index] contentURL] retain] autorelease];
+    contentURL = videoData.contentURL;
 
     if (contentURL == nil) {
 
@@ -582,6 +493,12 @@
 
 - (void)insertTableVideos
 {
+    // insert 1 dummy entry for the onboarding
+    [tableView beginUpdates];
+    [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    lastInserted = 1;
+    [tableView endUpdates];
+    
     for (NSString *key in uniqueVideoKeys)
     {
         NSArray *dupeArray = [videoDupeDict objectForKey:key];
@@ -616,13 +533,19 @@
         }
         
         Video *video = [dupeArray objectAtIndex:0];        
-        int index = [tableVideos count];
+        int index = [tableVideos count] + 1; // +1 is for the onboarding cell
         [tableVideos addObject:video];
         
         [tableView beginUpdates];
         [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         lastInserted = index + 1;
         [tableView endUpdates];
+    }
+    
+    if (lastInserted > 1) {
+        [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection: 0]
+                         atScrollPosition: UITableViewScrollPositionTop
+                                 animated: NO];
     }
 }
 

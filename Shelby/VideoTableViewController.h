@@ -27,6 +27,10 @@
     SEL callbackSelector;
     NSInteger _currentVideoIndex;
     NSInteger videoMode;
+    
+    IBOutlet UITableViewCell *timelineOnboardCell;
+    IBOutlet UITableViewCell *favoritesOnboardCell;
+    IBOutlet UITableViewCell *watchLaterOnboardCell;
 
     EGORefreshTableHeaderView *_refreshHeaderView;
 }

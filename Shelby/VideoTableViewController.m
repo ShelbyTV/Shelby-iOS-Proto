@@ -34,6 +34,7 @@
 
         callbackObject = object;
         callbackSelector = selector;
+        _currentVideoIndex = 1;
     }
     return self;
 }
@@ -69,7 +70,7 @@
 {
     // Clear out the table.
     [videoTableData clearVideoTableData];
-    _currentVideoIndex = 0;
+    _currentVideoIndex = 1;
 }
 
 - (void)loadVideos
@@ -115,9 +116,9 @@
 - (Video *)getNextVideo
 {
     _currentVideoIndex++;
-    if (_currentVideoIndex >= [videoTableData numItems]) {
+    if (_currentVideoIndex > [videoTableData numItems]) {
         // Set to first index.
-        _currentVideoIndex = 0;
+        _currentVideoIndex = 1;
     }
 
     // Return the next video.
@@ -138,9 +139,9 @@
 - (Video *)getPreviousVideo
 {
     _currentVideoIndex--;
-    if (_currentVideoIndex < 0) {
+    if (_currentVideoIndex < 1) {
         // Set to last index.
-        _currentVideoIndex = [videoTableData numItems] - 1;
+        _currentVideoIndex = [videoTableData numItems]; // onboarding cell is first entry, so using count is fine
     }
 
     // Return the previous video.
@@ -269,15 +270,47 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"VideoTableViewCell";
-    
-    VideoTableViewCell *dynVideoCell = (VideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (dynVideoCell == nil) {
-        dynVideoCell = [[[VideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+    static NSString *videoCellIdentifier = @"VideoTableViewCell";
+    static NSString *timelineOnboardIdentifier = @"TimelineOnbardCell";
+    static NSString *favoritesOnboardIdentifier = @"FavoritesOnboardCell";
+    static NSString *watchLaterOnboardIdentifier = @"WatchLaterOnboardCell";
     
     NSUInteger row = indexPath.row;
+    
+    if (row == 0) {
+        if (videoMode == 0) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:timelineOnboardIdentifier];
+            if (cell == nil) {
+                [[NSBundle mainBundle] loadNibNamed:@"TimelineOnboardCell" owner:self options:nil];
+                cell = timelineOnboardCell;
+                timelineOnboardCell = nil;
+            }
+            return cell;
+        } else if (videoMode == 1) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:favoritesOnboardIdentifier];
+            if (cell == nil) {
+                [[NSBundle mainBundle] loadNibNamed:@"FavoritesOnboardCell" owner:self options:nil];
+                cell = favoritesOnboardCell;
+                favoritesOnboardCell = nil;
+            }
+            return cell;
+        } else if (videoMode == 2) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:watchLaterOnboardIdentifier];
+            if (cell == nil) {
+                [[NSBundle mainBundle] loadNibNamed:@"WatchLaterOnboardCell" owner:self options:nil];
+                cell = watchLaterOnboardCell;
+                watchLaterOnboardCell = nil;
+            }
+            return cell;
+        }
+    }
+    
+    VideoTableViewCell *dynVideoCell = (VideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:videoCellIdentifier];
+    
+    if (dynVideoCell == nil) {
+        dynVideoCell = [[[VideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellIdentifier] autorelease];
+    }
+    
     dynVideoCell.videoTableData = videoTableData;
     [dynVideoCell setVideo:[videoTableData videoAtIndex:row]];
     dynVideoCell.viewController = self;
@@ -289,6 +322,13 @@
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
+    if (row == 0) {
+        if (videoMode == 0 || videoMode == 1) {
+            return 210;
+        } else if (videoMode == 2) {
+            return 408;
+        }
+    }
     Video *video = [videoTableData videoAtIndex:row];
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
@@ -309,7 +349,7 @@
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
-    Video *video = [self videoAtTableDataIndex: row];
+    Video *video = [self videoAtTableDataIndex:row];
     _currentVideoIndex = row;
 
     [callbackObject performSelector:callbackSelector withObject:video];
