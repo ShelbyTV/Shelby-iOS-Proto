@@ -32,6 +32,7 @@
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL likedOnly;
+@property (readwrite) BOOL watchLaterOnly;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 

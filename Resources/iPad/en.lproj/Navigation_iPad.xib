@@ -538,6 +538,23 @@
 					</object>
 					<int key="connectionID">65</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">watchLaterButtonPressed:</string>
+						<reference key="source" ref="477626834"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">68</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">watchLaterButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="477626834"/>
+					</object>
+					<int key="connectionID">69</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -752,7 +769,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">67</int>
+			<int key="maxID">69</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -775,9 +792,11 @@
 							<string>favoritesButtonPressed:</string>
 							<string>listButtonPressed:</string>
 							<string>userViewWasPressed:</string>
+							<string>watchLaterButtonPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -790,6 +809,7 @@
 							<string>favoritesButtonPressed:</string>
 							<string>listButtonPressed:</string>
 							<string>userViewWasPressed:</string>
+							<string>watchLaterButtonPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -803,6 +823,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">userViewWasPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">watchLaterButtonPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -825,6 +849,7 @@
 							<string>userTumblr</string>
 							<string>userTwitter</string>
 							<string>videoTableHolder</string>
+							<string>watchLaterButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -842,6 +867,7 @@
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UIView</string>
+							<string>UIButton</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -862,6 +888,7 @@
 							<string>userTumblr</string>
 							<string>userTwitter</string>
 							<string>videoTableHolder</string>
+							<string>watchLaterButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -920,6 +947,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">videoTableHolder</string>
 								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">watchLaterButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 						</object>
 					</object>

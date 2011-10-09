@@ -307,6 +307,7 @@
 - (IBAction)listButtonPressed:(id)sender
 {
     [favoritesButton setSelected:NO];
+    [watchLaterButton setSelected:NO];
     [listButton setSelected:YES];
     [videoTable changeVideoMode:0];
 }
@@ -314,8 +315,17 @@
 - (IBAction)favoritesButtonPressed:(id)sender
 {
     [listButton setSelected:NO];
+    [watchLaterButton setSelected:NO];
     [favoritesButton setSelected:YES];
     [videoTable changeVideoMode:1];
+}
+
+- (IBAction)watchLaterButtonPressed:(id)sender
+{
+    [listButton setSelected:NO];
+    [favoritesButton setSelected:NO];
+    [watchLaterButton setSelected:YES];
+    [videoTable changeVideoMode:2];
 }
 
 #pragma mark - View lifecycle

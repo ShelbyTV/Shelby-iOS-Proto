@@ -46,11 +46,15 @@
 {
     if (mode != videoMode) {
         LOG(@"changeVideoMode %d", mode);
-        if (mode == 1)
-        {
-            videoTableData.likedOnly = YES;
-        } else {
+        if (mode == 0) {
             videoTableData.likedOnly = NO;
+            videoTableData.watchLaterOnly = NO;
+        } else if (mode == 1) {
+            videoTableData.likedOnly = YES;
+            videoTableData.watchLaterOnly = NO;
+        } else if (mode == 2) {
+            videoTableData.likedOnly = NO;
+            videoTableData.watchLaterOnly = YES;
         }
         
         // Change the channel.
@@ -70,11 +74,7 @@
 
 - (void)loadVideos
 {
-#ifdef OFFLINE_MODE
-    [videoTableData loadVideos];
-#else
     [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
-#endif
 }
 
 - (void)doneLoadingTableViewData

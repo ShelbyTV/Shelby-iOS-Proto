@@ -60,6 +60,7 @@
 @synthesize delegate;
 @synthesize networkCounter;
 @synthesize likedOnly;
+@synthesize watchLaterOnly;
 
 #pragma mark - Utility Methods
 
@@ -598,6 +599,21 @@
             {
                 continue;
             }
+        }
+        
+        if (watchLaterOnly) {
+            BOOL watchLaterDupe = NO;
+            for (Video *video in dupeArray) {
+//                if (video.isWatchLater) {
+//                    watchLaterDupe = YES;
+//                    break;
+//                }
+            }
+            if (!watchLaterDupe)
+            {
+                continue;
+            }
+
         }
         
         Video *video = [dupeArray objectAtIndex:0];        

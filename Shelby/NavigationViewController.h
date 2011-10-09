@@ -25,6 +25,7 @@
     IBOutlet UIView *buttonsFiller;
     IBOutlet UIButton *listButton;
     IBOutlet UIButton *favoritesButton;
+    IBOutlet UIButton *watchLaterButton;
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
 
     IBOutlet UIImageView *userImage;
@@ -45,6 +46,7 @@
 - (IBAction)userViewWasPressed:(id)sender;
 - (IBAction)listButtonPressed:(id)sender;
 - (IBAction)favoritesButtonPressed:(id)sender;
+- (IBAction)watchLaterButtonPressed:(id)sender;
 
 - (void)loadUserData;
 - (void)showLogoutAlert;
