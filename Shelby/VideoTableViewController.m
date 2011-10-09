@@ -13,6 +13,7 @@
 #import "LoginHelper.h"
 #import "GraphiteStats.h"
 #import "VideoTableViewCell.h"
+#import "User.h"
 
 @implementation VideoTableViewController
 
@@ -301,6 +302,12 @@
                 cell = watchLaterOnboardCell;
                 watchLaterOnboardCell = nil;
             }
+            User *user = [ShelbyApp sharedApp].loginHelper.user;
+            UIImageView *face = (UIImageView *)[cell viewWithTag:1];
+            face.image = [UIImage imageWithData:user.image];
+            face = (UIImageView *)[cell viewWithTag:2];
+            face.image = [UIImage imageWithData:user.image];
+            
             return cell;
         }
     }
@@ -326,7 +333,7 @@
         if (videoMode == 0 || videoMode == 1) {
             return 210;
         } else if (videoMode == 2) {
-            return 408;
+            return 396;
         }
     }
     Video *video = [videoTableData videoAtIndex:row];

@@ -25,6 +25,7 @@
 		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
 		0A539516144236BC004721B9 /* OnboardCellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A539515144236BC004721B9 /* OnboardCellGradient.png */; };
+		0A53951914423AC6004721B9 /* LogoSquares.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951814423AC6004721B9 /* LogoSquares.png */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
@@ -220,6 +221,7 @@
 		0A4DB3DC1432512D00618605 /* ApiMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiMutableURLRequest.h; sourceTree = "<group>"; };
 		0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiMutableURLRequest.m; sourceTree = "<group>"; };
 		0A539515144236BC004721B9 /* OnboardCellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OnboardCellGradient.png; path = Resources/Images/OnboardCellGradient.png; sourceTree = "<group>"; };
+		0A53951814423AC6004721B9 /* LogoSquares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoSquares.png; path = Resources/Images/LogoSquares.png; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 				0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */,
 				42C4C55C13E8A6C00034AC97 /* Logo.png */,
 				0ADF890814344B10001BCCF8 /* Logo_iPad.png */,
+				0A53951814423AC6004721B9 /* LogoSquares.png */,
 				0A3E77B01434713500800018 /* iPadHeaderBackground.png */,
 			);
 			name = Logo;
@@ -1200,6 +1203,7 @@
 				0AD944911441383C000B8657 /* ButtonShrink.png in Resources */,
 				0AD9449314414EC6000B8657 /* WatchLaterOnboardCell.xib in Resources */,
 				0A539516144236BC004721B9 /* OnboardCellGradient.png in Resources */,
+				0A53951914423AC6004721B9 /* LogoSquares.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
