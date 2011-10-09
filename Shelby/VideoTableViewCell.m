@@ -137,7 +137,7 @@
             _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_VIDEO_WIDTH, IPHONE_VIDEO_HEIGHT)];
             _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_BADGE_WIDTH, IPHONE_BADGE_HEIGHT)];
             _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_VIEW_ORIGIN_X, 0, IPHONE_COMMENT_VIEW_WIDTH, IPHONE_COMMENT_VIEW_HEIGHT)];
-            _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3];
+            _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1];
             _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, IPHONE_VIDEO_FOOTER_ORIGIN_Y, IPHONE_VIDEO_FOOTER_WIDTH, IPHONE_VIDEO_FOOTER_HEIGHT)];
             _sharerView = [[UIImageView alloc] initWithFrame:CGRectMake(IPHONE_SHARER_ORIGIN_X, IPHONE_SHARER_ORIGIN_Y, IPHONE_SHARER_WIDTH, IPHONE_SHARER_HEIGHT)];
             
