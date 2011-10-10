@@ -28,6 +28,7 @@
 @property (nonatomic, copy) NSString *shortPermalink;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic) BOOL isLiked;
+@property (nonatomic) BOOL isWatchLater;
 @property (nonatomic) BOOL isWatched;
 @property (nonatomic) float cellHeightAllComments;
 @property (nonatomic) BOOL hasBeenDisplayed;

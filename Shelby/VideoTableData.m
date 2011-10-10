@@ -475,6 +475,7 @@
     SET_IF_NOT_NULL(video.createdAt, broadcast.createdAt)
     
     if (NOT_NULL(broadcast.liked)) video.isLiked = [broadcast.liked boolValue];
+    if (NOT_NULL(broadcast.watchLater)) video.isWatchLater = [broadcast.watchLater boolValue];
     if (NOT_NULL(broadcast.watched)) video.isWatched = [broadcast.watched boolValue];
 }
 
@@ -536,10 +537,10 @@
         if (watchLaterOnly) {
             BOOL watchLaterDupe = NO;
             for (Video *video in dupeArray) {
-//                if (video.isWatchLater) {
-//                    watchLaterDupe = YES;
-//                    break;
-//                }
+                if (video.isWatchLater) {
+                    watchLaterDupe = YES;
+                    break;
+                }
             }
             if (!watchLaterDupe)
             {

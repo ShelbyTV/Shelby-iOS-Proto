@@ -15,6 +15,7 @@
 
 @dynamic createdAt;
 @dynamic liked;
+@dynamic watchLater;
 @dynamic origin;
 @dynamic provider;
 @dynamic providerId;
@@ -38,7 +39,7 @@
         
     //self.channel filled in elsewhere, references NSMangedObject in CoreData
     if (NOT_NULL([dict objectForKey:@"created_at"])) {
-        self.createdAt =                    [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
+        self.createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
     }
     
     NSNumber *liked = [dict objectForKey:@"liked_by_owner"];
@@ -53,6 +54,13 @@
         self.watched = [NSNumber numberWithBool: YES];
     } else {
         self.watched = [NSNumber numberWithBool: NO];
+    }
+    
+    NSNumber *watchLater = [dict objectForKey:@"owner_watch_later"];
+    if (NOT_NULL(watchLater) && [watchLater boolValue]) {
+        self.watchLater = [NSNumber numberWithBool: YES];
+    } else {
+        self.watchLater = [NSNumber numberWithBool: NO];
     }
                       
     SET_IF_NOT_NULL(self.origin,            [dict objectForKey:@"video_origin"])

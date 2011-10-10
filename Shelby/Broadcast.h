@@ -19,6 +19,7 @@
 
 @property (nonatomic, retain) NSDate   *createdAt;
 @property (nonatomic, retain) NSNumber *liked;
+@property (nonatomic, retain) NSNumber *watchLater;
 @property (nonatomic, retain) NSString *origin;
 @property (nonatomic, retain) NSString *provider;
 @property (nonatomic, retain) NSString *providerId;

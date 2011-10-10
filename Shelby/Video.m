@@ -26,6 +26,7 @@
 @synthesize shelbyId;
 @synthesize shortPermalink;
 @synthesize isLiked;
+@synthesize isWatchLater;
 @synthesize isWatched;
 @synthesize cellHeightAllComments;
 @synthesize hasBeenDisplayed;
