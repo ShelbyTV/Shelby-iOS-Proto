@@ -78,9 +78,9 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
         double now = CACurrentMediaTime();
         if (now - _lastGetBegan > 3 && _currentVideo != nil)
         {
-            NSLog(@"_lastGetBegan = %f", _lastGetBegan);
-            NSLog(@"currentTime = %f", now);
-            NSLog(@"REAPING JOB THAT WAS CURRENT TOO LONG");
+            LOG(@"_lastGetBegan = %f", _lastGetBegan);
+            LOG(@"currentTime = %f", now);
+            LOG(@"REAPING JOB THAT WAS CURRENT TOO LONG");
             _currentVideo = nil;
             static NSString *htmlString = @"<html><body></body></html>";
             [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
@@ -88,9 +88,9 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
         }
         
         if ([_videoQueue count] != 0 && _currentVideo == nil) {
-            NSLog(@"PROCESSING ENQUEUED JOB");
+            LOG(@"PROCESSING ENQUEUED JOB");
             _lastGetBegan = CACurrentMediaTime();
-            NSLog(@"_lastGetBegan = %f", _lastGetBegan);
+            LOG(@"_lastGetBegan = %f", _lastGetBegan);
 
             _currentVideo = (Video *)[_videoQueue objectAtIndex:0];
             [_videoQueue removeObjectAtIndex:0];
@@ -164,7 +164,7 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
             _currentVideo.contentURL = contentURL;
             [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
             [[NSNotificationCenter defaultCenter] removeObserver:self];
-            NSLog(@"posting ContentURLAvailable notification");
+            LOG(@"posting ContentURLAvailable notification");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ContentURLAvailable"
                                                                 object:self
                                                               userInfo:[NSDictionary dictionaryWithObjectsAndKeys:contentURL, @"contentURL", _currentVideo, @"video", nil]];
@@ -200,20 +200,11 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
     return button;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"webView didFailLoadWithError");
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {   
-    NSLog(@"webViewDidFinishLoad");
+    LOG(@"webViewDidFinishLoad");
     UIButton *b = [self findButtonInView:webView];
-    if (b == nil) {
-        NSLog(@"button is nil");
-    } else {
-        [b sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
+    [b sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

@@ -62,11 +62,11 @@ static const float kNextPrevXOffset        =  0.0f;
              object:nil];
 
     // Listen for the end of the video.
-//    [[NSNotificationCenter defaultCenter]
-//        addObserver:self
-//           selector:@selector(movieDidFinish:)
-//               name:MPMoviePlayerPlaybackDidFinishNotification
-//             object:nil];
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(movieDidFinish:)
+               name:MPMoviePlayerPlaybackDidFinishNotification
+             object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(likeVideoSucceeded:)
@@ -260,13 +260,7 @@ static const float kNextPrevXOffset        =  0.0f;
     @synchronized(self) {
         
         if (NOT_NULL(video)) {
-            
             self.currentVideo = video;
-            
-            if (IS_NULL(video.contentURL)) {
-                return;
-            }
-            
             [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
             
             // Set internal lock so our notification doesn't go haywire.
@@ -294,9 +288,11 @@ static const float kNextPrevXOffset        =  0.0f;
             // Reset our duration.
             _duration = 0.0f;
             // Load the video and play it.
-            _moviePlayer.contentURL = video.contentURL;
-            [self play];
-            [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
+            if (video.contentURL) {
+                _moviePlayer.contentURL = video.contentURL;
+                [self play];
+                [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
+            }
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             
             _changingVideo = NO;
@@ -441,10 +437,22 @@ static const float kNextPrevXOffset        =  0.0f;
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePaused) {
         return;
     }
-
+    
+    // ignore loading errors
+    if (NOT_NULL(notification.userInfo) && (NOT_NULL([notification.userInfo objectForKey:@"error"]))) {
+        return;
+    }
+    
+    double now = CACurrentMediaTime();
+    if (now - _lastFinishedProcessed < 0.25) {
+        return;
+    }
+    
     if (self.delegate) {
+        _lastFinishedProcessed = now;
         [self.delegate videoPlayerVideoDidFinish: self];
     }
+    
 }
 
 - (void)likeVideoSucceeded:(NSNotification *)notification
