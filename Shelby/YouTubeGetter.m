@@ -76,7 +76,7 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
     {
         // wait a maximum of 3 seconds to get a response
         double now = CACurrentMediaTime();
-        if (now - _lastGetBegan > 10 && _currentVideo != nil)
+        if (now - _lastGetBegan > 3 && _currentVideo != nil)
         {
             NSLog(@"_lastGetBegan = %f", _lastGetBegan);
             NSLog(@"currentTime = %f", now);
@@ -104,18 +104,8 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
 {
     @synchronized(self)
     {
-//        if (_currentVideo == nil) {
-//            _lastGetBegan = CACurrentMediaTime();
-//            NSLog(@"_lastGetBegan = %f", _lastGetBegan);
-//            _currentVideo = video;
-//            [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(getYouTubeURL) userInfo:nil repeats:NO];
-//            NSLog(@"scheduling youtubegetter immediately");
-//        } else 
         if (_currentVideo != video && ![_videoQueue containsObject:video]) { 
             [_videoQueue insertObject:video atIndex:0];
-            NSLog(@"adding to youtubegetter queue");
-        } else if ([_videoQueue containsObject:video]) {
-            NSLog(@"already in youtubegetter queue");
         }
     }
 }
@@ -133,58 +123,56 @@ static YouTubeGetter *singletonYouTubeGetter = nil;
     </object></div></body></html>";
     
     @synchronized(self) {
-        if (_currentVideo != nil) {
-            _lastGetBegan = CACurrentMediaTime();
-            NSLog(@"_lastGetBegan = %f", _lastGetBegan);
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(printNotification:) name:nil object:nil];
-            NSString *htmlString = [NSString stringWithFormat:htmlFormatString, _currentVideo.providerId, _currentVideo.providerId];
-            [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
+        if (_currentVideo == nil) {
+            return;
         }
+        _lastGetBegan = CACurrentMediaTime();
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNotification:) name:nil object:nil];
+        NSString *htmlString = [NSString stringWithFormat:htmlFormatString, _currentVideo.providerId, _currentVideo.providerId];
+        [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
     }
 }
 
-- (void)printNotification:(NSNotification *)notification
+- (void)processNotification:(NSNotification *)notification
 {
-    NSAutoreleasePool* myPool = [[NSAutoreleasePool alloc] init];
-	
-    static NSString *htmlString = @"<html><body></body></html>";
-    
-    SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@", @"p",@"a",@"t",@"h"]);
-    
-    NSRange added = [notification.name rangeOfString:@"Added"];
-    
-    if (added.location != NSNotFound) { 
-        if (notification.userInfo) {
-            NSArray *allValues = [notification.userInfo allValues];
-            for (id i in allValues) {
-                if ([i respondsToSelector:sel]) {
-                    // should really check to see if the string contains youtube stuff...
-                    NSString *path = [i performSelector:sel withObject:nil];
-                    if ([_seenPaths objectForKey:path] != nil) {
-                        return; // already seen
-                    }
-                    
-                    [_seenPaths setObject:_currentVideo.providerId forKey:path];
-                    NSURL *contentURL = [NSURL URLWithString:path];
-                    
-                    @synchronized(self) {
-                        if (_currentVideo != nil && _currentVideo.contentURL == nil) {
-                            _currentVideo.contentURL = contentURL;
-                            [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
-                            [[NSNotificationCenter defaultCenter] removeObserver:self];
-                            NSLog(@"posting ContentURLAvailable notification");
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"ContentURLAvailable"
-                                                                                object:self
-                                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:contentURL, @"contentURL", _currentVideo, @"video", nil]];
-                            
-                            _currentVideo = nil;
-                        }
-                    }
-                }
-            }
-        }
+    if (IS_NULL(notification.userInfo)) {
+        return;
     }
     
+    NSAutoreleasePool* myPool = [[NSAutoreleasePool alloc] init];
+
+    static NSString *htmlString = @"<html><body></body></html>";
+    SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@", @"p",@"a",@"t",@"h"]);
+    NSArray *allValues = [notification.userInfo allValues];
+    for (id i in allValues) {
+        if (![i respondsToSelector:sel]) {
+            continue;
+        }
+        // should really check to see if the string contains youtube stuff...
+        NSString *path = [i performSelector:sel withObject:nil];
+        if ([_seenPaths objectForKey:path] != nil) {
+            break; // already seen
+        }
+        
+        [_seenPaths setObject:_currentVideo.providerId forKey:path];
+        NSURL *contentURL = [NSURL URLWithString:path];
+        
+        @synchronized(self) {
+            if (_currentVideo == nil || _currentVideo.contentURL != nil) {
+                break;
+            }
+            _currentVideo.contentURL = contentURL;
+            [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            NSLog(@"posting ContentURLAvailable notification");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ContentURLAvailable"
+                                                                object:self
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:contentURL, @"contentURL", _currentVideo, @"video", nil]];
+            
+            _currentVideo = nil;
+        }
+    }
+
     [myPool release];
 }
 

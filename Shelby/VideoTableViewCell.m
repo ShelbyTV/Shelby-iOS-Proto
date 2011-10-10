@@ -228,7 +228,7 @@
 {
     CGFloat maxTextWidth = IPAD_VIDEO_WIDTH - IPAD_SHARER_NAME_ORIGIN_X - 7; // 7 is right margin?
     CGSize textSize = [comment sizeWithFont:[UIFont fontWithName:@"Thonburi-Bold" size:16.0]
-                          constrainedToSize:CGSizeMake(maxTextWidth, IPAD_COMMENT_HEIGHT * 2)
+                          constrainedToSize:CGSizeMake(maxTextWidth, 1024)
                               lineBreakMode:UILineBreakModeTailTruncation];
     
     return textSize;

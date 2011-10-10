@@ -47,7 +47,7 @@
 - (void)changeVideoMode:(NSInteger)mode
 {
     if (mode != videoMode) {
-        LOG(@"changeVideoMode %d", mode);
+        //LOG(@"changeVideoMode %d", mode);
         if (mode == 0) {
             videoTableData.likedOnly = NO;
             videoTableData.watchLaterOnly = NO;
