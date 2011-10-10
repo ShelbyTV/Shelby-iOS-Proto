@@ -149,6 +149,7 @@ static const float kNextPrevXOffset        =  0.0f;
     
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
+    _lastPlayVideo = now;
     _controlsVisible = YES;
 
     // Timer to update the progressBar after each second.
@@ -157,6 +158,9 @@ static const float kNextPrevXOffset        =  0.0f;
     // Timer to check if we need to hide controls
     [NSTimer scheduledTimerWithTimeInterval:kHideControlsCheckLoop target:self selector:@selector(checkHideTime) userInfo:nil repeats:YES];
  
+    // Timer to auto-skip video if we can't get a content URL
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkAutoSkip) userInfo:nil repeats:YES];
+    
     [self addNotificationListeners];
 }
 
@@ -260,6 +264,9 @@ static const float kNextPrevXOffset        =  0.0f;
     @synchronized(self) {
         
         if (NOT_NULL(video)) {
+            double now = CACurrentMediaTime();
+            _lastPlayVideo = now;
+            
             self.currentVideo = video;
             [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
             
@@ -284,7 +291,8 @@ static const float kNextPrevXOffset        =  0.0f;
             
             // Change our footerBar.
             self.footerBar.title.text = video.title;
-            
+            [_controlBar setFavoriteButtonSelected:[video isLiked]];
+
             // Reset our duration.
             _duration = 0.0f;
             // Load the video and play it.
@@ -292,11 +300,9 @@ static const float kNextPrevXOffset        =  0.0f;
                 _moviePlayer.contentURL = video.contentURL;
                 [self play];
                 [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
+                _changingVideo = NO;
             }
-            [_controlBar setFavoriteButtonSelected:[video isLiked]];
-            
-            _changingVideo = NO;
-            
+                        
             [self drawControls];
         }
     }
@@ -373,6 +379,18 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
+#pragma mark - Auto Skip
+
+- (void)checkAutoSkip
+{
+    double now = CACurrentMediaTime();
+    if (NOT_NULL(self.currentVideo) && IS_NULL(self.currentVideo.contentURL) && now - _lastPlayVideo >= 4) {
+        if (self.delegate) {
+            [self.delegate videoPlayerVideoDidFinish: self];
+        }
+    }
+}
+
 #pragma mark - Controls Visibility
 - (void)checkHideTime {
     if (!_controlsVisible || _touchOccurring || _paused) {
@@ -438,18 +456,12 @@ static const float kNextPrevXOffset        =  0.0f;
         return;
     }
     
-    // ignore loading errors
+    // ignore loading errors... just make users hit next if this happens
     if (NOT_NULL(notification.userInfo) && (NOT_NULL([notification.userInfo objectForKey:@"error"]))) {
         return;
     }
-    
-    double now = CACurrentMediaTime();
-    if (now - _lastFinishedProcessed < 0.25) {
-        return;
-    }
-    
+ 
     if (self.delegate) {
-        _lastFinishedProcessed = now;
         [self.delegate videoPlayerVideoDidFinish: self];
     }
     

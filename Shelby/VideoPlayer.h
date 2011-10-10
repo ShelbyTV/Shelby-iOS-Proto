@@ -41,7 +41,7 @@
     double _lastButtonPressOrControlsVisible;
     
     double _lastTouchesBegan;
-    double _lastFinishedProcessed;
+    double _lastPlayVideo;
     
     UIButton *_nextButton;
     UIButton *_prevButton;
