@@ -29,6 +29,7 @@
 		0A53951B14424066004721B9 /* TimelineOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */; };
 		0A53951D144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */; };
 		0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */; };
+		0A5395261442548D004721B9 /* YouTubeGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5395251442548C004721B9 /* YouTubeGetter.m */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
@@ -228,6 +229,8 @@
 		0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineOnboardCell_iPhone.xib; sourceTree = "<group>"; };
 		0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesOnboardCell_iPhone.xib; sourceTree = "<group>"; };
 		0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchLaterOnboardCell_iPhone.xib; sourceTree = "<group>"; };
+		0A5395241442548C004721B9 /* YouTubeGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeGetter.h; sourceTree = "<group>"; };
+		0A5395251442548C004721B9 /* YouTubeGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeGetter.m; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
 				4200E50213F41F0C00609C3E /* Video.h */,
 				4200E50313F41F0C00609C3E /* Video.m */,
+				0A5395241442548C004721B9 /* YouTubeGetter.h */,
+				0A5395251442548C004721B9 /* YouTubeGetter.m */,
 				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
 				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
@@ -1306,6 +1311,7 @@
 				42D1FDB0143A5266007E7A9B /* STVZeroEdgeTextView.m in Sources */,
 				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
+				0A5395261442548D004721B9 /* YouTubeGetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

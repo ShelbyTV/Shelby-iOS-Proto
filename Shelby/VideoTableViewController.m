@@ -98,15 +98,10 @@
 
 - (Video *)videoAtTableDataIndex:(NSUInteger)index
 {
-    Video *video = [[[Video alloc] init] autorelease];
+    // make sure we initiate getting the content URL
+    [videoTableData videoContentURLAtIndex:index];
 
-    video.contentURL = [videoTableData videoContentURLAtIndex:index];
-
-    if (NOT_NULL(video.contentURL)) {
-        return [videoTableData videoAtIndex:index];
-    } else {
-        return nil;
-    }
+    return [videoTableData videoAtIndex:index];
 }
 
 - (Video *)getCurrentVideo
@@ -123,7 +118,7 @@
     }
 
     // Return the next video.
-    Video *video = [self videoAtTableDataIndex: _currentVideoIndex];
+    Video *video = [self videoAtTableDataIndex:_currentVideoIndex];
 
     if (NOT_NULL(video)) {
         // Scroll to the next table cell.

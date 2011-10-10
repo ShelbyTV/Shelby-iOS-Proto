@@ -13,6 +13,7 @@
 #import "Video.h"
 #import "LoginHelper.h"
 #import "CoreDataHelper.h"
+#import "YouTubeGetter.h"
 
 #pragma mark - Constants
 
@@ -185,6 +186,61 @@
     }
 }
 
+- (void)getVideoContentURLDevice:(Video *)video
+{
+    [[YouTubeGetter singleton] processVideo:video];
+}
+
+- (void)getVideoContentURLSimulator:(Video *)videoData
+{
+    /*
+     * Content URL
+     */
+    NSURL *youTubeURL = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:videoData.providerId]] autorelease];
+    NSError *error = nil;
+    NSString *youTubeVideoDataRaw = [[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error];
+    NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
+    
+    /*
+     * The code below tries to parse out the MPEG URL from a YouTube video info page.
+     * We have to do this because YouTube encodes some parameters into the string
+     * that make it valid only on the machine that accessed the YouTube video URL.
+     */
+    
+    // useful for debugging
+    // LOG(@"%@", youTubeVideoDataReadable);
+    
+    NSRange statusFailResponse = [youTubeVideoDataReadable rangeOfString:@"status=fail"];
+    
+    if (statusFailResponse.location == NSNotFound) { // means we probably got good data; still need better error checking
+        
+        NSRange format18 = [youTubeVideoDataReadable rangeOfString:@"itag=18"];
+        NSRange roughMpegHttpStream;
+        roughMpegHttpStream.location = 0;
+        roughMpegHttpStream.length = format18.location;
+        
+        NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"url=http" options:NSBackwardsSearch range:roughMpegHttpStream];
+        
+        roughMpegHttpStream.location = mpegHttpStreamStart.location;
+        roughMpegHttpStream.length = [youTubeVideoDataReadable length] - mpegHttpStreamStart.location;
+        
+        NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
+        
+        NSRange fallbackHostAtEnd = [youTubeVideoDataReadable rangeOfString:@"&fallback_host" options:0 range:roughMpegHttpStream];
+        
+        NSRange finalMpegHttpStream;
+        finalMpegHttpStream.location = httpAtStart.location;
+        finalMpegHttpStream.length = fallbackHostAtEnd.location - httpAtStart.location;
+        
+        NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        
+        // useful for debugging YouTube page changes
+        LOG(@"movieURLString = %@", movieURLString);
+        
+        videoData.contentURL = [NSURL URLWithString:movieURLString];
+    }
+}
+
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
 #ifdef OFFLINE_MODE
@@ -206,53 +262,12 @@
     contentURL = videoData.contentURL;
 
     if (contentURL == nil) {
-
-        /*
-         * Content URL
-         */
-        NSURL *youTubeURL = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:videoData.providerId]] autorelease];
-        NSError *error = nil;
-        NSString *youTubeVideoDataRaw = [[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error];
-        NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
-
-        /*
-         * The code below tries to parse out the MPEG URL from a YouTube video info page.
-         * We have to do this because YouTube encodes some parameters into the string
-         * that make it valid only on the machine that accessed the YouTube video URL.
-         */
-
-        // useful for debugging
-        // LOG(@"%@", youTubeVideoDataReadable);
-
-        NSRange statusFailResponse = [youTubeVideoDataReadable rangeOfString:@"status=fail"];
-
-        if (statusFailResponse.location == NSNotFound) { // means we probably got good data; still need better error checking
-
-            NSRange format18 = [youTubeVideoDataReadable rangeOfString:@"itag=18"];
-            NSRange roughMpegHttpStream;
-            roughMpegHttpStream.location = 0;
-            roughMpegHttpStream.length = format18.location;
-
-            NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"url=http" options:NSBackwardsSearch range:roughMpegHttpStream];
-
-            roughMpegHttpStream.location = mpegHttpStreamStart.location;
-            roughMpegHttpStream.length = [youTubeVideoDataReadable length] - mpegHttpStreamStart.location;
-
-            NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
-
-            NSRange fallbackHostAtEnd = [youTubeVideoDataReadable rangeOfString:@"&fallback_host" options:0 range:roughMpegHttpStream];
-
-            NSRange finalMpegHttpStream;
-            finalMpegHttpStream.location = httpAtStart.location;
-            finalMpegHttpStream.length = fallbackHostAtEnd.location - httpAtStart.location;
-
-            NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-
-            // useful for debugging YouTube page changes
-            LOG(@"movieURLString = %@", movieURLString);
-
-            videoData.contentURL = contentURL = [[NSURL URLWithString:movieURLString] retain];
-        }
+#if TARGET_IPHONE_SIMULATOR
+        [self getVideoContentURLSimulator:videoData];
+#else
+        [self getVideoContentURLDevice:videoData];
+#endif
+        contentURL = videoData.contentURL;
     }
 
     return contentURL;

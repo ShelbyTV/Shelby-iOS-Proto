@@ -62,11 +62,11 @@ static const float kNextPrevXOffset        =  0.0f;
              object:nil];
 
     // Listen for the end of the video.
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(movieDidFinish:)
-               name:MPMoviePlayerPlaybackDidFinishNotification
-             object:nil];
+//    [[NSNotificationCenter defaultCenter]
+//        addObserver:self
+//           selector:@selector(movieDidFinish:)
+//               name:MPMoviePlayerPlaybackDidFinishNotification
+//             object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(likeVideoSucceeded:)
@@ -77,6 +77,12 @@ static const float kNextPrevXOffset        =  0.0f;
                                              selector:@selector(dislikeVideoSucceeded:)
                                                  name:@"DislikeBroadcastSucceeded"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contentURLAvailable:)
+                                                 name:@"ContentURLAvailable"
+                                               object:nil];
+    
 }
 
 - (void)removeNotificationListeners {
@@ -251,15 +257,21 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)playVideo:(Video *)video
 {
-    if (NOT_NULL(video)) {
+    @synchronized(self) {
         
-        [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
-
-        // Set internal lock so our notification doesn't go haywire.
-        @synchronized(self) {
-            _changingVideo = YES;
+        if (NOT_NULL(video)) {
             
             self.currentVideo = video;
+            
+            if (IS_NULL(video.contentURL)) {
+                return;
+            }
+            
+            [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
+            
+            // Set internal lock so our notification doesn't go haywire.
+            _changingVideo = YES;
+            
             
             // Change our titleBar
             //self.titleBar.title.text = video.sharerComment;
@@ -465,6 +477,19 @@ static const float kNextPrevXOffset        =  0.0f;
             [_controlBar setFavoriteButtonSelected:NO];
         }
     }
+}
+
+- (void)contentURLAvailable:(NSNotification *)notification
+{
+    NSLog(@"getting ContentURLAvailable notification");
+
+    if (NOT_NULL(self.currentVideo) &&
+        NOT_NULL(notification.userInfo) && 
+        self.currentVideo == [notification.userInfo objectForKey:@"video"]) 
+    {
+        [self playVideo:self.currentVideo];
+    }
+
 }
 
 #pragma mark - KVO
