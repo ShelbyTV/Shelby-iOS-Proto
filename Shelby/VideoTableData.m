@@ -599,7 +599,7 @@
             if (NOT_NULL(dupeArray)) {
                 [dupeArray insertObject:video atIndex:0];
             } else {
-                dupeArray = [[NSMutableArray alloc] init];
+                dupeArray = [[[NSMutableArray alloc] init] autorelease];
                 [dupeArray addObject:video];
                 [videoDupeDict setObject:dupeArray forKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
                 [uniqueVideoKeys addObject:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
