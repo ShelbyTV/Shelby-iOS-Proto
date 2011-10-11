@@ -192,7 +192,7 @@
      */
     NSURL *youTubeURL = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:videoData.providerId]] autorelease];
     NSError *error = nil;
-    NSString *youTubeVideoDataRaw = [[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error];
+    NSString *youTubeVideoDataRaw = [[[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error] autorelease];
     NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
     
     /*
@@ -570,6 +570,7 @@
     NSArray *broadcasts = [self fetchBroadcastsFromCoreDataContext:context];
 
     if (IS_NULL(broadcasts)) {
+        [context release];
         return;
     } 
         
@@ -647,6 +648,7 @@
                                                         withShelbyId:video.shelbyId
                                                            inContext:context];
     if (IS_NULL(broadcast)) {
+        [context release];
         return;
     }
     
@@ -657,6 +659,8 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
+    
+    [context release];
 }
 
 - (void)likeVideoSucceeded:(NSNotification *)notification
@@ -689,6 +693,7 @@
                                                             withShelbyId:video.shelbyId
                                                                inContext:context];
         if (IS_NULL(broadcast)) {
+            [context release];
             return;
         }
         
@@ -700,6 +705,7 @@
             [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
         }
         
+        [context release];
         [self updateTableVideoWatchStatus:video];
     }
 }

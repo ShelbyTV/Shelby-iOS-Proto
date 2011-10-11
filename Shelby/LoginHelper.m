@@ -615,7 +615,6 @@
                 insertNewObjectForEntityForName:@"Broadcast"
                          inManagedObjectContext:_context];
             [broadcast populateFromApiJSONDictionary:dict];
-            [parser release];
         }
         [parser release];
     }

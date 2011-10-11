@@ -46,6 +46,8 @@
     [sharerImageURL release];
     [sharerImage release];
     [source release];
+    [shelbyId release];
+    [shortPermalink release];
     [createdAt release];
     
     [super dealloc];

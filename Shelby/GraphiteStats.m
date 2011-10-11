@@ -47,7 +47,6 @@
     // data is automatically sent to the hostAddress by virtue of the fact 
     // that the socket is connected to that address.
 {
-    int                     err;
     int                     sock;
     ssize_t                 bytesWritten;
     const struct sockaddr * addrPtr;
@@ -70,14 +69,10 @@
     }
     
     bytesWritten = sendto(sock, [data bytes], [data length], 0, addrPtr, addrLen);
-    if (bytesWritten < 0) {
-        err = errno;
-    } else  if (bytesWritten == 0) {
-        err = EPIPE;                    
-    } else {
+    if (bytesWritten >= 0 && bytesWritten != 0)
+    {
         // We ignore any short writes, which shouldn't happen for UDP anyway.
         assert( (NSUInteger) bytesWritten == [data length] );
-        err = 0;
     }
 }
 
@@ -85,7 +80,6 @@
 // Called by the CFSocket read callback to actually read and process data 
 // from the socket.
 {
-    int                     err;
     int                     sock;
     struct sockaddr_storage addr;
     socklen_t               addrLen;
@@ -97,16 +91,10 @@
     
     addrLen = sizeof(addr);
     bytesRead = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *) &addr, &addrLen);
-    if (bytesRead < 0) {
-        err = errno;
-    } else if (bytesRead == 0) {
-        err = EPIPE;
-    } else {
+    if (bytesRead >= 0 && bytesRead != 0) {
         NSData *    dataObj;
         NSData *    addrObj;
-        
-        err = 0;
-        
+                
         dataObj = [NSData dataWithBytes:buffer length:bytesRead];
         assert(dataObj != nil);
         addrObj = [NSData dataWithBytes:&addr  length:addrLen  ];
