@@ -338,6 +338,7 @@
         
         NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setUndoManager:nil];
         [context setPersistentStoreCoordinator:psCoordinator];
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         
@@ -385,6 +386,7 @@
         
         NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setUndoManager:nil];
         [context setPersistentStoreCoordinator:psCoordinator];
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         
@@ -567,6 +569,7 @@
 - (void)reloadBroadcastsFromCoreData
 {    
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setUndoManager:nil];
     NSArray *broadcasts = [self fetchBroadcastsFromCoreDataContext:context];
 
     if (IS_NULL(broadcasts)) {
@@ -638,6 +641,7 @@
 - (void)updateLikeStatusForVideo:(Video *)video withStatus:(BOOL)status
 {
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setUndoManager:nil];
     [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
     NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
     [context setPersistentStoreCoordinator:psCoordinator];
@@ -683,6 +687,7 @@
         Video *video = [notification.userInfo objectForKey:@"video"];
         
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setUndoManager:nil];
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
         [context setPersistentStoreCoordinator:psCoordinator];
