@@ -531,23 +531,23 @@
 
 #pragma mark - Layout
 
-- (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation duration: duration];
-}
-
-- (void)didAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    [super didAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation];
-    
-}
-
-- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateSecondHalfOfRotationFromInterfaceOrientation: fromInterfaceOrientation duration: duration];
-    
-    // Center in the NEW frame.
-    CGRect rotatedFrame = [self.view.window convertRect: self.view.bounds toView: nil];
-    [self centerShareViewInRect: rotatedFrame
-          withAnimationDuration: 0.0];
-}
+//- (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//    [super willAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation duration: duration];
+//}
+//
+//- (void)didAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+//    [super didAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation];
+//    
+//}
+//
+//- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration {
+//    [super willAnimateSecondHalfOfRotationFromInterfaceOrientation: fromInterfaceOrientation duration: duration];
+//    
+//    // Center in the NEW frame.
+//    CGRect rotatedFrame = [self.view.window convertRect: self.view.bounds toView: nil];
+//    [self centerShareViewInRect: rotatedFrame
+//          withAnimationDuration: 0.0];
+//}
 
 
 #pragma mark - Cleanup
