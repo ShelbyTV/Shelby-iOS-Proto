@@ -13,7 +13,6 @@
 #import "Video.h"
 #import "LoginHelper.h"
 #import "CoreDataHelper.h"
-#import "YouTubeGetter.h"
 
 #pragma mark - Constants
 
@@ -186,12 +185,7 @@
     }
 }
 
-- (void)getVideoContentURLDevice:(Video *)video
-{
-    [[YouTubeGetter singleton] processVideo:video];
-}
-
-- (void)getVideoContentURLSimulator:(Video *)videoData
+- (void)getVideoContentURL:(Video *)videoData
 {
     /*
      * Content URL
@@ -262,11 +256,7 @@
     contentURL = videoData.contentURL;
 
     if (contentURL == nil) {
-#if TARGET_IPHONE_SIMULATOR
-        [self getVideoContentURLSimulator:videoData];
-#else
-        [self getVideoContentURLDevice:videoData];
-#endif
+        [self getVideoContentURL:videoData];
         contentURL = videoData.contentURL;
     }
 

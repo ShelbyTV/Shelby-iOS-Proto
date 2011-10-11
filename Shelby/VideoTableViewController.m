@@ -359,7 +359,7 @@
     Video *video = [videoTableData videoAtIndex:row];
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
-    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    } else {
         return 232;
     }
 }
