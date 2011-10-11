@@ -69,18 +69,21 @@
     return self;
 }
 
+
+#pragma mark - 
+
 - (void)playVideo:(Video *)video
 {
     LOG(@"playVideo: %@", video);
     if (video == nil) {
         return;
     }
-    // Cue it up
+    
+    // Make videoPlayer visible. Really only does something on iPhone.
+    _videoPlayer.hidden = NO;
+    
     [_videoPlayer playVideo: video];
-    // Notify the api it's been watched
     [BroadcastApi watch:video];
-    // Mark it as watched locally
-    //video.watched = YES;
 }
 
 - (void)updateAuthorizations:(User *)user
@@ -290,7 +293,7 @@
     Video *video = [videoTable getNextVideo];
 
     // Tell player to start playing new video.
-    [_videoPlayer playVideo: video];
+    [self playVideo: video];
 
 }
 
@@ -301,7 +304,7 @@
     // Fetch the video next in queue.
     Video *video = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playVideo: video];
+    [self playVideo: video];
 }
 
 - (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer {
@@ -344,7 +347,7 @@
     // Fetch the video next in queue.
     Video *url = [videoTable getNextVideo];
     // Tell player to start playing new video.
-    [_videoPlayer playVideo: url];
+    [self playVideo: url];
 }
 
 #pragma mark - Touch Handling

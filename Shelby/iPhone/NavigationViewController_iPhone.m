@@ -71,21 +71,6 @@
     [self showLogoutAlert];
 }
 
-#pragma mark - 
-
-- (void)playVideo:(Video *)video
-{
-    LOG(@"playVideo: %@", video);
-    if (video == nil) {
-        return;
-    }
-
-    // Make videoPlayer visible.
-    _videoPlayer.hidden = NO;
-
-    [_videoPlayer playVideo: video];
-}
-
 - (void)hideVideoPlayer {
     _videoPlayer.hidden = YES;
     [_videoPlayer pause];
