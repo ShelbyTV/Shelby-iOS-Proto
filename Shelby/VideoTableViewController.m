@@ -351,15 +351,16 @@
             }
         }
     }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return 118;
+    }
+    
     Video *video = [videoTableData videoAtIndex:row];
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
-    } else {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            return 232;
-        } else {
-            return 118;
-        }
+    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 232;
     }
 }
 
