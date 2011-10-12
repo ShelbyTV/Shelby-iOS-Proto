@@ -189,7 +189,8 @@
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-	return [NSDate date]; // should return date data source was last changed
+	return IS_NULL([ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts) ? [NSDate date] : 
+              [ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts; // should return date data source was last changed
 }
 
 #pragma mark - VideoTableDataDelegate Methods

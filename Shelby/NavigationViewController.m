@@ -287,9 +287,6 @@
 
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
-    // Tell player to pause playing.
-    [_videoPlayer pause];
-    // Fetch the video next in queue.
     Video *video = [videoTable getNextVideo];
 
     // Tell player to start playing new video.
@@ -299,9 +296,6 @@
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
-    // Tell player to pause playing.
-    [_videoPlayer pause];
-    // Fetch the video next in queue.
     Video *video = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
     [self playVideo: video];

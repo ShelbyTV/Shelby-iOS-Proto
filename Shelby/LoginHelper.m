@@ -43,6 +43,7 @@
 @synthesize user = _user;
 @synthesize channel;
 @synthesize identityProvider;
+@synthesize lastFetchBroadcasts;
 
 - (id)initWithContext:(NSManagedObjectContext *)context
 {
@@ -471,6 +472,7 @@
 
             [self incrementNetworkCounter];
             [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+            self.lastFetchBroadcasts = [NSDate date];
             return YES;
         }
     }

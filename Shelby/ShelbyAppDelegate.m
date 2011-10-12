@@ -82,6 +82,18 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    
+    // reset our stats socket...
+    [[ShelbyApp sharedApp] resetGraphiteStats];
+    
+    // make sure we fetch new broadcasts as least once a day. should prevent video link timeouts...
+    if ([[ShelbyApp sharedApp].loginHelper loggedIn] && NOT_NULL([ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts)) {
+        NSTimeInterval diff = abs([[ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts timeIntervalSinceNow]);
+        NSInteger days = floor(diff / 86400.0);
+        if (days >= 1) {
+            [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
+        }
+    }                         
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -69,7 +69,7 @@
     }
     
     bytesWritten = sendto(sock, [data bytes], [data length], 0, addrPtr, addrLen);
-    if (bytesWritten >= 0 && bytesWritten != 0)
+    if (bytesWritten > 0)
     {
         // We ignore any short writes, which shouldn't happen for UDP anyway.
         assert( (NSUInteger) bytesWritten == [data length] );

@@ -51,6 +51,7 @@ typedef enum {
 
 @property (assign) id <LoginHelperDelegate> delegate;
 @property (readwrite) NSInteger networkCounter;
+@property (nonatomic, retain) NSDate *lastFetchBroadcasts;
 
 @property (nonatomic, readonly) BOOL loggedIn;
 

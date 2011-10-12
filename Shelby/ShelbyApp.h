@@ -33,5 +33,6 @@
 
 - (void)addNetworkObject:(id <STVNetworkObject>)networkObject;
 - (void)removeNetworkObject:(id <STVNetworkObject>)networkObject;
+- (void)resetGraphiteStats;
 
 @end

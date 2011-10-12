@@ -57,6 +57,11 @@ static ShelbyApp *gShelbyApp;
     return self;
 }
 
+- (void)resetGraphiteStats
+{
+    self.graphiteStats = [[[GraphiteStats alloc] init] autorelease];
+}
+
 #pragma mark - Network Activity
 
 - (BOOL)isNetworkBusy {

@@ -264,6 +264,8 @@ static const float kNextPrevXOffset        =  0.0f;
     @synchronized(self) {
         
         if (NOT_NULL(video)) {
+            [self pause];
+            
             double now = CACurrentMediaTime();
             _lastPlayVideo = now;
             
@@ -461,7 +463,9 @@ static const float kNextPrevXOffset        =  0.0f;
         return;
     }
  
-    if (self.delegate) {
+    double now = CACurrentMediaTime();
+    if (self.delegate && (now - _lastDidFinish) > 1.0) {
+        _lastDidFinish = now;
         [self.delegate videoPlayerVideoDidFinish: self];
     }
     
