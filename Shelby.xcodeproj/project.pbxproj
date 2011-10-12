@@ -95,6 +95,7 @@
 		42084C861427D82D00C3C556 /* STVOfflineView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C841427D82D00C3C556 /* STVOfflineView_iPhone.xib */; };
 		42084C891427DACD00C3C556 /* STVOfflineView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C871427DACD00C3C556 /* STVOfflineView_iPad.xib */; };
 		42084C8C1427DC3300C3C556 /* ConnectivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */; };
+		42236913144616800028BFF3 /* STVEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236912144616800028BFF3 /* STVEmailController.m */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
 		423FFDA514291A2400F8FF54 /* CellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 423FFDA414291A2400F8FF54 /* CellGradient.png */; };
@@ -190,6 +191,8 @@
 		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
 		42DAF46D1411390000936536 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46B1411389E00936536 /* CoreDataTest.m */; };
 		42DAF47314113F8D00936536 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF47214113F8D00936536 /* Channel.m */; };
+		42DC3D6114461B52009B039F /* MockDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DC3D6014461B52009B039F /* MockDataSource.m */; };
+		42DC3D6414461B5B009B039F /* SearchTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DC3D6314461B5B009B039F /* SearchTestController.m */; };
 		42DFDA04142D6E0D00686829 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DFDA03142D6E0D00686829 /* Icon-iPad.png */; };
 		42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB02143AA285009FCFCE /* SharePatternSquare.png */; };
 		42E1BB12143B983B009FCFCE /* TwitterDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB11143B983B009FCFCE /* TwitterDead.png */; };
@@ -442,6 +445,8 @@
 		42084C881427DACD00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/STVOfflineView_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42084C8A1427DC3300C3C556 /* ConnectivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectivityViewController.h; sourceTree = "<group>"; };
 		42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectivityViewController.m; sourceTree = "<group>"; };
+		42236911144616800028BFF3 /* STVEmailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVEmailController.h; sourceTree = "<group>"; };
+		42236912144616800028BFF3 /* STVEmailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVEmailController.m; sourceTree = "<group>"; };
 		4229CDED13EC597B000F587E /* VideoPlayerTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerTitleBar.h; sourceTree = "<group>"; };
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
@@ -579,6 +584,10 @@
 		42DAF46B1411389E00936536 /* CoreDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTest.m; sourceTree = "<group>"; };
 		42DAF47114113F8D00936536 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		42DAF47214113F8D00936536 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		42DC3D5F14461B52009B039F /* MockDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockDataSource.h; sourceTree = "<group>"; };
+		42DC3D6014461B52009B039F /* MockDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockDataSource.m; sourceTree = "<group>"; };
+		42DC3D6214461B5B009B039F /* SearchTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTestController.h; sourceTree = "<group>"; };
+		42DC3D6314461B5B009B039F /* SearchTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTestController.m; sourceTree = "<group>"; };
 		42DFDA03142D6E0D00686829 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		42E1BB02143AA285009FCFCE /* SharePatternSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SharePatternSquare.png; path = Resources/Images/SharePatternSquare.png; sourceTree = "<group>"; };
 		42E1BB11143B983B009FCFCE /* TwitterDead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterDead.png; path = Resources/Images/TwitterDead.png; sourceTree = "<group>"; };
@@ -800,6 +809,7 @@
 		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
 			isa = PBXGroup;
 			children = (
+				42236910144616700028BFF3 /* Email */,
 				42DAF45B141129C500936536 /* Model */,
 				42FAA3AB13FD840B00BC1D28 /* Utility */,
 				42A09B4313FC6CC400570DBE /* API */,
@@ -955,6 +965,19 @@
 				42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */,
 			);
 			name = Abstract;
+			sourceTree = "<group>";
+		};
+		42236910144616700028BFF3 /* Email */ = {
+			isa = PBXGroup;
+			children = (
+				42DC3D5F14461B52009B039F /* MockDataSource.h */,
+				42DC3D6014461B52009B039F /* MockDataSource.m */,
+				42DC3D6214461B5B009B039F /* SearchTestController.h */,
+				42DC3D6314461B5B009B039F /* SearchTestController.m */,
+				42236911144616800028BFF3 /* STVEmailController.h */,
+				42236912144616800028BFF3 /* STVEmailController.m */,
+			);
+			name = Email;
 			sourceTree = "<group>";
 		};
 		427A622513F4717C00C945E2 /* Libraries */ = {
@@ -1641,6 +1664,9 @@
 				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
 				0A978AF714455B74005DFF18 /* ShareViewController.m in Sources */,
+				42236913144616800028BFF3 /* STVEmailController.m in Sources */,
+				42DC3D6114461B52009B039F /* MockDataSource.m in Sources */,
+				42DC3D6414461B5B009B039F /* SearchTestController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

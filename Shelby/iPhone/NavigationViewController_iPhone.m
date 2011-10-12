@@ -90,7 +90,7 @@
 	} else if (buttonIndex == 1) {
 		NSLog(@"Email");
 
-  
+    // Create a TTMessageController
 	} else {
 
 		NSLog(@"cancel");
