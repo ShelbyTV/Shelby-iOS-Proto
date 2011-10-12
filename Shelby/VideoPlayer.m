@@ -301,7 +301,6 @@ static const float kNextPrevXOffset        =  0.0f;
             if (video.contentURL) {
                 _moviePlayer.contentURL = video.contentURL;
                 [self play];
-                [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
                 _changingVideo = NO;
             }
                         
@@ -311,11 +310,13 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)play {
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
     [_moviePlayer play];
     _paused = FALSE;
 }
 
 - (void)pause {
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     [_moviePlayer pause];
     _paused = TRUE;
 }
@@ -561,10 +562,8 @@ static const float kNextPrevXOffset        =  0.0f;
     _lastButtonPressOrControlsVisible = now;
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
-        [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     } else {
         [self play];
-        [controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
     }
 }
 
