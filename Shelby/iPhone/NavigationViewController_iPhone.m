@@ -56,6 +56,47 @@
 //    }
 //}
 
+#pragma mark - Sharing
+
+- (void)showActionSheet
+{
+	// open a dialog with two custom buttons
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share with Friends"
+									delegate: self 
+         cancelButtonTitle: @"Cancel" 
+    destructiveButtonTitle: nil
+         otherButtonTitles: @"Social", @"Email", nil];
+  //actionSheet.delegate = self;
+	//actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+  //actionSheet.destructiveButtonIndex = 1;	// make the second button red (destructive)
+
+	[actionSheet showInView: self.view]; // show from our table view (pops up in the middle of the table)
+	[actionSheet release];
+}
+
+- (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
+  [self showActionSheet];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	// the user clicked one of the OK/Cancel buttons
+	if (buttonIndex == 0)
+	{
+		NSLog(@"Social");
+
+	} else if (buttonIndex == 1) {
+		NSLog(@"Email");
+
+  
+	} else {
+
+		NSLog(@"cancel");
+  }
+}
+
 #pragma mark - SettingsViewControllerDelegate Methods
 
 - (void)settingsViewControllerDone:(SettingsViewController *)settingsController
