@@ -201,7 +201,7 @@
 - (void)shareView:(ShareViewController *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
 
     //Video *video = [videoTable getCurrentVideo];
-    Video *video = shareView.video;
+    Video *video = [shareView getVideo];
 
     // POST message to API
     [BroadcastApi share:video
@@ -283,7 +283,7 @@
 
         // Set up the shareView with the video info.
         Video *video = [videoTable getCurrentVideo];
-        shareView.video = video;
+        [shareView setVideo:video];
 
         [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
@@ -291,8 +291,6 @@
 
         self.shareView = shareView;
         [self.view addSubview:self.shareView.view];
-
-        NSLog(@"WHOOHOO!");
 
         // Use this to reveal the keyboard.
         [shareView.socialTextView becomeFirstResponder];

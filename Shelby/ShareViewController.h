@@ -39,7 +39,6 @@
 @property (nonatomic, retain) IBOutlet UIView *emailView;
 @property (nonatomic, retain) IBOutlet UIView *socialView;
 @property (nonatomic, assign) UIView *activeView;
-@property (nonatomic, retain) Video *video;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 - (IBAction)socialWasPressed:(id)sender;
@@ -49,5 +48,8 @@
 - (IBAction)sendWasPressed:(id)sender;
 
 - (void)updateAuthorizations:(User *)user;
+
+- (void)setVideo:(Video *)video;
+- (Video *)getVideo;
 
 @end

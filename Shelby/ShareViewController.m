@@ -18,7 +18,6 @@
 @synthesize emailView;
 @synthesize socialView;
 @synthesize activeView;
-@synthesize video = _video;
 @synthesize socialTextView = _socialTextView;
 @synthesize emailTextView = _emailTextView;
 
@@ -61,6 +60,12 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void) dealloc
+{
+    [_video release];
+    [super dealloc];
+}
+
 #pragma mark - View lifecycle
 
 /*
@@ -70,11 +75,32 @@
 }
 */
 
+- (void)populateUI
+{
+    // Populate the UI.
+    NSString *comment = nil;
+    if (_video.shortPermalink) {
+        comment = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", _video.shortPermalink];
+    } else {
+        // should always have a permalink, but this isn't too horrible of a fallback plan...
+        comment = @"Check out this great video I'm watching @onShelby!";
+    }
+
+    _socialTextView.text = comment;
+    _emailTextView.text  = comment;
+    
+    [self.view setNeedsDisplay];
+}
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (NOT_NULL(_video)) {
+        [self populateUI];
+    }
     
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
     socialView.backgroundColor = backgroundPattern;
@@ -193,16 +219,12 @@
     [_video release];
     _video = [video retain];
     
-    // Populate the UI.
-    NSString *comment = nil;
-    if (video.shortPermalink) {
-        comment = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
-    } else {
-        // should always have a permalink, but this isn't too horrible of a fallback plan...
-        comment = @"Check out this great video I'm watching @onShelby!";
-    }
-    _socialTextView.text = comment;
-    _emailTextView.text  = comment;
+    [self populateUI];
+}
+
+- (Video *)getVideo
+{
+    return _video;
 }
 
 - (void)updateAuthorizations:(User *)user {
