@@ -400,7 +400,7 @@
 
 - (void)likeVideoFailed:(NSNotification *)notification {
     // open an alert to inform the user
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Doh!" message:@"Someone must have tripped over a power cord somewhere, 'cause we couldn't Like that video. Try again later..."
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Aaawww… " message:@"I know you love that video, but it seems our heart is broken right now. Maybe try to like me again later?"
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];

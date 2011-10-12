@@ -206,7 +206,7 @@
 
 - (void)showShelbyDown
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"Shelby? Are you there? ...  Sorry, server glitch! Try again soon."
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Doh!" message:@"Apparently there are just too many bits for our compy's right now. Take a walk and try again later?"
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
