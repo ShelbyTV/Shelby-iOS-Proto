@@ -7,3 +7,6 @@
 [submodule "Libraries/EGOTableViewPullRefresh"]
 	path = Libraries/EGOTableViewPullRefresh
 	url = https://github.com/enormego/EGOTableViewPullRefresh.git
+[submodule "Libraries/three20"]
+	path = Libraries/three20
+	url = https://github.com/facebook/three20.git
