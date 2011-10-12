@@ -1,22 +1,16 @@
 //
-//  STVShareView.m
+//  ShareViewController.m
 //  Shelby
 //
-//  Created by David Kay on 9/25/11.
-//  Copyright 2011 Gargoyle Software. All rights reserved.
+//  Created by Mark Johnson on 10/11/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "STVShareView.h"
+#import "ShareViewController.h"
 #import "Video.h"
 #import "User.h"
 
-@interface STVShareView ()
-
-- (void)makeSocialViewActive:(BOOL)isSocialView;
-
-@end
-
-@implementation STVShareView
+@implementation ShareViewController
 
 @synthesize delegate;
 @synthesize mainView;
@@ -28,42 +22,6 @@
 @synthesize socialTextView = _socialTextView;
 @synthesize emailTextView = _emailTextView;
 
-#pragma mark - Factory
-
-static NSString *IPAD_NIB_NAME   = @"STVShareView";
-static NSString *IPHONE_NIB_NAME = @"STVShareView";
-
-+ (STVShareView *)viewFromNib {
-    NSString *nibName;
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        nibName = IPHONE_NIB_NAME;
-    } else {
-        nibName = IPAD_NIB_NAME;
-    }
-    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
-
-    STVShareView *view = [objects objectAtIndex:0];
-    //UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePattern.png"]];
-    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"SharePatternSquare.png"]];
-    //view.backgroundColor = backgroundPattern;
-    //view.mainView.backgroundColor = backgroundPattern;
-    view.socialView.backgroundColor = backgroundPattern;
-    view.emailView.backgroundColor = backgroundPattern;
-    view.topBackground.backgroundColor = backgroundPattern;
-    [view makeSocialViewActive: YES];
-    return view;
-}
-
-#pragma mark - Initialization
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-    }
-    return self;
-}
-
 #pragma mark Toggle Views
 
 - (void)makeSocialViewActive:(BOOL)isSocialView {
@@ -71,7 +29,7 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
         self.activeView = self.socialView;
         self.socialView.hidden = NO;
         self.emailView.hidden  = YES;
-
+        
         // set button state
         _socialButton.selected = YES;
         _emailButton.selected  = NO;
@@ -85,6 +43,59 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
         _socialButton.selected = NO;
     }
 }
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+  
+    }
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - View lifecycle
+
+/*
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView
+{
+}
+*/
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
+    socialView.backgroundColor = backgroundPattern;
+    emailView.backgroundColor = backgroundPattern;
+    [self makeSocialViewActive: YES];  
+}
+
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+	return YES;
+}
+
 
 #pragma mark -
 
@@ -100,7 +111,7 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     } else {
         BOOL twitter  = _twitterButton.selected;
         BOOL facebook = _facebookButton.selected;
-
+        
         // Check the state of the FB & Twitter buttons
         if (twitter) {
             [array addObject: @"twitter"];
@@ -121,23 +132,23 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
 }
 
 - (IBAction)emailWasPressed:(id)sender {
-   if (sender == self.activeView) {
-       return;
-   } else {
-       [self makeSocialViewActive: NO];
-   }
+    if (sender == self.activeView) {
+        return;
+    } else {
+        [self makeSocialViewActive: NO];
+    }
 }
 
 - (IBAction)socialWasPressed:(id)sender {
-   if (sender == self.activeView) {
-       return;
-   } else {
-       [self makeSocialViewActive: YES];
-   }
+    if (sender == self.activeView) {
+        return;
+    } else {
+        [self makeSocialViewActive: YES];
+    }
 }
 
 - (IBAction)twitterWasPressed:(id)sender {
-
+    
     // Toggle the twitter Button
     UIButton *button = (UIButton *) sender;
     BOOL selected = button.selected;
@@ -152,17 +163,23 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
 }
 
 - (IBAction)sendWasPressed:(id)sender {
-
+    
+    // send should do nothing if in social mode and no social networks chosen
+    if (self.activeView == self.socialView && 
+        [[self socialNetworks] count] == 0) {
+        return;
+    }
+    
     NSString *message = (self.activeView == self.emailView)
-        ? _emailTextView.text
-        : _socialTextView.text;
-
+    ? _emailTextView.text
+    : _socialTextView.text;
+    
     NSArray *networks = [self socialNetworks];
-
+    
     NSString *recipients = (self.activeView == self.emailView)
-        ? [self recipients]
-        : nil;
-
+    ? [self recipients]
+    : nil;
+    
     // Notify our delegate
     if (self.delegate) {
         [self.delegate shareView:self sentMessage:message withNetworks:networks andRecipients:recipients];
@@ -175,13 +192,14 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     // Standard retain/release.
     [_video release];
     _video = [video retain];
-
+    
     // Populate the UI.
     NSString *comment = nil;
     if (video.shortPermalink) {
         comment = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", video.shortPermalink];
     } else {
-        comment = @"Check out this great video I'm watching @onShelby!", video.shortPermalink;
+        // should always have a permalink, but this isn't too horrible of a fallback plan...
+        comment = @"Check out this great video I'm watching @onShelby!";
     }
     _socialTextView.text = comment;
     _emailTextView.text  = comment;
@@ -195,7 +213,7 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
     } else {
         _twitterButton.enabled  = NO;
     }
-
+    
     if ([user.auth_facebook boolValue]) {
         _facebookButton.enabled   = YES;
         _facebookButton.selected  = YES;
@@ -224,16 +242,16 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
 - (BOOL)textView:(UITextView *)aTextView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString*)aText
 {
     NSString* newText = [aTextView.text stringByReplacingCharactersInRange:aRange withString:aText];
-
+    
     // TODO - find out why the size of the string is smaller than the actual width, so that you get extra, wrapped characters unless you take something off
     CGSize tallerSize = CGSizeMake(aTextView.frame.size.width-15,aTextView.frame.size.height*2); // pretend there's more vertical space to get that extra line to check on
     CGSize newSize = [newText sizeWithFont:aTextView.font constrainedToSize:tallerSize lineBreakMode:UILineBreakModeWordWrap];
-
+    
     if (newSize.height > aTextView.frame.size.height) {
         {
             LOG(@"error. too big!");
             // TODO: Consider hitting send if they hit enter again at this point.
-
+            
             //[myAppDelegate beep];
             return NO;
         }
@@ -263,12 +281,14 @@ static NSString *IPHONE_NIB_NAME = @"STVShareView";
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
+
+
 
 @end

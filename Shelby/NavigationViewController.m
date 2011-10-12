@@ -15,7 +15,7 @@
 #import "LoginHelper.h"
 #import "BroadcastApi.h"
 #import "Video.h"
-#import "STVShareView.h"
+#import "ShareViewController.h"
 
 @implementation NavigationViewController
 
@@ -184,63 +184,21 @@
 
 #pragma mark - STVShareView Methods
 
-- (void)centerShareViewInRect:(CGRect)parentRect withAnimationDuration:(double)duration {
-    CGRect centerFrame = [self centerFrame: self.shareView.frame inFrame: parentRect];
-    CGRect newFrame = CGRectNull;
-    if ([self keyboardIsShown]) {
-        CGRect frame = centerFrame;
-        CGRect intersect = CGRectIntersection(
-                _keyboardFrame,
-                frame
-                );
-        if (!CGRectEqualToRect(intersect, CGRectNull)) {
-            // Move the shareView up out of the way
-            frame.origin.y = (_keyboardFrame.origin.y - frame.size.height);
-        } 
-        newFrame = frame;
-    } else {
-        newFrame = centerFrame;
-    }
-
-    if (duration == 0) {
-        self.shareView.frame = newFrame;
-    } else {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationBeginsFromCurrentState:YES];
-        [UIView setAnimationDuration: duration];
-
-        // move the shareView
-        self.shareView.frame = newFrame;
-
-        [UIView commitAnimations];
-    }
-}
-
-- (void)centerShareViewWithAnimationDuration:(double)duration {
-    [self centerShareViewInRect: _videoPlayer.bounds
-          withAnimationDuration: duration];
-}
-
-- (void)centerShareViewAnimated:(double)animated {
-    double duration = (animated) ? 0.3 : 0.0;
-    [self centerShareViewWithAnimationDuration: duration];
-}
-
 - (void)closeShareView {
     if (self.shareView) {
-        [self.shareView removeFromSuperview];
+        [self.shareView.view removeFromSuperview];
         self.shareView = nil;
     }
 }
 
 #pragma mark - STVShareViewDelegate Methods
 
-- (void)shareViewClosePressed:(STVShareView*)shareView {
+- (void)shareViewClosePressed:(ShareViewController*)shareView {
     [self closeShareView];
 }
 
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
-  - (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
+- (void)shareView:(ShareViewController *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
 
     //Video *video = [videoTable getCurrentVideo];
     Video *video = shareView.video;
@@ -250,7 +208,7 @@
                 comment:message
                networks:networks
               recipient:recipients];
-    [shareView removeFromSuperview];
+    [self closeShareView];
 }
 
 #pragma mark - UIAlertViewDelegate Methods
@@ -314,7 +272,13 @@
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
     if (!self.shareView) {
         // show share UI
-        STVShareView *shareView = [STVShareView viewFromNib];
+        ShareViewController *shareView;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPad" bundle:nil] autorelease];
+        } else {
+            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPhone" bundle:nil] autorelease];
+        }
+
         shareView.delegate = self;
 
         // Set up the shareView with the video info.
@@ -323,12 +287,12 @@
 
         [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
-        shareView.frame = [self centerFrame: shareView.frame inFrame: _videoPlayer.bounds];
-
-        //[self.view addSubview: shareView];
-        [_videoPlayer addSubview: shareView];
+        shareView.view.frame = self.view.bounds;
 
         self.shareView = shareView;
+        [self.view addSubview:self.shareView.view];
+
+        NSLog(@"WHOOHOO!");
 
         // Use this to reveal the keyboard.
         [shareView.socialTextView becomeFirstResponder];
@@ -476,7 +440,7 @@
     [UIView setAnimationDuration: animationDuration];
 
     // move the shareView
-    self.shareView.frame = [self centerFrame: self.shareView.frame inFrame: _videoPlayer.bounds];
+    //self.shareView.view.frame = [self centerFrame: self.shareView.view.frame inFrame: _videoPlayer.bounds];
 
     [UIView commitAnimations];
 
@@ -505,7 +469,7 @@
     CGRect convertedRect = [self.view convertRect: endRect fromView: nil];
     _keyboardFrame = convertedRect;
     //keyboardIsShown = YES;
-    [self centerShareViewAnimated: YES];
+    //[self centerShareViewAnimated: YES];
 }
 
 #pragma mark - KVO

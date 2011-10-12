@@ -98,8 +98,6 @@ static const float ANIMATION_TIME = 0.5f;
             _traySliding = NO;
         }];
         _trayClosed = !_trayClosed;
-
-		[self centerShareViewAnimated: YES];
     }
 }
 

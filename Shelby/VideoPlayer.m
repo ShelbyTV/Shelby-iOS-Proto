@@ -575,6 +575,7 @@ static const float kNextPrevXOffset        =  0.0f;
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
     // Inform our delegate
+    [self pause];
     if (self.delegate) {
         [self.delegate videoPlayerShareButtonWasPressed: self];
     }

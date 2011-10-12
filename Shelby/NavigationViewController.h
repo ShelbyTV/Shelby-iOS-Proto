@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
-#import "STVShareView.h"
+#import "ShareViewController.h"
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
 
@@ -37,12 +37,12 @@
 
     //BOOL keyboardIsShown;
     CGRect _keyboardFrame;
-    STVShareView *_shareView;
+    ShareViewController *_shareView;
 
     NSSet *_authorizations;
 }
 
-@property (nonatomic, retain) STVShareView *shareView;
+@property (nonatomic, retain) ShareViewController *shareView;
 
 - (IBAction)userViewWasPressed:(id)sender;
 - (IBAction)listButtonPressed:(id)sender;
@@ -51,7 +51,5 @@
 
 - (void)loadUserData;
 - (void)showLogoutAlert;
-
-- (void)centerShareViewAnimated:(double)animated;
 
 @end
