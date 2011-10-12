@@ -6,36 +6,58 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#import "STVEmailController.h"
-#import "STVEmailController.h"
-#import "SearchTestController.h"
-#import "MockDataSource.h"
 #import <Three20UI/UIViewAdditions.h>
 #import <Three20UI/Three20UI.h>
+
+#import "STVEmailController.h"
+#import "BroadcastApi.h"
+#import "SearchTestController.h"
+
+#import "MockDataSource.h"
+#import "ContactDataSource.h"
 
 @implementation STVEmailController
 
 @synthesize parentViewController;
+@synthesize video;
+
+#pragma mark - Initialization
+
+- (id)initWithParentViewController:(UIViewController *)parent {
+  if (self = [super init]) {
+    self.parentViewController = parent;
+  }
+  return self;
+}
 
 #pragma mark - private
+
+- (UIViewController*)composeWithSubject:(NSString*)subject body:(NSString*)body {
+
+  //TTTableTextItem* item = [TTTableTextItem itemWithText:recipient URL:nil];
+
+  TTMessageController* controller =
+    [[[TTMessageController alloc] initWithRecipients:nil] autorelease];
+  controller.dataSource = [[[ContactSearchDataSource alloc] init] autorelease];
+  controller.delegate = self;
+
+
+  controller.showsRecipientPicker = YES;
+
+  controller.subject = subject;
+  controller.body    = body;
+
+  return controller;
+}
 
 - (UIViewController*)composeTo:(NSString*)recipient {
   TTTableTextItem* item = [TTTableTextItem itemWithText:recipient URL:nil];
 
   TTMessageController* controller =
     [[[TTMessageController alloc] initWithRecipients:[NSArray arrayWithObject:item]] autorelease];
-  controller.dataSource = [[[MockSearchDataSource alloc] init] autorelease];
+  controller.dataSource = [[[ContactSearchDataSource alloc] init] autorelease];
   controller.delegate = self;
 
-  return controller;
-}
-
-- (UIViewController*)post:(NSDictionary*)query {
-  TTPostController* controller = [[[TTPostController alloc] initWithNavigatorURL:nil
-																		   query:
-								   [NSDictionary dictionaryWithObjectsAndKeys:@"Default Text", @"text", nil]]
-								   autorelease];
-  controller.originView = [query objectForKey:@"__target__"];
   return controller;
 }
 
@@ -47,19 +69,44 @@
   _sendTimer = nil;
 
   NSArray* fields = timer.userInfo;
-  UIView* lastView = [self.parentViewController.view.subviews lastObject];
-  CGFloat y = lastView.bottom + 20;
 
+  NSString *recipients = nil;
   TTMessageRecipientField* toField = [fields objectAtIndex:0];
+  //for (TTTextField *recipient in toField.recipients) {
   for (id recipient in toField.recipients) {
-    UILabel* label = [[[UILabel alloc] init] autorelease];
-    label.backgroundColor = self.parentViewController.view.backgroundColor;
-    label.text = [NSString stringWithFormat:@"Sent to: %@", recipient];
-    [label sizeToFit];
-    label.frame = CGRectMake(30, y, label.width, label.height);
-    y += label.height;
-    [self.parentViewController.view addSubview:label];
+
+    Contact *contact = [recipient userInfo];
+
+    if (recipients) {
+      recipients = [NSString stringWithFormat: @"%@,%@", 
+                 recipients,
+                 contact.email
+      ];
+    } else {
+        recipients = contact.email;
+    }
+    //NSString *sentText = [NSString stringWithFormat:@"Sent to: %@", contact.name];
+    //NSString *email = contact.email;
+
+    //NSLog(sentText);
+    //NSLog(email);
   }
+
+  // TODO: POST to API
+  TTMessageTextField* subjectField = [fields objectAtIndex: 1];
+  TTTextEditor* bodyField = [fields objectAtIndex: 2];
+
+  NSString *subject = subjectField.text;
+  NSString *body = bodyField.text;
+
+  NSLog(@"subject: %@", subject);
+  NSLog(@"body: %@", body);
+  NSLog(@"recipients: %@", recipients);
+
+  [BroadcastApi share: self.video
+              comment: body
+             networks: [NSArray arrayWithObject: @"email"]
+            recipient: recipients];
 
   [self.parentViewController.modalViewController dismissModalViewControllerAnimated:YES];
 }
@@ -102,7 +149,8 @@
 #pragma mark - SearchTestControllerDelegate
 
 - (void)searchTestController:(SearchTestController*)controller didSelectObject:(id)object {
-  TTMessageController* composeController = (TTMessageController*)self.parentViewController.modalViewController;
+  UINavigationController* navController = (UINavigationController*)self.parentViewController.modalViewController;
+  TTMessageController* composeController = (TTMessageController*)navController.topViewController;
   [composeController addRecipient:object forFieldAtIndex:0];
   [controller dismissModalViewControllerAnimated:YES];
 }

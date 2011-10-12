@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SearchTestController.h"
 
+@class Video;
 
 @interface STVEmailController : NSObject <TTMessageControllerDelegate, SearchTestControllerDelegate> {
   NSTimer* _sendTimer;
@@ -16,5 +17,9 @@
 }
   
 @property (nonatomic, retain) UIViewController *parentViewController;
+@property (nonatomic, retain) Video *video;
+
+
+- (id)initWithParentViewController:(UIViewController *)parent;
 
 @end

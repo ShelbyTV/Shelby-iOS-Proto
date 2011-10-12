@@ -1,6 +1,7 @@
 
 #import "SearchTestController.h"
 #import "MockDataSource.h"
+#import "ContactDataSource.h"
 
 @implementation SearchTestController
 
@@ -13,8 +14,8 @@
   if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     _delegate = nil;
 
-    self.title = @"Search Test";
-    self.dataSource = [[[MockDataSource alloc] init] autorelease];
+    self.title = @"Contact Search";
+    self.dataSource = [[[ContactDataSource alloc] init] autorelease];
   }
   return self;
 }
@@ -30,7 +31,7 @@
   [super loadView];
 
   TTTableViewController* searchController = [[[TTTableViewController alloc] init] autorelease];
-  searchController.dataSource = [[[MockSearchDataSource alloc] initWithDuration:1.5] autorelease];
+  searchController.dataSource = [[[ContactSearchDataSource alloc] initWithDuration:1.5] autorelease];
   self.searchViewController = searchController;
   self.tableView.tableHeaderView = _searchController.searchBar;
 }

@@ -12,7 +12,11 @@
  */
 
 #import "NavigationViewController_iPhone.h"
+
 #import "SettingsViewController.h"
+#import "Video.h"
+#import "STVEmailController.h"
+#import "ShareTableViewController.h"
 
 @implementation NavigationViewController_iPhone
 
@@ -66,9 +70,7 @@
          cancelButtonTitle: @"Cancel" 
     destructiveButtonTitle: nil
          otherButtonTitles: @"Social", @"Email", nil];
-  //actionSheet.delegate = self;
 	//actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-  //actionSheet.destructiveButtonIndex = 1;	// make the second button red (destructive)
 
 	[actionSheet showInView: self.view]; // show from our table view (pops up in the middle of the table)
 	[actionSheet release];
@@ -82,18 +84,47 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	// the user clicked one of the OK/Cancel buttons
-	if (buttonIndex == 0)
-	{
-		NSLog(@"Social");
+  // the user clicked one of the OK/Cancel buttons
+  if (buttonIndex == 0)
+  {
+    NSLog(@"Social");
 
-	} else if (buttonIndex == 1) {
-		NSLog(@"Email");
+    ShareTableViewController *shareController = [[[ShareTableViewController alloc] init] autorelease];
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: shareController] autorelease];
+    [self presentModalViewController: navController animated:YES];
+
+  } else if (buttonIndex == 1) {
+    NSLog(@"Email");
 
     // Create a TTMessageController
-	} else {
+    // TODO: Manage this reference
 
-		NSLog(@"cancel");
+    STVEmailController *mailController = [[STVEmailController alloc] initWithParentViewController: self];
+    //UIViewController *compose = [mailController composeTo: @"Al Simmons"];
+
+    Video *video = [videoTable getCurrentVideo];
+
+    mailController.video = video;
+
+    NSString *comment = nil;
+    if (video.shortPermalink) {
+        comment = [NSString stringWithFormat: @"Check out this great video I'm watching on Shelby.tv: %@", video.shortPermalink];
+    } else {
+        // should always have a permalink, but this isn't too horrible of a fallback plan...
+        comment = @"Check out this great video I'm watching on Shelby.tv!";
+    }
+
+    UIViewController *compose = [mailController composeWithSubject: @"Cool video on Shelby.tv"
+                                                              body: comment
+                                                              ];
+
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: compose] autorelease];
+    [self presentModalViewController: navController animated:YES];
+
+  } else {
+
+    NSLog(@"cancel");
+
   }
 }
 
