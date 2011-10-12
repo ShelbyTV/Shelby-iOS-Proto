@@ -195,6 +195,7 @@
 
 - (void)shareViewClosePressed:(ShareViewController*)shareView {
     [self closeShareView];
+    [_videoPlayer resumeAfterCloseShareView];
 }
 
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {

@@ -44,6 +44,8 @@
     double _lastPlayVideo;
     double _lastDidFinish;
     
+    bool _wasPlayingBeforeShare;
+    
     UIButton *_nextButton;
     UIButton *_prevButton;
     
@@ -71,5 +73,6 @@
 - (void)reset;
 - (void)setFullscreen:(BOOL)fullscreen;
 - (BOOL)isFavoriteButtonSelected;
+- (void)resumeAfterCloseShareView;
 
 @end

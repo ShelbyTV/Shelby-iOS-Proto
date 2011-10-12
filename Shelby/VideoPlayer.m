@@ -343,6 +343,13 @@ static const float kNextPrevXOffset        =  0.0f;
     return [_controlBar isFavoriteButtonSelected];
 }
 
+- (void)resumeAfterCloseShareView
+{
+    if (_wasPlayingBeforeShare) {
+        [self play];
+    }
+}
+
 #pragma mark - Touch Handling
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     _touchOccurring = TRUE;
@@ -574,6 +581,7 @@ static const float kNextPrevXOffset        =  0.0f;
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
     // Inform our delegate
+    _wasPlayingBeforeShare = !_paused;
     [self pause];
     if (self.delegate) {
         [self.delegate videoPlayerShareButtonWasPressed: self];
