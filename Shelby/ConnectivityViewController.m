@@ -206,7 +206,7 @@
 
 - (void)showShelbyDown
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:@"Shelby seems to be down! Try again soon."
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"Shelby? Are you there? ...  Sorry, server glitch! Try again soon."
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];

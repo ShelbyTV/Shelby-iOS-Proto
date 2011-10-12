@@ -78,16 +78,18 @@
 - (void)populateUI
 {
     // Populate the UI.
-    NSString *comment = nil;
+    NSString *socialComment = @"";
+    if (_video.shortPermalink && _video.sharer) {
+        socialComment = [NSString stringWithFormat: @"Great video via %@ %@", _video.sharer, _video.shortPermalink];
+    }
+    
+    NSString *emailBody = @"";
     if (_video.shortPermalink) {
-        comment = [NSString stringWithFormat: @"Check out this great video I'm watching @onShelby: %@", _video.shortPermalink];
-    } else {
-        // should always have a permalink, but this isn't too horrible of a fallback plan...
-        comment = @"Check out this great video I'm watching @onShelby!";
+        emailBody = [NSString stringWithFormat:@"Watch this... %@", _video.shortPermalink];
     }
 
-    _socialTextView.text = comment;
-    _emailTextView.text  = comment;
+    _socialTextView.text = socialComment;
+    _emailTextView.text  = emailBody;
     
     [self.view setNeedsDisplay];
 }

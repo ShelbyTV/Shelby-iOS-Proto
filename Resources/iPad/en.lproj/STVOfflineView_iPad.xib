@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
+		<string key="IBDocument.SystemVersion">11C74</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">534</string>
@@ -50,7 +50,7 @@
 							<object class="IBUILabel" id="917485329">
 								<reference key="NSNextResponder" ref="901122737"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{71, 20}, {273, 58}}</string>
+								<string key="NSFrame">{{20, 20}, {375, 32}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="629616670"/>
@@ -60,7 +60,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Connection Error</string>
+								<string key="IBUIText"> Doh!</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Thonburi-Bold</string>
 									<double key="NSSize">26</double>
@@ -83,7 +83,7 @@
 							<object class="IBUILabel" id="629616670">
 								<reference key="NSNextResponder" ref="901122737"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 97}, {375, 55}}</string>
+								<string key="NSFrame">{{20, 65}, {375, 151}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:311</string>
@@ -92,7 +92,9 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Please check your internet connection.</string>
+								<string type="base64-UTF8" key="IBUIText">SXQgbG9va3MgbGlrZSB0aGUgbWFjaGluZXMgZmluYWxseSB0b29rIG92ZXIgdGhlIEludGVybmV0Li4u
+IG9yIHlvdXIgd2lmaQpjb25uZWN0aW9uIGlzIGRvd24uCgpFaXRoZXIgd2F5LCB5b3UgbmVlZCB0byBn
+ZXQgb24gd2lmaSB0byB1c2UgU2hlbGJ5Lg</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Thonburi</string>
 									<double key="NSSize">20</double>
@@ -105,7 +107,6 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<float key="IBUIMinimumFontSize">10</float>
 								<int key="IBUINumberOfLines">0</int>
-								<int key="IBUITextAlignment">1</int>
 							</object>
 						</object>
 						<string key="NSFrame">{{1, 1}, {415, 250}}</string>

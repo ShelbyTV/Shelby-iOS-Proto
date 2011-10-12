@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
+		<string key="IBDocument.SystemVersion">11C74</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">534</string>
@@ -50,7 +50,7 @@
 							<object class="IBUILabel" id="917485329">
 								<reference key="NSNextResponder" ref="901122737"/>
 								<int key="NSvFlags">293</int>
-								<string key="NSFrame">{{20, 20}, {240, 36}}</string>
+								<string key="NSFrame">{{20, 20}, {240, 29}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="629616670"/>
@@ -60,7 +60,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Connection Error</string>
+								<string key="IBUIText">Doh!</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">26</double>
@@ -83,16 +83,19 @@
 							<object class="IBUILabel" id="629616670">
 								<reference key="NSNextResponder" ref="901122737"/>
 								<int key="NSvFlags">293</int>
-								<string key="NSFrame">{{20, 70}, {240, 39}}</string>
+								<string key="NSFrame">{{20, 57}, {240, 115}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:311</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Please check your internet connection.</string>
+								<string type="base64-UTF8" key="IBUIText">SXQgbG9va3MgbGlrZSB0aGUgbWFjaGluZXMgZmluYWxseSB0b29rIG92ZXIgdGhlIEludGVybmV0Li4u
+IG9yIHlvdXIgd2lmaQpjb25uZWN0aW9uIGlzIGRvd24uCgpFaXRoZXIgd2F5LCB5b3UgbmVlZCB0byBn
+ZXQgb24gd2lmaSB0byB1c2UgU2hlbGJ5Lg</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">15</double>
@@ -105,10 +108,9 @@
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<float key="IBUIMinimumFontSize">10</float>
 								<int key="IBUINumberOfLines">0</int>
-								<int key="IBUITextAlignment">1</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{280, 150}</string>
+						<string key="NSFrameSize">{280, 187}</string>
 						<reference key="NSSuperview" ref="371682399"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="917485329"/>
@@ -120,7 +122,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{280, 150}</string>
+				<string key="NSFrameSize">{280, 187}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="901122737"/>
