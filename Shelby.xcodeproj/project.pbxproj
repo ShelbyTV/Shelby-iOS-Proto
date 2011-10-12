@@ -96,8 +96,6 @@
 		42084C891427DACD00C3C556 /* STVOfflineView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C871427DACD00C3C556 /* STVOfflineView_iPad.xib */; };
 		42084C8C1427DC3300C3C556 /* ConnectivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */; };
 		42236913144616800028BFF3 /* STVEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236912144616800028BFF3 /* STVEmailController.m */; };
-		4229A08414463F5D00BD6C41 /* ShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229A08214463F5D00BD6C41 /* ShareTableViewController.m */; };
-		4229A08514463F5D00BD6C41 /* ShareTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4229A08314463F5D00BD6C41 /* ShareTableViewController.xib */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
 		423FFDA514291A2400F8FF54 /* CellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 423FFDA414291A2400F8FF54 /* CellGradient.png */; };
@@ -112,6 +110,7 @@
 		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
+		427BAE69144655FF00A712C0 /* TableShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427BAE68144655FF00A712C0 /* TableShareViewController.m */; };
 		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
 		4289EB9914366010008311A7 /* ButtonClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9814366010008311A7 /* ButtonClose.png */; };
 		4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */; };
@@ -451,9 +450,6 @@
 		42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectivityViewController.m; sourceTree = "<group>"; };
 		42236911144616800028BFF3 /* STVEmailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVEmailController.h; sourceTree = "<group>"; };
 		42236912144616800028BFF3 /* STVEmailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVEmailController.m; sourceTree = "<group>"; };
-		4229A08114463F5D00BD6C41 /* ShareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTableViewController.h; sourceTree = "<group>"; };
-		4229A08214463F5D00BD6C41 /* ShareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTableViewController.m; sourceTree = "<group>"; };
-		4229A08314463F5D00BD6C41 /* ShareTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareTableViewController.xib; sourceTree = "<group>"; };
 		4229CDED13EC597B000F587E /* VideoPlayerTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerTitleBar.h; sourceTree = "<group>"; };
 		4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerTitleBar.m; sourceTree = "<group>"; };
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
@@ -474,6 +470,8 @@
 		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		427A623113F4843200C945E2 /* STVCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVCheckBox.h; sourceTree = "<group>"; };
 		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
+		427BAE67144655FE00A712C0 /* TableShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableShareViewController.h; sourceTree = "<group>"; };
+		427BAE68144655FF00A712C0 /* TableShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableShareViewController.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4289EB9814366010008311A7 /* ButtonClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonClose.png; path = Resources/Images/ButtonClose.png; sourceTree = "<group>"; };
@@ -998,9 +996,8 @@
 		4229A07D14463F2400BD6C41 /* Social */ = {
 			isa = PBXGroup;
 			children = (
-				4229A08114463F5D00BD6C41 /* ShareTableViewController.h */,
-				4229A08214463F5D00BD6C41 /* ShareTableViewController.m */,
-				4229A08314463F5D00BD6C41 /* ShareTableViewController.xib */,
+				427BAE67144655FE00A712C0 /* TableShareViewController.h */,
+				427BAE68144655FF00A712C0 /* TableShareViewController.m */,
 			);
 			name = Social;
 			sourceTree = "<group>";
@@ -1599,7 +1596,6 @@
 				0A53951D144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib in Resources */,
 				0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */,
 				0A978AF914457F00005DFF18 /* STVShareView_iPhone.xib in Resources */,
-				4229A08514463F5D00BD6C41 /* ShareTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1694,7 +1690,7 @@
 				42DC3D6114461B52009B039F /* MockDataSource.m in Sources */,
 				42DC3D6414461B5B009B039F /* SearchTestController.m in Sources */,
 				42DC3DBA1446216C009B039F /* ContactDataSource.m in Sources */,
-				4229A08414463F5D00BD6C41 /* ShareTableViewController.m in Sources */,
+				427BAE69144655FF00A712C0 /* TableShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

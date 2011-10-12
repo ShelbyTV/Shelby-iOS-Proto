@@ -16,7 +16,10 @@
 #import "SettingsViewController.h"
 #import "Video.h"
 #import "STVEmailController.h"
-#import "ShareTableViewController.h"
+#import "TableShareViewController.h"
+#import "ShelbyApp.h"
+#import "LoginHelper.h"
+#import "BroadcastApi.h"
 
 @implementation NavigationViewController_iPhone
 
@@ -80,6 +83,23 @@
   [self showActionSheet];
 }
 
+#pragma mark - TableShareViewDelegate
+
+- (void)tableShareViewClosePressed:(TableShareViewController*)shareView {
+  [self dismissModalViewControllerAnimated: YES];
+}
+
+- (void)tableShareView:(TableShareViewController*)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
+
+   [BroadcastApi share: shareView.video
+               comment: message
+              networks: networks
+             recipient: nil];
+
+   [self dismissModalViewControllerAnimated: YES];
+
+}
+
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -87,11 +107,46 @@
   // the user clicked one of the OK/Cancel buttons
   if (buttonIndex == 0)
   {
+#if 1
     NSLog(@"Social");
+    Video *video = [videoTable getCurrentVideo];
 
-    ShareTableViewController *shareController = [[[ShareTableViewController alloc] init] autorelease];
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: shareController] autorelease];
+    TableShareViewController *tableController = [[[TableShareViewController alloc] init] autorelease];
+    tableController.video = video;
+    [tableController updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
+    tableController.delegate = self;
+
+    ShareViewController *shareViewController = [[[ShareViewController alloc] init] autorelease];
+   
+    UIViewController *rootController =  tableController ;
+    //UIViewController *rootController =  shareTableController;
+    //UIViewController *rootController =  postController      ;
+    //UIViewController *rootController =  fullShareController ;
+    //UIViewController *rootController =  shareViewController ;
+    //UIViewController *rootController =  repurposedController ;
+
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: rootController] autorelease];
+
+    //navController.navigationBarHidden = YES;
+
+    //navController.navigationBar.tintColor = [UIColor blackColor];
+    //navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     [self presentModalViewController: navController animated:YES];
+    
+    //[self presentModalViewController: rootController animated:YES];
+#else
+
+    [[TTNavigator navigator].URLMap from:@"tt://post"
+                        toViewController:self selector:@selector(post:)];
+    - (UIViewController*)post:(NSDictionary*)query {
+  TTPostController* controller = [[[TTPostController alloc] initWithNavigatorURL:nil
+                                                                           query:
+                                      [NSDictionary dictionaryWithObjectsAndKeys:@"Default Text", @"text", nil]]
+                                      autorelease];
+  controller.originView = [query objectForKey:@"__target__"];
+  return controller;
+    }
+#endif
 
   } else if (buttonIndex == 1) {
     NSLog(@"Email");
@@ -103,7 +158,6 @@
     //UIViewController *compose = [mailController composeTo: @"Al Simmons"];
 
     Video *video = [videoTable getCurrentVideo];
-
     mailController.video = video;
 
     NSString *comment = nil;
@@ -119,6 +173,9 @@
                                                               ];
 
     UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: compose] autorelease];
+    //navController.navigationBar.tintColor = [UIColor blackColor];
+    navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+
     [self presentModalViewController: navController animated:YES];
 
   } else {
