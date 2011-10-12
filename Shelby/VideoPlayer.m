@@ -352,6 +352,16 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Touch Handling
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    for (UITouch *touch in touches) {
+        NSArray *array = touch.gestureRecognizers;
+        for (UIGestureRecognizer *gesture in array) {
+            if (gesture.enabled && [gesture isMemberOfClass:[UIPinchGestureRecognizer class]]) {
+                gesture.enabled = NO;
+            }
+        }
+    }
+    
     _touchOccurring = TRUE;
     _lastTouchesBegan = CACurrentMediaTime();
     if (!_controlsVisible) {
