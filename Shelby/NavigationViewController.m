@@ -101,7 +101,6 @@
     _videoPlayer.hidden = NO;
     
     [_videoPlayer playVideo: video];
-    [BroadcastApi watch:video];
 }
 
 - (void)updateAuthorizations:(User *)user

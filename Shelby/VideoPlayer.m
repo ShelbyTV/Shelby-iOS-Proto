@@ -14,6 +14,7 @@
 #import "Video.h"
 #import "ShelbyApp.h"
 #import "GraphiteStats.h"
+#import "BroadcastApi.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -298,6 +299,7 @@ static const float kNextPrevXOffset        =  0.0f;
             _duration = 0.0f;
             // Load the video and play it.
             if (video.contentURL) {
+                [BroadcastApi watch:video];
                 [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
                 _moviePlayer.contentURL = video.contentURL;
                 [self play];
