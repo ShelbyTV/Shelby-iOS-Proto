@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SearchTestController.h"
+#import "SearchContactController.h"
 
 @class Video;
 
-@interface STVEmailController : NSObject <TTMessageControllerDelegate, SearchTestControllerDelegate> {
+@interface STVEmailController : NSObject <TTMessageControllerDelegate, SearchContactControllerDelegate> {
   NSTimer* _sendTimer;
   //UIViewController *_parentViewController;
 }

@@ -11,9 +11,7 @@
 
 #import "STVEmailController.h"
 #import "BroadcastApi.h"
-#import "SearchTestController.h"
-
-#import "MockDataSource.h"
+#import "SearchContactController.h"
 #import "ContactDataSource.h"
 
 @implementation STVEmailController
@@ -135,7 +133,7 @@
 }
 
 - (void)composeControllerShowRecipientPicker:(TTMessageController*)controller {
-  SearchTestController* searchController = [[[SearchTestController alloc] init] autorelease];
+  SearchContactController* searchController = [[[SearchContactController alloc] init] autorelease];
   searchController.delegate = self;
   searchController.title = @"Address Book";
   searchController.navigationItem.prompt = @"Select a recipient";
@@ -152,7 +150,7 @@
 
 #pragma mark - SearchTestControllerDelegate
 
-- (void)searchTestController:(SearchTestController*)controller didSelectObject:(id)object {
+- (void)searchTestController:(SearchContactController*)controller didSelectObject:(id)object {
   UINavigationController* navController = (UINavigationController*)self.parentViewController.modalViewController;
   TTMessageController* composeController = (TTMessageController*)navController.topViewController;
   [composeController addRecipient:object forFieldAtIndex:0];

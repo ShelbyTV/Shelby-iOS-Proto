@@ -1,9 +1,8 @@
 
-#import "SearchTestController.h"
-#import "MockDataSource.h"
+#import "SearchContactController.h"
 #import "ContactDataSource.h"
 
-@implementation SearchTestController
+@implementation SearchContactController
 
 @synthesize delegate = _delegate;
 
