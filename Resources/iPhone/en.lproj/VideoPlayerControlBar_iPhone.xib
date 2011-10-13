@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
+		<string key="IBDocument.SystemVersion">11C74</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">534</string>
@@ -45,7 +45,7 @@
 					<object class="IBUIView" id="838028058">
 						<reference key="NSNextResponder" ref="85472982"/>
 						<int key="NSvFlags">278</int>
-						<string key="NSFrame">{{183, 1}, {57, 45}}</string>
+						<string key="NSFrame">{{185, 0}, {57, 44}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="157101233"/>
@@ -186,7 +186,6 @@
 						<string key="NSFrame">{{239, 0}, {1, 44}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:195</string>
 						<reference key="IBUIBackgroundColor" ref="106530392"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
