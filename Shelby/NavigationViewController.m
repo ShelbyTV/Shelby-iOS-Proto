@@ -69,6 +69,7 @@
     return self;
 }
 
+
 #pragma mark - 
 
 - (void)playVideo:(Video *)video
@@ -339,6 +340,7 @@
     [watchLaterButton setSelected:YES];
     [videoTable changeVideoMode:2];
 }
+
 
 #pragma mark - View lifecycle
 

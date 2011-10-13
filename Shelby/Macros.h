@@ -21,7 +21,3 @@
 #define IS_NULL(x) (x == nil || [(x) isKindOfClass:[NSNull class]])
 #define NOT_NULL(x) ((x) && ![(x) isKindOfClass:[NSNull class]])
 #define SET_IF_NOT_NULL(y, z) {if (NOT_NULL(z)) { y = z; } }
-
-// Needed by sample code, but only included in Three20/Three20
-#define TT_RELEASE_SAFELY(__POINTER) { [__POINTER release]; __POINTER = nil; }
-#define TT_INVALIDATE_TIMER(__TIMER) { [__TIMER invalidate]; __TIMER = nil; }

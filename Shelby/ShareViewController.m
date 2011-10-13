@@ -20,7 +20,7 @@
 @synthesize activeView;
 @synthesize socialTextView = _socialTextView;
 @synthesize emailTextView = _emailTextView;
-        
+
 #pragma mark Toggle Views
 
 - (void)makeSocialViewActive:(BOOL)isSocialView {
@@ -42,20 +42,6 @@
         _socialButton.selected = NO;
     }
 }
-
-#pragma mark - Initialization
-
-- (id)init
-{
-  NSString *nibName = nil;
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-      nibName = @"STVShareView_iPad";
-  } else {
-      nibName = @"STVShareView_iPhone";
-  }
-    return [self initWithNibName: nibName bundle:nil];
-}
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
