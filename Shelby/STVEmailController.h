@@ -16,6 +16,7 @@
   //UIViewController *_parentViewController;
 }
   
+@property (nonatomic, retain) UIViewController *searchViewController;
 @property (nonatomic, retain) UIViewController *parentViewController;
 @property (nonatomic, retain) Video *video;
 

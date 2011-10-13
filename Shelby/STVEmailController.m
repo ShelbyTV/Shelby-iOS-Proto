@@ -19,6 +19,7 @@
 @implementation STVEmailController
 
 @synthesize parentViewController;
+@synthesize searchViewController;
 @synthesize video;
 
 #pragma mark - Initialization
@@ -62,7 +63,8 @@
 }
 
 - (void)cancelAddressBook {
-  [[TTNavigator navigator].visibleViewController dismissModalViewControllerAnimated:YES];
+  //[[TTNavigator navigator].visibleViewController dismissModalViewControllerAnimated:YES];
+  [self.searchViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)sendDelayed:(NSTimer*)timer {
@@ -78,7 +80,7 @@
     Contact *contact = [recipient userInfo];
 
     if (recipients) {
-      recipients = [NSString stringWithFormat: @"%@,%@", 
+      recipients = [NSString stringWithFormat: @"%@,%@",
                  recipients,
                  contact.email
       ];
@@ -140,6 +142,8 @@
   searchController.navigationItem.rightBarButtonItem =
     [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
       target:self action:@selector(cancelAddressBook)] autorelease];
+
+  self.searchViewController = searchController;
 
   UINavigationController* navController = [[[UINavigationController alloc] init] autorelease];
   [navController pushViewController:searchController animated:NO];
