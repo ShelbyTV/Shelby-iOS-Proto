@@ -512,7 +512,6 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
-    NSLog(@"here in willAnimateRotationToInterfaceOrientation");
     if (self.shareView) {
         [self.shareView adjustViewsForOrientation:interfaceOrientation];
     }
