@@ -270,7 +270,6 @@ static const float kNextPrevXOffset        =  0.0f;
             _lastPlayVideo = now;
             
             self.currentVideo = video;
-            [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
             
             // Set internal lock so our notification doesn't go haywire.
             _changingVideo = YES;
@@ -299,6 +298,7 @@ static const float kNextPrevXOffset        =  0.0f;
             _duration = 0.0f;
             // Load the video and play it.
             if (video.contentURL) {
+                [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
                 _moviePlayer.contentURL = video.contentURL;
                 [self play];
                 _changingVideo = NO;
