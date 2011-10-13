@@ -173,6 +173,9 @@
         _shareTime.textColor = [UIColor lightGrayColor];
         _shareTime.backgroundColor = [UIColor clearColor];
         _shareTime.textAlignment = UITextAlignmentRight;
+        _shareTime.adjustsFontSizeToFitWidth = YES;
+        _shareTime.numberOfLines = 1;
+        _shareTime.minimumFontSize = 10.0;
         
         _bgView.userInteractionEnabled = TRUE;
         
@@ -386,6 +389,8 @@
             dupeShareTime.textColor = [UIColor lightGrayColor];
             dupeShareTime.backgroundColor = [UIColor clearColor];
             dupeShareTime.textAlignment = UITextAlignmentRight;
+            dupeShareTime.adjustsFontSizeToFitWidth = YES;
+            dupeShareTime.minimumFontSize = 10.0;
             dupeShareTime.numberOfLines = 1;
             dupeShareTime.text = [self prettyDateDiff:dupe.createdAt];
             
