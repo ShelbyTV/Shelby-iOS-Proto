@@ -373,6 +373,12 @@
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
+    
+    // user clicked onboarding cell
+    if (row == 0) {
+        return;
+    }
+    
     Video *video = [self videoAtTableDataIndex:row];
     _currentVideoIndex = row;
 
