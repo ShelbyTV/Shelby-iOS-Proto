@@ -80,7 +80,7 @@
     // Populate the UI.
     NSString *socialComment = @"";
     if (_video.shortPermalink && _video.sharer) {
-        socialComment = [NSString stringWithFormat: @"Great video via %@ %@", _video.sharer, _video.shortPermalink];
+        socialComment = [NSString stringWithFormat: @"Great video via %@ %@", [_video.sharer lowercaseString], _video.shortPermalink];
     }
     
     NSString *emailBody = @"";
@@ -91,6 +91,8 @@
     _socialTextView.text = socialComment;
     _emailTextView.text  = emailBody;
     
+    _emailRecipientView.text = @"";
+    
     [self.view setNeedsDisplay];
 }
 
@@ -99,7 +101,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     if (NOT_NULL(_video)) {
         [self populateUI];
     }
@@ -107,7 +109,9 @@
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
     socialView.backgroundColor = backgroundPattern;
     emailView.backgroundColor = backgroundPattern;
-    [self makeSocialViewActive: YES];  
+    [self makeSocialViewActive: YES];
+    
+    [self adjustViewsForOrientation:self.interfaceOrientation];
 }
 
 
@@ -151,9 +155,17 @@
     return [NSArray arrayWithArray: array];
 }
 
+- (void)resignFirstResponders
+{
+    [_emailRecipientView resignFirstResponder];
+    [_emailTextView resignFirstResponder];
+    [_socialTextView resignFirstResponder];
+}
+
 #pragma mark - UI Callbacks
 
 - (IBAction)closeWasPressed:(id)sender {
+    [self resignFirstResponders];
     if (self.delegate) {
         [self.delegate shareViewClosePressed : self];
     }
@@ -198,6 +210,12 @@
         return;
     }
     
+    if (self.activeView == self.emailView &&
+        [_emailRecipientView.text length] == 0)
+    {
+        return;
+    }
+    
     NSString *message = (self.activeView == self.emailView)
     ? _emailTextView.text
     : _socialTextView.text;
@@ -208,6 +226,8 @@
     ? [self recipients]
     : nil;
     
+    [self resignFirstResponders];
+
     // Notify our delegate
     if (self.delegate) {
         [self.delegate shareView:self sentMessage:message withNetworks:networks andRecipients:recipients];
@@ -313,6 +333,69 @@
  }
  */
 
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation {
+    // on iPad we just use the auto-rotate stuff
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return;
+    }
+    
+    // on iPhone we do some manual adjustments.
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+        CGRect temp = _twitterButton.frame;
+        temp.origin = CGPointMake(271, 40);
+        _twitterButton.frame = temp;
+        
+        temp = _facebookButton.frame;
+        temp.origin = CGPointMake(314, 40);
+        _facebookButton.frame = temp;
+        
+        temp = _postShareOn.frame;
+        temp.origin = CGPointMake(273, 18);
+        _postShareOn.frame = temp;
+        
+        temp = _socialTextView.frame;
+        temp.size = CGSizeMake(250, 113);
+        _socialTextView.frame = temp;
+        _socialTextBackground.frame = temp;
+        
+        temp = _emailTextView.frame;
+        temp.size = CGSizeMake(250, 83);
+        _emailTextView.frame = temp;
+        _emailTextBackground.frame = temp;
+        
+        temp = _emailRecipientView.frame;
+        temp.size = CGSizeMake(225, 25);
+        _emailRecipientView.frame = temp;
+
+    }
+    else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        CGRect temp = _twitterButton.frame;
+        temp.origin = CGPointMake(8, 170);
+        _twitterButton.frame = temp;
+        
+        temp = _facebookButton.frame;
+        temp.origin = CGPointMake(51, 170);
+        _facebookButton.frame = temp;
+        
+        temp = _postShareOn.frame;
+        temp.origin = CGPointMake(10, 148);
+        _postShareOn.frame = temp;
+        
+        temp = _socialTextView.frame;
+        temp.size = CGSizeMake(203, 135);
+        _socialTextView.frame = temp;
+        _socialTextBackground.frame = temp;
+        
+        temp = _emailTextView.frame;
+        temp.size = CGSizeMake(203, 119);
+        _emailTextView.frame = temp;
+        _emailTextBackground.frame = temp;
+        
+        temp = _emailRecipientView.frame;
+        temp.size = CGSizeMake(178, 25);
+        _emailRecipientView.frame = temp;
+    }
+}
 
 
 @end

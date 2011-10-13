@@ -65,6 +65,24 @@
             @"auth_facebook",
             @"auth_tumblr",
             nil];
+        
+        ShareViewController *shareView;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPad" bundle:nil] autorelease];
+        } else {
+            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPhone" bundle:nil] autorelease];
+        }
+        
+        shareView.delegate = self;
+        
+        
+        [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
+        
+        shareView.view.frame = self.view.bounds;
+        
+        self.shareView = shareView;
+        self.shareView.view.hidden = YES;
+        [self.view addSubview:self.shareView.view];
     }
     return self;
 }
@@ -185,10 +203,7 @@
 #pragma mark - STVShareView Methods
 
 - (void)closeShareView {
-    if (self.shareView) {
-        [self.shareView.view removeFromSuperview];
-        self.shareView = nil;
-    }
+    self.shareView.view.hidden = YES;
 }
 
 #pragma mark - STVShareViewDelegate Methods
@@ -271,31 +286,17 @@
 }
 
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
-    if (!self.shareView) {
-        // show share UI
-        ShareViewController *shareView;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPad" bundle:nil] autorelease];
-        } else {
-            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPhone" bundle:nil] autorelease];
-        }
+    
+    // Set up the shareView with the video info.
+    Video *video = [videoTable getCurrentVideo];
+    [self.shareView setVideo:video];
+    
+    [self.shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
-        shareView.delegate = self;
+    self.shareView.view.hidden = NO;
 
-        // Set up the shareView with the video info.
-        Video *video = [videoTable getCurrentVideo];
-        [shareView setVideo:video];
-
-        [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
-
-        shareView.view.frame = self.view.bounds;
-
-        self.shareView = shareView;
-        [self.view addSubview:self.shareView.view];
-
-        // Use this to reveal the keyboard.
-        [shareView.socialTextView becomeFirstResponder];
-    }
+    // Use this to reveal the keyboard.
+    [self.shareView.socialTextView becomeFirstResponder];
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
@@ -508,6 +509,14 @@
 //    [self centerShareViewInRect: rotatedFrame
 //          withAnimationDuration: 0.0];
 //}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSLog(@"here in willAnimateRotationToInterfaceOrientation");
+    if (self.shareView) {
+        [self.shareView adjustViewsForOrientation:interfaceOrientation];
+    }
+}
 
 
 #pragma mark - Cleanup

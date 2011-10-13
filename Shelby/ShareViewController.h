@@ -25,9 +25,16 @@
     IBOutlet UIButton *_facebookButton;
     IBOutlet UIButton *_emailButton;
     IBOutlet UIButton *_socialButton;
+    
+    IBOutlet UIImageView *_socialTextBackground;
     IBOutlet UITextView *_socialTextView;
+    
+    IBOutlet UIImageView *_emailTextBackground;
     IBOutlet UITextView *_emailTextView;
     IBOutlet UITextField *_emailRecipientView;
+    
+    IBOutlet UILabel *_postShareOn;
+    
     Video *_video;
 }
 
@@ -40,6 +47,7 @@
 @property (nonatomic, retain) IBOutlet UIView *socialView;
 @property (nonatomic, assign) UIView *activeView;
 
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 - (IBAction)socialWasPressed:(id)sender;
 - (IBAction)emailWasPressed:(id)sender;

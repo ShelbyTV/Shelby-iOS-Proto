@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
+		<string key="IBDocument.SystemVersion">11C74</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">534</string>
@@ -59,7 +59,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="544626432"/>
 								<string key="NSReuseIdentifierKey">_NS:222</string>
-								<object class="NSColor" key="IBUIBackgroundColor">
+								<object class="NSColor" key="IBUIBackgroundColor" id="782379490">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MCAwAA</bytes>
 								</object>
@@ -499,7 +499,6 @@
 								<string key="NSFrame">{{478, 0}, {46, 44}}</string>
 								<reference key="NSSuperview" ref="10821415"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:222</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -523,10 +522,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="428516088"/>
 						<string key="NSReuseIdentifierKey">_NS:180</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="782379490"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
@@ -719,6 +715,30 @@
 						<reference key="destination" ref="726784364"/>
 					</object>
 					<int key="connectionID">149</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_postShareOn</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="307355695"/>
+					</object>
+					<int key="connectionID">150</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_socialTextBackground</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="925549919"/>
+					</object>
+					<int key="connectionID">151</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailTextBackground</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="387995374"/>
+					</object>
+					<int key="connectionID">152</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -960,7 +980,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">149</int>
+			<int key="maxID">152</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1035,9 +1055,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>_emailButton</string>
 							<string>_emailRecipientView</string>
+							<string>_emailTextBackground</string>
 							<string>_emailTextView</string>
 							<string>_facebookButton</string>
+							<string>_postShareOn</string>
 							<string>_socialButton</string>
+							<string>_socialTextBackground</string>
 							<string>_socialTextView</string>
 							<string>_twitterButton</string>
 							<string>emailTextView</string>
@@ -1051,9 +1074,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
 							<string>UITextField</string>
+							<string>UIImageView</string>
 							<string>UITextView</string>
 							<string>UIButton</string>
+							<string>UILabel</string>
 							<string>UIButton</string>
+							<string>UIImageView</string>
 							<string>UITextView</string>
 							<string>UIButton</string>
 							<string>UITextView</string>
@@ -1070,9 +1096,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>_emailButton</string>
 							<string>_emailRecipientView</string>
+							<string>_emailTextBackground</string>
 							<string>_emailTextView</string>
 							<string>_facebookButton</string>
+							<string>_postShareOn</string>
 							<string>_socialButton</string>
+							<string>_socialTextBackground</string>
 							<string>_socialTextView</string>
 							<string>_twitterButton</string>
 							<string>emailTextView</string>
@@ -1093,6 +1122,10 @@
 								<string key="candidateClassName">UITextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">_emailTextBackground</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">_emailTextView</string>
 								<string key="candidateClassName">UITextView</string>
 							</object>
@@ -1101,8 +1134,16 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">_postShareOn</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">_socialButton</string>
 								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_socialTextBackground</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_socialTextView</string>
