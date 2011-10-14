@@ -65,6 +65,7 @@
 @property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
 @property (nonatomic, retain) IBOutlet VideoPlayerFooterBar *footerBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
+@property (nonatomic, retain) Video *currentVideo;
 
 - (void)play;
 - (void)pause;

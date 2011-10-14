@@ -44,7 +44,7 @@
 
 - (void)changeVideoMode:(NSInteger)mode;
 - (void)clearVideoTableData;
-- (Video *)getCurrentVideo;
+- (Video *)getFirstVideo;
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
 - (void)loadVideos;

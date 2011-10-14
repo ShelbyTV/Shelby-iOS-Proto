@@ -181,6 +181,11 @@
 {    
     @synchronized(tableVideos)
     {
+        if (index > [tableVideos count] || index == 0)
+        {
+            // something racy happened, and our index is no longer valid
+            return nil;
+        }
         return (Video *)[tableVideos objectAtIndex:(index - 1)];
     }
 }

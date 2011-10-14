@@ -104,9 +104,9 @@
     return [videoTableData videoAtIndex:index];
 }
 
-- (Video *)getCurrentVideo
+- (Video *)getFirstVideo
 {
-    return [self videoAtTableDataIndex: _currentVideoIndex];
+    return [self videoAtTableDataIndex:1];
 }
 
 - (Video *)getNextVideo

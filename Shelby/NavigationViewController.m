@@ -215,7 +215,6 @@
 //- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
 - (void)shareView:(ShareViewController *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
 
-    //Video *video = [videoTable getCurrentVideo];
     Video *video = [shareView getVideo];
 
     // POST message to API
@@ -276,7 +275,7 @@
 
 - (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer {
 
-    Video *video = [videoTable getCurrentVideo];
+    Video *video = _videoPlayer.currentVideo;
     if ([videoPlayer isFavoriteButtonSelected]) {
         [BroadcastApi dislike:video];
     } else {
@@ -287,7 +286,7 @@
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
     
     // Set up the shareView with the video info.
-    Video *video = [videoTable getCurrentVideo];
+    Video *video = _videoPlayer.currentVideo;
     [self.shareView setVideo:video];
     
     [self.shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];

@@ -40,7 +40,6 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)hideControls;
 - (void)fitTitleBarText;
 
-@property (nonatomic, retain) Video *currentVideo;
 
 @end
 
