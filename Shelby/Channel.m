@@ -9,8 +9,8 @@
 #import "Channel.h"
 #import "User.h"
 
-
 @implementation Channel
+
 @dynamic shelbyId;
 @dynamic name;
 @dynamic public;

@@ -12,19 +12,12 @@
 @class User;
 
 @interface Channel : NSManagedObject {
-@private
 }
-@property (nonatomic, retain) NSString * shelbyId;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * public;
-@property (nonatomic, retain) User *user;
-@property (nonatomic, retain) NSSet *broadcasts;
-@end
 
-@interface Channel (CoreDataGeneratedAccessors)
+@property (nonatomic, retain) NSString *shelbyId;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSNumber *public;
+@property (nonatomic, retain) User     *user;
+@property (nonatomic, retain) NSSet    *broadcasts;
 
-- (void)addBroadcastsObject:(NSManagedObject *)value;
-- (void)removeBroadcastsObject:(NSManagedObject *)value;
-- (void)addBroadcasts:(NSSet *)values;
-- (void)removeBroadcasts:(NSSet *)values;
 @end
