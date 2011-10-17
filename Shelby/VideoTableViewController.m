@@ -112,7 +112,7 @@
 - (Video *)getNextVideo
 {
     _currentVideoIndex++;
-    if (_currentVideoIndex > [videoTableData numItems]) {
+    if (_currentVideoIndex > [videoTableData numItemsInserted]) {
         // Set to first index.
         _currentVideoIndex = 1;
     }
@@ -137,7 +137,7 @@
     _currentVideoIndex--;
     if (_currentVideoIndex < 1) {
         // Set to last index.
-        _currentVideoIndex = [videoTableData numItems]; // onboarding cell is first entry, so using count is fine
+        _currentVideoIndex = [videoTableData numItemsInserted]; // onboarding cell is first entry, so using count is fine
     }
 
     // Return the previous video.

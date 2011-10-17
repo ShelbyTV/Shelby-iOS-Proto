@@ -34,6 +34,7 @@
     NSMutableArray *_dupeSharerNames;
     NSMutableArray *_dupeSharerImages;
     NSMutableArray *_dupeShareTimes;
+    int _dupeCount;
     
     Video* _video;
 }

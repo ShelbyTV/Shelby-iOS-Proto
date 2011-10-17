@@ -176,7 +176,6 @@
 
 - (void)showInternetDown
 {
-#ifndef OFFLINE_MODE
     UIView *offlineView = [self offlineView];
 
     // Center the view.
@@ -192,7 +191,6 @@
         | UIViewAutoresizingFlexibleBottomMargin;
 
     [self.view addSubview: offlineView];
-#endif
 }
 
 - (void)showShelbyUp

@@ -89,23 +89,6 @@
     }
 }
 
-#ifdef OFFLINE_MODE
-// DEBUG Only
-- (NSURL *)movieURL
-{
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *moviePath = [bundle
-                           pathForResource:@"SampleMovie"
-                           ofType:@"mov"];
-    if (moviePath) {
-        return [NSURL fileURLWithPath:moviePath];
-    } else {
-        return nil;
-    }
-}
-#endif
-
-
 // helper method -- maybe better to just embed in this file?
 + (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
 {
@@ -153,27 +136,11 @@
 
 }
 
-- (NSUInteger)numItems
-{
-    @synchronized(tableVideos)
-    {
-        return [tableVideos count];
-    }
-}
-
-- (int)videoDupeCount:(Video *)video
-{
-    @synchronized(tableVideos)
-    {
-        return [[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] count] - 1;
-    } 
-}
-
 - (NSArray *)videoDupes:(Video *)video
 {
     @synchronized(tableVideos)
     {
-        return [videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
+        return [[[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] retain] autorelease];
     } 
 }
 
@@ -186,7 +153,7 @@
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        return (Video *)[tableVideos objectAtIndex:(index - 1)];
+        return [[(Video *)[tableVideos objectAtIndex:(index - 1)] retain] autorelease];
     }
 }
 
@@ -242,9 +209,6 @@
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
-#ifdef OFFLINE_MODE
-    return [self movieURL];
-#else
     Video *videoData = nil;
     NSURL *contentURL = nil;
 
@@ -265,8 +229,7 @@
         contentURL = videoData.contentURL;
     }
 
-    return contentURL;
-#endif
+    return [[contentURL retain] autorelease];
 }
 
 #pragma mark - Table Updates

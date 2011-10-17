@@ -14,14 +14,12 @@
 
 @protocol VideoTableDataDelegate
 
-//- (void)videoTableDataDidBeginRefresh:(VideoTableData *)videoTableData;
 - (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData;
 
 @end
 
 @interface VideoTableData : NSObject <STVNetworkObject>
 {
-    NSOperationQueue *operationQueue;
     UITableView *tableView;
     NSMutableArray *tableVideos;
     NSMutableArray *uniqueVideoKeys;
@@ -38,9 +36,7 @@
 
 - (BOOL)isLoading;
 - (NSUInteger)numItemsInserted;
-- (NSUInteger)numItems;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
-- (int)videoDupeCount:(Video *)video;
 - (Video *)videoAtIndex:(NSUInteger)index;
 - (NSArray *)videoDupes:(Video *)video;
 

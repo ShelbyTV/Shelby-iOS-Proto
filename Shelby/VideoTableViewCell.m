@@ -155,6 +155,7 @@
         _clipView.clipsToBounds = TRUE;
         
         _selected = FALSE;
+        _dupeCount = 0;
         
         _videoFooterView.backgroundColor = [UIColor blackColor];
 
@@ -319,8 +320,11 @@
     }
     [_dupeShareTimes removeAllObjects];
     
+    NSArray *dupes = [videoTableData videoDupes:_video];
+    _dupeCount = [dupes count] - 1;
+    
     // assumes dupe count doesn't change over video lifetime
-    if([videoTableData videoDupeCount:_video] == 0) {
+    if(_dupeCount == 0) {
         _video.cellHeightAllComments = IPAD_CELL_HEIGHT;
         [self sizeFramesForComments];
         [_expandButton setEnabled:NO];
@@ -333,7 +337,7 @@
     float additionalHeight = 0.0;
     
     // go through all duplicate videos and add in comment stuff...
-    for (Video *dupe in [videoTableData videoDupes:_video]) {
+    for (Video *dupe in dupes) {
         if (first) {
             // only need comment for this one, other stuff taken care of already
             CGSize textSize;
@@ -440,7 +444,7 @@
 
 - (void)sharerNamePressed
 {
-    if([videoTableData videoDupeCount:_video] != 0) {
+    if(_dupeCount != 0) {
         _video.allComments = !_video.allComments;
         
         // the Video* cache of height information that we can use in the table view controller
@@ -514,11 +518,9 @@
     } else {
         _sharerComment.text = _video.sharerComment;
     }
- 
-    int dupeCount = [videoTableData videoDupeCount:_video];
     
-    if (dupeCount != 0) {
-        _sharerName.text = [NSString stringWithFormat:@"%@ + %d MORE", _video.sharer, dupeCount];
+    if (_dupeCount != 0) {
+        _sharerName.text = [NSString stringWithFormat:@"%@ + %d MORE", _video.sharer, _dupeCount];
     } else {
         _sharerName.text = _video.sharer;
     }

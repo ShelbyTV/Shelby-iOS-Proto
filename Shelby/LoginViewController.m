@@ -173,11 +173,7 @@
 
 - (void)beginLoginWithProvider:(NSString *)provider
 {
-#ifdef OFFLINE_MODE
-    [self allDone];
-#else
     [_loginHelper getRequestTokenWithProvider:provider];
-#endif
 }
 
 #pragma mark - Notification Handlers
