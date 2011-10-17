@@ -245,7 +245,7 @@
 		0A871149143D74E7001AE70D /* VideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
 		0A978AF514455B74005DFF18 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		0A978AF614455B74005DFF18 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
-		0A978AF814457EFF005DFF18 /* STVShareView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STVShareView_iPhone.xib; sourceTree = "<group>"; };
+		0A978AF814457EFF005DFF18 /* STVShareView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STVShareView_iPhone.xib; path = ../STVShareView_iPhone.xib; sourceTree = "<group>"; };
 		0AB364FE143137A100DCEAFD /* GraphiteStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphiteStats.h; sourceTree = "<group>"; };
 		0AB364FF143137A100DCEAFD /* GraphiteStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphiteStats.m; sourceTree = "<group>"; };
 		0AB3650314313E6A00DCEAFD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -389,7 +389,7 @@
 		42AB21E613FEF35D00A8FC00 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = "Libraries/json-framework/Classes/SBJsonUTF8Stream.m"; sourceTree = "<group>"; };
 		42AB21E713FEF35D00A8FC00 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = "Libraries/json-framework/Classes/SBJsonWriter.h"; sourceTree = "<group>"; };
 		42AB21E813FEF35D00A8FC00 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = "Libraries/json-framework/Classes/SBJsonWriter.m"; sourceTree = "<group>"; };
-		42ACA2C2142A8F8E009FD812 /* STVShareView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STVShareView_iPad.xib; sourceTree = "<group>"; };
+		42ACA2C2142A8F8E009FD812 /* STVShareView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = STVShareView_iPad.xib; path = ../STVShareView_iPad.xib; sourceTree = "<group>"; };
 		42ACA2C5142A9262009FD812 /* TextAreaGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextAreaGray.png; path = Resources/Images/TextAreaGray.png; sourceTree = "<group>"; };
 		42ACA2C7142A9305009FD812 /* ButtonSend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSend.png; path = Resources/Images/ButtonSend.png; sourceTree = "<group>"; };
 		42ACA2C9142A95AA009FD812 /* ButtonSocialBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSocialBackground.png; path = Resources/Images/ButtonSocialBackground.png; sourceTree = "<group>"; };
@@ -480,6 +480,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A2A802D144CA5FC00D0C8AD /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
+				4289EB7A1433D82E008311A7 /* User.h */,
+				4289EB7B1433D82E008311A7 /* User.m */,
+				4240B36A142BF8F500819AC8 /* Broadcast.h */,
+				4240B36B142BF8F500819AC8 /* Broadcast.m */,
+				42DAF47114113F8D00936536 /* Channel.h */,
+				42DAF47214113F8D00936536 /* Channel.m */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
 		0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,12 +667,6 @@
 				42C4C5E613E9A9800034AC97 /* ViewControllers */,
 				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
 				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
-				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
-				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
-				0A220C9513DE8193004BE680 /* VideoTableData.h */,
-				0A220C9613DE8193004BE680 /* VideoTableData.m */,
-				4200E50213F41F0C00609C3E /* Video.h */,
-				4200E50313F41F0C00609C3E /* Video.m */,
 				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
 				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
@@ -681,6 +689,7 @@
 		0AD9A36B13D53BD300EFECE0 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				0A978AF814457EFF005DFF18 /* STVShareView_iPhone.xib */,
 				42084C841427D82D00C3C556 /* STVOfflineView_iPhone.xib */,
 				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
 				428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */,
@@ -700,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				42084C871427DACD00C3C556 /* STVOfflineView_iPad.xib */,
+				42ACA2C2142A8F8E009FD812 /* STVShareView_iPad.xib */,
 				428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */,
 				428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */,
 				42C4C60013E9CBE30034AC97 /* MainWindow_iPad.xib */,
@@ -776,12 +786,16 @@
 			isa = PBXGroup;
 			children = (
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
+				0A978AF514455B74005DFF18 /* ShareViewController.h */,
+				0A978AF614455B74005DFF18 /* ShareViewController.m */,
 				427A623113F4843200C945E2 /* STVCheckBox.h */,
 				427A623213F4843200C945E2 /* STVCheckBox.m */,
 				42084C7B1427B99A00C3C556 /* STVOfflineView.h */,
 				42084C7C1427B99A00C3C556 /* STVOfflineView.m */,
 				42D1FDAE143A5266007E7A9B /* STVZeroEdgeTextView.h */,
 				42D1FDAF143A5266007E7A9B /* STVZeroEdgeTextView.m */,
+				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
+				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -945,8 +959,6 @@
 		42C4C57313E8A6F00034AC97 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				42ACA2C2142A8F8E009FD812 /* STVShareView_iPad.xib */,
-				0A978AF814457EFF005DFF18 /* STVShareView_iPhone.xib */,
 				428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */,
 				42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
@@ -959,8 +971,6 @@
 			isa = PBXGroup;
 			children = (
 				42084C771427B35500C3C556 /* Abstract */,
-				0A978AF514455B74005DFF18 /* ShareViewController.h */,
-				0A978AF614455B74005DFF18 /* ShareViewController.m */,
 				4200E50613F4263900609C3E /* SettingsViewController.h */,
 				4200E50713F4263900609C3E /* SettingsViewController.m */,
 				0A12933913DD0DBF009D254F /* VideoTableViewController.h */,
@@ -1015,13 +1025,11 @@
 		42DAF45B141129C500936536 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				42DAF46714112CA100936536 /* Shelby.xcdatamodeld */,
-				4289EB7A1433D82E008311A7 /* User.h */,
-				4289EB7B1433D82E008311A7 /* User.m */,
-				4240B36A142BF8F500819AC8 /* Broadcast.h */,
-				4240B36B142BF8F500819AC8 /* Broadcast.m */,
-				42DAF47114113F8D00936536 /* Channel.h */,
-				42DAF47214113F8D00936536 /* Channel.m */,
+				0A2A802D144CA5FC00D0C8AD /* Core Data */,
+				0A220C9513DE8193004BE680 /* VideoTableData.h */,
+				0A220C9613DE8193004BE680 /* VideoTableData.m */,
+				4200E50213F41F0C00609C3E /* Video.h */,
+				4200E50313F41F0C00609C3E /* Video.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
