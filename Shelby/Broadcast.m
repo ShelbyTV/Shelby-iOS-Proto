@@ -7,7 +7,6 @@
 //
 
 #import "Broadcast.h"
-#import "Channel.h"
 
 @implementation Broadcast
 
@@ -32,35 +31,30 @@
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 {
+    //note: self.channel filled in elsewhere, references NSMangedObject in CoreData
+    
     //API sends us dates in this format, basically UTC / GMT format
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-        
-    //self.channel filled in elsewhere, references NSMangedObject in CoreData
+   
     if (NOT_NULL([dict objectForKey:@"created_at"])) {
         self.createdAt = [dateFormatter dateFromString:[dict objectForKey: @"created_at"]];
     }
     
     NSNumber *liked = [dict objectForKey:@"liked_by_owner"];
-    if (NOT_NULL(liked) && [liked boolValue]) {
-        self.liked = [NSNumber numberWithBool: YES];
-    } else {
-        self.liked = [NSNumber numberWithBool: NO];
+    if (NOT_NULL(liked)) {
+        self.liked = [NSNumber numberWithBool:[liked boolValue]];
     }
     
     NSNumber *watched = [dict objectForKey:@"watched_by_owner"];
-    if (NOT_NULL(watched) && [watched boolValue]) {
-        self.watched = [NSNumber numberWithBool: YES];
-    } else {
-        self.watched = [NSNumber numberWithBool: NO];
+    if (NOT_NULL(watched)) {
+        self.watched = [NSNumber numberWithBool:[watched boolValue]];
     }
     
     NSNumber *watchLater = [dict objectForKey:@"owner_watch_later"];
-    if (NOT_NULL(watchLater) && [watchLater boolValue]) {
-        self.watchLater = [NSNumber numberWithBool: YES];
-    } else {
-        self.watchLater = [NSNumber numberWithBool: NO];
+    if (NOT_NULL(watchLater)) {
+        self.watchLater = [NSNumber numberWithBool:[watchLater boolValue]];
     }
                       
     SET_IF_NOT_NULL(self.origin,            [dict objectForKey:@"video_origin"])
@@ -76,8 +70,5 @@
     SET_IF_NOT_NULL(self.thumbnailImageUrl, [dict objectForKey:@"video_thumbnail_url"])
     SET_IF_NOT_NULL(self.title,             [dict objectForKey:@"video_title"])
 }
-
-
-
 
 @end

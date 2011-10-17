@@ -12,7 +12,6 @@
 @class Channel;
 
 @interface Broadcast : NSManagedObject {
-@private
 }
 
 @property (nonatomic, retain) Channel  *channel;
@@ -35,6 +34,5 @@
 @property (nonatomic, retain) NSNumber *watched;
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
-
 
 @end
