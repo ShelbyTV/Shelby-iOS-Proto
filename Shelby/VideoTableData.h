@@ -24,13 +24,13 @@
     NSMutableArray *tableVideos;
     NSMutableArray *uniqueVideoKeys;
     NSMutableDictionary *videoDupeDict;
-    NSUInteger lastInserted;
 }
 
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL likedOnly;
 @property (readwrite) BOOL watchLaterOnly;
+@property (readonly) NSUInteger numItemsInserted;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 

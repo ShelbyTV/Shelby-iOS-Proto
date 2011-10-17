@@ -29,20 +29,10 @@
 
 @implementation VideoDataURLRequest
 @synthesize video;
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
 
 - (void) dealloc
 {
-    [video release];
-    
+    video = nil;
     [super dealloc];
 }
 @end
@@ -50,9 +40,8 @@
 #pragma mark - VideoTableData
 
 @interface VideoTableData ()
-// redeclare as readwrite for internal use; setter still accessible, but should generate
-// compiler warnings if used outside
 @property (readwrite) NSInteger networkCounter;
+@property (readwrite) NSUInteger numItemsInserted;
 @end
 
 @implementation VideoTableData
@@ -61,43 +50,30 @@
 @synthesize networkCounter;
 @synthesize likedOnly;
 @synthesize watchLaterOnly;
+@synthesize numItemsInserted;
 
 #pragma mark - Utility Methods
 
-- (NSString *)dupeKeyWithProvider:(NSString *)provider withId:(NSString *)providerId
+- (NSString *)dupeKeyWithProvider:(NSString *)provider 
+                           withId:(NSString *)providerId
 {
     return [NSString stringWithFormat:@"%@%@", provider, providerId];
 }
 
+// sync just needed for writes to make sure two simultaneous inc/decrements don't result in same value
+// this is because OSAtomicInc* doesn't exist on iOS
 - (void)incrementNetworkCounter
 {
-    // sync just needed for writes to make sure two simultaneous inc/decrements don't result in same value
-    // this is because OSAtomicInc* doesn't exist on iOS
-    @synchronized(self)
-    {
-        self.networkCounter++;
-    }
+    @synchronized(self) { self.networkCounter++; }
 }
 
 - (void)decrementNetworkCounter
 {
-    // sync just needed for writes to make sure two simultaneous inc/decrements don't result in same value
-    // this is because OSAtomicDec* doesn't exist on iOS
-    @synchronized(self)
-    {
-        self.networkCounter--;
-    }
+    @synchronized(self) { self.networkCounter--; }
 }
 
-// helper method -- maybe better to just embed in this file?
-+ (NSString *)createYouTubeVideoInfoURLWithVideo:(NSString *)video
-{
-    assert(NOT_NULL(video));
-    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
-    return [baseURL stringByAppendingString:video];
-}
-
-- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize
+- (UIImage *)scaleImage:(UIImage *)image 
+                 toSize:(CGSize)targetSize
 {
     //If scaleFactor is not touched, no scaling will occur      
     CGFloat scaleFactor = 1.0;
@@ -112,10 +88,8 @@
                              (targetSize.height -  image.size.height * scaleFactor) / 2,
                              image.size.width * scaleFactor, image.size.height * scaleFactor);
     
-    //Draw the image into the rect
     [image drawInRect:rect];
     
-    //Saving the image, ending image context
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -128,12 +102,6 @@
 {
     // no synchronized needed for reads, since networkCounter is an int
     return self.networkCounter != 0;
-}
-
-- (NSUInteger)numItemsInserted
-{
-    return lastInserted;
-
 }
 
 - (NSArray *)videoDupes:(Video *)video
@@ -162,7 +130,8 @@
     /*
      * Content URL
      */
-    NSURL *youTubeURL = [[[NSURL alloc] initWithString:[VideoTableData createYouTubeVideoInfoURLWithVideo:videoData.providerId]] autorelease];
+    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
+    NSURL *youTubeURL = [[[NSURL alloc] initWithString:[baseURL stringByAppendingString:videoData.providerId]] autorelease];
     NSError *error = nil;
     NSString *youTubeVideoDataRaw = [[[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error] autorelease];
     NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
@@ -210,7 +179,6 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
     Video *videoData = nil;
-    NSURL *contentURL = nil;
 
     @synchronized(tableVideos)
     {
@@ -222,47 +190,16 @@
         videoData = [[[tableVideos objectAtIndex:(index - 1)] retain] autorelease];
     }
 
-    contentURL = videoData.contentURL;
-
-    if (contentURL == nil) {
+    if (IS_NULL(videoData.contentURL)) {
         [self getVideoContentURL:videoData];
-        contentURL = videoData.contentURL;
     }
 
-    return [[contentURL retain] autorelease];
+    return [[videoData.contentURL retain] autorelease];
 }
 
 #pragma mark - Table Updates
 
-- (void)updateTableVideoThumbnail:(Video *)video
-{
-    @synchronized(tableVideos)
-    {
-        int videoIndex = [tableVideos indexOfObject:video];
-        if (videoIndex == NSNotFound) {
-            return;
-        }
-        
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex + 1) inSection:0]];
-        [cell setNeedsDisplay];
-    }
-}
-
-- (void)updateTableSharerImage:(Video *)video
-{
-    @synchronized(tableVideos)
-    {
-        int videoIndex = [tableVideos indexOfObject:video];
-        if (videoIndex == NSNotFound) {
-            return;
-        }
-        
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex + 1) inSection:0]];
-        [cell setNeedsDisplay];
-    }
-}
-
-- (void)updateTableVideoWatchStatus:(Video *)video
+- (void)updateVideoTableCell:(Video *)video
 {
     @synchronized(tableVideos)
     {
@@ -278,19 +215,30 @@
 
 #pragma mark - Async Image Downloading
 
-- (void)downloadSharerImage:(Video *)video
+- (void)downloadVideoData:(Video *)video
+                  withURL:(NSURL *)url
+             withSelector:(SEL)selector
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.sharerImageURL];
+    VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:url];
     
     if (req) {
         req.video = video;
-        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedSharerImage:data:error:forRequest:)];
+        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:selector];
         [self incrementNetworkCounter];
-    } else {
-        // We failed to send the request. Let the caller know.
-    }
+    } // else we failed to send the request. Sharer image will just be blank. Not a very likely occurrance.
+    
     [pool release];
+}
+
+- (void)downloadSharerImage:(Video *)video
+{
+    [self downloadVideoData:video withURL:video.sharerImageURL withSelector:@selector(receivedSharerImage:data:error:forRequest:)];
+}
+
+- (void)downloadVideoThumbnail:(Video *)video
+{
+    [self downloadVideoData:video withURL:video.thumbnailURL withSelector:@selector(receivedVideoThumbnail:data:error:forRequest:)];
 }
 
 - (void)receivedSharerImage:(NSURLResponse *)resp
@@ -298,8 +246,6 @@
                       error:(NSError *)error
                  forRequest:(NSURLRequest *)request
 {
-    //LOG(@"receivedSharerImage");
-    
     if (NOT_NULL(error)) {
         LOG(@"receivedSharerImage error: %@", error);
     } else {
@@ -320,25 +266,10 @@
         
         [context release];
         
-        [self updateTableSharerImage:((VideoDataURLRequest*)request).video];
+        [self updateVideoTableCell:((VideoDataURLRequest*)request).video];
     }
     
     [self decrementNetworkCounter];
-}
-
-- (void)downloadVideoThumbnail:(Video *)video
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:video.thumbnailURL];
-    
-    if (req) {
-        req.video = video;
-        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedVideoThumbnail:data:error:forRequest:)];
-        [self incrementNetworkCounter];
-    } else {
-        // We failed to send the request. Let the caller know.
-    }
-    [pool release];
 }
 
 - (void)receivedVideoThumbnail:(NSURLResponse *)resp
@@ -368,7 +299,7 @@
         
         [context release];
         
-        [self updateTableVideoThumbnail:((VideoDataURLRequest*)request).video];
+        [self updateVideoTableCell:((VideoDataURLRequest*)request).video];
     }
     
     [self decrementNetworkCounter];
@@ -385,13 +316,13 @@
     [tableVideos removeAllObjects];
         
     NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-    for (int i = 0; i < lastInserted; i++) {
+    for (int i = 0; i < self.numItemsInserted; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
     }
     
     [tableView beginUpdates];
     [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    lastInserted = 0;
+    self.numItemsInserted = 0;
     [tableView endUpdates];
 }
 
@@ -472,7 +403,7 @@
     // insert 1 dummy entry for the onboarding
     [tableView beginUpdates];
     [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    lastInserted = 1;
+    self.numItemsInserted = 1;
     [tableView endUpdates];
     
     for (NSString *key in uniqueVideoKeys)
@@ -514,11 +445,11 @@
         
         [tableView beginUpdates];
         [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        lastInserted = index + 1;
+        self.numItemsInserted = index + 1;
         [tableView endUpdates];
     }
     
-    if (lastInserted > 1) {
+    if (self.numItemsInserted > 1) {
         [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection: 0]
                          atScrollPosition: UITableViewScrollPositionTop
                                  animated: NO];
@@ -679,18 +610,8 @@
         }
         
         [context release];
-        [self updateTableVideoWatchStatus:video];
+        [self updateVideoTableCell:video];
     }
-}
-
-#pragma mark - Cleanup
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"ReceivedBroadcasts"
-                                                  object: nil];
-	[super dealloc];
 }
 
 #pragma mark - Initialization
@@ -702,7 +623,7 @@
         // we use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
 
-        lastInserted = 0;
+        self.numItemsInserted = 0;
         tableVideos = [[NSMutableArray alloc] init];
         videoDupeDict = [[NSMutableDictionary alloc] init];
         uniqueVideoKeys = [[NSMutableArray alloc] init];
