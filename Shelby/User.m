@@ -9,8 +9,8 @@
 #import "User.h"
 #import "Channel.h"
 
-
 @implementation User
+
 @dynamic image;
 @dynamic imageUrl;
 @dynamic name;
