@@ -72,12 +72,8 @@
         } else {
             shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPhone" bundle:nil] autorelease];
         }
-        
         shareView.delegate = self;
-        
-        
         [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
-        
         shareView.view.frame = self.view.bounds;
         
         self.shareView = shareView;
@@ -105,35 +101,9 @@
 
 - (void)updateAuthorizations:(User *)user
 {
-    if ([user.auth_twitter boolValue]) {
-        // Set twitter view visible
-        LOG(@"Authed into twitter!");
-        userTwitter.highlighted = YES;
-    } else {
-        // Set twitter view invisible
-        LOG(@"No go twitter!");
-        userTwitter.highlighted = NO;
-    }
-
-    if ([user.auth_facebook boolValue]) {
-        // Set facebook view visible
-        LOG(@"Authed into facebook!");
-        userFacebook.highlighted = YES;
-    } else {
-        // Set facebook view invisible
-        LOG(@"No go facebook!");
-        userFacebook.highlighted = NO;
-    }
-
-    if ([user.auth_tumblr boolValue]) {
-        // Set tumblr view visible
-        LOG(@"Authed into tumblr!");
-        userTumblr.highlighted = YES;
-    } else {
-        // Set facebook view invisible
-        LOG(@"No go tumblr!");
-        userTumblr.highlighted = NO;
-    }
+    userTwitter.highlighted = [user.auth_twitter boolValue];
+    userFacebook.highlighted = [user.auth_facebook boolValue];
+    userTumblr.highlighted = [user.auth_tumblr boolValue];
 }
 
 - (void)loadUserData
@@ -141,7 +111,6 @@
     User *user = [ShelbyApp sharedApp].loginHelper.user;
 
     for (NSString *auth in _authorizations) {
-        //[user removeObserver:self forKeyPath:auth];
         [user addObserver:self forKeyPath:auth options:0 context:NULL];
     }
 
@@ -159,33 +128,10 @@
     [videoTable loadVideos];
 }
 
-#pragma mark - Layout
-
-- (CGRect)centerFrame:(CGRect)frame inFrame:(CGRect)parent
-{
-    frame.origin.x = (parent.size.width / 2) - (frame.size.width / 2);
-    frame.origin.y = (parent.size.height / 2) - (frame.size.height / 2);
-
-    return frame;
-}
-
-- (CGRect)centerFrame:(CGRect)frame
-{
-    return [self centerFrame:frame
-                     inFrame:self.view.bounds];
-}
-
-- (BOOL)keyboardIsShown 
-{
-    if (CGRectIsNull(_keyboardFrame)) {
-        return NO;
-    }
-    return YES;
-}
-
 #pragma mark - Logout Functionality
 
-- (void)showLogoutAlert {
+- (void)showLogoutAlert
+{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log out?" message:@"Would you like to log out?"
                                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
     [alert show];
@@ -199,40 +145,37 @@
     // Override in subclass.
 }
 
-#pragma mark - STVShareView Methods
-
-- (void)closeShareView {
-    self.shareView.view.hidden = YES;
-}
-
 #pragma mark - STVShareViewDelegate Methods
 
-- (void)shareViewClosePressed:(ShareViewController*)shareView {
-    [self closeShareView];
+- (void)shareViewClosePressed:(ShareViewController*)shareView
+{
+    self.shareView.view.hidden = YES;
     [_videoPlayer resumeAfterCloseShareView];
 }
 
-//- (void)shareView:(STVShareView *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks {
-- (void)shareView:(ShareViewController *)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients {
-
+- (void)shareView:(ShareViewController *)shareView 
+      sentMessage:(NSString *)message
+     withNetworks:(NSArray *)networks
+    andRecipients:(NSString *)recipients
+{
     Video *video = [shareView getVideo];
 
-    // POST message to API
     [BroadcastApi share:video
                 comment:message
                networks:networks
               recipient:recipients];
-    [self closeShareView];
+    
+    self.shareView.view.hidden = YES;
 }
 
 #pragma mark - UIAlertViewDelegate Methods
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     // Since we only have one alertview, let's be lazy and assume we have the right one.
-
     if (buttonIndex == 1) {
         // close the shareview, if visible
-        [self closeShareView];
+        self.shareView.view.hidden = YES;
         // actually log out
         [[ShelbyApp sharedApp].loginHelper logout];
     }
@@ -240,41 +183,43 @@
 
 #pragma mark - VideoTableViewControllerDelegate Methods
 
-- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
+- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller
+{
     // Override in subclass.
     // TODO: Convert to optional method in protocol using respondsToSelector:
 }
 
 #pragma mark - VideoPlayerDelegate Methods
 
-- (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer {
+- (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer
+{
     LOG(@"[NavigationViewController videoPlayerPlayButtonWasPressed]");
-
 }
 
-- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
+- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer
+{
     LOG(@"[NavigationViewController videoPlayerFullscreenButtonWasPressed]");
-
 }
 
-- (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer {
+- (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer
+{
     LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
     Video *video = [videoTable getNextVideo];
 
     // Tell player to start playing new video.
     [self playVideo: video];
-
 }
 
-- (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer {
+- (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer
+{
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
     Video *video = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
     [self playVideo: video];
 }
 
-- (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer {
-
+- (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer
+{
     Video *video = _videoPlayer.currentVideo;
     if ([videoPlayer isFavoriteButtonSelected]) {
         [BroadcastApi dislike:video];
@@ -283,8 +228,8 @@
     }
 }
 
-- (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer {
-    
+- (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer
+{
     // Set up the shareView with the video info.
     Video *video = _videoPlayer.currentVideo;
     [self.shareView setVideo:video];
@@ -297,7 +242,8 @@
     [self.shareView.socialTextView becomeFirstResponder];
 }
 
-- (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer {
+- (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer
+{
     LOG(@"[NavigationViewController videoPlayerVideoDidFinish]");
 
     // Fetch the video next in queue.
@@ -306,15 +252,7 @@
     [self playVideo: url];
 }
 
-#pragma mark - Touch Handling
-
-//The event handling method
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    LOG(@"NavigationViewController handleSingleTap: %@", recognizer);
-    //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
-
-    //Do stuff here...
-}
+#pragma mark - Button Handling
 
 - (IBAction)listButtonPressed:(id)sender
 {
@@ -340,31 +278,14 @@
     [videoTable changeVideoMode:2];
 }
 
-
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     _networkActivityViewParent = activityHolder;
 
-    //DEBUG ONLY
-    //UITapGestureRecognizer *singleFingerTap =
-    //    [[UITapGestureRecognizer alloc] initWithTarget:self
-    //                                            action:@selector(handleSingleTap:)];
-    //[_videoPlayer.moviePlayer.view addGestureRecognizer:singleFingerTap];
-
-    //VideoTable.
     videoTable.tableView.frame = videoTableHolder.bounds;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         videoTable.tableView.rowHeight = 118;
@@ -379,31 +300,17 @@
     [videoTableHolder addSubview:videoTable.tableView];
 
     [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
-
-    // register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:self.view.window];
-    // register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:self.view.window];
-    //keyboardIsShown = NO;
-    _keyboardFrame = CGRectNull;
 }
-
 
 #pragma mark - Notification Handlers
 
-- (void)likeVideoFailed:(NSNotification *)notification {
+- (void)likeVideoFailed:(NSNotification *)notification
+{
     // open an alert to inform the user
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Aaawww… " message:@"I know you love that video, but it seems our heart is broken right now. Maybe try to like me again later?"
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
-
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification
@@ -416,60 +323,6 @@
     [videoTable clearVideoTableData];
 }
 
-#pragma mark - Keyboard Handlers
-
-- (void)keyboardWillHide:(NSNotification *)n
-{
-    NSDictionary* userInfo = [n userInfo];
-    double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-
-    // get the size of the keyboard
-    //NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
-    //NSValue* beginValue = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
-
-    //CGRect endRect      = [endValue CGRectValue];
-    //CGRect beginRect    = [beginValue CGRectValue];
-
-    //CGRect convertedRect = [self.view convertRect: endRect fromView: nil];
-    //CGSize keyboardSize = convertedRect.size;
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration: animationDuration];
-
-    // move the shareView
-    //self.shareView.view.frame = [self centerFrame: self.shareView.view.frame inFrame: _videoPlayer.bounds];
-
-    [UIView commitAnimations];
-
-    //keyboardIsShown = NO;
-    _keyboardFrame = CGRectNull;
-}
-
-- (void)keyboardWillShow:(NSNotification *)n
-{
-    // This is an ivar I'm using to ensure that we do not do the frame size adjustment on the UIScrollView if the keyboard is already shown.  This can happen if the user, after fixing editing a UITextField, scrolls the resized UIScrollView to another UITextField and attempts to edit the next UITextField.  If we were to resize the UIScrollView again, it would be disastrous.  NOTE: The keyboard notification will fire even when the keyboard is already shown.
-    if ([self keyboardIsShown]) {
-        return;
-    }
-
-    NSDictionary* userInfo = [n userInfo];
-
-    //double animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-
-    // get the size of the keyboard
-    NSValue* endValue   = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
-    //NSValue* beginValue = [userInfo objectForKey: UIKeyboardFrameEndUserInfoKey];
-
-    CGRect endRect      = [endValue CGRectValue];
-    //CGRect beginRect    = [beginValue CGRectValue];
-
-    CGRect convertedRect = [self.view convertRect: endRect fromView: nil];
-    _keyboardFrame = convertedRect;
-    //keyboardIsShown = YES;
-    //[self centerShareViewAnimated: YES];
-}
-
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -477,8 +330,6 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-
-    //if ([object isKindOfClass: [NSManagedObject class] && [_authorizations containsObject: keyPath]) {
     if ([object isKindOfClass: [User class]] && [_authorizations containsObject: keyPath]) {
         User *user = (User *) object;
         [self updateAuthorizations: user];
@@ -489,24 +340,6 @@
 }
 
 #pragma mark - Layout
-
-//- (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-//    [super willAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation duration: duration];
-//}
-//
-//- (void)didAnimateFirstHalfOfRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    [super didAnimateFirstHalfOfRotationToInterfaceOrientation: toInterfaceOrientation];
-//    
-//}
-//
-//- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration {
-//    [super willAnimateSecondHalfOfRotationFromInterfaceOrientation: fromInterfaceOrientation duration: duration];
-//    
-//    // Center in the NEW frame.
-//    CGRect rotatedFrame = [self.view.window convertRect: self.view.bounds toView: nil];
-//    [self centerShareViewInRect: rotatedFrame
-//          withAnimationDuration: 0.0];
-//}
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
@@ -521,25 +354,11 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-
-    // unregister for keyboard notifications while not visible.
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    // unregister for keyboard notifications while not visible.
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-//    for (NSString *auth in _authorizations) {
-//        [user removeObserver:self forKeyPath:auth];
-//    }
 
     [_videoPlayer release];
 
@@ -548,10 +367,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-
-    // Release any cached data, images, etc that aren't in use.
 }
 
 @end

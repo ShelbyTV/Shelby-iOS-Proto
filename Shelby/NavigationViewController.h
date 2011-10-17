@@ -35,8 +35,6 @@
     IBOutlet UIImageView *userTumblr;
     IBOutlet UIImageView *userButton;
 
-    //BOOL keyboardIsShown;
-    CGRect _keyboardFrame;
     ShareViewController *_shareView;
 
     NSSet *_authorizations;
