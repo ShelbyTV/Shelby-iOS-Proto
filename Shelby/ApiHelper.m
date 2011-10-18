@@ -10,6 +10,12 @@
 #import "ApiConstants.h"
 #import "ApiMutableURLRequest.h"
 
+@interface ApiHelper ()
+
+@property (readwrite) NSInteger networkCounter;
+
+@end
+
 @implementation ApiHelper
 
 #pragma mark - Properties

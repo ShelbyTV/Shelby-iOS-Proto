@@ -28,9 +28,11 @@
 
 @interface LoginHelper ()
 
+@property (nonatomic, readwrite, retain) User *user;
+@property (readwrite) NSInteger networkCounter;
+
 - (BOOL)fetchUserId;
 - (void)deleteUser;
-- (User *)retrieveUser;
 - (NSArray *)retrieveChannels;
 - (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels;
 
@@ -38,12 +40,23 @@
 
 @implementation LoginHelper
 
-@synthesize delegate;
 @synthesize networkCounter;
-@synthesize user = _user;
+@synthesize user;
 @synthesize channel;
 @synthesize identityProvider;
 @synthesize lastFetchBroadcasts;
+
+- (User *)retrieveUser
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:_context]];
+    
+    NSError *error;
+    NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
+    
+    return ([objects count] > 0) ? [objects objectAtIndex: 0] : nil;
+}
 
 - (id)initWithContext:(NSManagedObjectContext *)context
 {
@@ -63,23 +76,20 @@
 
 #pragma mark - Network Activity
 
-- (void)incrementNetworkCounter {
+- (void)incrementNetworkCounter
+{
     @synchronized(self) { self.networkCounter++; }
 }
 
-- (void)decrementNetworkCounter {
+- (void)decrementNetworkCounter
+{
     @synchronized(self) { self.networkCounter--; }
 }
 
-#pragma mark - Settings
+#pragma mark - Login & Logout
 
-- (void)changeChannel:(NSInteger)newChannel {
-    // Change the channel.
-    self.channel = [self getPublicChannel: newChannel fromArray: [self retrieveChannels]];
-}
-
-
-- (BOOL)loggedIn {
+- (BOOL)loggedIn
+{
     // If we have stored both the accessToken and the secret, we're logged in.
     return ([ShelbyApp sharedApp].apiHelper.accessToken &&
             [ShelbyApp sharedApp].apiHelper.accessTokenSecret &&
@@ -88,14 +98,14 @@
 }
 
 
-- (void)logout {
+- (void)logout
+{
     [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoggedOut"];
 
     [[ShelbyApp sharedApp].apiHelper clearTokens];
     self.user = nil;
     [self deleteUser];
-    //DEBUG ONLY!
-    //[[NSThread mainThread] exit];
+
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedOut"
                                                         object: self
                                                         ];
@@ -282,20 +292,6 @@
     return upsert;
 }
 
-- (User *)retrieveUser {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-        entityForName:@"User" inManagedObjectContext: _context];
-    [fetchRequest setEntity:entity];
-    NSError *error;
-    NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
-    [fetchRequest release];
-    if ([objects count] > 0) {
-        return [objects objectAtIndex: 0];
-    } else {
-        return nil;
-    }
-}
 
 #pragma mark - Authentications
 
@@ -312,23 +308,20 @@
         [self incrementNetworkCounter];
 
     }
-    // We failed to send the request. Let the caller know.
 }
 
 - (void)storeAuthentications:(NSArray *)authentications {
-    User *user = [self retrieveUser];
     for (NSString *authentication in authentications) {
         if ([authentication isEqualToString: @"twitter"]) {
-            user.auth_twitter = [NSNumber numberWithBool: YES];
+            self.user.auth_twitter = [NSNumber numberWithBool: YES];
         }
         if ([authentication isEqualToString: @"facebook"]) {
-            user.auth_facebook = [NSNumber numberWithBool: YES];
+            self.user.auth_facebook = [NSNumber numberWithBool: YES];
         }
         if ([authentication isEqualToString: @"tumblr"]) {
-            user.auth_tumblr = [NSNumber numberWithBool: YES];
+            self.user.auth_tumblr = [NSNumber numberWithBool: YES];
         }
     }
-    // Save state to context.
 }
 
 - (void)receivedGetAuthenticationsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request

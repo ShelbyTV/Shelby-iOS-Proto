@@ -40,8 +40,10 @@
 #pragma mark - VideoTableData
 
 @interface VideoTableData ()
+
 @property (readwrite) NSInteger networkCounter;
 @property (readwrite) NSUInteger numItemsInserted;
+
 @end
 
 @implementation VideoTableData

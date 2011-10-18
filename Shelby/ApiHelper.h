@@ -14,7 +14,7 @@
 @interface ApiHelper : NSObject <NetworkObject> {
 }
 
-@property (readwrite) NSInteger networkCounter;
+@property (readonly) NSInteger networkCounter;
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *accessTokenSecret;
 
