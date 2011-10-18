@@ -8,7 +8,7 @@
 
 #import "ConnectivityViewController.h"
 #import "Reachability.h"
-#import "STVOfflineView.h"
+#import "OfflineView.h"
 #import "ShelbyApp.h"
 
 @implementation ConnectivityViewController
@@ -164,7 +164,7 @@
 
 - (UIView *)offlineView {
     if (!_offlineView) {
-        _offlineView = [[STVOfflineView viewFromNib] retain];
+        _offlineView = [[OfflineView viewFromNib] retain];
     }
     return _offlineView;
 }

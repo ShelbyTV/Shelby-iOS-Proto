@@ -11,9 +11,7 @@
 #import "LoginHelper.h"
 #import "ShelbyApp.h"
 #import "Reachability.h"
-#import "STVOfflineView.h"
 #import "GraphiteStats.h"
-
 
 @implementation LoginViewController
 

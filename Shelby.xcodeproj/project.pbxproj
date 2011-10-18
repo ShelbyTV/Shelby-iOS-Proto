@@ -83,9 +83,9 @@
 		4200E51A13F42BB100609C3E /* ButtonListNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51613F42BB100609C3E /* ButtonListNormal.png */; };
 		42084C701427AB4800C3C556 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C6F1427AB4800C3C556 /* Reachability.m */; };
 		42084C761427ADF000C3C556 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42084C751427ADF000C3C556 /* SystemConfiguration.framework */; };
-		42084C7D1427B99A00C3C556 /* STVOfflineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C7C1427B99A00C3C556 /* STVOfflineView.m */; };
-		42084C861427D82D00C3C556 /* STVOfflineView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C841427D82D00C3C556 /* STVOfflineView_iPhone.xib */; };
-		42084C891427DACD00C3C556 /* STVOfflineView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C871427DACD00C3C556 /* STVOfflineView_iPad.xib */; };
+		42084C7D1427B99A00C3C556 /* OfflineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C7C1427B99A00C3C556 /* OfflineView.m */; };
+		42084C861427D82D00C3C556 /* OfflineView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */; };
+		42084C891427DACD00C3C556 /* OfflineView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C871427DACD00C3C556 /* OfflineView_iPad.xib */; };
 		42084C8C1427DC3300C3C556 /* ConnectivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */; };
 		4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDEE13EC597B000F587E /* VideoPlayerTitleBar.m */; };
 		4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */; };
@@ -294,10 +294,10 @@
 		42084C6E1427AB4800C3C556 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		42084C6F1427AB4800C3C556 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		42084C751427ADF000C3C556 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		42084C7B1427B99A00C3C556 /* STVOfflineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVOfflineView.h; sourceTree = "<group>"; };
-		42084C7C1427B99A00C3C556 /* STVOfflineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVOfflineView.m; sourceTree = "<group>"; };
-		42084C851427D82D00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/STVOfflineView_iPhone.xib; sourceTree = "<group>"; };
-		42084C881427DACD00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/STVOfflineView_iPad.xib; sourceTree = SOURCE_ROOT; };
+		42084C7B1427B99A00C3C556 /* OfflineView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OfflineView.h; sourceTree = "<group>"; };
+		42084C7C1427B99A00C3C556 /* OfflineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineView.m; sourceTree = "<group>"; };
+		42084C851427D82D00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/OfflineView_iPhone.xib; sourceTree = "<group>"; };
+		42084C881427DACD00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/OfflineView_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42084C8A1427DC3300C3C556 /* ConnectivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectivityViewController.h; sourceTree = "<group>"; };
 		42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectivityViewController.m; sourceTree = "<group>"; };
 		4229CDED13EC597B000F587E /* VideoPlayerTitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerTitleBar.h; sourceTree = "<group>"; };
@@ -690,7 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				0A978AF814457EFF005DFF18 /* STVShareView_iPhone.xib */,
-				42084C841427D82D00C3C556 /* STVOfflineView_iPhone.xib */,
+				42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */,
 				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
 				428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */,
 				42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */,
@@ -708,7 +708,7 @@
 		0AD9A37213D53BD300EFECE0 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				42084C871427DACD00C3C556 /* STVOfflineView_iPad.xib */,
+				42084C871427DACD00C3C556 /* OfflineView_iPad.xib */,
 				42ACA2C2142A8F8E009FD812 /* STVShareView_iPad.xib */,
 				428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */,
 				428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */,
@@ -790,8 +790,8 @@
 				0A978AF614455B74005DFF18 /* ShareViewController.m */,
 				427A623113F4843200C945E2 /* CheckBox.h */,
 				427A623213F4843200C945E2 /* CheckBox.m */,
-				42084C7B1427B99A00C3C556 /* STVOfflineView.h */,
-				42084C7C1427B99A00C3C556 /* STVOfflineView.m */,
+				42084C7B1427B99A00C3C556 /* OfflineView.h */,
+				42084C7C1427B99A00C3C556 /* OfflineView.m */,
 				42D1FDAE143A5266007E7A9B /* STVZeroEdgeTextView.h */,
 				42D1FDAF143A5266007E7A9B /* STVZeroEdgeTextView.m */,
 				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
@@ -1175,8 +1175,8 @@
 				428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */,
 				428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */,
 				428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */,
-				42084C861427D82D00C3C556 /* STVOfflineView_iPhone.xib in Resources */,
-				42084C891427DACD00C3C556 /* STVOfflineView_iPad.xib in Resources */,
+				42084C861427D82D00C3C556 /* OfflineView_iPhone.xib in Resources */,
+				42084C891427DACD00C3C556 /* OfflineView_iPad.xib in Resources */,
 				0A08E9FE14281C8700D964E7 /* FacebookNew.png in Resources */,
 				0A08E9FF14281C8700D964E7 /* FacebookWatched.png in Resources */,
 				0A08EA0014281C8700D964E7 /* TwitterNew.png in Resources */,
@@ -1306,7 +1306,7 @@
 				428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */,
 				428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */,
 				42084C701427AB4800C3C556 /* Reachability.m in Sources */,
-				42084C7D1427B99A00C3C556 /* STVOfflineView.m in Sources */,
+				42084C7D1427B99A00C3C556 /* OfflineView.m in Sources */,
 				42084C8C1427DC3300C3C556 /* ConnectivityViewController.m in Sources */,
 				4240B36C142BF8F500819AC8 /* Broadcast.m in Sources */,
 				0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */,
@@ -1358,21 +1358,21 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		42084C841427D82D00C3C556 /* STVOfflineView_iPhone.xib */ = {
+		42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				42084C851427D82D00C3C556 /* en */,
 			);
-			name = STVOfflineView_iPhone.xib;
+			name = OfflineView_iPhone.xib;
 			path = ..;
 			sourceTree = "<group>";
 		};
-		42084C871427DACD00C3C556 /* STVOfflineView_iPad.xib */ = {
+		42084C871427DACD00C3C556 /* OfflineView_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				42084C881427DACD00C3C556 /* en */,
 			);
-			name = STVOfflineView_iPad.xib;
+			name = OfflineView_iPad.xib;
 			sourceTree = "<group>";
 		};
 		428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */ = {
