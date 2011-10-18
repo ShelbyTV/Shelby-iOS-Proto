@@ -10,43 +10,27 @@
 
 @implementation CoreDataHelper
 
-- (id)init
++ (id)fetchExistingUniqueEntity:(NSString *)entityName 
+                   withShelbyId:(NSString *)shelbyId 
+                      inContext:(NSManagedObjectContext *)context
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
+    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     
-    return self;
-}
-
-
-+ (id)fetchExistingUniqueEntity:(NSString *)entityName withShelbyId:(NSString *)shelbyId inContext:(NSManagedObjectContext *)context
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName 
-                                              inManagedObjectContext:context];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:entityName 
+                                        inManagedObjectContext:context]];
     
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"shelbyId=%@", shelbyId];
-    
-    [fetchRequest setPredicate:predicate];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"shelbyId=%@", shelbyId]];
     
     NSError *error = NULL;
     NSArray *existingEntities = [context executeFetchRequest:fetchRequest error:&error];
     
-    [fetchRequest release];
-    
-    id toReturn = NULL;
-    
     if (NOT_NULL(existingEntities) && [existingEntities count] == 1) {
-        toReturn = [existingEntities objectAtIndex:0];
+        return [existingEntities objectAtIndex:0];
     } else {
-        NSAssert(existingEntities == nil || [existingEntities count] == 0, @"Found > 1 existing entities with same ID");
+        NSAssert(IS_NULL(existingEntities) || [existingEntities count] == 0, @"Found > 1 existing entities with same ID");
     }
     
-    return toReturn;
+    return nil;
 }
 
 @end

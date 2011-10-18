@@ -10,6 +10,8 @@
 
 @interface CoreDataHelper : NSObject
 
-+ (id)fetchExistingUniqueEntity:(NSString *)entityName withShelbyId:(NSString *)shelbyId inContext:(NSManagedObjectContext *)context;
++ (id)fetchExistingUniqueEntity:(NSString *)entityName 
+                   withShelbyId:(NSString *)shelbyId 
+                      inContext:(NSManagedObjectContext *)context;
 
 @end
