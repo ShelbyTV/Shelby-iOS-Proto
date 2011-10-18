@@ -10,7 +10,8 @@
 
 @class Video;
 
-@interface BroadcastApi : NSObject
+@interface BroadcastApi : NSObject {
+}
 
 + (void)dislike:(Video *)video;
 + (void)like:(Video *)video;
