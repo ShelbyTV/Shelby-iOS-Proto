@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "STVNetworkObject.h"
+#import "NetworkObject.h"
 
 @class ApiMutableURLRequest;
 
-@interface ApiHelper : NSObject <STVNetworkObject> {
+@interface ApiHelper : NSObject <NetworkObject> {
 }
 
 @property (readwrite) NSInteger networkCounter;

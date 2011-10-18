@@ -11,7 +11,7 @@
 #import "OAuthHandshake.h"
 #import "SBJsonStreamParser.h"
 
-#import "STVNetworkObject.h"
+#import "NetworkObject.h"
 
 typedef enum {
     STVParserModeIdle,
@@ -40,7 +40,7 @@ typedef enum {
  * The NetworkManager uses this class internally, but no other objects should
  * have to worry about this class.
  */
-@interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate, STVNetworkObject> {
+@interface LoginHelper : NSObject <OAuthHandshakeDelegate, SBJsonStreamParserDelegate, NetworkObject> {
     OAuthHandshake *handshake;
     SBJsonStreamParser *_parser;
     User *_user;

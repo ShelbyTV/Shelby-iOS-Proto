@@ -66,7 +66,7 @@ static ShelbyApp *gShelbyApp;
 
 - (BOOL)isNetworkBusy {
     BOOL toReturn = NO;
-    for (id <STVNetworkObject> networkObject in _networkObjects) 
+    for (id <NetworkObject> networkObject in _networkObjects) 
     {
         //NSLog(@"networkObject: %@ networkCounter: %d", [[networkObject class] description], networkObject.networkCounter);
         if (networkObject.networkCounter > 0) {
@@ -87,7 +87,7 @@ static ShelbyApp *gShelbyApp;
     }
 }
 
-- (void)addNetworkObject:(NSObject <STVNetworkObject> *)networkObject {
+- (void)addNetworkObject:(NSObject <NetworkObject> *)networkObject {
     [networkObject addObserver: self
                     forKeyPath: @"networkCounter"
                        options: 0
@@ -95,7 +95,7 @@ static ShelbyApp *gShelbyApp;
     [_networkObjects addObject: networkObject];
 }
 
-- (void)removeNetworkObject:(NSObject <STVNetworkObject> *)networkObject {
+- (void)removeNetworkObject:(NSObject <NetworkObject> *)networkObject {
     [networkObject removeObserver: self
                        forKeyPath: @"networkCounter"];
     [_networkObjects removeObject: networkObject];

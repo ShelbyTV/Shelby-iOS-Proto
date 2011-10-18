@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "STVNetworkObject.h"
+#import "NetworkObject.h"
 
 @class LoginHelper;
 @class ApiHelper;
@@ -31,8 +31,8 @@
 
 + (ShelbyApp *)sharedApp;
 
-- (void)addNetworkObject:(id <STVNetworkObject>)networkObject;
-- (void)removeNetworkObject:(id <STVNetworkObject>)networkObject;
+- (void)addNetworkObject:(id <NetworkObject>)networkObject;
+- (void)removeNetworkObject:(id <NetworkObject>)networkObject;
 - (void)resetGraphiteStats;
 
 @end

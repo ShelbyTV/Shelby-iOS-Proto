@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "STVNetworkObject.h"
+#import "NetworkObject.h"
 
 @class VideoTableData;
 @class Video;
@@ -18,7 +18,7 @@
 
 @end
 
-@interface VideoTableData : NSObject <STVNetworkObject>
+@interface VideoTableData : NSObject <NetworkObject>
 {
     UITableView *tableView;
     NSMutableArray *tableVideos;
