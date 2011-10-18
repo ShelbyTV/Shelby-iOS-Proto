@@ -200,7 +200,7 @@
     NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
     NSLog(@"Got user: %@", string);
 
-    _parserMode = STVParserModeUser;
+    _parserMode = ParserModeUser;
     SBJsonStreamParserStatus status = [_parser parse: data];
     
     // might need to check status and NOT_NULL(self.user). if data is blank, we seem to think that's a success case.
@@ -387,7 +387,7 @@
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"Got channels: %@", string);
 
-    _parserMode = STVParserModeChannels;
+    _parserMode = ParserModeChannels;
     SBJsonStreamParserStatus status = [_parser parse: data];
 
     if (status == SBJsonStreamParserWaitingForData) {
@@ -486,7 +486,7 @@
     //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     //NSLog(@"Got broadcasts: %@", string);
 
-    _parserMode = STVParserModeBroadcasts;
+    _parserMode = ParserModeBroadcasts;
     SBJsonStreamParserStatus status = [_parser parse: data];
     if (status == SBJsonStreamParserWaitingForData) {
         // Woot. Good to go!
@@ -657,7 +657,7 @@
     // Pass the data to VideoTableData.
 
     switch (_parserMode) {
-        case STVParserModeUser:
+        case ParserModeUser:
             LOG(@"USER Array found: %@", array);
 
             NSDictionary *dict = [array objectAtIndex: 0];
@@ -669,7 +669,7 @@
             [self fetchChannels];
 
             break;
-        case STVParserModeChannels:
+        case ParserModeChannels:
            LOG(@"CHANNEL array found: %@", array);
            [self storePrivateChannelsWithArray: array];
            NSArray *channels = [self retrieveChannels];
@@ -680,7 +680,7 @@
                [NSException raise:@"unexpected" format:@"Couldn't Save channel!"];
            }
            break;
-        case STVParserModeBroadcasts:
+        case ParserModeBroadcasts:
             // For some reason, the compiler requires a log statement just after the 'case' statemnet.
            LOG(@"woohoo");
            [self storeBroadcastsWithArray: array channel: self.channel];
@@ -691,12 +691,12 @@
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
 
     }
-    _parserMode = STVParserModeIdle;
+    _parserMode = ParserModeIdle;
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
     switch (_parserMode) {
-        case STVParserModeBroadcasts:
+        case ParserModeBroadcasts:
             LOG(@"YAhoo");
             NSString *error = [dict objectForKey: @"err"];
             if (error) {
@@ -705,13 +705,13 @@
                 [NSException raise:@"unexpected" format:@"Should not get here"];
             }
             break;
-        case STVParserModeUser:
+        case ParserModeUser:
             LOG(@"USER object found: %@", dict);
             break;
         default:
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
     }
-    _parserMode = STVParserModeIdle;
+    _parserMode = ParserModeIdle;
 }
 
 - (void)dealloc {

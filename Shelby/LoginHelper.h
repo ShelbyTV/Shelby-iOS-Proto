@@ -14,11 +14,11 @@
 #import "NetworkObject.h"
 
 typedef enum {
-    STVParserModeIdle,
-    STVParserModeUser,
-    STVParserModeBroadcasts,
-    STVParserModeChannels,
-} STVParserMode;
+    ParserModeIdle,
+    ParserModeUser,
+    ParserModeBroadcasts,
+    ParserModeChannels,
+} ParserMode;
 
 @class SBJsonStreamParser;
 @class User;
@@ -45,7 +45,7 @@ typedef enum {
     SBJsonStreamParser *_parser;
     User *_user;
     @private
-    STVParserMode _parserMode;
+    ParserMode _parserMode;
     NSManagedObjectContext *_context;
 }
 
