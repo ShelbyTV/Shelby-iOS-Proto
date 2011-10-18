@@ -178,7 +178,7 @@
 		42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB413EC83FE00B9BF15 /* ButtonShare.png */; };
 		42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */; };
 		42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */; };
-		42D1FDB0143A5266007E7A9B /* STVZeroEdgeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D1FDAF143A5266007E7A9B /* STVZeroEdgeTextView.m */; };
+		42D1FDB0143A5266007E7A9B /* ZeroEdgeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D1FDAF143A5266007E7A9B /* ZeroEdgeTextView.m */; };
 		42DAF46914112CA100936536 /* Shelby.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46714112CA100936536 /* Shelby.xcdatamodeld */; };
 		42DAF46D1411390000936536 /* CoreDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF46B1411389E00936536 /* CoreDataTest.m */; };
 		42DAF47314113F8D00936536 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DAF47214113F8D00936536 /* Channel.m */; };
@@ -430,8 +430,8 @@
 		42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeart.png; path = Resources/Images/ButtonHeart.png; sourceTree = "<group>"; };
 		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
 		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
-		42D1FDAE143A5266007E7A9B /* STVZeroEdgeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVZeroEdgeTextView.h; sourceTree = "<group>"; };
-		42D1FDAF143A5266007E7A9B /* STVZeroEdgeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVZeroEdgeTextView.m; sourceTree = "<group>"; };
+		42D1FDAE143A5266007E7A9B /* ZeroEdgeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ZeroEdgeTextView.h; sourceTree = "<group>"; };
+		42D1FDAF143A5266007E7A9B /* ZeroEdgeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroEdgeTextView.m; sourceTree = "<group>"; };
 		42DAF46814112CA100936536 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
 		42DAF46A1411389E00936536 /* CoreDataTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTest.h; sourceTree = "<group>"; };
 		42DAF46B1411389E00936536 /* CoreDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTest.m; sourceTree = "<group>"; };
@@ -792,8 +792,8 @@
 				427A623213F4843200C945E2 /* CheckBox.m */,
 				42084C7B1427B99A00C3C556 /* OfflineView.h */,
 				42084C7C1427B99A00C3C556 /* OfflineView.m */,
-				42D1FDAE143A5266007E7A9B /* STVZeroEdgeTextView.h */,
-				42D1FDAF143A5266007E7A9B /* STVZeroEdgeTextView.m */,
+				42D1FDAE143A5266007E7A9B /* ZeroEdgeTextView.h */,
+				42D1FDAF143A5266007E7A9B /* ZeroEdgeTextView.m */,
 				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
 				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
 			);
@@ -1314,7 +1314,7 @@
 				4289EB7C1433D82E008311A7 /* User.m in Sources */,
 				0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */,
 				0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */,
-				42D1FDB0143A5266007E7A9B /* STVZeroEdgeTextView.m in Sources */,
+				42D1FDB0143A5266007E7A9B /* ZeroEdgeTextView.m in Sources */,
 				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
 				0A978AF714455B74005DFF18 /* ShareViewController.m in Sources */,
