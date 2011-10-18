@@ -10,9 +10,6 @@
 
 @protocol STVNetworkObject <NSObject>
 
-//- (NSInteger)networkCount;
-//
 @property (readonly) NSInteger networkCounter;
-//- (NSInteger)networkCount;
 
 @end
