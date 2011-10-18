@@ -64,13 +64,11 @@
 #pragma mark - Network Activity
 
 - (void)incrementNetworkCounter {
-    //[self incrementNetworkCounter];
-    self.networkCounter++;
+    @synchronized(self) { self.networkCounter++; }
 }
 
 - (void)decrementNetworkCounter {
-    //[self decrementNetworkCounter];
-    self.networkCounter--;
+    @synchronized(self) { self.networkCounter--; }
 }
 
 #pragma mark - Settings
