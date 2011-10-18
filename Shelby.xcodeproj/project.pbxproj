@@ -100,7 +100,7 @@
 		427A622D13F4719800C945E2 /* switchOffPlain.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622813F4719800C945E2 /* switchOffPlain.png */; };
 		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
 		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
-		427A623313F4843200C945E2 /* STVCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* STVCheckBox.m */; };
+		427A623313F4843200C945E2 /* CheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A623213F4843200C945E2 /* CheckBox.m */; };
 		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
 		4289EB9914366010008311A7 /* ButtonClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9814366010008311A7 /* ButtonClose.png */; };
 		4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */; };
@@ -318,8 +318,8 @@
 		427A622913F4719800C945E2 /* switchThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchThumb.png; sourceTree = "<group>"; };
 		427A622A13F4719800C945E2 /* UICustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSwitch.h; sourceTree = "<group>"; };
 		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
-		427A623113F4843200C945E2 /* STVCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVCheckBox.h; sourceTree = "<group>"; };
-		427A623213F4843200C945E2 /* STVCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVCheckBox.m; sourceTree = "<group>"; };
+		427A623113F4843200C945E2 /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CheckBox.h; sourceTree = "<group>"; };
+		427A623213F4843200C945E2 /* CheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckBox.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4289EB9814366010008311A7 /* ButtonClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonClose.png; path = Resources/Images/ButtonClose.png; sourceTree = "<group>"; };
@@ -788,8 +788,8 @@
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
 				0A978AF514455B74005DFF18 /* ShareViewController.h */,
 				0A978AF614455B74005DFF18 /* ShareViewController.m */,
-				427A623113F4843200C945E2 /* STVCheckBox.h */,
-				427A623213F4843200C945E2 /* STVCheckBox.m */,
+				427A623113F4843200C945E2 /* CheckBox.h */,
+				427A623213F4843200C945E2 /* CheckBox.m */,
 				42084C7B1427B99A00C3C556 /* STVOfflineView.h */,
 				42084C7C1427B99A00C3C556 /* STVOfflineView.m */,
 				42D1FDAE143A5266007E7A9B /* STVZeroEdgeTextView.h */,
@@ -1279,7 +1279,7 @@
 				4200E50413F41F0C00609C3E /* Video.m in Sources */,
 				4200E50913F4263900609C3E /* SettingsViewController.m in Sources */,
 				427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */,
-				427A623313F4843200C945E2 /* STVCheckBox.m in Sources */,
+				427A623313F4843200C945E2 /* CheckBox.m in Sources */,
 				42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */,
 				42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */,
 				42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */,
