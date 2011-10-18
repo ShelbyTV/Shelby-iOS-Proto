@@ -8,7 +8,8 @@
 
 #import "OAuthMutableURLRequest.h"
 
-@interface ApiMutableURLRequest : OAuthMutableURLRequest
+@interface ApiMutableURLRequest : OAuthMutableURLRequest {
+}
 
 @property (nonatomic, retain) NSDictionary *userInfoDict;
 

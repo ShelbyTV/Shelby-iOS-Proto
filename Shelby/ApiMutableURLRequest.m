@@ -12,20 +12,9 @@
 
 @synthesize userInfoDict;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
-
 - (void) dealloc
 {
-    [userInfoDict release];
-    
+    userInfoDict = nil;
     [super dealloc];
 }
 
