@@ -12,7 +12,7 @@
 @class Video;
 @class User;
 
-@protocol STVShareViewDelegate 
+@protocol ShareViewDelegate 
 
 - (void)shareViewClosePressed:(ShareViewController*)shareView;
 - (void)shareView:(ShareViewController*)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients;
@@ -38,7 +38,7 @@
     Video *_video;
 }
 
-@property (assign) id <STVShareViewDelegate> delegate;
+@property (assign) id <ShareViewDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UITextView *socialTextView;
 @property (nonatomic, retain) IBOutlet UITextView *emailTextView;
 @property (nonatomic, retain) IBOutlet UIView *mainView;

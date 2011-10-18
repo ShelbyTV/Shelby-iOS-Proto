@@ -15,7 +15,7 @@
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, STVShareViewDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;

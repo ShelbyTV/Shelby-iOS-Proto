@@ -68,9 +68,9 @@
         
         ShareViewController *shareView;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPad" bundle:nil] autorelease];
+            shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPad" bundle:nil] autorelease];
         } else {
-            shareView = [[[ShareViewController alloc] initWithNibName:@"STVShareView_iPhone" bundle:nil] autorelease];
+            shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPhone" bundle:nil] autorelease];
         }
         shareView.delegate = self;
         [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
@@ -145,7 +145,7 @@
     // Override in subclass.
 }
 
-#pragma mark - STVShareViewDelegate Methods
+#pragma mark - ShareViewDelegate Methods
 
 - (void)shareViewClosePressed:(ShareViewController*)shareView
 {
