@@ -7,28 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "STVNetworkObject.h"
 
 @class ApiMutableURLRequest;
 
-@interface ApiHelper : NSObject <STVNetworkObject>
+@interface ApiHelper : NSObject <STVNetworkObject> {
+}
 
-#pragma mark - Properties
 @property (readwrite) NSInteger networkCounter;
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *accessTokenSecret;
 
-#pragma mark - URL Request
-- (ApiMutableURLRequest *)requestForURL: (NSURL *) url withMethod: (NSString *) method;
-
-#pragma mark - Token Storage
-- (void)storeAccessToken:(NSString *)newAccessToken
-       accessTokenSecret:(NSString *)newAccessTokenSecret;
+- (ApiMutableURLRequest *)requestForURL:(NSURL *)url 
+                             withMethod:(NSString *)method;
 - (void)loadTokens;
 - (void)clearTokens;
+- (void)storeAccessToken:(NSString *)newAccessToken
+       accessTokenSecret:(NSString *)newAccessTokenSecret;
 
-#pragma mark - Network Op Counts
 - (void)incrementNetworkCounter;
 - (void)decrementNetworkCounter;
 

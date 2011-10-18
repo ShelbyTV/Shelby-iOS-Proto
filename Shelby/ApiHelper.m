@@ -18,18 +18,6 @@
 @synthesize accessTokenSecret;
 @synthesize networkCounter;
 
-#pragma mark - Init
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
-
 #pragma mark - URL Request
 
 - (ApiMutableURLRequest *)requestForURL:(NSURL *)url 
@@ -82,13 +70,14 @@
 
 #pragma mark - Network Op Counts
 
-- (void)incrementNetworkCounter {
-    self.networkCounter++;
+- (void)incrementNetworkCounter
+{
+    @synchronized(self) { self.networkCounter++; }
 }
 
-- (void)decrementNetworkCounter {
-    self.networkCounter--;
+- (void)decrementNetworkCounter
+{
+    @synchronized(self) { self.networkCounter--; }
 }
-
 
 @end
