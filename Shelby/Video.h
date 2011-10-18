@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface Video : NSObject {
-    
 }
 
 @property (nonatomic, retain) NSString *provider;

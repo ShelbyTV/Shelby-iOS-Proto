@@ -35,27 +35,66 @@
 
 - (void) dealloc
 {
-    [provider release];    
-    [providerId release];
-    [contentURL release];
-    [thumbnailURL release];
-    [thumbnailImage release];
-    [title release];
-    [sharer release];
-    [sharerComment release];
-    [sharerImageURL release];
-    [sharerImage release];
-    [source release];
-    [shelbyId release];
-    [shortPermalink release];
-    [createdAt release];
+    provider = nil;
+    providerId = nil;
+    contentURL = nil;
+    thumbnailURL = nil;
+    thumbnailImage = nil;
+    title = nil;
+    sharer = nil;
+    sharerComment = nil;
+    sharerImageURL = nil;
+    sharerImage = nil;
+    source = nil;
+    shelbyId = nil;
+    shortPermalink = nil;
+    createdAt = nil;
     
     [super dealloc];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"provider: %@\nproviderId: %@\ncontentURL: %@\nthumbnailURL: %@\nthumbnailImage: not displaying\ntitle: %@\nsharer: %@\nsharerComment: %@\nsharerImageURL: %@\nsharerImage: not displaying\nsource: %@\nshelbyId: %@\nshortPermalink: %@\ncreatedAt: not displaying\nisLiked: %@\nisWatched: %@\ncellHeightAllComments: %f\nhasBeenDisplayed: %@\nallComments: %@\ncellHeightCurrent: %f\n", self.provider, self.providerId, [self.contentURL description], [self.thumbnailURL description], self.title, self.sharer, self.sharerComment, [self.sharerImageURL description], self.source, self.shelbyId, self.shortPermalink, self.isLiked ? @"TRUE" : @"FALSE", self.isWatched ? @"TRUE" : @"FALSE", self.cellHeightAllComments, self.hasBeenDisplayed ? @"TRUE" : @"FALSE", self.allComments ? @"TRUE" : @"FALSE",  self.cellHeightCurrent]; 
+    return [NSString stringWithFormat:@""
+            "provider: %@\n"
+            "providerId: %@\n"
+            "contentURL: %@\n"
+            "thumbnailURL: %@\n"
+            "thumbnailImage: not displaying\n"
+            "title: %@\n"
+            "sharer: %@\n"
+            "sharerComment: %@\n"
+            "sharerImageURL: %@\n"
+            "sharerImage: not displaying\n"
+            "source: %@\n"
+            "shelbyId: %@\n"
+            "shortPermalink: %@\n"
+            "createdAt: not displaying\n"
+            "isLiked: %@\n"
+            "isWatchLater: %@\n"
+            "isWatched: %@\n"
+            "cellHeightAllComments: %f\n"
+            "hasBeenDisplayed: %@\n"
+            "allComments: %@\n"
+            "cellHeightCurrent: %f\n",
+            self.provider, 
+            self.providerId, 
+            [self.contentURL description], 
+            [self.thumbnailURL description],
+            self.title,
+            self.sharer,
+            self.sharerComment,
+            [self.sharerImageURL description],
+            self.source,
+            self.shelbyId,
+            self.shortPermalink,
+            self.isLiked ? @"TRUE" : @"FALSE",
+            self.isWatchLater ?  @"TRUE" : @"FALSE",
+            self.isWatched ? @"TRUE" : @"FALSE",
+            self.cellHeightAllComments,
+            self.hasBeenDisplayed ? @"TRUE" : @"FALSE",
+            self.allComments ? @"TRUE" : @"FALSE",
+            self.cellHeightCurrent]; 
 }
 
 @end
