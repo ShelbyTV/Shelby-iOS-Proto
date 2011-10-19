@@ -42,7 +42,6 @@
 @property (nonatomic, retain) VideoTableData* videoTableData;
 @property (nonatomic, retain) VideoTableViewController* viewController;
 
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setVideo:(Video *)video;
 
