@@ -294,7 +294,7 @@
 		42084C6E1427AB4800C3C556 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		42084C6F1427AB4800C3C556 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		42084C751427ADF000C3C556 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		42084C7B1427B99A00C3C556 /* OfflineView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OfflineView.h; sourceTree = "<group>"; };
+		42084C7B1427B99A00C3C556 /* OfflineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineView.h; sourceTree = "<group>"; };
 		42084C7C1427B99A00C3C556 /* OfflineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineView.m; sourceTree = "<group>"; };
 		42084C851427D82D00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/OfflineView_iPhone.xib; sourceTree = "<group>"; };
 		42084C881427DACD00C3C556 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/OfflineView_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -305,7 +305,7 @@
 		4229CDFE13EC6235000F587E /* VideoPlayerControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerControlBar.h; sourceTree = "<group>"; };
 		4229CDFF13EC6235000F587E /* VideoPlayerControlBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerControlBar.m; sourceTree = "<group>"; };
 		423FFDA414291A2400F8FF54 /* CellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellGradient.png; path = Resources/Images/CellGradient.png; sourceTree = "<group>"; };
-		423FFDBB142A6CCD00F8FF54 /* NetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; path = NetworkObject.h; sourceTree = "<group>"; };
+		423FFDBB142A6CCD00F8FF54 /* NetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkObject.h; sourceTree = "<group>"; };
 		4240B36A142BF8F500819AC8 /* Broadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Broadcast.h; sourceTree = "<group>"; };
 		4240B36B142BF8F500819AC8 /* Broadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Broadcast.m; sourceTree = "<group>"; };
 		427A621A13F46D5B00C945E2 /* CancelButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = CancelButton.jpg; path = Resources/Images/CancelButton.jpg; sourceTree = "<group>"; };
@@ -318,7 +318,7 @@
 		427A622913F4719800C945E2 /* switchThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchThumb.png; sourceTree = "<group>"; };
 		427A622A13F4719800C945E2 /* UICustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSwitch.h; sourceTree = "<group>"; };
 		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
-		427A623113F4843200C945E2 /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CheckBox.h; sourceTree = "<group>"; };
+		427A623113F4843200C945E2 /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckBox.h; sourceTree = "<group>"; };
 		427A623213F4843200C945E2 /* CheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckBox.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -430,7 +430,7 @@
 		42CA0DB613EC83FE00B9BF15 /* ButtonHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeart.png; path = Resources/Images/ButtonHeart.png; sourceTree = "<group>"; };
 		42CA0DB813EC83FE00B9BF15 /* ShelbyLogoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShelbyLogoGray.png; path = Resources/Images/ShelbyLogoGray.png; sourceTree = "<group>"; };
 		42CA0DBF13EC862700B9BF15 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
-		42D1FDAE143A5266007E7A9B /* ZeroEdgeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ZeroEdgeTextView.h; sourceTree = "<group>"; };
+		42D1FDAE143A5266007E7A9B /* ZeroEdgeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroEdgeTextView.h; sourceTree = "<group>"; };
 		42D1FDAF143A5266007E7A9B /* ZeroEdgeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroEdgeTextView.m; sourceTree = "<group>"; };
 		42DAF46814112CA100936536 /* Shelby.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shelby.xcdatamodel; sourceTree = "<group>"; };
 		42DAF46A1411389E00936536 /* CoreDataTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTest.h; sourceTree = "<group>"; };
@@ -786,8 +786,6 @@
 			isa = PBXGroup;
 			children = (
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
-				0A978AF514455B74005DFF18 /* ShareViewController.h */,
-				0A978AF614455B74005DFF18 /* ShareViewController.m */,
 				427A623113F4843200C945E2 /* CheckBox.h */,
 				427A623213F4843200C945E2 /* CheckBox.m */,
 				42084C7B1427B99A00C3C556 /* OfflineView.h */,
@@ -973,6 +971,8 @@
 				42084C771427B35500C3C556 /* Abstract */,
 				4200E50613F4263900609C3E /* SettingsViewController.h */,
 				4200E50713F4263900609C3E /* SettingsViewController.m */,
+				0A978AF514455B74005DFF18 /* ShareViewController.h */,
+				0A978AF614455B74005DFF18 /* ShareViewController.m */,
 				0A12933913DD0DBF009D254F /* VideoTableViewController.h */,
 				0A12933A13DD0DC0009D254F /* VideoTableViewController.m */,
 				0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */,
