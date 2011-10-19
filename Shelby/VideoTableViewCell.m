@@ -17,109 +17,129 @@
 @synthesize videoTableData;
 @synthesize viewController;
 
+#pragma mark - Init
+
+- (void)initIPad
+{
+    self.frame = CGRectMake(0, 0, IPAD_CELL_WIDTH, IPAD_CELL_HEIGHT);
+    _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPAD_VIDEO_WIDTH, IPAD_VIDEO_HEIGHT)];
+    _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPAD_BADGE_WIDTH, IPAD_BADGE_HEIGHT)];
+    _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_COMMENT_VIEW_ORIGIN_X, IPAD_COMMENT_VIEW_ORIGIN_Y, IPAD_COMMENT_VIEW_WIDTH, IPAD_COMMENT_VIEW_HEIGHT)];
+    _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_VIDEO_FOOTER_ORIGIN_X, IPAD_VIDEO_FOOTER_ORIGIN_Y, IPAD_VIDEO_FOOTER_WIDTH, IPAD_VIDEO_FOOTER_HEIGHT)];
+    _sharerView = [[UIImageView alloc] initWithFrame:CGRectMake(IPAD_SHARER_ORIGIN_X, IPAD_SHARER_ORIGIN_Y, IPAD_SHARER_WIDTH, IPAD_SHARER_HEIGHT)];
+    _sharerComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_COMMENT_ORIGIN_X, IPAD_COMMENT_ORIGIN_Y, IPAD_COMMENT_WIDTH, IPAD_COMMENT_HEIGHT)];
+    _sharerComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
+    _sharerComment.numberOfLines = 1;
+    _sharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_SHARER_NAME_ORIGIN_Y, IPAD_SHARER_NAME_WIDTH, IPAD_SHARER_NAME_HEIGHT)];
+    _shareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARETIME_ORIGIN_X, IPAD_SHARETIME_ORIGIN_Y, IPAD_SHARETIME_WIDTH, IPAD_SHARETIME_HEIGHT)];
+    _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_CELL_HORIZ_MARGIN, IPAD_CELL_VERT_MARGIN, IPAD_VIDEO_WIDTH, IPAD_VIDEO_HEIGHT + IPAD_VIDEO_FOOTER_HEIGHT)];
+    
+    _expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _expandButton.frame = CGRectMake(0, IPAD_COMMENT_VIEW_ORIGIN_Y, IPAD_VIDEO_WIDTH, IPAD_COMMENT_VIEW_HEIGHT + IPAD_VIDEO_FOOTER_HEIGHT);
+    [_expandButton addTarget:self action:@selector(sharerNamePressed) forControlEvents:UIControlEventTouchUpInside];
+    _expandButton.backgroundColor = [UIColor clearColor];
+}
+
+- (void)initIPhone
+{
+    self.frame = CGRectMake(0, 0, IPHONE_CELL_WIDTH, IPHONE_CELL_HEIGHT);
+    _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_VIDEO_WIDTH, IPHONE_VIDEO_HEIGHT)];
+    _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_BADGE_WIDTH, IPHONE_BADGE_HEIGHT)];
+    _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_VIEW_ORIGIN_X, 0, IPHONE_COMMENT_VIEW_WIDTH, IPHONE_COMMENT_VIEW_HEIGHT)];
+    _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1];
+    _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, IPHONE_VIDEO_FOOTER_ORIGIN_Y, IPHONE_VIDEO_FOOTER_WIDTH, IPHONE_VIDEO_FOOTER_HEIGHT)];
+    _sharerView = [[UIImageView alloc] initWithFrame:CGRectMake(IPHONE_SHARER_ORIGIN_X, IPHONE_SHARER_ORIGIN_Y, IPHONE_SHARER_WIDTH, IPHONE_SHARER_HEIGHT)];
+    
+    _sharerComment = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_ORIGIN_X, IPHONE_COMMENT_ORIGIN_Y, IPHONE_COMMENT_WIDTH, IPHONE_COMMENT_HEIGHT)];
+    _sharerComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:14.0];
+    _sharerComment.numberOfLines = 3;
+    _sharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_SHARER_NAME_ORIGIN_X, IPHONE_SHARER_NAME_ORIGIN_Y, IPHONE_SHARER_NAME_WIDTH, IPHONE_SHARER_NAME_HEIGHT)];
+    _shareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_SHARETIME_ORIGIN_X, IPHONE_SHARETIME_ORIGIN_Y, IPHONE_SHARETIME_WIDTH, IPHONE_SHARETIME_HEIGHT)];
+    _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_CELL_HORIZ_MARGIN, IPHONE_CELL_VERT_MARGIN, IPHONE_VIDEO_WIDTH + IPHONE_COMMENT_VIEW_WIDTH, IPHONE_VIDEO_HEIGHT + IPHONE_VIDEO_FOOTER_HEIGHT)];
+}
+
+- (void)initCommon
+{
+    _dupeComments = [[NSMutableArray alloc] init];
+    _dupeSharerNames = [[NSMutableArray alloc] init];
+    _dupeSharerImages = [[NSMutableArray alloc] init];
+    _dupeShareTimes = [[NSMutableArray alloc] init];
+    
+    _bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellGradient.png"]];
+    _bgView.frame = self.bounds;
+    _clipView.clipsToBounds = TRUE;
+    
+    _selected = FALSE;
+    _dupeCount = 0;
+    
+    _videoFooterView.backgroundColor = [UIColor blackColor];
+    
+    _sharerComment.textColor = [UIColor whiteColor];
+    _sharerComment.backgroundColor = [UIColor clearColor];
+    
+    _sharerName.textAlignment = UITextAlignmentLeft;
+    _sharerName.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
+    _sharerName.textColor = [UIColor whiteColor];
+    _sharerName.backgroundColor = [UIColor clearColor];
+    _sharerName.adjustsFontSizeToFitWidth = YES;
+    _sharerName.minimumFontSize = 10.0;
+    _sharerName.numberOfLines = 1;
+    
+    _shareTime.font = [UIFont fontWithName:@"Thonburi-Bold" size:14.0];
+    _shareTime.textColor = [UIColor lightGrayColor];
+    _shareTime.backgroundColor = [UIColor clearColor];
+    _shareTime.textAlignment = UITextAlignmentRight;
+    _shareTime.adjustsFontSizeToFitWidth = YES;
+    _shareTime.numberOfLines = 1;
+    _shareTime.minimumFontSize = 10.0;
+    
+    _bgView.userInteractionEnabled = TRUE;
+    
+    _bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _clipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _commentView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    _videoFooterView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    _shareTime.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _sharerComment.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _sharerName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    [self addSubview:_bgView];
+    [_bgView addSubview:_clipView];
+    
+    [_clipView addSubview:_videoView];
+    [_clipView addSubview:_badgeView];
+    [_clipView addSubview:_commentView];
+    [_clipView addSubview:_videoFooterView];
+    [_clipView addSubview:_sharerView];
+    [_clipView addSubview:_sharerComment];
+    [_clipView addSubview:_sharerName];
+    [_clipView addSubview:_shareTime];
+    
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _dupeComments = [[NSMutableArray alloc] init];
-        _dupeSharerNames = [[NSMutableArray alloc] init];
-        _dupeSharerImages = [[NSMutableArray alloc] init];
-        _dupeShareTimes = [[NSMutableArray alloc] init];
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            self.frame = CGRectMake(0, 0, IPAD_CELL_WIDTH, IPAD_CELL_HEIGHT);
-            _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPAD_VIDEO_WIDTH, IPAD_VIDEO_HEIGHT)];
-            _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPAD_BADGE_WIDTH, IPAD_BADGE_HEIGHT)];
-            _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_COMMENT_VIEW_ORIGIN_X, IPAD_COMMENT_VIEW_ORIGIN_Y, IPAD_COMMENT_VIEW_WIDTH, IPAD_COMMENT_VIEW_HEIGHT)];
-            _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
-            _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_VIDEO_FOOTER_ORIGIN_X, IPAD_VIDEO_FOOTER_ORIGIN_Y, IPAD_VIDEO_FOOTER_WIDTH, IPAD_VIDEO_FOOTER_HEIGHT)];
-            _sharerView = [[UIImageView alloc] initWithFrame:CGRectMake(IPAD_SHARER_ORIGIN_X, IPAD_SHARER_ORIGIN_Y, IPAD_SHARER_WIDTH, IPAD_SHARER_HEIGHT)];
-            _sharerComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_COMMENT_ORIGIN_X, IPAD_COMMENT_ORIGIN_Y, IPAD_COMMENT_WIDTH, IPAD_COMMENT_HEIGHT)];
-            _sharerComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
-            _sharerComment.numberOfLines = 1;
-            _sharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_SHARER_NAME_ORIGIN_Y, IPAD_SHARER_NAME_WIDTH, IPAD_SHARER_NAME_HEIGHT)];
-            _shareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARETIME_ORIGIN_X, IPAD_SHARETIME_ORIGIN_Y, IPAD_SHARETIME_WIDTH, IPAD_SHARETIME_HEIGHT)];
-            _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPAD_CELL_HORIZ_MARGIN, IPAD_CELL_VERT_MARGIN, IPAD_VIDEO_WIDTH, IPAD_VIDEO_HEIGHT + IPAD_VIDEO_FOOTER_HEIGHT)];
-            
-            _expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            _expandButton.frame = CGRectMake(0, IPAD_COMMENT_VIEW_ORIGIN_Y, IPAD_VIDEO_WIDTH, IPAD_COMMENT_VIEW_HEIGHT + IPAD_VIDEO_FOOTER_HEIGHT);
-            [_expandButton addTarget:self action:@selector(sharerNamePressed) forControlEvents:UIControlEventTouchUpInside];
-            _expandButton.backgroundColor = [UIColor clearColor];
 
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            [self initIPad];
         } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            self.frame = CGRectMake(0, 0, IPHONE_CELL_WIDTH, IPHONE_CELL_HEIGHT);
-            _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_VIDEO_WIDTH, IPHONE_VIDEO_HEIGHT)];
-            _badgeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_BADGE_WIDTH, IPHONE_BADGE_HEIGHT)];
-            _commentView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_VIEW_ORIGIN_X, 0, IPHONE_COMMENT_VIEW_WIDTH, IPHONE_COMMENT_VIEW_HEIGHT)];
-            _commentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1];
-            _videoFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, IPHONE_VIDEO_FOOTER_ORIGIN_Y, IPHONE_VIDEO_FOOTER_WIDTH, IPHONE_VIDEO_FOOTER_HEIGHT)];
-            _sharerView = [[UIImageView alloc] initWithFrame:CGRectMake(IPHONE_SHARER_ORIGIN_X, IPHONE_SHARER_ORIGIN_Y, IPHONE_SHARER_WIDTH, IPHONE_SHARER_HEIGHT)];
-            
-            _sharerComment = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_COMMENT_ORIGIN_X, IPHONE_COMMENT_ORIGIN_Y, IPHONE_COMMENT_WIDTH, IPHONE_COMMENT_HEIGHT)];
-            _sharerComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:14.0];
-            _sharerComment.numberOfLines = 3;
-            _sharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_SHARER_NAME_ORIGIN_X, IPHONE_SHARER_NAME_ORIGIN_Y, IPHONE_SHARER_NAME_WIDTH, IPHONE_SHARER_NAME_HEIGHT)];
-            _shareTime = [[UILabel alloc] initWithFrame:CGRectMake(IPHONE_SHARETIME_ORIGIN_X, IPHONE_SHARETIME_ORIGIN_Y, IPHONE_SHARETIME_WIDTH, IPHONE_SHARETIME_HEIGHT)];
-            _clipView = [[UIView alloc] initWithFrame:CGRectMake(IPHONE_CELL_HORIZ_MARGIN, IPHONE_CELL_VERT_MARGIN, IPHONE_VIDEO_WIDTH + IPHONE_COMMENT_VIEW_WIDTH, IPHONE_VIDEO_HEIGHT + IPHONE_VIDEO_FOOTER_HEIGHT)];
+            [self initIPhone];
         }
         
-        // same for both iPhone and iPad
-        _bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellGradient.png"]];
-        _bgView.frame = self.bounds;
-        _clipView.clipsToBounds = TRUE;
+        [self initCommon];
         
-        _selected = FALSE;
-        _dupeCount = 0;
-        
-        _videoFooterView.backgroundColor = [UIColor blackColor];
-
-        _sharerComment.textColor = [UIColor whiteColor];
-        _sharerComment.backgroundColor = [UIColor clearColor];
-        
-        _sharerName.textAlignment = UITextAlignmentLeft;
-        _sharerName.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
-        _sharerName.textColor = [UIColor whiteColor];
-        _sharerName.backgroundColor = [UIColor clearColor];
-        _sharerName.adjustsFontSizeToFitWidth = YES;
-        _sharerName.minimumFontSize = 10.0;
-        _sharerName.numberOfLines = 1;
-        
-        _shareTime.font = [UIFont fontWithName:@"Thonburi-Bold" size:14.0];
-        _shareTime.textColor = [UIColor lightGrayColor];
-        _shareTime.backgroundColor = [UIColor clearColor];
-        _shareTime.textAlignment = UITextAlignmentRight;
-        _shareTime.adjustsFontSizeToFitWidth = YES;
-        _shareTime.numberOfLines = 1;
-        _shareTime.minimumFontSize = 10.0;
-        
-        _bgView.userInteractionEnabled = TRUE;
-        
-        _bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _clipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _commentView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-        _videoFooterView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-        _shareTime.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        _sharerComment.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _sharerName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                
-        [self addSubview:_bgView];
-        [_bgView addSubview:_clipView];
-        
-        [_clipView addSubview:_videoView];
-        [_clipView addSubview:_badgeView];
-        [_clipView addSubview:_commentView];
-        [_clipView addSubview:_videoFooterView];
-        [_clipView addSubview:_sharerView];
-        [_clipView addSubview:_sharerComment];
-        [_clipView addSubview:_sharerName];
-        [_clipView addSubview:_shareTime];
-        
+        // must add _expandButton subview after the subviews in initCommon
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [_clipView addSubview:_expandButton];
         }
     }
     return self;
 }
+
+#pragma mark - Helper Methods
 
 - (NSString *)prettyDateDiff:(NSDate *)date
 {
@@ -183,6 +203,26 @@
     _sharerComment.alpha = (_video.allComments ? 0.0 : 1.0);
 }
 
+- (void)clearViewArray:(NSMutableArray *)array
+{
+    for (UIView *view in array)
+    {
+        [view removeFromSuperview];
+        [view release];
+    }
+    [array removeAllObjects]; 
+}
+
+- (void)clearDupeData
+{
+    [self clearViewArray:_dupeComments];
+    [self clearViewArray:_dupeSharerImages];
+    [self clearViewArray:_dupeSharerNames];
+    [self clearViewArray:_dupeShareTimes];
+}
+
+#pragma mark - Video Setting
+
 - (void)setVideo:(Video *)video
 {
     // use this to clean up old videos also from cell caching
@@ -205,34 +245,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         return;
     }
-        
-    for (UILabel *dupeComment in _dupeComments)
-    {
-        [dupeComment removeFromSuperview];
-        [dupeComment release];
-    }
-    [_dupeComments removeAllObjects];
     
-    for (UIImageView *dupeSharerImage in _dupeSharerImages)
-    {
-        [dupeSharerImage removeFromSuperview];
-        [dupeSharerImage release];
-    }
-    [_dupeSharerImages removeAllObjects];
-    
-    for (UILabel *dupeSharerName in _dupeSharerNames)
-    {
-        [dupeSharerName removeFromSuperview];
-        [dupeSharerName release];
-    }
-    [_dupeSharerNames removeAllObjects];
-    
-    for (UILabel *dupeShareTime in _dupeShareTimes)
-    {
-        [dupeShareTime removeFromSuperview];
-        [dupeShareTime release];
-    }
-    [_dupeShareTimes removeAllObjects];
+    [self clearDupeData];
     
     NSArray *dupes = [videoTableData videoDupes:_video];
     _dupeCount = [dupes count] - 1;
@@ -252,41 +266,7 @@
     
     // go through all duplicate videos and add in comment stuff...
     for (Video *dupe in dupes) {
-        if (first) {
-            // only need comment for this one, other stuff taken care of already
-            CGSize textSize;
-            if (NOT_NULL(dupe.sharerComment)) {
-                textSize = [self getCommentTextSize:dupe.sharerComment];
-            } else {
-                textSize = [self getCommentTextSize:dupe.title];
-            }
-            
-            UILabel *dupeComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_VIDEO_FOOTER_HEIGHT + IPAD_VIDEO_HEIGHT, textSize.width, textSize.height)];
-            dupeComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
-            dupeComment.numberOfLines = 4;
-            if (NOT_NULL(dupe.sharerComment)) {
-                dupeComment.text = dupe.sharerComment;
-            } else {
-                dupeComment.text = dupe.title;
-            }
-            dupeComment.textColor = [UIColor whiteColor];
-            dupeComment.backgroundColor = [UIColor clearColor];
-            
-            [_dupeComments addObject:dupeComment];
-            [_clipView addSubview:dupeComment];
-            
-            additionalHeight += textSize.height;
-            additionalHeight += IPAD_EXPANDED_COMMENT_MARGIN;
-            
-            first = FALSE;
-        } else {
-            CGSize textSize;
-            if (NOT_NULL(dupe.sharerComment)) {
-                textSize = [self getCommentTextSize:dupe.sharerComment];
-            } else {
-                textSize = [self getCommentTextSize:dupe.title];
-            }
-            
+        if (!first) {
             UIImageView *dupeSharerImage = [[UIImageView alloc] initWithFrame:CGRectMake(IPAD_SHARER_ORIGIN_X, IPAD_SHARER_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight, IPAD_SHARER_WIDTH, IPAD_SHARER_HEIGHT)];
             dupeSharerImage.image = dupe.sharerImage;
             
@@ -314,32 +294,41 @@
             
             additionalHeight += IPAD_SHARER_HEIGHT + 8;
             
-            UILabel *dupeComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_VIDEO_FOOTER_HEIGHT + IPAD_VIDEO_HEIGHT + additionalHeight, textSize.width, textSize.height)];
-            dupeComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
-            dupeComment.numberOfLines = 4;
-            if (NOT_NULL(dupe.sharerComment)) {
-                dupeComment.text = dupe.sharerComment;
-            } else {
-                dupeComment.text = dupe.title;
-            }
-            dupeComment.textColor = [UIColor whiteColor];
-            dupeComment.backgroundColor = [UIColor clearColor];
-            
             [_dupeShareTimes addObject:dupeShareTime];
             [_clipView addSubview:dupeShareTime];
-
+            
             [_dupeSharerNames addObject:dupeSharerName];
             [_clipView addSubview:dupeSharerName];
             
-            [_dupeComments addObject:dupeComment];
-            [_clipView addSubview:dupeComment];
-            
             [_dupeSharerImages addObject:dupeSharerImage];
             [_clipView addSubview:dupeSharerImage];
-            
-            additionalHeight += textSize.height;
-            additionalHeight += IPAD_EXPANDED_COMMENT_MARGIN;
         }
+
+        CGSize textSize;
+        if (NOT_NULL(dupe.sharerComment)) {
+            textSize = [self getCommentTextSize:dupe.sharerComment];
+        } else {
+            textSize = [self getCommentTextSize:dupe.title];
+        }
+        
+        UILabel *dupeComment = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_VIDEO_FOOTER_HEIGHT + IPAD_VIDEO_HEIGHT + additionalHeight, textSize.width, textSize.height)];
+        dupeComment.font = [UIFont fontWithName:@"Thonburi-Bold" size:16.0];
+        dupeComment.numberOfLines = 4;
+        if (NOT_NULL(dupe.sharerComment)) {
+            dupeComment.text = dupe.sharerComment;
+        } else {
+            dupeComment.text = dupe.title;
+        }
+        dupeComment.textColor = [UIColor whiteColor];
+        dupeComment.backgroundColor = [UIColor clearColor];
+        
+        [_dupeComments addObject:dupeComment];
+        [_clipView addSubview:dupeComment];
+        
+        additionalHeight += textSize.height;
+        additionalHeight += IPAD_EXPANDED_COMMENT_MARGIN;
+        
+        first = FALSE;
     }
     
     [_expandButton removeFromSuperview];
@@ -350,11 +339,15 @@
     [self sizeFramesForComments];
 }
 
+#pragma mark - Dealloc
+
 - (void)dealloc 
 {
     [_video release];
     [super dealloc];
 }
+
+#pragma mark - Actions
 
 - (void)sharerNamePressed
 {
@@ -380,6 +373,8 @@
 
 }
 
+#pragma mark - Table Cell Methods
+
 - (void)setHighlighted:(BOOL)highlighted
 {
 }
@@ -397,6 +392,8 @@
 {
     [self setSelected:selected];
 }
+
+#pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect
 {
