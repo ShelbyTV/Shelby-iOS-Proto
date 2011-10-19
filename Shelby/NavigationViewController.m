@@ -283,7 +283,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     _networkActivityViewParent = activityHolder;
 
     videoTable.tableView.frame = videoTableHolder.bounds;

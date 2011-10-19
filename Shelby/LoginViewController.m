@@ -90,13 +90,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     _networkActivityViewParent = activityHolder;
     
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
-
-    //[self showNetworkActivityIndicator];
 }
 
 - (void) viewWillAppear:(BOOL)animated
