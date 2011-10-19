@@ -29,7 +29,6 @@
 @synthesize isWatchLater;
 @synthesize isWatched;
 @synthesize cellHeightAllComments;
-@synthesize hasBeenDisplayed;
 @synthesize allComments;
 @synthesize cellHeightCurrent;
 
@@ -74,7 +73,6 @@
             "isWatchLater: %@\n"
             "isWatched: %@\n"
             "cellHeightAllComments: %f\n"
-            "hasBeenDisplayed: %@\n"
             "allComments: %@\n"
             "cellHeightCurrent: %f\n",
             self.provider, 
@@ -92,7 +90,6 @@
             self.isWatchLater ?  @"TRUE" : @"FALSE",
             self.isWatched ? @"TRUE" : @"FALSE",
             self.cellHeightAllComments,
-            self.hasBeenDisplayed ? @"TRUE" : @"FALSE",
             self.allComments ? @"TRUE" : @"FALSE",
             self.cellHeightCurrent]; 
 }

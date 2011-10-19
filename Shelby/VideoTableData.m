@@ -13,6 +13,7 @@
 #import "Video.h"
 #import "LoginHelper.h"
 #import "CoreDataHelper.h"
+#import "VideoTableViewCellConstants.h"
 
 #pragma mark - Constants
 
@@ -498,6 +499,12 @@
             }
             
             Video *video = [[[Video alloc] init] autorelease];
+            
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                video.cellHeightCurrent = IPAD_CELL_HEIGHT;
+            } else {
+                video.cellHeightCurrent = IPHONE_CELL_HEIGHT;
+            }
 
             NSMutableArray *dupeArray = [videoDupeDict objectForKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             if (NOT_NULL(dupeArray)) {

@@ -29,7 +29,6 @@
 @property (nonatomic) BOOL isWatchLater;
 @property (nonatomic) BOOL isWatched;
 @property (nonatomic) float cellHeightAllComments;
-@property (nonatomic) BOOL hasBeenDisplayed;
 @property (nonatomic) BOOL allComments;
 @property (nonatomic) float cellHeightCurrent;
 

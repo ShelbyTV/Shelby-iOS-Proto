@@ -230,18 +230,7 @@
         [_video release];
     }
     _video = [video retain];
-    
-    if (!_video.hasBeenDisplayed) {
-        _video.allComments = FALSE;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            _video.cellHeightCurrent = IPAD_CELL_HEIGHT;
-        } else {
-            _video.cellHeightCurrent = IPHONE_CELL_HEIGHT;
-        }
-    }
-    
-    _video.hasBeenDisplayed = TRUE;
-    
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         return;
     }
