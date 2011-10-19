@@ -1,6 +1,6 @@
 //
 //  LoginHelper.m
-//  ConsumerTwo
+//  Shelby
 //
 //  Created by David Kay on 8/17/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
@@ -30,6 +30,8 @@
 
 @property (nonatomic, readwrite, retain) User *user;
 @property (readwrite) NSInteger networkCounter;
+@property (nonatomic, retain) Channel *channel;
+@property (nonatomic, retain) NSString *identityProvider;
 
 - (BOOL)fetchUserId;
 - (void)deleteUser;
@@ -55,7 +57,7 @@
     NSArray *objects = [_context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     
-    return ([objects count] > 0) ? [objects objectAtIndex: 0] : nil;
+    return ([objects count] > 0) ? [objects objectAtIndex:0] : nil;
 }
 
 - (id)initWithContext:(NSManagedObjectContext *)context
@@ -68,7 +70,7 @@
         _parser.delegate = self;
         _parser.supportMultipleDocuments = YES;
         self.user = [self retrieveUser];
-        self.channel = [self getPublicChannel: 0 fromArray: [self retrieveChannels]];
+        self.channel = [self getPublicChannel:0 fromArray:[self retrieveChannels]];
     }
 
     return self;
@@ -106,64 +108,59 @@
     self.user = nil;
     [self deleteUser];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedOut"
-                                                        object: self
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserLoggedOut"
+                                                        object:self
                                                         ];
 }
 
 #pragma mark - Request Token
 
-- (void)getRequestTokenWithProvider:(NSString *)provider {
+- (void)getRequestTokenWithProvider:(NSString *)provider
+{
     self.identityProvider = provider;
 
     handshake = [[OAuthHandshake alloc] init];
-    [handshake setTokenRequestURL:[NSURL URLWithString: kRequestTokenUrl]];
-    [handshake setTokenAuthURL: [NSURL URLWithString: kAccessTokenUrl]];
-    [handshake setCallbackURL: kCallbackUrl];
-    [handshake setDelegate: self];
+    [handshake setTokenRequestURL:[NSURL URLWithString:kRequestTokenUrl]];
+    [handshake setTokenAuthURL:[NSURL URLWithString:kAccessTokenUrl]];
+    [handshake setCallbackURL:kCallbackUrl];
+    [handshake setDelegate:self];
 
     NSString *consumerKey = kShelbyConsumerKey;
     NSString *consumerSecret = kShelbyConsumerSecret;
 
-    [handshake setConsumerKey: consumerKey];
-    [handshake setConsumerSecret: consumerSecret];
+    [handshake setConsumerKey:consumerKey];
+    [handshake setConsumerSecret:consumerSecret];
 
     [handshake beginHandshake];
 
     [self incrementNetworkCounter];
 }
 
-- (void)getRequestToken {
-    [self getRequestTokenWithProvider: nil];
-}
-
 #pragma mark - User Authorization
 
 - (void)handshake:(OAuthHandshake *)handshake requestsUserToAuthenticateToken:(NSString *)token
 {
-    NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@",
-             kUserAuthorizationUrl,
-             [token URLEncodedString]];
+    NSString *targetURL = [kUserAuthorizationUrl stringByAppendingFormat: @"?oauth_token=%@", [token URLEncodedString]];
+    
     if (self.identityProvider) {
-        targetURL = [NSString stringWithFormat: @"%@&provider=%@",
-            targetURL,
-            self.identityProvider];
-
+        targetURL = [targetURL stringByAppendingFormat: @"&provider=%@", self.identityProvider];
     }
-    //NSString *targetURL = [NSString stringWithFormat: @"%@?oauth_token=%@&provider=twitter",
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: targetURL]];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:targetURL]];
 }
 
 - (void)handshake:(OAuthHandshake *)handshake failedWithError:(NSError *) error
 {
     NSLog(@"OAuth request failed with an error: %@", [error localizedDescription]);
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"OAuthHandshakeFailed"
-                                                        object: self];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OAuthHandshakeFailed" object:self];
+    
     [self decrementNetworkCounter];
 }
 
-- (void)verifierReturnedFromAuth:(NSString *)verifier {
-    [handshake continueHandshakeWithVerifier: verifier];
+- (void)verifierReturnedFromAuth:(NSString *)verifier
+{
+    [handshake continueHandshakeWithVerifier:verifier];
 }
 
 #pragma mark - Access Token
@@ -171,15 +168,14 @@
 - (void)handshake:(OAuthHandshake *)handshake authenticatedToken:(NSString *)token withSecret:(NSString *)tokenSecret;
 {
     [self decrementNetworkCounter];
-    NSLog(@"Authenticated token! %@ : %@", token, tokenSecret);
+    
+    LOG(@"Authenticated token! %@ : %@", token, tokenSecret);
 
-    // Store token for later use.
     [[ShelbyApp sharedApp].apiHelper storeAccessToken:token accessTokenSecret:tokenSecret];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"OAuthAuthorizedAccessToken"
                                                         object:self
                                                         ];
-
     [self fetchUserId];
 }
 
@@ -240,24 +236,23 @@
                                               error:&error];
 }
 
-- (void)deleteEntityType:(NSString *)entityName {
-    NSFetchRequest * allEntities = [[NSFetchRequest alloc] init];
+- (void)deleteEntityType:(NSString *)entityName
+{
+    NSFetchRequest *allEntities = [[NSFetchRequest alloc] init];
     [allEntities setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_context]];
     [allEntities setIncludesPropertyValues:NO]; //only fetch the managedObjectID
 
-    NSError * error = nil;
-    NSArray * entities = [_context executeFetchRequest:allEntities error:&error];
+    NSError *error;
+    NSArray *entities = [_context executeFetchRequest:allEntities error:&error];
     [allEntities release];
-    //error handling goes here
-    for (NSManagedObject * entity in entities) {
+
+    for (NSManagedObject *entity in entities) {
         [_context deleteObject:entity];
-    }
-    if (error) {
-        NSLog(@"Error deleting entity: %@! Error: %@", entityName, error);
     }
 }
 
-- (void)deleteUser {
+- (void)deleteUser
+{
     [self deleteEntityType: @"User"];
     [self deleteEntityType: @"Channel"];
     [self deleteEntityType: @"Broadcast"];
@@ -265,7 +260,7 @@
     NSError *error = nil;
     [_context save:&error];
     if (error) {
-        NSLog(@"Error saving deleted user! %@", error);
+        NSLog(@"Error saving User/Channel/Broadcast deletions: %@", error);
     }
 }
 
@@ -310,25 +305,28 @@
     }
 }
 
-- (void)storeAuthentications:(NSArray *)authentications {
+- (void)storeAuthentications:(NSArray *)authentications
+{
     for (NSString *authentication in authentications) {
         if ([authentication isEqualToString: @"twitter"]) {
-            self.user.auth_twitter = [NSNumber numberWithBool: YES];
+            self.user.auth_twitter = [NSNumber numberWithBool:YES];
         }
         if ([authentication isEqualToString: @"facebook"]) {
-            self.user.auth_facebook = [NSNumber numberWithBool: YES];
+            self.user.auth_facebook = [NSNumber numberWithBool:YES];
         }
         if ([authentication isEqualToString: @"tumblr"]) {
-            self.user.auth_tumblr = [NSNumber numberWithBool: YES];
+            self.user.auth_tumblr = [NSNumber numberWithBool:YES];
         }
     }
 }
 
-- (void)receivedGetAuthenticationsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
+- (void)receivedGetAuthenticationsResponse:(NSURLResponse *)resp 
+                                      data:(NSData *)data 
+                                     error:(NSError *)error 
+                                forRequest:(NSURLRequest *)request
 {
     [self decrementNetworkCounter];
-    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    NSLog(@"Got authentications: %@", string);
+    LOG(@"Got authentications: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 
     // Parse into JSON
     SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -355,28 +353,23 @@
     return nil;
 }
 
-- (BOOL)fetchChannels
+- (void)fetchChannels
 {
-    NSURL *url = [NSURL URLWithString: kChannelsUrl];
-    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
-
-    if (req) {
-        // Set to plaintext on request because oAuth library is broken.
-        [req signPlaintext];
-
-        [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetChannelsResponse:data:error:forRequest:)];
-        [self incrementNetworkCounter];
-        return YES;
-    }
-    // We failed to send the request. Let the caller know.
-    return NO;
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:[NSURL URLWithString:kChannelsUrl] 
+                                                                    withMethod:@"GET"];
+    // Set to plaintext on request because oAuth library is broken.
+    [req signPlaintext];
+    
+    [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetChannelsResponse:data:error:forRequest:)];
+    
+    [self incrementNetworkCounter];
 }
 
 - (void)receivedGetChannelsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
     [self decrementNetworkCounter];
     NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    NSLog(@"Got channels: %@", string);
+    LOG(@"Got channels: %@", string);
 
     _parserMode = ParserModeChannels;
     SBJsonStreamParserStatus status = [_parser parse: data];
@@ -427,67 +420,66 @@
     }
 }
 
-- (void)storePrivateChannelsWithArray:(NSArray *)array {
-    [self storePrivateChannelsWithArray: array user: self.user];
+- (void)storePrivateChannelsWithArray:(NSArray *)array
+{
+    [self storePrivateChannelsWithArray:array user:self.user];
 }
 
-- (NSArray *)retrieveChannels {
+- (NSArray *)retrieveChannels
+{
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-        entityForName:@"Channel" inManagedObjectContext: _context];
-    [fetchRequest setEntity:entity];
+    
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Channel" 
+                                        inManagedObjectContext: _context]];
+    
     NSError *error;
     NSArray *channels = [_context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
-    if ([channels count] > 0) {
-        return channels;
-    } else {
-        return nil;
-    }
+    
+    return ([channels count] > 0) ? channels : nil;
 }
 
 #pragma mark - Broadcasts
 
-- (BOOL)fetchBroadcasts {
-    if (self.user) {
-        NSURL *url = [NSURL URLWithString:
-               [NSString stringWithFormat: kBroadcastsUrl, self.channel.shelbyId]];
-        LOG(@"Fetching broadcasts from: %@", url);
-
-        //ApiMutableURLRequest *req = [handshake requestForURL:url withMethod:@"GET"];
-        ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
-
-        if (req) {
-            // Set to plaintext on request because oAuth library is broken.
-            [req signPlaintext];
-
-            [self incrementNetworkCounter];
-            [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
-            self.lastFetchBroadcasts = [NSDate date];
-            return YES;
-        }
+- (void)fetchBroadcasts
+{
+    if (IS_NULL(self.user)) {
+        return;
     }
-    // We failed to send the request. Let the caller know.
-    return NO;
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, self.channel.shelbyId]];
+    LOG(@"Fetching broadcasts from: %@", url);
+    
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+    
+    // Set to plaintext on request because oAuth library is broken.
+    [req signPlaintext];
+    
+    [self incrementNetworkCounter];
+    
+    [NSURLConnection sendAsyncRequest: req delegate: self completionSelector: @selector(receivedGetBroadcastsResponse:data:error:forRequest:)];
+    self.lastFetchBroadcasts = [NSDate date];
 }
 
-- (void)receivedGetBroadcastsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
+- (void)receivedGetBroadcastsResponse:(NSURLResponse *)resp 
+                                 data:(NSData *)data 
+                                error:(NSError *)error 
+                           forRequest:(NSURLRequest *)request
 {
     [self decrementNetworkCounter];
-    //NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    //NSLog(@"Got broadcasts: %@", string);
-
+    
     _parserMode = ParserModeBroadcasts;
     SBJsonStreamParserStatus status = [_parser parse: data];
+    
     if (status == SBJsonStreamParserWaitingForData) {
-        // Woot. Good to go!
         LOG(@"Broadcasts Parsing Complete!");
     } else {
         [NSException raise:@"unexpected" format:@"Broadcasts JSON Parsing error!"];
     }
 }
 
-- (void)storeBroadcastsWithArray:(NSArray *)array channel:(Channel *)newChannel
+- (void)storeBroadcastsWithArray:(NSArray *)array 
+                         channel:(Channel *)newChannel
 {    
     for (NSDictionary *dict in array) {
         Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
@@ -518,7 +510,9 @@
     }
 }
 
-- (void)storeBroadcastVideo:(Video *)video withSharerImageData:(NSData *)sharerImageData inContext:(NSManagedObjectContext *)context
+- (void)storeBroadcastVideo:(Video *)video 
+        withSharerImageData:(NSData *)sharerImageData 
+                  inContext:(NSManagedObjectContext *)context
 {
     Broadcast *update = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
     
@@ -545,7 +539,9 @@
 }
 
 
-- (void)storeBroadcastVideo:(Video *)video withThumbnailData:(NSData *)thumbnailData inContext:(NSManagedObjectContext *)context
+- (void)storeBroadcastVideo:(Video *)video 
+          withThumbnailData:(NSData *)thumbnailData 
+                  inContext:(NSManagedObjectContext *)context
 {
     Broadcast *update = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
     
@@ -571,141 +567,91 @@
     }
 }
 
-- (Broadcast *)fetchBroadcastWithId:(NSString*)broadcastId 
+- (NSArray *)retrieveBroadcastsForChannel:(Channel *)c 
 {
-    Broadcast *broadcast = nil;
-
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: kBroadcastUrl, broadcastId]];
-    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
-    [req signPlaintext];
-
-    /*
-     * if there's an error, this should just return NULL, which will result in the default
-     * blank face user image eventually being shown.
-     *
-     * bad news is a slow response might make us hang here for a little while, so it would
-     * be nice to make this async and have it just update the UI to show the image if it
-     * gets handled after the UI is all laid out.
-     */
-
-    NSData *data = [NSURLConnection sendSynchronousRequest:req
-                                         returningResponse:&response
-                                                     error:&error];
-
-    if (data) {
-        NSString *stringReply = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-         NSLog(@"Broadcast: %@", stringReply);
-        // Parse into JSON
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        NSArray *array = [parser objectWithData: data];
-        if (parser.error) {
-            NSLog(@"Broadcast Parser error: %@", parser.error);
-        } else {
-            NSDictionary *dict = [array objectAtIndex: 0];
-            broadcast = [NSEntityDescription
-                insertNewObjectForEntityForName:@"Broadcast"
-                         inManagedObjectContext:_context];
-            [broadcast populateFromApiJSONDictionary:dict];
-        }
-        [parser release];
-    }
-
-    return broadcast;
-}
-
-- (NSArray *)retrieveBroadcastsForChannel:(Channel *)c {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-        entityForName:@"Broadcast" inManagedObjectContext: _context];
-    [fetchRequest setEntity:entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-        @"(channel == %@)", c];
-    [fetchRequest setPredicate:predicate];
+
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Broadcast" 
+                                        inManagedObjectContext:_context]];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"(channel == %@)", c]];
+    
     NSError *error;
     NSArray *broadcasts = [_context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
-    if ([broadcasts count] > 0) {
-        return broadcasts;
-    } else {
-        LOG(@"Found no broadcasts for channel: %@. Error: %@", c, error);
-        return nil;
-    }
+    
+    return ([broadcasts count] > 0) ? broadcasts : nil;
 }
 
 #pragma mark - Login Complete
 
-- (void)loginComplete {
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"UserLoggedIn"
-                                                        object: self
-                                                        ];
+- (void)loginComplete
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserLoggedIn"
+                                                        object:self];
 }
 
 #pragma mark - SBJsonStreamParserDelegate methods
 
-- (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
-    // Pass the data to VideoTableData.
-
+- (void)parser:(SBJsonStreamParser *)parser 
+    foundArray:(NSArray *)array
+{
     switch (_parserMode) {
-        case ParserModeUser:
-            LOG(@"USER Array found: %@", array);
-
+            
+        case ParserModeUser:;
+            
             NSDictionary *dict = [array objectAtIndex: 0];
             [self incrementNetworkCounter];
             self.user = [self storeUserWithDictionary:dict withImageData:[self fetchUserImageDataWithDictionary:dict]];
             [self decrementNetworkCounter];
-
+            
             [self fetchAuthentications];
             [self fetchChannels];
-
+            
             break;
-        case ParserModeChannels:
-           LOG(@"CHANNEL array found: %@", array);
-           [self storePrivateChannelsWithArray: array];
-           NSArray *channels = [self retrieveChannels];
-        self.channel = [self getPublicChannel:0 fromArray:channels];
-           if (self.channel) {
-               [self loginComplete];
-           } else {
-               [NSException raise:@"unexpected" format:@"Couldn't Save channel!"];
-           }
-           break;
-        case ParserModeBroadcasts:
-            // For some reason, the compiler requires a log statement just after the 'case' statemnet.
-           LOG(@"woohoo");
-           [self storeBroadcastsWithArray: array channel: self.channel];
-           [[NSNotificationCenter defaultCenter] postNotificationName: @"ReceivedBroadcasts"
-                                                               object: self];
-           break;
-        default:
-            [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
-
-    }
-    _parserMode = ParserModeIdle;
-}
-
-- (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
-    switch (_parserMode) {
-        case ParserModeBroadcasts:
-            LOG(@"YAhoo");
-            NSString *error = [dict objectForKey: @"err"];
-            if (error) {
-                [NSException raise:@"unexpected" format:@"User not logged in!. Error: %@", error];
+        
+        case ParserModeChannels:;
+            
+            [self storePrivateChannelsWithArray: array];
+            NSArray *channels = [self retrieveChannels];
+            self.channel = [self getPublicChannel:0 fromArray:channels];
+            
+            if (self.channel) {
+                [self loginComplete];
             } else {
-                [NSException raise:@"unexpected" format:@"Should not get here"];
+                [NSException raise:@"unexpected" format:@"Couldn't Save channel!"];
             }
+            
             break;
-        case ParserModeUser:
-            LOG(@"USER object found: %@", dict);
+            
+        case ParserModeBroadcasts:;
+           
+            [self storeBroadcastsWithArray:array channel:self.channel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcasts" object:self];
+            
             break;
-        default:
+            
+        default:;
+            
             [NSException raise:@"unexpected" format:@"Invalid parser mode!"];
     }
+    
     _parserMode = ParserModeIdle;
 }
 
-- (void)dealloc {
+- (void)parser:(SBJsonStreamParser *)parser
+   foundObject:(NSDictionary *)dict
+{
+    [NSException raise:@"Unxpected JSON response" format:@"Received JSON object instead of array!"];
+}
+
+#pragma mark - Dealloc
+
+- (void)dealloc
+{
+    self.lastFetchBroadcasts =  nil;
+    self.user = nil;
+    
     [super dealloc];
 }
 

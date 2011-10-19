@@ -59,28 +59,29 @@ NSString *sampleJson = @"{ \"_id\" : 4e7179b8fa44c4166b005e8c, \"channel_id\" : 
 #pragma mark - Tests
 
 - (void)testLikeBroadcast {
-    // Find a broadcast
-    //NSDictionary *dict = [self sampleBroadcastDictionary];
-    //NSString *videoId = [dict objectForKey: @"_id"];
-
-    NSString *videoId = @"4e7179b8fa44c4166b005e8c";
-    Broadcast *original = [_loginHelper fetchBroadcastWithId: videoId];
-    NSLog(@"Original: %@", [original description]);
-    // Mark it liked
-    STAssertNotNil(videoId, @"VideoID should not be nil. Was: %@", videoId);
-    STAssertNotNil(original, @"Original should not be nil. Was: %@", original);
-    STAssertNotNil(original.shelbyId, @"Original id should not be nil. Was: %@", original.shelbyId);
-
-    // Tell the API
-    [_loginHelper likeBroadcastWithId: videoId];
-
-    // Get it back
-    Broadcast *newBroadcast = [_loginHelper fetchBroadcastWithId: videoId];
-    NSLog(@"newBroadcast: %@", [original description]);
-
-    STAssertEqualObjects(newBroadcast.shelbyId, videoId, @"Broadcast.shelbyId %@ should be == to original %@", newBroadcast.shelbyId, videoId);
-    // It should be marked liked
-    STAssertTrue([newBroadcast.liked boolValue], @"Video should come back as liked");
+//    // Find a broadcast
+//    //NSDictionary *dict = [self sampleBroadcastDictionary];
+//    //NSString *videoId = [dict objectForKey: @"_id"];
+//
+//    NSString *videoId = @"4e7179b8fa44c4166b005e8c";
+//    Broadcast *original = [_loginHelper fetchBroadcastWithId: videoId];
+//    NSLog(@"Original: %@", [original description]);
+//    // Mark it liked
+//    STAssertNotNil(videoId, @"VideoID should not be nil. Was: %@", videoId);
+//    STAssertNotNil(original, @"Original should not be nil. Was: %@", original);
+//    STAssertNotNil(original.shelbyId, @"Original id should not be nil. Was: %@", original.shelbyId);
+//
+//    // Tell the API
+//    [_loginHelper likeBroadcastWithId: videoId];
+//
+//    // Get it back
+//    Broadcast *newBroadcast = [_loginHelper fetchBroadcastWithId: videoId];
+//    NSLog(@"newBroadcast: %@", [original description]);
+//
+//    STAssertEqualObjects(newBroadcast.shelbyId, videoId, @"Broadcast.shelbyId %@ should be == to original %@", newBroadcast.shelbyId, videoId);
+//    // It should be marked liked
+//    STAssertTrue([newBroadcast.liked boolValue], @"Video should come back as liked");
+    return;
 }
 
 - (void)testShareBroadcast {

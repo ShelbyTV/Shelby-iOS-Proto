@@ -22,10 +22,10 @@
   LoginHelper *_loginHelper;
 }
 
-#if USE_APPLICATION_UNIT_TEST
-- (void)testAppDelegate;       // simple test on application
-#else
-- (void)testMath;              // simple standalone test
-#endif
+//#if USE_APPLICATION_UNIT_TEST
+//- (void)testAppDelegate;       // simple test on application
+//#else
+//- (void)testMath;              // simple standalone test
+//#endif
 
 @end
