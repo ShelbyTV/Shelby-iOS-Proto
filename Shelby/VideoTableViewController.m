@@ -14,6 +14,7 @@
 #import "GraphiteStats.h"
 #import "VideoTableViewCell.h"
 #import "User.h"
+#import "VideoTableViewCellConstants.h"
 
 @implementation VideoTableViewController
 
@@ -337,6 +338,8 @@
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
+    
+    // onboarding cell heights here derived from the NIB files.
     if (row == 0) {
         if (videoMode == 0 || videoMode == 1) {
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -354,14 +357,14 @@
     }
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        return 118;
+        return IPHONE_CELL_HEIGHT;
     }
     
     Video *video = [videoTableData videoAtIndex:row];
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
     } else {
-        return 232;
+        return IPAD_CELL_HEIGHT;
     }
 }
 

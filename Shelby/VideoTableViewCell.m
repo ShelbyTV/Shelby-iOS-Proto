@@ -165,11 +165,9 @@
 - (CGSize)getCommentTextSize:(NSString *)comment
 {
     CGFloat maxTextWidth = IPAD_VIDEO_WIDTH - IPAD_SHARER_NAME_ORIGIN_X - 7; // 7 is right margin?
-    CGSize textSize = [comment sizeWithFont:[UIFont fontWithName:@"Thonburi-Bold" size:16.0]
-                          constrainedToSize:CGSizeMake(maxTextWidth, 80)
-                              lineBreakMode:UILineBreakModeTailTruncation];
-    
-    return textSize;
+    return [comment sizeWithFont:[UIFont fontWithName:@"Thonburi-Bold" size:16.0]
+               constrainedToSize:CGSizeMake(maxTextWidth, 80)
+                   lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 - (void)sizeFramesForComments
@@ -231,11 +229,11 @@
     }
     _video = [video retain];
 
+    [self clearDupeData];
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         return;
     }
-    
-    [self clearDupeData];
     
     NSArray *dupes = [videoTableData videoDupes:_video];
     _dupeCount = [dupes count] - 1;
@@ -257,7 +255,7 @@
     for (Video *dupe in dupes) {
         if (!first) {
             UIImageView *dupeSharerImage = [[UIImageView alloc] initWithFrame:CGRectMake(IPAD_SHARER_ORIGIN_X, IPAD_SHARER_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight, IPAD_SHARER_WIDTH, IPAD_SHARER_HEIGHT)];
-            dupeSharerImage.image = dupe.sharerImage;
+            // actual sharer image gets set in drawRect, so that a setNeedsDisplay will pick up newly downloaded sharer images
             
             UILabel *dupeSharerName = [[UILabel alloc] initWithFrame:CGRectMake(IPAD_SHARER_NAME_ORIGIN_X, IPAD_SHARER_ORIGIN_Y + IPAD_VIDEO_FOOTER_HEIGHT + additionalHeight + 2, IPAD_SHARER_NAME_WIDTH, IPAD_SHARER_NAME_HEIGHT)];
             
@@ -340,26 +338,24 @@
 
 - (void)sharerNamePressed
 {
-    if(_dupeCount != 0) {
-        _video.allComments = !_video.allComments;
-        
-        // the Video* cache of height information that we can use in the table view controller
-        _video.cellHeightCurrent = _video.allComments ? _video.cellHeightAllComments : IPAD_CELL_HEIGHT;    
-        
-        // 0.275 seems to match the OS default fairly well for table cell height adjustment animation
-        [UIView animateWithDuration:0.275 animations:^{
-            [self sizeFramesForComments];
-        }
-        completion:^(BOOL finished){
-        // NOP
-        }];
-
-        // forces an update of all the table cell heights
-        [self setNeedsDisplay];
-        [viewController.tableView beginUpdates];
-        [viewController.tableView endUpdates];
+    if(_dupeCount == 0) {
+        return;
     }
-
+    
+    _video.allComments = !_video.allComments;
+    
+    // the Video* cache of height information that we can use in the table view controller
+    _video.cellHeightCurrent = _video.allComments ? _video.cellHeightAllComments : IPAD_CELL_HEIGHT;    
+    
+    // 0.275 seems to match the OS default fairly well for table cell height adjustment animation
+    [UIView animateWithDuration:0.275 animations:^{
+        [self sizeFramesForComments];
+    }];
+    
+    // forces an update of all the table cell heights
+    [self setNeedsDisplay];
+    [viewController.tableView beginUpdates];
+    [viewController.tableView endUpdates];
 }
 
 #pragma mark - Table Cell Methods
@@ -412,6 +408,22 @@
     }
     
     _sharerView.image = _video.sharerImage;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && _dupeCount != 0)
+    {
+        BOOL first = TRUE;
+        NSUInteger i = 0;
+        NSArray *dupes = [videoTableData videoDupes:_video];
+        for (Video *dupe in dupes) {
+            if (first) {
+                first = FALSE;
+                continue;
+            }
+            UIImageView *dupeSharerImage = [_dupeSharerImages objectAtIndex:i];
+            dupeSharerImage.image = dupe.sharerImage;
+            i++;
+        }
+    }
 
     if (IS_NULL(_video.sharerComment)) {
         _sharerComment.text = _video.title;
