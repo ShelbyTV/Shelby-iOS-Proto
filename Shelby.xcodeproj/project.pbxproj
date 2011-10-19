@@ -749,15 +749,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		42084C771427B35500C3C556 /* Abstract */ = {
-			isa = PBXGroup;
-			children = (
-				42084C8A1427DC3300C3C556 /* ConnectivityViewController.h */,
-				42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */,
-			);
-			name = Abstract;
-			sourceTree = "<group>";
-		};
 		427A622513F4717C00C945E2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -970,7 +961,8 @@
 		42C4C5E613E9A9800034AC97 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				42084C771427B35500C3C556 /* Abstract */,
+				42084C8A1427DC3300C3C556 /* ConnectivityViewController.h */,
+				42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */,
 				4200E50613F4263900609C3E /* SettingsViewController.h */,
 				4200E50713F4263900609C3E /* SettingsViewController.m */,
 				0A978AF514455B74005DFF18 /* ShareViewController.h */,
