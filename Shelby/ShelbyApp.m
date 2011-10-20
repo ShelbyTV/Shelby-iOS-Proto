@@ -9,7 +9,6 @@
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
 #import "ApiHelper.h"
-#import "GraphiteStats.h"
 #import "ShelbyAppDelegate.h"
 #import "TestFlight.h"
 
@@ -18,7 +17,6 @@
 @synthesize persistentStoreCoordinator;
 @synthesize loginHelper;
 @synthesize apiHelper;
-@synthesize graphiteStats;
 
 #pragma mark - Singleton
 
@@ -48,18 +46,12 @@ static ShelbyApp *gShelbyApp;
         
         self.loginHelper = [[[LoginHelper alloc] initWithContext:context] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
-        self.graphiteStats = [[[GraphiteStats alloc] init] autorelease];
         [self.apiHelper loadTokens];
         [self addNetworkObject: self.loginHelper];
         [self addNetworkObject: self.apiHelper];
     }
 
     return self;
-}
-
-- (void)resetGraphiteStats
-{
-    self.graphiteStats = [[[GraphiteStats alloc] init] autorelease];
 }
 
 #pragma mark - Network Activity

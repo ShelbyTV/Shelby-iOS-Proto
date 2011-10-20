@@ -36,7 +36,7 @@
     
     [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     if (NOT_NULL(counter)) {
-        [[ShelbyApp sharedApp].graphiteStats incrementCounter:counter];
+        [GraphiteStats incrementCounter:counter];
     }
 }
 
@@ -120,13 +120,13 @@
     NSString *networksString = nil;
     for (NSString *network in networks) {
         if ([network isEqualToString:@"twitter"]) {
-            [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaTwitterRequest"];
+            [GraphiteStats incrementCounter:@"shareViaTwitterRequest"];
         } else if ([network isEqualToString:@"facebook"]) {
-            [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaFacebookRequest"];
+            [GraphiteStats incrementCounter:@"shareViaFacebookRequest"];
         } else if ([network isEqualToString:@"tumblr"]) {
-            [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaTumblrRequest"];
+            [GraphiteStats incrementCounter:@"shareViaTumblrRequest"];
         } else if ([network isEqualToString:@"email"]) {
-            [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"shareViaEmailRequest"];
+            [GraphiteStats incrementCounter:@"shareViaEmailRequest"];
         }
         
         if (IS_NULL(networksString)) {

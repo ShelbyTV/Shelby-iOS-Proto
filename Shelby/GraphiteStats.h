@@ -9,15 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CFNetwork/CFNetwork.h>
 
-@interface GraphiteStats : NSObject
-{
-    NSString *              _hostName;
-    NSData *                _hostAddress;
-    NSUInteger              _port;
-    CFHostRef               _cfHost;
-    CFSocketRef             _cfSocket;
+@interface GraphiteStats : NSObject {
 }
 
-- (void)incrementCounter:(NSString *)counterName;
++ (void)incrementCounter:(NSString *)counterName;
 
 @end

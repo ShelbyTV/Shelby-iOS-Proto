@@ -102,7 +102,7 @@
 
 - (void)logout
 {
-    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoggedOut"];
+    [GraphiteStats incrementCounter:@"userLoggedOut"];
 
     [[ShelbyApp sharedApp].apiHelper clearTokens];
     self.user = nil;

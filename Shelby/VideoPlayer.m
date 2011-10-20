@@ -299,7 +299,7 @@ static const float kNextPrevXOffset        =  0.0f;
             // Load the video and play it.
             if (video.contentURL) {
                 [BroadcastApi watch:video];
-                [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"watchVideo"];
+                [GraphiteStats incrementCounter:@"watchVideo"];
                 _moviePlayer.contentURL = video.contentURL;
                 [self play];
                 _changingVideo = NO;
@@ -624,7 +624,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (IBAction)nextButtonWasPressed:(id)sender {
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
-    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"nextButtonPressed"];
+    [GraphiteStats incrementCounter:@"nextButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
     }
@@ -633,7 +633,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (IBAction)prevButtonWasPressed:(id)sender {
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
-    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"previousButtonPressed"];
+    [GraphiteStats incrementCounter:@"previousButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
     }

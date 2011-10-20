@@ -175,7 +175,7 @@
 
 - (void)userLoggedIn:(NSNotification*)aNotification
 {    
-    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoggedIn"];
+    [GraphiteStats incrementCounter:@"userLoggedIn"];
 
     [self allDone];
 }
@@ -190,7 +190,7 @@
 
 - (IBAction)loginWithFacebook:(id)sender
 {
-    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoginViaFacebookAttempt"];
+    [GraphiteStats incrementCounter:@"userLoginViaFacebookAttempt"];
 
     //[self allDone];
     [self beginLoginWithProvider: @"facebook"];
@@ -200,7 +200,7 @@
 
 - (IBAction)loginWithTwitter:(id)sender
 {
-    [[ShelbyApp sharedApp].graphiteStats incrementCounter:@"userLoginViaTwitterAttempt"];
+    [GraphiteStats incrementCounter:@"userLoginViaTwitterAttempt"];
 
     //[self allDone];
     //[self beginLogin];

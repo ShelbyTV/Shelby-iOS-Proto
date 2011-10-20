@@ -11,7 +11,6 @@
 
 @class LoginHelper;
 @class ApiHelper;
-@class GraphiteStats;
 
 /*
  * Global singleton for maintaining state.
@@ -25,7 +24,6 @@
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
-@property (nonatomic, retain) GraphiteStats *graphiteStats;
 
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 
@@ -33,6 +31,5 @@
 
 - (void)addNetworkObject:(id <NetworkObject>)networkObject;
 - (void)removeNetworkObject:(id <NetworkObject>)networkObject;
-- (void)resetGraphiteStats;
 
 @end

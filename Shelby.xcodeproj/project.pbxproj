@@ -211,7 +211,7 @@
 		0A12931413DCD300009D254F /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		0A12931513DCD300009D254F /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		0A12933913DD0DBF009D254F /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
-		0A12933A13DD0DC0009D254F /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
+		0A12933A13DD0DC0009D254F /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0A12934013DD2EE3009D254F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0A12934213DD2FFB009D254F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		0A155E75142908280010E503 /* FacebookSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookSignIn.png; path = Resources/Images/FacebookSignIn.png; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		0AB7BFB2142C421B00AB25B3 /* ButtonWatchLaterHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterHighlighted.png; path = Resources/Images/ButtonWatchLaterHighlighted.png; sourceTree = "<group>"; };
 		0AB7BFB3142C421B00AB25B3 /* ButtonWatchLaterNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterNormal.png; path = Resources/Images/ButtonWatchLaterNormal.png; sourceTree = "<group>"; };
 		0AC8496914303B1800FDF996 /* BroadcastApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastApi.h; sourceTree = "<group>"; };
-		0AC8496A14303B1800FDF996 /* BroadcastApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BroadcastApi.m; sourceTree = "<group>"; };
+		0AC8496A14303B1800FDF996 /* BroadcastApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BroadcastApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
 		0AC8496E1430524600FDF996 /* ApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		0AC8496F1430524600FDF996 /* ApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiHelper.m; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 		0AD9A38C13D53BD300EFECE0 /* ShelbyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelbyTests.h; sourceTree = "<group>"; };
 		0AD9A38E13D53BD300EFECE0 /* ShelbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelbyTests.m; sourceTree = "<group>"; };
 		0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0ADF88F01433ED1A001BCCF8 /* Bookmarklet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Bookmarklet.png; path = Resources/Images/Bookmarklet.png; sourceTree = "<group>"; };
 		0ADF890314344B02001BCCF8 /* TumblrActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrActive.png; path = Resources/Images/TumblrActive.png; sourceTree = "<group>"; };
 		0ADF890414344B02001BCCF8 /* TumblrDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrDisabled.png; path = Resources/Images/TumblrDisabled.png; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 		42925B1F1401C01B00333F46 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		42925B201401C01B00333F46 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		42925B2B1401C2AA00333F46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHelper.m; sourceTree = "<group>"; };
+		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		42A09B4813FC6CD100570DBE /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
 		42AB214A13FEE40500A8FC00 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "OAuth/NSData+Base64.h"; sourceTree = "<group>"; };
 		42AB214B13FEE40500A8FC00 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "OAuth/NSData+Base64.m"; sourceTree = "<group>"; };
@@ -411,7 +411,7 @@
 		42C4C59913E8AB5E0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		42C4C5E113E8D28B0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Login_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C5E813E9AA100034AC97 /* VideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
-		42C4C5E913E9AA100034AC97 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayer.m; sourceTree = "<group>"; };
+		42C4C5E913E9AA100034AC97 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoPlayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		42C4C60113E9CBE30034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/MainWindow_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C60513E9CCC00034AC97 /* NavigationViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationViewController_iPad.h; path = iPad/NavigationViewController_iPad.h; sourceTree = "<group>"; };
 		42C4C60713E9CCC00034AC97 /* ShelbyAppDelegate_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShelbyAppDelegate_iPad.h; path = iPad/ShelbyAppDelegate_iPad.h; sourceTree = "<group>"; };
