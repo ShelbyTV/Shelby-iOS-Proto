@@ -368,8 +368,7 @@
 - (void)receivedGetChannelsResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request;
 {
     [self decrementNetworkCounter];
-    NSString *string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    LOG(@"Got channels: %@", string);
+    LOG(@"Got channels: %@", [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]);
 
     _parserMode = ParserModeChannels;
     SBJsonStreamParserStatus status = [_parser parse: data];

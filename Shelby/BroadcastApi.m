@@ -115,7 +115,7 @@
 
 + (NSString *)parseNetworks:(NSArray *)networks
 {
-    NSAssert([networks count] > 0, @"Must pass in at least one network.");
+    assert([networks count] > 0);
     
     NSString *networksString = nil;
     for (NSString *network in networks) {

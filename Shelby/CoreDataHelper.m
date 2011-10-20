@@ -27,7 +27,7 @@
     if (NOT_NULL(existingEntities) && [existingEntities count] == 1) {
         return [existingEntities objectAtIndex:0];
     } else {
-        NSAssert(IS_NULL(existingEntities) || [existingEntities count] == 0, @"Found > 1 existing entities with same ID");
+        assert(IS_NULL(existingEntities) || [existingEntities count] == 0);
     }
     
     return nil;

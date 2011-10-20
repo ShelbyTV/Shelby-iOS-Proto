@@ -38,7 +38,7 @@
     if (bytesWritten > 0)
     {
         // Short writeswhich shouldn't happen for UDP anyway... In release builds it's okay to ignore. Just stats.
-        NSAssert((NSUInteger)bytesWritten == [data length], @"Stats data sent over UDP was incomplete!");
+        assert((NSUInteger)bytesWritten == [data length]);
     }
         
     close(sock);
