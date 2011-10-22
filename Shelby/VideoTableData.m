@@ -14,6 +14,7 @@
 #import "LoginHelper.h"
 #import "CoreDataHelper.h"
 #import "VideoTableViewCellConstants.h"
+#import "VideoGetter.h"
 
 #pragma mark - Constants
 
@@ -128,7 +129,7 @@
     }
 }
 
-- (void)getVideoContentURL:(Video *)videoData
+- (void)getVideoContentURLSimulator:(Video *)videoData
 {
     /*
      * Content URL
@@ -177,6 +178,30 @@
         
         videoData.contentURL = [NSURL URLWithString:movieURLString];
     }
+}
+
+- (void)getVideoContentURLDevice:(Video *)video
+{
+    [[VideoGetter singleton] processVideo:video];
+    NSLog(@"after processVideo");
+}
+
+- (NSURL *)getVideoContentURL:(Video *)videoData
+{
+    
+    NSURL *contentURL = videoData.contentURL;
+    
+    if (contentURL == nil) {
+#if TARGET_IPHONE_SIMULATOR
+        [self getVideoContentURLSimulator:videoData];
+#else
+        [self getVideoContentURLDevice:videoData];
+#endif
+        contentURL = videoData.contentURL;
+    }
+    
+    
+    return contentURL;
 }
 
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
@@ -489,7 +514,8 @@
         // Load up the new broadcasts.
         for (Broadcast *broadcast in broadcasts) {            
             // For now, we only handle YouTube.
-            if (IS_NULL(broadcast.provider) || ![broadcast.provider isEqualToString: @"youtube"]) {
+            if (IS_NULL(broadcast.provider) || !([broadcast.provider isEqualToString: @"youtube"] ||
+                                                 [broadcast.provider isEqualToString: @"vimeo"])) {
                 continue;
             }
 

@@ -25,5 +25,6 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+- (void)resetRootController;
 
 @end

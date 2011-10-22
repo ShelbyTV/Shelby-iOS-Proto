@@ -75,6 +75,7 @@
 		0ADF890514344B02001BCCF8 /* TumblrActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890314344B02001BCCF8 /* TumblrActive.png */; };
 		0ADF890614344B02001BCCF8 /* TumblrDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890414344B02001BCCF8 /* TumblrDisabled.png */; };
 		0ADF890914344B10001BCCF8 /* Logo_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890814344B10001BCCF8 /* Logo_iPad.png */; };
+		0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoGetter.m */; };
 		4200E50413F41F0C00609C3E /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50313F41F0C00609C3E /* Video.m */; };
 		4200E50913F4263900609C3E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50713F4263900609C3E /* SettingsViewController.m */; };
 		4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */; };
@@ -217,7 +218,7 @@
 		0A155E75142908280010E503 /* FacebookSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookSignIn.png; path = Resources/Images/FacebookSignIn.png; sourceTree = "<group>"; };
 		0A155E76142908280010E503 /* TwitterSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterSignIn.png; path = Resources/Images/TwitterSignIn.png; sourceTree = "<group>"; };
 		0A220C9513DE8193004BE680 /* VideoTableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableData.h; sourceTree = "<group>"; };
-		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableData.m; sourceTree = "<group>"; };
+		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoTableData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeartPurple.png; path = Resources/Images/ButtonHeartPurple.png; sourceTree = "<group>"; };
 		0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCellConstants.h; sourceTree = "<group>"; };
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
@@ -284,6 +285,8 @@
 		0ADF890314344B02001BCCF8 /* TumblrActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrActive.png; path = Resources/Images/TumblrActive.png; sourceTree = "<group>"; };
 		0ADF890414344B02001BCCF8 /* TumblrDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrDisabled.png; path = Resources/Images/TumblrDisabled.png; sourceTree = "<group>"; };
 		0ADF890814344B10001BCCF8 /* Logo_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo_iPad.png; path = Resources/Images/Logo_iPad.png; sourceTree = "<group>"; };
+		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0AEFC39B144FD65D00FC9015 /* VideoGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4200E50213F41F0C00609C3E /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		4200E50313F41F0C00609C3E /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		4200E50613F4263900609C3E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -670,6 +673,8 @@
 				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
 				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
 				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
+				0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */,
+				0AEFC39B144FD65D00FC9015 /* VideoGetter.m */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
 			);
 			path = Shelby;
@@ -1087,7 +1092,7 @@
 		0AD9A34713D53BD200EFECE0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0420;
 			};
 			buildConfigurationList = 0AD9A34A13D53BD200EFECE0 /* Build configuration list for PBXProject "Shelby" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1312,6 +1317,7 @@
 				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
 				0A978AF714455B74005DFF18 /* ShareViewController.m in Sources */,
+				0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,6 +1547,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1561,6 +1568,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1585,6 +1593,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1607,6 +1616,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",

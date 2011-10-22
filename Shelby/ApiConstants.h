@@ -25,7 +25,7 @@
 #define kUserUrl               @"http://api.shelby.tv/v2/users.json"
 #define kChannelsUrl           @"http://api.shelby.tv/v2/channels.json"
 #define kBroadcastUrl          @"http://api.shelby.tv/v2/broadcasts/%@.json"
-#define kBroadcastsUrl         @"http://api.shelby.tv/v2/channels/%@/broadcasts.json"
+#define kBroadcastsUrl         @"http://api.shelby.tv/v2/channels/%@/broadcasts.json?video_player=youtube,vimeo"
 #define kSocializationsUrl     @"http://api.shelby.tv/v2/socializations.json"
 #define kAuthenticationsUrl    @"http://api.shelby.tv/v2/authentications.json"
 

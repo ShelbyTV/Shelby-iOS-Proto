@@ -16,6 +16,7 @@
 #import "BroadcastApi.h"
 #import "Video.h"
 #import "ShareViewController.h"
+#import "VideoGetter.h"
 
 @implementation NavigationViewController
 
@@ -79,6 +80,7 @@
         self.shareView = shareView;
         self.shareView.view.hidden = YES;
         [self.view addSubview:self.shareView.view];
+        [self.view addSubview:[[VideoGetter singleton] getView]];
     }
     return self;
 }
@@ -86,18 +88,6 @@
 
 #pragma mark - 
 
-- (void)playVideo:(Video *)video
-{
-    LOG(@"playVideo: %@", video);
-    if (video == nil) {
-        return;
-    }
-    
-    // Make videoPlayer visible. Really only does something on iPhone.
-    _videoPlayer.hidden = NO;
-    
-    [_videoPlayer playVideo: video];
-}
 
 - (void)updateAuthorizations:(User *)user
 {
@@ -367,6 +357,10 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)playVideo:(Video *)video
+{
 }
 
 @end

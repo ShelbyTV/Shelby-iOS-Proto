@@ -261,6 +261,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)playVideo:(Video *)video
 {
+    NSLog(@"playVideo:");
     @synchronized(self) {
         
         if (NOT_NULL(video)) {
@@ -301,6 +302,7 @@ static const float kNextPrevXOffset        =  0.0f;
                 [BroadcastApi watch:video];
                 [GraphiteStats incrementCounter:@"watchVideo"];
                 _moviePlayer.contentURL = video.contentURL;
+                NSLog(@"playVideo calling [self play]");
                 [self play];
                 _changingVideo = NO;
             }
@@ -311,15 +313,20 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)play {
+    NSLog(@"[self play]");
+    _lastDidFinish = CACurrentMediaTime(); // need better variable name
+    NSLog(@"lastDidFinish = %f", _lastDidFinish);
     [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
     [_moviePlayer play];
     _paused = FALSE;
 }
 
 - (void)pause {
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
-    [_moviePlayer pause];
-    _paused = TRUE;
+    if (!_paused) {
+        [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
+        [_moviePlayer pause];
+        _paused = TRUE;
+    }
 }
 
 - (void)stop {
@@ -405,7 +412,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)checkAutoSkip
 {
     double now = CACurrentMediaTime();
-    if (NOT_NULL(self.currentVideo) && IS_NULL(self.currentVideo.contentURL) && now - _lastPlayVideo >= 4) {
+    if (NOT_NULL(self.currentVideo) && IS_NULL(self.currentVideo.contentURL) && now - _lastPlayVideo >= 5.25) {
         if (self.delegate) {
             [self.delegate videoPlayerVideoDidFinish: self];
         }
@@ -425,8 +432,8 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-- (void)hideControls {
-    // LOG(@"hideControls");
+- (void)hideControls
+{
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
             for (UIView *control in _controls) {
                 control.alpha = 0.0;
@@ -441,8 +448,8 @@ static const float kNextPrevXOffset        =  0.0f;
         }];
 }
 
-- (void)drawControls {
-    // LOG(@"drawControls");
+- (void)drawControls
+{
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
     
@@ -464,26 +471,29 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Notification Handlers
 
-- (void)movieDurationAvailable:(NSNotification*)notification {
+- (void)movieDurationAvailable:(NSNotification*)notification
+{
     _duration = [_moviePlayer duration];
     _controlBar.duration = _duration;
 }
 
-- (void)movieDidFinish:(NSNotification*)notification {
+- (void)movieDidFinish:(NSNotification*)notification
+{
     // As long as the user didn't stop the movie intentionally, inform our delegate.
     if (_changingVideo == YES) return;
 
-    if (_moviePlayer.playbackState == MPMoviePlaybackStatePaused) {
-        return;
-    }
-    
     // ignore loading errors... just make users hit next if this happens
     if (NOT_NULL(notification.userInfo) && (NOT_NULL([notification.userInfo objectForKey:@"error"]))) {
         return;
     }
- 
+    
+    NSLog(@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey: %@",
+          [notification.userInfo objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"]);
+    
     double now = CACurrentMediaTime();
-    if (self.delegate && (now - _lastDidFinish) > 1.0) {
+    NSLog(@"now = %f", now);
+    NSLog(@"lastDidFinish = %f", _lastDidFinish);
+    if (self.delegate && (now - _lastDidFinish) > 5.0) {
         _lastDidFinish = now;
         [self.delegate videoPlayerVideoDidFinish: self];
     }
@@ -622,6 +632,7 @@ static const float kNextPrevXOffset        =  0.0f;
 #pragma mark - Delegate Callbacks
 
 - (IBAction)nextButtonWasPressed:(id)sender {
+    NSLog(@"Next button pressed.");
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
     [GraphiteStats incrementCounter:@"nextButtonPressed"];

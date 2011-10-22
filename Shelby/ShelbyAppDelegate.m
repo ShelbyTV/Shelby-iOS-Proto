@@ -10,6 +10,7 @@
 #import "URLParser.h"
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
+#import "NavigationViewController.h"
 
 @implementation ShelbyAppDelegate
 
@@ -213,6 +214,71 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (UINavigationBar *)findNavigationBarInView:(UIView *)view
+{
+    UINavigationBar *button = nil;
+    
+    if ([view isKindOfClass:[UINavigationBar class]]) {
+        NSLog(@"Found Navigation Bar!");
+        return (UINavigationBar *)view;
+    }
+    
+    if (view.subviews && [view.subviews count] > 0) {
+        for (UIView *subview in view.subviews) {
+            button = [self findNavigationBarInView:subview];
+            if (button) return button;
+        }
+    }
+    
+    return button;
+}
+
+- (UIButton *)findButtonInView:(UIView *)view
+{
+    UIButton *button = nil;
+    
+    if ([view isKindOfClass:[UIButton class]]) {
+        NSLog(@"Found Button!");
+        return (UIButton *)view;
+    }
+    
+    if (view.subviews && [view.subviews count] > 0) {
+        for (UIView *subview in view.subviews) {
+            button = [self findButtonInView:subview];
+            if (button) return button;
+        }
+    }
+    
+    return button;
+}
+
+- (void)resetRootController
+{
+    if ([UIApplication sharedApplication].keyWindow != self.window) {
+        NSLog(@"Wrong keyWindow!");
+        for (UIView* view in [UIApplication sharedApplication].keyWindow.subviews) 
+        {
+            NSLog(@"Examining a view: %@", view);
+            UINavigationBar *bar = [self findNavigationBarInView:view];
+            UIButton *b = [self findButtonInView:bar];
+            [b sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+    
+//    NSLog(@"keyWindow before: %@!", [UIApplication sharedApplication].keyWindow);
+//    NSLog(@"keyWindow.rootViewController before: %@!", [UIApplication sharedApplication].keyWindow.rootViewController);
+//
+//    [self.window makeKeyAndVisible];
+//    //self.window.rootViewController = (UIViewController *)navigationViewController;
+//    
+//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    
+//    NSLog(@"keyWindow after: %@!", [UIApplication sharedApplication].keyWindow);
+//    NSLog(@"keyWindow.rootViewController after: %@!", [UIApplication sharedApplication].keyWindow.rootViewController);
+
+
 }
 
 @end
