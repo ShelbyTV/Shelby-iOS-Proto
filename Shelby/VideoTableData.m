@@ -23,22 +23,6 @@
 #define kMaxSharerImageHeight 45
 #define kMaxSharerImageWidth 45
 
-#pragma mark - VideoDataURLRequest
-
-@interface VideoDataURLRequest : NSURLRequest
-@property (nonatomic, retain) Video *video;
-@end
-
-@implementation VideoDataURLRequest
-@synthesize video;
-
-- (void) dealloc
-{
-    video = nil;
-    [super dealloc];
-}
-@end
-
 #pragma mark - VideoTableData
 
 @interface VideoTableData ()
@@ -229,6 +213,8 @@
 
 - (void)updateVideoTableCell:(Video *)video
 {
+    UITableViewCell *cell;
+    
     @synchronized(tableVideos)
     {
         int videoIndex = [tableVideos indexOfObject:video];
@@ -236,48 +222,58 @@
             return;
         }
         
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex + 1) inSection:0]];
-        [cell setNeedsDisplay];
+        cell = [[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex + 1) inSection:0]] retain] autorelease];
     }
+    
+    [cell performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
 }
 
-#pragma mark - Async Image Downloading
+#pragma mark - Image Downloading
 
-- (void)downloadVideoData:(Video *)video
-                  withURL:(NSURL *)url
-             withSelector:(SEL)selector
+- (void)downloadSharerImage:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    VideoDataURLRequest *req = [VideoDataURLRequest requestWithURL:url];
     
-    if (req) {
-        req.video = video;
-        [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:selector];
-        [self incrementNetworkCounter];
-    } // else we failed to send the request. Sharer image will just be blank. Not a very likely occurrance.
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSURLRequest *request = [NSURLRequest requestWithURL:video.sharerImageURL];
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (NOT_NULL(data)) {
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setUndoManager:nil];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
+        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+        video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
+                                                                                                                            kMaxSharerImageHeight)];
+        
+        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:video 
+                                           withSharerImageData:UIImagePNGRepresentation(video.sharerImage)
+                                                     inContext:context];
+        
+        [context release];
+        
+        [self updateVideoTableCell:video];
+    }
     
     [pool release];
 }
 
-- (void)downloadSharerImage:(Video *)video
-{
-    [self downloadVideoData:video withURL:video.sharerImageURL withSelector:@selector(receivedSharerImage:data:error:forRequest:)];
-}
-
 - (void)downloadVideoThumbnail:(Video *)video
 {
-    [self downloadVideoData:video withURL:video.thumbnailURL withSelector:@selector(receivedVideoThumbnail:data:error:forRequest:)];
-}
-
-- (void)receivedSharerImage:(NSURLResponse *)resp
-                       data:(NSData *)data
-                      error:(NSError *)error
-                 forRequest:(NSURLRequest *)request
-{
-    if (NOT_NULL(error)) {
-        LOG(@"receivedSharerImage error: %@", error);
-    } else {
-        
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSURLRequest *request = [NSURLRequest requestWithURL:video.thumbnailURL];
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (NOT_NULL(data)) {
         NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
         [context setUndoManager:nil];
@@ -285,52 +281,19 @@
         [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        ((VideoDataURLRequest*)request).video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
-                                                                                                                            kMaxSharerImageHeight)];
+        video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
+                                                                                                                               kMaxVideoThumbnailHeight)];
         
-        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
-                                           withSharerImageData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.sharerImage)
+        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:video 
+                                             withThumbnailData:UIImagePNGRepresentation(video.thumbnailImage)
                                                      inContext:context];
         
         [context release];
         
-        [self updateVideoTableCell:((VideoDataURLRequest*)request).video];
-    }
-    
-    [self decrementNetworkCounter];
-}
+        [self updateVideoTableCell:video];
+    } 
 
-- (void)receivedVideoThumbnail:(NSURLResponse *)resp
-                          data:(NSData *)data
-                         error:(NSError *)error
-                    forRequest:(NSURLRequest *)request
-{
-    //LOG(@"receivedVideoThumbnail");
-
-    if (NOT_NULL(error)) {
-        LOG(@"receivedVideoThumbnail error: %@", error);
-    } else {
-        
-        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-        [context setUndoManager:nil];
-        [context setPersistentStoreCoordinator:psCoordinator];
-        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-        
-        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        ((VideoDataURLRequest*)request).video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
-                                                                                                                                kMaxVideoThumbnailHeight)];
-        
-        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:((VideoDataURLRequest*)request).video 
-                                             withThumbnailData:UIImagePNGRepresentation(((VideoDataURLRequest*)request).video.thumbnailImage)
-                                                     inContext:context];
-        
-        [context release];
-        
-        [self updateVideoTableCell:((VideoDataURLRequest*)request).video];
-    }
-    
-    [self decrementNetworkCounter];
+    [pool release];
 }
 
 #pragma mark - Clearing
@@ -547,12 +510,12 @@
 
             // need the sharerImage even for dupes
             if (IS_NULL(video.sharerImage)) {
-                [self performSelectorInBackground:@selector(downloadSharerImage:) withObject:video];
+                [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video]];
             }
             
             // could optimize to not re-download for dupes, but don't bother for now...
             if (IS_NULL(video.thumbnailImage)) {
-                [self performSelectorInBackground:@selector(downloadVideoThumbnail:) withObject:video];
+                [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video]];
             }
         }
             
@@ -662,6 +625,14 @@
         tableVideos = [[NSMutableArray alloc] init];
         videoDupeDict = [[NSMutableDictionary alloc] init];
         uniqueVideoKeys = [[NSMutableArray alloc] init];
+        
+        operationQueue = [[NSOperationQueue alloc] init];
+        [operationQueue setMaxConcurrentOperationCount:8];
+        [operationQueue addObserver: self
+                         forKeyPath: @"operations"
+                            options: NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                            context: NULL
+         ];
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsNotification:)
@@ -686,6 +657,31 @@
         [[ShelbyApp sharedApp] addNetworkObject: self];
     }
     return self;
+}
+
+#pragma mark - KVO
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                         change:(NSDictionary *)change context:(void *)context
+{
+    if (object == operationQueue && [keyPath isEqualToString:@"operations"]) {
+        
+        NSInteger operationCount = [operationQueue operationCount];
+
+        if (operationCount == 0) {
+            LOG(@"queue has completed");
+            if (self.delegate) {
+                // Inform the delegate
+                [self.delegate videoTableDataDidFinishRefresh: self];
+            }
+            self.networkCounter = 0;
+        } else {
+            self.networkCounter = operationCount;
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object
+                               change:change context:context];
+    }
 }
 
 @end

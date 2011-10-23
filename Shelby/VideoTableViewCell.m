@@ -382,8 +382,12 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    _videoView.image = _video.thumbnailImage;
-    
+    if (NOT_NULL(_video.thumbnailImage)) {
+        _videoView.image = _video.thumbnailImage;
+    } else {
+        _videoView.image = [UIImage imageNamed:@"VideoMissing"];
+    }
+        
     if ([_video.source isEqualToString:@"twitter"]) {
         if (!_video.isWatched) {
             _badgeView.image = [UIImage imageNamed:@"TwitterNew"];
@@ -407,7 +411,11 @@
         _badgeView.image = [UIImage imageNamed:@"Bookmarklet"];
     }
     
-    _sharerView.image = _video.sharerImage;
+    if (NOT_NULL(_video.sharerImage)) {
+        _sharerView.image = _video.sharerImage;
+    } else {
+        _sharerView.image = [UIImage imageNamed:@"PlaceholderFace"];
+    }
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && _dupeCount != 0)
     {
@@ -420,7 +428,11 @@
                 continue;
             }
             UIImageView *dupeSharerImage = [_dupeSharerImages objectAtIndex:i];
-            dupeSharerImage.image = dupe.sharerImage;
+            if (NOT_NULL(dupe.sharerImage)) {
+                dupeSharerImage.image = dupe.sharerImage;
+            } else {
+                dupeSharerImage.image = [UIImage imageNamed:@"PlaceholderFace"];
+            }
             i++;
         }
     }

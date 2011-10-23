@@ -24,6 +24,7 @@
     NSMutableArray *tableVideos;
     NSMutableArray *uniqueVideoKeys;
     NSMutableDictionary *videoDupeDict;
+    NSOperationQueue *operationQueue;
 }
 
 @property (assign) id <VideoTableDataDelegate> delegate;

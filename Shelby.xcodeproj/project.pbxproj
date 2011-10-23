@@ -31,6 +31,7 @@
 		0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
+		0A67EB1C1454AB6200C96EBC /* VideoMissing.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A67EB1B1454AB6200C96EBC /* VideoMissing.png */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
 		0A74BB43142D45A500D65A02 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB42142D45A500D65A02 /* Icon@2x.png */; };
 		0A74BB48142D468200D65A02 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB47142D468200D65A02 /* iTunesArtwork.png */; };
@@ -233,6 +234,7 @@
 		0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchLaterOnboardCell_iPhone.xib; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
+		0A67EB1B1454AB6200C96EBC /* VideoMissing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VideoMissing.png; path = Resources/Images/VideoMissing.png; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		0A74BB42142D45A500D65A02 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		0A74BB47142D468200D65A02 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
@@ -285,7 +287,7 @@
 		0ADF890314344B02001BCCF8 /* TumblrActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrActive.png; path = Resources/Images/TumblrActive.png; sourceTree = "<group>"; };
 		0ADF890414344B02001BCCF8 /* TumblrDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrDisabled.png; path = Resources/Images/TumblrDisabled.png; sourceTree = "<group>"; };
 		0ADF890814344B10001BCCF8 /* Logo_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo_iPad.png; path = Resources/Images/Logo_iPad.png; sourceTree = "<group>"; };
-		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0AEFC39B144FD65D00FC9015 /* VideoGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4200E50213F41F0C00609C3E /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		4200E50313F41F0C00609C3E /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
@@ -947,6 +949,7 @@
 				427A621A13F46D5B00C945E2 /* CancelButton.jpg */,
 				427A621D13F46D5B00C945E2 /* TextFieldGray.png */,
 				0A539515144236BC004721B9 /* OnboardCellGradient.png */,
+				0A67EB1B1454AB6200C96EBC /* VideoMissing.png */,
 				0AC849651430354300FDF996 /* Unused */,
 			);
 			name = Images;
@@ -1227,6 +1230,7 @@
 				0A53951D144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib in Resources */,
 				0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */,
 				0A978AF914457F00005DFF18 /* ShareView_iPhone.xib in Resources */,
+				0A67EB1C1454AB6200C96EBC /* VideoMissing.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
