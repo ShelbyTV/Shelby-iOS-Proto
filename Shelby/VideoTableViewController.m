@@ -311,12 +311,6 @@
                 cell = watchLaterOnboardCell;
                 watchLaterOnboardCell = nil;
             }
-            User *user = [ShelbyApp sharedApp].loginHelper.user;
-            UIImageView *face = (UIImageView *)[cell viewWithTag:1];
-            face.image = [UIImage imageWithData:user.image];
-            face = (UIImageView *)[cell viewWithTag:2];
-            face.image = [UIImage imageWithData:user.image];
-            
             return cell;
         }
     }
@@ -341,7 +335,13 @@
     
     // onboarding cell heights here derived from the NIB files.
     if (row == 0) {
-        if (videoMode == 0 || videoMode == 1) {
+        if (videoMode == 0 ) {
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                return 111;
+            } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                return 71;
+            }
+        } else if (videoMode == 1) {
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 return 210;
             } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -349,9 +349,9 @@
             }
         } else if (videoMode == 2) {
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                return 396;
+                return 266;
             } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                return 286;
+                return 173;
             }
         }
     }
