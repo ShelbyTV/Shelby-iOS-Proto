@@ -14,6 +14,8 @@
 
 @implementation VideoGetter
 
+@synthesize currentVideo;
+
 static VideoGetter *singletonYouTubeGetter = nil;
 
 + (VideoGetter*)singleton
@@ -82,12 +84,12 @@ static VideoGetter *singletonYouTubeGetter = nil;
     {
         // wait a maximum of 8 seconds to get a response
         double now = CACurrentMediaTime();
-        if (now - _lastGetBegan > 8 && _currentVideo != nil)
+        if (now - _lastGetBegan > 8 && self.currentVideo != nil)
         {
             LOG(@"_lastGetBegan = %f", _lastGetBegan);
             LOG(@"currentTime = %f", now);
             LOG(@"REAPING JOB THAT WAS CURRENT TOO LONG");
-            _currentVideo = nil;
+            self.currentVideo = nil;
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             {
                 [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] resetRootController];
@@ -99,12 +101,12 @@ static VideoGetter *singletonYouTubeGetter = nil;
             
         }
         
-        if ([_videoQueue count] != 0 && _currentVideo == nil) {
+        if ([_videoQueue count] != 0 && self.currentVideo == nil) {
             LOG(@"PROCESSING ENQUEUED JOB");
             _lastGetBegan = CACurrentMediaTime();
             LOG(@"_lastGetBegan = %f", _lastGetBegan);
 
-            _currentVideo = (Video *)[_videoQueue objectAtIndex:0];
+            self.currentVideo = (Video *)[_videoQueue objectAtIndex:0];
             [_videoQueue removeObjectAtIndex:0];
             
             [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(getYouTubeURL) userInfo:nil repeats:NO];
@@ -123,7 +125,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
 
     @synchronized(self)
     {
-        if (_currentVideo != video && ![_videoQueue containsObject:video]) { 
+        if (self.currentVideo != video && ![_videoQueue containsObject:video]) { 
             [_videoQueue removeAllObjects];
             [_videoQueue insertObject:video atIndex:0];
         }
@@ -145,17 +147,17 @@ static VideoGetter *singletonYouTubeGetter = nil;
     static NSString *vimeoFormatString = @"<html><body><center><iframe id=\"player_1\" src=\"http://player.vimeo.com/video/%@?api=1&amp;player_id=player_1\"></iframe><script src=\"http://a.vimeocdn.com/js/froogaloop2.min.js?cdbdb\"></script><script>(function(){var vimeoPlayers = document.querySelectorAll('iframe');$f(vimeoPlayers[0]).addEvent('ready', ready);function ready(player_id) {$f(player_id).api('play');}})();</script></center></body></html>";
     
     @synchronized(self) {
-        if (_currentVideo == nil) {
+        if (self.currentVideo == nil) {
             return;
         }
         _lastGetBegan = CACurrentMediaTime();
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNotification:) name:nil object:nil];
                 
         NSString *htmlString;
-        if ([_currentVideo.provider isEqualToString:@"youtube"]) {
-            htmlString = [NSString stringWithFormat:youtubeFormatString, _currentVideo.providerId, _currentVideo.providerId];
-        } else if ([_currentVideo.provider isEqualToString:@"vimeo"]) {
-            htmlString = [NSString stringWithFormat:vimeoFormatString, _currentVideo.providerId];
+        if ([self.currentVideo.provider isEqualToString:@"youtube"]) {
+            htmlString = [NSString stringWithFormat:youtubeFormatString, self.currentVideo.providerId, self.currentVideo.providerId];
+        } else if ([self.currentVideo.provider isEqualToString:@"vimeo"]) {
+            htmlString = [NSString stringWithFormat:vimeoFormatString, self.currentVideo.providerId];
         }
         
         [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
@@ -185,25 +187,25 @@ static VideoGetter *singletonYouTubeGetter = nil;
                 break; // already seen
             }
             
-            [_seenPaths setObject:_currentVideo.providerId forKey:path];
+            [_seenPaths setObject:self.currentVideo.providerId forKey:path];
         }
         NSURL *contentURL = [NSURL URLWithString:path];
         
         @synchronized(self) {
-            if (_currentVideo == nil || _currentVideo.contentURL != nil) {
+            if (self.currentVideo == nil || self.currentVideo.contentURL != nil) {
                 break;
             }
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                _currentVideo.contentURL = contentURL;
+                self.currentVideo.contentURL = contentURL;
                 [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
             }
             [[NSNotificationCenter defaultCenter] removeObserver:self];
             LOG(@"posting ContentURLAvailable notification");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ContentURLAvailable"
                                                                 object:self
-                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:contentURL, @"contentURL", _currentVideo, @"video", nil]];
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:contentURL, @"contentURL", self.currentVideo, @"video", nil]];
             
-            _currentVideo = nil;
+            self.currentVideo = nil;
         }
     }
 

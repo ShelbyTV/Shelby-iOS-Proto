@@ -14,10 +14,11 @@
 {
     UIWebView *_webView;
     NSMutableArray *_videoQueue;
-    Video *_currentVideo;
     double _lastGetBegan;
     NSMutableDictionary *_seenPaths;
 }
+
+@property (nonatomic, retain) Video * currentVideo;
 
 + (VideoGetter*)singleton;
 - (void)processVideo:(Video *)video;
