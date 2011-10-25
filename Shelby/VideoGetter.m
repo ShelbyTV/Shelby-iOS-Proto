@@ -80,9 +80,9 @@ static VideoGetter *singletonYouTubeGetter = nil;
 {
     @synchronized(self)
     {
-        // wait a maximum of 5 seconds to get a response
+        // wait a maximum of 8 seconds to get a response
         double now = CACurrentMediaTime();
-        if (now - _lastGetBegan > 5 && _currentVideo != nil)
+        if (now - _lastGetBegan > 8 && _currentVideo != nil)
         {
             LOG(@"_lastGetBegan = %f", _lastGetBegan);
             LOG(@"currentTime = %f", now);

@@ -407,7 +407,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)checkAutoSkip
 {
     double now = CACurrentMediaTime();
-    if (NOT_NULL(self.currentVideo) && IS_NULL(self.currentVideo.contentURL) && now - _lastPlayVideo >= 5.25) {
+    if (NOT_NULL(self.currentVideo) && IS_NULL(self.currentVideo.contentURL) && now - _lastPlayVideo >= 8.25) {
         if (self.delegate) {
             [self.delegate videoPlayerVideoDidFinish: self];
         }
