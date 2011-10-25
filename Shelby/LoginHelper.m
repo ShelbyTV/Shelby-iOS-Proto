@@ -479,16 +479,20 @@
 
 - (void)storeBroadcastsWithArray:(NSArray *)array 
                          channel:(Channel *)newChannel
-{    
+{
+    NSMutableDictionary *newBroadcasts = [[[NSMutableDictionary alloc] init] autorelease];
+    
     for (NSDictionary *dict in array) {
         Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
-        
+
         if (NULL == upsert ) 
         {
             upsert = [NSEntityDescription
                       insertNewObjectForEntityForName:@"Broadcast"
                       inManagedObjectContext:_context];
         }
+        
+        [newBroadcasts setObject:upsert forKey:[dict objectForKey:@"_id"]];
         
         [upsert populateFromApiJSONDictionary: dict];
         
@@ -507,6 +511,55 @@
         }
         [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
+                                              inManagedObjectContext:_context];
+    
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel.public=0"];
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sorter]];
+    
+    NSArray *broadcasts = [_context executeFetchRequest:fetchRequest error:&error];
+    int numBroadcasts = [broadcasts count];
+    int numToRemove = numBroadcasts - 300;
+    int numRemoved = 0;
+    
+    if (numToRemove > 0) {
+        for (Broadcast *broadcast in broadcasts) {
+            if (numRemoved >= numToRemove) {
+                break;
+            }
+            
+            if ([newBroadcasts objectForKey:broadcast.shelbyId] != nil) {
+                continue; // don't remove anything Shelby just told us about
+            }
+            
+            [_context deleteObject:broadcast];
+            numRemoved++;
+        }
+        
+        if (numRemoved > 0) {
+            if (![_context save:&error]) {
+                NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+                if(detailedErrors != nil && [detailedErrors count] > 0) {
+                    for(NSError* detailedError in detailedErrors) {
+                        NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+                    }
+                } else {
+                    NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+                }
+                [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+            }
+        }
+    }
+    
+    [fetchRequest release];
+    [sorter release];
 }
 
 - (void)storeBroadcastVideo:(Video *)video 
