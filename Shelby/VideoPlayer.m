@@ -161,6 +161,17 @@ static const float kNextPrevXOffset        =  0.0f;
     // Timer to auto-skip video if we can't get a content URL
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkAutoSkip) userInfo:nil repeats:YES];
     
+    leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
+    leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    leftSwipeRecognizer.delaysTouchesBegan = YES;
+    
+    rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight)];
+    rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    rightSwipeRecognizer.delaysTouchesBegan = YES;
+    
+    [self addGestureRecognizer:leftSwipeRecognizer];
+    [self addGestureRecognizer:rightSwipeRecognizer];
+    
     [self addNotificationListeners];
 }
 
@@ -621,6 +632,26 @@ static const float kNextPrevXOffset        =  0.0f;
     _lastButtonPressOrControlsVisible = now;
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
+    }
+}
+
+#pragma mark - Swipe Handling
+
+- (void)swipeLeft
+{
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    if (self.delegate) {
+        [self.delegate videoPlayerPrevButtonWasPressed: self];
+    }
+}
+
+- (void)swipeRight
+{
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    if (self.delegate) {
+        [self.delegate videoPlayerNextButtonWasPressed: self];
     }
 }
 

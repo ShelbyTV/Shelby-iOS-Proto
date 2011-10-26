@@ -49,6 +49,9 @@
     UIButton *_nextButton;
     UIButton *_prevButton;
     
+    UISwipeGestureRecognizer *leftSwipeRecognizer;
+    UISwipeGestureRecognizer *rightSwipeRecognizer;
+    
     BOOL _fullscreen;
     BOOL _paused;
     
