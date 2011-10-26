@@ -38,7 +38,8 @@
     }
 
     [self.window addSubview: navigationViewController.view];
-
+    self.window.rootViewController = navigationViewController;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

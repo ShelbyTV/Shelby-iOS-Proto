@@ -132,6 +132,8 @@ static const float kNextPrevXOffset        =  0.0f;
     // Hide controls so we can render custom ones.
     _moviePlayer.controlStyle = MPMovieControlStyleNone;
 
+    _gestureView = [[UIView alloc] initWithFrame:self.bounds];
+    
     // Add views.
     [self addSubview: _moviePlayer.view];
 
@@ -140,6 +142,9 @@ static const float kNextPrevXOffset        =  0.0f;
     [self addSubview: _nextButton];
     [self addSubview: _prevButton];
     [self addSubview: _controlBar];
+    
+    // must be added last
+    [self addSubview:_gestureView];
 
     _controls = [[NSArray alloc] initWithObjects:
         _controlBar,
@@ -161,16 +166,16 @@ static const float kNextPrevXOffset        =  0.0f;
     // Timer to auto-skip video if we can't get a content URL
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkAutoSkip) userInfo:nil repeats:YES];
     
-    leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft)];
+    leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     leftSwipeRecognizer.delaysTouchesBegan = YES;
     
-    rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight)];
+    rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
     rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     rightSwipeRecognizer.delaysTouchesBegan = YES;
     
-    [self addGestureRecognizer:leftSwipeRecognizer];
-    [self addGestureRecognizer:rightSwipeRecognizer];
+    [_gestureView addGestureRecognizer:leftSwipeRecognizer];
+    [_gestureView addGestureRecognizer:rightSwipeRecognizer];
     
     [self addNotificationListeners];
 }
@@ -327,12 +332,12 @@ static const float kNextPrevXOffset        =  0.0f;
     _paused = FALSE;
 }
 
-- (void)pause {
-    if (!_paused) {
-        [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
-        [_moviePlayer pause];
-        _paused = TRUE;
-    }
+- (void)pause 
+{
+    NSLog(@"pause");
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
+    [_moviePlayer pause];
+    _paused = TRUE;
 }
 
 - (void)stop {
@@ -635,25 +640,6 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-#pragma mark - Swipe Handling
-
-- (void)swipeLeft
-{
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
-    if (self.delegate) {
-        [self.delegate videoPlayerPrevButtonWasPressed: self];
-    }
-}
-
-- (void)swipeRight
-{
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
-    if (self.delegate) {
-        [self.delegate videoPlayerNextButtonWasPressed: self];
-    }
-}
 
 #pragma mark - Delegate Callbacks
 
@@ -723,9 +709,15 @@ static const float kNextPrevXOffset        =  0.0f;
 
     const float titleBarHeight = 75.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
-
+    
     _moviePlayer.view.frame = self.bounds;
+    
+    CGRect gestureRect = frame;
+    gestureRect.origin.y = titleBarHeight;
+    gestureRect.size.height = height - titleBarHeight - [self controlBarHeight] - [self footerBarHeight];
 
+    _gestureView.frame = gestureRect;
+    
     self.titleBar.frame = CGRectMake(
             0,
             0,
@@ -779,6 +771,27 @@ static const float kNextPrevXOffset        =  0.0f;
     [_controlBar release];
     [_moviePlayer release];
     [super dealloc];
+}
+
+
+#pragma mark - Swipe Handling
+
+- (void)swipeLeft:(UIGestureRecognizer *)gestureRecognizer
+{
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    if (self.delegate) {
+        [self.delegate videoPlayerPrevButtonWasPressed: self];
+    }
+}
+
+- (void)swipeRight:(UIGestureRecognizer *)gestureRecognizer
+{
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    if (self.delegate) {
+        [self.delegate videoPlayerNextButtonWasPressed: self];
+    }
 }
 
 @end

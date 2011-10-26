@@ -363,4 +363,9 @@
 {
 }
 
+- (void)pauseCurrentVideo
+{
+    [_videoPlayer pause];
+}
+
 @end

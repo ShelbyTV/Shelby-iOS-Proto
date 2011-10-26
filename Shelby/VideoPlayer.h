@@ -49,6 +49,7 @@
     UIButton *_nextButton;
     UIButton *_prevButton;
     
+    UIView *_gestureView;
     UISwipeGestureRecognizer *leftSwipeRecognizer;
     UISwipeGestureRecognizer *rightSwipeRecognizer;
     

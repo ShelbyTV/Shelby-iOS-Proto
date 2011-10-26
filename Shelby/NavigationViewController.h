@@ -46,6 +46,7 @@
 - (IBAction)listButtonPressed:(id)sender;
 - (IBAction)favoritesButtonPressed:(id)sender;
 - (IBAction)watchLaterButtonPressed:(id)sender;
+- (void)pauseCurrentVideo;
 
 - (void)loadUserData;
 - (void)showLogoutAlert;
