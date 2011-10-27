@@ -55,36 +55,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-
-    // Release any cached data, images, etc that aren't in use.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    /*
-     * Even though normally I don't like programmatically checking for iPad vs. iPhone, an iPad
-     * or iPhone-specific subclass would only have this one method. Doesn't seem worth it.
-     *
-     * This may not be necessary -- just having this on the RootView might be enough?
-     */
-
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait &&
-            UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ||
-           (interfaceOrientation == UIInterfaceOrientationLandscapeRight &&
-            UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -94,34 +64,6 @@
     
     // Do any additional setup after loading the view from its nib.
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
-    LOG(@"viewWillAppear");
-    [super viewWillAppear: animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    LOG(@"viewDidAppear");
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    LOG(@"viewDidDisappear");
-}
-
-- (void) viewWillDisappear:(BOOL)animated
-{
-    LOG(@"viewWillDisappear");
-    [super viewWillDisappear: animated];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-
 }
 
 #pragma mark - Misc Methods
@@ -147,25 +89,6 @@
     }];
 }
 
-- (void)fadeIn
-{
-    [self fade: YES];
-}
-
-- (void)fadeOut
-{
-    [self fade: NO];
-}
-
-/**
- * Once we've completed logging in, this removes the view.
- */
-- (void)allDone
-{
-    [callbackObject performSelector:callbackSelector];
-    [self fadeOut];
-}
-
 - (void)beginLoginWithProvider:(NSString *)provider
 {
     [_loginHelper getRequestTokenWithProvider:provider];
@@ -176,14 +99,13 @@
 - (void)userLoggedIn:(NSNotification*)aNotification
 {    
     [GraphiteStats incrementCounter:@"userLoggedIn"];
-
-    [self allDone];
+    [callbackObject performSelector:callbackSelector];
+    [self fade:NO];
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
-    // Show the screen again.
-    [self fadeIn];
+    [self fade:YES];
 }
 
 #pragma mark - View Callbacks
@@ -191,22 +113,13 @@
 - (IBAction)loginWithFacebook:(id)sender
 {
     [GraphiteStats incrementCounter:@"userLoginViaFacebookAttempt"];
-
-    //[self allDone];
     [self beginLoginWithProvider: @"facebook"];
-
-    //    LOG(@"loginWithFace   book! username:%@ password:%@", [username text], [password text]);
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
     [GraphiteStats incrementCounter:@"userLoginViaTwitterAttempt"];
-
-    //[self allDone];
-    //[self beginLogin];
     [self beginLoginWithProvider: @"twitter"];
-
-    //    LOG(@"loginWithTwitter! username:%@ password:%@", [username text], [password text]);
 }
 
 @end

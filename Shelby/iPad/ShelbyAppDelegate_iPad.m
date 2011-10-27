@@ -21,32 +21,34 @@
     navigationViewController = [[NavigationViewController_iPad alloc] initWithNibName:@"Navigation_iPad" bundle:nil];
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
     navigationViewController.view.frame = frame;
+    
+    BOOL userAlreadyLoggedIn = [ShelbyApp sharedApp].loginHelper.loggedIn;
 
-    // If we're not logged in, let's ask the user to log in.
     loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPad"
                                                                 bundle:nil
                                                         callbackObject:navigationViewController
                                                       callbackSelector:@selector(loadUserData)];
     loginViewController.view.frame = navigationViewController.view.bounds;
+    
+    // If we're logged in, we can bypass login here and below...
+    if (userAlreadyLoggedIn) {
+        loginViewController.view.alpha = 0.0;
+        loginViewController.view.hidden = YES;
+    }
+    
     [loginViewController viewWillAppear: NO];
     [navigationViewController.view addSubview:loginViewController.view];
     [loginViewController viewDidAppear: NO];
 
-    if ([ShelbyApp sharedApp].loginHelper.loggedIn) {
-        // If we're logged in, we can bypass login.
-        [loginViewController allDone];
-    }
-
     [self.window addSubview: navigationViewController.view];
     self.window.rootViewController = navigationViewController;
-    
     [self.window makeKeyAndVisible];
+    
+    if (userAlreadyLoggedIn) {
+        [navigationViewController loadUserData];
+    }
+    
     return YES;
-}
-
-- (void)dealloc
-{
-    [super dealloc];
 }
 
 @end
