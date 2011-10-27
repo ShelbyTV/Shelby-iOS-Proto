@@ -12,9 +12,16 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+@interface VideoGetter () 
+
+@property (readwrite) NSInteger networkCounter;
+
+@end
+
 @implementation VideoGetter
 
 @synthesize currentVideo;
+@synthesize networkCounter;
 
 static VideoGetter *singletonYouTubeGetter = nil;
 
@@ -90,6 +97,8 @@ static VideoGetter *singletonYouTubeGetter = nil;
             LOG(@"currentTime = %f", now);
             LOG(@"REAPING JOB THAT WAS CURRENT TOO LONG");
             self.currentVideo = nil;
+            self.networkCounter = 0;
+
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             {
                 [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] resetRootController];
@@ -108,6 +117,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
 
             self.currentVideo = (Video *)[_videoQueue objectAtIndex:0];
             [_videoQueue removeObjectAtIndex:0];
+            self.networkCounter = 1;
             
             [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(getYouTubeURL) userInfo:nil repeats:NO];
         }
@@ -130,6 +140,8 @@ static VideoGetter *singletonYouTubeGetter = nil;
             [_videoQueue insertObject:video atIndex:0];
         }
     }
+    
+    [self checkQueue];
 }
 
 - (void)getYouTubeURL
@@ -206,6 +218,8 @@ static VideoGetter *singletonYouTubeGetter = nil;
                                                               userInfo:[NSDictionary dictionaryWithObjectsAndKeys:contentURL, @"contentURL", self.currentVideo, @"video", nil]];
             
             self.currentVideo = nil;
+            self.networkCounter = 0;
+
         }
     }
 

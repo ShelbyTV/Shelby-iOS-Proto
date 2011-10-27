@@ -282,7 +282,6 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)playVideo:(Video *)video
 {
-    NSLog(@"playVideo:");
     @synchronized(self) {
         
         if (NOT_NULL(video)) {
@@ -333,10 +332,9 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-- (void)play {
-    NSLog(@"[self play]");
+- (void)play
+{
     _lastDidFinish = CACurrentMediaTime(); // need better variable name
-    NSLog(@"lastDidFinish = %f", _lastDidFinish);
     [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
     [_moviePlayer play];
     _paused = FALSE;
@@ -349,7 +347,6 @@ static const float kNextPrevXOffset        =  0.0f;
     if (!_controlsVisible) {
         [self drawControls];
     }
-    NSLog(@"pause");
     [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     [_moviePlayer pause];
     _paused = TRUE;

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NetworkObject.h"
 
 @class Video;
 
-@interface VideoGetter : UIViewController <UIWebViewDelegate>
+@interface VideoGetter : UIViewController <UIWebViewDelegate, NetworkObject>
 {
     UIWebView *_webView;
     NSMutableArray *_videoQueue;
@@ -18,6 +19,7 @@
     NSMutableDictionary *_seenPaths;
 }
 
+@property (readonly) NSInteger networkCounter;
 @property (nonatomic, retain) Video * currentVideo;
 
 + (VideoGetter*)singleton;

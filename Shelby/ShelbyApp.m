@@ -10,6 +10,8 @@
 #import "LoginHelper.h"
 #import "ApiHelper.h"
 #import "ShelbyAppDelegate.h"
+#import "VIdeoGetter.h"
+
 #import "TestFlight.h"
 
 @implementation ShelbyApp
@@ -47,8 +49,9 @@ static ShelbyApp *gShelbyApp;
         self.loginHelper = [[[LoginHelper alloc] initWithContext:context] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
         [self.apiHelper loadTokens];
-        [self addNetworkObject: self.loginHelper];
-        [self addNetworkObject: self.apiHelper];
+        [self addNetworkObject:self.loginHelper];
+        [self addNetworkObject:self.apiHelper];
+        [self addNetworkObject:[VideoGetter singleton]];
     }
 
     return self;
