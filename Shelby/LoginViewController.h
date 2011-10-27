@@ -20,6 +20,8 @@
 
     // Actual login stuff
     LoginHelper *_loginHelper;
+    
+    IBOutlet UIWebView *_webView;
 }
     
 - (id)initWithNibName:(NSString *)nibNameOrNil
