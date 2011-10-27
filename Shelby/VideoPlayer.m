@@ -68,6 +68,15 @@ static const float kNextPrevXOffset        =  0.0f;
                name:MPMoviePlayerPlaybackDidFinishNotification
              object:nil];
     
+    // Listen for the end of the video.
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(movieStateChange:)
+     name:MPMoviePlayerPlaybackStateDidChangeNotification
+     object:nil];
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(likeVideoSucceeded:)
                                                  name:@"LikeBroadcastSucceeded"
@@ -88,6 +97,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)removeNotificationListeners {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieDurationAvailableNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
 }
 
 #pragma mark - Initialization
@@ -334,6 +344,11 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)pause 
 {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    if (!_controlsVisible) {
+        [self drawControls];
+    }
     NSLog(@"pause");
     [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     [_moviePlayer pause];
@@ -509,6 +524,15 @@ static const float kNextPrevXOffset        =  0.0f;
         [self.delegate videoPlayerVideoDidFinish: self];
     }
     
+}
+
+- (void)movieStateChange:(NSNotification*)notification
+{
+    MPMoviePlaybackState currentState = [_moviePlayer playbackState];
+    if (currentState == MPMoviePlaybackStateInterrupted ||
+        currentState == MPMoviePlaybackStatePaused) {
+        [self pause];
+    }
 }
 
 - (void)likeVideoSucceeded:(NSNotification *)notification
