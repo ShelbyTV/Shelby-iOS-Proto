@@ -11,6 +11,7 @@
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
 #import "NavigationViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation ShelbyAppDelegate
 
@@ -103,7 +104,11 @@
         if (days >= 1) {
             [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
         }
-    }                         
+    }
+    
+    NSError *setCategoryError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+    if (setCategoryError) { /* should really handle the error condition */ }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
