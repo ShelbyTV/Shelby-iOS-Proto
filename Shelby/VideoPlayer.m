@@ -149,13 +149,13 @@ static const float kNextPrevXOffset        =  0.0f;
 
     [self addSubview: self.titleBar];
     [self addSubview: self.footerBar];
-    [self addSubview: _nextButton];
-    [self addSubview: _prevButton];
     [self addSubview: _controlBar];
     
-    // must be added last
+    // must be added right before next/prev, which must be last
     [self addSubview:_gestureView];
-
+    [self addSubview: _nextButton];
+    [self addSubview: _prevButton];
+    
     _controls = [[NSArray alloc] initWithObjects:
         _controlBar,
         self.titleBar,
@@ -572,7 +572,7 @@ static const float kNextPrevXOffset        =  0.0f;
         NOT_NULL(notification.userInfo) && 
         self.currentVideo == [notification.userInfo objectForKey:@"video"]) 
     {
-        [self playVideo:self.currentVideo];
+        [self performSelectorOnMainThread:@selector(playVideo:) withObject:self.currentVideo waitUntilDone:NO];
     }
 
 }

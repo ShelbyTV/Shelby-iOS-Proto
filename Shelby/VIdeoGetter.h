@@ -11,11 +11,12 @@
 
 @class Video;
 
-@interface VideoGetter : UIViewController <UIWebViewDelegate, NetworkObject>
+@interface VideoGetter : NSObject <UIWebViewDelegate, NetworkObject>
 {
     UIWebView *_webView;
     NSMutableArray *_videoQueue;
     double _lastGetBegan;
+    double _lastGetEnded;
     NSMutableDictionary *_seenPaths;
 }
 

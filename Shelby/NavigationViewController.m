@@ -356,16 +356,38 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)playVideo:(Video *)video
-{
+    // we don't seem to be able to handle unloading / reloading from NIB
+    //[super didReceiveMemoryWarning];
 }
 
 - (void)pauseCurrentVideo
 {
     [_videoPlayer pause];
+}
+
+
+- (void)playVideo:(Video *)video
+{
+    
+    
+    LOG(@"playVideo: %@", video);
+    
+    if (video == nil) {
+        
+        return;
+        
+    }
+    
+    
+    
+    // Make videoPlayer visible. Really only does something on iPhone.
+    
+    _videoPlayer.hidden = NO;
+    
+    
+    
+    [_videoPlayer playVideo: video];
+    
 }
 
 @end

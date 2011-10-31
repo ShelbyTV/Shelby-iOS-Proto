@@ -81,8 +81,6 @@
     [self hideVideoPlayer];
 }
 
-- (void)playVideo:(Video *)video
-{
-}
+
 
 @end

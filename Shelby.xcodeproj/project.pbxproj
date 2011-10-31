@@ -17,6 +17,7 @@
 		0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12933A13DD0DC0009D254F /* VideoTableViewController.m */; };
 		0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934013DD2EE3009D254F /* AVFoundation.framework */; };
 		0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934213DD2FFB009D254F /* MediaPlayer.framework */; };
+		0A14C80D145C713400632FB0 /* ShelbyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A14C80C145C713400632FB0 /* ShelbyWindow.m */; };
 		0A155E77142908280010E503 /* FacebookSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A155E75142908280010E503 /* FacebookSignIn.png */; };
 		0A155E78142908280010E503 /* TwitterSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A155E76142908280010E503 /* TwitterSignIn.png */; };
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
@@ -216,6 +217,8 @@
 		0A12933A13DD0DC0009D254F /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0A12934013DD2EE3009D254F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0A12934213DD2FFB009D254F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		0A14C80B145C713400632FB0 /* ShelbyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelbyWindow.h; sourceTree = "<group>"; };
+		0A14C80C145C713400632FB0 /* ShelbyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelbyWindow.m; sourceTree = "<group>"; };
 		0A155E75142908280010E503 /* FacebookSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookSignIn.png; path = Resources/Images/FacebookSignIn.png; sourceTree = "<group>"; };
 		0A155E76142908280010E503 /* TwitterSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterSignIn.png; path = Resources/Images/TwitterSignIn.png; sourceTree = "<group>"; };
 		0A220C9513DE8193004BE680 /* VideoTableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableData.h; sourceTree = "<group>"; };
@@ -673,6 +676,8 @@
 				42C4C5E613E9A9800034AC97 /* ViewControllers */,
 				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
 				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
+				0A14C80B145C713400632FB0 /* ShelbyWindow.h */,
+				0A14C80C145C713400632FB0 /* ShelbyWindow.m */,
 				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
 				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
 				0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */,
@@ -1322,6 +1327,7 @@
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
 				0A978AF714455B74005DFF18 /* ShareViewController.m in Sources */,
 				0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */,
+				0A14C80D145C713400632FB0 /* ShelbyWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1580,7 +1586,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "491D59B2-9D1E-4263-A952-A48521D08682";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "25549810-5C43-4E88-96CC-23AE57413827";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

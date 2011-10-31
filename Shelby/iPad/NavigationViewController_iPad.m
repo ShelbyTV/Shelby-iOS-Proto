@@ -180,14 +180,4 @@ static const float ANIMATION_TIME = 0.5f;
 
 }
 
-
-- (void)playVideo:(Video *)video
-{
-    LOG(@"playVideo: %@", video);
-    // Make videoPlayer visible. Really only does something on iPhone.
-    //    _videoPlayer.hidden = NO;
-    
-    [_videoPlayer playVideo: video];
-}
-
 @end

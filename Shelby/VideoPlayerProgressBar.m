@@ -153,8 +153,6 @@ static const float kProgressUpdateBuffer = 1.0f;
     frame.size.width += 30;
     _slider.frame = frame;
     
-    NSLog(@"slider frame is %f, %f", frame.size.width, frame.size.height);
-
     //float labelHeight = frame.size.height;
     CGRect tempFrame = self.bounds;
     tempFrame.origin.x = LABEL_OFFSET_X;

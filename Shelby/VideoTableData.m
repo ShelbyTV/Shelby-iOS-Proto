@@ -483,7 +483,7 @@
             }
 
             // Need provider (checked above) and providerId to be able to display the video
-            if (IS_NULL(broadcast.providerId)) {
+            if (IS_NULL(broadcast.providerId) || [broadcast.providerId isEqualToString:@""]) {
                 continue;
             }
             
@@ -510,16 +510,16 @@
 
             // need the sharerImage even for dupes
             if (IS_NULL(video.sharerImage)) {
-                [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video]];
+                [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
             }
             
             // could optimize to not re-download for dupes, but don't bother for now...
             if (IS_NULL(video.thumbnailImage)) {
-                [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video]];
+                [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
             }
         }
             
-        [self insertTableVideos];
+        [self performSelectorOnMainThread:@selector(insertTableVideos) withObject:nil waitUntilDone:NO];
 
     }
     

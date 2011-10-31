@@ -11,10 +11,12 @@
 
 @class LoginViewController;
 @class NavigationViewController;
+@class ShelbyWindow;
 
 @interface ShelbyAppDelegate : NSObject <UIApplicationDelegate> {
     LoginViewController *loginViewController;
     NavigationViewController *navigationViewController;
+    ShelbyWindow *shelbyWindow;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -25,6 +27,7 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-- (void)resetRootController;
+- (void)clearWebViewAnimations;
+- (void)resetShelbyWindowRotation;
 
 @end

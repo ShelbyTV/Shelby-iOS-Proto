@@ -108,6 +108,11 @@
     [self fade:YES];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    // do nothing, since we can't handle disappearing / reloading from NIB very well...
+}
+
 #pragma mark - View Callbacks
 
 - (IBAction)loginWithFacebook:(id)sender

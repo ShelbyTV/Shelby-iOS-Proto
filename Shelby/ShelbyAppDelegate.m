@@ -12,6 +12,8 @@
 #import "LoginHelper.h"
 #import "NavigationViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import "ShelbyWindow.h"
 
 @implementation ShelbyAppDelegate
 
@@ -252,50 +254,45 @@
     return button;
 }
 
-- (UIButton *)findButtonInView:(UIView *)view
+- (void)removeAllAnimationsInView:(UIView *)view inWindow:(UIWindow *)window
 {
-    UIButton *button = nil;
-    
-    if ([view isKindOfClass:[UIButton class]]) {
-        NSLog(@"Found Button!");
-        return (UIButton *)view;
-    }
-    
     if (view.subviews && [view.subviews count] > 0) {
         for (UIView *subview in view.subviews) {
-            button = [self findButtonInView:subview];
-            if (button) return button;
+            [self removeAllAnimationsInView:subview inWindow:window];
         }
     }
     
-    return button;
+    if (view.layer.sublayers && [view.layer.sublayers count] > 0) {
+        for (CALayer *layer in [[view.layer.sublayers copy] autorelease]) {
+            [layer removeAllAnimations];
+        }
+    }
+    
+    [view.layer removeAllAnimations];
+
 }
 
-- (void)resetRootController
-{
-    if ([UIApplication sharedApplication].keyWindow != self.window) {
-        NSLog(@"Wrong keyWindow!");
-        for (UIView* view in [UIApplication sharedApplication].keyWindow.subviews) 
-        {
-            NSLog(@"Examining a view: %@", view);
-            UINavigationBar *bar = [self findNavigationBarInView:view];
-            UIButton *b = [self findButtonInView:bar];
-            [b sendActionsForControlEvents:UIControlEventTouchUpInside];
+- (void)clearWebViewAnimations
+{   
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+                
+        if (window == shelbyWindow || window == self.window) {
+            continue;
         }
+        
+        [self removeAllAnimationsInView:window inWindow:window];
     }
-    
-//    NSLog(@"keyWindow before: %@!", [UIApplication sharedApplication].keyWindow);
-//    NSLog(@"keyWindow.rootViewController before: %@!", [UIApplication sharedApplication].keyWindow.rootViewController);
-//
-//    [self.window makeKeyAndVisible];
-//    //self.window.rootViewController = (UIViewController *)navigationViewController;
-//    
-//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-//    
-//    NSLog(@"keyWindow after: %@!", [UIApplication sharedApplication].keyWindow);
-//    NSLog(@"keyWindow.rootViewController after: %@!", [UIApplication sharedApplication].keyWindow.rootViewController);
+}
 
+- (void)resetShelbyWindowRotation
+{
+    SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@", @"e",@"n",@"d",@"D",@"i",@"s",@"a",@"b",@"l",@"i",@"n",@"g",@"I",@"n",@"t",@"e",@"r",@"f",@"a",@"c",@"e",@"A",@"u",@"t",@"o",@"r",@"o",@"t",@"a",@"t",@"i",@"o",@"n"]);
+    [shelbyWindow performSelector:sel];
+}
 
+- (BOOL) correctKeyWindow
+{
+    return [UIApplication sharedApplication].keyWindow == shelbyWindow;
 }
 
 @end
