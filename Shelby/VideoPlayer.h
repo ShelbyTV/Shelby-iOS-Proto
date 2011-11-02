@@ -55,6 +55,7 @@
     
     BOOL _fullscreen;
     BOOL _paused;
+    BOOL _stoppedIntentionally;
     
     BOOL _touchOccurring;
     
@@ -62,6 +63,8 @@
     MPMoviePlayerController *_moviePlayer;
 
     NSArray *_controls;
+    
+    UIView *_bgView;
 }
 
 @property (assign) id <VideoPlayerDelegate> delegate;

@@ -17,6 +17,7 @@
 #import "Video.h"
 #import "ShareViewController.h"
 #import "VideoGetter.h"
+#import "ShelbyAppDelegate.h"
 
 @implementation NavigationViewController
 
@@ -98,6 +99,8 @@
 
 - (void)loadUserData
 {
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+    
     User *user = [ShelbyApp sharedApp].loginHelper.user;
 
     for (NSString *auth in _authorizations) {

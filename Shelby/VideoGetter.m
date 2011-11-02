@@ -75,6 +75,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
         _webView.delegate = self;
         _webView.allowsInlineMediaPlayback = NO;
         _webView.mediaPlaybackRequiresUserAction = NO;
+        _webView.mediaPlaybackAllowsAirPlay = NO;
         _webView.hidden = YES;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         _videoQueue = [[NSMutableArray alloc] init];
@@ -219,7 +220,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
                 }
                 
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(resetWebView) userInfo:nil repeats:NO];
+                    [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(resetWebView) userInfo:nil repeats:NO];
                 } else {
                     [self resetWebView];
                 }

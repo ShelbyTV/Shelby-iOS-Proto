@@ -59,21 +59,21 @@ static const float kNextPrevXOffset        =  0.0f;
         addObserver:self
            selector:@selector(movieDurationAvailable:)
                name:MPMovieDurationAvailableNotification
-             object:nil];
+             object:_moviePlayer];
 
     // Listen for the end of the video.
     [[NSNotificationCenter defaultCenter]
         addObserver:self
            selector:@selector(movieDidFinish:)
                name:MPMoviePlayerPlaybackDidFinishNotification
-             object:nil];
+             object:_moviePlayer];
     
     // Listen for the end of the video.
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(movieStateChange:)
      name:MPMoviePlayerPlaybackStateDidChangeNotification
-     object:nil];
+     object:_moviePlayer];
     
     
     
@@ -110,6 +110,9 @@ static const float kNextPrevXOffset        =  0.0f;
     _touchOccurring = FALSE;
     _paused = FALSE;
     
+    _bgView = [[UIView alloc] initWithFrame:self.bounds];
+    _bgView.backgroundColor = [UIColor blackColor];
+    
     // Buttons
     _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
     [_nextButton setImage: [UIImage imageNamed: @"ButtonNext.png"]
@@ -141,10 +144,12 @@ static const float kNextPrevXOffset        =  0.0f;
     _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
     // Hide controls so we can render custom ones.
     _moviePlayer.controlStyle = MPMovieControlStyleNone;
+    _moviePlayer.allowsAirPlay = YES;
 
     _gestureView = [[UIView alloc] initWithFrame:self.bounds];
     
     // Add views.
+    [self addSubview:_bgView];
     [self addSubview: _moviePlayer.view];
 
     [self addSubview: self.titleBar];
@@ -286,6 +291,7 @@ static const float kNextPrevXOffset        =  0.0f;
         
         if (NOT_NULL(video)) {
             [self pause];
+            _stoppedIntentionally = FALSE;
             
             double now = CACurrentMediaTime();
             _lastPlayVideo = now;
@@ -353,6 +359,7 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 - (void)stop {
+    _stoppedIntentionally = TRUE;
     [_moviePlayer stop];
 }
 
@@ -504,6 +511,7 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     // As long as the user didn't stop the movie intentionally, inform our delegate.
     if (_changingVideo == YES) return;
+    if (_stoppedIntentionally == YES) return;
 
     // ignore loading errors... just make users hit next if this happens
     if (NOT_NULL(notification.userInfo) && (NOT_NULL([notification.userInfo objectForKey:@"error"]))) {
@@ -516,11 +524,12 @@ static const float kNextPrevXOffset        =  0.0f;
     double now = CACurrentMediaTime();
     NSLog(@"now = %f", now);
     NSLog(@"lastDidFinish = %f", _lastDidFinish);
-    if (self.delegate && (now - _lastDidFinish) > 5.0) {
+    if (self.delegate && (now - _lastDidFinish) > 5.0 && (now - _lastPlayVideo) > 5.0) {
         _lastDidFinish = now;
         [self.delegate videoPlayerVideoDidFinish: self];
+    } else {
+        [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(play) userInfo:nil repeats:NO];
     }
-    
 }
 
 - (void)movieStateChange:(NSNotification*)notification
@@ -589,10 +598,13 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Tick Methods
 
-- (void)updateProgress {
-  float currentTime = [_moviePlayer currentPlaybackTime];
-  // LOG(@"Current time: %f", currentTime);
-  _controlBar.progress = currentTime;
+- (void)updateProgress
+{
+    if (!_paused && !_stoppedIntentionally && !_changingVideo) {
+        float currentTime = [_moviePlayer currentPlaybackTime];
+        // LOG(@"Current time: %f", currentTime);
+        _controlBar.progress = currentTime;
+    }
 }
 
 - (void)timerAction:(NSTimer *)timer {
@@ -731,6 +743,7 @@ static const float kNextPrevXOffset        =  0.0f;
     const float titleBarHeight = 75.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     
+    _bgView.frame = self.bounds;
     _moviePlayer.view.frame = self.bounds;
     
     CGRect gestureRect = frame;

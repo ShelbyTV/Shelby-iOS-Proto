@@ -34,6 +34,8 @@
                                                       callbackSelector:@selector(loadUserData)];
     loginViewController.view.frame = navigationViewController.view.bounds;
 
+    [[ShelbyApp sharedApp] addNetworkObject:loginViewController];
+    
     // If we're logged in, we can bypass login here and below...
     if (userAlreadyLoggedIn) {
         loginViewController.view.alpha = 0.0;
@@ -46,8 +48,8 @@
 
     [shelbyWindow addSubview: navigationViewController.view];
     shelbyWindow.rootViewController = navigationViewController;
+    shelbyWindow.windowLevel = UIWindowLevelNormal;
     [shelbyWindow makeKeyAndVisible];
-    shelbyWindow.windowLevel = UIWindowLevelStatusBar;
     shelbyWindow.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     
     if (userAlreadyLoggedIn) {

@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ConnectivityViewController.h"
+#import "NetworkObject.h"
 
 @class LoginHelper;
 @class Reachability;
 
-@interface LoginViewController : ConnectivityViewController {
+@interface LoginViewController : ConnectivityViewController <UIWebViewDelegate, NetworkObject> {
     id callbackObject;
     SEL callbackSelector;
     
@@ -22,8 +23,11 @@
     LoginHelper *_loginHelper;
     
     IBOutlet UIWebView *_webView;
+    IBOutlet UIView *_webViewHolder;
 }
-    
+
+@property (readonly) NSInteger networkCounter;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
        callbackObject:(id)object
@@ -31,5 +35,7 @@
 
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;
+
+- (IBAction)closeWebView:(id)sender;
 
 @end

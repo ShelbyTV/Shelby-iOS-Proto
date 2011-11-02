@@ -12,8 +12,15 @@
 #import "ShelbyApp.h"
 #import "Reachability.h"
 #import "GraphiteStats.h"
+#import "ShelbyAppDelegate.h"
+
+@interface LoginViewController ()
+@property (readwrite) NSInteger networkCounter;
+@end
 
 @implementation LoginViewController
+
+@synthesize networkCounter;
 
 #pragma mark - Initialization
 
@@ -51,6 +58,11 @@
                                                  selector:@selector(networkInactiveNotification:)
                                                      name:@"ShelbyAppNetworkInactive"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(loginURLAvailable:)
+                                                     name:@"LoginURLAvailable"
+                                                   object:nil];
     }
     return self;
 }
@@ -60,6 +72,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _webView.delegate = self;
+    [_webView setMultipleTouchEnabled:YES];
+    _webView.scalesPageToFit = YES;
+
     _networkActivityViewParent = activityHolder;
     
     // Do any additional setup after loading the view from its nib.
@@ -85,12 +101,23 @@
     completion:^(BOOL finished){
        if (finished) {
            [self.view setHidden: hidden];
+           _webViewHolder.hidden = YES;
        }
     }];
 }
 
+- (void)clearAllCookies
+{
+    NSHTTPCookie *cookie;
+	for (cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+		//NSLog(@"%@", [cookie description]);
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+	}
+}
+
 - (void)beginLoginWithProvider:(NSString *)provider
 {
+    [self clearAllCookies];
     [_loginHelper getRequestTokenWithProvider:provider];
 }
 
@@ -105,12 +132,24 @@
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
+    [self clearAllCookies];
     [self fade:YES];
 }
 
 - (void)didReceiveMemoryWarning
 {
     // do nothing, since we can't handle disappearing / reloading from NIB very well...
+}
+
+- (void)loginURLAvailable:(NSNotification*)aNotification
+{   
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
+
+    NSLog(@"loginURL: %@", [aNotification.userInfo objectForKey:@"url"]);
+    [_webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
+                                            cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                        timeoutInterval:60.0]];
+    self.networkCounter = 1;
 }
 
 #pragma mark - View Callbacks
@@ -125,6 +164,23 @@
 {
     [GraphiteStats incrementCounter:@"userLoginViaTwitterAttempt"];
     [self beginLoginWithProvider: @"twitter"];
+}
+
+- (IBAction)closeWebView:(id)sender
+{
+    _webViewHolder.hidden = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{    
+    _webViewHolder.hidden = NO;
+    self.networkCounter = 0;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{    
+    _webViewHolder.hidden = YES;
+    self.networkCounter = 0;
 }
 
 @end

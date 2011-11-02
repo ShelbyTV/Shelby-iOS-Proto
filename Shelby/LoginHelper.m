@@ -131,9 +131,8 @@
     [handshake setConsumerKey:consumerKey];
     [handshake setConsumerSecret:consumerSecret];
 
-    [handshake beginHandshake];
-
     [self incrementNetworkCounter];
+    [handshake beginHandshake];
 }
 
 #pragma mark - User Authorization
@@ -146,7 +145,11 @@
         targetURL = [targetURL stringByAppendingFormat: @"&provider=%@", self.identityProvider];
     }
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:targetURL]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginURLAvailable"
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSURL URLWithString:targetURL], @"url", nil]];
+    
+    [self decrementNetworkCounter];
 }
 
 - (void)handshake:(OAuthHandshake *)handshake failedWithError:(NSError *) error
@@ -160,6 +163,7 @@
 
 - (void)verifierReturnedFromAuth:(NSString *)verifier
 {
+    [self incrementNetworkCounter];
     [handshake continueHandshakeWithVerifier:verifier];
 }
 
@@ -168,7 +172,6 @@
 - (void)handshake:(OAuthHandshake *)handshake authenticatedToken:(NSString *)token withSecret:(NSString *)tokenSecret;
 {
     [self decrementNetworkCounter];
-    
     LOG(@"Authenticated token! %@ : %@", token, tokenSecret);
 
     [[ShelbyApp sharedApp].apiHelper storeAccessToken:token accessTokenSecret:tokenSecret];
@@ -477,10 +480,70 @@
     }
 }
 
+- (NSString *)platform  
+{  
+    size_t size;  
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);  
+    char *machine = malloc(size);  
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);  
+    NSString *platform = [NSString stringWithCString:machine];  
+    free(machine);  
+    return platform;  
+}
+
+- (int)platformMinRAM
+{
+    NSString *platform = [self platform];
+    if ([platform hasPrefix:@"iPhone1,1"]) { // original iPhone
+        return 128;
+    }
+    if ([platform hasPrefix:@"iPhone1,2"]) { // iPhone 3G
+        return 128;
+    }
+    if ([platform hasPrefix:@"iPhone2,1"]) { // iPhone 3GS
+        return 256;
+    }
+    if ([platform hasPrefix:@"iPhone3,1"]) { // iPhone 3GS
+        return 512;
+    }
+    if ([platform hasPrefix:@"iPhone"]) { // later iPhones
+        return 512;
+    }
+    if ([platform hasPrefix:@"iPod1,1"]) { // iPod Touch 1G
+        return 128;
+    }
+    if ([platform hasPrefix:@"iPod2,1"]) { // iPod Touch 2G
+        return 128;
+    }
+    if ([platform hasPrefix:@"iPod3,1"]) { // iPod Touch 3G
+        return 256;
+    }
+    if ([platform hasPrefix:@"iPod4,1"]) { // iPod Touch 4G
+        return 256;
+    }
+    if ([platform hasPrefix:@"iPod"]) { // later iPods
+        return 512;
+    }
+    if ([platform hasPrefix:@"iPad1"]) { // iPad 1
+        return 256;
+    }
+    if ([platform hasPrefix:@"iPad2"]) { // iPad 2
+        return 512;
+    }
+    if ([platform hasPrefix:@"iPad"]) { // later iPads
+        return 512;
+    }
+    
+    // otherwise assume a lot of memory
+    return 512;
+}
+
 - (void)storeBroadcastsWithArray:(NSArray *)array 
                          channel:(Channel *)newChannel
 {
     NSMutableDictionary *newBroadcasts = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    int newBroadcastsCount = [array count];
     
     for (NSDictionary *dict in array) {
         Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
@@ -526,7 +589,19 @@
     
     NSArray *broadcasts = [_context executeFetchRequest:fetchRequest error:&error];
     int numBroadcasts = [broadcasts count];
-    int numToRemove = numBroadcasts - 300;
+    
+    int numToKeep;
+    
+    int minRAM = [self platformMinRAM];
+    if (minRAM <= 128) {
+        numToKeep = 60;
+    } else if (minRAM <= 256) {
+        numToKeep = 200;
+    } else {
+        numToKeep = 300;
+    }
+    
+    int numToRemove = numBroadcasts - numToKeep;
     int numRemoved = 0;
     
     if (numToRemove > 0) {
@@ -535,7 +610,7 @@
                 break;
             }
             
-            if ([newBroadcasts objectForKey:broadcast.shelbyId] != nil) {
+            if ((numToKeep > newBroadcastsCount) && [newBroadcasts objectForKey:broadcast.shelbyId] != nil) {
                 continue; // don't remove anything Shelby just told us about
             }
             

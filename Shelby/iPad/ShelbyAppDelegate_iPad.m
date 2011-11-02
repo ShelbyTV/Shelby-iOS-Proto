@@ -40,14 +40,16 @@
         loginViewController.view.hidden = YES;
     }
     
+    [[ShelbyApp sharedApp] addNetworkObject:loginViewController];
+    
     [loginViewController viewWillAppear: NO];
     [navigationViewController.view addSubview:loginViewController.view];
     [loginViewController viewDidAppear: NO];
     
     [shelbyWindow addSubview: navigationViewController.view];
     shelbyWindow.rootViewController = navigationViewController;
+    shelbyWindow.windowLevel = UIWindowLevelNormal;
     [shelbyWindow makeKeyAndVisible];
-    shelbyWindow.windowLevel = UIWindowLevelStatusBar;
     shelbyWindow.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     
     if (userAlreadyLoggedIn) {

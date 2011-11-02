@@ -29,5 +29,7 @@
 - (NSURL *)applicationDocumentsDirectory;
 - (void)clearWebViewAnimations;
 - (void)resetShelbyWindowRotation;
+- (void)raiseShelbyWindow;
+- (void)lowerShelbyWindow;
 
 @end

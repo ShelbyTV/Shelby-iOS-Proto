@@ -249,7 +249,7 @@
         
         // resize down to the largest size we use anywhere. this should speed up table view scrolling.
         video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
-                                                                                                                            kMaxSharerImageHeight)];
+                                                                                            kMaxSharerImageHeight)];
         
         [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:video 
                                            withSharerImageData:UIImagePNGRepresentation(video.sharerImage)

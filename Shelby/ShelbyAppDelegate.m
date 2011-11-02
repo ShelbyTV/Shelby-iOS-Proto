@@ -99,6 +99,10 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
 
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
+    [NSURLCache setSharedURLCache:sharedCache];
+    [sharedCache release];
+    
     // make sure we fetch new broadcasts as least once a day. should prevent video link timeouts...
     if ([[ShelbyApp sharedApp].loginHelper loggedIn] && NOT_NULL([ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts)) {
         NSTimeInterval diff = abs([[ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts timeIntervalSinceNow]);
@@ -288,6 +292,16 @@
 {
     SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@", @"e",@"n",@"d",@"D",@"i",@"s",@"a",@"b",@"l",@"i",@"n",@"g",@"I",@"n",@"t",@"e",@"r",@"f",@"a",@"c",@"e",@"A",@"u",@"t",@"o",@"r",@"o",@"t",@"a",@"t",@"i",@"o",@"n"]);
     [shelbyWindow performSelector:sel];
+}
+
+- (void)raiseShelbyWindow
+{
+    shelbyWindow.windowLevel = UIWindowLevelStatusBar;
+}
+
+- (void)lowerShelbyWindow
+{
+    shelbyWindow.windowLevel = UIWindowLevelNormal;
 }
 
 - (BOOL) correctKeyWindow
