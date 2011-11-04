@@ -35,6 +35,7 @@
     loginViewController.view.frame = navigationViewController.view.bounds;
 
     [[ShelbyApp sharedApp] addNetworkObject:loginViewController];
+    [[ShelbyApp sharedApp] addNetworkObject:navigationViewController];
     
     // If we're logged in, we can bypass login here and below...
     if (userAlreadyLoggedIn) {

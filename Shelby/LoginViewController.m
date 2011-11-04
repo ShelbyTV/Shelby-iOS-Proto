@@ -143,8 +143,6 @@
 
 - (void)loginURLAvailable:(NSNotification*)aNotification
 {   
-    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
-
     NSLog(@"loginURL: %@", [aNotification.userInfo objectForKey:@"url"]);
     [_webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
@@ -169,18 +167,21 @@
 - (IBAction)closeWebView:(id)sender
 {
     _webViewHolder.hidden = YES;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {    
     _webViewHolder.hidden = NO;
     self.networkCounter = 0;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {    
     _webViewHolder.hidden = YES;
     self.networkCounter = 0;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 @end

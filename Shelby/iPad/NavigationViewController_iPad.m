@@ -65,9 +65,8 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)slideTray:(BOOL)right {
     // Slide the right tray.
-    [self slideView: header right:right];
-    [self slideView: videoTableHolder right:right];
-    [self slideView: buttonsHolder right:right];
+    [self slideView:header right:right];
+    [self slideView:videoTableAndButtonsHolder right:right];
 
     CGRect tempFrame = _videoPlayer.frame;
     tempFrame.size.width += right ? -OFFSET : OFFSET;
@@ -149,14 +148,6 @@ static const float ANIMATION_TIME = 0.5f;
     }
 }
 
-#pragma mark - User Button Methods
-
-- (IBAction)userViewWasPressed:(id)sender
-{
-    //[self showSettings];
-    [self showLogoutAlert];
-}
-
 #pragma mark - VideoPlayerDelegate Methods
 
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
@@ -178,6 +169,18 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
 
+}
+
+- (void)slideSettings:(BOOL)becomingVisible
+{
+    CGRect temp = settingsView.frame;
+    if (becomingVisible) {
+        temp.origin = videoTableAndButtonsHolder.frame.origin;
+    } else {
+        temp.origin = videoTableAndButtonsHolder.frame.origin;
+        temp.origin.x += videoTableAndButtonsHolder.frame.size.width;
+    }
+    settingsView.frame = temp;
 }
 
 @end

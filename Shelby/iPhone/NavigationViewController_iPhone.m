@@ -65,12 +65,6 @@
 
 #pragma mark - User Button Methods
 
-- (IBAction)userViewWasPressed:(id)sender
-{
-    //[self showSettings];
-    [self showLogoutAlert];
-}
-
 - (void)hideVideoPlayer {
     _videoPlayer.hidden = YES;
     [_videoPlayer pause];
@@ -81,6 +75,17 @@
     [self hideVideoPlayer];
 }
 
-
+- (void)slideSettings:(BOOL)becomingVisible
+{
+    CGRect temp = settingsView.frame;
+    if (becomingVisible) {
+        temp.origin = videoTableAndButtonsHolder.frame.origin;
+        temp.origin.y -= 50;
+    } else {
+        temp.origin = videoTableAndButtonsHolder.frame.origin;
+        temp.origin.y += videoTableAndButtonsHolder.frame.size.height + 50;
+    }
+    settingsView.frame = temp;
+}
 
 @end

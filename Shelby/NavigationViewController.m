@@ -19,9 +19,14 @@
 #import "VideoGetter.h"
 #import "ShelbyAppDelegate.h"
 
+@interface NavigationViewController ()
+@property (readwrite) NSInteger networkCounter;
+@end
+
 @implementation NavigationViewController
 
 @synthesize shareView = _shareView;
+@synthesize networkCounter;
 
 #pragma mark - Initialization
 
@@ -95,6 +100,10 @@
     userTwitter.highlighted = [user.auth_twitter boolValue];
     userFacebook.highlighted = [user.auth_facebook boolValue];
     userTumblr.highlighted = [user.auth_tumblr boolValue];
+    
+    addTwitterButton.enabled = ![user.auth_twitter boolValue];
+    addFacebookButton.enabled = ![user.auth_facebook boolValue];
+    addTumblrButton.enabled = ![user.auth_tumblr boolValue];
 }
 
 - (void)loadUserData
@@ -121,21 +130,30 @@
     [videoTable loadVideos];
 }
 
-#pragma mark - Logout Functionality
+#pragma mark - User Button Methods
 
-- (void)showLogoutAlert
+- (void)toggleSettings
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log out?" message:@"Would you like to log out?"
-                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
-    [alert show];
-    [alert release];
+    if (!_settingsSliding) {
+        _settingsSliding = YES;
+        [UIView animateWithDuration:0.25 animations:^{
+            [self slideSettings:!_settingsVisible];
+        }
+                         completion:^(BOOL finished){
+                             _settingsSliding = NO;
+                         }];
+        _settingsVisible = !_settingsVisible;
+    }
 }
 
-#pragma mark - User Button Methods
+- (IBAction)backToVideos:(id)sender
+{
+    [self toggleSettings];
+}
 
 - (IBAction)userViewWasPressed:(id)sender
 {
-    // Override in subclass.
+    [self toggleSettings];
 }
 
 #pragma mark - ShareViewDelegate Methods
@@ -161,17 +179,49 @@
     self.shareView.view.hidden = YES;
 }
 
-#pragma mark - UIAlertViewDelegate Methods
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)logOut:(id)sender
 {
-    // Since we only have one alertview, let's be lazy and assume we have the right one.
-    if (buttonIndex == 1) {
-        // close the shareview, if visible
-        self.shareView.view.hidden = YES;
-        // actually log out
-        [[ShelbyApp sharedApp].loginHelper logout];
+    self.shareView.view.hidden = YES;
+    if (_settingsVisible) {
+        [self toggleSettings];
     }
+    [[ShelbyApp sharedApp].loginHelper logout];
+}
+
+- (void)showWebPage:(NSString *)urlString
+{    
+    [_videoPlayer pause];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                       timeoutInterval:60.0]];
+    self.networkCounter = 1;
+}
+
+- (void)addFacebook:(id)sender
+{
+    [self showWebPage:@"http://dev.shelby.tv/auth/facebook"];
+}
+
+- (void)addTwitter:(id)sender
+{
+    [self showWebPage:@"http://dev.shelby.tv/auth/twitter"];
+
+}
+
+- (void)addTumblr:(id)sender
+{
+    [self showWebPage:@"http://dev.shelby.tv/auth/tumblr"];
+}
+
+- (void)termsOfUse:(id)sender
+{
+    [self showWebPage:@"http://shelby.tv/tou.html"];
+
+}
+
+- (void)privacyPolicy:(id)sender
+{
+    [self showWebPage:@"http://shelby.tv/privacy.html"];
 }
 
 #pragma mark - VideoTableViewControllerDelegate Methods
@@ -278,6 +328,9 @@
     [super viewDidLoad];
     _networkActivityViewParent = activityHolder;
 
+    [_webView setMultipleTouchEnabled:YES];
+    _webView.scalesPageToFit = YES;
+    
     videoTable.tableView.frame = videoTableHolder.bounds;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         videoTable.tableView.rowHeight = 118;
@@ -368,29 +421,37 @@
     [_videoPlayer pause];
 }
 
-
 - (void)playVideo:(Video *)video
 {
-    
-    
     LOG(@"playVideo: %@", video);
-    
     if (video == nil) {
-        
         return;
-        
     }
     
-    
-    
     // Make videoPlayer visible. Really only does something on iPhone.
-    
     _videoPlayer.hidden = NO;
-    
-    
-    
     [_videoPlayer playVideo: video];
-    
+}
+
+- (IBAction)closeWebView:(id)sender
+{
+    _webViewHolder.hidden = YES;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{    
+    _webViewHolder.hidden = NO;
+    self.networkCounter = 0;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{    
+    _webViewHolder.hidden = YES;
+    self.networkCounter = 0;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+
 }
 
 @end

@@ -15,7 +15,7 @@
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, UIWebViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -37,10 +37,23 @@
 
     ShareViewController *_shareView;
 
+    BOOL _settingsSliding;
+    BOOL _settingsVisible;
+    IBOutlet UIView *settingsView;
+    IBOutlet UIButton *addFacebookButton;
+    IBOutlet UIButton *addTwitterButton;
+    IBOutlet UIButton *addTumblrButton;
+    
+    IBOutlet UIView *videoTableAndButtonsHolder;
+    
+    IBOutlet UIWebView *_webView;
+    IBOutlet UIView *_webViewHolder;
+    
     NSSet *_authorizations;
 }
 
 @property (nonatomic, retain) ShareViewController *shareView;
+@property (readonly) NSInteger networkCounter;
 
 - (IBAction)userViewWasPressed:(id)sender;
 - (IBAction)listButtonPressed:(id)sender;
@@ -50,5 +63,15 @@
 
 - (void)loadUserData;
 - (void)showLogoutAlert;
+
+- (IBAction)backToVideos:(id)sender;
+- (IBAction)addFacebook:(id)sender;
+- (IBAction)addTwitter:(id)sender;
+- (IBAction)addTumblr:(id)sender;
+- (IBAction)logOut:(id)sender;
+- (IBAction)termsOfUse:(id)sender;
+- (IBAction)privacyPolicy:(id)sender;
+
+- (IBAction)closeWebView:(id)sender;
 
 @end

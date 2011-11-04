@@ -190,7 +190,7 @@
 										<string key="NSFrame">{{10, 5}, {194, 70}}</string>
 										<reference key="NSSuperview" ref="262879220"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="374887894"/>
+										<reference key="NSNextKeyView"/>
 										<int key="IBUIContentMode">1</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -228,10 +228,10 @@
 							<object class="IBUIWebView" id="383960031">
 								<reference key="NSNextResponder" ref="110793009"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{320, 436}</string>
+								<string key="NSFrame">{{0, 44}, {320, 436}}</string>
 								<reference key="NSSuperview" ref="110793009"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="645729251"/>
+								<reference key="NSNextKeyView" ref="374887894"/>
 								<string key="NSReuseIdentifierKey">_NS:693</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -243,11 +243,11 @@
 							</object>
 							<object class="IBUIToolbar" id="374887894">
 								<reference key="NSNextResponder" ref="110793009"/>
-								<int key="NSvFlags">266</int>
-								<string key="NSFrame">{{0, 436}, {320, 44}}</string>
+								<int key="NSvFlags">290</int>
+								<string key="NSFrameSize">{320, 44}</string>
 								<reference key="NSSuperview" ref="110793009"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="645729251"/>
 								<string key="NSReuseIdentifierKey">_NS:371</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
