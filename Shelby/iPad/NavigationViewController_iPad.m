@@ -175,9 +175,9 @@ static const float ANIMATION_TIME = 0.5f;
 {
     CGRect temp = settingsView.frame;
     if (becomingVisible) {
-        temp.origin = videoTableAndButtonsHolder.frame.origin;
+        temp.origin = videoTableAndButtonsHolder.bounds.origin;
     } else {
-        temp.origin = videoTableAndButtonsHolder.frame.origin;
+        temp.origin = videoTableAndButtonsHolder.bounds.origin;
         temp.origin.x += videoTableAndButtonsHolder.frame.size.width;
     }
     settingsView.frame = temp;
