@@ -268,10 +268,18 @@
     
     if (view.layer.sublayers && [view.layer.sublayers count] > 0) {
         for (CALayer *layer in [[view.layer.sublayers copy] autorelease]) {
+            for (NSString *animationKey in layer.animationKeys) {
+                CAAnimation *animation = [layer animationForKey:animationKey];
+                NSLog(@"animationDelegate = %@", animation.delegate);
+            }
             [layer removeAllAnimations];
         }
     }
     
+    for (NSString *animationKey in view.layer.animationKeys) {
+        CAAnimation *animation = [view.layer animationForKey:animationKey];
+        NSLog(@"animationDelegate = %@", animation.delegate);
+    }
     [view.layer removeAllAnimations];
 
 }

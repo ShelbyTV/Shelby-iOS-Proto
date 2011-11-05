@@ -75,7 +75,9 @@ static VideoGetter *singletonYouTubeGetter = nil;
         _webView.delegate = self;
         _webView.allowsInlineMediaPlayback = NO;
         _webView.mediaPlaybackRequiresUserAction = NO;
-        _webView.mediaPlaybackAllowsAirPlay = NO;
+        if ([_webView respondsToSelector:@selector(setMediaPlaybackAllowsAirplay:)]) {
+            _webView.mediaPlaybackAllowsAirPlay = NO;
+        }
         _webView.hidden = YES;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         _videoQueue = [[NSMutableArray alloc] init];

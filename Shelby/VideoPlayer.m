@@ -144,7 +144,9 @@ static const float kNextPrevXOffset        =  0.0f;
     _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
     // Hide controls so we can render custom ones.
     _moviePlayer.controlStyle = MPMovieControlStyleNone;
-    _moviePlayer.allowsAirPlay = YES;
+    if ([_moviePlayer respondsToSelector:@selector(setAllowsAirPlay:)]) {
+        _moviePlayer.allowsAirPlay = YES;
+    }
 
     _gestureView = [[UIView alloc] initWithFrame:self.bounds];
     
