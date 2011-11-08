@@ -18,6 +18,7 @@
 #import "ShareViewController.h"
 #import "VideoGetter.h"
 #import "ShelbyAppDelegate.h"
+#import "ApiHelper.h"
 
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -199,18 +200,20 @@
 
 - (void)addFacebook:(id)sender
 {
-    [self showWebPage:@"http://dev.shelby.tv/auth/facebook"];
+    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/facebook?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
+    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/facebook?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
 - (void)addTwitter:(id)sender
 {
-    [self showWebPage:@"http://dev.shelby.tv/auth/twitter"];
-
+    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/twitter?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
+    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/twitter?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
 - (void)addTumblr:(id)sender
 {
-    [self showWebPage:@"http://dev.shelby.tv/auth/tumblr"];
+    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/tumblr?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
+    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/tumblr?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
 - (void)termsOfUse:(id)sender
