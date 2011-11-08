@@ -66,6 +66,10 @@
     NSArray *_controls;
     
     UIView *_bgView;
+    
+    Video *_currentVideo;
+    BOOL _currentVideoWatchLaterAtStart;
+    BOOL _currentVideoUnwatchLaterSent;
 }
 
 @property (assign) id <VideoPlayerDelegate> delegate;
@@ -73,9 +77,10 @@
 @property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
 @property (nonatomic, retain) IBOutlet VideoPlayerFooterBar *footerBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
-@property (nonatomic, retain, readwrite) Video *currentVideo;
+@property (nonatomic, readwrite, retain) Video *currentVideo;
 
 - (void)setCurrentVideo:(Video *)currentVideo;
+- (Video *)getCurrentVideo;
 
 - (void)play;
 - (void)pause;

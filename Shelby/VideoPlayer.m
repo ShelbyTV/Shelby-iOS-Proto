@@ -44,11 +44,27 @@ static const float kNextPrevXOffset        =  0.0f;
 
 @implementation VideoPlayer
 
-@synthesize currentVideo;
 @synthesize delegate;
 @synthesize titleBar;
 @synthesize footerBar;
 @synthesize moviePlayer = _moviePlayer;
+@synthesize currentVideo = _currentVideo;
+
+- (void)setCurrentVideo:(Video *)currentVideo
+{
+    if (currentVideo == _currentVideo) {
+        return;
+    }
+    [_currentVideo release];
+    _currentVideo = [currentVideo retain];
+    _currentVideoWatchLaterAtStart = [_currentVideo isWatchLater];
+    _currentVideoUnwatchLaterSent = FALSE;
+}
+
+- (Video *)getCurrentVideo
+{
+    return _currentVideo;
+}
 
 #pragma mark - Notification Handling
 
@@ -631,9 +647,12 @@ static const float kNextPrevXOffset        =  0.0f;
         float currentTime = [_moviePlayer currentPlaybackTime];
         _controlBar.progress = currentTime;
         
-        if (NOT_NULL(currentVideo) && currentVideo.isWatchLater &&
+        if (NOT_NULL(_currentVideo) && _currentVideo.isWatchLater &&
+            _currentVideoWatchLaterAtStart && !_currentVideoUnwatchLaterSent &&
             _duration != 0 && (currentTime / _duration > 0.75)) {
             
+            [BroadcastApi unwatchLater:_currentVideo];
+            _currentVideoUnwatchLaterSent = TRUE;
         }
     }
 }
