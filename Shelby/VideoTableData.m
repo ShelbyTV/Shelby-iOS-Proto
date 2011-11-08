@@ -452,7 +452,7 @@
     @synchronized(tableVideos)
     {
         [self clearVideoTableWithArrayLockHeld];
-        [self insertTableVideos];
+        [self performSelectorOnMainThread:@selector(insertTableVideos) withObject:nil waitUntilDone:NO];
     }
 }
 
