@@ -578,6 +578,49 @@
     }
 }
 
+- (void)updateWatchLaterStatusForVideo:(Video *)video withStatus:(BOOL)status
+{
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setUndoManager:nil];
+    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    [context setPersistentStoreCoordinator:psCoordinator];
+    
+    video.isWatchLater = status;
+    
+    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                        withShelbyId:video.shelbyId
+                                                           inContext:context];
+    if (IS_NULL(broadcast)) {
+        [context release];
+        return;
+    }
+    
+    broadcast.watchLater = [NSNumber numberWithBool:status];
+    
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+    
+    [context release];
+}
+
+- (void)watchLaterSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        [self updateWatchLaterStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:TRUE];
+    }
+}
+
+- (void)unwatchLaterSucceeded:(NSNotification *)notification
+{
+    if (NOT_NULL(notification.userInfo)) {
+        [self updateWatchLaterStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:FALSE];
+    }
+}
+
 - (void)watchVideoSucceeded:(NSNotification *)notification
 {
     if (NOT_NULL(notification.userInfo)) {
@@ -648,6 +691,17 @@
                                                  selector:@selector(dislikeVideoSucceeded:)
                                                      name:@"DislikeBroadcastSucceeded"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(watchLaterSucceeded:)
+                                                     name:@"WatchLaterBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(unwatchLaterSucceeded:)
+                                                     name:@"UnwatchLaterBroadcastSucceeded"
+                                                   object:nil];
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(watchVideoSucceeded:)
