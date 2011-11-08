@@ -24,6 +24,8 @@
 		0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */; };
 		0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3E77B01434713500800018 /* iPadHeaderBackground.png */; };
 		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
+		0A44C4E014687DC500C97BA2 /* ButtonWatchLater.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */; };
+		0A44C4E114687DC500C97BA2 /* ButtonWatchLaterPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A44C4DF14687DC500C97BA2 /* ButtonWatchLaterPurple.png */; };
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
 		0A539516144236BC004721B9 /* OnboardCellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A539515144236BC004721B9 /* OnboardCellGradient.png */; };
 		0A53951914423AC6004721B9 /* LogoSquares.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951814423AC6004721B9 /* LogoSquares.png */; };
@@ -239,6 +241,8 @@
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
 		0A3E791014357D5600800018 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Libraries/TestFlight/libTestFlight.a; sourceTree = "<group>"; };
 		0A3E791314357D8100800018 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = Libraries/TestFlight/TestFlight.h; sourceTree = "<group>"; };
+		0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLater.png; path = Resources/Images/ButtonWatchLater.png; sourceTree = "<group>"; };
+		0A44C4DF14687DC500C97BA2 /* ButtonWatchLaterPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterPurple.png; path = Resources/Images/ButtonWatchLaterPurple.png; sourceTree = "<group>"; };
 		0A4DB3DC1432512D00618605 /* ApiMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiMutableURLRequest.h; sourceTree = "<group>"; };
 		0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiMutableURLRequest.m; sourceTree = "<group>"; };
 		0A539515144236BC004721B9 /* OnboardCellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OnboardCellGradient.png; path = Resources/Images/OnboardCellGradient.png; sourceTree = "<group>"; };
@@ -551,6 +555,8 @@
 				428B02B914217EB300C88063 /* SliderGray.png */,
 				428B02BA14217EB400C88063 /* SliderPurple.png */,
 				0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */,
+				0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */,
+				0A44C4DF14687DC500C97BA2 /* ButtonWatchLaterPurple.png */,
 			);
 			name = VideoPlayerControls;
 			sourceTree = "<group>";
@@ -1280,6 +1286,8 @@
 				0ABB3D511463047300D182F3 /* LogoutHighlighted.png in Resources */,
 				0ABB3D541463062E00D182F3 /* Legal.png in Resources */,
 				0ABB3D551463062E00D182F3 /* LegalHighlighted.png in Resources */,
+				0A44C4E014687DC500C97BA2 /* ButtonWatchLater.png in Resources */,
+				0A44C4E114687DC500C97BA2 /* ButtonWatchLaterPurple.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

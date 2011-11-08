@@ -111,6 +111,31 @@
                   withCounter:@"dislikedByOwnerRequest"];
 }
 
+#pragma mark - Watch Later
++ (void)watchLater:(Video *)video
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastUrl, video.shelbyId]];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
+    
+    [BroadcastApi makeRequest:req
+              withRequestType:@"WatchLaterBroadcast"
+                    withVideo:video 
+                     withBody:@"owner_watch_later=true" 
+                  withCounter:@"ownerWatchLaterRequest"];
+}
+
++ (void)unwatchLater:(Video *)video
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastUrl, video.shelbyId]];
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"PUT"];
+    
+    [BroadcastApi makeRequest:req
+              withRequestType:@"UnwatchLaterBroadcast"
+                    withVideo:video 
+                     withBody:@"owner_watch_later=false"
+                  withCounter:@"ownerUnwatchLaterRequest"];
+}
+
 #pragma mark - Share
 
 + (NSString *)parseNetworks:(NSArray *)networks

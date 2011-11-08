@@ -62,7 +62,6 @@
 - (void)pauseCurrentVideo;
 
 - (void)loadUserData;
-- (void)showLogoutAlert;
 
 - (IBAction)backToVideos:(id)sender;
 - (IBAction)addFacebook:(id)sender;
@@ -73,5 +72,8 @@
 - (IBAction)privacyPolicy:(id)sender;
 
 - (IBAction)closeWebView:(id)sender;
+
+- (void)slideSettings:(BOOL)becomingVisible;
+- (void)playVideo:(Video *)video;
 
 @end

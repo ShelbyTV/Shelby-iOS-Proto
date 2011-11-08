@@ -250,7 +250,7 @@
     Video *video = [videoTable getNextVideo];
 
     // Tell player to start playing new video.
-    [self playVideo: video];
+    [self playVideo:video];
 }
 
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer
@@ -258,7 +258,7 @@
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
     Video *video = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
-    [self playVideo: video];
+    [self playVideo:video];
 }
 
 - (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer
@@ -268,6 +268,16 @@
         [BroadcastApi dislike:video];
     } else {
         [BroadcastApi like:video];
+    }
+}
+
+- (void)videoPlayerWatchLaterButtonWasPressed:(VideoPlayer *)videoPlayer
+{
+    Video *video = _videoPlayer.currentVideo;
+    if ([videoPlayer isWatchLaterButtonSelected]) {
+        [BroadcastApi unwatchLater:video];
+    } else {
+        [BroadcastApi watchLater:video];
     }
 }
 
@@ -292,7 +302,7 @@
     // Fetch the video next in queue.
     Video *url = [videoTable getNextVideo];
     // Tell player to start playing new video.
-    [self playVideo: url];
+    [self playVideo:url];
 }
 
 #pragma mark - Button Handling
@@ -451,7 +461,11 @@
     _webViewHolder.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+}
 
+- (void)slideSettings:(BOOL)becomingVisible
+{
+    // implemented in subclasses
 }
 
 @end

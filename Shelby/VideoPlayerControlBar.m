@@ -69,6 +69,16 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     _favoriteButton.selected = selected;
 }
 
+- (BOOL)isWatchLaterButtonSelected
+{
+    return _watchLaterButton.selected;
+}
+
+- (void)setWatchLaterButtonSelected:(BOOL)selected
+{
+    _watchLaterButton.selected = selected;
+}
+
 - (void)setFullscreenButtonSelected:(BOOL)selected
 {
     _fullscreenButton.selected = selected;
@@ -107,19 +117,25 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
 
 - (IBAction)playButtonWasPressed:(id)sender {
     if (self.delegate) {
-        [self.delegate controlBarPlayButtonWasPressed: self];
+        [self.delegate controlBarPlayButtonWasPressed:self];
     }
 }
 
 - (IBAction)shareButtonWasPressed:(id)sender {
     if (self.delegate) {
-        [self.delegate controlBarShareButtonWasPressed: self];
+        [self.delegate controlBarShareButtonWasPressed:self];
     }
 }
 
 - (IBAction)favoriteButtonWasPressed:(id)sender {
     if (self.delegate) {
-        [self.delegate controlBarFavoriteButtonWasPressed: self];
+        [self.delegate controlBarFavoriteButtonWasPressed:self];
+    }
+}
+
+- (IBAction)watchLaterButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate controlBarWatchLaterButtonWasPressed:self];
     }
 }
 

@@ -6,7 +6,7 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#define LABEL_OFFSET_X 20
+#define LABEL_OFFSET_X 10
 #define LABEL_OFFSET_Y -2
 
 #import "VideoPlayerProgressBar.h"
@@ -47,6 +47,9 @@ static const float kProgressUpdateBuffer = 1.0f;
     _label.textColor = [UIColor whiteColor];
     _label.shadowColor = [UIColor blackColor];
     _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 17.0];
+    _label.minimumFontSize = 8;
+    _label.numberOfLines = 1;
+    _label.adjustsFontSizeToFitWidth = TRUE;
     _label.backgroundColor = [UIColor clearColor];
     
     [self addSubview: _slider];
@@ -157,6 +160,7 @@ static const float kProgressUpdateBuffer = 1.0f;
     CGRect tempFrame = self.bounds;
     tempFrame.origin.x = LABEL_OFFSET_X;
     tempFrame.origin.y = LABEL_OFFSET_Y;
+    tempFrame.size.width -= 30;
     _label.frame = tempFrame;
 }
 

@@ -40,7 +40,6 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)hideControls;
 - (void)fitTitleBarText;
 
-
 @end
 
 @implementation VideoPlayer
@@ -85,6 +84,16 @@ static const float kNextPrevXOffset        =  0.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(dislikeVideoSucceeded:)
                                                  name:@"DislikeBroadcastSucceeded"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(watchLaterVideoSucceeded:)
+                                                 name:@"WatchLaterBroadcastSucceeded"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(unwatchLaterVideoSucceeded:)
+                                                 name:@"UnwatchLaterBroadcastSucceeded"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -220,7 +229,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)reset
 {
     _changingVideo = YES;
-    self.currentVideo = NULL;
+    [self setCurrentVideo:NULL];
     
     // Change our titleBar
     //self.titleBar.title.text = video.sharerComment;
@@ -236,6 +245,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
     [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
     [_controlBar setFavoriteButtonSelected:NO];
+    [_controlBar setWatchLaterButtonSelected:NO];
     _changingVideo = NO;
 }
 
@@ -298,7 +308,7 @@ static const float kNextPrevXOffset        =  0.0f;
             double now = CACurrentMediaTime();
             _lastPlayVideo = now;
             
-            self.currentVideo = video;
+            [self setCurrentVideo:video];
             
             // Set internal lock so our notification doesn't go haywire.
             _changingVideo = YES;
@@ -322,6 +332,7 @@ static const float kNextPrevXOffset        =  0.0f;
             // Change our footerBar.
             self.footerBar.title.text = video.title;
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
+            [_controlBar setWatchLaterButtonSelected:[video isWatchLater]];
 
             // Reset our duration.
             _duration = 0.0f;
@@ -381,6 +392,11 @@ static const float kNextPrevXOffset        =  0.0f;
 - (BOOL)isFavoriteButtonSelected
 {
     return [_controlBar isFavoriteButtonSelected];
+}
+
+- (BOOL)isWatchLaterButtonSelected
+{
+    return [_controlBar isWatchLaterButtonSelected];
 }
 
 - (void)resumeAfterCloseShareView
@@ -543,7 +559,7 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-- (void)likeVideoSucceeded:(NSNotification *)notification
+- (void)likeVideoResponse:(NSNotification *)notification selected:(BOOL)like
 {
     @synchronized(self) {
         if (_changingVideo) {
@@ -554,13 +570,23 @@ static const float kNextPrevXOffset        =  0.0f;
             NOT_NULL(notification.userInfo) &&
             [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
-            [_controlBar setFavoriteButtonSelected:YES];
+            [_controlBar setFavoriteButtonSelected:like];
         }
-    }
+    } 
+}
+
+- (void)likeVideoSucceeded:(NSNotification *)notification
+{
+    [self likeVideoResponse:notification selected:TRUE];
 }
 
 - (void)dislikeVideoSucceeded:(NSNotification *)notification
 {    
+    [self likeVideoResponse:notification selected:FALSE];
+}
+
+- (void)watchLaterVideoResponse:(NSNotification *)notification selected:(BOOL)like
+{
     @synchronized(self) {
         if (_changingVideo) {
             return;
@@ -570,9 +596,19 @@ static const float kNextPrevXOffset        =  0.0f;
             NOT_NULL(notification.userInfo) &&
             [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
-            [_controlBar setFavoriteButtonSelected:NO];
+            [_controlBar setWatchLaterButtonSelected:like];
         }
-    }
+    } 
+}
+
+- (void)watchLaterVideoSucceeded:(NSNotification *)notification
+{
+    [self watchLaterVideoResponse:notification selected:TRUE];
+}
+
+- (void)unwatchLaterVideoSucceeded:(NSNotification *)notification
+{    
+    [self watchLaterVideoResponse:notification selected:FALSE];
 }
 
 - (void)contentURLAvailable:(NSNotification *)notification
@@ -585,17 +621,6 @@ static const float kNextPrevXOffset        =  0.0f;
     {
         [self performSelectorOnMainThread:@selector(playVideo:) withObject:self.currentVideo waitUntilDone:NO];
     }
-
-}
-
-#pragma mark - KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
-{
-    LOG(@"[VideoPlayer observeValueForKeyPath: %@]", keyPath);
 }
 
 #pragma mark - Tick Methods
@@ -604,8 +629,12 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     if (!_paused && !_stoppedIntentionally && !_changingVideo) {
         float currentTime = [_moviePlayer currentPlaybackTime];
-        // LOG(@"Current time: %f", currentTime);
         _controlBar.progress = currentTime;
+        
+        if (NOT_NULL(currentVideo) && currentVideo.isWatchLater &&
+            _duration != 0 && (currentTime / _duration > 0.75)) {
+            
+        }
     }
 }
 
@@ -664,6 +693,15 @@ static const float kNextPrevXOffset        =  0.0f;
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerLikeButtonWasPressed: self];
+    }
+}
+
+- (void)controlBarWatchLaterButtonWasPressed:(VideoPlayerControlBar *)controlBar {
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    // Inform our delegate
+    if (self.delegate) {
+        [self.delegate videoPlayerWatchLaterButtonWasPressed: self];
     }
 }
 
@@ -817,7 +855,7 @@ static const float kNextPrevXOffset        =  0.0f;
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
     if (self.delegate) {
-        [self.delegate videoPlayerPrevButtonWasPressed: self];
+        [self.delegate videoPlayerNextButtonWasPressed: self];
     }
 }
 
@@ -826,7 +864,7 @@ static const float kNextPrevXOffset        =  0.0f;
     double now = CACurrentMediaTime();
     _lastButtonPressOrControlsVisible = now;
     if (self.delegate) {
-        [self.delegate videoPlayerNextButtonWasPressed: self];
+        [self.delegate videoPlayerPrevButtonWasPressed: self];
     }
 }
 

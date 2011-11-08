@@ -24,6 +24,7 @@
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerLikeButtonWasPressed:(VideoPlayer *)videoPlayer;
+- (void)videoPlayerWatchLaterButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;
 
@@ -72,7 +73,9 @@
 @property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
 @property (nonatomic, retain) IBOutlet VideoPlayerFooterBar *footerBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
-@property (nonatomic, retain) Video *currentVideo;
+@property (nonatomic, retain, readwrite) Video *currentVideo;
+
+- (void)setCurrentVideo:(Video *)currentVideo;
 
 - (void)play;
 - (void)pause;
@@ -81,6 +84,7 @@
 - (void)reset;
 - (void)setFullscreen:(BOOL)fullscreen;
 - (BOOL)isFavoriteButtonSelected;
+- (BOOL)isWatchLaterButtonSelected;
 - (void)resumeAfterCloseShareView;
 
 @end

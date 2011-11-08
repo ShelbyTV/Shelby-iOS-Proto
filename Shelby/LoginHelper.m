@@ -26,6 +26,8 @@
 
 #import "GraphiteStats.h"
 
+#import <sys/sysctl.h>
+
 @interface LoginHelper ()
 
 @property (nonatomic, readwrite, retain) User *user;
@@ -486,8 +488,8 @@
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);  
     char *machine = malloc(size);  
     sysctlbyname("hw.machine", machine, &size, NULL, 0);  
-    NSString *platform = [NSString stringWithCString:machine];  
-    free(machine);  
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];  
+    free(machine);
     return platform;  
 }
 

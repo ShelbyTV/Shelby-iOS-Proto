@@ -17,12 +17,14 @@
 - (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar;
+- (void)controlBarWatchLaterButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar;
 - (void)controlBarChangedTimeManually:(VideoPlayerControlBar *)controlBar time:(float)time;
 
 @end
 
 @interface VideoPlayerControlBar : UIView <VideoProgressBarDelegate> {
+    IBOutlet UIButton *_watchLaterButton;
     IBOutlet UIButton *_favoriteButton;
     IBOutlet UIButton *_shareButton;
     IBOutlet UIButton *_playButton;
@@ -41,11 +43,15 @@
 
 - (BOOL)isFavoriteButtonSelected;
 - (void)setFavoriteButtonSelected:(BOOL)selected;
+- (BOOL)isWatchLaterButtonSelected;
+- (void)setWatchLaterButtonSelected:(BOOL)selected;
 - (void)setPlayButtonIcon:(UIImage *)image;
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;
 - (void)setFullscreenButtonSelected:(BOOL)selected;
 - (IBAction)favoriteButtonWasPressed:(id)sender;
+- (IBAction)watchLaterButtonWasPressed:(id)sender;
+
 
 @end
