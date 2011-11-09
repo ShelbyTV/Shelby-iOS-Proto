@@ -143,7 +143,7 @@
 
 - (NSString *)prettyDateDiff:(NSDate *)date
 {
-    NSTimeInterval diff = abs([date timeIntervalSinceNow]);
+    NSTimeInterval diff = MAX(-1 * [date timeIntervalSinceNow], 0);
     NSInteger days = floor(diff / 86400.0);
     
 	if (days == 0) {

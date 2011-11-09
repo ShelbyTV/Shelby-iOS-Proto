@@ -200,20 +200,20 @@
 
 - (void)addFacebook:(id)sender
 {
-    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/facebook?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
-    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/facebook?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
+    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=facebook&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
+    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=facebook&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
 - (void)addTwitter:(id)sender
 {
-    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/twitter?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
-    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/twitter?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
+    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=twitter&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
+    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=twitter&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
 - (void)addTumblr:(id)sender
 {
-    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/tumblr?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
-    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/tumblr?token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
+    LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=tumblr&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
+    [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=tumblr&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
 - (void)termsOfUse:(id)sender

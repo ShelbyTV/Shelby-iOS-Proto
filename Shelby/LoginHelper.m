@@ -217,7 +217,7 @@
         // Woot. Good to go!
         LOG(@"User Parsing Complete!");
     } else {
-        [NSException raise:@"unexpected" format:@"User JSON Parsing error! %@", _parser.error];
+        [self logout];
     }
 }
 

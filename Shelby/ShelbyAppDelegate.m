@@ -36,26 +36,38 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-  NSLog(@"Received URL: %@", url);
-  if ([[url scheme] isEqualToString:@"shelby"]) {
+    NSLog(@"Received URL: %@", url);
+    if (![[url scheme] isEqualToString:@"shelby"]) {
+        return NO;
+    } 
+    
     NSLog(@"Received shelby URL");
-    // Example:
-    // shelby://ios.shelby.tv/auth?oauth_token=WuhQpEQuyPaS1EczFnfRBA7ThXCwWerX3rhECBIz&oauth_verifier=NPkCVIlxYXYiBYYfGsB6
-
-    URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
-
-    NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];
-
-    LOG(@"oauthToken: %@", [parser valueForVariable: @"oauth_token"]);
-    LOG(@"oauthVerifier: %@", oauthVerifier);
-
-    // If we're coming from oAuth, capture the incoming verifier.
-    LoginHelper *loginHelper = [ShelbyApp sharedApp].loginHelper;
-    [loginHelper verifierReturnedFromAuth:oauthVerifier];
-
-    return YES;
-  }
-  return NO;
+    
+    if ([[url absoluteString] rangeOfString:@"add_provider"].location != NSNotFound) {
+        NSLog(@"Receiving add_provider response!");
+        
+        [[ShelbyApp sharedApp].loginHelper fetchAuthentications];
+        [navigationViewController closeWebView:self];
+        
+        return YES;
+    } else {
+        
+        // Example:
+        // shelby://ios.shelby.tv/auth?oauth_token=WuhQpEQuyPaS1EczFnfRBA7ThXCwWerX3rhECBIz&oauth_verifier=NPkCVIlxYXYiBYYfGsB6
+        
+        URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
+        
+        NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];
+        
+        LOG(@"oauthToken: %@", [parser valueForVariable: @"oauth_token"]);
+        LOG(@"oauthVerifier: %@", oauthVerifier);
+        
+        // If we're coming from oAuth, capture the incoming verifier.
+        [[ShelbyApp sharedApp].loginHelper verifierReturnedFromAuth:oauthVerifier];
+        
+        return YES;
+    }
+    return NO;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

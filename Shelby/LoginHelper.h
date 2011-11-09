@@ -45,6 +45,7 @@ typedef enum {
 - (void)logout;
 - (BOOL)loggedIn;
 
+- (void)fetchAuthentications;
 - (void)fetchBroadcasts;
 - (void)storeBroadcastVideo:(Video *)video withThumbnailData:(NSData *)thumbnailData inContext:(NSManagedObjectContext *)context;
 - (void)storeBroadcastVideo:(Video *)video withSharerImageData:(NSData *)sharerImageData inContext:(NSManagedObjectContext *)context;
