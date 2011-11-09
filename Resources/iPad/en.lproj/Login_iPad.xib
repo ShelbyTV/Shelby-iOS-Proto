@@ -190,7 +190,6 @@
 										<string key="NSFrame">{{53, 24}, {278, 68}}</string>
 										<reference key="NSSuperview" ref="428655892"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<int key="IBUIContentMode">4</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -232,7 +231,7 @@
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="IBUIToolbar" id="427684609">
 										<reference key="NSNextResponder" ref="942801637"/>
-										<int key="NSvFlags">266</int>
+										<int key="NSvFlags">290</int>
 										<string key="NSFrame">{{20, 20}, {944, 44}}</string>
 										<reference key="NSSuperview" ref="942801637"/>
 										<reference key="NSWindow"/>

@@ -640,7 +640,6 @@
 												<string key="NSFrame">{{169, 59}, {141, 44}}</string>
 												<reference key="NSSuperview" ref="161884673"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView"/>
 												<string key="NSReuseIdentifierKey">_NS:241</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -720,7 +719,7 @@
 									</object>
 									<object class="IBUIToolbar" id="390063115">
 										<reference key="NSNextResponder" ref="863444004"/>
-										<int key="NSvFlags">266</int>
+										<int key="NSvFlags">290</int>
 										<string key="NSFrame">{{20, 20}, {944, 44}}</string>
 										<reference key="NSSuperview" ref="863444004"/>
 										<reference key="NSWindow"/>
