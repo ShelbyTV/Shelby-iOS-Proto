@@ -95,6 +95,11 @@
                                                         ];
 }
 
+- (void)updateVideoTableCell:(Video *)video
+{
+    [videoTableData updateVideoTableCell:video];
+}
+
 #pragma mark - Next/Previous Videos
 
 - (Video *)videoAtTableDataIndex:(NSUInteger)index

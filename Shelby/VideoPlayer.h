@@ -27,6 +27,8 @@
 - (void)videoPlayerWatchLaterButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;
+- (void)updateVideoTableCell:(Video *)video;
+
 
 @end
 

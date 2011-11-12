@@ -382,6 +382,12 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && _video.currentlyPlaying) {
+        _bgView.image = [UIImage imageNamed:@"CellGradientPlaying.png"];
+    } else {
+        _bgView.image = [UIImage imageNamed:@"CellGradient.png"];
+    }
+    
     if (NOT_NULL(_video.thumbnailImage)) {
         _videoView.image = _video.thumbnailImage;
     } else {

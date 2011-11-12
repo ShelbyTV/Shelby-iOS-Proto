@@ -43,5 +43,6 @@
 
 - (void)clearVideoTableData;
 - (void)reloadTableVideos;
+- (void)updateVideoTableCell:(Video *)video;
 
 @end

@@ -308,6 +308,11 @@
     [self playVideo:url];
 }
 
+- (void)updateVideoTableCell:(Video *)video
+{
+    [videoTable updateVideoTableCell:video];
+}
+
 #pragma mark - Button Handling
 
 - (IBAction)listButtonPressed:(id)sender

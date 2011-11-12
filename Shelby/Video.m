@@ -31,6 +31,7 @@
 @synthesize cellHeightAllComments;
 @synthesize allComments;
 @synthesize cellHeightCurrent;
+@synthesize currentlyPlaying;
 
 - (void) dealloc
 {

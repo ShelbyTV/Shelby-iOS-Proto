@@ -31,5 +31,6 @@
 @property (nonatomic) float cellHeightAllComments;
 @property (nonatomic) BOOL allComments;
 @property (nonatomic) float cellHeightCurrent;
+@property (nonatomic) BOOL currentlyPlaying;
 
 @end

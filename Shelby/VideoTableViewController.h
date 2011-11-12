@@ -48,5 +48,6 @@
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
 - (void)loadVideos;
+- (void)updateVideoTableCell:(Video *)video;
 
 @end

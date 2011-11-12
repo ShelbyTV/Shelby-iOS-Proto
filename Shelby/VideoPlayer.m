@@ -55,10 +55,18 @@ static const float kNextPrevXOffset        =  0.0f;
     if (currentVideo == _currentVideo) {
         return;
     }
+    _currentVideo.currentlyPlaying = FALSE;
+    if (self.delegate && NOT_NULL(_currentVideo)) {
+        [self.delegate updateVideoTableCell:_currentVideo];
+    }
     [_currentVideo release];
     _currentVideo = [currentVideo retain];
     _currentVideoWatchLaterAtStart = [_currentVideo isWatchLater];
     _currentVideoUnwatchLaterSent = FALSE;
+    _currentVideo.currentlyPlaying = TRUE;
+    if (self.delegate && NOT_NULL(_currentVideo)) {
+        [self.delegate updateVideoTableCell:_currentVideo];
+    }
 }
 
 - (Video *)getCurrentVideo
