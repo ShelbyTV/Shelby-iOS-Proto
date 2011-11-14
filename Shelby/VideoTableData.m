@@ -456,6 +456,22 @@
     }
 }
 
+- (BOOL)checkYouTubePrivileges:(NSString *)providerId
+{
+    NSError *error = nil;
+    NSString *requestString = [NSString stringWithFormat:@"http://gdata.youtube.com/feeds/api/videos/%@?v=2", providerId];    
+    NSString *youTubeVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
+
+    NSRange syndicateDenied = [youTubeVideoData rangeOfString:@"yt:accessControl action='syndicate' permission='denied'"];
+    NSRange syndicateLimited = [youTubeVideoData rangeOfString:@"yt:state name='restricted' reasonCode='limitedSyndication'"];
+    
+    if (syndicateDenied.location != NSNotFound || syndicateLimited.location != NSNotFound) { // means syndication on mobile devices is disallowed
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
 - (void)reloadBroadcastsFromCoreData
 {    
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
@@ -484,6 +500,19 @@
 
             // Need provider (checked above) and providerId to be able to display the video
             if (IS_NULL(broadcast.providerId) || [broadcast.providerId isEqualToString:@""]) {
+                continue;
+            }
+            
+            // check for a valid Vimeo ID (should be a single number) 
+            if ([broadcast.provider isEqualToString: @"vimeo"] &&
+                ![broadcast.providerId isEqualToString:[NSString stringWithFormat:@"%d", [broadcast.providerId intValue]]])
+            {
+                continue;
+            }
+            
+            if ([broadcast.provider isEqualToString: @"youtube"] &&
+                ![self checkYouTubePrivileges:broadcast.providerId])
+            {
                 continue;
             }
             
