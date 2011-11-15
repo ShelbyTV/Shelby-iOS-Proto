@@ -183,12 +183,30 @@ static const float kNextPrevXOffset        =  0.0f;
 
     _gestureView = [[UIView alloc] initWithFrame:self.bounds];
     
-    // Add views.
     [self addSubview:_bgView];
-    [self addSubview: _moviePlayer.view];
-
-    [self addSubview: self.titleBar];
-    [self addSubview: self.footerBar];
+    
+    if ([[UIScreen screens] count] > 1) {
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        CGRect frame = secondScreen.bounds;
+        UIWindow *window = [[UIWindow alloc] initWithFrame:frame];
+        
+        
+        [window addSubview: _moviePlayer.view];
+        
+        [window addSubview: self.titleBar];
+        [window addSubview: self.footerBar];
+        [window setScreen:secondScreen];
+        window.hidden = NO;
+        
+    } else {
+        
+        // Add views.
+        [self addSubview: _moviePlayer.view];
+        
+        [self addSubview: self.titleBar];
+        [self addSubview: self.footerBar];
+    }
+    
     [self addSubview: _controlBar];
     
     // must be added right before next/prev, which must be last
@@ -811,7 +829,13 @@ static const float kNextPrevXOffset        =  0.0f;
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     
     _bgView.frame = self.bounds;
-    _moviePlayer.view.frame = self.bounds;
+    if ([[UIScreen screens] count] > 1) {
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        _moviePlayer.view.frame = secondScreen.bounds;
+    } else {
+        _moviePlayer.view.frame = self.bounds;
+
+    }
     
     CGRect gestureRect = frame;
     gestureRect.origin.y = titleBarHeight;
@@ -819,12 +843,22 @@ static const float kNextPrevXOffset        =  0.0f;
 
     _gestureView.frame = gestureRect;
     
-    self.titleBar.frame = CGRectMake(
-            0,
-            0,
-            width,
-            titleBarHeight
-            );
+    if ([[UIScreen screens] count] > 1) {
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        self.titleBar.frame = CGRectMake(
+                                         0,
+                                         0,
+                                         secondScreen.bounds.size.width,
+                                         titleBarHeight
+                                         );
+    } else {
+        self.titleBar.frame = CGRectMake(
+                                         0,
+                                         0,
+                                         width,
+                                         titleBarHeight
+                                         );
+    }
     
     [self fitTitleBarText];
 
@@ -852,12 +886,22 @@ static const float kNextPrevXOffset        =  0.0f;
     [_controlBar layoutSubviews];
 
     // Place footerBar just above the controlBar.
-    self.footerBar.frame = CGRectMake(
-            kControlBarX,
-            height - ([self footerBarHeight] + [self controlBarHeight]),
-            controlBarWidth,
-            [self footerBarHeight]
-            );
+    if ([[UIScreen screens] count] > 1) {
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        self.footerBar.frame = CGRectMake(
+                                          kControlBarX,
+                                          secondScreen.bounds.size.height - [self footerBarHeight],
+                                          secondScreen.bounds.size.width,
+                                          [self footerBarHeight]
+                                          );
+    } else {
+        self.footerBar.frame = CGRectMake(
+                                          kControlBarX,
+                                          height - ([self footerBarHeight] + [self controlBarHeight]),
+                                          controlBarWidth,
+                                          [self footerBarHeight]
+                                          ); 
+    }
 }
 
 #pragma mark - Cleanup

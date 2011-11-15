@@ -27,11 +27,11 @@
 @synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  //[super application: application didFinishLaunchingWithOptions: launchOptions];
-  // Make sure the singleton is initialized.
-  [ShelbyApp sharedApp];
-
-  return YES;
+    //[super application: application didFinishLaunchingWithOptions: launchOptions];
+    // Make sure the singleton is initialized.
+    [ShelbyApp sharedApp];
+    
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -127,6 +127,19 @@
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
     if (setCategoryError) { /* should really handle the error condition */ }
+    
+
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(screenDidConnect:)
+     name:UIScreenDidConnectNotification
+     object:nil];
+
+}
+
+- (void) screenDidConnect:(NSNotification *)notification {
+    NSLog(@"Received screenDidConnect!!!!");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
