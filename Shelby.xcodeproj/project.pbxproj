@@ -35,6 +35,7 @@
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
 		0A67EB1C1454AB6200C96EBC /* VideoMissing.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A67EB1B1454AB6200C96EBC /* VideoMissing.png */; };
+		0A6B278B1472E34B00CF3A47 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A6B278A1472E34B00CF3A47 /* Crashlytics.framework */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
 		0A74BB43142D45A500D65A02 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB42142D45A500D65A02 /* Icon@2x.png */; };
 		0A74BB48142D468200D65A02 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB47142D468200D65A02 /* iTunesArtwork.png */; };
@@ -254,6 +255,7 @@
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
 		0A67EB1B1454AB6200C96EBC /* VideoMissing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VideoMissing.png; path = Resources/Images/VideoMissing.png; sourceTree = "<group>"; };
+		0A6B278A1472E34B00CF3A47 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		0A74BB42142D45A500D65A02 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		0A74BB47142D468200D65A02 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				0AD9A35713D53BD200EFECE0 /* Foundation.framework in Frameworks */,
 				0AD9A35913D53BD200EFECE0 /* CoreGraphics.framework in Frameworks */,
 				0AD9A35B13D53BD200EFECE0 /* CoreData.framework in Frameworks */,
+				0A6B278B1472E34B00CF3A47 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +696,7 @@
 		0AD9A35313D53BD200EFECE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A6B278A1472E34B00CF3A47 /* Crashlytics.framework */,
 				0AB3650314313E6A00DCEAFD /* CFNetwork.framework */,
 				42084C751427ADF000C3C556 /* SystemConfiguration.framework */,
 				42925B2B1401C2AA00333F46 /* QuartzCore.framework */,
@@ -1107,6 +1111,7 @@
 				0AD9A34C13D53BD200EFECE0 /* Sources */,
 				0AD9A34D13D53BD200EFECE0 /* Frameworks */,
 				0AD9A34E13D53BD200EFECE0 /* Resources */,
+				0A6B27881472E30000CF3A47 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1307,6 +1312,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0A6B27881472E30000CF3A47 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./Crashlytics.framework/run;
+		};
 		0AD9A37C13D53BD300EFECE0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1614,6 +1632,10 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
@@ -1640,6 +1662,10 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Johnson (74ZK87E24M)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
