@@ -48,7 +48,7 @@
 							<object class="IBUIImageView" id="1044334456">
 								<reference key="NSNextResponder" ref="483716018"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrameSize">{320, 173}</string>
+								<string key="NSFrameSize">{320, 104}</string>
 								<reference key="NSSuperview" ref="483716018"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="620627105"/>
@@ -63,21 +63,16 @@
 							<object class="IBUILabel" id="620627105">
 								<reference key="NSNextResponder" ref="483716018"/>
 								<int key="NSvFlags">293</int>
-								<string key="NSFrame">{{20, 20}, {280, 132}}</string>
+								<string key="NSFrame">{{20, 20}, {280, 64}}</string>
 								<reference key="NSSuperview" ref="483716018"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:327</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string type="base64-UTF8" key="IBUIText">T2gsIHNvIHlvdSBmb3VuZCBhbm90aGVyIGdyZWF0IHZpZGVvLCBidXQgY2FuJ3Qgd2F0Y2ggaXQgbm93
-PyBTaGVlc2gsIGNyeSBtZSBhIHJpdmVyLiAKCk9yLCBncmFiIHRoZSAiQWRkIHRvIFNoZWxieSIgYm9v
-a21hcmtsZXQgdG8gdXNlIGZyb20geW91ciBjb21wdXRlcidzIGJyb3dzZXIgbmV4dCB0aW1lLiBJJ2xs
-IHNhdmUgYW55IHZpZGVvcyB5b3UgYWRkLCBhbmQgeW91IGNhbiB3YXRjaCB0aGVtIGF0IHlvdXIgbGVp
-c3VyZS4gVGhhdCdzIGEgI3Byb3RpcCwgYmFieWNha2VzLg</string>
+								<string key="IBUIText">Next time you're at a computer, use the "Add to Shelby" bookmarklet. I'll save any videos you add, and you can watch them at your leisure. That's a #protip, babycakes.</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -99,7 +94,7 @@ c3VyZS4gVGhhdCdzIGEgI3Byb3RpcCwgYmFieWNha2VzLg</string>
 								</object>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 172}</string>
+						<string key="NSFrameSize">{320, 104}</string>
 						<reference key="NSSuperview" ref="742285647"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1044334456"/>
@@ -115,7 +110,7 @@ c3VyZS4gVGhhdCdzIGEgI3Byb3RpcCwgYmFieWNha2VzLg</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 173}</string>
+				<string key="NSFrameSize">{320, 105}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="483716018"/>
@@ -128,7 +123,7 @@ c3VyZS4gVGhhdCdzIGEgI3Byb3RpcCwgYmFieWNha2VzLg</string>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="483716018"/>
 				<string key="IBUIReuseIdentifier">WatchLaterOnboardCell</string>
-				<real value="173" key="IBUIRowHeight"/>
+				<real value="105" key="IBUIRowHeight"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

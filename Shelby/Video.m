@@ -7,7 +7,8 @@
 //
 
 #import "Video.h"
-
+#import "Broadcast.h"
+#import "VideoTableViewCellConstants.h"
 
 @implementation Video
 
@@ -32,6 +33,50 @@
 @synthesize allComments;
 @synthesize cellHeightCurrent;
 @synthesize currentlyPlaying;
+
+- (id)initWithBroadcast:(Broadcast *)broadcast
+{
+    self = [super init];
+    
+    if (self) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            self.cellHeightCurrent = IPAD_CELL_HEIGHT;
+        } else {
+            self.cellHeightCurrent = IPHONE_CELL_HEIGHT;
+        }
+
+        NSString *sharerName = [broadcast.sharerName uppercaseString];
+        if ([broadcast.origin isEqualToString:@"twitter"]) {
+            broadcast.sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+        }
+        
+        if (NOT_NULL(broadcast.thumbnailImageUrl)) self.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
+        if (NOT_NULL(broadcast.sharerImageUrl)) self.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
+        
+        if (NOT_NULL(broadcast.thumbnailImage)) {
+            self.thumbnailImage = [UIImage imageWithData:broadcast.thumbnailImage];
+        }
+        if (NOT_NULL(broadcast.sharerImage)) {
+            self.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
+        }
+        
+        SET_IF_NOT_NULL(self.provider, broadcast.provider);
+        SET_IF_NOT_NULL(self.providerId, broadcast.providerId);
+        SET_IF_NOT_NULL(self.shelbyId, broadcast.shelbyId);
+        SET_IF_NOT_NULL(self.title, broadcast.title)
+        SET_IF_NOT_NULL(self.sharer, sharerName)
+        SET_IF_NOT_NULL(self.sharerComment, broadcast.sharerComment)
+        SET_IF_NOT_NULL(self.shortPermalink, broadcast.shortPermalink)
+        SET_IF_NOT_NULL(self.source, broadcast.origin)
+        SET_IF_NOT_NULL(self.createdAt, broadcast.createdAt)
+        
+        if (NOT_NULL(broadcast.liked)) self.isLiked = [broadcast.liked boolValue];
+        if (NOT_NULL(broadcast.watchLater)) self.isWatchLater = [broadcast.watchLater boolValue];
+        if (NOT_NULL(broadcast.watched)) self.isWatched = [broadcast.watched boolValue];
+    }
+    
+    return self;
+}
 
 - (void) dealloc
 {

@@ -131,12 +131,12 @@
             [self showInternetDown];
             break;
         case ReachableViaWiFi:
-            NSLog(@"The internet is working via WIFI.");
+            //NSLog(@"The internet is working via WIFI.");
             self.internetActive = YES;
             [self showInternetUp];
             break;
         case ReachableViaWWAN:
-            NSLog(@"The internet is working via WWAN.");
+            //NSLog(@"The internet is working via WWAN.");
             [self showInternetUp];
             self.internetActive = YES;
             break;
@@ -153,11 +153,11 @@
             }
             break;
         case ReachableViaWiFi:
-            NSLog(@"A gateway to the host server is working via WIFI.");
+            //NSLog(@"A gateway to the host server is working via WIFI.");
             self.hostActive = YES;
             break;
         case ReachableViaWWAN:
-            NSLog(@"A gateway to the host server is working via WWAN.");
+            //NSLog(@"A gateway to the host server is working via WWAN.");
             self.hostActive = YES;
             break;
     }

@@ -140,9 +140,12 @@ static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - VideoTableViewControllerDelegate Methods
 
-- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller {
+- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller
+{
+    static BOOL onlyOnce = FALSE;
     // If our videoplayer isn't doesn't have a video cued (isn't playing or paused), let's play a video.
-    if (_videoPlayer.isIdle) {
+    if (!onlyOnce && _videoPlayer.isIdle) {
+        onlyOnce = TRUE;
         Video *video = [videoTable getFirstVideo];
         [self performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:NO];
     }

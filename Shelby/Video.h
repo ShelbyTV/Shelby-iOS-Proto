@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Broadcast;
+
 @interface Video : NSObject {
 }
 
@@ -32,5 +34,7 @@
 @property (nonatomic) BOOL allComments;
 @property (nonatomic) float cellHeightCurrent;
 @property (nonatomic) BOOL currentlyPlaying;
+
+- (id)initWithBroadcast:(Broadcast *)broadcast;
 
 @end

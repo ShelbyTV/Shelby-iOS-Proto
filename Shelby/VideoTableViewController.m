@@ -354,9 +354,9 @@
             }
         } else if (videoMode == 2) {
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                return 266;
+                return 150;
             } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                return 173;
+                return 105;
             }
         }
     }
