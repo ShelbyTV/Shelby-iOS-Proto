@@ -23,8 +23,11 @@
     UITableView *tableView;
     NSMutableArray *tableVideos;
     NSMutableArray *uniqueVideoKeys;
+    NSMutableDictionary *playableVideoKeys;
     NSMutableDictionary *videoDupeDict;
     NSOperationQueue *operationQueue;
+    NSTimer *updateTimer;
+    BOOL videoTableNeedsUpdate;
 }
 
 @property (assign) id <VideoTableDataDelegate> delegate;

@@ -14,4 +14,6 @@
                    withShelbyId:(NSString *)shelbyId 
                       inContext:(NSManagedObjectContext *)context;
 
++ (void)saveContextAndLogErrors:(NSManagedObjectContext *)context;
+
 @end

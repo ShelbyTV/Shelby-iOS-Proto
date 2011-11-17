@@ -26,8 +26,6 @@
 
 #import "GraphiteStats.h"
 
-#import <sys/sysctl.h>
-
 @interface LoginHelper ()
 
 @property (nonatomic, readwrite, retain) User *user;
@@ -470,6 +468,8 @@
                                 error:(NSError *)error 
                            forRequest:(NSURLRequest *)request
 {
+    LOG(@"Received fetchBroadcasts response!");
+
     [self decrementNetworkCounter];
     
     _parserMode = ParserModeBroadcasts;
@@ -482,163 +482,6 @@
     }
 }
 
-- (NSString *)platform  
-{  
-    size_t size;  
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);  
-    char *machine = malloc(size);  
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);  
-    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];  
-    free(machine);
-    return platform;  
-}
-
-- (int)platformMinRAM
-{
-    NSString *platform = [self platform];
-    if ([platform hasPrefix:@"iPhone1,1"]) { // original iPhone
-        return 128;
-    }
-    if ([platform hasPrefix:@"iPhone1,2"]) { // iPhone 3G
-        return 128;
-    }
-    if ([platform hasPrefix:@"iPhone2,1"]) { // iPhone 3GS
-        return 256;
-    }
-    if ([platform hasPrefix:@"iPhone3,1"]) { // iPhone 3GS
-        return 512;
-    }
-    if ([platform hasPrefix:@"iPhone"]) { // later iPhones
-        return 512;
-    }
-    if ([platform hasPrefix:@"iPod1,1"]) { // iPod Touch 1G
-        return 128;
-    }
-    if ([platform hasPrefix:@"iPod2,1"]) { // iPod Touch 2G
-        return 128;
-    }
-    if ([platform hasPrefix:@"iPod3,1"]) { // iPod Touch 3G
-        return 256;
-    }
-    if ([platform hasPrefix:@"iPod4,1"]) { // iPod Touch 4G
-        return 256;
-    }
-    if ([platform hasPrefix:@"iPod"]) { // later iPods
-        return 512;
-    }
-    if ([platform hasPrefix:@"iPad1"]) { // iPad 1
-        return 256;
-    }
-    if ([platform hasPrefix:@"iPad2"]) { // iPad 2
-        return 512;
-    }
-    if ([platform hasPrefix:@"iPad"]) { // later iPads
-        return 512;
-    }
-    
-    // otherwise assume a lot of memory
-    return 512;
-}
-
-- (void)storeBroadcastsWithArray:(NSArray *)array 
-                         channel:(Channel *)newChannel
-{
-    NSMutableDictionary *newBroadcasts = [[[NSMutableDictionary alloc] init] autorelease];
-    
-    int newBroadcastsCount = [array count];
-    
-    for (NSDictionary *dict in array) {
-        Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:_context];
-
-        if (NULL == upsert ) 
-        {
-            upsert = [NSEntityDescription
-                      insertNewObjectForEntityForName:@"Broadcast"
-                      inManagedObjectContext:_context];
-        }
-        
-        [newBroadcasts setObject:upsert forKey:[dict objectForKey:@"_id"]];
-        
-        [upsert populateFromApiJSONDictionary: dict];
-        
-        if (newChannel) upsert.channel = newChannel;
-    }
-
-    NSError *error;
-    if (![_context save:&error]) {
-        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-        if(detailedErrors != nil && [detailedErrors count] > 0) {
-            for(NSError* detailedError in detailedErrors) {
-                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
-            }
-        } else {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
-                                              inManagedObjectContext:_context];
-    
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel.public=0"];
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sorter]];
-    
-    NSArray *broadcasts = [_context executeFetchRequest:fetchRequest error:&error];
-    int numBroadcasts = [broadcasts count];
-    
-    int numToKeep;
-    
-    int minRAM = [self platformMinRAM];
-    if (minRAM <= 128) {
-        numToKeep = 60;
-    } else if (minRAM <= 256) {
-        numToKeep = 200;
-    } else {
-        numToKeep = 300;
-    }
-    
-    int numToRemove = numBroadcasts - numToKeep;
-    int numRemoved = 0;
-    
-    if (numToRemove > 0) {
-        for (Broadcast *broadcast in broadcasts) {
-            if (numRemoved >= numToRemove) {
-                break;
-            }
-            
-            if ((numToKeep > newBroadcastsCount) && [newBroadcasts objectForKey:broadcast.shelbyId] != nil) {
-                continue; // don't remove anything Shelby just told us about
-            }
-            
-            [_context deleteObject:broadcast];
-            numRemoved++;
-        }
-        
-        if (numRemoved > 0) {
-            if (![_context save:&error]) {
-                NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-                if(detailedErrors != nil && [detailedErrors count] > 0) {
-                    for(NSError* detailedError in detailedErrors) {
-                        NSLog(@"  DetailedError: %@", [detailedError userInfo]);
-                    }
-                } else {
-                    NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-                }
-                [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-            }
-        }
-    }
-    
-    [fetchRequest release];
-    [sorter release];
-}
-
 - (void)storeBroadcastVideo:(Video *)video 
         withSharerImageData:(NSData *)sharerImageData 
                   inContext:(NSManagedObjectContext *)context
@@ -647,7 +490,7 @@
     
     if (NULL == update ) 
     {
-        // maybe should throw an error of some sort?
+        NSLog(@"Couldn't find CoreData entry for video %@; aborting store of sharerImageData", video.shelbyId);
         return;
     }
     
@@ -676,7 +519,7 @@
     
     if (NULL == update ) 
     {
-        // maybe should throw an error of some sort?
+        NSLog(@"Couldn't find CoreData entry for video %@; aborting store of thumbnailData", video.shelbyId);
         return;
     }
     
@@ -755,8 +598,10 @@
             
         case ParserModeBroadcasts:;
            
-            [self storeBroadcastsWithArray:array channel:self.channel];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcasts" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcasts" 
+                                                                object:self 
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:array, @"jsonDictionariesArray", 
+                                                                                                                  nil]];
             
             break;
             

@@ -33,4 +33,20 @@
     return nil;
 }
 
++ (void)saveContextAndLogErrors:(NSManagedObjectContext *)context
+{
+    NSError *error;
+    if (![context save:&error]) {
+        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if(detailedErrors != nil && [detailedErrors count] > 0) {
+            for(NSError* detailedError in detailedErrors) {
+                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+            }
+        } else {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
 @end
