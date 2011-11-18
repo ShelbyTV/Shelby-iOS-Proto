@@ -540,15 +540,15 @@
 
 - (BOOL)checkVimeoMobileURL:(NSString *)providerId
 {
-    NSError *error = nil;
-    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
-    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
-    
-    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
-    
-    if (mobileURL.location == NSNotFound) { // means there's no mobile version
-        return FALSE;
-    }
+//    NSError *error = nil;
+//    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
+//    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
+//    
+//    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
+//    
+//    if (mobileURL.location == NSNotFound) { // means there's no mobile version
+//        return FALSE;
+//    }
     
     return TRUE;
 }
