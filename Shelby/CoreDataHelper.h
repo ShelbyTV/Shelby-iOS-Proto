@@ -14,6 +14,10 @@
                    withShelbyId:(NSString *)shelbyId 
                       inContext:(NSManagedObjectContext *)context;
 
++ (id)fetchExistingUniqueEntity:(NSString *)entityName 
+          withBroadcastShelbyId:(NSString *)shelbyId 
+                      inContext:(NSManagedObjectContext *)context;
+
 + (void)saveContextAndLogErrors:(NSManagedObjectContext *)context;
 
 @end

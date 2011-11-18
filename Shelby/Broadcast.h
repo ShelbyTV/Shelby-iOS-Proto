@@ -10,11 +10,15 @@
 #import <CoreData/CoreData.h>
 
 @class Channel;
+@class SharerImage;
+@class ThumbnailImage;
 
 @interface Broadcast : NSManagedObject {
 }
 
-@property (nonatomic, retain) Channel  *channel;
+@property (nonatomic, retain) Channel        *channel;
+@property (nonatomic, retain) SharerImage    *sharerImage;
+@property (nonatomic, retain) ThumbnailImage *thumbnailImage;
 
 @property (nonatomic, retain) NSDate   *createdAt;
 @property (nonatomic, retain) NSNumber *liked;
@@ -23,12 +27,10 @@
 @property (nonatomic, retain) NSString *provider;
 @property (nonatomic, retain) NSString *providerId;
 @property (nonatomic, retain) NSString *sharerComment;
-@property (nonatomic, retain) NSData   *sharerImage;
 @property (nonatomic, retain) NSString *sharerImageUrl;
 @property (nonatomic, retain) NSString *sharerName;
 @property (nonatomic, retain) NSString *shelbyId;
 @property (nonatomic, retain) NSString *shortPermalink;
-@property (nonatomic, retain) NSData   *thumbnailImage;
 @property (nonatomic, retain) NSString *thumbnailImageUrl;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSNumber *watched;

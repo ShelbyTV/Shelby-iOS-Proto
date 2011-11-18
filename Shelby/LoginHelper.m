@@ -10,6 +10,9 @@
 #import "User.h"
 #import "Channel.h"
 #import "Broadcast.h"
+#import "SharerImage.h"
+#import "ThumbnailImage.h"
+
 #import "ShelbyAppDelegate.h"
 #import "ShelbyApp.h"
 #import "SBJsonParser.h"
@@ -256,9 +259,11 @@
 
 - (void)deleteUser
 {
-    [self deleteEntityType: @"User"];
-    [self deleteEntityType: @"Channel"];
-    [self deleteEntityType: @"Broadcast"];
+    [self deleteEntityType:@"User"];
+    [self deleteEntityType:@"Channel"];
+    [self deleteEntityType:@"Broadcast"];
+    [self deleteEntityType:@"ThumbnailImage"];
+    [self deleteEntityType:@"SharerImage"];
 
     NSError *error = nil;
     [_context save:&error];
@@ -494,7 +499,13 @@
         return;
     }
     
-    update.sharerImage = sharerImageData;
+    if (IS_NULL(update.sharerImage)) {
+        update.sharerImage = [NSEntityDescription
+                              insertNewObjectForEntityForName:@"SharerImage"
+                              inManagedObjectContext:context];
+    }
+    
+    update.sharerImage.imageData = sharerImageData;
     
     NSError *error;
     if (![context save:&error]) {
@@ -523,8 +534,14 @@
         return;
     }
     
-    update.thumbnailImage = thumbnailData;
-    
+    if (IS_NULL(update.thumbnailImage)) {
+        update.thumbnailImage = [NSEntityDescription
+                                 insertNewObjectForEntityForName:@"ThumbnailImage"
+                                 inManagedObjectContext:context];
+    }
+        
+    update.thumbnailImage.imageData = thumbnailData;
+        
     NSError *error;
     if (![context save:&error]) {
         NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];

@@ -33,6 +33,29 @@
     return nil;
 }
 
++ (id)fetchExistingUniqueEntity:(NSString *)entityName 
+          withBroadcastShelbyId:(NSString *)shelbyId 
+                      inContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+    
+    [fetchRequest setEntity:[NSEntityDescription entityForName:entityName 
+                                        inManagedObjectContext:context]];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"broadcast.shelbyId=%@", shelbyId]];
+    
+    NSError *error = NULL;
+    NSArray *existingEntities = [context executeFetchRequest:fetchRequest error:&error];
+    
+    if (NOT_NULL(existingEntities) && [existingEntities count] == 1) {
+        return [existingEntities objectAtIndex:0];
+    } else {
+        assert(IS_NULL(existingEntities) || [existingEntities count] == 0);
+    }
+    
+    return nil;
+}
+
 + (void)saveContextAndLogErrors:(NSManagedObjectContext *)context
 {
     NSError *error;
