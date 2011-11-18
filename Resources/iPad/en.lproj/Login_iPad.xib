@@ -133,7 +133,7 @@
 										<string key="IBUIText">START WATCHING</string>
 										<reference key="IBUITextColor" ref="184020844"/>
 										<nil key="IBUIHighlightedColor"/>
-										<object class="NSColor" key="IBUIShadowColor">
+										<object class="NSColor" key="IBUIShadowColor" id="585391893">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MCAwIDAAA</bytes>
 										</object>
@@ -190,6 +190,7 @@ aWVuZHMuClNoZSdzIG5vdCBhIGplcmsgbGlrZSB0aGF0Lg</string>
 											</object>
 										</object>
 										<nil key="IBUIHighlightedColor"/>
+										<reference key="IBUIShadowColor" ref="585391893"/>
 										<int key="IBUIBaselineAdjustment">1</int>
 										<float key="IBUIMinimumFontSize">10</float>
 										<int key="IBUINumberOfLines">3</int>
