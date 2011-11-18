@@ -180,8 +180,8 @@
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-										<string type="base64-UTF8" key="IBUIText">U2hlbGJ5IHdpbGwgbm90IHVzZSB5b3VyIHBlcnNvbmFsIGluZm9ybWF0aW9uIHRvIHNwYW0geW91ciBm
-cmllbmRzLgpQcm9taXNlLgpTaGUgaXMgbm90IGEgamVyayBsaWtlIHRoYXQuA</string>
+										<string type="base64-UTF8" key="IBUIText">U2hlbGJ5IHdpbGwgbm90IHBvc3Qgd2l0aG91dCB5b3VyIHBlcm1pc3Npb24gb3Igc3BhbSB5b3VyIGZy
+aWVuZHMuClNoZSdzIG5vdCBhIGplcmsgbGlrZSB0aGF0Lg</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -229,7 +229,6 @@ cmllbmRzLgpQcm9taXNlLgpTaGUgaXMgbm90IGEgamVyayBsaWtlIHRoYXQuA</string>
 										<string key="NSFrame">{{53, 24}, {278, 68}}</string>
 										<reference key="NSSuperview" ref="428655892"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<int key="IBUIContentMode">4</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
