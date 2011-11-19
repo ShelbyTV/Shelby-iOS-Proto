@@ -736,16 +736,25 @@
             break;
         }
         
-        if ((numToKeep > jsonBroadcastsCount) && [jsonBroadcasts objectForKey:broadcast.shelbyId] != nil) {
+        if ((numToKeep > jsonBroadcastsCount) && NOT_NULL([jsonBroadcasts objectForKey:broadcast.shelbyId])) {
             continue; // don't remove anything Shelby just told us about
         }
         
         [discardedBroadcasts addObject:broadcast];
-        [context deleteObject:broadcast];
         numRemoved++;
     }
     
     [broadcasts removeObjectsInArray:discardedBroadcasts];
+    
+    for (Broadcast *broadcast in discardedBroadcasts) {
+        if (NOT_NULL(broadcast.sharerImage)) {
+            [context deleteObject:broadcast.sharerImage];
+        }
+        if (NOT_NULL(broadcast.thumbnailImage)) {
+            [context deleteObject:broadcast.thumbnailImage];
+        }
+        [context deleteObject:broadcast];
+    }
 }
 
 /*
@@ -776,40 +785,32 @@
         
         // fetch old broadcasts from CoreData
         NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-        NSLog(@"Fetching old broadcasts from CoreData");
         [broadcasts addObjectsFromArray:[self fetchBroadcastsFromCoreDataContext:context]];
         
-        NSLog(@"Fetching public channel from CoreData");
         Channel *publicChannel = [self fetchPublicChannelFromCoreDataContext:context];
         
         // go through new JSON broadcast data and identify ones with same shelbyIDs as old broadcasts
         // if shelbyID already exists, update old broadcast object with any new data
         // if doesn't already exist, create new Broadcast in CoreData with new JSON data
-        NSLog(@"Calling addOrUpdateBroadcasts");
         NSDictionary *jsonBroadcasts = [self addOrUpdateBroadcasts:broadcasts 
                                                        withNewJSON:jsonDictionariesArray 
                                                        withChannel:publicChannel
                                                        withContext:context];
         
         // sort array by createdAt date
-        NSLog(@"Calling sortBroadcasts");
         [self sortBroadcasts:broadcasts];
         
         // determine numToKeep and numToDelete
         // iterate through and delete broadcasts from CoreData and array somehow?
-        NSLog(@"Calling removeExtraBroadcasts");
         [self removeExtraBroadcasts:broadcasts withNewJSON:jsonBroadcasts withContext:context];
         
         [operationQueue setSuspended:TRUE];
         
         // iterate through sorted broadcast array, finding dupes, creating operationQueue jobs, etc.
-        NSLog(@"Calling processBroadcastArray");
         [self processBroadcastArray:broadcasts];
         
         // save CoreData context
-        NSLog(@"Calling saveContextAndLogErrors");
         [CoreDataHelper saveContextAndLogErrors:context];
-        NSLog(@"Done calling saveContextAndLogErrors");
 
         [operationQueue setSuspended:FALSE];
     }
