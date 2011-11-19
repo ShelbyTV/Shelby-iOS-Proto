@@ -23,7 +23,6 @@
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
 		0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */; };
 		0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3E77B01434713500800018 /* iPadHeaderBackground.png */; };
-		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
 		0A44C4E014687DC500C97BA2 /* ButtonWatchLater.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */; };
 		0A44C4E114687DC500C97BA2 /* ButtonWatchLaterPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A44C4DF14687DC500C97BA2 /* ButtonWatchLaterPurple.png */; };
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
@@ -244,8 +243,6 @@
 		0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeartPurple.png; path = Resources/Images/ButtonHeartPurple.png; sourceTree = "<group>"; };
 		0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCellConstants.h; sourceTree = "<group>"; };
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
-		0A3E791014357D5600800018 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Libraries/TestFlight/libTestFlight.a; sourceTree = "<group>"; };
-		0A3E791314357D8100800018 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = Libraries/TestFlight/TestFlight.h; sourceTree = "<group>"; };
 		0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLater.png; path = Resources/Images/ButtonWatchLater.png; sourceTree = "<group>"; };
 		0A44C4DF14687DC500C97BA2 /* ButtonWatchLaterPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonWatchLaterPurple.png; path = Resources/Images/ButtonWatchLaterPurple.png; sourceTree = "<group>"; };
 		0A4DB3DC1432512D00618605 /* ApiMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiMutableURLRequest.h; sourceTree = "<group>"; };
@@ -501,7 +498,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */,
 				0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */,
 				42084C761427ADF000C3C556 /* SystemConfiguration.framework in Frameworks */,
 				42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */,
@@ -545,15 +541,6 @@
 				0A6B27A01475C54800CF3A47 /* SharerImage.m */,
 			);
 			name = "Core Data";
-			sourceTree = "<group>";
-		};
-		0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */ = {
-			isa = PBXGroup;
-			children = (
-				0A3E791314357D8100800018 /* TestFlight.h */,
-				0A3E791014357D5600800018 /* libTestFlight.a */,
-			);
-			name = "***MUST REMOVE BEFORE RELEASING TO APP STORE***";
 			sourceTree = "<group>";
 		};
 		0AC849611430333D00FDF996 /* VideoPlayerControls */ = {
@@ -679,7 +666,6 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
-				0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
 				427A622513F4717C00C945E2 /* Libraries */,
@@ -1649,7 +1635,7 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1665,6 +1651,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
+				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1678,8 +1665,8 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Johnson (74ZK87E24M)";
-				COPY_PHASE_STRIP = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
+				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1694,7 +1681,8 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "25549810-5C43-4E88-96CC-23AE57413827";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "93F8C58F-B5BC-4C26-A271-28158A696141";
+				STRIP_INSTALLED_PRODUCT = YES;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
