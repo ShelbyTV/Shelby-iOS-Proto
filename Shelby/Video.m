@@ -47,7 +47,7 @@
 
         NSString *sharerName = [broadcast.sharerName uppercaseString];
         if ([broadcast.origin isEqualToString:@"twitter"]) {
-            broadcast.sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+            sharerName = [NSString stringWithFormat:@"@%@", sharerName];
         }
         
         if (NOT_NULL(broadcast.thumbnailImageUrl)) self.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];

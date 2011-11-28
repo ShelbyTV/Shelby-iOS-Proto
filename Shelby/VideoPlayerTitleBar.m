@@ -12,20 +12,38 @@
 @implementation VideoPlayerTitleBar
 
 @synthesize title;
+@synthesize comment;
 @synthesize sharerPic;
 
-static NSString *NIB_NAME = @"VideoPlayerTitleBar";
+static NSString *IPHONE_NIB_NAME = @"VideoPlayerTitleBar_iPhone";
+static NSString *IPAD_NIB_NAME = @"VideoPlayerTitleBar_iPad";
 
-+ (VideoPlayerTitleBar *)titleBarFromNib {
-    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:NIB_NAME owner:self options:nil];
++ (VideoPlayerTitleBar *)titleBarFromNib 
+{    
+    NSString *nibName;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        nibName = IPHONE_NIB_NAME;
+    } else {
+        nibName = IPAD_NIB_NAME;
+    }
+    
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
 
     return [objects objectAtIndex:0];
 }
 
-- (void)loadViewFromNib {
+- (void)loadViewFromNib
+{    
+    NSString *nibName;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        nibName = IPHONE_NIB_NAME;
+    } else {
+        nibName = IPAD_NIB_NAME;
+    }
+    
     // load everything in the XIB we created
     NSArray *objects = [[NSBundle mainBundle] 
-        loadNibNamed:NIB_NAME owner:self options:nil];
+        loadNibNamed:nibName owner:self options:nil];
 
     // actually, we know there's only one thing in it, which is the
     // view we want to appear within this one

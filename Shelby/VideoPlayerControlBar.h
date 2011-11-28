@@ -45,7 +45,7 @@
 - (void)setFavoriteButtonSelected:(BOOL)selected;
 - (BOOL)isWatchLaterButtonSelected;
 - (void)setWatchLaterButtonSelected:(BOOL)selected;
-- (void)setPlayButtonIcon:(UIImage *)image;
+- (void)setPlayButtonSelected:(BOOL)selected;
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;

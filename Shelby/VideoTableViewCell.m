@@ -239,12 +239,12 @@
     _dupeCount = [dupes count] - 1;
     
     // assumes dupe count doesn't change over video lifetime
-    if(_dupeCount == 0) {
-        _video.cellHeightAllComments = IPAD_CELL_HEIGHT;
-        [self sizeFramesForComments];
-        [_expandButton setEnabled:NO];
-        return;
-    }
+//    if(_dupeCount == 0) {
+//        _video.cellHeightAllComments = IPAD_CELL_HEIGHT;
+//        [self sizeFramesForComments];
+//        [_expandButton setEnabled:NO];
+//        return;
+//    }
     
     [_expandButton setEnabled:YES];
     BOOL first = TRUE;
@@ -338,9 +338,9 @@
 
 - (void)sharerNamePressed
 {
-    if(_dupeCount == 0) {
-        return;
-    }
+//    if(_dupeCount == 0) {
+//        return;
+//    }
     
     _video.allComments = !_video.allComments;
     
@@ -423,7 +423,7 @@
         _sharerView.image = [UIImage imageNamed:@"PlaceholderFace"];
     }
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && _dupeCount != 0)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         BOOL first = TRUE;
         NSUInteger i = 0;

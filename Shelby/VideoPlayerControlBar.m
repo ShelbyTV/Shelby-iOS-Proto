@@ -16,11 +16,6 @@
 static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
-static const float kProgressBarXOffsetIphone =  135.0f;
-static const float kProgressBarXOffsetIpad   =  135.0f;
-static const float kProgressBarYOffsetIphone =  0.0f;
-static const float kProgressBarYOffsetIpad   =  0.0f;
-
 #pragma mark - Factory
 
 + (VideoPlayerControlBar *)controlBarFromNib {
@@ -31,7 +26,6 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
         nibName = IPAD_NIB_NAME;
     }
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
-
     return [objects objectAtIndex:0];
 }
 
@@ -100,9 +94,9 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     return _progressBar.duration;
 }
 
-- (void)setPlayButtonIcon:(UIImage *)image
+- (void)setPlayButtonSelected:(BOOL)selected
 {
-    [_playButton setImage:image forState:UIControlStateNormal];
+    [_playButton setSelected:selected];
 }
 
 #pragma mark - VideoProgressBarDelegate Methods
@@ -145,40 +139,26 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     }
 }
 
-#pragma mark - Layout
-
-- (float)progressBarXOffset {
-    float offset;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        offset = kProgressBarXOffsetIphone;
-    } else {
-        offset = kProgressBarXOffsetIpad;
-    }
-    return offset;
-}
-
-- (float)progressBarYOffset {
-    float offset;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        offset = kProgressBarYOffsetIphone;
-    } else {
-        offset = kProgressBarYOffsetIpad;
-    }
-    return offset;
-}
-
-- (void)layoutSubviews {
+- (void)layoutSubviews 
+{
+    CGRect tempFrame = _playButton.frame;
+    tempFrame.size.width = self.frame.size.width - (406 - 80);
+    _playButton.frame = tempFrame;
+    
+    tempFrame = _shareButton.frame;
+    tempFrame.origin.x = _playButton.frame.origin.x + _playButton.frame.size.width - 1;
+    _shareButton.frame = tempFrame;
+    
+    tempFrame = _favoriteButton.frame;
+    tempFrame.origin.x = _shareButton.frame.origin.x + _shareButton.frame.size.width - 1;
+    _favoriteButton.frame = tempFrame;
+    
+    tempFrame = _progressBar.frame;
+    tempFrame.size.width = self.frame.size.width;
+    _progressBar.frame = tempFrame;
+    
     [_progressBar layoutSubviews];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)dealloc
 {

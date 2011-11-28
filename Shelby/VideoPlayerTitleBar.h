@@ -15,6 +15,7 @@
 + (VideoPlayerTitleBar *)titleBarFromNib;
 
 @property(nonatomic, retain) IBOutlet UILabel *title;
+@property(nonatomic, retain) IBOutlet UILabel *comment;
 @property(nonatomic, retain) IBOutlet UIImageView *sharerPic;
 
 @end

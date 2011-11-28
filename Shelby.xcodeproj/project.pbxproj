@@ -20,8 +20,29 @@
 		0A14C80D145C713400632FB0 /* ShelbyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A14C80C145C713400632FB0 /* ShelbyWindow.m */; };
 		0A155E77142908280010E503 /* FacebookSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A155E75142908280010E503 /* FacebookSignIn.png */; };
 		0A155E78142908280010E503 /* TwitterSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A155E76142908280010E503 /* TwitterSignIn.png */; };
+		0A214A71147C79C000A8F530 /* play-up-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A214A70147C79C000A8F530 /* play-up-background.png */; };
+		0A214A74147C7D5400A8F530 /* play-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A214A73147C7D5400A8F530 /* play-icon.png */; };
+		0A214A76147D97BC00A8F530 /* play-up-background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A214A75147D97BC00A8F530 /* play-up-background2.png */; };
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
 		0A24A4D9142D2CD400E4E316 /* ButtonHeartPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */; };
+		0A28A662147B1C3B00625FCB /* fullscreen-contract-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A652147B1C3B00625FCB /* fullscreen-contract-down.png */; };
+		0A28A663147B1C3B00625FCB /* fullscreen-contract-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A653147B1C3B00625FCB /* fullscreen-contract-up.png */; };
+		0A28A664147B1C3B00625FCB /* fullscreen-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A654147B1C3B00625FCB /* fullscreen-down.png */; };
+		0A28A665147B1C3B00625FCB /* like-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A655147B1C3B00625FCB /* like-down.png */; };
+		0A28A666147B1C3B00625FCB /* like-off-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A656147B1C3B00625FCB /* like-off-up.png */; };
+		0A28A667147B1C3B00625FCB /* like-on-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A657147B1C3B00625FCB /* like-on-up.png */; };
+		0A28A668147B1C3B00625FCB /* playhead-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A658147B1C3B00625FCB /* playhead-normal.png */; };
+		0A28A669147B1C3B00625FCB /* share-(old)-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A659147B1C3B00625FCB /* share-(old)-down.png */; };
+		0A28A66A147B1C3B00625FCB /* fullscreen-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A65A147B1C3B00625FCB /* fullscreen-up.png */; };
+		0A28A66B147B1C3B00625FCB /* play-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A65B147B1C3B00625FCB /* play-down.png */; };
+		0A28A66C147B1C3B00625FCB /* play-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A65C147B1C3B00625FCB /* play-up.png */; };
+		0A28A66D147B1C3B00625FCB /* playhead-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A65D147B1C3B00625FCB /* playhead-active.png */; };
+		0A28A66E147B1C3B00625FCB /* share-(old)-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A65E147B1C3B00625FCB /* share-(old)-up.png */; };
+		0A28A66F147B1C3B00625FCB /* watch-later-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A65F147B1C3B00625FCB /* watch-later-down.png */; };
+		0A28A670147B1C3B00625FCB /* watch-later-off-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A660147B1C3B00625FCB /* watch-later-off-up.png */; };
+		0A28A671147B1C3B00625FCB /* watch-later-on-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A661147B1C3B00625FCB /* watch-later-on-up.png */; };
+		0A363C3E1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */; };
+		0A363C4114843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */; };
 		0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3E77B01434713500800018 /* iPadHeaderBackground.png */; };
 		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
 		0A44C4E014687DC500C97BA2 /* ButtonWatchLater.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */; };
@@ -126,7 +147,6 @@
 		4289EB9914366010008311A7 /* ButtonClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9814366010008311A7 /* ButtonClose.png */; };
 		4289EB9C143665F1008311A7 /* ButtonShareTabActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */; };
 		4289EB9D143665F1008311A7 /* ButtonShareTabInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */; };
-		428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */; };
 		428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */; };
 		428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */; };
 		428B029F1421395D00C88063 /* SettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B029D1421395D00C88063 /* SettingsViewController_iPad.xib */; };
@@ -207,7 +227,6 @@
 		42E1BB03143AA285009FCFCE /* SharePatternSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB02143AA285009FCFCE /* SharePatternSquare.png */; };
 		42E1BB12143B983B009FCFCE /* TwitterDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB11143B983B009FCFCE /* TwitterDead.png */; };
 		42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB14143B9844009FCFCE /* FacebookDead.png */; };
-		42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
 		42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */; };
 /* End PBXBuildFile section */
@@ -239,10 +258,31 @@
 		0A14C80C145C713400632FB0 /* ShelbyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelbyWindow.m; sourceTree = "<group>"; };
 		0A155E75142908280010E503 /* FacebookSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookSignIn.png; path = Resources/Images/FacebookSignIn.png; sourceTree = "<group>"; };
 		0A155E76142908280010E503 /* TwitterSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterSignIn.png; path = Resources/Images/TwitterSignIn.png; sourceTree = "<group>"; };
+		0A214A70147C79C000A8F530 /* play-up-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-up-background.png"; path = "Resources/Images/play-up-background.png"; sourceTree = "<group>"; };
+		0A214A73147C7D5400A8F530 /* play-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-icon.png"; path = "Resources/Images/play-icon.png"; sourceTree = "<group>"; };
+		0A214A75147D97BC00A8F530 /* play-up-background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-up-background2.png"; path = "Resources/Images/play-up-background2.png"; sourceTree = "<group>"; };
 		0A220C9513DE8193004BE680 /* VideoTableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableData.h; sourceTree = "<group>"; };
 		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoTableData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeartPurple.png; path = Resources/Images/ButtonHeartPurple.png; sourceTree = "<group>"; };
+		0A28A652147B1C3B00625FCB /* fullscreen-contract-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullscreen-contract-down.png"; path = "Resources/Images/fullscreen-contract-down.png"; sourceTree = "<group>"; };
+		0A28A653147B1C3B00625FCB /* fullscreen-contract-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullscreen-contract-up.png"; path = "Resources/Images/fullscreen-contract-up.png"; sourceTree = "<group>"; };
+		0A28A654147B1C3B00625FCB /* fullscreen-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullscreen-down.png"; path = "Resources/Images/fullscreen-down.png"; sourceTree = "<group>"; };
+		0A28A655147B1C3B00625FCB /* like-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-down.png"; path = "Resources/Images/like-down.png"; sourceTree = "<group>"; };
+		0A28A656147B1C3B00625FCB /* like-off-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-off-up.png"; path = "Resources/Images/like-off-up.png"; sourceTree = "<group>"; };
+		0A28A657147B1C3B00625FCB /* like-on-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-on-up.png"; path = "Resources/Images/like-on-up.png"; sourceTree = "<group>"; };
+		0A28A658147B1C3B00625FCB /* playhead-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playhead-normal.png"; path = "Resources/Images/playhead-normal.png"; sourceTree = "<group>"; };
+		0A28A659147B1C3B00625FCB /* share-(old)-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "share-(old)-down.png"; path = "Resources/Images/share-(old)-down.png"; sourceTree = "<group>"; };
+		0A28A65A147B1C3B00625FCB /* fullscreen-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullscreen-up.png"; path = "Resources/Images/fullscreen-up.png"; sourceTree = "<group>"; };
+		0A28A65B147B1C3B00625FCB /* play-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-down.png"; path = "Resources/Images/play-down.png"; sourceTree = "<group>"; };
+		0A28A65C147B1C3B00625FCB /* play-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-up.png"; path = "Resources/Images/play-up.png"; sourceTree = "<group>"; };
+		0A28A65D147B1C3B00625FCB /* playhead-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playhead-active.png"; path = "Resources/Images/playhead-active.png"; sourceTree = "<group>"; };
+		0A28A65E147B1C3B00625FCB /* share-(old)-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "share-(old)-up.png"; path = "Resources/Images/share-(old)-up.png"; sourceTree = "<group>"; };
+		0A28A65F147B1C3B00625FCB /* watch-later-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watch-later-down.png"; path = "Resources/Images/watch-later-down.png"; sourceTree = "<group>"; };
+		0A28A660147B1C3B00625FCB /* watch-later-off-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watch-later-off-up.png"; path = "Resources/Images/watch-later-off-up.png"; sourceTree = "<group>"; };
+		0A28A661147B1C3B00625FCB /* watch-later-on-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watch-later-on-up.png"; path = "Resources/Images/watch-later-on-up.png"; sourceTree = "<group>"; };
 		0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCellConstants.h; sourceTree = "<group>"; };
+		0A363C3D1484165B00CB3BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/VideoPlayerTitleBar_iPad.xib; sourceTree = SOURCE_ROOT; };
+		0A363C4014843C3700CB3BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/VideoPlayerTitleBar_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
 		0A3E791014357D5600800018 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Libraries/TestFlight/libTestFlight.a; sourceTree = "<group>"; };
 		0A3E791314357D8100800018 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = Libraries/TestFlight/TestFlight.h; sourceTree = "<group>"; };
@@ -373,7 +413,6 @@
 		4289EB9814366010008311A7 /* ButtonClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonClose.png; path = Resources/Images/ButtonClose.png; sourceTree = "<group>"; };
 		4289EB9A143665F1008311A7 /* ButtonShareTabActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShareTabActive.png; path = Resources/Images/ButtonShareTabActive.png; sourceTree = "<group>"; };
 		4289EB9B143665F1008311A7 /* ButtonShareTabInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonShareTabInactive.png; path = Resources/Images/ButtonShareTabInactive.png; sourceTree = "<group>"; };
-		428AA5B21423EFE500E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerFooterBar.xib; sourceTree = "<group>"; };
 		428AA5B51423EFF800E692B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/SettingsViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController_iPad.m; path = iPad/NavigationViewController_iPad.m; sourceTree = "<group>"; };
 		428B029E1421395D00C88063 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/SettingsViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -489,7 +528,6 @@
 		42E1BB02143AA285009FCFCE /* SharePatternSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SharePatternSquare.png; path = Resources/Images/SharePatternSquare.png; sourceTree = "<group>"; };
 		42E1BB11143B983B009FCFCE /* TwitterDead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterDead.png; path = Resources/Images/TwitterDead.png; sourceTree = "<group>"; };
 		42E1BB14143B9844009FCFCE /* FacebookDead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookDead.png; path = Resources/Images/FacebookDead.png; sourceTree = "<group>"; };
-		42F0AB9913EDD316003F47E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/VideoPlayerTitleBar.xib; sourceTree = "<group>"; };
 		42FAA3AD13FD841900BC1D28 /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
 		42FAA3AE13FD841900BC1D28 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelbyApp.h; sourceTree = "<group>"; };
@@ -575,6 +613,25 @@
 				0A24A4D8142D2CD400E4E316 /* ButtonHeartPurple.png */,
 				0A44C4DE14687DC500C97BA2 /* ButtonWatchLater.png */,
 				0A44C4DF14687DC500C97BA2 /* ButtonWatchLaterPurple.png */,
+				0A28A652147B1C3B00625FCB /* fullscreen-contract-down.png */,
+				0A28A653147B1C3B00625FCB /* fullscreen-contract-up.png */,
+				0A28A654147B1C3B00625FCB /* fullscreen-down.png */,
+				0A28A655147B1C3B00625FCB /* like-down.png */,
+				0A28A656147B1C3B00625FCB /* like-off-up.png */,
+				0A28A657147B1C3B00625FCB /* like-on-up.png */,
+				0A28A658147B1C3B00625FCB /* playhead-normal.png */,
+				0A28A659147B1C3B00625FCB /* share-(old)-down.png */,
+				0A28A65A147B1C3B00625FCB /* fullscreen-up.png */,
+				0A214A73147C7D5400A8F530 /* play-icon.png */,
+				0A28A65B147B1C3B00625FCB /* play-down.png */,
+				0A28A65C147B1C3B00625FCB /* play-up.png */,
+				0A214A70147C79C000A8F530 /* play-up-background.png */,
+				0A214A75147D97BC00A8F530 /* play-up-background2.png */,
+				0A28A65D147B1C3B00625FCB /* playhead-active.png */,
+				0A28A65E147B1C3B00625FCB /* share-(old)-up.png */,
+				0A28A65F147B1C3B00625FCB /* watch-later-down.png */,
+				0A28A660147B1C3B00625FCB /* watch-later-off-up.png */,
+				0A28A661147B1C3B00625FCB /* watch-later-on-up.png */,
 			);
 			name = VideoPlayerControls;
 			sourceTree = "<group>";
@@ -761,6 +818,7 @@
 		0AD9A36B13D53BD300EFECE0 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */,
 				0A978AF814457EFF005DFF18 /* ShareView_iPhone.xib */,
 				42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */,
 				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
@@ -780,6 +838,7 @@
 		0AD9A37213D53BD300EFECE0 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */,
 				42084C871427DACD00C3C556 /* OfflineView_iPad.xib */,
 				42ACA2C2142A8F8E009FD812 /* ShareView_iPad.xib */,
 				428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */,
@@ -1022,8 +1081,6 @@
 		42C4C57313E8A6F00034AC97 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */,
-				42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
 				0AD9A36B13D53BD300EFECE0 /* iPhone */,
 			);
@@ -1211,7 +1268,6 @@
 				42CA0DBA13EC83FE00B9BF15 /* ButtonShare.png in Resources */,
 				42CA0DBC13EC83FE00B9BF15 /* ButtonHeart.png in Resources */,
 				42CA0DBE13EC83FE00B9BF15 /* ShelbyLogoGray.png in Resources */,
-				42F0AB9B13EDD316003F47E9 /* VideoPlayerTitleBar.xib in Resources */,
 				4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */,
 				4200E51813F42BB100609C3E /* ButtonFavoritesNormal.png in Resources */,
 				4200E51913F42BB100609C3E /* ButtonListHighlighted.png in Resources */,
@@ -1242,7 +1298,6 @@
 				428B02BE14217F7F00C88063 /* SliderThumbLightGray.png in Resources */,
 				428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */,
 				428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */,
-				428AA5B31423EFE500E692B9 /* VideoPlayerFooterBar.xib in Resources */,
 				428AA5B61423EFF800E692B9 /* SettingsViewController_iPhone.xib in Resources */,
 				42084C861427D82D00C3C556 /* OfflineView_iPhone.xib in Resources */,
 				42084C891427DACD00C3C556 /* OfflineView_iPad.xib in Resources */,
@@ -1312,6 +1367,27 @@
 				0A44C4E014687DC500C97BA2 /* ButtonWatchLater.png in Resources */,
 				0A44C4E114687DC500C97BA2 /* ButtonWatchLaterPurple.png in Resources */,
 				0A7C1BEC146E0531006293F5 /* CellGradientPlaying.png in Resources */,
+				0A28A662147B1C3B00625FCB /* fullscreen-contract-down.png in Resources */,
+				0A28A663147B1C3B00625FCB /* fullscreen-contract-up.png in Resources */,
+				0A28A664147B1C3B00625FCB /* fullscreen-down.png in Resources */,
+				0A28A665147B1C3B00625FCB /* like-down.png in Resources */,
+				0A28A666147B1C3B00625FCB /* like-off-up.png in Resources */,
+				0A28A667147B1C3B00625FCB /* like-on-up.png in Resources */,
+				0A28A668147B1C3B00625FCB /* playhead-normal.png in Resources */,
+				0A28A669147B1C3B00625FCB /* share-(old)-down.png in Resources */,
+				0A28A66A147B1C3B00625FCB /* fullscreen-up.png in Resources */,
+				0A28A66B147B1C3B00625FCB /* play-down.png in Resources */,
+				0A28A66C147B1C3B00625FCB /* play-up.png in Resources */,
+				0A28A66D147B1C3B00625FCB /* playhead-active.png in Resources */,
+				0A28A66E147B1C3B00625FCB /* share-(old)-up.png in Resources */,
+				0A28A66F147B1C3B00625FCB /* watch-later-down.png in Resources */,
+				0A28A670147B1C3B00625FCB /* watch-later-off-up.png in Resources */,
+				0A28A671147B1C3B00625FCB /* watch-later-on-up.png in Resources */,
+				0A214A71147C79C000A8F530 /* play-up-background.png in Resources */,
+				0A214A74147C7D5400A8F530 /* play-icon.png in Resources */,
+				0A214A76147D97BC00A8F530 /* play-up-background2.png in Resources */,
+				0A363C3E1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib in Resources */,
+				0A363C4114843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1520,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A363C3D1484165B00CB3BDA /* en */,
+			);
+			name = VideoPlayerTitleBar_iPad.xib;
+			sourceTree = "<group>";
+		};
+		0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A363C4014843C3700CB3BDA /* en */,
+			);
+			name = VideoPlayerTitleBar_iPhone.xib;
+			sourceTree = "<group>";
+		};
 		0AD9A35F13D53BD200EFECE0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1475,14 +1567,6 @@
 				42084C881427DACD00C3C556 /* en */,
 			);
 			name = OfflineView_iPad.xib;
-			sourceTree = "<group>";
-		};
-		428AA5B11423EFE500E692B9 /* VideoPlayerFooterBar.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				428AA5B21423EFE500E692B9 /* en */,
-			);
-			name = VideoPlayerFooterBar.xib;
 			sourceTree = "<group>";
 		};
 		428AA5B41423EFF800E692B9 /* SettingsViewController_iPhone.xib */ = {
@@ -1593,14 +1677,6 @@
 			name = MainWindow_iPad.xib;
 			sourceTree = "<group>";
 		};
-		42F0AB9813EDD316003F47E9 /* VideoPlayerTitleBar.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42F0AB9913EDD316003F47E9 /* en */,
-			);
-			name = VideoPlayerTitleBar.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1694,7 +1770,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "25549810-5C43-4E88-96CC-23AE57413827";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EFD6F4CF-4665-44C8-B484-D5947AA51F22";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
