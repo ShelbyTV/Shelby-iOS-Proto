@@ -60,7 +60,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">share.png</string>
+							<string key="NSResourceName">share_iPad.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="823106912">
 							<string key="name">Helvetica-Bold</string>
@@ -68,7 +68,7 @@
 							<int key="traits">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="61114112">
+						<object class="NSFont" key="IBUIFont" id="597450507">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -93,14 +93,14 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">watch-later-on-up.png</string>
+							<string key="NSResourceName">watchLaterOn_iPad.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">watch-later-off-up.png</string>
+							<string key="NSResourceName">watchLaterOff_iPad.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="823106912"/>
-						<reference key="IBUIFont" ref="61114112"/>
+						<reference key="IBUIFont" ref="597450507"/>
 					</object>
 					<object class="IBUIButton" id="438259432">
 						<reference key="NSNextResponder" ref="85472982"/>
@@ -121,10 +121,10 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">fullscreen-up.png</string>
+							<string key="NSResourceName">fullscreenExpand_iPad.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="823106912"/>
-						<reference key="IBUIFont" ref="61114112"/>
+						<reference key="IBUIFont" ref="597450507"/>
 					</object>
 					<object class="IBUIButton" id="54858356">
 						<reference key="NSNextResponder" ref="85472982"/>
@@ -145,14 +145,14 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">like-on-up.png</string>
+							<string key="NSResourceName">likeOn_iPad.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">like-off-up.png</string>
+							<string key="NSResourceName">likeOff_iPad.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="823106912"/>
-						<reference key="IBUIFont" ref="61114112"/>
+						<reference key="IBUIFont" ref="597450507"/>
 					</object>
 					<object class="IBUIView" id="838028058">
 						<reference key="NSNextResponder" ref="85472982"/>
@@ -188,17 +188,17 @@
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">play-icon.png</string>
+							<string key="NSResourceName">playIcon_iPad.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">play-up-background.png</string>
+							<string key="NSResourceName">playBackground_iPad.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<reference key="IBUIFont" ref="61114112"/>
+						<reference key="IBUIFont" ref="597450507"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{406, 98}</string>
@@ -391,7 +391,7 @@
 				<real value="0.0" key="40.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="6.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
-				<real value="2" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="7.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
 				<real value="0.0" key="7.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -497,14 +497,14 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="fullscreen-up.png">{81, 76}</string>
-			<string key="like-off-up.png">{81, 76}</string>
-			<string key="like-on-up.png">{81, 76}</string>
-			<string key="play-icon.png">{24, 30}</string>
-			<string key="play-up-background.png">{1, 76}</string>
-			<string key="share.png">{84, 76}</string>
-			<string key="watch-later-off-up.png">{84, 76}</string>
-			<string key="watch-later-on-up.png">{84, 76}</string>
+			<string key="fullscreenExpand_iPad.png">{81, 76}</string>
+			<string key="likeOff_iPad.png">{81, 76}</string>
+			<string key="likeOn_iPad.png">{81, 76}</string>
+			<string key="playBackground_iPad.png">{1, 76}</string>
+			<string key="playIcon_iPad.png">{24, 30}</string>
+			<string key="share_iPad.png">{84, 76}</string>
+			<string key="watchLaterOff_iPad.png">{84, 76}</string>
+			<string key="watchLaterOn_iPad.png">{84, 76}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

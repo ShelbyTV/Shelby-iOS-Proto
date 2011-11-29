@@ -275,7 +275,7 @@ static const float kNextPrevXOffset        =  0.0f;
     // Reset our duration.
     _duration = 0.0f;
 
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"play-icon"]];
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"playIcon_iPad"]];
     [_controlBar setFavoriteButtonSelected:NO];
     [_controlBar setWatchLaterButtonSelected:NO];
     _changingVideo = NO;
@@ -387,7 +387,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)play
 {
     _lastDidFinish = CACurrentMediaTime(); // need better variable name
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"pause-icon"]];
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"pauseIcon_iPad"]];
     [_moviePlayer play];
     _paused = FALSE;
 }
@@ -399,7 +399,7 @@ static const float kNextPrevXOffset        =  0.0f;
     if (!_controlsVisible) {
         [self drawControls];
     }
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"play-icon"]];
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"playIcon_iPad"]];
     [_moviePlayer pause];
     _paused = TRUE;
 }
@@ -413,9 +413,9 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     _fullscreen = fullscreen;
     if (fullscreen) {
-        [_controlBar setFullscreenButtonIcon:[UIImage imageNamed:@"fullscreen-contract-up"]];
+        [_controlBar setFullscreenButtonIcon:[UIImage imageNamed:@"fullscreenContract_iPad"]];
     } else {
-        [_controlBar setFullscreenButtonIcon:[UIImage imageNamed:@"fullscreen-up"]];
+        [_controlBar setFullscreenButtonIcon:[UIImage imageNamed:@"fullscreenExpand_iPad"]];
     }
     if (_controlsVisible && fullscreen) {
         _nextButton.alpha = 1.0;
