@@ -275,7 +275,7 @@ static const float kNextPrevXOffset        =  0.0f;
     // Reset our duration.
     _duration = 0.0f;
 
-    [_controlBar setPlayButtonSelected:NO];
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"play-icon"]];
     [_controlBar setFavoriteButtonSelected:NO];
     [_controlBar setWatchLaterButtonSelected:NO];
     _changingVideo = NO;
@@ -387,7 +387,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)play
 {
     _lastDidFinish = CACurrentMediaTime(); // need better variable name
-    [_controlBar setPlayButtonSelected:YES];
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"pause-icon"]];
     [_moviePlayer play];
     _paused = FALSE;
 }
@@ -399,7 +399,7 @@ static const float kNextPrevXOffset        =  0.0f;
     if (!_controlsVisible) {
         [self drawControls];
     }
-    [_controlBar setPlayButtonSelected:NO];
+    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"play-icon"]];
     [_moviePlayer pause];
     _paused = TRUE;
 }
@@ -412,7 +412,11 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)setFullscreen:(BOOL)fullscreen
 {
     _fullscreen = fullscreen;
-    [_controlBar setFullscreenButtonSelected:fullscreen];
+    if (fullscreen) {
+        [_controlBar setFullscreenButtonIcon:[UIImage imageNamed:@"fullscreen-contract-up"]];
+    } else {
+        [_controlBar setFullscreenButtonIcon:[UIImage imageNamed:@"fullscreen-up"]];
+    }
     if (_controlsVisible && fullscreen) {
         _nextButton.alpha = 1.0;
         _prevButton.alpha = 1.0;
@@ -845,10 +849,12 @@ static const float kNextPrevXOffset        =  0.0f;
     
     
     float controlBarMinWidth = 406;
-    float controlBarMaxWidth = 532;
-    float controlBarMinMargin = 16;
+//    float controlBarMaxWidth = 532;
+    float controlBarMaxWidth = 612;
+//    float controlBarMinMargin = 16;
+    float controlBarDesiredMargin = 80;
     
-    float controlBarWidth = width - (controlBarMinMargin * 2);
+    float controlBarWidth = width - (controlBarDesiredMargin * 2);
     
     controlBarWidth = MIN(controlBarWidth, controlBarMaxWidth);
     controlBarWidth = MAX(controlBarWidth, controlBarMinWidth);

@@ -60,7 +60,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">share-(old)-up.png</string>
+							<string key="NSResourceName">share.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="823106912">
 							<string key="name">Helvetica-Bold</string>
@@ -68,7 +68,7 @@
 							<int key="traits">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="320973980">
+						<object class="NSFont" key="IBUIFont" id="61114112">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -100,7 +100,7 @@
 							<string key="NSResourceName">watch-later-off-up.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="823106912"/>
-						<reference key="IBUIFont" ref="320973980"/>
+						<reference key="IBUIFont" ref="61114112"/>
 					</object>
 					<object class="IBUIButton" id="438259432">
 						<reference key="NSNextResponder" ref="85472982"/>
@@ -119,16 +119,12 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="449859410"/>
-						<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">fullscreen-contract-up.png</string>
-						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">fullscreen-up.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="823106912"/>
-						<reference key="IBUIFont" ref="320973980"/>
+						<reference key="IBUIFont" ref="61114112"/>
 					</object>
 					<object class="IBUIButton" id="54858356">
 						<reference key="NSNextResponder" ref="85472982"/>
@@ -156,7 +152,7 @@
 							<string key="NSResourceName">like-off-up.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="823106912"/>
-						<reference key="IBUIFont" ref="320973980"/>
+						<reference key="IBUIFont" ref="61114112"/>
 					</object>
 					<object class="IBUIView" id="838028058">
 						<reference key="NSNextResponder" ref="85472982"/>
@@ -164,6 +160,7 @@
 						<string key="NSFrame">{{0, 76}, {406, 22}}</string>
 						<reference key="NSSuperview" ref="85472982"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -201,7 +198,7 @@
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<reference key="IBUIFont" ref="320973980"/>
+						<reference key="IBUIFont" ref="61114112"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{406, 98}</string>
@@ -391,6 +388,7 @@
 				<string key="4.CustomClassName">VideoPlayerControlBar</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="40.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="6.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
 				<real value="2" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -399,7 +397,7 @@
 				<real value="0.0" key="7.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="8.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
-				<real value="2" key="8.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="8.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -499,13 +497,12 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="fullscreen-contract-up.png">{81, 76}</string>
 			<string key="fullscreen-up.png">{81, 76}</string>
 			<string key="like-off-up.png">{81, 76}</string>
 			<string key="like-on-up.png">{81, 76}</string>
 			<string key="play-icon.png">{24, 30}</string>
 			<string key="play-up-background.png">{1, 76}</string>
-			<string key="share-(old)-up.png">{84, 76}</string>
+			<string key="share.png">{84, 76}</string>
 			<string key="watch-later-off-up.png">{84, 76}</string>
 			<string key="watch-later-on-up.png">{84, 76}</string>
 		</dictionary>

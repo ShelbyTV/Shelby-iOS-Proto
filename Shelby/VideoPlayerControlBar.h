@@ -45,11 +45,11 @@
 - (void)setFavoriteButtonSelected:(BOOL)selected;
 - (BOOL)isWatchLaterButtonSelected;
 - (void)setWatchLaterButtonSelected:(BOOL)selected;
-- (void)setPlayButtonSelected:(BOOL)selected;
+- (void)setPlayButtonIcon:(UIImage *)image;
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;
-- (void)setFullscreenButtonSelected:(BOOL)selected;
+- (void)setFullscreenButtonIcon:(UIImage *)image;
 - (IBAction)favoriteButtonWasPressed:(id)sender;
 - (IBAction)watchLaterButtonWasPressed:(id)sender;
 

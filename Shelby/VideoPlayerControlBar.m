@@ -73,9 +73,9 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     _watchLaterButton.selected = selected;
 }
 
-- (void)setFullscreenButtonSelected:(BOOL)selected
+- (void)setFullscreenButtonIcon:(UIImage *)image
 {
-    _fullscreenButton.selected = selected;
+    [_fullscreenButton setImage:image forState:UIControlStateNormal];
 }
 
 - (void)setProgress:(float)progress {
@@ -94,9 +94,9 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     return _progressBar.duration;
 }
 
-- (void)setPlayButtonSelected:(BOOL)selected
+- (void)setPlayButtonIcon:(UIImage *)image
 {
-    [_playButton setSelected:selected];
+    [_playButton setImage:image forState:UIControlStateNormal];
 }
 
 #pragma mark - VideoProgressBarDelegate Methods
