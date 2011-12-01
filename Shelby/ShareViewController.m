@@ -191,6 +191,9 @@
     } else if ([_shareTypeSelector selectedSegmentIndex] == 1 && 
         [_emailRecipientTextField.text length] == 0) {
         _sendButton.enabled = NO;
+    } else if ([_shareTypeSelector selectedSegmentIndex] == 0 &&
+        !_twitterButton.selected && _bodyTextView.text.length > 140) {
+        _sendButton.enabled = NO;
     } else {
         _sendButton.enabled = YES;
     }
@@ -305,6 +308,8 @@
         _tweetRemainingLabel.text = [NSString stringWithFormat:@"%d", charactersRemaining];
         _tweetRemainingLabel.textColor = [UIColor redColor];
     }
+    
+    [self updateSendButton];
 }
 
 
