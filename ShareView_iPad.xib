@@ -487,7 +487,7 @@
 								<object class="NSMutableArray" key="IBUIItems">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 									<object class="IBUIBarButtonItem" id="10577837">
-										<string key="IBUITitle">Back</string>
+										<string key="IBUITitle">Cancel</string>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIStyle">1</int>
 										<reference key="IBUIToolbar" ref="764981875"/>
@@ -1219,8 +1219,8 @@
 				<string>{35, 35}</string>
 				<string>{25, 25}</string>
 				<string>{25, 25}</string>
-				<string>{355, 70}</string>
-				<string>{179, 30}</string>
+				<string>{526, 95}</string>
+				<string>{491, 31}</string>
 				<string>{25, 25}</string>
 				<string>{25, 25}</string>
 			</object>
