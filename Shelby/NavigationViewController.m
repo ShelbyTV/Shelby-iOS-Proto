@@ -295,7 +295,7 @@
     self.shareView.view.hidden = NO;
 
     // Use this to reveal the keyboard.
-    [self.shareView.socialTextView becomeFirstResponder];
+    [self.shareView.bodyTextView becomeFirstResponder];
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer

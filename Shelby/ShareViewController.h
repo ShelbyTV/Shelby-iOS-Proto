@@ -23,37 +23,42 @@
 {
     IBOutlet UIButton *_twitterButton;
     IBOutlet UIButton *_facebookButton;
-    IBOutlet UIButton *_emailButton;
-    IBOutlet UIButton *_socialButton;
+    IBOutlet UIButton *_sendButton;
     
-    IBOutlet UIImageView *_socialTextBackground;
-    IBOutlet UITextView *_socialTextView;
+    IBOutlet UITextView *_bodyTextView;
+    IBOutlet UITextField *_emailRecipientTextField;
     
-    IBOutlet UIImageView *_emailTextBackground;
-    IBOutlet UITextView *_emailTextView;
-    IBOutlet UITextField *_emailRecipientView;
+    IBOutlet UIView *_bodyTextContainerView;
+    IBOutlet UIView *_postButtonsContainerView;
+    IBOutlet UIView *_emailRecipientContainerView;
     
-    IBOutlet UILabel *_postShareOn;
+    IBOutlet UIView *_dialogContainerView;
     
+    IBOutlet UIView *_socialBodyPlaceholder;
+    IBOutlet UIView *_emailBodyPlaceholder;
+    
+    IBOutlet UISegmentedControl *_shareTypeSelector;
+    
+    IBOutlet UILabel *_tweetRemainingLabel;
+    
+    NSArray *_perfectTweetRemarks;
     Video *_video;
 }
 
 @property (assign) id <ShareViewDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UITextView *socialTextView;
-@property (nonatomic, retain) IBOutlet UITextView *emailTextView;
-@property (nonatomic, retain) IBOutlet UIView *mainView;
-@property (nonatomic, retain) IBOutlet UIView *topBackground;
-@property (nonatomic, retain) IBOutlet UIView *emailView;
-@property (nonatomic, retain) IBOutlet UIView *socialView;
-@property (nonatomic, assign) UIView *activeView;
+@property (nonatomic, retain) IBOutlet UITextView *bodyTextView;
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
-- (IBAction)socialWasPressed:(id)sender;
-- (IBAction)emailWasPressed:(id)sender;
+- (IBAction)emailRecipientValueChanged:(id)sender;
+- (IBAction)segmentedControlValueChanged:(id)sender;
+- (IBAction)closeWasPressed:(id)sender;
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
+- (void)textViewDidChange:(UITextView *)textView;
+
+- (void)updateSendButton;
 
 - (void)updateAuthorizations:(User *)user;
 
