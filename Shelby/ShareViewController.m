@@ -9,6 +9,10 @@
 #import "ShareViewController.h"
 #import "Video.h"
 #import "User.h"
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+#import "COPeoplePickerViewController.h"
+
 
 @implementation ShareViewController
 
@@ -75,6 +79,10 @@
         [self populateUI];
     }
     
+    _peoplePicker = [[COPeoplePickerViewController alloc] initWithFrame:_emailRecipientFieldHolder.bounds];
+    _peoplePicker.tableViewHolder = _emailRecipientSuggestionsHolder;
+    [_emailRecipientFieldHolder addSubview:_peoplePicker.view];
+    
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
     _dialogContainerView.backgroundColor = backgroundPattern;
     
@@ -101,7 +109,8 @@
 - (NSString *)recipients
 {
     // validate email?
-    return _emailRecipientTextField.text;
+    //return _emailRecipientTextField.text;
+    return @""; // XXX
 }
 
 - (NSArray *)socialNetworks
@@ -126,7 +135,7 @@
 
 - (void)resignFirstResponders
 {
-    [_emailRecipientTextField resignFirstResponder];
+//    [_emailRecipientTextField resignFirstResponder];
     [_bodyTextView resignFirstResponder];
 }
 
@@ -188,8 +197,9 @@
     if ([_shareTypeSelector selectedSegmentIndex] == 0 && 
         [[self socialNetworks] count] == 0) {
         _sendButton.enabled = NO;
-    } else if ([_shareTypeSelector selectedSegmentIndex] == 1 && 
-        [_emailRecipientTextField.text length] == 0) {
+    } else if ([_shareTypeSelector selectedSegmentIndex] == 1
+               // && [_emailRecipientTextField.text length] == 0
+               ) {
         _sendButton.enabled = NO;
     } else if ([_shareTypeSelector selectedSegmentIndex] == 0 &&
         !_twitterButton.selected && _bodyTextView.text.length > 140) {
@@ -240,8 +250,9 @@
         return;
     }
     
-    if ([_shareTypeSelector selectedSegmentIndex] == 1 &&
-        [_emailRecipientTextField.text length] == 0)
+    if ([_shareTypeSelector selectedSegmentIndex] == 1
+        // && [_emailRecipientTextField.text length] == 0
+        )
     {
         return;
     }
@@ -349,10 +360,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;              // called when 'return' key pressed. return NO to ignore.
 {
-    if (textField == _emailRecipientTextField) {
-        [_bodyTextView becomeFirstResponder];
-        return NO;
-    }
+//    if (textField == _emailRecipientTextField) {
+//        [_bodyTextView becomeFirstResponder];
+//        return NO;
+//    }
     return YES;
 }
 
@@ -424,6 +435,54 @@
 //        _emailRecipientView.frame = temp;
 //    }
 }
+
+
+- (IBAction)addContactWasPressed:(id)sender
+{
+
+    
+
+}    
+    
+//    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+//    picker.peoplePickerDelegate = self;
+//    // Display only a person's phone, email, and birthdate
+//    NSArray *displayedItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:kABPersonEmailProperty], nil];
+//    picker.displayedProperties = displayedItems;
+//    // Show the picker 
+//
+//    [self presentModalViewController:picker animated:YES];
+//    [picker release];
+//    
+//    
+//    NSMutableArray *emailAddress = [[NSMutableArray new] init];
+//    ABRecordRef record_;
+//
+//    ABAddressBookRef addressBook = ABAddressBookCreate();
+//    CFArrayRef people = ABAddressBookCopyArrayOfAllPeople(addressBook);
+//    
+//    ABAddressBookRef ab = [self.tokenFieldDelegate addressBookForTokenField:self];
+//    NSArray *people = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(ab));
+//    records = [NSMutableArray new];
+//    for (id obj in people) {
+//        ABRecordRef recordRef = (__bridge CFTypeRef)obj;
+//        CORecord *record = [CORecord new];
+//        record->record_ = CFRetain(recordRef);
+//        [records addObject:record];
+//    }
+//    lastUpdated = [NSDate date];
+//    
+//    ABMultiValueRef multi = ABRecordCopyValue(record_, kABPersonEmailProperty);
+//    CFIndex multiCount = ABMultiValueGetCount(multi);
+//    for (CFIndex i=0; i<multiCount; i++) {
+//        CORecordEmail *email = [CORecordEmail new];
+//        email->emails_ = CFRetain(multi);
+//        email->identifier_ = ABMultiValueGetIdentifierAtIndex(multi, i);
+//        [addresses addObject:email];
+//    }
+//    CFRelease(multi);
+//    return [NSArray arrayWithArray:addresses];
+//}
 
 
 @end

@@ -12,6 +12,8 @@
 @class Video;
 @class User;
 
+@class COPeoplePickerViewController;
+
 @protocol ShareViewDelegate 
 
 - (void)shareViewClosePressed:(ShareViewController*)shareView;
@@ -26,7 +28,8 @@
     IBOutlet UIButton *_sendButton;
     
     IBOutlet UITextView *_bodyTextView;
-    IBOutlet UITextField *_emailRecipientTextField;
+    IBOutlet UIView *_emailRecipientFieldHolder;
+    IBOutlet UIView *_emailRecipientSuggestionsHolder;
     
     IBOutlet UIView *_bodyTextContainerView;
     IBOutlet UIView *_postButtonsContainerView;
@@ -40,6 +43,8 @@
     IBOutlet UISegmentedControl *_shareTypeSelector;
     
     IBOutlet UILabel *_tweetRemainingLabel;
+    
+    COPeoplePickerViewController *_peoplePicker;
     
     NSArray *_perfectTweetRemarks;
     Video *_video;
@@ -55,6 +60,7 @@
 - (IBAction)closeWasPressed:(id)sender;
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;
+- (IBAction)addContactWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
 - (void)textViewDidChange:(UITextView *)textView;
 
