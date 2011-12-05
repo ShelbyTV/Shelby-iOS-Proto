@@ -122,7 +122,7 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     }
 }
 
-- (void)showPlayButtonIcon
+- (void)showPauseButtonIcon
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [_fullscreenButton setImage:[UIImage imageNamed:@"pauseIcon_iPad"] 
