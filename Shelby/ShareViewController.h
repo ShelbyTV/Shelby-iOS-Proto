@@ -63,6 +63,7 @@
 - (IBAction)addContactWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
 - (void)textViewDidChange:(UITextView *)textView;
+- (void)setTwitterEnabled:(BOOL)enabled;
 
 - (void)updateSendButton;
 
