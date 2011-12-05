@@ -73,9 +73,26 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     _watchLaterButton.selected = selected;
 }
 
-- (void)setFullscreenButtonIcon:(UIImage *)image
+- (void)showFullscreenExpandButtonIcon
 {
-    [_fullscreenButton setImage:image forState:UIControlStateNormal];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
+}
+
+- (void)showFullscreenContractButtonIcon
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
 }
 
 - (void)setProgress:(float)progress {
@@ -94,9 +111,26 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     return _progressBar.duration;
 }
 
-- (void)setPlayButtonIcon:(UIImage *)image
+- (void)showPlayButtonIcon
 {
-    [_playButton setImage:image forState:UIControlStateNormal];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"playIcon_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"playIcon_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
+}
+
+- (void)showPlayButtonIcon
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"pauseIcon_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"pauseIcon_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - VideoProgressBarDelegate Methods
