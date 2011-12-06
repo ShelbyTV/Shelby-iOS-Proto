@@ -30,7 +30,7 @@ static const float kHideControlsInterval  = 6.0f;
 static const float kFadeControlsDuration  = 0.5f;
 
 static const float kControlBarHeightIpad   = 98.0f;
-static const float kControlBarHeightIphone = 44.0f;
+static const float kControlBarHeightIphone = 75.0f;
 static const float kControlBarX            =  0.0f;
 static const float kNextPrevXOffset        =  0.0f;
 
@@ -50,7 +50,18 @@ static const float kNextPrevXOffset        =  0.0f;
 @synthesize moviePlayer = _moviePlayer;
 @synthesize currentVideo = _currentVideo;
 
-- (float)controlBarHeight {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer 
+       shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UISlider class]]) {
+        // prevent recognizing touches on the slider
+        return NO;
+    }
+    return YES;
+}
+
+- (float)controlBarHeight
+{
     float height;
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         height = kControlBarHeightIphone;
@@ -197,7 +208,6 @@ static const float kNextPrevXOffset        =  0.0f;
     [self addSubview:_bgView];
     [self addSubview: _moviePlayer.view];
 
-    // must be added right before next/prev, which must be last
     [self addSubview:_gestureView];
     
     [self addSubview: self.titleBar];
@@ -823,7 +833,7 @@ static const float kNextPrevXOffset        =  0.0f;
     
     CGRect gestureRect = frame;
     gestureRect.origin.y = titleBarHeight;
-    gestureRect.size.height = height - titleBarHeight - [self controlBarHeight];
+    gestureRect.size.height = height - titleBarHeight;
     
     _gestureView.frame = gestureRect;
     
@@ -849,21 +859,31 @@ static const float kNextPrevXOffset        =  0.0f;
             nextPrevSize.width,
             nextPrevSize.height);
     
+    float controlBarMinWidth;
+    float controlBarMaxWidth;
+    float controlBarDesiredMargin;
+    float controlBarOffsetFromBottom;
     
-    float controlBarMinWidth = 406;
-//    float controlBarMaxWidth = 532;
-    float controlBarMaxWidth = 612;
-//    float controlBarMinMargin = 16;
-    float controlBarDesiredMargin = 80;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        controlBarMinWidth = 406;
+        controlBarMaxWidth = 612;
+        controlBarDesiredMargin = 80;
+        controlBarOffsetFromBottom = 140;
+    } else {
+        controlBarMinWidth = 286;
+        controlBarMaxWidth = 376;
+        controlBarDesiredMargin = 57;
+        controlBarOffsetFromBottom = 95;
+    }
     
     float controlBarWidth = width - (controlBarDesiredMargin * 2);
     
     controlBarWidth = MIN(controlBarWidth, controlBarMaxWidth);
     controlBarWidth = MAX(controlBarWidth, controlBarMinWidth);
-    
+
     CGRect newControlBarFrame = CGRectMake(
                                    (width / 2 - (controlBarWidth / 2)),
-                                   height - 140,
+                                   height - controlBarOffsetFromBottom,
                                    controlBarWidth,
                                    [self controlBarHeight]
                                    );

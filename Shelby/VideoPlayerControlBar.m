@@ -79,18 +79,19 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
         [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
                            forState:UIControlStateNormal];
     } else {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPhone"] 
-                           forState:UIControlStateNormal];
+        // no reason to show this button ever on the iPhone right now...
+//        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPhone"] 
+//                           forState:UIControlStateNormal];
     }
 }
 
 - (void)showFullscreenContractButtonIcon
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenContract_iPad"] 
                            forState:UIControlStateNormal];
     } else {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPhone"] 
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenContract_iPhone"] 
                            forState:UIControlStateNormal];
     }
 }
@@ -114,10 +115,10 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 - (void)showPlayButtonIcon
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"playIcon_iPad"] 
+        [_playButton setImage:[UIImage imageNamed:@"playIcon_iPad"] 
                            forState:UIControlStateNormal];
     } else {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"playIcon_iPhone"] 
+        [_playButton setImage:[UIImage imageNamed:@"playIcon_iPhone"] 
                            forState:UIControlStateNormal];
     }
 }
@@ -125,10 +126,10 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 - (void)showPauseButtonIcon
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"pauseIcon_iPad"] 
+        [_playButton setImage:[UIImage imageNamed:@"pauseIcon_iPad"] 
                            forState:UIControlStateNormal];
     } else {
-        [_fullscreenButton setImage:[UIImage imageNamed:@"pauseIcon_iPhone"] 
+        [_playButton setImage:[UIImage imageNamed:@"pauseIcon_iPhone"] 
                            forState:UIControlStateNormal];
     }
 }
@@ -176,7 +177,12 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 - (void)layoutSubviews 
 {
     CGRect tempFrame = _playButton.frame;
-    tempFrame.size.width = self.frame.size.width - (406 - 80);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        tempFrame.size.width = self.frame.size.width - (406 - 80);
+    } else {
+        tempFrame.size.width = self.frame.size.width - (286 - 56);
+    }
+    
     _playButton.frame = tempFrame;
     
     tempFrame = _shareButton.frame;
