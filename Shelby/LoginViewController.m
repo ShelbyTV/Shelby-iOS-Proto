@@ -63,6 +63,11 @@
                                                  selector:@selector(loginURLAvailable:)
                                                      name:@"LoginURLAvailable"
                                                    object:nil];
+        
+        _fullscreenWebView = [FullscreenWebView fullscreenWebViewFromNib];
+        _fullscreenWebView.hidden = YES;
+        [_fullscreenWebView setDelegate:self];
+        [self.view addSubview:_fullscreenWebView];
     }
     return self;
 }
@@ -72,9 +77,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _webView.delegate = self;
-    [_webView setMultipleTouchEnabled:YES];
-    _webView.scalesPageToFit = YES;
 
     _networkActivityViewParent = activityHolder;
     
@@ -101,7 +103,7 @@
     completion:^(BOOL finished){
        if (finished) {
            [self.view setHidden: hidden];
-           _webViewHolder.hidden = YES;
+           _fullscreenWebView.hidden = YES;
        }
     }];
 }
@@ -144,9 +146,9 @@
 - (void)loginURLAvailable:(NSNotification*)aNotification
 {   
     NSLog(@"loginURL: %@", [aNotification.userInfo objectForKey:@"url"]);
-    [_webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
-                                            cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                        timeoutInterval:60.0]];
+    [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
+                                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                         timeoutInterval:60.0]];
     self.networkCounter = 1;
 }
 
@@ -164,22 +166,23 @@
     [self beginLoginWithProvider: @"twitter"];
 }
 
-- (IBAction)closeWebView:(id)sender
+// FullscreenWebViewDelegate
+- (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    _webViewHolder.hidden = YES;
+    _fullscreenWebView.hidden = YES;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{    
-    _webViewHolder.hidden = NO;
+- (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
+{
+    _fullscreenWebView.hidden = NO;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{    
-    _webViewHolder.hidden = YES;
+- (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    _fullscreenWebView.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }

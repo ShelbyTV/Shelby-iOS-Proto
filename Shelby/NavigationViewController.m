@@ -88,6 +88,11 @@
         self.shareView.view.hidden = YES;
         [self.view addSubview:self.shareView.view];
         [self.view addSubview:[[VideoGetter singleton] getView]];
+        
+        _fullscreenWebView = [FullscreenWebView fullscreenWebViewFromNib];
+        _fullscreenWebView.hidden = YES;
+        [_fullscreenWebView setDelegate:self];
+        [self.view addSubview:_fullscreenWebView];
     }
     return self;
 }
@@ -192,9 +197,9 @@
 - (void)showWebPage:(NSString *)urlString
 {    
     [_videoPlayer pause];
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
-                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                       timeoutInterval:60.0]];
+    [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                         timeoutInterval:60.0]];
     self.networkCounter = 1;
 }
 
@@ -345,9 +350,6 @@
 {
     [super viewDidLoad];
     _networkActivityViewParent = activityHolder;
-
-    [_webView setMultipleTouchEnabled:YES];
-    _webView.scalesPageToFit = YES;
     
     videoTable.tableView.frame = videoTableHolder.bounds;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -451,22 +453,24 @@
     [_videoPlayer playVideo: video];
 }
 
-- (IBAction)closeWebView:(id)sender
+
+// FullscreenWebViewDelegate
+- (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    _webViewHolder.hidden = YES;
+    _fullscreenWebView.hidden = YES;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{    
-    _webViewHolder.hidden = NO;
+- (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView
+{
+    _fullscreenWebView.hidden = NO;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{    
-    _webViewHolder.hidden = YES;
+- (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
+{
+    _fullscreenWebView.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }

@@ -47,7 +47,7 @@
         NSLog(@"Receiving add_provider response!");
         
         [[ShelbyApp sharedApp].loginHelper fetchAuthentications];
-        [navigationViewController closeWebView:self];
+        [navigationViewController fullscreenWebViewCloseWasPressed:self];
         
         return YES;
     } else {

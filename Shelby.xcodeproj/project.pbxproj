@@ -75,6 +75,9 @@
 		0ABB3D511463047300D182F3 /* LogoutHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D4F1463047300D182F3 /* LogoutHighlighted.png */; };
 		0ABB3D541463062E00D182F3 /* Legal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D521463062D00D182F3 /* Legal.png */; };
 		0ABB3D551463062E00D182F3 /* LegalHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D531463062D00D182F3 /* LegalHighlighted.png */; };
+		0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8260A148FED1E009FF975 /* FullscreenWebView.m */; };
+		0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */; };
+		0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */; };
 		0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496A14303B1800FDF996 /* BroadcastApi.m */; };
 		0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8496C1430425300FDF996 /* ApiConstants.h */; };
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
@@ -328,6 +331,10 @@
 		0ABB3D4F1463047300D182F3 /* LogoutHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoutHighlighted.png; path = Resources/Images/LogoutHighlighted.png; sourceTree = "<group>"; };
 		0ABB3D521463062D00D182F3 /* Legal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Legal.png; path = Resources/Images/Legal.png; sourceTree = "<group>"; };
 		0ABB3D531463062D00D182F3 /* LegalHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LegalHighlighted.png; path = Resources/Images/LegalHighlighted.png; sourceTree = "<group>"; };
+		0AC82609148FED1E009FF975 /* FullscreenWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullscreenWebView.h; sourceTree = "<group>"; };
+		0AC8260A148FED1E009FF975 /* FullscreenWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullscreenWebView.m; sourceTree = "<group>"; };
+		0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPad.xib; sourceTree = "<group>"; };
+		0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPhone.xib; sourceTree = "<group>"; };
 		0AC8496914303B1800FDF996 /* BroadcastApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastApi.h; sourceTree = "<group>"; };
 		0AC8496A14303B1800FDF996 /* BroadcastApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BroadcastApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
@@ -839,6 +846,7 @@
 				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
 				0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */,
 				0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */,
+				0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */,
 			);
 			name = iPhone;
 			path = Shelby;
@@ -859,6 +867,7 @@
 				428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */,
 				0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */,
 				0AE0500E148D81BA00952C02 /* WatchLaterOnboardCell_iPad.xib */,
+				0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */,
 			);
 			name = iPad;
 			path = Shelby;
@@ -953,6 +962,8 @@
 				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
 				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
 				0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */,
+				0AC82609148FED1E009FF975 /* FullscreenWebView.h */,
+				0AC8260A148FED1E009FF975 /* FullscreenWebView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1427,6 +1438,8 @@
 				0AE05010148D81BA00952C02 /* WatchLaterOnboardCell_iPad.xib in Resources */,
 				0AE05013148D89EC00952C02 /* playBackground_iPhone.png in Resources */,
 				0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */,
+				0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */,
+				0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1536,6 +1549,7 @@
 				0A6B279D1475C41300CF3A47 /* ThumbnailImage.m in Sources */,
 				0A6B27A11475C54800CF3A47 /* SharerImage.m in Sources */,
 				0AE04FB814896FBB00952C02 /* COPeoplePickerViewController.m in Sources */,
+				0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
