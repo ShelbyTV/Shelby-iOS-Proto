@@ -25,7 +25,7 @@
 {
     IBOutlet UIButton *_twitterButton;
     IBOutlet UIButton *_facebookButton;
-    IBOutlet UIButton *_sendButton;
+    IBOutlet UIBarButtonItem *_sendButton;
     
     IBOutlet UITextView *_bodyTextView;
     IBOutlet UIView *_emailRecipientFieldHolder;
@@ -60,7 +60,6 @@
 - (IBAction)closeWasPressed:(id)sender;
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;
-- (IBAction)addContactWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
 - (void)textViewDidChange:(UITextView *)textView;
 - (void)setTwitterEnabled:(BOOL)enabled;

@@ -29,7 +29,7 @@
                                 @"nailed it.", 
                                 @"honeymoon fit.", 
                                 @"...like a glove.", 
-                                @"I don't always tweet, but when I do, it's 140 characters.",
+                                // @"I don't always tweet, but when I do, it's 140 characters.", // too long for iPhone
                                 @"best. tweet. ever.", 
                                 @"dead on balls accurate.", nil];
     }
@@ -324,8 +324,8 @@
 }
 
 
-- (BOOL)textView:(UITextView *)aTextView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString*)aText
-{
+//- (BOOL)textView:(UITextView *)aTextView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString*)aText
+//{
 //    if (aTextView == _bodyTextView) {
 //        
 //        NSRange permalink = [_bodyTextView.text rangeOfString:[NSString stringWithFormat:@" %@", _video.shortPermalink]];
@@ -337,24 +337,24 @@
 //        }
 //    }
     
-    NSString* newText = [aTextView.text stringByReplacingCharactersInRange:aRange withString:aText];
-    
-    // TODO - find out why the size of the string is smaller than the actual width, so that you get extra, wrapped characters unless you take something off
-    CGSize tallerSize = CGSizeMake(aTextView.frame.size.width-15,aTextView.frame.size.height*2); // pretend there's more vertical space to get that extra line to check on
-    CGSize newSize = [newText sizeWithFont:aTextView.font constrainedToSize:tallerSize lineBreakMode:UILineBreakModeWordWrap];
-    
-    if (newSize.height > aTextView.frame.size.height) {
-        {
-            LOG(@"error. too big!");
-            // TODO: Consider hitting send if they hit enter again at this point.
-            
-            //[myAppDelegate beep];
-            return NO;
-        }
-    } else {
-        return YES;
-    }
-}
+//    NSString* newText = [aTextView.text stringByReplacingCharactersInRange:aRange withString:aText];
+//    
+//    // TODO - find out why the size of the string is smaller than the actual width, so that you get extra, wrapped characters unless you take something off
+//    CGSize tallerSize = CGSizeMake(aTextView.frame.size.width-15,aTextView.frame.size.height*2); // pretend there's more vertical space to get that extra line to check on
+//    CGSize newSize = [newText sizeWithFont:aTextView.font constrainedToSize:tallerSize lineBreakMode:UILineBreakModeWordWrap];
+//    
+//    if (newSize.height > aTextView.frame.size.height) {
+//        {
+//            LOG(@"error. too big!");
+//            // TODO: Consider hitting send if they hit enter again at this point.
+//            
+//            //[myAppDelegate beep];
+//            return NO;
+//        }
+//    } else {
+//        return YES;
+//    }
+//}
 
 #pragma mark - UITextFieldDelegate
 
@@ -379,110 +379,128 @@
     }
     
     // on iPhone we do some manual adjustments.
-//    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-//        CGRect temp = _twitterButton.frame;
-//        temp.origin = CGPointMake(271, 40);
-//        _twitterButton.frame = temp;
-//        
-//        temp = _facebookButton.frame;
-//        temp.origin = CGPointMake(314, 40);
-//        _facebookButton.frame = temp;
-//        
-//        temp = _postShareOn.frame;
-//        temp.origin = CGPointMake(273, 18);
-//        _postShareOn.frame = temp;
-//        
-//        temp = _socialTextView.frame;
-//        temp.size = CGSizeMake(250, 113);
-//        _socialTextView.frame = temp;
-//        _socialTextBackground.frame = temp;
-//        
-//        temp = _emailTextView.frame;
-//        temp.size = CGSizeMake(250, 83);
-//        _emailTextView.frame = temp;
-//        _emailTextBackground.frame = temp;
-//        
-//        temp = _emailRecipientView.frame;
-//        temp.size = CGSizeMake(225, 25);
-//        _emailRecipientView.frame = temp;
-//
-//    }
-//    else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
-//        CGRect temp = _twitterButton.frame;
-//        temp.origin = CGPointMake(8, 170);
-//        _twitterButton.frame = temp;
-//        
-//        temp = _facebookButton.frame;
-//        temp.origin = CGPointMake(51, 170);
-//        _facebookButton.frame = temp;
-//        
-//        temp = _postShareOn.frame;
-//        temp.origin = CGPointMake(10, 148);
-//        _postShareOn.frame = temp;
-//        
-//        temp = _socialTextView.frame;
-//        temp.size = CGSizeMake(203, 135);
-//        _socialTextView.frame = temp;
-//        _socialTextBackground.frame = temp;
-//        
-//        temp = _emailTextView.frame;
-//        temp.size = CGSizeMake(203, 119);
-//        _emailTextView.frame = temp;
-//        _emailTextBackground.frame = temp;
-//        
-//        temp = _emailRecipientView.frame;
-//        temp.size = CGSizeMake(178, 25);
-//        _emailRecipientView.frame = temp;
-//    }
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+        
+        CGRect temp = _shareTypeSelector.frame;
+        temp.size.width = 150;
+        temp.origin.x = 10;
+        temp.origin.y = 10;
+        _shareTypeSelector.frame = temp;
+    
+        temp = _socialBodyPlaceholder.frame;
+        temp.origin.x = 170;
+        temp.origin.y = 10;
+        temp.size.height = 74;
+        _socialBodyPlaceholder.frame = temp;
+        
+        temp = _postButtonsContainerView.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 45;
+        _postButtonsContainerView.frame = temp;
+        
+        temp = _tweetRemainingLabel.frame;
+        temp.origin.x = 170;
+        temp.origin.y = 89;
+        temp.size.width = 300;
+        _tweetRemainingLabel.frame = temp;
+        
+        temp = _emailBodyPlaceholder.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 50;
+        temp.size.width = 460;
+        temp.size.height = 50;
+        _emailBodyPlaceholder.frame = temp;
+        
+        temp = _emailRecipientContainerView.frame;
+        temp.origin.x = 170;
+        temp.origin.y = 10;
+        temp.size.height = 30;
+        _emailRecipientContainerView.frame = temp;
+        
+        temp = _emailRecipientSuggestionsHolder.frame;
+        temp.origin.x = 205;
+        temp.origin.y = 40;
+        temp.size.height = 74;
+        _emailRecipientSuggestionsHolder.frame = temp;
+
+    } else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+
+        CGRect temp = _shareTypeSelector.frame;
+        temp.size.width = 207;
+        temp.origin.x = 56;
+        temp.origin.y = 10;
+        _shareTypeSelector.frame = temp;
+        
+        temp = _socialBodyPlaceholder.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 50;
+        temp.size.height = 95;
+        _socialBodyPlaceholder.frame = temp;
+        
+        temp = _postButtonsContainerView.frame;
+        temp.origin.x = 11;
+        temp.origin.y = 150;
+        _postButtonsContainerView.frame = temp;
+        
+        temp = _tweetRemainingLabel.frame;
+        temp.origin.x = 104;
+        temp.origin.y = 150;
+        temp.size.width = 205;
+        _tweetRemainingLabel.frame = temp;
+        
+        temp = _emailBodyPlaceholder.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 118;
+        temp.size.width = 298;
+        temp.size.height = 92;
+        _emailBodyPlaceholder.frame = temp;
+        
+        temp = _emailRecipientContainerView.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 50;
+        temp.size.height = 58;
+        _emailRecipientContainerView.frame = temp;
+        
+        temp = _emailRecipientSuggestionsHolder.frame;
+        temp.origin.x = 45;
+        temp.origin.y = 81;
+        temp.size.height = 139;
+        _emailRecipientSuggestionsHolder.frame = temp;
+    }
+    
+    if ([_shareTypeSelector selectedSegmentIndex] == 0)
+    {
+        _bodyTextContainerView.frame = _socialBodyPlaceholder.frame;
+    } else {
+        _bodyTextContainerView.frame = _emailBodyPlaceholder.frame;
+    }
 }
 
-
-- (IBAction)addContactWasPressed:(id)sender
-{
-
-    
-
-}    
-    
-//    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-//    picker.peoplePickerDelegate = self;
-//    // Display only a person's phone, email, and birthdate
-//    NSArray *displayedItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:kABPersonEmailProperty], nil];
-//    picker.displayedProperties = displayedItems;
-//    // Show the picker 
-//
-//    [self presentModalViewController:picker animated:YES];
-//    [picker release];
-//    
-//    
-//    NSMutableArray *emailAddress = [[NSMutableArray new] init];
-//    ABRecordRef record_;
-//
-//    ABAddressBookRef addressBook = ABAddressBookCreate();
-//    CFArrayRef people = ABAddressBookCopyArrayOfAllPeople(addressBook);
-//    
-//    ABAddressBookRef ab = [self.tokenFieldDelegate addressBookForTokenField:self];
-//    NSArray *people = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(ab));
-//    records = [NSMutableArray new];
-//    for (id obj in people) {
-//        ABRecordRef recordRef = (__bridge CFTypeRef)obj;
-//        CORecord *record = [CORecord new];
-//        record->record_ = CFRetain(recordRef);
-//        [records addObject:record];
-//    }
-//    lastUpdated = [NSDate date];
-//    
-//    ABMultiValueRef multi = ABRecordCopyValue(record_, kABPersonEmailProperty);
-//    CFIndex multiCount = ABMultiValueGetCount(multi);
-//    for (CFIndex i=0; i<multiCount; i++) {
-//        CORecordEmail *email = [CORecordEmail new];
-//        email->emails_ = CFRetain(multi);
-//        email->identifier_ = ABMultiValueGetIdentifierAtIndex(multi, i);
-//        [addresses addObject:email];
-//    }
-//    CFRelease(multi);
-//    return [NSArray arrayWithArray:addresses];
-//}
-
-
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
