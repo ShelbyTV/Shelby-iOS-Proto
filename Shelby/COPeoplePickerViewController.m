@@ -172,7 +172,7 @@
     self.searchTableView.dataSource = self;
     self.searchTableView.delegate = self;
     self.searchTableView.hidden = YES;
-    self.searchTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.searchTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.searchTableView.userInteractionEnabled = YES;
     
     // Create the scroll view
