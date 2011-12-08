@@ -414,7 +414,7 @@
         temp = _emailRecipientContainerView.frame;
         temp.origin.x = 170;
         temp.origin.y = 10;
-        temp.size.height = 30;
+        temp.size.height = 31;
         _emailRecipientContainerView.frame = temp;
         
         temp = _emailRecipientSuggestionsHolder.frame;
@@ -463,7 +463,7 @@
         
         temp = _emailRecipientSuggestionsHolder.frame;
         temp.origin.x = 45;
-        temp.origin.y = 81;
+        temp.origin.y = 108;
         temp.size.height = 139;
         _emailRecipientSuggestionsHolder.frame = temp;
     }

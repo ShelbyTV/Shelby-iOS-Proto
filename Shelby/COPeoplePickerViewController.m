@@ -54,8 +54,8 @@
 
 #define kTokenFieldFontSize 14.0
 #define kTokenFieldPaddingX 6.0
-#define kTokenFieldPaddingY 3.0 // 6.0
-#define kTokenFieldTokenHeight (kTokenFieldFontSize + 4.0)
+#define kTokenFieldPaddingY 4.0 // 6.0
+#define kTokenFieldTokenHeight (kTokenFieldFontSize + 8.0)
 #define kTokenFieldMaxTokenWidth 260.0
 #define kTokenFieldFrameKeyPath @"frame"
 #define kTokenFieldShadowHeight 14.0
@@ -126,6 +126,8 @@
     self = [super init];
     if (self) {
 
+        NSLog(@"init with frame height: %f", frame.size.height);
+        
         self.view = [[UIView alloc] initWithFrame:frame];
         [self viewDidLoad];
         
@@ -150,15 +152,18 @@
 - (void)viewDidLoad {  
     // Configure content view
     self.view.backgroundColor = [UIColor clearColor];//[UIColor colorWithRed:0.859 green:0.886 blue:0.925 alpha:1.0];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     // Configure token field
     CGRect viewBounds = self.view.bounds;
-    CGRect tokenFieldFrame = CGRectMake(0, 0, CGRectGetWidth(viewBounds), 24.0);
+    CGRect tokenFieldFrame = viewBounds;
+    
+    NSLog(@"init tokenField with frame height: %f", tokenFieldFrame.size.height);
     
     self.tokenField = [[COTokenField alloc] initWithFrame:tokenFieldFrame];
     self.tokenField.tokenFieldDelegate = self;
     self.tokenField.textField.textColor = [UIColor whiteColor];
-//    self.tokenField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    self.tokenField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     [self.tokenField addObserver:self forKeyPath:kTokenFieldFrameKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     // Configure search table
@@ -176,8 +181,9 @@
     self.searchTableView.userInteractionEnabled = YES;
     
     // Create the scroll view
-    self.tokenFieldScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(viewBounds), self.tokenField.computedRowHeight)];
-    self.tokenFieldScrollView.backgroundColor = [UIColor clearColor];
+    self.tokenFieldScrollView = [[UIScrollView alloc] initWithFrame:viewBounds];
+    self.tokenFieldScrollView.backgroundColor = [UIColor clearColor]; // [UIColor blueColor];
+    self.tokenFieldScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     //[self.view addSubview:self.searchTableView];
     [self.view addSubview:self.tokenFieldScrollView];
@@ -197,13 +203,6 @@
     self.tokenFieldScrollView.contentSize = tokenFieldBounds.size;
     
     tokenScrollBounds = CGRectMake(0, 0, CGRectGetWidth(bounds), [self.tokenField heightForNumberOfRows:1]);
-    
-//    CGRect tableFrame = CGRectMake(0,
-//                                   CGRectGetMaxY(self.tokenFieldScrollView.frame),
-//                                   CGRectGetWidth(self.view.bounds),
-//                                   CGRectGetHeight(self.view.bounds));
-//    
-//    self.searchTableView.frame = tableFrame;
     
     CGFloat contentOffset = MAX(0, CGRectGetHeight(tokenFieldBounds) - CGRectGetHeight(self.tokenFieldScrollView.bounds));
     [self.tokenFieldScrollView setContentOffset:CGPointMake(0, contentOffset) animated:YES];
@@ -338,18 +337,20 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
     if (self) {
         self.tokens = [NSMutableArray new];
         self.opaque = NO;
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor clearColor]; // [UIColor greenColor];
 
         // Setup text field
         CGFloat textFieldHeight = self.computedRowHeight;
         self.textField = [[UITextField alloc] initWithFrame:CGRectMake(kTokenFieldPaddingX,
-                                                                       (CGRectGetHeight(self.bounds) - textFieldHeight) / 2.0,
+                                                                       //(CGRectGetHeight(self.bounds) - textFieldHeight) / 2.0,
+                                                                       kTokenFieldPaddingY,
                                                                        CGRectGetWidth(self.bounds) - kTokenFieldPaddingX * 3.0,
-                                                                       textFieldHeight)];
+                                                                       22)];
         
-        self.textField = [[UITextField alloc] initWithFrame:self.bounds];
+        //self.textField = [[UITextField alloc] initWithFrame:self.bounds];
+        self.textField.borderStyle = UITextBorderStyleNone;
         self.textField.opaque = YES;
-        self.textField.backgroundColor = [UIColor redColor];
+        self.textField.backgroundColor = [UIColor clearColor]; //[UIColor redColor];
         self.textField.font = [UIFont systemFontOfSize:kTokenFieldFontSize];
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -368,8 +369,7 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
 
 - (CGFloat)computedRowHeight
 {
-    CGFloat buttonHeight = 24;
-    return MAX(buttonHeight, (kTokenFieldPaddingY * 2.0 + kTokenFieldTokenHeight));
+    return kTokenFieldPaddingY * 2.0 + kTokenFieldTokenHeight;
 }
 
 - (CGFloat)heightForNumberOfRows:(NSUInteger)rows {
@@ -414,10 +414,11 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
     self.textField.frame = textFieldFrame;
     
     CGRect tokenFieldFrame = self.frame;
-    CGFloat minHeight = MAX(rowHeight, 24 + kTokenFieldPaddingY * 2.0);
+    CGFloat minHeight = MAX(rowHeight + kTokenFieldPaddingY, 24 + kTokenFieldPaddingY * 2.0);
     tokenFieldFrame.size.height = MAX(minHeight, CGRectGetMaxY(textFieldFrame) + kTokenFieldPaddingY);
     
     self.frame = tokenFieldFrame;
+    NSLog(@"frame height: %f", self.frame.size.height);
 }
 
 - (void)selectToken:(COToken *)token {
