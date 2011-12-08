@@ -451,7 +451,7 @@
         temp = _emailBodyPlaceholder.frame;
         temp.origin.x = 10;
         temp.origin.y = 118;
-        temp.size.width = 298;
+        temp.size.width = 300;
         temp.size.height = 92;
         _emailBodyPlaceholder.frame = temp;
         

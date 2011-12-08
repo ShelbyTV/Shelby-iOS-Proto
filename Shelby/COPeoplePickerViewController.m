@@ -185,7 +185,6 @@
     self.tokenFieldScrollView.backgroundColor = [UIColor clearColor]; // [UIColor blueColor];
     self.tokenFieldScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    //[self.view addSubview:self.searchTableView];
     [self.view addSubview:self.tokenFieldScrollView];
     [self.tokenFieldScrollView addSubview:self.tokenField];
     
@@ -520,7 +519,8 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{    
     if (string.length == 0 && [textField.text isEqualToString:kCOTokenFieldDetectorString]) {
         [self modifySelectedToken];
         return NO;
@@ -531,7 +531,20 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
     return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    if (textField.hidden) {
+        return NO;
+    }
+    NSString *text = self.textField.text;
+    if ([text length] > 1) {
+        [self processToken:[text substringFromIndex:1]];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if (textField.hidden) {
         return NO;
     }

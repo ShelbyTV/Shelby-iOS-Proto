@@ -72,7 +72,7 @@
 									<object class="IBUIView" id="725659668">
 										<reference key="NSNextResponder" ref="698254765"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 118}, {298, 92}}</string>
+										<string key="NSFrame">{{10, 118}, {300, 92}}</string>
 										<reference key="NSSuperview" ref="698254765"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="747246548"/>
@@ -149,13 +149,13 @@
 												<nil key="IBUIHighlightedColor"/>
 												<int key="IBUIBaselineAdjustment">1</int>
 												<float key="IBUIMinimumFontSize">10</float>
-												<object class="IBUIFontDescription" key="IBUIFontDescription" id="98555567">
+												<object class="IBUIFontDescription" key="IBUIFontDescription" id="286470342">
 													<string key="name">Thonburi-Bold</string>
 													<string key="family">Thonburi</string>
 													<int key="traits">2</int>
 													<double key="pointSize">17</double>
 												</object>
-												<object class="NSFont" key="IBUIFont" id="410131695">
+												<object class="NSFont" key="IBUIFont" id="571523818">
 													<string key="NSName">Thonburi-Bold</string>
 													<double key="NSSize">17</double>
 													<int key="NSfFlags">16</int>
@@ -191,19 +191,19 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">TwitterActive.png</string>
 												</object>
-												<object class="NSCustomResource" key="IBUIDisabledBackgroundImage" id="71070072">
+												<object class="NSCustomResource" key="IBUIDisabledBackgroundImage" id="621654312">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">ButtonSocialBackground.png</string>
 												</object>
-												<reference key="IBUISelectedBackgroundImage" ref="71070072"/>
-												<reference key="IBUINormalBackgroundImage" ref="71070072"/>
+												<reference key="IBUISelectedBackgroundImage" ref="621654312"/>
+												<reference key="IBUINormalBackgroundImage" ref="621654312"/>
 												<object class="IBUIFontDescription" key="IBUIFontDescription" id="835059325">
 													<string key="name">Helvetica-Bold</string>
 													<string key="family">Helvetica</string>
 													<int key="traits">2</int>
 													<double key="pointSize">15</double>
 												</object>
-												<object class="NSFont" key="IBUIFont" id="833582890">
+												<object class="NSFont" key="IBUIFont" id="480518772">
 													<string key="NSName">Helvetica-Bold</string>
 													<double key="NSSize">15</double>
 													<int key="NSfFlags">16</int>
@@ -236,11 +236,11 @@
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">FacebookActive.png</string>
 												</object>
-												<reference key="IBUIDisabledBackgroundImage" ref="71070072"/>
-												<reference key="IBUISelectedBackgroundImage" ref="71070072"/>
-												<reference key="IBUINormalBackgroundImage" ref="71070072"/>
+												<reference key="IBUIDisabledBackgroundImage" ref="621654312"/>
+												<reference key="IBUISelectedBackgroundImage" ref="621654312"/>
+												<reference key="IBUINormalBackgroundImage" ref="621654312"/>
 												<reference key="IBUIFontDescription" ref="835059325"/>
-												<reference key="IBUIFont" ref="833582890"/>
+												<reference key="IBUIFont" ref="480518772"/>
 											</object>
 										</object>
 										<string key="NSFrame">{{11, 150}, {90, 60}}</string>
@@ -277,8 +277,8 @@
 										<float key="IBUIMinimumFontSize">10</float>
 										<int key="IBUINumberOfLines">2</int>
 										<int key="IBUITextAlignment">2</int>
-										<reference key="IBUIFontDescription" ref="98555567"/>
-										<reference key="IBUIFont" ref="410131695"/>
+										<reference key="IBUIFontDescription" ref="286470342"/>
+										<reference key="IBUIFont" ref="571523818"/>
 									</object>
 									<object class="IBUIView" id="914532307">
 										<reference key="NSNextResponder" ref="698254765"/>
@@ -463,12 +463,12 @@
 										<int key="IBUIStyle">2</int>
 										<reference key="IBUIToolbar" ref="682022811"/>
 									</object>
-									<object class="IBUIBarButtonItem" id="459520326">
+									<object class="IBUIBarButtonItem" id="79672896">
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<reference key="IBUIToolbar" ref="682022811"/>
 										<int key="IBUISystemItemIdentifier">5</int>
 									</object>
-									<object class="IBUIBarButtonItem" id="420409668">
+									<object class="IBUIBarButtonItem" id="760946514">
 										<string key="IBUITitle">SEND</string>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<float key="IBUIWidth">75</float>
@@ -658,7 +658,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_sendButton</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="420409668"/>
+						<reference key="destination" ref="760946514"/>
 					</object>
 					<int key="connectionID">265</int>
 				</object>
@@ -708,7 +708,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">sendWasPressed:</string>
-						<reference key="source" ref="420409668"/>
+						<reference key="source" ref="760946514"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">264</int>
@@ -785,8 +785,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="775822437"/>
-							<reference ref="420409668"/>
-							<reference ref="459520326"/>
+							<reference ref="760946514"/>
+							<reference ref="79672896"/>
 						</object>
 						<reference key="parent" ref="985251360"/>
 					</object>
@@ -896,12 +896,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">262</int>
-						<reference key="object" ref="420409668"/>
+						<reference key="object" ref="760946514"/>
 						<reference key="parent" ref="682022811"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">263</int>
-						<reference key="object" ref="459520326"/>
+						<reference key="object" ref="79672896"/>
 						<reference key="parent" ref="682022811"/>
 					</object>
 				</object>
