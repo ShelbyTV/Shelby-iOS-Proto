@@ -119,6 +119,9 @@
 
 - (void)beginLoginWithProvider:(NSString *)provider
 {
+    [twitterButton setEnabled:NO];
+    [facebookButton setEnabled:NO];
+    
     [self clearAllCookies];
     [_loginHelper getRequestTokenWithProvider:provider];
 }
@@ -178,6 +181,9 @@
     _fullscreenWebView.hidden = NO;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
+    
+    [twitterButton setEnabled:YES];
+    [facebookButton setEnabled:YES];
 }
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -185,6 +191,9 @@
     _fullscreenWebView.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+    
+    [twitterButton setEnabled:YES];
+    [facebookButton setEnabled:YES];
 }
 
 - (IBAction)infoTabPressed:(id)sender

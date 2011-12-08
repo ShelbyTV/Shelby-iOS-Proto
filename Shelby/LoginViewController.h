@@ -18,6 +18,9 @@
     id callbackObject;
     SEL callbackSelector;
     
+    IBOutlet UIButton *twitterButton;
+    IBOutlet UIButton *facebookButton;
+    
     IBOutlet UIView *stripesView;
     
     IBOutlet UIView *activityHolder;
