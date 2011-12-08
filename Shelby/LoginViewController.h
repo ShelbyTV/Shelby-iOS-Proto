@@ -18,7 +18,12 @@
     id callbackObject;
     SEL callbackSelector;
     
+    IBOutlet UIView *stripesView;
+    
     IBOutlet UIView *activityHolder;
+    
+    IBOutlet UIView *infoView;
+    BOOL infoViewExpanded;
 
     // Actual login stuff
     LoginHelper *_loginHelper;
@@ -35,6 +40,8 @@
 
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;
+
+- (IBAction)infoTabPressed:(id)sender;
 
 // FullscreenWebViewDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender;

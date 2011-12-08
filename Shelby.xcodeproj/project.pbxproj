@@ -78,6 +78,14 @@
 		0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8260A148FED1E009FF975 /* FullscreenWebView.m */; };
 		0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */; };
 		0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */; };
+		0AC82613149009F1009FF975 /* LoginLogo_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC82612149009F1009FF975 /* LoginLogo_iPad.png */; };
+		0AC8261614900B27009FF975 /* LoginFacebook_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */; };
+		0AC8261714900B27009FF975 /* LoginTwitter_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */; };
+		0AC826191490133A009FF975 /* LoginFriendsAreWatchingText_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826181490133A009FF975 /* LoginFriendsAreWatchingText_iPad.png */; };
+		0AC8261C149016C9009FF975 /* LoginCanISignIn_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8261A149016C9009FF975 /* LoginCanISignIn_iPad.png */; };
+		0AC8261D149016C9009FF975 /* LoginCanISignInAnswer_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8261B149016C9009FF975 /* LoginCanISignInAnswer_iPad.png */; };
+		0AC8262014902230009FF975 /* LoginGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8261F1490222F009FF975 /* LoginGradientView.m */; };
+		0AC826221490296B009FF975 /* LoginBackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826211490296B009FF975 /* LoginBackgroundStripes.png */; };
 		0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496A14303B1800FDF996 /* BroadcastApi.m */; };
 		0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8496C1430425300FDF996 /* ApiConstants.h */; };
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
@@ -318,6 +326,15 @@
 		0AC8260A148FED1E009FF975 /* FullscreenWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullscreenWebView.m; sourceTree = "<group>"; };
 		0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPad.xib; sourceTree = "<group>"; };
 		0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPhone.xib; sourceTree = "<group>"; };
+		0AC82612149009F1009FF975 /* LoginLogo_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginLogo_iPad.png; path = Resources/Images/LoginLogo_iPad.png; sourceTree = "<group>"; };
+		0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFacebook_iPad.png; path = Resources/Images/LoginFacebook_iPad.png; sourceTree = "<group>"; };
+		0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginTwitter_iPad.png; path = Resources/Images/LoginTwitter_iPad.png; sourceTree = "<group>"; };
+		0AC826181490133A009FF975 /* LoginFriendsAreWatchingText_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFriendsAreWatchingText_iPad.png; path = Resources/Images/LoginFriendsAreWatchingText_iPad.png; sourceTree = "<group>"; };
+		0AC8261A149016C9009FF975 /* LoginCanISignIn_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginCanISignIn_iPad.png; path = Resources/Images/LoginCanISignIn_iPad.png; sourceTree = "<group>"; };
+		0AC8261B149016C9009FF975 /* LoginCanISignInAnswer_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginCanISignInAnswer_iPad.png; path = Resources/Images/LoginCanISignInAnswer_iPad.png; sourceTree = "<group>"; };
+		0AC8261E1490222E009FF975 /* LoginGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginGradientView.h; sourceTree = "<group>"; };
+		0AC8261F1490222F009FF975 /* LoginGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginGradientView.m; sourceTree = "<group>"; };
+		0AC826211490296B009FF975 /* LoginBackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackgroundStripes.png; path = Resources/Images/LoginBackgroundStripes.png; sourceTree = "<group>"; };
 		0AC8496914303B1800FDF996 /* BroadcastApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastApi.h; sourceTree = "<group>"; };
 		0AC8496A14303B1800FDF996 /* BroadcastApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BroadcastApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
@@ -683,6 +700,12 @@
 		0AC849661430356100FDF996 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				0AC826211490296B009FF975 /* LoginBackgroundStripes.png */,
+				0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */,
+				0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */,
+				0AC826181490133A009FF975 /* LoginFriendsAreWatchingText_iPad.png */,
+				0AC8261A149016C9009FF975 /* LoginCanISignIn_iPad.png */,
+				0AC8261B149016C9009FF975 /* LoginCanISignInAnswer_iPad.png */,
 				0A155E75142908280010E503 /* FacebookSignIn.png */,
 				0A155E76142908280010E503 /* TwitterSignIn.png */,
 			);
@@ -711,6 +734,7 @@
 			isa = PBXGroup;
 			children = (
 				42C4C55C13E8A6C00034AC97 /* Logo.png */,
+				0AC82612149009F1009FF975 /* LoginLogo_iPad.png */,
 				0ADF890814344B10001BCCF8 /* Logo_iPad.png */,
 				0A53951814423AC6004721B9 /* LogoSquares.png */,
 				0A3E77B01434713500800018 /* iPadHeaderBackground.png */,
@@ -929,6 +953,8 @@
 				0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */,
 				0AC82609148FED1E009FF975 /* FullscreenWebView.h */,
 				0AC8260A148FED1E009FF975 /* FullscreenWebView.m */,
+				0AC8261E1490222E009FF975 /* LoginGradientView.h */,
+				0AC8261F1490222F009FF975 /* LoginGradientView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1377,6 +1403,13 @@
 				0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */,
 				0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */,
 				0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */,
+				0AC82613149009F1009FF975 /* LoginLogo_iPad.png in Resources */,
+				0AC8261614900B27009FF975 /* LoginFacebook_iPad.png in Resources */,
+				0AC8261714900B27009FF975 /* LoginTwitter_iPad.png in Resources */,
+				0AC826191490133A009FF975 /* LoginFriendsAreWatchingText_iPad.png in Resources */,
+				0AC8261C149016C9009FF975 /* LoginCanISignIn_iPad.png in Resources */,
+				0AC8261D149016C9009FF975 /* LoginCanISignInAnswer_iPad.png in Resources */,
+				0AC826221490296B009FF975 /* LoginBackgroundStripes.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,6 +1517,7 @@
 				0A6B27A11475C54800CF3A47 /* SharerImage.m in Sources */,
 				0AE04FB814896FBB00952C02 /* COPeoplePickerViewController.m in Sources */,
 				0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */,
+				0AC8262014902230009FF975 /* LoginGradientView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

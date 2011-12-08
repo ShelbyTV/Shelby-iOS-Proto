@@ -81,7 +81,7 @@
     _networkActivityViewParent = activityHolder;
     
     // Do any additional setup after loading the view from its nib.
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
+    [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LoginBackgroundStripes" ofType:@"png"]]]];
 }
 
 #pragma mark - Misc Methods
@@ -185,6 +185,20 @@
     _fullscreenWebView.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+}
+
+- (IBAction)infoTabPressed:(id)sender
+{        
+    [UIView animateWithDuration:0.25 animations:^{
+        CGRect temp = infoView.frame;
+        temp.origin.y += infoViewExpanded ? 139 : -139;
+        infoView.frame = temp;
+    }
+    completion:^(BOOL finished){
+        if (finished) {
+            infoViewExpanded = !infoViewExpanded;
+        }
+    }];
 }
 
 @end
