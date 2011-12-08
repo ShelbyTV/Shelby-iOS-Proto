@@ -20,6 +20,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    NSLog(@"Here, drawing radial gradient");
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextClipToRect(context, rect);
     
@@ -44,6 +45,8 @@
 
     CGContextDrawRadialGradient(context, gradient, startCenter, startRadius, endCenter, endRadius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
 	
+    NSLog(@"Here, done drawing radial gradient");
+
 	[super drawRect:rect];
 }
 

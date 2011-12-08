@@ -81,7 +81,13 @@
     _networkActivityViewParent = activityHolder;
     
     // Do any additional setup after loading the view from its nib.
-    [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"LoginBackgroundStripes" ofType:@"png"]]]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackgroundStripes_iPad"]]];
+    } else {
+        [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackgroundStripes_iPhone"]]];
+    }
+    [stripesView setOpaque:NO];
+    [[stripesView layer] setOpaque:NO]; // hack needed for transparent backgrounds on iOS < 5
 }
 
 #pragma mark - Misc Methods
@@ -197,10 +203,18 @@
 }
 
 - (IBAction)infoTabPressed:(id)sender
-{        
+{   
+    float amountToMove;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        amountToMove = 139;
+    } else {
+        amountToMove = 165;
+    }
+    
     [UIView animateWithDuration:0.25 animations:^{
         CGRect temp = infoView.frame;
-        temp.origin.y += infoViewExpanded ? 139 : -139;
+        temp.origin.y += infoViewExpanded ? amountToMove : -1 * amountToMove;
         infoView.frame = temp;
     }
     completion:^(BOOL finished){

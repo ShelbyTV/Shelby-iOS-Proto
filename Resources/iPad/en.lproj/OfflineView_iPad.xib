@@ -49,7 +49,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 20}, {375, 32}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="629616670"/>
 								<string key="NSReuseIdentifierKey">_NS:311</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -88,7 +87,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 71}, {375, 151}}</string>
 								<reference key="NSSuperview" ref="901122737"/>
-								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:311</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -120,7 +119,7 @@ IHdpZmkgdG8gdXNlIFNoZWxieS4</string>
 						</object>
 						<string key="NSFrame">{{1, 1}, {415, 250}}</string>
 						<reference key="NSSuperview" ref="371682399"/>
-						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="917485329"/>
 						<string key="NSReuseIdentifierKey">_NS:180</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -131,8 +130,7 @@ IHdpZmkgdG8gdXNlIFNoZWxieS4</string>
 				</object>
 				<string key="NSFrameSize">{417, 252}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="917485329"/>
+				<reference key="NSNextKeyView" ref="901122737"/>
 				<string key="NSReuseIdentifierKey">_NS:180</string>
 				<reference key="IBUIBackgroundColor" ref="903153181"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -202,7 +200,6 @@ IHdpZmkgdG8gdXNlIFNoZWxieS4</string>
 					<string>-1.IBPluginDependency</string>
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
-					<string>2.CustomClassName</string>
 					<string>2.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
@@ -213,7 +210,6 @@ IHdpZmkgdG8gdXNlIFNoZWxieS4</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>STVOfflineView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
