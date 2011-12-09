@@ -464,7 +464,7 @@
         temp = _emailRecipientSuggestionsHolder.frame;
         temp.origin.x = 45;
         temp.origin.y = 108;
-        temp.size.height = 139;
+        temp.size.height = 112;
         _emailRecipientSuggestionsHolder.frame = temp;
     }
     
