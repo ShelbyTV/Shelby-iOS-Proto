@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "COPeoplePickerViewController.h"
 
 @class ShareViewController;
 @class Video;
@@ -21,7 +22,7 @@
 
 @end
 
-@interface ShareViewController : UIViewController
+@interface ShareViewController : UIViewController <COPeoplePickerDelegate>
 {
     IBOutlet UIButton *_twitterButton;
     IBOutlet UIButton *_facebookButton;
@@ -55,7 +56,6 @@
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
-- (IBAction)emailRecipientValueChanged:(id)sender;
 - (IBAction)segmentedControlValueChanged:(id)sender;
 - (IBAction)closeWasPressed:(id)sender;
 - (IBAction)twitterWasPressed:(id)sender;
@@ -70,5 +70,7 @@
 
 - (void)setVideo:(Video *)video;
 - (Video *)getVideo;
+
+- (void)numberOfEmailTokensChanged;
 
 @end

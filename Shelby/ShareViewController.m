@@ -81,6 +81,7 @@
     
     _peoplePicker = [[COPeoplePickerViewController alloc] initWithFrame:_emailRecipientFieldHolder.bounds];
     _peoplePicker.tableViewHolder = _emailRecipientSuggestionsHolder;
+    _peoplePicker.delegate = self;
     [_emailRecipientFieldHolder addSubview:_peoplePicker.view];
     
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
@@ -109,8 +110,7 @@
 - (NSString *)recipients
 {
     // validate email?
-    //return _emailRecipientTextField.text;
-    return @""; // XXX
+    return [_peoplePicker concatenatedEmailAddresses];
 }
 
 - (NSArray *)socialNetworks
@@ -198,8 +198,7 @@
         [[self socialNetworks] count] == 0) {
         _sendButton.enabled = NO;
     } else if ([_shareTypeSelector selectedSegmentIndex] == 1
-               // && [_emailRecipientTextField.text length] == 0
-               ) {
+                && [_peoplePicker tokenCount] == 0) {
         _sendButton.enabled = NO;
     } else if ([_shareTypeSelector selectedSegmentIndex] == 0 &&
         !_twitterButton.selected && _bodyTextView.text.length > 140) {
@@ -251,8 +250,7 @@
     }
     
     if ([_shareTypeSelector selectedSegmentIndex] == 1
-        // && [_emailRecipientTextField.text length] == 0
-        )
+         && [_peoplePicker tokenCount] == 0)
     {
         return;
     }
@@ -367,7 +365,7 @@
     return YES;
 }
 
-- (IBAction)emailRecipientValueChanged:(id)sender
+- (void) numberOfEmailTokensChanged;
 {
     [self updateSendButton];
 }

@@ -46,7 +46,7 @@
 @protocol COTokenFieldDelegate <NSObject>
 @required
 
-//- (void)tokenFieldDidPressAddContactButton:(COTokenField *)tokenField;
+- (void)numberOfEmailTokensChanged;
 - (ABAddressBookRef)addressBookForTokenField:(COTokenField *)tokenField;
 - (void)tokenField:(COTokenField *)tokenField updateAddressBookSearchResults:(NSArray *)records;
 
@@ -120,6 +120,7 @@
 @synthesize searchTableView = searchTableView_;
 @synthesize discreteSearchResults = discreteSearchResults_;
 @synthesize tableViewHolder;
+@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -207,10 +208,39 @@
     [self.tokenFieldScrollView setContentOffset:CGPointMake(0, contentOffset) animated:YES];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if ([keyPath isEqualToString:kTokenFieldFrameKeyPath]) {
         [self layoutTokenFieldAndSearchTable];
     }
+}
+
+- (void)numberOfEmailTokensChanged
+{
+    if (self.delegate) {
+        [self.delegate numberOfEmailTokensChanged];
+    }
+}
+
+- (int)tokenCount {
+    return [self.tokenField.tokens count];
+}
+
+- (NSString *)concatenatedEmailAddresses
+{
+    NSString *cat = @"";
+    BOOL firstToken = TRUE;
+    
+    for (COToken *token in self.tokenField.tokens) {
+        if (firstToken) {
+            cat = token.title;
+            firstToken = FALSE;
+        } else {
+            cat = [NSString stringWithFormat:@"%@,%@", cat, token.title];
+        }
+    }
+    
+    return cat;
 }
 
 - (void)viewDidUnload {
@@ -339,14 +369,12 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
         self.backgroundColor = [UIColor clearColor]; // [UIColor greenColor];
 
         // Setup text field
-        CGFloat textFieldHeight = self.computedRowHeight;
         self.textField = [[UITextField alloc] initWithFrame:CGRectMake(kTokenFieldPaddingX,
                                                                        //(CGRectGetHeight(self.bounds) - textFieldHeight) / 2.0,
                                                                        kTokenFieldPaddingY,
                                                                        CGRectGetWidth(self.bounds) - kTokenFieldPaddingX * 3.0,
-                                                                       22)];
+                                                                       22)]; // XXX hack for now
         
-        //self.textField = [[UITextField alloc] initWithFrame:self.bounds];
         self.textField.borderStyle = UITextBorderStyleNone;
         self.textField.opaque = YES;
         self.textField.backgroundColor = [UIColor clearColor]; //[UIColor redColor];
@@ -360,7 +388,7 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
         [self.textField addTarget:self action:@selector(tokenInputChanged:) forControlEvents:UIControlEventEditingChanged];
         
         [self addSubview:self.textField];
-        
+                
         [self setNeedsLayout];
     }
     return self;
@@ -442,6 +470,9 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
         if (token == self.selectedToken) {
             [token removeFromSuperview];
             [self.tokens removeObject:token];
+            if (self.tokenFieldDelegate) {
+                [self.tokenFieldDelegate numberOfEmailTokensChanged];
+            }
             self.textField.hidden = NO;
             self.selectedToken = nil;
         }
@@ -464,6 +495,9 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
     COToken *token = [COToken tokenWithTitle:tokenText associatedObject:tokenText container:self];
     [token addTarget:self action:@selector(selectToken:) forControlEvents:UIControlEventTouchUpInside];
     [self.tokens addObject:token];
+    if (self.tokenFieldDelegate) {
+        [self.tokenFieldDelegate numberOfEmailTokensChanged];
+    }
     self.textField.text = kCOTokenFieldDetectorString;
     [self setNeedsLayout];
 }
