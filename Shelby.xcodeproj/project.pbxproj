@@ -109,6 +109,7 @@
 		0AC826501491C0AF009FF975 /* LoginNotAJerkLikeThat_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8264F1491C0AE009FF975 /* LoginNotAJerkLikeThat_iPad.png */; };
 		0AC826531491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826511491D8D1009FF975 /* LoginNotAJerkLikeThat_iPhone.png */; };
 		0AC826541491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826521491D8D2009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png */; };
+		0AC826561491FB58009FF975 /* ButtonSocialBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826551491FB58009FF975 /* ButtonSocialBackground.png */; };
 		0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496A14303B1800FDF996 /* BroadcastApi.m */; };
 		0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8496C1430425300FDF996 /* ApiConstants.h */; };
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
@@ -381,6 +382,7 @@
 		0AC8264F1491C0AE009FF975 /* LoginNotAJerkLikeThat_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginNotAJerkLikeThat_iPad.png; path = Resources/Images/LoginNotAJerkLikeThat_iPad.png; sourceTree = "<group>"; };
 		0AC826511491D8D1009FF975 /* LoginNotAJerkLikeThat_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginNotAJerkLikeThat_iPhone.png; path = Resources/Images/LoginNotAJerkLikeThat_iPhone.png; sourceTree = "<group>"; };
 		0AC826521491D8D2009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginNotAJerkLikeThat_iPhone@2x.png"; path = "Resources/Images/LoginNotAJerkLikeThat_iPhone@2x.png"; sourceTree = "<group>"; };
+		0AC826551491FB58009FF975 /* ButtonSocialBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSocialBackground.png; path = Resources/Images/ButtonSocialBackground.png; sourceTree = "<group>"; };
 		0AC8496914303B1800FDF996 /* BroadcastApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastApi.h; sourceTree = "<group>"; };
 		0AC8496A14303B1800FDF996 /* BroadcastApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BroadcastApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
@@ -669,6 +671,7 @@
 		0AC82610149006BA009FF975 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
+				0AC826551491FB58009FF975 /* ButtonSocialBackground.png */,
 				42ACA2C5142A9262009FD812 /* TextAreaGray.png */,
 				427A621D13F46D5B00C945E2 /* TextFieldGray.png */,
 				42ACA2C7142A9305009FD812 /* ButtonSend.png */,
@@ -1502,6 +1505,7 @@
 				0AC826501491C0AF009FF975 /* LoginNotAJerkLikeThat_iPad.png in Resources */,
 				0AC826531491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone.png in Resources */,
 				0AC826541491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png in Resources */,
+				0AC826561491FB58009FF975 /* ButtonSocialBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
