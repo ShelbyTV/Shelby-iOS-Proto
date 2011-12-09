@@ -28,6 +28,8 @@
 - (id)initWithFrame:(CGRect)frame;
 - (int)tokenCount;
 - (NSString *)concatenatedEmailAddresses;
+- (void)resignFirstResponders;
+- (void)clearTokenField;
 
 @property (nonatomic, retain) UIView *tableViewHolder;
 @property (nonatomic, assign) id <COPeoplePickerDelegate> delegate;

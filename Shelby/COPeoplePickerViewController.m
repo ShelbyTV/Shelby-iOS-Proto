@@ -74,6 +74,7 @@
 - (void)modifySelectedToken;
 - (void)processToken:(NSString *)tokenText;
 - (void)tokenInputChanged:(id)sender;
+- (void)clear;
 
 @end
 
@@ -243,6 +244,16 @@
     return cat;
 }
 
+- (void)resignFirstResponders
+{
+    [self.tokenField.textField resignFirstResponder];
+}
+
+- (void)clearTokenField
+{
+    [self.tokenField clear];
+}
+
 - (void)viewDidUnload {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.tokenField removeObserver:self forKeyPath:kTokenFieldFrameKeyPath];
@@ -353,6 +364,8 @@ static NSString *kCORecordEmailAddress = @"emailAddress";
 
 #pragma mark - COTokenField Implementation
 
+// XXX token memory leaked? needs dealloc.
+
 @implementation COTokenField
 @synthesize tokenFieldDelegate = tokenFieldDelegate_;
 @synthesize textField = textField_;
@@ -392,6 +405,17 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
         [self setNeedsLayout];
     }
     return self;
+}
+
+- (void)clear
+{
+    while ([self.tokens count] > 0) {
+        
+        COToken *token = [self.tokens objectAtIndex:0];
+        
+        [self selectToken:token];
+        [self modifyToken:token];
+    }
 }
 
 - (CGFloat)computedRowHeight

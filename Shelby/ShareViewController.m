@@ -64,6 +64,8 @@
     _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"Great video via %@", [_video.sharer lowercaseString]] length]);
     [self textViewDidChange:_bodyTextView];
     
+    [_peoplePicker clearTokenField];
+    
     [self updateSendButton];
     
     [self.view setNeedsDisplay];
@@ -135,7 +137,7 @@
 
 - (void)resignFirstResponders
 {
-//    [_emailRecipientTextField resignFirstResponder];
+    [_peoplePicker resignFirstResponders];
     [_bodyTextView resignFirstResponder];
 }
 
