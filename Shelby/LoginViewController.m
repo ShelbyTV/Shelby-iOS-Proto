@@ -207,7 +207,7 @@
     float amountToMove;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        amountToMove = 139;
+        amountToMove = 102;
     } else {
         amountToMove = 165;
     }
