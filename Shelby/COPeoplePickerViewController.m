@@ -285,16 +285,16 @@ static NSString *kCORecordEmailAddress = @"emailAddress";
     
     // Split the search results into one email value per row
     NSMutableArray *results = [NSMutableArray new];
-#if TARGET_IPHONE_SIMULATOR
-    for (int i=0; i<4; i++) {
-        NSDictionary *entry = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSString stringWithFormat:@"Name %i", i], kCORecordFullName,
-                               [NSString stringWithFormat:@"label%i", i], kCORecordEmailLabel,
-                               [NSString stringWithFormat:@"fake%i@address.com", i], kCORecordEmailAddress,
-                               nil];
-        [results addObject:entry];
-    }
-#else
+//#if TARGET_IPHONE_SIMULATOR
+//    for (int i=0; i<4; i++) {
+//        NSDictionary *entry = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               [NSString stringWithFormat:@"Name %i", i], kCORecordFullName,
+//                               [NSString stringWithFormat:@"label%i", i], kCORecordEmailLabel,
+//                               [NSString stringWithFormat:@"fake%i@address.com", i], kCORecordEmailAddress,
+//                               nil];
+//        [results addObject:entry];
+//    }
+//#else
     for (CORecord *record in records) {
         for (CORecordEmail *email in record.emailAddresses) {
             NSDictionary *entry = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -307,7 +307,7 @@ static NSString *kCORecordEmailAddress = @"emailAddress";
             }
         }
     }
-#endif
+//#endif
     self.discreteSearchResults = [NSArray arrayWithArray:results];
     
     // Update the table
@@ -767,9 +767,15 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
 
 - (NSString *)label {
     CFStringRef label = ABMultiValueCopyLabelAtIndex(emails_, ABMultiValueGetIndexForIdentifier(emails_, identifier_));
-    CFStringRef localizedLabel = ABAddressBookCopyLocalizedLabel(label);
-    CFRelease(label);
-    return CFBridgingRelease(localizedLabel);
+    CFStringRef localizedLabel;
+    if (label != NULL) {
+        localizedLabel = ABAddressBookCopyLocalizedLabel(label);
+        CFRelease(label);
+        return CFBridgingRelease(localizedLabel);
+    }
+    
+    // no label - use this as the default
+    return @"email";
 }
 
 - (NSString *)address {
