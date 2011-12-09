@@ -90,16 +90,16 @@
 		0AC82626149042A0009FF975 /* LoginFacebookDisabled_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC82625149042A0009FF975 /* LoginFacebookDisabled_iPad.png */; };
 		0AC8263314906C7F009FF975 /* LoginFacebook_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262914906C7E009FF975 /* LoginFacebook_iPhone.png */; };
 		0AC8263414906C7F009FF975 /* LoginFacebook_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262A14906C7E009FF975 /* LoginFacebook_iPhone@2x.png */; };
-		0AC8263514906C7F009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262B14906C7E009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone.png */; };
-		0AC8263614906C7F009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262C14906C7E009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone@2x.png */; };
+		0AC8263514906C7F009FF975 /* LoginInstantlyDiscover_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262B14906C7E009FF975 /* LoginInstantlyDiscover_iPhone.png */; };
+		0AC8263614906C7F009FF975 /* LoginInstantlyDiscover_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262C14906C7E009FF975 /* LoginInstantlyDiscover_iPhone@2x.png */; };
 		0AC8263714906C7F009FF975 /* LoginLogo_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262D14906C7E009FF975 /* LoginLogo_iPhone.png */; };
 		0AC8263814906C7F009FF975 /* LoginLogo_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262E14906C7E009FF975 /* LoginLogo_iPhone@2x.png */; };
 		0AC8263914906C7F009FF975 /* LoginTwitter_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8262F14906C7E009FF975 /* LoginTwitter_iPhone.png */; };
 		0AC8263A14906C7F009FF975 /* LoginTwitter_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8263014906C7E009FF975 /* LoginTwitter_iPhone@2x.png */; };
 		0AC8263D14906F6B009FF975 /* LoginCanISignIn_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8263B14906F6B009FF975 /* LoginCanISignIn_iPhone.png */; };
 		0AC8263E14906F6B009FF975 /* LoginCanISignIn_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8263C14906F6B009FF975 /* LoginCanISignIn_iPhone@2x.png */; };
-		0AC826411490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8263F1490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone.png */; };
-		0AC826421490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826401490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone@2x.png */; };
+		0AC826411490776A009FF975 /* LoginCanISignInAnswer_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8263F1490776A009FF975 /* LoginCanISignInAnswer_iPhone.png */; };
+		0AC826421490776A009FF975 /* LoginCanISignInAnswer_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826401490776A009FF975 /* LoginCanISignInAnswer_iPhone@2x.png */; };
 		0AC82647149083AA009FF975 /* LoginTwitterDisabled_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC82643149083AA009FF975 /* LoginTwitterDisabled_iPhone.png */; };
 		0AC82648149083AA009FF975 /* LoginTwitterDisabled_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC82644149083AA009FF975 /* LoginTwitterDisabled_iPhone@2x.png */; };
 		0AC82649149083AA009FF975 /* LoginFacebookDisabled_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC82645149083AA009FF975 /* LoginFacebookDisabled_iPhone.png */; };
@@ -107,6 +107,8 @@
 		0AC8264D1490889B009FF975 /* LoginBackgroundStripes_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8264B1490889B009FF975 /* LoginBackgroundStripes_iPhone@2x.png */; };
 		0AC8264E1490889B009FF975 /* LoginBackgroundStripes_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8264C1490889B009FF975 /* LoginBackgroundStripes_iPhone.png */; };
 		0AC826501491C0AF009FF975 /* LoginNotAJerkLikeThat_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8264F1491C0AE009FF975 /* LoginNotAJerkLikeThat_iPad.png */; };
+		0AC826531491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826511491D8D1009FF975 /* LoginNotAJerkLikeThat_iPhone.png */; };
+		0AC826541491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC826521491D8D2009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png */; };
 		0AC8496B14303B1800FDF996 /* BroadcastApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496A14303B1800FDF996 /* BroadcastApi.m */; };
 		0AC8496D1430425300FDF996 /* ApiConstants.h in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8496C1430425300FDF996 /* ApiConstants.h */; };
 		0AC849701430524700FDF996 /* ApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8496F1430524600FDF996 /* ApiHelper.m */; };
@@ -360,16 +362,16 @@
 		0AC82625149042A0009FF975 /* LoginFacebookDisabled_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFacebookDisabled_iPad.png; path = Resources/Images/LoginFacebookDisabled_iPad.png; sourceTree = "<group>"; };
 		0AC8262914906C7E009FF975 /* LoginFacebook_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFacebook_iPhone.png; path = Resources/Images/LoginFacebook_iPhone.png; sourceTree = "<group>"; };
 		0AC8262A14906C7E009FF975 /* LoginFacebook_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginFacebook_iPhone@2x.png"; path = "Resources/Images/LoginFacebook_iPhone@2x.png"; sourceTree = "<group>"; };
-		0AC8262B14906C7E009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFriendsAreWatchingTextPortrait_iPhone.png; path = Resources/Images/LoginFriendsAreWatchingTextPortrait_iPhone.png; sourceTree = "<group>"; };
-		0AC8262C14906C7E009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginFriendsAreWatchingTextPortrait_iPhone@2x.png"; path = "Resources/Images/LoginFriendsAreWatchingTextPortrait_iPhone@2x.png"; sourceTree = "<group>"; };
+		0AC8262B14906C7E009FF975 /* LoginInstantlyDiscover_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginInstantlyDiscover_iPhone.png; path = Resources/Images/LoginInstantlyDiscover_iPhone.png; sourceTree = "<group>"; };
+		0AC8262C14906C7E009FF975 /* LoginInstantlyDiscover_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginInstantlyDiscover_iPhone@2x.png"; path = "Resources/Images/LoginInstantlyDiscover_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC8262D14906C7E009FF975 /* LoginLogo_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginLogo_iPhone.png; path = Resources/Images/LoginLogo_iPhone.png; sourceTree = "<group>"; };
 		0AC8262E14906C7E009FF975 /* LoginLogo_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginLogo_iPhone@2x.png"; path = "Resources/Images/LoginLogo_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC8262F14906C7E009FF975 /* LoginTwitter_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginTwitter_iPhone.png; path = Resources/Images/LoginTwitter_iPhone.png; sourceTree = "<group>"; };
 		0AC8263014906C7E009FF975 /* LoginTwitter_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginTwitter_iPhone@2x.png"; path = "Resources/Images/LoginTwitter_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC8263B14906F6B009FF975 /* LoginCanISignIn_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginCanISignIn_iPhone.png; path = Resources/Images/LoginCanISignIn_iPhone.png; sourceTree = "<group>"; };
 		0AC8263C14906F6B009FF975 /* LoginCanISignIn_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginCanISignIn_iPhone@2x.png"; path = "Resources/Images/LoginCanISignIn_iPhone@2x.png"; sourceTree = "<group>"; };
-		0AC8263F1490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginCanISignInAnswerPortrait_iPhone.png; path = Resources/Images/LoginCanISignInAnswerPortrait_iPhone.png; sourceTree = "<group>"; };
-		0AC826401490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginCanISignInAnswerPortrait_iPhone@2x.png"; path = "Resources/Images/LoginCanISignInAnswerPortrait_iPhone@2x.png"; sourceTree = "<group>"; };
+		0AC8263F1490776A009FF975 /* LoginCanISignInAnswer_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginCanISignInAnswer_iPhone.png; path = Resources/Images/LoginCanISignInAnswer_iPhone.png; sourceTree = "<group>"; };
+		0AC826401490776A009FF975 /* LoginCanISignInAnswer_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginCanISignInAnswer_iPhone@2x.png"; path = "Resources/Images/LoginCanISignInAnswer_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC82643149083AA009FF975 /* LoginTwitterDisabled_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginTwitterDisabled_iPhone.png; path = Resources/Images/LoginTwitterDisabled_iPhone.png; sourceTree = "<group>"; };
 		0AC82644149083AA009FF975 /* LoginTwitterDisabled_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginTwitterDisabled_iPhone@2x.png"; path = "Resources/Images/LoginTwitterDisabled_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC82645149083AA009FF975 /* LoginFacebookDisabled_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFacebookDisabled_iPhone.png; path = Resources/Images/LoginFacebookDisabled_iPhone.png; sourceTree = "<group>"; };
@@ -377,6 +379,8 @@
 		0AC8264B1490889B009FF975 /* LoginBackgroundStripes_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginBackgroundStripes_iPhone@2x.png"; path = "Resources/Images/LoginBackgroundStripes_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC8264C1490889B009FF975 /* LoginBackgroundStripes_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackgroundStripes_iPhone.png; path = Resources/Images/LoginBackgroundStripes_iPhone.png; sourceTree = "<group>"; };
 		0AC8264F1491C0AE009FF975 /* LoginNotAJerkLikeThat_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginNotAJerkLikeThat_iPad.png; path = Resources/Images/LoginNotAJerkLikeThat_iPad.png; sourceTree = "<group>"; };
+		0AC826511491D8D1009FF975 /* LoginNotAJerkLikeThat_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginNotAJerkLikeThat_iPhone.png; path = Resources/Images/LoginNotAJerkLikeThat_iPhone.png; sourceTree = "<group>"; };
+		0AC826521491D8D2009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LoginNotAJerkLikeThat_iPhone@2x.png"; path = "Resources/Images/LoginNotAJerkLikeThat_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AC8496914303B1800FDF996 /* BroadcastApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastApi.h; sourceTree = "<group>"; };
 		0AC8496A14303B1800FDF996 /* BroadcastApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BroadcastApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AC8496C1430425300FDF996 /* ApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiConstants.h; sourceTree = "<group>"; };
@@ -742,34 +746,37 @@
 		0AC849661430356100FDF996 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0AC8264B1490889B009FF975 /* LoginBackgroundStripes_iPhone@2x.png */,
+				0A155E75142908280010E503 /* FacebookSignIn.png */,
+				0AC826211490296B009FF975 /* LoginBackgroundStripes_iPad.png */,
 				0AC8264C1490889B009FF975 /* LoginBackgroundStripes_iPhone.png */,
-				0AC82643149083AA009FF975 /* LoginTwitterDisabled_iPhone.png */,
-				0AC82644149083AA009FF975 /* LoginTwitterDisabled_iPhone@2x.png */,
-				0AC82645149083AA009FF975 /* LoginFacebookDisabled_iPhone.png */,
-				0AC82646149083AA009FF975 /* LoginFacebookDisabled_iPhone@2x.png */,
-				0AC8263F1490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone.png */,
-				0AC826401490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone@2x.png */,
+				0AC8264B1490889B009FF975 /* LoginBackgroundStripes_iPhone@2x.png */,
+				0AC8261A149016C9009FF975 /* LoginCanISignIn_iPad.png */,
 				0AC8263B14906F6B009FF975 /* LoginCanISignIn_iPhone.png */,
 				0AC8263C14906F6B009FF975 /* LoginCanISignIn_iPhone@2x.png */,
+				0AC8261B149016C9009FF975 /* LoginCanISignInAnswer_iPad.png */,
+				0AC8263F1490776A009FF975 /* LoginCanISignInAnswer_iPhone.png */,
+				0AC826401490776A009FF975 /* LoginCanISignInAnswer_iPhone@2x.png */,
+				0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */,
 				0AC8262914906C7E009FF975 /* LoginFacebook_iPhone.png */,
 				0AC8262A14906C7E009FF975 /* LoginFacebook_iPhone@2x.png */,
-				0AC8262B14906C7E009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone.png */,
-				0AC8262C14906C7E009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone@2x.png */,
+				0AC82625149042A0009FF975 /* LoginFacebookDisabled_iPad.png */,
+				0AC82645149083AA009FF975 /* LoginFacebookDisabled_iPhone.png */,
+				0AC82646149083AA009FF975 /* LoginFacebookDisabled_iPhone@2x.png */,
+				0AC826181490133A009FF975 /* LoginInstantlyDiscover_iPad.png */,
+				0AC8262B14906C7E009FF975 /* LoginInstantlyDiscover_iPhone.png */,
+				0AC8262C14906C7E009FF975 /* LoginInstantlyDiscover_iPhone@2x.png */,
+				0AC82612149009F1009FF975 /* LoginLogo_iPad.png */,
 				0AC8262D14906C7E009FF975 /* LoginLogo_iPhone.png */,
 				0AC8262E14906C7E009FF975 /* LoginLogo_iPhone@2x.png */,
+				0AC8264F1491C0AE009FF975 /* LoginNotAJerkLikeThat_iPad.png */,
+				0AC826511491D8D1009FF975 /* LoginNotAJerkLikeThat_iPhone.png */,
+				0AC826521491D8D2009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png */,
+				0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */,
 				0AC8262F14906C7E009FF975 /* LoginTwitter_iPhone.png */,
 				0AC8263014906C7E009FF975 /* LoginTwitter_iPhone@2x.png */,
-				0AC826211490296B009FF975 /* LoginBackgroundStripes_iPad.png */,
-				0AC8264F1491C0AE009FF975 /* LoginNotAJerkLikeThat_iPad.png */,
-				0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */,
-				0AC82625149042A0009FF975 /* LoginFacebookDisabled_iPad.png */,
-				0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */,
 				0AC8262314904294009FF975 /* LoginTwitterDisabled_iPad.png */,
-				0AC826181490133A009FF975 /* LoginInstantlyDiscover_iPad.png */,
-				0AC8261A149016C9009FF975 /* LoginCanISignIn_iPad.png */,
-				0AC8261B149016C9009FF975 /* LoginCanISignInAnswer_iPad.png */,
-				0A155E75142908280010E503 /* FacebookSignIn.png */,
+				0AC82643149083AA009FF975 /* LoginTwitterDisabled_iPhone.png */,
+				0AC82644149083AA009FF975 /* LoginTwitterDisabled_iPhone@2x.png */,
 				0A155E76142908280010E503 /* TwitterSignIn.png */,
 			);
 			name = Login;
@@ -797,7 +804,6 @@
 			isa = PBXGroup;
 			children = (
 				42C4C55C13E8A6C00034AC97 /* Logo.png */,
-				0AC82612149009F1009FF975 /* LoginLogo_iPad.png */,
 				0ADF890814344B10001BCCF8 /* Logo_iPad.png */,
 				0A53951814423AC6004721B9 /* LogoSquares.png */,
 				0A3E77B01434713500800018 /* iPadHeaderBackground.png */,
@@ -1477,16 +1483,16 @@
 				0AC82626149042A0009FF975 /* LoginFacebookDisabled_iPad.png in Resources */,
 				0AC8263314906C7F009FF975 /* LoginFacebook_iPhone.png in Resources */,
 				0AC8263414906C7F009FF975 /* LoginFacebook_iPhone@2x.png in Resources */,
-				0AC8263514906C7F009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone.png in Resources */,
-				0AC8263614906C7F009FF975 /* LoginFriendsAreWatchingTextPortrait_iPhone@2x.png in Resources */,
+				0AC8263514906C7F009FF975 /* LoginInstantlyDiscover_iPhone.png in Resources */,
+				0AC8263614906C7F009FF975 /* LoginInstantlyDiscover_iPhone@2x.png in Resources */,
 				0AC8263714906C7F009FF975 /* LoginLogo_iPhone.png in Resources */,
 				0AC8263814906C7F009FF975 /* LoginLogo_iPhone@2x.png in Resources */,
 				0AC8263914906C7F009FF975 /* LoginTwitter_iPhone.png in Resources */,
 				0AC8263A14906C7F009FF975 /* LoginTwitter_iPhone@2x.png in Resources */,
 				0AC8263D14906F6B009FF975 /* LoginCanISignIn_iPhone.png in Resources */,
 				0AC8263E14906F6B009FF975 /* LoginCanISignIn_iPhone@2x.png in Resources */,
-				0AC826411490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone.png in Resources */,
-				0AC826421490776A009FF975 /* LoginCanISignInAnswerPortrait_iPhone@2x.png in Resources */,
+				0AC826411490776A009FF975 /* LoginCanISignInAnswer_iPhone.png in Resources */,
+				0AC826421490776A009FF975 /* LoginCanISignInAnswer_iPhone@2x.png in Resources */,
 				0AC82647149083AA009FF975 /* LoginTwitterDisabled_iPhone.png in Resources */,
 				0AC82648149083AA009FF975 /* LoginTwitterDisabled_iPhone@2x.png in Resources */,
 				0AC82649149083AA009FF975 /* LoginFacebookDisabled_iPhone.png in Resources */,
@@ -1494,6 +1500,8 @@
 				0AC8264D1490889B009FF975 /* LoginBackgroundStripes_iPhone@2x.png in Resources */,
 				0AC8264E1490889B009FF975 /* LoginBackgroundStripes_iPhone.png in Resources */,
 				0AC826501491C0AF009FF975 /* LoginNotAJerkLikeThat_iPad.png in Resources */,
+				0AC826531491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone.png in Resources */,
+				0AC826541491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -209,10 +209,15 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         amountToMove = 102;
     } else {
-        amountToMove = 165;
+        amountToMove = 56;
     }
     
     [UIView animateWithDuration:0.25 animations:^{
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            footerText.alpha = infoViewExpanded ? 1.0 : 0.0;
+        }
+        
         CGRect temp = infoView.frame;
         temp.origin.y += infoViewExpanded ? amountToMove : -1 * amountToMove;
         infoView.frame = temp;

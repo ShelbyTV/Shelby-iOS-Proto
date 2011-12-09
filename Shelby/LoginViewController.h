@@ -28,6 +28,8 @@
     IBOutlet UIView *infoView;
     BOOL infoViewExpanded;
 
+    IBOutlet UIImageView *footerText;
+    
     // Actual login stuff
     LoginHelper *_loginHelper;
     
