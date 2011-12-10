@@ -546,16 +546,18 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
 {
     NSString *searchText = self.textWithoutDetector;
     NSArray *matchedRecords = [NSArray array];
-    static NSMutableArray *records = nil;
-    ABAddressBookRef ab = [self.tokenFieldDelegate addressBookForTokenField:self];
-    NSArray *people = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(ab));
-    records = [NSMutableArray new];
-    for (id obj in people) {
-        ABRecordRef recordRef = (__bridge CFTypeRef)obj;
-        CORecord *record = [CORecord new];
-        record->record_ = CFRetain(recordRef);
-        [records addObject:record];
-        
+    if ([searchText length] != 0) {
+        static NSMutableArray *records = nil;
+        ABAddressBookRef ab = [self.tokenFieldDelegate addressBookForTokenField:self];
+        NSArray *people = CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(ab));
+        records = [NSMutableArray new];
+        for (id obj in people) {
+            ABRecordRef recordRef = (__bridge CFTypeRef)obj;
+            CORecord *record = [CORecord new];
+            record->record_ = CFRetain(recordRef);
+            [records addObject:record];
+        }
+            
         NSIndexSet *resultSet = [records indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             CORecord *record = (CORecord *)obj;
             if (containsString(record.fullName, searchText)) {
@@ -767,13 +769,12 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
 
 - (NSString *)label {
     CFStringRef label = ABMultiValueCopyLabelAtIndex(emails_, ABMultiValueGetIndexForIdentifier(emails_, identifier_));
-    CFStringRef localizedLabel;
     if (label != NULL) {
-        localizedLabel = ABAddressBookCopyLocalizedLabel(label);
+        CFStringRef localizedLabel = ABAddressBookCopyLocalizedLabel(label);
         CFRelease(label);
         return CFBridgingRelease(localizedLabel);
     }
-    
+
     // no label - use this as the default
     return @"email";
 }
