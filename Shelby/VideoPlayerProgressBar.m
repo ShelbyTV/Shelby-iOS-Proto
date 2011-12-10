@@ -6,7 +6,7 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#define LABEL_OFFSET_X -5
+#define LABEL_OFFSET_X -20 // account for extra overlap for thumb slider transparent region
 #define LABEL_OFFSET_Y -1
 
 #import "VideoPlayerProgressBar.h"
@@ -23,9 +23,10 @@ static const float kProgressUpdateBuffer = 1.0f;
 - (void)initViews {
     // We currently use a slider for our progress bar. In the future, we can replace this with a custom UIView.
     _slider = [[UISlider alloc] init];
-
+    
     // in case the parent view draws with a custom color or gradient, use a transparent color
-    _slider.backgroundColor = [UIColor clearColor];	
+    _slider.backgroundColor = [UIColor clearColor];
+	
     //UIImage *stetchLeftTrack = [[UIImage imageNamed:@"orangeslide.png"]
     UIImage *stetchLeftTrack = [[UIImage imageNamed:@"SliderPurple.png"]
                    stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
@@ -49,10 +50,15 @@ static const float kProgressUpdateBuffer = 1.0f;
     _label.backgroundColor = [UIColor clearColor];
     _label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
-    CGRect frame = self.bounds;
-    frame.origin.x = -1;
-    frame.size.width += 2;
-    _slider.frame = frame;
+    _blackLineStartOverlay = [[UIView alloc] initWithFrame:CGRectMake(15, 0, 1, CGRectGetHeight(self.bounds))];
+    _blackLineStartOverlay.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    _blackLineStartOverlay.backgroundColor = [UIColor blackColor];
+    
+    _blackLineEndOverlay = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 16, 0, 1, CGRectGetHeight(self.bounds))];
+    _blackLineEndOverlay.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _blackLineEndOverlay.backgroundColor = [UIColor blackColor];
+    
+    _slider.frame = self.bounds;
     
     CGRect tempFrame = self.bounds;
     tempFrame.origin.x = LABEL_OFFSET_X;
@@ -63,6 +69,8 @@ static const float kProgressUpdateBuffer = 1.0f;
     
     [self addSubview: _slider];
     [self addSubview: _label];
+    [self addSubview: _blackLineStartOverlay];
+    [self addSubview: _blackLineEndOverlay];
 
     // We use this to maintain a close eye on the slider value.
     [_slider addTarget: self

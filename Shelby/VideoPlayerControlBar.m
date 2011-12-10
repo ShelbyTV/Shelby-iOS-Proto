@@ -194,7 +194,7 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
     _favoriteButton.frame = tempFrame;
     
     tempFrame = _progressBar.frame;
-    tempFrame.size.width = self.frame.size.width;
+    tempFrame.size.width = self.frame.size.width + 30; // overlap for extra thumb slider space
     _progressBar.frame = tempFrame;
     
     [_progressBar layoutSubviews];
