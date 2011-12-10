@@ -298,7 +298,7 @@ static NSString *kCORecordEmailAddress = @"emailAddress";
     for (CORecord *record in records) {
         for (CORecordEmail *email in record.emailAddresses) {
             NSDictionary *entry = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   record.fullName, kCORecordFullName,
+                                   [record.fullName length] == 0 ? email.address : record.fullName , kCORecordFullName,
                                    email.label, kCORecordEmailLabel,
                                    email.address, kCORecordEmailAddress,
                                    nil];
@@ -344,6 +344,7 @@ static NSString *kCORecordEmailAddress = @"emailAddress";
         cell = [[COEmailTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ridf];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
     cell.nameLabel.text = [result objectForKey:kCORecordFullName];
     cell.emailLabelLabel.text = [result objectForKey:kCORecordEmailLabel];
     cell.emailAddressLabel.text = [result objectForKey:kCORecordEmailAddress];
@@ -560,7 +561,7 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
             
         NSIndexSet *resultSet = [records indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             CORecord *record = (CORecord *)obj;
-            if (containsString(record.fullName, searchText)) {
+            if ([record.fullName length] != 0 && containsString(record.fullName, searchText)) {
                 return YES;
             }
             for (CORecordEmail *email in record.emailAddresses) {
