@@ -16,11 +16,6 @@
 static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
-static const float kProgressBarXOffsetIphone =  135.0f;
-static const float kProgressBarXOffsetIpad   =  135.0f;
-static const float kProgressBarYOffsetIphone =  0.0f;
-static const float kProgressBarYOffsetIpad   =  0.0f;
-
 #pragma mark - Factory
 
 + (VideoPlayerControlBar *)controlBarFromNib {
@@ -31,7 +26,6 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
         nibName = IPAD_NIB_NAME;
     }
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
-
     return [objects objectAtIndex:0];
 }
 
@@ -79,9 +73,27 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     _watchLaterButton.selected = selected;
 }
 
-- (void)setFullscreenButtonSelected:(BOOL)selected
+- (void)showFullscreenExpandButtonIcon
 {
-    _fullscreenButton.selected = selected;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        // no reason to show this button ever on the iPhone right now...
+//        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPhone"] 
+//                           forState:UIControlStateNormal];
+    }
+}
+
+- (void)showFullscreenContractButtonIcon
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenContract_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenContract_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
 }
 
 - (void)setProgress:(float)progress {
@@ -100,9 +112,26 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     return _progressBar.duration;
 }
 
-- (void)setPlayButtonIcon:(UIImage *)image
+- (void)showPlayButtonIcon
 {
-    [_playButton setImage:image forState:UIControlStateNormal];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_playButton setImage:[UIImage imageNamed:@"playIcon_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_playButton setImage:[UIImage imageNamed:@"playIcon_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
+}
+
+- (void)showPauseButtonIcon
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_playButton setImage:[UIImage imageNamed:@"pauseIcon_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        [_playButton setImage:[UIImage imageNamed:@"pauseIcon_iPhone"] 
+                           forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - VideoProgressBarDelegate Methods
@@ -145,40 +174,31 @@ static const float kProgressBarYOffsetIpad   =  0.0f;
     }
 }
 
-#pragma mark - Layout
-
-- (float)progressBarXOffset {
-    float offset;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        offset = kProgressBarXOffsetIphone;
+- (void)layoutSubviews 
+{
+    CGRect tempFrame = _playButton.frame;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        tempFrame.size.width = self.frame.size.width - (406 - 80);
     } else {
-        offset = kProgressBarXOffsetIpad;
+        tempFrame.size.width = self.frame.size.width - (286 - 56);
     }
-    return offset;
-}
-
-- (float)progressBarYOffset {
-    float offset;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        offset = kProgressBarYOffsetIphone;
-    } else {
-        offset = kProgressBarYOffsetIpad;
-    }
-    return offset;
-}
-
-- (void)layoutSubviews {
+    
+    _playButton.frame = tempFrame;
+    
+    tempFrame = _shareButton.frame;
+    tempFrame.origin.x = _playButton.frame.origin.x + _playButton.frame.size.width - 1;
+    _shareButton.frame = tempFrame;
+    
+    tempFrame = _favoriteButton.frame;
+    tempFrame.origin.x = _shareButton.frame.origin.x + _shareButton.frame.size.width - 1;
+    _favoriteButton.frame = tempFrame;
+    
+    tempFrame = _progressBar.frame;
+    tempFrame.size.width = self.frame.size.width + 30; // overlap for extra thumb slider space
+    _progressBar.frame = tempFrame;
+    
     [_progressBar layoutSubviews];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)dealloc
 {

@@ -9,45 +9,29 @@
 #import "ShareViewController.h"
 #import "Video.h"
 #import "User.h"
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+#import "COPeoplePickerViewController.h"
+
 
 @implementation ShareViewController
 
 @synthesize delegate;
-@synthesize mainView;
-@synthesize topBackground;
-@synthesize emailView;
-@synthesize socialView;
-@synthesize activeView;
-@synthesize socialTextView = _socialTextView;
-@synthesize emailTextView = _emailTextView;
+@synthesize bodyTextView = _bodyTextView;
 
 #pragma mark Toggle Views
-
-- (void)makeSocialViewActive:(BOOL)isSocialView {
-    if (isSocialView) {
-        self.activeView = self.socialView;
-        self.socialView.hidden = NO;
-        self.emailView.hidden  = YES;
-        
-        // set button state
-        _socialButton.selected = YES;
-        _emailButton.selected  = NO;
-    } else {
-        self.activeView = self.emailView;
-        self.emailView.hidden  = NO;
-        self.socialView.hidden = YES;
-        
-        // set button state
-        _emailButton.selected  = YES;
-        _socialButton.selected = NO;
-    }
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-  
+        _perfectTweetRemarks = [[NSArray alloc] initWithObjects:@"the perfect tweet!", 
+                                @"nailed it.", 
+                                @"honeymoon fit.", 
+                                @"...like a glove.", 
+                                // @"I don't always tweet, but when I do, it's 140 characters.", // too long for iPhone
+                                @"best. tweet. ever.", 
+                                @"dead on balls accurate.", nil];
     }
     return self;
 }
@@ -68,30 +52,21 @@
 
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
 - (void)populateUI
 {
     // Populate the UI.
-    NSString *socialComment = @"";
+    NSString *defaultComment = @"";
     if (_video.shortPermalink && _video.sharer) {
-        socialComment = [NSString stringWithFormat: @"Great video via %@ %@", [_video.sharer lowercaseString], _video.shortPermalink];
-    }
-    
-    NSString *emailBody = @"";
-    if (_video.shortPermalink) {
-        emailBody = [NSString stringWithFormat:@"Watch this... %@", _video.shortPermalink];
+        defaultComment = [NSString stringWithFormat: @"Great video via %@ %@", [_video.sharer lowercaseString], _video.shortPermalink];
     }
 
-    _socialTextView.text = socialComment;
-    _emailTextView.text  = emailBody;
+    _bodyTextView.text = defaultComment;
+    _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"Great video via %@", [_video.sharer lowercaseString]] length]);
+    [self textViewDidChange:_bodyTextView];
     
-    _emailRecipientView.text = @"";
+    [_peoplePicker clearTokenField];
+    
+    [self updateSendButton];
     
     [self.view setNeedsDisplay];
 }
@@ -106,10 +81,13 @@
         [self populateUI];
     }
     
+    _peoplePicker = [[COPeoplePickerViewController alloc] initWithFrame:_emailRecipientFieldHolder.bounds];
+    _peoplePicker.tableViewHolder = _emailRecipientSuggestionsHolder;
+    _peoplePicker.delegate = self;
+    [_emailRecipientFieldHolder addSubview:_peoplePicker.view];
+    
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
-    socialView.backgroundColor = backgroundPattern;
-    emailView.backgroundColor = backgroundPattern;
-    [self makeSocialViewActive: YES];
+    _dialogContainerView.backgroundColor = backgroundPattern;
     
     [self adjustViewsForOrientation:self.interfaceOrientation];
 }
@@ -131,18 +109,20 @@
 
 #pragma mark -
 
-- (NSString *)recipients {
+- (NSString *)recipients
+{
     // validate email?
-    return _emailRecipientView.text;
+    return [_peoplePicker concatenatedEmailAddresses];
 }
 
-- (NSArray *)socialNetworks {
+- (NSArray *)socialNetworks
+{
     NSMutableArray *array = [NSMutableArray array];
-    if (self.activeView == self.emailView) {
+    if ([_shareTypeSelector selectedSegmentIndex] == 1) {
         [array addObject: @"email"];
     } else {
-        BOOL twitter  = _twitterButton.selected;
-        BOOL facebook = _facebookButton.selected;
+        BOOL twitter  = !_twitterButton.selected;
+        BOOL facebook = !_facebookButton.selected;
         
         // Check the state of the FB & Twitter buttons
         if (twitter) {
@@ -157,9 +137,8 @@
 
 - (void)resignFirstResponders
 {
-    [_emailRecipientView resignFirstResponder];
-    [_emailTextView resignFirstResponder];
-    [_socialTextView resignFirstResponder];
+    [_peoplePicker resignFirstResponders];
+    [_bodyTextView resignFirstResponder];
 }
 
 #pragma mark - UI Callbacks
@@ -171,60 +150,116 @@
     }
 }
 
-- (IBAction)emailWasPressed:(id)sender {
-    if (sender == self.activeView) {
-        return;
+- (void)updateInterfaceType
+{
+    if ([_shareTypeSelector selectedSegmentIndex] == 0) {
+        [UIView animateWithDuration:0.25 animations:^{
+            _emailRecipientContainerView.alpha = 0.0;
+            _postButtonsContainerView.alpha = 1.0;
+        }
+        completion:^(BOOL finished){
+            if (finished) {
+                [UIView animateWithDuration:0.25 animations:^{
+                    _bodyTextContainerView.frame = _socialBodyPlaceholder.frame;
+                }
+                completion:^(BOOL finished){
+                    // keeps state the same, but makes sure tweet display is animated properly
+                    [self setTwitterEnabled:!_twitterButton.selected];
+                }];
+            }
+        }];
     } else {
-        [self makeSocialViewActive: NO];
+        [UIView animateWithDuration:0.25 animations:^{
+            _tweetRemainingLabel.alpha = 0.0;
+            _postButtonsContainerView.alpha = 0.0;
+        }
+                         completion:^(BOOL finished){
+                             if (finished) {
+                                 [UIView animateWithDuration:0.25 animations:^{
+                                     _bodyTextContainerView.frame = _emailBodyPlaceholder.frame;
+                                 }
+                                                  completion:^(BOOL finished){
+                                                      [UIView animateWithDuration:0.25 animations:^{
+                                                          _emailRecipientContainerView.alpha = 1.0;
+                                                      }];
+                                                  }];
+                             }
+                         }];
     }
 }
 
-- (IBAction)socialWasPressed:(id)sender {
-    if (sender == self.activeView) {
-        return;
+- (IBAction)segmentedControlValueChanged:(id)sender
+{
+    [self updateInterfaceType];
+    [self updateSendButton];
+}
+
+- (void)updateSendButton
+{
+    if ([_shareTypeSelector selectedSegmentIndex] == 0 && 
+        [[self socialNetworks] count] == 0) {
+        _sendButton.enabled = NO;
+    } else if ([_shareTypeSelector selectedSegmentIndex] == 1
+                && [_peoplePicker tokenCount] == 0) {
+        _sendButton.enabled = NO;
+    } else if ([_shareTypeSelector selectedSegmentIndex] == 0 &&
+        !_twitterButton.selected && _bodyTextView.text.length > 140) {
+        _sendButton.enabled = NO;
     } else {
-        [self makeSocialViewActive: YES];
+        _sendButton.enabled = YES;
     }
 }
 
-- (IBAction)twitterWasPressed:(id)sender {
+- (void)setTwitterEnabled:(BOOL)enabled
+{
+    _twitterButton.selected = !enabled;
     
-    // Toggle the twitter Button
-    UIButton *button = (UIButton *) sender;
-    BOOL selected = button.selected;
-    [button setSelected: !selected];
+    if ([_shareTypeSelector selectedSegmentIndex] != 0) {
+        return;
+    }
+    
+    if (enabled && _tweetRemainingLabel.alpha != 1.0) {
+        [UIView animateWithDuration:0.25 animations:^{
+            _tweetRemainingLabel.alpha = 1.0;
+        }];
+    } else if (!enabled && _tweetRemainingLabel.alpha != 0.0) {
+        [UIView animateWithDuration:0.25 animations:^{
+            _tweetRemainingLabel.alpha = 0.0;
+        }];
+    }
+
+    [self updateSendButton];
 }
 
-- (IBAction)facebookWasPressed:(id)sender {
-    // Toggle the facebook Button
+- (IBAction)twitterWasPressed:(id)sender
+{
+    [self setTwitterEnabled:_twitterButton.selected];
+}
+
+- (IBAction)facebookWasPressed:(id)sender
+{
     UIButton *button = (UIButton *) sender;
-    BOOL selected = button.selected;
-    [button setSelected: !selected];
+    [button setSelected:!button.selected];
+    [self updateSendButton];
 }
 
 - (IBAction)sendWasPressed:(id)sender {
     
     // send should do nothing if in social mode and no social networks chosen
-    if (self.activeView == self.socialView && 
+    if ([_shareTypeSelector selectedSegmentIndex] == 0 && 
         [[self socialNetworks] count] == 0) {
         return;
     }
     
-    if (self.activeView == self.emailView &&
-        [_emailRecipientView.text length] == 0)
+    if ([_shareTypeSelector selectedSegmentIndex] == 1
+         && [_peoplePicker tokenCount] == 0)
     {
         return;
     }
     
-    NSString *message = (self.activeView == self.emailView)
-    ? _emailTextView.text
-    : _socialTextView.text;
-    
+    NSString *message = _bodyTextView.text;
     NSArray *networks = [self socialNetworks];
-    
-    NSString *recipients = (self.activeView == self.emailView)
-    ? [self recipients]
-    : nil;
+    NSString *recipients = ([_shareTypeSelector selectedSegmentIndex] == 1) ? [self recipients] : nil;
     
     [self resignFirstResponders];
 
@@ -253,85 +288,89 @@
     // Set twitter view visible
     if ([user.auth_twitter boolValue]) {
         _twitterButton.enabled   = YES;
-        _twitterButton.selected  = YES;
+        [self setTwitterEnabled:YES];
     } else {
         _twitterButton.enabled  = NO;
     }
     
     if ([user.auth_facebook boolValue]) {
         _facebookButton.enabled   = YES;
-        _facebookButton.selected  = YES;
+        _facebookButton.selected  = NO;
     } else {
         _facebookButton.enabled  = NO;
     }
+    
+    [self updateSendButton];
 }
 
 #pragma mark - UITextViewDelegate
 
-//- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-//
-//}
-//
-//- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
-//
-//}
-
-//- (void)textViewDidBeginEditing:(UITextView *)textView;
-//- (void)textViewDidEndEditing:(UITextView *)textView;
-
-//- (void)textViewDidChange:(UITextView *)textView;
-//
-//- (void)textViewDidChangeSelection:(UITextView *)textView;
-
-- (BOOL)textView:(UITextView *)aTextView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString*)aText
+- (void)textViewDidChange:(UITextView *)textView
 {
-    NSString* newText = [aTextView.text stringByReplacingCharactersInRange:aRange withString:aText];
+    NSInteger charactersRemaining = 140 - [textView.text length];
     
-    // TODO - find out why the size of the string is smaller than the actual width, so that you get extra, wrapped characters unless you take something off
-    CGSize tallerSize = CGSizeMake(aTextView.frame.size.width-15,aTextView.frame.size.height*2); // pretend there's more vertical space to get that extra line to check on
-    CGSize newSize = [newText sizeWithFont:aTextView.font constrainedToSize:tallerSize lineBreakMode:UILineBreakModeWordWrap];
-    
-    if (newSize.height > aTextView.frame.size.height) {
-        {
-            LOG(@"error. too big!");
-            // TODO: Consider hitting send if they hit enter again at this point.
-            
-            //[myAppDelegate beep];
-            return NO;
-        }
+    if (charactersRemaining > 0) {
+        _tweetRemainingLabel.text = [NSString stringWithFormat:@"%d", charactersRemaining];
+        _tweetRemainingLabel.textColor = [UIColor grayColor];
+    } else if (charactersRemaining == 0) {
+        _tweetRemainingLabel.text = [_perfectTweetRemarks objectAtIndex:(arc4random() % [_perfectTweetRemarks count])];
+        _tweetRemainingLabel.textColor = [UIColor grayColor];
     } else {
-        return YES;
+        _tweetRemainingLabel.text = [NSString stringWithFormat:@"%d", charactersRemaining];
+        _tweetRemainingLabel.textColor = [UIColor redColor];
     }
+    
+    [self updateSendButton];
 }
+
+
+//- (BOOL)textView:(UITextView *)aTextView shouldChangeTextInRange:(NSRange)aRange replacementText:(NSString*)aText
+//{
+//    if (aTextView == _bodyTextView) {
+//        
+//        NSRange permalink = [_bodyTextView.text rangeOfString:[NSString stringWithFormat:@" %@", _video.shortPermalink]];
+//        
+//        if (aRange.length == 0 && aRange.location <= permalink.location) {
+//            // this is fine
+//        } else if (aRange.location >= permalink.location && aRange.location < (permalink.location + permalink.length)) {
+//            return NO;
+//        }
+//    }
+    
+//    NSString* newText = [aTextView.text stringByReplacingCharactersInRange:aRange withString:aText];
+//    
+//    // TODO - find out why the size of the string is smaller than the actual width, so that you get extra, wrapped characters unless you take something off
+//    CGSize tallerSize = CGSizeMake(aTextView.frame.size.width-15,aTextView.frame.size.height*2); // pretend there's more vertical space to get that extra line to check on
+//    CGSize newSize = [newText sizeWithFont:aTextView.font constrainedToSize:tallerSize lineBreakMode:UILineBreakModeWordWrap];
+//    
+//    if (newSize.height > aTextView.frame.size.height) {
+//        {
+//            LOG(@"error. too big!");
+//            // TODO: Consider hitting send if they hit enter again at this point.
+//            
+//            //[myAppDelegate beep];
+//            return NO;
+//        }
+//    } else {
+//        return YES;
+//    }
+//}
 
 #pragma mark - UITextFieldDelegate
 
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;        // return NO to disallow editing.
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-
-//- (void)textFieldDidBeginEditing:(UITextField *)textField;           // became first responder
-//- (void)textFieldDidEndEditing:(UITextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
-//- (BOOL)textFieldShouldClear:(UITextField *)textField;               // called when clear button pressed. return NO to ignore (no notifications)
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;              // called when 'return' key pressed. return NO to ignore.
 {
-    if (textField == _emailRecipientView) {
-        [_emailTextView becomeFirstResponder];
-        return NO;
-    }
+//    if (textField == _emailRecipientTextField) {
+//        [_bodyTextView becomeFirstResponder];
+//        return NO;
+//    }
     return YES;
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+- (void) numberOfEmailTokensChanged;
+{
+    [self updateSendButton];
+}
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation {
     // on iPad we just use the auto-rotate stuff
@@ -341,61 +380,127 @@
     
     // on iPhone we do some manual adjustments.
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-        CGRect temp = _twitterButton.frame;
-        temp.origin = CGPointMake(271, 40);
-        _twitterButton.frame = temp;
         
-        temp = _facebookButton.frame;
-        temp.origin = CGPointMake(314, 40);
-        _facebookButton.frame = temp;
+        CGRect temp = _shareTypeSelector.frame;
+        temp.size.width = 150;
+        temp.origin.x = 10;
+        temp.origin.y = 10;
+        _shareTypeSelector.frame = temp;
+    
+        temp = _socialBodyPlaceholder.frame;
+        temp.origin.x = 170;
+        temp.origin.y = 10;
+        temp.size.height = 74;
+        _socialBodyPlaceholder.frame = temp;
         
-        temp = _postShareOn.frame;
-        temp.origin = CGPointMake(273, 18);
-        _postShareOn.frame = temp;
+        temp = _postButtonsContainerView.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 45;
+        _postButtonsContainerView.frame = temp;
         
-        temp = _socialTextView.frame;
-        temp.size = CGSizeMake(250, 113);
-        _socialTextView.frame = temp;
-        _socialTextBackground.frame = temp;
+        temp = _tweetRemainingLabel.frame;
+        temp.origin.x = 170;
+        temp.origin.y = 89;
+        temp.size.width = 300;
+        _tweetRemainingLabel.frame = temp;
         
-        temp = _emailTextView.frame;
-        temp.size = CGSizeMake(250, 83);
-        _emailTextView.frame = temp;
-        _emailTextBackground.frame = temp;
+        temp = _emailBodyPlaceholder.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 50;
+        temp.size.width = 460;
+        temp.size.height = 50;
+        _emailBodyPlaceholder.frame = temp;
         
-        temp = _emailRecipientView.frame;
-        temp.size = CGSizeMake(225, 25);
-        _emailRecipientView.frame = temp;
+        temp = _emailRecipientContainerView.frame;
+        temp.origin.x = 170;
+        temp.origin.y = 10;
+        temp.size.height = 31;
+        _emailRecipientContainerView.frame = temp;
+        
+        temp = _emailRecipientSuggestionsHolder.frame;
+        temp.origin.x = 205;
+        temp.origin.y = 40;
+        temp.size.height = 74;
+        _emailRecipientSuggestionsHolder.frame = temp;
 
+    } else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+
+        CGRect temp = _shareTypeSelector.frame;
+        temp.size.width = 207;
+        temp.origin.x = 56;
+        temp.origin.y = 10;
+        _shareTypeSelector.frame = temp;
+        
+        temp = _socialBodyPlaceholder.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 50;
+        temp.size.height = 95;
+        _socialBodyPlaceholder.frame = temp;
+        
+        temp = _postButtonsContainerView.frame;
+        temp.origin.x = 11;
+        temp.origin.y = 150;
+        _postButtonsContainerView.frame = temp;
+        
+        temp = _tweetRemainingLabel.frame;
+        temp.origin.x = 104;
+        temp.origin.y = 150;
+        temp.size.width = 205;
+        _tweetRemainingLabel.frame = temp;
+        
+        temp = _emailBodyPlaceholder.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 118;
+        temp.size.width = 300;
+        temp.size.height = 92;
+        _emailBodyPlaceholder.frame = temp;
+        
+        temp = _emailRecipientContainerView.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 50;
+        temp.size.height = 58;
+        _emailRecipientContainerView.frame = temp;
+        
+        temp = _emailRecipientSuggestionsHolder.frame;
+        temp.origin.x = 45;
+        temp.origin.y = 108;
+        temp.size.height = 112;
+        _emailRecipientSuggestionsHolder.frame = temp;
     }
-    else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
-        CGRect temp = _twitterButton.frame;
-        temp.origin = CGPointMake(8, 170);
-        _twitterButton.frame = temp;
-        
-        temp = _facebookButton.frame;
-        temp.origin = CGPointMake(51, 170);
-        _facebookButton.frame = temp;
-        
-        temp = _postShareOn.frame;
-        temp.origin = CGPointMake(10, 148);
-        _postShareOn.frame = temp;
-        
-        temp = _socialTextView.frame;
-        temp.size = CGSizeMake(203, 135);
-        _socialTextView.frame = temp;
-        _socialTextBackground.frame = temp;
-        
-        temp = _emailTextView.frame;
-        temp.size = CGSizeMake(203, 119);
-        _emailTextView.frame = temp;
-        _emailTextBackground.frame = temp;
-        
-        temp = _emailRecipientView.frame;
-        temp.size = CGSizeMake(178, 25);
-        _emailRecipientView.frame = temp;
+    
+    if ([_shareTypeSelector selectedSegmentIndex] == 0)
+    {
+        _bodyTextContainerView.frame = _socialBodyPlaceholder.frame;
+    } else {
+        _bodyTextContainerView.frame = _emailBodyPlaceholder.frame;
     }
 }
 
-
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

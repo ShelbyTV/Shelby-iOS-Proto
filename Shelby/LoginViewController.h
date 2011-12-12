@@ -9,21 +9,31 @@
 #import <UIKit/UIKit.h>
 #import "ConnectivityViewController.h"
 #import "NetworkObject.h"
+#import "FullscreenWebView.h"
 
 @class LoginHelper;
 @class Reachability;
 
-@interface LoginViewController : ConnectivityViewController <UIWebViewDelegate, NetworkObject> {
+@interface LoginViewController : ConnectivityViewController <FullscreenWebViewDelegate, NetworkObject> {
     id callbackObject;
     SEL callbackSelector;
     
+    IBOutlet UIButton *twitterButton;
+    IBOutlet UIButton *facebookButton;
+    
+    IBOutlet UIView *stripesView;
+    
     IBOutlet UIView *activityHolder;
+    
+    IBOutlet UIView *infoView;
+    BOOL infoViewExpanded;
 
+    IBOutlet UIImageView *footerText;
+    
     // Actual login stuff
     LoginHelper *_loginHelper;
     
-    IBOutlet UIWebView *_webView;
-    IBOutlet UIView *_webViewHolder;
+    FullscreenWebView *_fullscreenWebView;
 }
 
 @property (readonly) NSInteger networkCounter;
@@ -36,6 +46,11 @@
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;
 
-- (IBAction)closeWebView:(id)sender;
+- (IBAction)infoTabPressed:(id)sender;
+
+// FullscreenWebViewDelegate
+- (void)fullscreenWebViewCloseWasPressed:(id)sender;
+- (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
+- (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 
 @end

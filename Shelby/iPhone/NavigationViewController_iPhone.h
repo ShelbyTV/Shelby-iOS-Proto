@@ -7,9 +7,8 @@
 //
 
 #import "NavigationViewController.h"
-#import "SettingsViewController.h"
 
-@interface NavigationViewController_iPhone : NavigationViewController <SettingsViewControllerDelegate> 
+@interface NavigationViewController_iPhone : NavigationViewController
 {
     
 }

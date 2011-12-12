@@ -47,19 +47,12 @@
 
         NSString *sharerName = [broadcast.sharerName uppercaseString];
         if ([broadcast.origin isEqualToString:@"twitter"]) {
-            broadcast.sharerName = [NSString stringWithFormat:@"@%@", sharerName];
+            sharerName = [NSString stringWithFormat:@"@%@", sharerName];
         }
         
         if (NOT_NULL(broadcast.thumbnailImageUrl)) self.thumbnailURL = [NSURL URLWithString:broadcast.thumbnailImageUrl];
         if (NOT_NULL(broadcast.sharerImageUrl)) self.sharerImageURL = [NSURL URLWithString:broadcast.sharerImageUrl];
-        
-        if (NOT_NULL(broadcast.thumbnailImage)) {
-            self.thumbnailImage = [UIImage imageWithData:broadcast.thumbnailImage];
-        }
-        if (NOT_NULL(broadcast.sharerImage)) {
-            self.sharerImage = [UIImage imageWithData:broadcast.sharerImage];
-        }
-        
+
         SET_IF_NOT_NULL(self.provider, broadcast.provider);
         SET_IF_NOT_NULL(self.providerId, broadcast.providerId);
         SET_IF_NOT_NULL(self.shelbyId, broadcast.shelbyId);

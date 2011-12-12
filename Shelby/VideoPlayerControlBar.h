@@ -45,13 +45,16 @@
 - (void)setFavoriteButtonSelected:(BOOL)selected;
 - (BOOL)isWatchLaterButtonSelected;
 - (void)setWatchLaterButtonSelected:(BOOL)selected;
-- (void)setPlayButtonIcon:(UIImage *)image;
 - (IBAction)playButtonWasPressed:(id)sender;
 - (IBAction)shareButtonWasPressed:(id)sender;
 - (IBAction)fullscreenButtonWasPressed:(id)sender;
-- (void)setFullscreenButtonSelected:(BOOL)selected;
 - (IBAction)favoriteButtonWasPressed:(id)sender;
 - (IBAction)watchLaterButtonWasPressed:(id)sender;
 
+- (void)showPlayButtonIcon;
+- (void)showPauseButtonIcon;
+
+- (void)showFullscreenExpandButtonIcon;
+- (void)showFullscreenContractButtonIcon;
 
 @end

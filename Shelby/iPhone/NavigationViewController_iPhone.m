@@ -12,7 +12,6 @@
  */
 
 #import "NavigationViewController_iPhone.h"
-#import "SettingsViewController.h"
 
 @implementation NavigationViewController_iPhone
 
@@ -55,13 +54,6 @@
 //                          ];
 //    }
 //}
-
-#pragma mark - SettingsViewControllerDelegate Methods
-
-- (void)settingsViewControllerDone:(SettingsViewController *)settingsController
-{
-    [self dismissModalViewControllerAnimated: YES];
-}
 
 #pragma mark - User Button Methods
 

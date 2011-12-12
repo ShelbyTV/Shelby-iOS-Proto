@@ -7,7 +7,11 @@
 //
 
 #import "VideoTableData.h"
+
 #import "Broadcast.h"
+#import "ThumbnailImage.h"
+#import "SharerImage.h"
+
 #import "ShelbyApp.h"
 #import "NSURLConnection+AsyncBlock.h"
 #import "Video.h"
@@ -252,6 +256,30 @@
     [pool release];
 }
 
+- (void)loadSharerImageFromCoreData:(Video *)video
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setUndoManager:nil];
+    [context setPersistentStoreCoordinator:psCoordinator];
+    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    
+    SharerImage *sharerImage = [CoreDataHelper fetchExistingUniqueEntity:@"SharerImage" withBroadcastShelbyId:video.shelbyId inContext:context];
+    
+    if (IS_NULL(sharerImage)) 
+    {
+        NSLog(@"Couldn't find CoreData sharerImage entry for video %@; aborting load of sharerImage", video.shelbyId);
+    } else {
+        video.sharerImage = [UIImage imageWithData:sharerImage.imageData];
+        [self updateVideoTableCell:video];
+    }
+    
+    [context release];
+    [pool release];
+}
+
 - (void)downloadSharerImage:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -297,6 +325,30 @@
     [pool release];
 }
 
+- (void)loadVideoThumbnailFromCoreData:(Video *)video
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setUndoManager:nil];
+    [context setPersistentStoreCoordinator:psCoordinator];
+    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    
+    ThumbnailImage *thumbnailImage = [CoreDataHelper fetchExistingUniqueEntity:@"ThumbnailImage" withBroadcastShelbyId:video.shelbyId inContext:context];
+    
+    if (IS_NULL(thumbnailImage)) 
+    {
+        NSLog(@"Couldn't find CoreData thumbnailImage entry for video %@; aborting load of thumbnailImage", video.shelbyId);
+    } else {
+        video.thumbnailImage = [UIImage imageWithData:thumbnailImage.imageData];
+        [self updateVideoTableCell:video];
+    }
+    
+    [context release];
+    [pool release];
+}
+
 - (void)downloadVideoThumbnail:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -314,7 +366,6 @@
         
         [self updateVideoTableCell:video];
         [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
-
     } 
 
     [pool release];
@@ -489,15 +540,15 @@
 
 - (BOOL)checkVimeoMobileURL:(NSString *)providerId
 {
-    NSError *error = nil;
-    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
-    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
-    
-    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
-    
-    if (mobileURL.location == NSNotFound) { // means there's no mobile version
-        return FALSE;
-    }
+//    NSError *error = nil;
+//    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
+//    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
+//    
+//    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
+//    
+//    if (mobileURL.location == NSNotFound) { // means there's no mobile version
+//        return FALSE;
+//    }
     
     return TRUE;
 }
@@ -565,13 +616,17 @@
         }
         
         // need the sharerImage even for dupes
-        if (IS_NULL(video.sharerImage)) {                    
+        if (IS_NULL(broadcast.sharerImage)) {
             [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
+        } else {
+            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video] autorelease]];
         }
-        
+
         // could optimize to not re-download for dupes, but don't bother for now...
-        if (IS_NULL(video.thumbnailImage)) {                    
+        if (IS_NULL(broadcast.thumbnailImage)) {
             [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
+        } else {
+            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video] autorelease]];
         }
     }
 }
@@ -681,16 +736,25 @@
             break;
         }
         
-        if ((numToKeep > jsonBroadcastsCount) && [jsonBroadcasts objectForKey:broadcast.shelbyId] != nil) {
+        if ((numToKeep > jsonBroadcastsCount) && NOT_NULL([jsonBroadcasts objectForKey:broadcast.shelbyId])) {
             continue; // don't remove anything Shelby just told us about
         }
         
         [discardedBroadcasts addObject:broadcast];
-        [context deleteObject:broadcast];
         numRemoved++;
     }
     
     [broadcasts removeObjectsInArray:discardedBroadcasts];
+    
+    for (Broadcast *broadcast in discardedBroadcasts) {
+        if (NOT_NULL(broadcast.sharerImage)) {
+            [context deleteObject:broadcast.sharerImage];
+        }
+        if (NOT_NULL(broadcast.thumbnailImage)) {
+            [context deleteObject:broadcast.thumbnailImage];
+        }
+        [context deleteObject:broadcast];
+    }
 }
 
 /*
@@ -721,40 +785,32 @@
         
         // fetch old broadcasts from CoreData
         NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-        NSLog(@"Fetching old broadcasts from CoreData");
         [broadcasts addObjectsFromArray:[self fetchBroadcastsFromCoreDataContext:context]];
         
-        NSLog(@"Fetching public channel from CoreData");
         Channel *publicChannel = [self fetchPublicChannelFromCoreDataContext:context];
         
         // go through new JSON broadcast data and identify ones with same shelbyIDs as old broadcasts
         // if shelbyID already exists, update old broadcast object with any new data
         // if doesn't already exist, create new Broadcast in CoreData with new JSON data
-        NSLog(@"Calling addOrUpdateBroadcasts");
         NSDictionary *jsonBroadcasts = [self addOrUpdateBroadcasts:broadcasts 
                                                        withNewJSON:jsonDictionariesArray 
                                                        withChannel:publicChannel
                                                        withContext:context];
         
         // sort array by createdAt date
-        NSLog(@"Calling sortBroadcasts");
         [self sortBroadcasts:broadcasts];
         
         // determine numToKeep and numToDelete
         // iterate through and delete broadcasts from CoreData and array somehow?
-        NSLog(@"Calling removeExtraBroadcasts");
         [self removeExtraBroadcasts:broadcasts withNewJSON:jsonBroadcasts withContext:context];
         
         [operationQueue setSuspended:TRUE];
         
         // iterate through sorted broadcast array, finding dupes, creating operationQueue jobs, etc.
-        NSLog(@"Calling processBroadcastArray");
         [self processBroadcastArray:broadcasts];
         
         // save CoreData context
-        NSLog(@"Calling saveContextAndLogErrors");
         [CoreDataHelper saveContextAndLogErrors:context];
-        NSLog(@"Done calling saveContextAndLogErrors");
 
         [operationQueue setSuspended:FALSE];
     }

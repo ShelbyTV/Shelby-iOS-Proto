@@ -136,4 +136,3 @@
 @end
 
 extern NSString *CrashlyticsException;
-extern NSString *LIB_CRASHLYTICS_VERSION;

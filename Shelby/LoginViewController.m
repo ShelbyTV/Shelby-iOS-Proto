@@ -63,6 +63,11 @@
                                                  selector:@selector(loginURLAvailable:)
                                                      name:@"LoginURLAvailable"
                                                    object:nil];
+        
+        _fullscreenWebView = [FullscreenWebView fullscreenWebViewFromNib];
+        _fullscreenWebView.hidden = YES;
+        [_fullscreenWebView setDelegate:self];
+        [self.view addSubview:_fullscreenWebView];
     }
     return self;
 }
@@ -72,14 +77,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _webView.delegate = self;
-    [_webView setMultipleTouchEnabled:YES];
-    _webView.scalesPageToFit = YES;
 
     _networkActivityViewParent = activityHolder;
     
     // Do any additional setup after loading the view from its nib.
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BackgroundStripes" ofType:@"png"]]]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackgroundStripes_iPad"]]];
+    } else {
+        [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackgroundStripes_iPhone"]]];
+    }
+    [stripesView setOpaque:NO];
+    [[stripesView layer] setOpaque:NO]; // hack needed for transparent backgrounds on iOS < 5
 }
 
 #pragma mark - Misc Methods
@@ -101,7 +109,7 @@
     completion:^(BOOL finished){
        if (finished) {
            [self.view setHidden: hidden];
-           _webViewHolder.hidden = YES;
+           _fullscreenWebView.hidden = YES;
        }
     }];
 }
@@ -117,6 +125,9 @@
 
 - (void)beginLoginWithProvider:(NSString *)provider
 {
+    [twitterButton setEnabled:NO];
+    [facebookButton setEnabled:NO];
+    
     [self clearAllCookies];
     [_loginHelper getRequestTokenWithProvider:provider];
 }
@@ -144,9 +155,9 @@
 - (void)loginURLAvailable:(NSNotification*)aNotification
 {   
     NSLog(@"loginURL: %@", [aNotification.userInfo objectForKey:@"url"]);
-    [_webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
-                                            cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                        timeoutInterval:60.0]];
+    [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
+                                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                         timeoutInterval:60.0]];
     self.networkCounter = 1;
 }
 
@@ -164,24 +175,58 @@
     [self beginLoginWithProvider: @"twitter"];
 }
 
-- (IBAction)closeWebView:(id)sender
+// FullscreenWebViewDelegate
+- (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    _webViewHolder.hidden = YES;
+    _fullscreenWebView.hidden = YES;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{    
-    _webViewHolder.hidden = NO;
+- (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
+{
+    _fullscreenWebView.hidden = NO;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
+    
+    [twitterButton setEnabled:YES];
+    [facebookButton setEnabled:YES];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{    
-    _webViewHolder.hidden = YES;
+- (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    _fullscreenWebView.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+    
+    [twitterButton setEnabled:YES];
+    [facebookButton setEnabled:YES];
+}
+
+- (IBAction)infoTabPressed:(id)sender
+{   
+    float amountToMove;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        amountToMove = 102;
+    } else {
+        amountToMove = 56;
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            footerText.alpha = infoViewExpanded ? 1.0 : 0.0;
+        }
+        
+        CGRect temp = infoView.frame;
+        temp.origin.y += infoViewExpanded ? amountToMove : -1 * amountToMove;
+        infoView.frame = temp;
+    }
+    completion:^(BOOL finished){
+        if (finished) {
+            infoViewExpanded = !infoViewExpanded;
+        }
+    }];
 }
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="11B26" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Broadcast" representedClassName="Broadcast">
         <attribute name="createdAt" optional="YES" attributeType="Date"/>
         <attribute name="liked" optional="YES" attributeType="Boolean"/>
@@ -7,17 +7,17 @@
         <attribute name="provider" optional="YES" attributeType="String"/>
         <attribute name="providerId" optional="YES" attributeType="String"/>
         <attribute name="sharerComment" optional="YES" attributeType="String"/>
-        <attribute name="sharerImage" optional="YES" attributeType="Binary"/>
         <attribute name="sharerImageUrl" optional="YES" attributeType="String"/>
         <attribute name="sharerName" optional="YES" attributeType="String"/>
         <attribute name="shelbyId" attributeType="String"/>
         <attribute name="shortPermalink" optional="YES" attributeType="String"/>
-        <attribute name="thumbnailImage" optional="YES" attributeType="Binary"/>
         <attribute name="thumbnailImageUrl" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="watched" optional="YES" attributeType="Boolean"/>
         <attribute name="watchLater" optional="YES" attributeType="Boolean"/>
         <relationship name="channel" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Channel" inverseName="broadcasts" inverseEntity="Channel"/>
+        <relationship name="sharerImage" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SharerImage" inverseName="broadcast" inverseEntity="SharerImage" syncable="YES"/>
+        <relationship name="thumbnailImage" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ThumbnailImage" inverseName="broadcast" inverseEntity="ThumbnailImage" syncable="YES"/>
     </entity>
     <entity name="Channel" representedClassName="Channel">
         <attribute name="name" attributeType="String"/>
@@ -25,6 +25,14 @@
         <attribute name="shelbyId" attributeType="String"/>
         <relationship name="broadcasts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Broadcast" inverseName="channel" inverseEntity="Broadcast"/>
         <relationship name="user" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="channels" inverseEntity="User"/>
+    </entity>
+    <entity name="SharerImage" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="broadcast" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Broadcast" inverseName="sharerImage" inverseEntity="Broadcast" syncable="YES"/>
+    </entity>
+    <entity name="ThumbnailImage" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="broadcast" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Broadcast" inverseName="thumbnailImage" inverseEntity="Broadcast" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User">
         <attribute name="auth_facebook" attributeType="Boolean" defaultValueString="NO"/>
@@ -41,5 +49,7 @@
         <element name="Broadcast" positionX="27" positionY="438" width="128" height="300"/>
         <element name="Channel" positionX="-173" positionY="207" width="128" height="120"/>
         <element name="User" positionX="315" positionY="213" width="128" height="180"/>
+        <element name="ThumbnailImage" positionX="313" positionY="639" width="128" height="75"/>
+        <element name="SharerImage" positionX="277" positionY="510" width="128" height="75"/>
     </elements>
 </model>

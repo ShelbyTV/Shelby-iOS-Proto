@@ -29,8 +29,8 @@ static const float kHideControlsCheckLoop = 0.1f;
 static const float kHideControlsInterval  = 6.0f;
 static const float kFadeControlsDuration  = 0.5f;
 
-static const float kControlBarHeightIpad   = 44.0f;
-static const float kControlBarHeightIphone = 44.0f;
+static const float kControlBarHeightIpad   = 98.0f;
+static const float kControlBarHeightIphone = 75.0f;
 static const float kControlBarX            =  0.0f;
 static const float kNextPrevXOffset        =  0.0f;
 
@@ -46,9 +46,30 @@ static const float kNextPrevXOffset        =  0.0f;
 
 @synthesize delegate;
 @synthesize titleBar;
-@synthesize footerBar;
+//@synthesize footerBar;
 @synthesize moviePlayer = _moviePlayer;
 @synthesize currentVideo = _currentVideo;
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer 
+       shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UISlider class]]) {
+        // prevent recognizing touches on the slider
+        return NO;
+    }
+    return YES;
+}
+
+- (float)controlBarHeight
+{
+    float height;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        height = kControlBarHeightIphone;
+    } else {
+        height = kControlBarHeightIpad;
+    }
+    return height;
+}
 
 - (void)setCurrentVideo:(Video *)currentVideo
 {
@@ -169,7 +190,7 @@ static const float kNextPrevXOffset        =  0.0f;
     self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
 
     // Footer Bar
-    self.footerBar = [VideoPlayerFooterBar footerBarFromNib];
+    //self.footerBar = [VideoPlayerFooterBar footerBarFromNib];
 
     // Movie Player
     _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
@@ -194,7 +215,6 @@ static const float kNextPrevXOffset        =  0.0f;
         [window addSubview: _moviePlayer.view];
         
         [window addSubview: self.titleBar];
-        [window addSubview: self.footerBar];
         [window setScreen:secondScreen];
         window.hidden = NO;
         
@@ -203,21 +223,20 @@ static const float kNextPrevXOffset        =  0.0f;
         // Add views.
         [self addSubview: _moviePlayer.view];
         
-        [self addSubview: self.titleBar];
-        [self addSubview: self.footerBar];
     }
     
-    [self addSubview: _controlBar];
+    [self addSubview: self.titleBar];
     
-    // must be added right before next/prev, which must be last
+    [self addSubview: _controlBar];
     [self addSubview:_gestureView];
+
     [self addSubview: _nextButton];
     [self addSubview: _prevButton];
     
     _controls = [[NSArray alloc] initWithObjects:
         _controlBar,
         self.titleBar,
-        self.footerBar,
+       // self.footerBar,
         nil];
     
     double now = CACurrentMediaTime();
@@ -258,7 +277,8 @@ static const float kNextPrevXOffset        =  0.0f;
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         [self initViews];
@@ -274,24 +294,22 @@ static const float kNextPrevXOffset        =  0.0f;
     [self setCurrentVideo:NULL];
     
     // Change our titleBar
-    //self.titleBar.title.text = video.sharerComment;
     self.titleBar.title.text = @"";
+    self.titleBar.comment.text = @"";
     self.titleBar.sharerPic.image = NULL;
     [self fitTitleBarText];
-    
-    // Change our footerBar.
-    self.footerBar.title.text = @"";
-    
+
     // Reset our duration.
     _duration = 0.0f;
 
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
+    [_controlBar showPlayButtonIcon];
     [_controlBar setFavoriteButtonSelected:NO];
     [_controlBar setWatchLaterButtonSelected:NO];
     _changingVideo = NO;
 }
 
-- (BOOL)isIdle {
+- (BOOL)isIdle
+{
     MPMoviePlaybackState state = self.moviePlayer.playbackState;
     if (state == MPMoviePlaybackStateStopped) {
         return YES;
@@ -305,8 +323,8 @@ static const float kNextPrevXOffset        =  0.0f;
     /* 
      * These constants are derived from the .xib file.
      */
-    const CGFloat textOriginX = 68;
-    const CGFloat textOriginY = 15;
+    const CGFloat textOriginX = 56;
+    const CGFloat textOriginY = 27;
     const CGFloat textRightBorder = 20;
     const CGFloat maxTextHeight = 35;
     const CGFloat iPadShelbyLogoOverhang = 95;
@@ -316,14 +334,15 @@ static const float kNextPrevXOffset        =  0.0f;
         maxTextWidth -= iPadShelbyLogoOverhang;
     }
    
-    CGSize textSize = [self.titleBar.title.text sizeWithFont:self.titleBar.title.font
+    CGSize textSize = [self.titleBar.comment.text sizeWithFont:self.titleBar.comment.font
                                            constrainedToSize:CGSizeMake(maxTextWidth, maxTextHeight)
                                                lineBreakMode:UILineBreakModeTailTruncation];
     [UIView setAnimationsEnabled:NO];
-    self.titleBar.title.frame = CGRectMake(textOriginX, 
+    self.titleBar.comment.frame = CGRectMake(textOriginX, 
                                            textOriginY, 
                                            textSize.width, 
                                            textSize.height);
+    
     [UIView setAnimationsEnabled:YES];
 }
 
@@ -358,7 +377,7 @@ static const float kNextPrevXOffset        =  0.0f;
             
             // Change our titleBar
             //self.titleBar.title.text = video.sharerComment;
-            self.titleBar.title.text = [NSString stringWithFormat: @"%@: %@",
+            self.titleBar.comment.text = [NSString stringWithFormat: @"%@: %@",
                                         video.sharer,
                                         NOT_NULL(video.sharerComment) ? video.sharerComment : video.title
                                         ];
@@ -371,8 +390,8 @@ static const float kNextPrevXOffset        =  0.0f;
             }
             [self fitTitleBarText];
             
-            // Change our footerBar.
-            self.footerBar.title.text = video.title;
+            self.titleBar.title.text = video.title;
+
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             [_controlBar setWatchLaterButtonSelected:[video isWatchLater]];
 
@@ -396,7 +415,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)play
 {
     _lastDidFinish = CACurrentMediaTime(); // need better variable name
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPause"]];
+    [_controlBar showPauseButtonIcon];
     [_moviePlayer play];
     _paused = FALSE;
 }
@@ -408,7 +427,7 @@ static const float kNextPrevXOffset        =  0.0f;
     if (!_controlsVisible) {
         [self drawControls];
     }
-    [_controlBar setPlayButtonIcon:[UIImage imageNamed:@"ButtonPlay"]];
+    [_controlBar showPlayButtonIcon];
     [_moviePlayer pause];
     _paused = TRUE;
 }
@@ -421,7 +440,11 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)setFullscreen:(BOOL)fullscreen
 {
     _fullscreen = fullscreen;
-    [_controlBar setFullscreenButtonSelected:fullscreen];
+    if (fullscreen) {
+        [_controlBar showFullscreenContractButtonIcon];
+    } else {
+        [_controlBar showFullscreenExpandButtonIcon];
+    }
     if (_controlsVisible && fullscreen) {
         _nextButton.alpha = 1.0;
         _prevButton.alpha = 1.0;
@@ -793,21 +816,13 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 
 
-- (float)controlBarHeight {
-    float height;
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        height = kControlBarHeightIphone;
-    } else {
-        height = kControlBarHeightIpad;
-    }
-    return height;
-}
 
-- (float)footerBarHeight {
-    float height = [self controlBarHeight];
-
-    return height;
-}
+//
+//- (float)footerBarHeight {
+//    float height = [self controlBarHeight];
+//
+//    return height;
+//}
 
 
 /*
@@ -819,7 +834,8 @@ static const float kNextPrevXOffset        =  0.0f;
 }
 */
 
-- (void)layoutSubviews {
+- (void)layoutSubviews 
+{    
     CGRect frame = self.bounds;
     LogRect(@"VideoPlayer", frame);
     const CGFloat width = frame.size.width;
@@ -839,8 +855,8 @@ static const float kNextPrevXOffset        =  0.0f;
     
     CGRect gestureRect = frame;
     gestureRect.origin.y = titleBarHeight;
-    gestureRect.size.height = height - titleBarHeight - [self controlBarHeight] - [self footerBarHeight];
-
+    gestureRect.size.height = height - titleBarHeight;
+    
     _gestureView.frame = gestureRect;
     
     if ([[UIScreen screens] count] > 1) {
@@ -874,34 +890,38 @@ static const float kNextPrevXOffset        =  0.0f;
             [self nextPrevYOffset] + (height / 2 - (nextPrevSize.height / 2)),
             nextPrevSize.width,
             nextPrevSize.height);
-
-    // Place controlBar at the bottom left.
-    float controlBarWidth = width;
-    _controlBar.frame = CGRectMake(
-            kControlBarX,
-            height - [self controlBarHeight],
-            controlBarWidth,
-            [self controlBarHeight]
-            );
-    [_controlBar layoutSubviews];
-
-    // Place footerBar just above the controlBar.
-    if ([[UIScreen screens] count] > 1) {
-        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
-        self.footerBar.frame = CGRectMake(
-                                          kControlBarX,
-                                          secondScreen.bounds.size.height - [self footerBarHeight],
-                                          secondScreen.bounds.size.width,
-                                          [self footerBarHeight]
-                                          );
+    
+    float controlBarMinWidth;
+    float controlBarMaxWidth;
+    float controlBarDesiredMargin;
+    float controlBarOffsetFromBottom;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        controlBarMinWidth = 406;
+        controlBarMaxWidth = 612;
+        controlBarDesiredMargin = 80;
+        controlBarOffsetFromBottom = 140;
     } else {
-        self.footerBar.frame = CGRectMake(
-                                          kControlBarX,
-                                          height - ([self footerBarHeight] + [self controlBarHeight]),
-                                          controlBarWidth,
-                                          [self footerBarHeight]
-                                          ); 
+        controlBarMinWidth = 286;
+        controlBarMaxWidth = 376;
+        controlBarDesiredMargin = 57;
+        controlBarOffsetFromBottom = 95;
     }
+    
+    float controlBarWidth = width - (controlBarDesiredMargin * 2);
+    
+    controlBarWidth = MIN(controlBarWidth, controlBarMaxWidth);
+    controlBarWidth = MAX(controlBarWidth, controlBarMinWidth);
+
+    CGRect newControlBarFrame = CGRectMake(
+                                   (width / 2 - (controlBarWidth / 2)),
+                                   height - controlBarOffsetFromBottom,
+                                   controlBarWidth,
+                                   [self controlBarHeight]
+                                   );
+    
+    _controlBar.frame = newControlBarFrame;
+    [_controlBar layoutSubviews];
 }
 
 #pragma mark - Cleanup

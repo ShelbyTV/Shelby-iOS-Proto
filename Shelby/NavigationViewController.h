@@ -11,11 +11,12 @@
 #import "ShareViewController.h"
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
+#import "FullscreenWebView.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, UIWebViewDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -46,8 +47,7 @@
     
     IBOutlet UIView *videoTableAndButtonsHolder;
     
-    IBOutlet UIWebView *_webView;
-    IBOutlet UIView *_webViewHolder;
+    FullscreenWebView *_fullscreenWebView;
     
     NSSet *_authorizations;
 }
@@ -71,9 +71,12 @@
 - (IBAction)termsOfUse:(id)sender;
 - (IBAction)privacyPolicy:(id)sender;
 
-- (IBAction)closeWebView:(id)sender;
-
 - (void)slideSettings:(BOOL)becomingVisible;
 - (void)playVideo:(Video *)video;
+
+// FullscreenWebViewDelegate
+- (void)fullscreenWebViewCloseWasPressed:(id)sender;
+- (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
+- (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 
 @end

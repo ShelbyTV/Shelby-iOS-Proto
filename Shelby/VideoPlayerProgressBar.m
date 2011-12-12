@@ -6,8 +6,8 @@
 //  Copyright 2011 Gargoyle Software. All rights reserved.
 //
 
-#define LABEL_OFFSET_X 10
-#define LABEL_OFFSET_Y -2
+#define LABEL_OFFSET_X -20 // account for extra overlap for thumb slider transparent region
+#define LABEL_OFFSET_Y -1
 
 #import "VideoPlayerProgressBar.h"
 #import <QuartzCore/QuartzCore.h>
@@ -23,9 +23,10 @@ static const float kProgressUpdateBuffer = 1.0f;
 - (void)initViews {
     // We currently use a slider for our progress bar. In the future, we can replace this with a custom UIView.
     _slider = [[UISlider alloc] init];
-
+    
     // in case the parent view draws with a custom color or gradient, use a transparent color
-    _slider.backgroundColor = [UIColor clearColor];	
+    _slider.backgroundColor = [UIColor clearColor];
+	
     //UIImage *stetchLeftTrack = [[UIImage imageNamed:@"orangeslide.png"]
     UIImage *stetchLeftTrack = [[UIImage imageNamed:@"SliderPurple.png"]
                    stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
@@ -38,22 +39,38 @@ static const float kProgressUpdateBuffer = 1.0f;
     [_slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
 
     _slider.continuous = YES;
-
-    //_slider.minimumValue = 0.0;
-    //_slider.maximumValue = 100.0;
-    //_slider.value = 50.0;
+    _slider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     _label = [[UILabel alloc] init];
-    _label.textColor = [UIColor whiteColor];
-    _label.shadowColor = [UIColor blackColor];
-    _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 17.0];
-    _label.minimumFontSize = 8;
+    _label.textAlignment = UITextAlignmentRight;
+    _label.textColor = [UIColor grayColor];
+    _label.shadowColor = [UIColor clearColor];
+    _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 14.0];
     _label.numberOfLines = 1;
-    _label.adjustsFontSizeToFitWidth = TRUE;
     _label.backgroundColor = [UIColor clearColor];
+    _label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
+    _blackLineStartOverlay = [[UIView alloc] initWithFrame:CGRectMake(15, 0, 1, CGRectGetHeight(self.bounds))];
+    _blackLineStartOverlay.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    _blackLineStartOverlay.backgroundColor = [UIColor blackColor];
+    
+    _blackLineEndOverlay = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) - 16, 0, 1, CGRectGetHeight(self.bounds))];
+    _blackLineEndOverlay.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _blackLineEndOverlay.backgroundColor = [UIColor blackColor];
+    
+    _slider.frame = self.bounds;
+    
+    CGRect tempFrame = self.bounds;
+    tempFrame.origin.x = LABEL_OFFSET_X;
+    tempFrame.origin.y = LABEL_OFFSET_Y;
+    _label.frame = tempFrame;
+    
+    self.autoresizesSubviews = YES;
     
     [self addSubview: _slider];
     [self addSubview: _label];
+    [self addSubview: _blackLineStartOverlay];
+    [self addSubview: _blackLineEndOverlay];
 
     // We use this to maintain a close eye on the slider value.
     [_slider addTarget: self
@@ -108,7 +125,7 @@ static const float kProgressUpdateBuffer = 1.0f;
         }
 
         // Set our label to M:SS format.
-        _label.text = [NSString stringWithFormat: @"%@ / %@", 
+        _label.text = [NSString stringWithFormat: @"%@/%@", 
                             [self floatToMinutes: progress],
                             [self floatToMinutes: [self duration]]];
     }
@@ -143,25 +160,6 @@ static const float kProgressUpdateBuffer = 1.0f;
     if (self.delegate) {
         [self.delegate videoProgressBarWasAdjustedManually: self value: _slider.value];
     }
-}
-
-#pragma mark - Layout
-
-- (void)layoutSubviews {
-    CGRect frame = self.bounds;
-    
-    // We needed a bigger touch area on the actual slider. This hacky adjustment is being done to
-    // make things still look nice. We use black UIViews in the control bar NIBs to cover this up appropriately.
-    frame.origin.x -= 20;
-    frame.size.width += 30;
-    _slider.frame = frame;
-    
-    //float labelHeight = frame.size.height;
-    CGRect tempFrame = self.bounds;
-    tempFrame.origin.x = LABEL_OFFSET_X;
-    tempFrame.origin.y = LABEL_OFFSET_Y;
-    tempFrame.size.width -= 30;
-    _label.frame = tempFrame;
 }
 
 #pragma mark - KVO
