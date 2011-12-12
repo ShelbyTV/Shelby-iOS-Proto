@@ -127,8 +127,6 @@
 {
     self = [super init];
     if (self) {
-
-        NSLog(@"init with frame height: %f", frame.size.height);
         
         self.view = [[UIView alloc] initWithFrame:frame];
         [self viewDidLoad];
@@ -159,9 +157,7 @@
     // Configure token field
     CGRect viewBounds = self.view.bounds;
     CGRect tokenFieldFrame = viewBounds;
-    
-    NSLog(@"init tokenField with frame height: %f", tokenFieldFrame.size.height);
-    
+        
     self.tokenField = [[COTokenField alloc] initWithFrame:tokenFieldFrame];
     self.tokenField.tokenFieldDelegate = self;
     self.tokenField.textField.textColor = [UIColor whiteColor];
@@ -470,7 +466,6 @@ static NSString *kCOTokenFieldDetectorString = @"\u200B";
     tokenFieldFrame.size.height = MAX(minHeight, CGRectGetMaxY(textFieldFrame) + kTokenFieldPaddingY);
     
     self.frame = tokenFieldFrame;
-    NSLog(@"frame height: %f", self.frame.size.height);
 }
 
 - (void)selectToken:(COToken *)token {
