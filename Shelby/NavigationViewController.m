@@ -365,6 +365,9 @@
     [videoTableHolder addSubview:videoTable.tableView];
 
     [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
+    
+    [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
 }
 
 #pragma mark - Notification Handlers
@@ -451,6 +454,9 @@
     // Make videoPlayer visible. Really only does something on iPhone.
     _videoPlayer.hidden = NO;
     [_videoPlayer playVideo: video];
+    
+    [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
 }
 
 
@@ -479,5 +485,38 @@
 {
     // implemented in subclasses
 }
+
+
+
+- (BOOL) canBecomeFirstResponder 
+{
+    return YES;
+}
+
+
+- (void) remoteControlReceivedWithEvent:(UIEvent *)receivedEvent
+{
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        switch (receivedEvent.subtype) {
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+//                if (_paused) {
+//                    [_videoPlayer play];
+//                } else {
+                    [_videoPlayer pause];
+//                }
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self videoPlayerNextButtonWasPressed:_videoPlayer];
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [self videoPlayerPrevButtonWasPressed:_videoPlayer];
+                break;
+            default:
+                NSLog(@" ######## Received remote control event subtype: %d", receivedEvent.subtype);
+                break;
+        }
+    }
+}
+
 
 @end

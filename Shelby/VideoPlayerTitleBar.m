@@ -17,6 +17,14 @@
 
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerTitleBar_iPhone";
 static NSString *IPAD_NIB_NAME = @"VideoPlayerTitleBar_iPad";
+static NSString *TV_NIB_NAME = @"VideoPlayerTitleBar_TV";
+
++ (VideoPlayerTitleBar *)titleBarFromTVNib 
+{
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME owner:self options:nil];
+    
+    return [objects objectAtIndex:0];
+}
 
 + (VideoPlayerTitleBar *)titleBarFromNib 
 {    

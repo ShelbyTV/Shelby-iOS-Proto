@@ -156,6 +156,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Initialization
 
+
 - (void)initViews {
     
     // this will be immediately set to false by the iPad NavigationViewController
@@ -186,8 +187,7 @@ static const float kNextPrevXOffset        =  0.0f;
     _controlBar = [VideoPlayerControlBar controlBarFromNib];
     _controlBar.delegate = self;
 
-    // Title Bar
-    self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
+
 
     // Footer Bar
     //self.footerBar = [VideoPlayerFooterBar footerBarFromNib];
@@ -211,24 +211,28 @@ static const float kNextPrevXOffset        =  0.0f;
         CGRect frame = secondScreen.bounds;
         UIWindow *window = [[UIWindow alloc] initWithFrame:frame];
         
+        self.titleBar = [VideoPlayerTitleBar titleBarFromTVNib];
         
         [window addSubview: _moviePlayer.view];
         
         [window addSubview: self.titleBar];
         [window setScreen:secondScreen];
         window.hidden = NO;
+
         
     } else {
         
+        // Title Bar
+        self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
+        
         // Add views.
         [self addSubview: _moviePlayer.view];
+        [self addSubview: self.titleBar];
         
     }
-    
-    [self addSubview: self.titleBar];
-    
-    [self addSubview: _controlBar];
     [self addSubview:_gestureView];
+
+    [self addSubview: _controlBar];
 
     [self addSubview: _nextButton];
     [self addSubview: _prevButton];
@@ -323,14 +327,22 @@ static const float kNextPrevXOffset        =  0.0f;
     /* 
      * These constants are derived from the .xib file.
      */
-    const CGFloat textOriginX = 56;
-    const CGFloat textOriginY = 27;
-    const CGFloat textRightBorder = 20;
-    const CGFloat maxTextHeight = 35;
-    const CGFloat iPadShelbyLogoOverhang = 95;
+    CGFloat textOriginX = 56;
+    CGFloat textOriginY = 27;
+    CGFloat textRightBorder = 20;
+    CGFloat maxTextHeight = 35;
+    CGFloat iPadShelbyLogoOverhang = 95;
+    
+    if ([[UIScreen screens] count] > 1) {
+        textOriginX = 123;
+        textOriginY = 50;
+        textRightBorder = 15;
+        maxTextHeight = 48;
+    }
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&
+        [[UIScreen screens] count] == 1) {
         maxTextWidth -= iPadShelbyLogoOverhang;
     }
    
@@ -549,6 +561,10 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
             for (UIView *control in _controls) {
+                if ([[UIScreen screens] count] > 1 &&
+                    control == _controlBar) {
+                    continue;
+                }
                 control.alpha = 0.0;
             }
             _nextButton.alpha = 0.0;
@@ -841,7 +857,11 @@ static const float kNextPrevXOffset        =  0.0f;
     const CGFloat width = frame.size.width;
     const CGFloat height = frame.size.height;
 
-    const float titleBarHeight = 75.0f;
+    float titleBarHeight = 75.0f;
+    if ([[UIScreen screens] count] > 1) {
+        titleBarHeight = 123.0f;
+    }
+    
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     
     _bgView.frame = self.bounds;

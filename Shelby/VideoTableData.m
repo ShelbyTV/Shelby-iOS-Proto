@@ -24,8 +24,8 @@
 
 #define kMaxVideoThumbnailHeight 163
 #define kMaxVideoThumbnailWidth 290
-#define kMaxSharerImageHeight 45
-#define kMaxSharerImageWidth 45
+#define kMaxSharerImageHeight 93
+#define kMaxSharerImageWidth 93
 
 #pragma mark - VideoTableData
 
