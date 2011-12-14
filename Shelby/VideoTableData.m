@@ -571,18 +571,21 @@
 
 - (void)checkPlayable:(Video *)video
 {
-    @synchronized(tableVideos)
+    // check for a valid Vimeo ID (should be a single number) 
+    if ([video.provider isEqualToString: @"vimeo"] &&
+        [self checkVimeoMobileURL:video.providerId])
     {
-        // check for a valid Vimeo ID (should be a single number) 
-        if ([video.provider isEqualToString: @"vimeo"] &&
-            [self checkVimeoMobileURL:video.providerId])
+        @synchronized(tableVideos)
         {
             [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
             videoTableNeedsUpdate = TRUE;
         }
-        
-        if ([video.provider isEqualToString: @"youtube"] &&
-            [self checkYouTubePrivileges:video.providerId])
+    }
+    
+    if ([video.provider isEqualToString: @"youtube"] &&
+        [self checkYouTubePrivileges:video.providerId])
+    {
+        @synchronized(tableVideos)
         {
             [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
             videoTableNeedsUpdate = TRUE;
