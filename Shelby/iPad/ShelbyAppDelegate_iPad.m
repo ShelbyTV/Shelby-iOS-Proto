@@ -43,6 +43,8 @@
     [[ShelbyApp sharedApp] addNetworkObject:loginViewController];
     [[ShelbyApp sharedApp] addNetworkObject:navigationViewController];
     
+    [ShelbyApp sharedApp].navigationViewController = navigationViewController;
+    
     [loginViewController viewWillAppear: NO];
     [navigationViewController.view addSubview:loginViewController.view];
     [loginViewController viewDidAppear: NO];

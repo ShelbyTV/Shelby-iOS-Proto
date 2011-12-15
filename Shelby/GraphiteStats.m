@@ -37,7 +37,7 @@
     int bytesWritten = sendto(sock, [data bytes], [data length], 0, (const struct sockaddr *)&addr, sizeof(addr));
     if (bytesWritten > 0)
     {
-        // Short writeswhich shouldn't happen for UDP anyway... In release builds it's okay to ignore. Just stats.
+        // Short writes which shouldn't happen for UDP anyway... In release builds it's okay to ignore. Just stats.
         assert((NSUInteger)bytesWritten == [data length]);
     }
         

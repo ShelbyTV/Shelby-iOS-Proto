@@ -223,9 +223,8 @@ static const float kNextPrevXOffset        =  0.0f;
        // self.footerBar,
         nil];
     
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
-    _lastPlayVideo = now;
+    [self recordButtonPressOrControlsVisible:NO];
+    _lastPlayVideo = CACurrentMediaTime();
     _controlsVisible = YES;
 
     // Timer to update the progressBar after each second.
@@ -406,8 +405,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)pause 
 {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+    [self recordButtonPressOrControlsVisible:NO];
     if (!_controlsVisible) {
         [self drawControls];
     }
@@ -480,11 +478,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     _touchOccurring = FALSE;
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+    [self recordButtonPressOrControlsVisible:YES];
 
     // treat short presses as a tap and close controls if visible
-    if (now - _lastTouchesBegan < kTapTime && !_paused) {
+    if (CACurrentMediaTime() - _lastTouchesBegan < kTapTime && !_paused) {
         if (_controlsVisible) {
             [self hideControls];
         }
@@ -493,11 +490,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     _touchOccurring = FALSE;
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+    [self recordButtonPressOrControlsVisible:YES];
     
     // treat short presses as a tap and close controls if visible
-    if (now - _lastTouchesBegan < kTapTime) {
+    if (CACurrentMediaTime() - _lastTouchesBegan < kTapTime) {
         if (_controlsVisible) {
             [self hideControls];
         }
@@ -547,8 +543,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)drawControls
 {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+    [self recordButtonPressOrControlsVisible:NO];
     
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
         for (UIView *control in _controls) {
@@ -696,10 +691,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - VideoProgressBarDelegate Methods
 
-- (void)controlBarChangedTimeManually:(VideoPlayerControlBar *)controlBar time:(float)time {
-    //LOG(@"videoProgressBarWasAdjusted: %f", time);
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (void)controlBarChangedTimeManually:(VideoPlayerControlBar *)controlBar
+                                 time:(float)time
+{
+    [self recordButtonPressOrControlsVisible:YES];
     
     float delta = fabs(time - _moviePlayer.currentPlaybackTime);
     if (delta > 1.0f) {
@@ -712,9 +707,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - ControlBarDelegate Callbacks
 
-- (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (void)controlBarPlayButtonWasPressed:(VideoPlayerControlBar *)controlBar
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     if (_moviePlayer.playbackState == MPMoviePlaybackStatePlaying) {
         [self pause];
     } else {
@@ -725,9 +721,10 @@ static const float kNextPrevXOffset        =  0.0f;
 /*
  * Currently just a mockup.
  */
-- (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (void)controlBarShareButtonWasPressed:(VideoPlayerControlBar *)controlBar 
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     // Inform our delegate
     _wasPlayingBeforeShare = !_paused;
     [self pause];
@@ -739,27 +736,30 @@ static const float kNextPrevXOffset        =  0.0f;
 /*
  * Currently just a mockup.
  */
-- (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (void)controlBarFavoriteButtonWasPressed:(VideoPlayerControlBar *)controlBar
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerLikeButtonWasPressed: self];
     }
 }
 
-- (void)controlBarWatchLaterButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (void)controlBarWatchLaterButtonWasPressed:(VideoPlayerControlBar *)controlBar
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerWatchLaterButtonWasPressed: self];
     }
 }
 
-- (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
     }
@@ -768,19 +768,20 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Delegate Callbacks
 
-- (IBAction)nextButtonWasPressed:(id)sender {
-    NSLog(@"Next button pressed.");
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (IBAction)nextButtonWasPressed:(id)sender
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     [GraphiteStats incrementCounter:@"nextButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
     }
 }
 
-- (IBAction)prevButtonWasPressed:(id)sender {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+- (IBAction)prevButtonWasPressed:(id)sender
+{
+    [self recordButtonPressOrControlsVisible:YES];
+
     [GraphiteStats incrementCounter:@"previousButtonPressed"];
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
@@ -911,8 +912,8 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)swipeLeft:(UIGestureRecognizer *)gestureRecognizer
 {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+    [self recordButtonPressOrControlsVisible:YES];
+
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
     }
@@ -920,10 +921,30 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)swipeRight:(UIGestureRecognizer *)gestureRecognizer
 {
-    double now = CACurrentMediaTime();
-    _lastButtonPressOrControlsVisible = now;
+    [self recordButtonPressOrControlsVisible:YES];
+
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
+    }
+}
+
+- (BOOL)isVideoPlaying
+{
+    MPMoviePlaybackState state = self.moviePlayer.playbackState;
+    if (state == MPMoviePlaybackStatePlaying) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)recordButtonPressOrControlsVisible:(BOOL)informDelegate
+{
+    double now = CACurrentMediaTime();
+    _lastButtonPressOrControlsVisible = now;
+    
+    if (delegate && informDelegate) {
+        [delegate videoPlayerWasTouched];
     }
 }
 

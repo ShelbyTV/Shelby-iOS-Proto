@@ -28,6 +28,7 @@
 #import "CoreDataHelper.h"
 
 #import "GraphiteStats.h"
+#import "SessionStats.h"
 
 @interface LoginHelper ()
 
@@ -110,6 +111,7 @@
     [[ShelbyApp sharedApp].apiHelper clearTokens];
     self.user = nil;
     [self deleteUser];
+    [SessionStats resetHeartbeatCount];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserLoggedOut"
                                                         object:self

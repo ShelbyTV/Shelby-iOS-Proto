@@ -28,6 +28,7 @@
 
 @synthesize shareView = _shareView;
 @synthesize networkCounter;
+@synthesize touched;
 
 #pragma mark - Initialization
 
@@ -185,6 +186,11 @@
     self.shareView.view.hidden = YES;
 }
 
+- (void)shareViewWasTouched
+{
+    self.touched = TRUE;
+}
+
 - (void)logOut:(id)sender
 {
     self.shareView.view.hidden = YES;
@@ -224,7 +230,6 @@
 - (void)termsOfUse:(id)sender
 {
     [self showWebPage:@"http://shelby.tv/tou.html"];
-
 }
 
 - (void)privacyPolicy:(id)sender
@@ -240,7 +245,17 @@
     // TODO: Convert to optional method in protocol using respondsToSelector:
 }
 
+- (void)videoTableWasTouched
+{
+    self.touched = TRUE;
+}
+
 #pragma mark - VideoPlayerDelegate Methods
+
+- (void)videoPlayerWasTouched
+{
+    self.touched = TRUE;
+}
 
 - (void)videoPlayerPlayButtonWasPressed:(VideoPlayer *)videoPlayer
 {
@@ -478,6 +493,11 @@
 - (void)slideSettings:(BOOL)becomingVisible
 {
     // implemented in subclasses
+}
+
+- (BOOL)isVideoPlaying
+{
+    return [_videoPlayer isVideoPlaying];
 }
 
 @end

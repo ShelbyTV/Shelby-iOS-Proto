@@ -19,6 +19,7 @@
 
 - (void)shareViewClosePressed:(ShareViewController*)shareView;
 - (void)shareView:(ShareViewController*)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients;
+- (void)shareViewWasTouched;
 
 @end
 

@@ -28,7 +28,7 @@
 - (void)videoPlayerShareButtonWasPressed:(VideoPlayer *)videoPlayer;
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;
 - (void)updateVideoTableCell:(Video *)video;
-
+- (void)videoPlayerWasTouched;
 
 @end
 
@@ -93,5 +93,8 @@
 - (BOOL)isFavoriteButtonSelected;
 - (BOOL)isWatchLaterButtonSelected;
 - (void)resumeAfterCloseShareView;
+- (BOOL)isVideoPlaying;
+
+- (void)recordButtonPressOrControlsVisible:(BOOL)informDelegate;
 
 @end

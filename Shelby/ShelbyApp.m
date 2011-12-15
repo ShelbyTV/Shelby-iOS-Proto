@@ -11,6 +11,7 @@
 #import "ApiHelper.h"
 #import "ShelbyAppDelegate.h"
 #import "VIdeoGetter.h"
+#import "SessionStats.h"
 
 #import "TestFlight.h"
 #import <Crashlytics/Crashlytics.h>
@@ -20,16 +21,22 @@
 @synthesize persistentStoreCoordinator;
 @synthesize loginHelper;
 @synthesize apiHelper;
+@synthesize navigationViewController;
 
 #pragma mark - Singleton
 
 static ShelbyApp *gShelbyApp;
 
-+ (ShelbyApp *)sharedApp {
-  if (!gShelbyApp) {
-    gShelbyApp = [[ShelbyApp alloc] init];
-  }
-  return gShelbyApp;
++ (ShelbyApp *)sharedApp
+{
+    if (!gShelbyApp) {
+        
+        gShelbyApp = [[ShelbyApp alloc] init];
+        
+        [SessionStats startSessionReportingTimer];
+    }
+    
+    return gShelbyApp;
 }
 
 #pragma mark - Initialization

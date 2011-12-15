@@ -37,6 +37,8 @@
     [[ShelbyApp sharedApp] addNetworkObject:loginViewController];
     [[ShelbyApp sharedApp] addNetworkObject:navigationViewController];
     
+    [ShelbyApp sharedApp].navigationViewController = navigationViewController;
+    
     // If we're logged in, we can bypass login here and below...
     if (userAlreadyLoggedIn) {
         loginViewController.view.alpha = 0.0;

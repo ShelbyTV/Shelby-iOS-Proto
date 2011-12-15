@@ -41,6 +41,7 @@
 		0A53951B14424066004721B9 /* TimelineOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */; };
 		0A53951D144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */; };
 		0A53951F14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */; };
+		0A5C09A014980CB800C08F41 /* SessionStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C099F14980CB800C08F41 /* SessionStats.m */; };
 		0A65E3BB1428639D00A325C1 /* BackgroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3B91428639D00A325C1 /* BackgroundStripes.png */; };
 		0A65E3BC1428639D00A325C1 /* ForegroundStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */; };
 		0A67EB1C1454AB6200C96EBC /* VideoMissing.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A67EB1B1454AB6200C96EBC /* VideoMissing.png */; };
@@ -305,6 +306,8 @@
 		0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineOnboardCell_iPhone.xib; sourceTree = "<group>"; };
 		0A53951C144240F5004721B9 /* FavoritesOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesOnboardCell_iPhone.xib; sourceTree = "<group>"; };
 		0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchLaterOnboardCell_iPhone.xib; sourceTree = "<group>"; };
+		0A5C099E14980CB800C08F41 /* SessionStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStats.h; sourceTree = "<group>"; };
+		0A5C099F14980CB800C08F41 /* SessionStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionStats.m; sourceTree = "<group>"; };
 		0A65E3B91428639D00A325C1 /* BackgroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackgroundStripes.png; path = Resources/Images/BackgroundStripes.png; sourceTree = "<group>"; };
 		0A65E3BA1428639D00A325C1 /* ForegroundStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForegroundStripes.png; path = Resources/Images/ForegroundStripes.png; sourceTree = "<group>"; };
 		0A67EB1B1454AB6200C96EBC /* VideoMissing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VideoMissing.png; path = Resources/Images/VideoMissing.png; sourceTree = "<group>"; };
@@ -1258,15 +1261,17 @@
 		42FAA3AB13FD840B00BC1D28 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
-				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
-				423FFDBB142A6CCD00F8FF54 /* NetworkObject.h */,
-				0AB364FE143137A100DCEAFD /* GraphiteStats.h */,
-				0AB364FF143137A100DCEAFD /* GraphiteStats.m */,
 				0A871144143D0FBA001AE70D /* CoreDataHelper.h */,
 				0A871145143D0FBA001AE70D /* CoreDataHelper.m */,
+				0AB364FE143137A100DCEAFD /* GraphiteStats.h */,
+				0AB364FF143137A100DCEAFD /* GraphiteStats.m */,
+				423FFDBB142A6CCD00F8FF54 /* NetworkObject.h */,
 				0A6B278C1474C58500CF3A47 /* PlatformHelper.h */,
 				0A6B278D1474C58500CF3A47 /* PlatformHelper.m */,
+				0A5C099E14980CB800C08F41 /* SessionStats.h */,
+				0A5C099F14980CB800C08F41 /* SessionStats.m */,
+				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
+				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1614,6 +1619,7 @@
 				0AE04FB814896FBB00952C02 /* COPeoplePickerViewController.m in Sources */,
 				0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */,
 				0AC8262014902230009FF975 /* LoginGradientView.m in Sources */,
+				0A5C09A014980CB800C08F41 /* SessionStats.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1912,7 +1918,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EFD6F4CF-4665-44C8-B484-D5947AA51F22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44E53500-CA17-400F-A933-65316853F1AB";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
