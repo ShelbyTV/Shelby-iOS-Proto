@@ -143,7 +143,12 @@
 
 #pragma mark - UI Callbacks
 
-- (IBAction)closeWasPressed:(id)sender {
+- (IBAction)closeWasPressed:(id)sender
+{
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
     [self resignFirstResponders];
     if (self.delegate) {
         [self.delegate shareViewClosePressed : self];
@@ -190,6 +195,10 @@
 
 - (IBAction)segmentedControlValueChanged:(id)sender
 {
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
     [self updateInterfaceType];
     [self updateSendButton];
 }
@@ -233,17 +242,29 @@
 
 - (IBAction)twitterWasPressed:(id)sender
 {
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
     [self setTwitterEnabled:_twitterButton.selected];
 }
 
 - (IBAction)facebookWasPressed:(id)sender
 {
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
     UIButton *button = (UIButton *) sender;
     [button setSelected:!button.selected];
     [self updateSendButton];
 }
 
-- (IBAction)sendWasPressed:(id)sender {
+- (IBAction)sendWasPressed:(id)sender
+{
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
     
     // send should do nothing if in social mode and no social networks chosen
     if ([_shareTypeSelector selectedSegmentIndex] == 0 && 
@@ -307,6 +328,10 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
     NSInteger charactersRemaining = 140 - [textView.text length];
     
     if (charactersRemaining > 0) {
@@ -360,6 +385,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;              // called when 'return' key pressed. return NO to ignore.
 {
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
 //    if (textField == _emailRecipientTextField) {
 //        [_bodyTextView becomeFirstResponder];
 //        return NO;
@@ -369,6 +397,9 @@
 
 - (void) numberOfEmailTokensChanged;
 {
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
     [self updateSendButton];
 }
 

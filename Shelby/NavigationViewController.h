@@ -50,10 +50,12 @@
     FullscreenWebView *_fullscreenWebView;
     
     NSSet *_authorizations;
+    
 }
 
 @property (nonatomic, retain) ShareViewController *shareView;
 @property (readonly) NSInteger networkCounter;
+@property (readwrite) BOOL touched;
 
 - (IBAction)userViewWasPressed:(id)sender;
 - (IBAction)listButtonPressed:(id)sender;
@@ -73,6 +75,8 @@
 
 - (void)slideSettings:(BOOL)becomingVisible;
 - (void)playVideo:(Video *)video;
+
+- (BOOL)isVideoPlaying;
 
 // FullscreenWebViewDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender;

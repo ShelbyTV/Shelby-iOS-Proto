@@ -11,6 +11,7 @@
 
 @class LoginHelper;
 @class ApiHelper;
+@class NavigationViewController;
 
 /*
  * Global singleton for maintaining state.
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
+@property (nonatomic, retain) NavigationViewController *navigationViewController;
 
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 

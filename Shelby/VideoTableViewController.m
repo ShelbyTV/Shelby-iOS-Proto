@@ -177,6 +177,11 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if (delegate)
+    {
+        [delegate videoTableWasTouched];
+    }
+    
 	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 
@@ -377,6 +382,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (delegate)
+    {
+        [delegate videoTableWasTouched];
+    }
+    
     [GraphiteStats incrementCounter:@"tableVideoSelected"];
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.

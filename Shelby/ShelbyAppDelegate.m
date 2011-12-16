@@ -14,6 +14,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ShelbyWindow.h"
+#import "SessionStats.h"
 
 @implementation ShelbyAppDelegate
 
@@ -78,8 +79,6 @@
      */
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        NSLog(@"HERE!");
-        NSLog(@"rootViewController: %@", [UIApplication sharedApplication].keyWindow.rootViewController);
         [(NavigationViewController *)[UIApplication sharedApplication].keyWindow.rootViewController pauseCurrentVideo];
     }
 }
@@ -92,10 +91,10 @@
      */
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        NSLog(@"HERE2!");
-        NSLog(@"rootViewController: %@", [UIApplication sharedApplication].keyWindow.rootViewController);
         [(NavigationViewController *)[UIApplication sharedApplication].keyWindow.rootViewController pauseCurrentVideo];
     }
+    
+    [SessionStats endSessionReportingTimer];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -103,6 +102,8 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    
+    [SessionStats startSessionReportingTimer];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -146,6 +147,8 @@
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    
+    [SessionStats endSessionReportingTimer];
 }
 
 - (void)dealloc
