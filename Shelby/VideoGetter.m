@@ -73,7 +73,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
         _webView = [[UIWebView alloc] init];
         _webView.frame = CGRectMake(0, 240, 320, 1);
         _webView.delegate = self;
-        _webView.allowsInlineMediaPlayback = NO;
+        _webView.allowsInlineMediaPlayback = YES;
         _webView.mediaPlaybackRequiresUserAction = NO;
         if ([_webView respondsToSelector:@selector(setMediaPlaybackAllowsAirplay:)]) {
             _webView.mediaPlaybackAllowsAirPlay = NO;
@@ -167,15 +167,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
 
 - (void)getYouTubeURL
 {
-    static NSString *youtubeFormatString = @"<html><head>\
-    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 640\"/></head>\
-    <body style=\"background:#FF0000;margin-top:0px;margin-left:0px\">\
-    <div><object width=\"640\" height=\"480\">\
-    <param name=\"movie\" value=\"http://www.youtube.com/watch?v=%@\"></param>\
-    <param name=\"wmode\" value=\"transparent\"></param>\
-    <embed src=\"http://www.youtube.com/watch?v=%@\"\
-    type=\"application/x-shockwave-flash\" wmode=\"transparent\" width=\"640\" height=\"480\"></embed>\
-    </object></div></body></html>";
+    static NSString *youtubeFormatString = @"<html><body><div id=\"player\"></div><script>var tag = document.createElement('script'); tag.src = \"http://www.youtube.com/player_api\"; var firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubePlayerAPIReady() { player = new YT.Player('player', { height: '1', width: '1', videoId: '%@', events: { 'onReady': onPlayerReady, } }); } function onPlayerReady(event) { event.target.playVideo(); } </script></body></html>";
     
     static NSString *vimeoFormatString = @"<html><body><center><iframe id=\"player_1\" src=\"http://player.vimeo.com/video/%@?api=1&amp;player_id=player_1\" webkit-playsinline ></iframe><script src=\"http://a.vimeocdn.com/js/froogaloop2.min.js?cdbdb\"></script><script>(function(){var vimeoPlayers = document.querySelectorAll('iframe');$f(vimeoPlayers[0]).addEvent('ready', ready);function ready(player_id) {$f(player_id).api('play');}})();</script></center></body></html>";
         
@@ -188,7 +180,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
                 
         NSString *htmlString;
         if ([self.currentVideo.provider isEqualToString:@"youtube"]) {
-            htmlString = [NSString stringWithFormat:youtubeFormatString, self.currentVideo.providerId, self.currentVideo.providerId];
+            htmlString = [NSString stringWithFormat:youtubeFormatString, self.currentVideo.providerId];
         } else if ([self.currentVideo.provider isEqualToString:@"vimeo"]) {
             htmlString = [NSString stringWithFormat:vimeoFormatString, self.currentVideo.providerId];
         }
