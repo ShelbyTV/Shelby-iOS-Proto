@@ -511,11 +511,11 @@
     if (receivedEvent.type == UIEventTypeRemoteControl) {
         switch (receivedEvent.subtype) {
             case UIEventSubtypeRemoteControlTogglePlayPause:
-//                if (_paused) {
-//                    [_videoPlayer play];
-//                } else {
+                if (![self isVideoPlaying]) {
+                    [_videoPlayer play];
+                } else {
                     [_videoPlayer pause];
-//                }
+                }
                 break;
             case UIEventSubtypeRemoteControlNextTrack:
                 [self videoPlayerNextButtonWasPressed:_videoPlayer];
