@@ -34,7 +34,6 @@
 		0A363C431484483400CB3BDA /* pauseIcon_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C421484483400CB3BDA /* pauseIcon_iPad.png */; };
 		0A363C45148453F100CB3BDA /* share_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C44148453F100CB3BDA /* share_iPad.png */; };
 		0A3E77B11434713500800018 /* iPadHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3E77B01434713500800018 /* iPadHeaderBackground.png */; };
-		0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E791014357D5600800018 /* libTestFlight.a */; };
 		0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */; };
 		0A539516144236BC004721B9 /* OnboardCellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A539515144236BC004721B9 /* OnboardCellGradient.png */; };
 		0A53951914423AC6004721B9 /* LogoSquares.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A53951814423AC6004721B9 /* LogoSquares.png */; };
@@ -297,8 +296,6 @@
 		0A363C421484483400CB3BDA /* pauseIcon_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pauseIcon_iPad.png; path = Resources/Images/pauseIcon_iPad.png; sourceTree = "<group>"; };
 		0A363C44148453F100CB3BDA /* share_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = share_iPad.png; path = Resources/Images/share_iPad.png; sourceTree = "<group>"; };
 		0A3E77B01434713500800018 /* iPadHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPadHeaderBackground.png; path = Resources/Images/iPadHeaderBackground.png; sourceTree = "<group>"; };
-		0A3E791014357D5600800018 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Libraries/TestFlight/libTestFlight.a; sourceTree = "<group>"; };
-		0A3E791314357D8100800018 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = Libraries/TestFlight/TestFlight.h; sourceTree = "<group>"; };
 		0A4DB3DC1432512D00618605 /* ApiMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiMutableURLRequest.h; sourceTree = "<group>"; };
 		0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiMutableURLRequest.m; sourceTree = "<group>"; };
 		0A539515144236BC004721B9 /* OnboardCellGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OnboardCellGradient.png; path = Resources/Images/OnboardCellGradient.png; sourceTree = "<group>"; };
@@ -587,7 +584,6 @@
 			files = (
 				0AE04FB51488530C00952C02 /* AddressBookUI.framework in Frameworks */,
 				0AE04FB21488530700952C02 /* AddressBook.framework in Frameworks */,
-				0A3E791214357D6E00800018 /* libTestFlight.a in Frameworks */,
 				0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */,
 				42084C761427ADF000C3C556 /* SystemConfiguration.framework in Frameworks */,
 				42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */,
@@ -660,15 +656,6 @@
 				0A28A661147B1C3B00625FCB /* watchLaterOn_iPad.png */,
 			);
 			name = iPad;
-			sourceTree = "<group>";
-		};
-		0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */ = {
-			isa = PBXGroup;
-			children = (
-				0A3E791314357D8100800018 /* TestFlight.h */,
-				0A3E791014357D5600800018 /* libTestFlight.a */,
-			);
-			name = "***MUST REMOVE BEFORE RELEASING TO APP STORE***";
 			sourceTree = "<group>";
 		};
 		0AC82610149006BA009FF975 /* Sharing */ = {
@@ -820,7 +807,6 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
-				0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				42C4C55513E8A6A50034AC97 /* Resources */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
@@ -1873,7 +1859,7 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1889,6 +1875,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
+				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1903,7 +1890,7 @@
 				);
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Johnson (74ZK87E24M)";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1919,6 +1906,7 @@
 				);
 				PRODUCT_NAME = Shelby.tv;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44E53500-CA17-400F-A933-65316853F1AB";
+				STRIP_INSTALLED_PRODUCT = YES;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

@@ -13,7 +13,6 @@
 #import "VideoGetter.h"
 #import "SessionStats.h"
 
-#import "TestFlight.h"
 #import <Crashlytics/Crashlytics.h>
 
 @implementation ShelbyApp
@@ -44,8 +43,7 @@ static ShelbyApp *gShelbyApp;
 - (id)init {
     self = [super init];
     if (self) {
-        //uncomment this for TestFlight builds to get crash, session reporting
-        //[TestFlight takeOff:@"9ea2465d15ab5a7cff8f30e985670aa2_MzExNDQyMDExLTA5LTMwIDAwOjMzOjA2LjYzNzY0OA"];
+
         [Crashlytics startWithAPIKey:@"84a79b7ee6f2eca13877cd17b9b9a290790f99aa"];
 
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 20];
