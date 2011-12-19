@@ -10,7 +10,7 @@
 #import "LoginHelper.h"
 #import "ApiHelper.h"
 #import "ShelbyAppDelegate.h"
-#import "VIdeoGetter.h"
+#import "VideoGetter.h"
 #import "SessionStats.h"
 
 #import "TestFlight.h"
