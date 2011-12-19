@@ -383,7 +383,7 @@ static const float kNextPrevXOffset        =  0.0f;
             // Load the video and play it.
             if (video.contentURL) {
                 [BroadcastApi watch:video];
-                [GraphiteStats incrementCounter:@"watchVideo"];
+                [GraphiteStats incrementCounter:@"broadcast.watch" withAction:@"watch"];
                 _moviePlayer.contentURL = video.contentURL;
                 NSLog(@"playVideo calling [self play]");
                 [self play];
@@ -772,7 +772,7 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     [self recordButtonPressOrControlsVisible:YES];
 
-    [GraphiteStats incrementCounter:@"nextButtonPressed"];
+    [GraphiteStats incrementCounter:@"ui.next_button_click" withAction:@"next_button_click"];
     if (self.delegate) {
         [self.delegate videoPlayerNextButtonWasPressed: self];
     }
@@ -782,7 +782,7 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     [self recordButtonPressOrControlsVisible:YES];
 
-    [GraphiteStats incrementCounter:@"previousButtonPressed"];
+    [GraphiteStats incrementCounter:@"ui.prev_button_click" withAction:@"prev_button_click"];
     if (self.delegate) {
         [self.delegate videoPlayerPrevButtonWasPressed: self];
     }

@@ -26,6 +26,7 @@
           withVideo:(Video *)video
            withBody:(NSString *)body
         withCounter:(NSString *)counter
+         withAction:(NSString *)action
 {
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
@@ -36,7 +37,7 @@
     
     [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
     if (NOT_NULL(counter)) {
-        [GraphiteStats incrementCounter:counter];
+        [GraphiteStats incrementCounter:counter withAction:action];
     }
 }
 
@@ -82,7 +83,8 @@
               withRequestType:@"WatchBroadcast"
                     withVideo:video 
                      withBody:@"watched_by_owner=true"
-                  withCounter:@"watchedByOwnerRequest"];
+                  withCounter:nil
+                   withAction:nil];
 }
 
 #pragma mark - Like
@@ -96,7 +98,8 @@
               withRequestType:@"LikeBroadcast"
                     withVideo:video 
                      withBody:@"liked_by_owner=true" 
-                  withCounter:@"likedByOwnerRequest"];
+                  withCounter:@"broadcast.like"
+                   withAction:@"like"];
 }
 
 + (void)dislike:(Video *)video
@@ -108,7 +111,8 @@
               withRequestType:@"DislikeBroadcast"
                     withVideo:video 
                      withBody:@"liked_by_owner=false"
-                  withCounter:@"dislikedByOwnerRequest"];
+                  withCounter:@"broadcast.unlike"
+                   withAction:@"unlike"];
 }
 
 #pragma mark - Watch Later
@@ -121,7 +125,8 @@
               withRequestType:@"WatchLaterBroadcast"
                     withVideo:video 
                      withBody:@"owner_watch_later=true" 
-                  withCounter:@"ownerWatchLaterRequest"];
+                  withCounter:@"broadcast.watch_later"
+                   withAction:@"watch_later"];
 }
 
 + (void)unwatchLater:(Video *)video
@@ -133,7 +138,8 @@
               withRequestType:@"UnwatchLaterBroadcast"
                     withVideo:video 
                      withBody:@"owner_watch_later=false"
-                  withCounter:@"ownerUnwatchLaterRequest"];
+                  withCounter:@"broadcast.unwatch_later"
+                   withAction:@"unwatch_later"];
 }
 
 #pragma mark - Share
@@ -145,13 +151,13 @@
     NSString *networksString = nil;
     for (NSString *network in networks) {
         if ([network isEqualToString:@"twitter"]) {
-            [GraphiteStats incrementCounter:@"shareViaTwitterRequest"];
+            [GraphiteStats incrementCounter:@"sharing.twitter" withAction:@"twitter_post"];
         } else if ([network isEqualToString:@"facebook"]) {
-            [GraphiteStats incrementCounter:@"shareViaFacebookRequest"];
+            [GraphiteStats incrementCounter:@"sharing.facebook" withAction:@"facebook_post"];
         } else if ([network isEqualToString:@"tumblr"]) {
-            [GraphiteStats incrementCounter:@"shareViaTumblrRequest"];
+            [GraphiteStats incrementCounter:@"sharing.tumblr" withAction:@"tumblr_post"];
         } else if ([network isEqualToString:@"email"]) {
-            [GraphiteStats incrementCounter:@"shareViaEmailRequest"];
+            [GraphiteStats incrementCounter:@"sharing.email" withAction:@"email_send"];
         }
         
         if (IS_NULL(networksString)) {
@@ -209,7 +215,8 @@
               withRequestType:@"ShareBroadcast"
                     withVideo:video 
                      withBody:body
-                  withCounter:nil];
+                  withCounter:nil
+                   withAction:nil];
 }
 
 @end

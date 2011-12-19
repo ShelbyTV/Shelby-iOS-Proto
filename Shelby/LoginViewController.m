@@ -136,7 +136,7 @@
 
 - (void)userLoggedIn:(NSNotification*)aNotification
 {    
-    [GraphiteStats incrementCounter:@"userLoggedIn"];
+    [GraphiteStats incrementCounter:@"signin" withAction:@"signin"];
     [callbackObject performSelector:callbackSelector];
     [self fade:NO];
 }
@@ -165,13 +165,13 @@
 
 - (IBAction)loginWithFacebook:(id)sender
 {
-    [GraphiteStats incrementCounter:@"userLoginViaFacebookAttempt"];
+    [GraphiteStats incrementCounter:@"signin_click.facebook" withAction:@"signin_click_facebook"];
     [self beginLoginWithProvider: @"facebook"];
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
-    [GraphiteStats incrementCounter:@"userLoginViaTwitterAttempt"];
+    [GraphiteStats incrementCounter:@"signin_click.twitter" withAction:@"signin_click_twitter"];
     [self beginLoginWithProvider: @"twitter"];
 }
 

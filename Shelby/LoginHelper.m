@@ -106,7 +106,7 @@
 
 - (void)logout
 {
-    [GraphiteStats incrementCounter:@"userLoggedOut"];
+    [GraphiteStats incrementCounter:@"signout" withAction:@"signout"];
 
     [[ShelbyApp sharedApp].apiHelper clearTokens];
     self.user = nil;
@@ -577,7 +577,7 @@
 #pragma mark - Login Complete
 
 - (void)loginComplete
-{
+{    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserLoggedIn"
                                                         object:self];
 }
