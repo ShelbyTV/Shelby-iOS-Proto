@@ -387,7 +387,7 @@
         [delegate videoTableWasTouched];
     }
     
-    [GraphiteStats incrementCounter:@"tableVideoSelected"];
+    [GraphiteStats incrementCounter:@"ui.table_video_click" withAction:@"table_video_click"];
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;

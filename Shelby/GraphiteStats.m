@@ -7,6 +7,9 @@
 //
 
 #import "GraphiteStats.h"
+#import "ShelbyApp.h"
+#import "LoginHelper.h"
+#import "User.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -45,17 +48,30 @@
 }
 
 + (void)incrementCounter:(NSString *)counterName
+              withAction:(NSString *)actionName
 {
-    NSString *device = nil;
+    NSString *command;
+    
+    NSString *client;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        device = @"iphone";
+        client = @"ios_iphone";
     } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        device = @"ipad";
+        client = @"ios_ipad";
     } else {
-        device = @"other";
+        client = @"ios_other";
     }
     
-    NSString *command = [NSString stringWithFormat:@"ios.%@.%@:1|c", device, counterName];
+    NSString *statName = [NSString stringWithFormat:@"app.%@.%@/?", client, counterName];
+    NSString *actionParam = [NSString stringWithFormat:@"action=%@_%@", client, actionName];
+    
+    if (NOT_NULL([ShelbyApp sharedApp].loginHelper.user) && 
+        NOT_NULL([ShelbyApp sharedApp].loginHelper.user.shelbyId))
+    {
+        command = [NSString stringWithFormat:@"%@uid=%@&%@:1|c", statName, [ShelbyApp sharedApp].loginHelper.user.shelbyId, actionParam];
+    } else {
+        command = [NSString stringWithFormat:@"%@%@:1|c", statName, actionParam];
+    }
+      
     [GraphiteStats sendData:[command dataUsingEncoding:NSUTF8StringEncoding]];
 }
 

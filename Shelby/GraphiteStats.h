@@ -11,6 +11,7 @@
 @interface GraphiteStats : NSObject {
 }
 
-+ (void)incrementCounter:(NSString *)counterName;
++ (void)incrementCounter:(NSString *)counterName
+              withAction:(NSString *)actionName;
 
 @end
