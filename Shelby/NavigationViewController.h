@@ -51,6 +51,8 @@
     
     NSSet *_authorizations;
     
+    IBOutlet UIToolbar *_settingsToolbar;
+    IBOutlet UIBarButtonItem *_demoModeButton;
 }
 
 @property (nonatomic, retain) ShareViewController *shareView;
@@ -65,6 +67,7 @@
 
 - (void)loadUserData;
 
+- (IBAction)demoMode:(id)sender;
 - (IBAction)backToVideos:(id)sender;
 - (IBAction)addFacebook:(id)sender;
 - (IBAction)addTwitter:(id)sender;
