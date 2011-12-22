@@ -26,6 +26,7 @@
 @property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
 @property (nonatomic, retain) NavigationViewController *navigationViewController;
+@property (nonatomic) BOOL demoModeEnabled;
 
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 

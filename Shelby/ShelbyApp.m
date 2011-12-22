@@ -22,6 +22,7 @@
 @synthesize loginHelper;
 @synthesize apiHelper;
 @synthesize navigationViewController;
+@synthesize demoModeEnabled;
 
 #pragma mark - Singleton
 

@@ -20,6 +20,8 @@
 #import "VideoGetter.h"
 #import "PlatformHelper.h"
 
+#import "Foundation/Foundation.h"
+
 #pragma mark - Constants
 
 #define kMaxVideoThumbnailHeight 163
@@ -205,8 +207,8 @@
         }
         videoData = [[[tableVideos objectAtIndex:(index - 1)] retain] autorelease];
     }
-
-    if (IS_NULL(videoData.contentURL)) {
+    
+    if (IS_NULL(videoData.contentURL) && ![ShelbyApp sharedApp].demoModeEnabled) {
         [self getVideoContentURL:videoData];
     }
 
@@ -451,6 +453,13 @@
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled &&
+        ((Video *)[dupeArray objectAtIndex:0]).contentURL == nil) 
+    {
+        return FALSE;
+    }
+    
+    
     // Depending on the view, only display certain videos...
     if (likedOnly || watchLaterOnly) {
         for (Video *video in dupeArray) {
@@ -953,6 +962,7 @@
 - (id)initWithUITableView:(UITableView *)linkedTableView
 {
     self = [super init];
+    
     if (self) {
         // we use this to gracefully insert new entries into the UITableView
         tableView = linkedTableView;
@@ -1001,10 +1011,11 @@
         
         [[ShelbyApp sharedApp] addNetworkObject: self];
     }
+    
     return self;
 }
 
-- (void) updateTimerCallback
+- (void)updateTimerCallback
 {
     self.networkCounter = [operationQueue operationCount];
     
@@ -1012,6 +1023,65 @@
         videoTableNeedsUpdate = FALSE;
         [self performSelectorOnMainThread:@selector(loadNewTableVideos) withObject:nil waitUntilDone:NO];
     }
+}
+
+- (void)enableDemoMode
+{    
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSURLRequest *request = nil;
+
+    for (NSString *key in uniqueVideoKeys)
+    {
+        if (NOT_NULL([playableVideoKeys objectForKey:key]))
+        {
+            NSArray *dupeArray = [videoDupeDict objectForKey:key];
+            Video *video = [dupeArray objectAtIndex:0];        
+            
+            if (NOT_NULL(video.contentURL)) {
+                
+                NSLog(@"########## Creating NSURLRequest.");
+                
+                request = [NSURLRequest requestWithURL:video.contentURL];
+                
+                NSLog(@"########## Sending SynchronousRequest.");
+                
+                NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                
+                NSLog(@"########## Data in MB: %.2f", (float)([data length] / 1024.0 / 1024.0));
+                NSLog(@"########## Error: %@", [error localizedDescription]);
+                
+                NSLog(@"########## Creating fileURL in bundle.");
+                
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                
+                NSLog(@"########## Creating directory path in bundle.");
+                [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:YES attributes:nil error:&error];
+                
+                NSLog(@"########## Error: %@", [error localizedDescription]);
+                
+                NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];
+                
+                NSLog(@"########## Writing video to file.");
+
+                if ([data writeToFile:path options:0 error:&error]) {
+                    NSLog(@"########## Write video file successful: %@", path);
+                } else {
+                    NSLog(@"########## Write video file failed: %@", path);
+                }
+                
+                NSLog(@"########## Error: %@", [error localizedDescription]);
+                
+                video.contentURL = [NSURL fileURLWithPath:path];
+            }
+        }
+    }
+    
+    NSLog(@"########## Done.");
+    
+    [pool release];
 }
 
 @end

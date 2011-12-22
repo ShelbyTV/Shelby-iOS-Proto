@@ -50,5 +50,6 @@
 - (Video *)getPreviousVideo;
 - (void)loadVideos;
 - (void)updateVideoTableCell:(Video *)video;
+- (void)enableDemoMode;
 
 @end

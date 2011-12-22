@@ -137,7 +137,60 @@
     [videoTable loadVideos];
 }
 
+- (void)enableDemoMode
+{
+    NSLog(@"########## Setting demoModeEnabled = TRUE");
+    
+    // hmm... do i need to store this to a user preference?
+    [ShelbyApp sharedApp].demoModeEnabled = TRUE;
+    
+    NSLog(@"########## Pausing player");
+    
+    // pause any playing video
+    [_videoPlayer pause];
+    
+    NSLog(@"########## Waiting for network ops to finish");
+    
+    // hacky, but whatevs, it's demo mode - wait for other network activity to stop
+    while ([ShelbyApp sharedApp].isNetworkBusy) {
+        sleep(1);
+    }
+    
+    NSLog(@"########## Double check that we're paused.");
+    
+    // double-check that we're still paused
+    [_videoPlayer pause];
+    
+    NSLog(@"########## Switch to Timeline view.");
+    
+    // switch to timeline view
+    [self listButtonPressed:self];
+        
+    NSLog(@"########## Tell videoTable to enableDemoMode.");
+    
+    // download up to the most recent 5 videos and clear out other CoreData entries
+    [videoTable enableDemoMode];
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // Since we only have one alertview, let's be lazy and assume we have the right one.
+    
+    if (buttonIndex == 1) {
+        [self performSelectorInBackground:@selector(enableDemoMode) withObject:nil];
+    }
+}
+
 #pragma mark - User Button Methods
+
+- (IBAction)demoMode:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo mode?" message:@"Would you like to turn demo mode on?"
+                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
+    [alert show];
+    [alert release];
+}
 
 - (void)toggleSettings
 {
@@ -153,9 +206,8 @@
     }
 }
 
-- (IBAction)demoMode:(id)sender
-{
-    
+- (void)showLogoutAlert {
+
 }
 
 - (IBAction)backToVideos:(id)sender

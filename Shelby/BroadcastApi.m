@@ -28,6 +28,10 @@
         withCounter:(NSString *)counter
          withAction:(NSString *)action
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     [request sign];

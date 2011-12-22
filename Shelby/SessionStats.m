@@ -112,6 +112,10 @@ static SessionStats *singletonSessionStats = nil;
 
 - (void)sendStats:(NSTimer *)timer
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     if (NOT_NULL([ShelbyApp sharedApp].loginHelper.user.shelbyId))
     {
         BOOL wasTouched = [ShelbyApp sharedApp].navigationViewController.touched;

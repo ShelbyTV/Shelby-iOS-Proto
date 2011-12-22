@@ -28,6 +28,7 @@
    callbackSelector:(SEL)selector
 {
     self = [super initWithStyle:style];
+    
     if (self) {
         videoTableData = [[VideoTableData alloc] initWithUITableView:self.tableView];
         videoTableData.delegate = self;
@@ -38,6 +39,7 @@
         callbackSelector = selector;
         _currentVideoIndex = 1;
     }
+    
     return self;
 }
 
@@ -47,23 +49,25 @@
 
 - (void)changeVideoMode:(NSInteger)mode
 {
-    if (mode != videoMode) {
-        //LOG(@"changeVideoMode %d", mode);
-        if (mode == 0) {
-            videoTableData.likedOnly = NO;
-            videoTableData.watchLaterOnly = NO;
-        } else if (mode == 1) {
-            videoTableData.likedOnly = YES;
-            videoTableData.watchLaterOnly = NO;
-        } else if (mode == 2) {
-            videoTableData.likedOnly = NO;
-            videoTableData.watchLaterOnly = YES;
-        }
-        
-        // Change the channel.
-        videoMode = mode;
-        [videoTableData reloadTableVideos];
+    if (mode == videoMode) {
+        return;
     }
+
+    //LOG(@"changeVideoMode %d", mode);
+    if (mode == 0) {
+        videoTableData.likedOnly = NO;
+        videoTableData.watchLaterOnly = NO;
+    } else if (mode == 1) {
+        videoTableData.likedOnly = YES;
+        videoTableData.watchLaterOnly = NO;
+    } else if (mode == 2) {
+        videoTableData.likedOnly = NO;
+        videoTableData.watchLaterOnly = YES;
+    }
+    
+    // Change the channel.
+    videoMode = mode;
+    [videoTableData reloadTableVideos];
 }
 
 #pragma mark - Data Refresh
@@ -190,6 +194,10 @@
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
 	[self loadVideos];
 }
 
@@ -411,6 +419,11 @@
     [super didReceiveMemoryWarning];
 
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)enableDemoMode
+{
+    [videoTableData enableDemoMode];
 }
 
 

@@ -48,4 +48,6 @@
 - (void)reloadTableVideos;
 - (void)updateVideoTableCell:(Video *)video;
 
+- (void)enableDemoMode;
+
 @end

@@ -410,6 +410,12 @@ static const float kNextPrevXOffset        =  0.0f;
             _duration = 0.0f;
             // Load the video and play it.
             if (video.contentURL) {
+                if ([ShelbyApp sharedApp].demoModeEnabled) {
+                    NSError *error = nil;
+                    NSString *data = [NSData dataWithContentsOfURL:video.contentURL options:0 error:&error];
+                    NSLog(@"########## Error: %@", [error localizedDescription]);
+                    NSLog(@"########## Data in MB: %.2f", (float)([data length] / 1024.0 / 1024.0));
+                }
                 [BroadcastApi watch:video];
                 [GraphiteStats incrementCounter:@"broadcast.watch" withAction:@"watch"];
                 _moviePlayer.contentURL = video.contentURL;
@@ -689,8 +695,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)contentURLAvailable:(NSNotification *)notification
 {
-    NSLog(@"getting ContentURLAvailable notification");
-
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     if (NOT_NULL(self.currentVideo) &&
         NOT_NULL(notification.userInfo) && 
         self.currentVideo == [notification.userInfo objectForKey:@"video"]) 

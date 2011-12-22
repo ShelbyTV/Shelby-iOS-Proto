@@ -93,6 +93,10 @@
 
 - (void)showInternetDown
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     UIView *offlineView = [self offlineView];
 
     // Center the view.

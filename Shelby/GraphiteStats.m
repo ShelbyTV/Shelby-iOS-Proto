@@ -50,6 +50,10 @@
 + (void)incrementCounter:(NSString *)counterName
               withAction:(NSString *)actionName
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     NSString *command;
     
     NSString *client;
