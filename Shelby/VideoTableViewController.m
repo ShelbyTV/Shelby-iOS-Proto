@@ -186,6 +186,10 @@
         [delegate videoTableWasTouched];
     }
     
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
 	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 

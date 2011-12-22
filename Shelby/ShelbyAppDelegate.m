@@ -120,7 +120,7 @@
     if ([[ShelbyApp sharedApp].loginHelper loggedIn] && NOT_NULL([ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts)) {
         NSTimeInterval diff = abs([[ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts timeIntervalSinceNow]);
         NSInteger days = floor(diff / 86400.0);
-        if (days >= 1) {
+        if (days >= 1 && ![ShelbyApp sharedApp].demoModeEnabled) {
             [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
         }
     }

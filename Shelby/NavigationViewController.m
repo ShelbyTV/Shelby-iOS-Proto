@@ -168,8 +168,10 @@
         
     NSLog(@"########## Tell videoTable to enableDemoMode.");
     
-    // download up to the most recent 5 videos and clear out other CoreData entries
+    // download videos
     [videoTable enableDemoMode];
+    
+    _demoModeButton.enabled = FALSE;
 }
 
 #pragma mark - UIAlertViewDelegate Methods

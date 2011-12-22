@@ -780,20 +780,30 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     [self recordButtonPressOrControlsVisible:YES];
 
+    BOOL currentlyLiked = _currentVideo.isLiked;
+
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerLikeButtonWasPressed: self];
     }
+    
+    _currentVideo.isLiked = !currentlyLiked;
+    [_controlBar setFavoriteButtonSelected:!currentlyLiked];
 }
 
 - (void)controlBarWatchLaterButtonWasPressed:(VideoPlayerControlBar *)controlBar
 {
     [self recordButtonPressOrControlsVisible:YES];
 
+    BOOL currentlyWatchLater = _currentVideo.isWatchLater;
+    
     // Inform our delegate
     if (self.delegate) {
         [self.delegate videoPlayerWatchLaterButtonWasPressed: self];
     }
+    
+    _currentVideo.isWatchLater = !currentlyWatchLater;
+    [_controlBar setWatchLaterButtonSelected:!currentlyWatchLater];
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar

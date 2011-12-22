@@ -1079,6 +1079,8 @@
         }
     }
     
+    [self reloadTableVideos];
+    
     NSLog(@"########## Done.");
     
     [pool release];
