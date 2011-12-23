@@ -27,10 +27,11 @@
 #pragma mark - Singleton
 
 static ShelbyApp *gShelbyApp;
+static UIWindow *gSecondScreenWindow;
 
 + (ShelbyApp *)sharedApp
 {
-    if (!gShelbyApp) {
+    if (IS_NULL(gShelbyApp)) {
         
         gShelbyApp = [[ShelbyApp alloc] init];
         
@@ -38,6 +39,15 @@ static ShelbyApp *gShelbyApp;
     }
     
     return gShelbyApp;
+}
+
++ (UIWindow *)secondScreenWindow
+{
+    if (IS_NULL(gSecondScreenWindow)) {
+        gSecondScreenWindow = [[UIWindow alloc] init];
+    }
+    
+    return gSecondScreenWindow;
 }
 
 #pragma mark - Initialization

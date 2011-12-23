@@ -68,6 +68,16 @@
                                                  selector:@selector(likeVideoFailed:)
                                                      name:@"LikeBroadcastFailed"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(screenDidConnect:)
+                                                     name:UIScreenDidConnectNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(screenDidDisconnect:)
+                                                     name:UIScreenDidDisconnectNotification
+                                                   object:nil];
 
         _authorizations = [[NSSet alloc] initWithObjects:
             @"auth_twitter",
@@ -603,6 +613,16 @@
 - (BOOL)isVideoPlaying
 {
     return [_videoPlayer isVideoPlaying];
+}
+
+- (void) screenDidConnect:(NSNotification *)notification
+{
+    [_videoPlayer screenDidConnect];
+}
+
+- (void) screenDidDisconnect:(NSNotification *)notification
+{
+    [_videoPlayer screenDidDisconnect];
 }
 
 @end

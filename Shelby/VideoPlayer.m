@@ -38,7 +38,11 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)drawControls;
 - (void)hideControls;
-- (void)fitTitleBarText;
+- (void)fitTitleBars;
+
+- (void)setTitleBarTitle:(NSString *)title;
+- (void)setTitleBarComment:(NSString *)comment;
+- (void)setSharerImage:(UIImage *)image;
 
 @end
 
@@ -46,7 +50,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 @synthesize delegate;
 @synthesize titleBar;
-//@synthesize footerBar;
+@synthesize tvTitleBar;
 @synthesize moviePlayer = _moviePlayer;
 @synthesize currentVideo = _currentVideo;
 
@@ -187,11 +191,6 @@ static const float kNextPrevXOffset        =  0.0f;
     _controlBar = [VideoPlayerControlBar controlBarFromNib];
     _controlBar.delegate = self;
 
-
-
-    // Footer Bar
-    //self.footerBar = [VideoPlayerFooterBar footerBarFromNib];
-
     // Movie Player
     _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL: nil];
     // Uniform scale until one dimension fits
@@ -205,31 +204,14 @@ static const float kNextPrevXOffset        =  0.0f;
     _gestureView = [[UIView alloc] initWithFrame:self.bounds];
     
     [self addSubview:_bgView];
+      
+    // Title Bar
+    self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
     
-    if ([[UIScreen screens] count] > 1) {
-        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
-        CGRect frame = secondScreen.bounds;
-        UIWindow *window = [[UIWindow alloc] initWithFrame:frame];
+    // Add views.
+    [self addSubview: _moviePlayer.view];
+    [self addSubview: self.titleBar];
         
-        self.titleBar = [VideoPlayerTitleBar titleBarFromTVNib];
-        
-        [window addSubview: _moviePlayer.view];
-        
-        [window addSubview: self.titleBar];
-        [window setScreen:secondScreen];
-        window.hidden = NO;
-
-        
-    } else {
-        
-        // Title Bar
-        self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
-        
-        // Add views.
-        [self addSubview: _moviePlayer.view];
-        [self addSubview: self.titleBar];
-        
-    }
     [self addSubview:_gestureView];
 
     [self addSubview: _controlBar];
@@ -237,10 +219,9 @@ static const float kNextPrevXOffset        =  0.0f;
     [self addSubview: _nextButton];
     [self addSubview: _prevButton];
     
-    _controls = [[NSArray alloc] initWithObjects:
+    _controls = [[NSMutableArray alloc] initWithObjects:
         _controlBar,
         self.titleBar,
-       // self.footerBar,
         nil];
     
     [self recordButtonPressOrControlsVisible:NO];
@@ -268,6 +249,13 @@ static const float kNextPrevXOffset        =  0.0f;
     [_gestureView addGestureRecognizer:rightSwipeRecognizer];
     
     [self addNotificationListeners];
+    
+    _initialized = TRUE;
+    
+    if ([[UIScreen screens] count] > 1)
+    {
+        [self screenDidConnect];
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -297,10 +285,10 @@ static const float kNextPrevXOffset        =  0.0f;
     [self setCurrentVideo:NULL];
     
     // Change our titleBar
-    self.titleBar.title.text = @"";
-    self.titleBar.comment.text = @"";
-    self.titleBar.sharerPic.image = NULL;
-    [self fitTitleBarText];
+    [self setTitleBarTitle:@""];
+    [self setTitleBarComment:@""];
+    [self setSharerImage:NULL];
+    [self fitTitleBars];
 
     // Reset our duration.
     _duration = 0.0f;
@@ -321,51 +309,97 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 }
 
-- (void)fitTitleBarText
+- (void)fitTitleBar:(VideoPlayerTitleBar *)titleBarToSize
+        withOriginX:(CGFloat)originX
+        withOriginY:(CGFloat)originY
+   withMaxTextWidth:(CGFloat)maxTextWidth
+  withMaxTextHeight:(CGFloat)maxTextHeight
 {
-    /* 
-     * These constants are derived from the .xib file.
-     */
-    CGFloat textOriginX = 56;
-    CGFloat textOriginY = 27;
-    CGFloat textRightBorder = 20;
-    CGFloat maxTextHeight = 35;
-    CGFloat iPadShelbyLogoOverhang = 95;
-    
-    if ([[UIScreen screens] count] > 1) {
-        textOriginX = 170;
-        textOriginY = 85;
-        textRightBorder = 30;
-        maxTextHeight = 65;
-    }
-    
-    CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&
-        [[UIScreen screens] count] == 1) {
-        maxTextWidth -= iPadShelbyLogoOverhang;
-    }
-   
-    CGSize textSize = [self.titleBar.comment.text sizeWithFont:self.titleBar.comment.font
-                                           constrainedToSize:CGSizeMake(maxTextWidth, maxTextHeight)
-                                               lineBreakMode:UILineBreakModeTailTruncation];
+    CGSize textSize = [titleBarToSize.comment.text sizeWithFont:titleBarToSize.comment.font
+                                              constrainedToSize:CGSizeMake(maxTextWidth, maxTextHeight)
+                                                  lineBreakMode:UILineBreakModeTailTruncation];
     [UIView setAnimationsEnabled:NO];
-    self.titleBar.comment.frame = CGRectMake(textOriginX, 
-                                           textOriginY, 
-                                           textSize.width, 
-                                           textSize.height);
+    titleBarToSize.comment.frame = CGRectMake(originX, 
+                                              originY, 
+                                              textSize.width, 
+                                              textSize.height);
     
     [UIView setAnimationsEnabled:YES];
 }
 
+- (void)fitTitleBars
+{
+    if (!IS_NULL(self.titleBar)) {
+        
+        CGFloat textOriginX = 56;
+        CGFloat textOriginY = 27;
+        CGFloat textRightBorder = 20;
+        CGFloat maxTextHeight = 35;
+        CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            maxTextWidth -= 95; // iPadShelbyLogoOverhang
+        }
+        
+        [self fitTitleBar:self.titleBar
+              withOriginX:textOriginX 
+              withOriginY:textOriginY 
+         withMaxTextWidth:maxTextWidth 
+        withMaxTextHeight:maxTextHeight];
+    }
+   
+    if (!IS_NULL(self.tvTitleBar)) {
+        
+        CGFloat textOriginX = 170;
+        CGFloat textOriginY = 85;
+        CGFloat textRightBorder = 30;
+        CGFloat maxTextHeight = 65;
+        CGFloat maxTextWidth = self.tvTitleBar.frame.size.width - textOriginX - textRightBorder;
+        
+        [self fitTitleBar:self.tvTitleBar
+              withOriginX:textOriginX 
+              withOriginY:textOriginY   
+         withMaxTextWidth:maxTextWidth
+        withMaxTextHeight:maxTextHeight
+         ];
+    }
+}
+
+- (void)setTitleBarTitle:(NSString *)title
+{
+    self.titleBar.title.text = title;
+    
+    if (!IS_NULL(self.tvTitleBar)) {
+        self.tvTitleBar.title.text = title;
+    } 
+}
+
+- (void)setTitleBarComment:(NSString *)comment
+{
+    self.titleBar.comment.text = comment;
+    
+    if (!IS_NULL(self.tvTitleBar)) {
+        self.tvTitleBar.comment.text = comment;
+    } 
+}
+
+- (void)setSharerImage:(UIImage *)image
+{
+    self.titleBar.sharerPic.image = image;
+    
+    if (!IS_NULL(self.tvTitleBar)) {
+        self.tvTitleBar.sharerPic.image = image;
+    }
+}
+
 - (void)checkSharerImage
 {
-    if (NOT_NULL(self.currentVideo.sharerImage)) {
-        NSLog(@"setting sharerPic");
-        self.titleBar.sharerPic.image = self.currentVideo.sharerImage;
+    if (NOT_NULL(self.currentVideo.sharerImage)) 
+    {
+        [self setSharerImage:self.currentVideo.sharerImage];
         return;
     }
         
-    NSLog(@"insider timer callback. still no sharer image. scheduling timer");
     [NSTimer scheduledTimerWithTimeInterval:kCheckSharerImageInterval target: self selector: @selector(checkSharerImage) userInfo:nil repeats:NO];
 }
 
@@ -387,21 +421,20 @@ static const float kNextPrevXOffset        =  0.0f;
             
             
             // Change our titleBar
-            //self.titleBar.title.text = video.sharerComment;
-            self.titleBar.comment.text = [NSString stringWithFormat: @"%@: %@",
+            [self setTitleBarComment:[NSString stringWithFormat: @"%@: %@",
                                         video.sharer,
                                         NOT_NULL(video.sharerComment) ? video.sharerComment : video.title
-                                        ];
+                                        ]];
             if NOT_NULL(video.sharerImage) {
-                self.titleBar.sharerPic.image = video.sharerImage;
+                [self setSharerImage:video.sharerImage];
             } else {
                 NSLog(@"no sharer image. scheduling timer");
                 self.titleBar.sharerPic.image = [UIImage imageNamed:@"PlaceholderFace"];
                 [NSTimer scheduledTimerWithTimeInterval:kCheckSharerImageInterval target: self selector: @selector(checkSharerImage) userInfo:nil repeats:NO];
             }
-            [self fitTitleBarText];
+            [self fitTitleBars];
             
-            self.titleBar.title.text = video.title;
+            [self setTitleBarTitle:video.title];
 
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             [_controlBar setWatchLaterButtonSelected:[video isWatchLater]];
@@ -585,6 +618,9 @@ static const float kNextPrevXOffset        =  0.0f;
     
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
         for (UIView *control in _controls) {
+            if (control == self.tvTitleBar) {
+                NSLog(@"Setting tvTitleBar.alpha to 1.0!!!!!!!!!!!!!");
+            }
             control.alpha = 1.0;
         }
         if (_fullscreen) {
@@ -877,9 +913,6 @@ static const float kNextPrevXOffset        =  0.0f;
     const CGFloat height = frame.size.height;
 
     float titleBarHeight = 75.0f;
-    if ([[UIScreen screens] count] > 1) {
-        titleBarHeight = 180.0f;
-    }
     
     const CGSize nextPrevSize = CGSizeMake(81, 81);
     
@@ -898,24 +931,26 @@ static const float kNextPrevXOffset        =  0.0f;
     
     _gestureView.frame = gestureRect;
     
-    if ([[UIScreen screens] count] > 1) {
+    if ([[UIScreen screens] count] > 1 && !IS_NULL(self.tvTitleBar)) {
+        
+        NSLog(@"!!!!!!!!!!!!! setting the tvTitleBar frame"); 
         UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
-        self.titleBar.frame = CGRectMake(
+        self.tvTitleBar.frame = CGRectMake(
                                          0,
                                          0,
                                          secondScreen.bounds.size.width,
-                                         titleBarHeight
-                                         );
-    } else {
-        self.titleBar.frame = CGRectMake(
-                                         0,
-                                         0,
-                                         width,
-                                         titleBarHeight
+                                         180.0
                                          );
     }
     
-    [self fitTitleBarText];
+    self.titleBar.frame = CGRectMake(
+                                     0,
+                                     0,
+                                     width,
+                                     titleBarHeight
+                                     );
+    
+    [self fitTitleBars];
 
     // Place next/prev buttons at the sides.
     _prevButton.frame = CGRectMake(
@@ -1015,6 +1050,47 @@ static const float kNextPrevXOffset        =  0.0f;
     
     if (delegate && informDelegate) {
         [delegate videoPlayerWasTouched];
+    }
+}
+
+- (void)screenDidConnect
+{
+    if (!_initialized) {
+        return;
+    }
+    
+    if ([[UIScreen screens] count] > 1)
+    {
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        
+        UIWindow *secondScreenWindow = [ShelbyApp secondScreenWindow];
+        secondScreenWindow.frame = secondScreen.bounds;
+        
+        if (IS_NULL(self.tvTitleBar)) {
+            self.tvTitleBar = [VideoPlayerTitleBar titleBarFromTVNib];
+            [_controls addObject:self.tvTitleBar];
+            [secondScreenWindow addSubview:self.tvTitleBar];
+        }
+        
+        [_moviePlayer.view removeFromSuperview];
+        _moviePlayer.view.frame = secondScreenWindow.bounds;
+        [secondScreenWindow insertSubview:_moviePlayer.view belowSubview:self.tvTitleBar];
+        
+        [secondScreenWindow setScreen:secondScreen];
+        secondScreenWindow.hidden = NO;
+    }
+}
+
+- (void)screenDidDisconnect
+{
+    if (!_initialized) {
+        return;
+    }
+    
+    if ([[UIScreen screens] count] == 1) {
+        [_moviePlayer.view removeFromSuperview];
+        _moviePlayer.view.frame = self.bounds;
+        [self insertSubview: _moviePlayer.view aboveSubview:_bgView];
     }
 }
 

@@ -65,18 +65,21 @@
     VideoPlayerControlBar *_controlBar;
     MPMoviePlayerController *_moviePlayer;
 
-    NSArray *_controls;
+    NSMutableArray *_controls;
     
     UIView *_bgView;
     
     Video *_currentVideo;
     BOOL _currentVideoWatchLaterAtStart;
     BOOL _currentVideoUnwatchLaterSent;
+    
+    BOOL _initialized;
 }
 
 @property (assign) id <VideoPlayerDelegate> delegate;
 @property (readonly) BOOL isIdle;
-@property (nonatomic, retain) IBOutlet VideoPlayerTitleBar *titleBar;
+@property (nonatomic, retain) VideoPlayerTitleBar *titleBar;
+@property (nonatomic, retain) VideoPlayerTitleBar *tvTitleBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, readwrite, retain) Video *currentVideo;
 
@@ -95,5 +98,8 @@
 - (BOOL)isVideoPlaying;
 
 - (void)recordButtonPressOrControlsVisible:(BOOL)informDelegate;
+
+- (void)screenDidConnect;
+- (void)screenDidDisconnect;
 
 @end

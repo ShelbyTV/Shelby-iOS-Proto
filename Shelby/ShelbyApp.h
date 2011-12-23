@@ -31,6 +31,7 @@
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 
 + (ShelbyApp *)sharedApp;
++ (UIWindow *)secondScreenWindow;
 
 - (void)addNetworkObject:(id <NetworkObject>)networkObject;
 - (void)removeNetworkObject:(id <NetworkObject>)networkObject;

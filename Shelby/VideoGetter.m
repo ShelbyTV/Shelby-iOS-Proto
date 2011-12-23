@@ -28,9 +28,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
 + (VideoGetter*)singleton
 {
     if (singletonYouTubeGetter == nil) {
-        NSLog(@"allocating new singletonYouTubeGetter");
         singletonYouTubeGetter = [[super allocWithZone:NULL] init];
-        NSLog(@"alloc'ed new singletonYouTubeGetter");
     }
     return singletonYouTubeGetter;
 }
