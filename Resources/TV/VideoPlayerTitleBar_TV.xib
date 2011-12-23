@@ -39,8 +39,9 @@
 					<object class="IBUIView" id="250877964">
 						<reference key="NSNextResponder" ref="20159114"/>
 						<int key="NSvFlags">314</int>
-						<string key="NSFrameSize">{500, 123}</string>
+						<string key="NSFrameSize">{500, 180}</string>
 						<reference key="NSSuperview" ref="20159114"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="666007451"/>
 						<string key="NSReuseIdentifierKey">_NS:195</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="999074079">
@@ -48,14 +49,15 @@
 							<bytes key="NSWhite">MAA</bytes>
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
-						<float key="IBUIAlpha">0.5</float>
+						<float key="IBUIAlpha">0.75</float>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIImageView" id="666007451">
 						<reference key="NSNextResponder" ref="20159114"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 15}, {93, 93}}</string>
+						<string key="NSFrame">{{30, 30}, {120, 120}}</string>
 						<reference key="NSSuperview" ref="20159114"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="765049386"/>
 						<int key="IBUITag">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -64,8 +66,9 @@
 					<object class="IBUILabel" id="31337805">
 						<reference key="NSNextResponder" ref="20159114"/>
 						<int key="NSvFlags">294</int>
-						<string key="NSFrame">{{123, 50}, {362, 48}}</string>
+						<string key="NSFrame">{{170, 85}, {300, 65}}</string>
 						<reference key="NSSuperview" ref="20159114"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="252785080">
 							<int key="NSColorSpace">3</int>
@@ -83,27 +86,29 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<reference key="IBUIShadowColor" ref="999074079"/>
+						<string key="IBUIShadowOffset">{0, 0}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">2</int>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
-							<string key="name">Thonburi-Bold</string>
-							<string key="family">Thonburi</string>
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
 							<int key="traits">2</int>
-							<double key="pointSize">22</double>
+							<double key="pointSize">24</double>
 						</object>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Thonburi-Bold</string>
-							<double key="NSSize">22</double>
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUILabel" id="765049386">
 						<reference key="NSNextResponder" ref="20159114"/>
 						<int key="NSvFlags">294</int>
-						<string key="NSFrame">{{123, 15}, {362, 24}}</string>
+						<string key="NSFrame">{{170, 32}, {300, 38}}</string>
 						<reference key="NSSuperview" ref="20159114"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="31337805"/>
 						<string key="NSReuseIdentifierKey">_NS:345</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -111,10 +116,11 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Test Text</string>
+						<string key="IBUIText">Making Money</string>
 						<reference key="IBUITextColor" ref="147103938"/>
 						<nil key="IBUIHighlightedColor"/>
 						<reference key="IBUIShadowColor" ref="999074079"/>
+						<string key="IBUIShadowOffset">{0, 0}</string>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -122,17 +128,18 @@
 							<string key="name">Verdana-Bold</string>
 							<string key="family">Verdana</string>
 							<int key="traits">2</int>
-							<double key="pointSize">24</double>
+							<double key="pointSize">28</double>
 						</object>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Verdana-Bold</string>
-							<double key="NSSize">24</double>
+							<double key="NSSize">28</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 				</array>
-				<string key="NSFrameSize">{500, 123}</string>
+				<string key="NSFrameSize">{500, 180}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="250877964"/>
 				<reference key="IBUIBackgroundColor" ref="252785080"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -235,7 +242,37 @@
 			<nil key="sourceID"/>
 			<int key="maxID">10</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">VideoPlayerTitleBar</string>
+					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="comment">UILabel</string>
+						<string key="sharerPic">UIImageView</string>
+						<string key="title">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="comment">
+							<string key="name">comment</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="sharerPic">
+							<string key="name">sharerPic</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="title">
+							<string key="name">title</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VideoPlayerTitleBar.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

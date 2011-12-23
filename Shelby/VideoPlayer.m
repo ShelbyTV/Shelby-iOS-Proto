@@ -333,10 +333,10 @@ static const float kNextPrevXOffset        =  0.0f;
     CGFloat iPadShelbyLogoOverhang = 95;
     
     if ([[UIScreen screens] count] > 1) {
-        textOriginX = 123;
-        textOriginY = 50;
-        textRightBorder = 15;
-        maxTextHeight = 48;
+        textOriginX = 170;
+        textOriginY = 85;
+        textRightBorder = 30;
+        maxTextHeight = 65;
     }
     
     CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
@@ -878,7 +878,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
     float titleBarHeight = 75.0f;
     if ([[UIScreen screens] count] > 1) {
-        titleBarHeight = 123.0f;
+        titleBarHeight = 180.0f;
     }
     
     const CGSize nextPrevSize = CGSizeMake(81, 81);
