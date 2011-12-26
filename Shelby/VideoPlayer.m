@@ -597,7 +597,8 @@ static const float kNextPrevXOffset        =  0.0f;
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
             for (UIView *control in _controls) {
                 if ([[UIScreen screens] count] > 1 &&
-                    control == _controlBar) {
+                    (control == _controlBar ||
+                     control == self.titleBar)) {
                     continue;
                 }
                 control.alpha = 0.0;
@@ -1068,8 +1069,14 @@ static const float kNextPrevXOffset        =  0.0f;
         
         if (IS_NULL(self.tvTitleBar)) {
             self.tvTitleBar = [VideoPlayerTitleBar titleBarFromTVNib];
+            self.tvTitleBar.title.text = self.titleBar.title.text;
+            self.tvTitleBar.comment.text = self.titleBar.comment.text;
+            self.tvTitleBar.sharerPic.image = self.titleBar.sharerPic.image;
+            
             [_controls addObject:self.tvTitleBar];
             [secondScreenWindow addSubview:self.tvTitleBar];
+            
+            [self fitTitleBars];
         }
         
         [_moviePlayer.view removeFromSuperview];
