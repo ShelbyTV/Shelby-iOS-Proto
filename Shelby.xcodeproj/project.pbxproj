@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */; };
 		0A08E9FE14281C8700D964E7 /* FacebookNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9F814281C8700D964E7 /* FacebookNew.png */; };
 		0A08E9FF14281C8700D964E7 /* FacebookWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9F914281C8700D964E7 /* FacebookWatched.png */; };
 		0A08EA0014281C8700D964E7 /* TwitterNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FA14281C8700D964E7 /* TwitterNew.png */; };
@@ -266,6 +267,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSWebViewUserAgent.h; sourceTree = "<group>"; };
+		0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSWebViewUserAgent.m; sourceTree = "<group>"; };
 		0A08E9F814281C8700D964E7 /* FacebookNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookNew.png; path = Resources/Images/FacebookNew.png; sourceTree = "<group>"; };
 		0A08E9F914281C8700D964E7 /* FacebookWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookWatched.png; path = Resources/Images/FacebookWatched.png; sourceTree = "<group>"; };
 		0A08E9FA14281C8700D964E7 /* TwitterNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterNew.png; path = Resources/Images/TwitterNew.png; sourceTree = "<group>"; };
@@ -1283,6 +1286,8 @@
 				0A5C099F14980CB800C08F41 /* SessionStats.m */,
 				42FAA3AD13FD841900BC1D28 /* URLParser.h */,
 				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
+				0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */,
+				0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1632,6 +1637,7 @@
 				0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */,
 				0AC8262014902230009FF975 /* LoginGradientView.m in Sources */,
 				0A5C09A014980CB800C08F41 /* SessionStats.m in Sources */,
+				0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

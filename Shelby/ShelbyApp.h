@@ -27,6 +27,7 @@
 @property (nonatomic, retain) ApiHelper *apiHelper;
 @property (nonatomic, retain) NavigationViewController *navigationViewController;
 @property (nonatomic) BOOL demoModeEnabled;
+@property (nonatomic, retain) NSString *safariUserAgent;
 
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 

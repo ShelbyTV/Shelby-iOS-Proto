@@ -12,6 +12,7 @@
 #import "ShelbyAppDelegate.h"
 #import "VideoGetter.h"
 #import "SessionStats.h"
+#import "BSWebViewUserAgent.h"
 
 #import "TestFlight.h"
 #import <Crashlytics/Crashlytics.h>
@@ -23,6 +24,7 @@
 @synthesize apiHelper;
 @synthesize navigationViewController;
 @synthesize demoModeEnabled;
+@synthesize safariUserAgent;
 
 #pragma mark - Singleton
 
@@ -34,6 +36,11 @@ static UIWindow *gSecondScreenWindow;
     if (IS_NULL(gShelbyApp)) {
         
         gShelbyApp = [[ShelbyApp alloc] init];
+        
+        BSWebViewUserAgent *agent = [[BSWebViewUserAgent alloc] init];
+        gShelbyApp.safariUserAgent = [agent userAgentString];
+        NSLog(@"Safari user agent string: %@", gShelbyApp.safariUserAgent);
+        [agent release];
         
         [SessionStats startSessionReportingTimer];
     }

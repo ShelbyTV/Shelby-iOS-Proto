@@ -1031,7 +1031,7 @@
     
     NSURLResponse *response = nil;
     NSError *error = nil;
-    NSURLRequest *request = nil;
+    NSMutableURLRequest *request = nil;
 
     for (NSString *key in uniqueVideoKeys)
     {
@@ -1044,9 +1044,11 @@
                 
                 NSLog(@"########## Creating NSURLRequest.");
                 
-                request = [NSURLRequest requestWithURL:video.contentURL];
+                request = [NSMutableURLRequest requestWithURL:video.contentURL];
                 
                 NSLog(@"########## Sending SynchronousRequest.");
+                
+                [request setValue:[ShelbyApp sharedApp].safariUserAgent forHTTPHeaderField:@"User-Agent"];
                 
                 NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
                 

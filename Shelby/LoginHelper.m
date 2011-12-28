@@ -112,6 +112,7 @@
     self.user = nil;
     [self deleteUser];
     [SessionStats resetHeartbeatCount];
+    [ShelbyApp sharedApp].demoModeEnabled = FALSE;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserLoggedOut"
                                                         object:self
