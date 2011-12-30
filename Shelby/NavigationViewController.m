@@ -147,8 +147,20 @@
     [videoTable loadVideos];
 }
 
+- (void)setDemoModeButtonEnabled
+{
+    _demoModeButton.enabled = TRUE;
+}
+
+- (void)setDemoModeButtonDisabled
+{
+    _demoModeButton.enabled = FALSE;
+}
+
 - (void)enableDemoMode
 {
+    [self performSelectorOnMainThread:@selector(setDemoModeButtonDisabled) withObject:nil waitUntilDone:NO];
+    
     NSLog(@"########## Setting demoModeEnabled = TRUE");
     
     // hmm... do i need to store this to a user preference?
@@ -159,6 +171,8 @@
     // pause any playing video
     [_videoPlayer pause];
     
+    [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Waiting..." waitUntilDone:NO];
+
     NSLog(@"########## Waiting for network ops to finish");
     
     // hacky, but whatevs, it's demo mode - wait for other network activity to stop
@@ -179,9 +193,10 @@
     NSLog(@"########## Tell videoTable to enableDemoMode.");
     
     // download videos
+    [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Downloading..." waitUntilDone:NO];
     [videoTable enableDemoMode];
     
-    _demoModeButton.enabled = FALSE;
+    [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Demo Mode On" waitUntilDone:NO];
 }
 
 #pragma mark - UIAlertViewDelegate Methods
@@ -267,6 +282,8 @@
         [self toggleSettings];
     }
     [[ShelbyApp sharedApp].loginHelper logout];
+    _demoModeButton.title = @"Demo Mode";
+    _demoModeButton.enabled = TRUE;
 }
 
 - (void)showWebPage:(NSString *)urlString
@@ -463,6 +480,8 @@
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
+    
+    _demoModeButton.possibleTitles = [NSSet setWithObjects:@"Demo Mode", @"Waiting...", @"Downloading...", @"Demo Mode On", nil];
 }
 
 #pragma mark - Notification Handlers
