@@ -38,4 +38,6 @@
 - (void)setProgress:(float)progress;
 - (float)progress;
 
+- (void)adjustForTV;
+
 @end

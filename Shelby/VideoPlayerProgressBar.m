@@ -189,4 +189,26 @@ static const float kProgressUpdateBuffer = 1.0f;
     [super dealloc];
 }
 
+- (void)adjustForTV
+{
+    UIImage *stetchLeftTrack = [[UIImage imageNamed:@"SliderPurple_TV.png"]
+                                stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+    UIImage *stetchRightTrack = [[UIImage imageNamed:@"SliderGray_TV.png"]
+                                 stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+    [_slider setThumbImage: [UIImage imageNamed:@"SliderThumbLightGray_TV.png"] forState:UIControlStateNormal];
+    [_slider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
+    [_slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
+    
+    _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 30.0];
+    
+    _blackLineStartOverlay.hidden = TRUE;
+    _blackLineEndOverlay.hidden = TRUE;
+    
+    CGRect tempFrame = self.bounds;
+    tempFrame.origin.x = -10;
+    tempFrame.origin.y = 10;
+    _label.frame = tempFrame;
+    
+}
+
 @end

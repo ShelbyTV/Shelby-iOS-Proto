@@ -296,6 +296,10 @@ static const float kNextPrevXOffset        =  0.0f;
     [_controlBar showPlayButtonIcon];
     [_controlBar setFavoriteButtonSelected:NO];
     [_controlBar setWatchLaterButtonSelected:NO];
+    if (NOT_NULL(_tvControlBar)) {
+        [_tvControlBar setFavoriteButtonSelected:NO];
+        [_tvControlBar setWatchLaterButtonSelected:NO];
+    }
     _changingVideo = NO;
 }
 
@@ -439,6 +443,11 @@ static const float kNextPrevXOffset        =  0.0f;
             [_controlBar setFavoriteButtonSelected:[video isLiked]];
             [_controlBar setWatchLaterButtonSelected:[video isWatchLater]];
 
+            if (NOT_NULL(_tvControlBar)) {
+                [_tvControlBar setFavoriteButtonSelected:[video isLiked]];
+                [_tvControlBar setWatchLaterButtonSelected:[video isWatchLater]];
+            }
+            
             // Reset our duration.
             _duration = 0.0f;
             // Load the video and play it.
@@ -642,6 +651,9 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     _duration = [_moviePlayer duration];
     _controlBar.duration = _duration;
+    if (NOT_NULL(_tvControlBar)) {
+        _tvControlBar.duration = _duration;
+    }
 }
 
 - (void)movieDidFinish:(NSNotification*)notification
@@ -690,6 +702,9 @@ static const float kNextPrevXOffset        =  0.0f;
             [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setFavoriteButtonSelected:like];
+            if (NOT_NULL(_tvControlBar)) {
+                [_tvControlBar setFavoriteButtonSelected:like];
+            }
         }
     } 
 }
@@ -716,6 +731,9 @@ static const float kNextPrevXOffset        =  0.0f;
             [(NSString *)((Video *)[notification.userInfo objectForKey:@"video"]).shelbyId isEqualToString:self.currentVideo.shelbyId]) 
         {
             [_controlBar setWatchLaterButtonSelected:like];
+            if (NOT_NULL(_tvControlBar)) {
+                [_tvControlBar setWatchLaterButtonSelected:like];
+            }
         }
     } 
 }
@@ -751,6 +769,9 @@ static const float kNextPrevXOffset        =  0.0f;
     if (!_paused && !_stoppedIntentionally && !_changingVideo) {
         float currentTime = [_moviePlayer currentPlaybackTime];
         _controlBar.progress = currentTime;
+        if (NOT_NULL(_tvControlBar)) {
+            _tvControlBar.progress = currentTime;
+        }
         
         if (NOT_NULL(_currentVideo) && _currentVideo.isWatchLater &&
             _currentVideoWatchLaterAtStart && !_currentVideoUnwatchLaterSent &&
@@ -826,6 +847,9 @@ static const float kNextPrevXOffset        =  0.0f;
     
     _currentVideo.isLiked = !currentlyLiked;
     [_controlBar setFavoriteButtonSelected:!currentlyLiked];
+    if (NOT_NULL(_tvControlBar)) {
+        [_tvControlBar setFavoriteButtonSelected:!currentlyLiked];
+    }
 }
 
 - (void)controlBarWatchLaterButtonWasPressed:(VideoPlayerControlBar *)controlBar
@@ -841,6 +865,9 @@ static const float kNextPrevXOffset        =  0.0f;
     
     _currentVideo.isWatchLater = !currentlyWatchLater;
     [_controlBar setWatchLaterButtonSelected:!currentlyWatchLater];
+    if (NOT_NULL(_tvControlBar)) {
+        [_tvControlBar setWatchLaterButtonSelected:!currentlyWatchLater];
+    }
 }
 
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar
@@ -997,6 +1024,21 @@ static const float kNextPrevXOffset        =  0.0f;
     
     _controlBar.frame = newControlBarFrame;
     [_controlBar layoutSubviews];
+    
+    if (NOT_NULL(_tvControlBar) && [[UIScreen screens] count] > 1) {
+        
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        
+        CGFloat tvControlBarWidth = 1000; 
+        CGFloat tvControlBarHeight = 75; 
+
+        _tvControlBar.frame = CGRectMake(secondScreen.bounds.size.width / 2 - (tvControlBarWidth / 2), 
+                                         secondScreen.bounds.size.height - 105, 
+                                         tvControlBarWidth, 
+                                         tvControlBarHeight);
+
+        [_tvControlBar layoutSubviews];
+    }
 }
 
 #pragma mark - Cleanup
@@ -1077,6 +1119,17 @@ static const float kNextPrevXOffset        =  0.0f;
             [secondScreenWindow addSubview:self.tvTitleBar];
             
             [self fitTitleBars];
+        }
+        
+        if (IS_NULL(_tvControlBar)) {
+            _tvControlBar = [VideoPlayerControlBar controlBarFromTVNib];
+            [_tvControlBar setFavoriteButtonSelected:[_controlBar isFavoriteButtonSelected]];
+            [_tvControlBar setWatchLaterButtonSelected:[_controlBar isWatchLaterButtonSelected]];
+            
+            [_tvControlBar adjustProgressBarForTV];
+            
+            [_controls addObject:_tvControlBar];
+            [secondScreenWindow addSubview:_tvControlBar];
         }
         
         [_moviePlayer.view removeFromSuperview];

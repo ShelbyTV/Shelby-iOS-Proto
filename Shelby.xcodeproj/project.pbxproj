@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */; };
+		0A05EF7714AE77660010BFFF /* VideoPlayerControlBar_TV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7614AE77660010BFFF /* VideoPlayerControlBar_TV.xib */; };
+		0A05EF7E14AE8B4D0010BFFF /* likeOff_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7A14AE8B4D0010BFFF /* likeOff_TV.png */; };
+		0A05EF7F14AE8B4D0010BFFF /* likeOn_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7B14AE8B4D0010BFFF /* likeOn_TV.png */; };
+		0A05EF8014AE8B4D0010BFFF /* watchLaterOff_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7C14AE8B4D0010BFFF /* watchLaterOff_TV.png */; };
+		0A05EF8114AE8B4D0010BFFF /* watchLaterOn_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7D14AE8B4D0010BFFF /* watchLaterOn_TV.png */; };
+		0A05EF8514AEC89B0010BFFF /* SliderThumbLightGray_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF8214AEC89B0010BFFF /* SliderThumbLightGray_TV.png */; };
+		0A05EF8614AEC89B0010BFFF /* SliderPurple_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF8314AEC89B0010BFFF /* SliderPurple_TV.png */; };
+		0A05EF8714AEC89B0010BFFF /* SliderGray_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF8414AEC89B0010BFFF /* SliderGray_TV.png */; };
 		0A08E9FE14281C8700D964E7 /* FacebookNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9F814281C8700D964E7 /* FacebookNew.png */; };
 		0A08E9FF14281C8700D964E7 /* FacebookWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9F914281C8700D964E7 /* FacebookWatched.png */; };
 		0A08EA0014281C8700D964E7 /* TwitterNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FA14281C8700D964E7 /* TwitterNew.png */; };
@@ -269,6 +277,14 @@
 /* Begin PBXFileReference section */
 		0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSWebViewUserAgent.h; sourceTree = "<group>"; };
 		0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSWebViewUserAgent.m; sourceTree = "<group>"; };
+		0A05EF7614AE77660010BFFF /* VideoPlayerControlBar_TV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerControlBar_TV.xib; sourceTree = "<group>"; };
+		0A05EF7A14AE8B4D0010BFFF /* likeOff_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_TV.png; path = Resources/Images/likeOff_TV.png; sourceTree = "<group>"; };
+		0A05EF7B14AE8B4D0010BFFF /* likeOn_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOn_TV.png; path = Resources/Images/likeOn_TV.png; sourceTree = "<group>"; };
+		0A05EF7C14AE8B4D0010BFFF /* watchLaterOff_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watchLaterOff_TV.png; path = Resources/Images/watchLaterOff_TV.png; sourceTree = "<group>"; };
+		0A05EF7D14AE8B4D0010BFFF /* watchLaterOn_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watchLaterOn_TV.png; path = Resources/Images/watchLaterOn_TV.png; sourceTree = "<group>"; };
+		0A05EF8214AEC89B0010BFFF /* SliderThumbLightGray_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderThumbLightGray_TV.png; path = Resources/Images/SliderThumbLightGray_TV.png; sourceTree = "<group>"; };
+		0A05EF8314AEC89B0010BFFF /* SliderPurple_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderPurple_TV.png; path = Resources/Images/SliderPurple_TV.png; sourceTree = "<group>"; };
+		0A05EF8414AEC89B0010BFFF /* SliderGray_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SliderGray_TV.png; path = Resources/Images/SliderGray_TV.png; sourceTree = "<group>"; };
 		0A08E9F814281C8700D964E7 /* FacebookNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookNew.png; path = Resources/Images/FacebookNew.png; sourceTree = "<group>"; };
 		0A08E9F914281C8700D964E7 /* FacebookWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FacebookWatched.png; path = Resources/Images/FacebookWatched.png; sourceTree = "<group>"; };
 		0A08E9FA14281C8700D964E7 /* TwitterNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterNew.png; path = Resources/Images/TwitterNew.png; sourceTree = "<group>"; };
@@ -620,6 +636,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A05EF7914AE8B2F0010BFFF /* TV */ = {
+			isa = PBXGroup;
+			children = (
+				0A05EF8214AEC89B0010BFFF /* SliderThumbLightGray_TV.png */,
+				0A05EF8314AEC89B0010BFFF /* SliderPurple_TV.png */,
+				0A05EF8414AEC89B0010BFFF /* SliderGray_TV.png */,
+				0A05EF7A14AE8B4D0010BFFF /* likeOff_TV.png */,
+				0A05EF7B14AE8B4D0010BFFF /* likeOn_TV.png */,
+				0A05EF7C14AE8B4D0010BFFF /* watchLaterOff_TV.png */,
+				0A05EF7D14AE8B4D0010BFFF /* watchLaterOn_TV.png */,
+			);
+			name = TV;
+			sourceTree = "<group>";
+		};
 		0A2A802D144CA5FC00D0C8AD /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +729,7 @@
 		0AC849611430333D00FDF996 /* VideoPlayerControls */ = {
 			isa = PBXGroup;
 			children = (
+				0A05EF7914AE8B2F0010BFFF /* TV */,
 				0AE04FB9148C79B100952C02 /* iPhone */,
 				0A363C471484B5DC00CB3BDA /* iPad */,
 				0A363C461484B5C600CB3BDA /* Common */,
@@ -1001,6 +1032,7 @@
 			isa = PBXGroup;
 			children = (
 				0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib */,
+				0A05EF7614AE77660010BFFF /* VideoPlayerControlBar_TV.xib */,
 			);
 			name = TV;
 			sourceTree = "<group>";
@@ -1528,6 +1560,14 @@
 				0AC826541491D8D3009FF975 /* LoginNotAJerkLikeThat_iPhone@2x.png in Resources */,
 				0AC826561491FB58009FF975 /* ButtonSocialBackground.png in Resources */,
 				0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib in Resources */,
+				0A05EF7714AE77660010BFFF /* VideoPlayerControlBar_TV.xib in Resources */,
+				0A05EF7E14AE8B4D0010BFFF /* likeOff_TV.png in Resources */,
+				0A05EF7F14AE8B4D0010BFFF /* likeOn_TV.png in Resources */,
+				0A05EF8014AE8B4D0010BFFF /* watchLaterOff_TV.png in Resources */,
+				0A05EF8114AE8B4D0010BFFF /* watchLaterOn_TV.png in Resources */,
+				0A05EF8514AEC89B0010BFFF /* SliderThumbLightGray_TV.png in Resources */,
+				0A05EF8614AEC89B0010BFFF /* SliderPurple_TV.png in Resources */,
+				0A05EF8714AEC89B0010BFFF /* SliderGray_TV.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -63,6 +63,8 @@
     BOOL _touchOccurring;
     
     VideoPlayerControlBar *_controlBar;
+    VideoPlayerControlBar *_tvControlBar;
+    
     MPMoviePlayerController *_moviePlayer;
 
     NSMutableArray *_controls;

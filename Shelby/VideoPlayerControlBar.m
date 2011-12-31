@@ -12,11 +12,22 @@
 @implementation VideoPlayerControlBar
 
 @synthesize delegate;
+@synthesize tv;
 
 static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
+static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
 
 #pragma mark - Factory
+
++ (VideoPlayerControlBar *)controlBarFromTVNib 
+{
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME owner:self options:nil];
+    
+    ((VideoPlayerControlBar *)[objects objectAtIndex:0]).tv = TRUE;
+    
+    return [objects objectAtIndex:0];
+}
 
 + (VideoPlayerControlBar *)controlBarFromNib {
     NSString *nibName;
@@ -176,26 +187,30 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 
 - (void)layoutSubviews 
 {
-    CGRect tempFrame = _playButton.frame;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        tempFrame.size.width = self.frame.size.width - (406 - 80);
-    } else {
-        tempFrame.size.width = self.frame.size.width - (286 - 56);
+    if (!self.tv) {
+        
+        CGRect tempFrame = _playButton.frame;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            tempFrame.size.width = self.frame.size.width - (406 - 80);
+        } else {
+            tempFrame.size.width = self.frame.size.width - (286 - 56);
+        }
+        
+        _playButton.frame = tempFrame;
+        
+        tempFrame = _shareButton.frame;
+        tempFrame.origin.x = _playButton.frame.origin.x + _playButton.frame.size.width - 1;
+        _shareButton.frame = tempFrame;
+        
+        tempFrame = _favoriteButton.frame;
+        tempFrame.origin.x = _shareButton.frame.origin.x + _shareButton.frame.size.width - 1;
+        _favoriteButton.frame = tempFrame;
+        
+        tempFrame = _progressBar.frame;
+        tempFrame.size.width = self.frame.size.width + 30; // overlap for extra thumb slider space
+        _progressBar.frame = tempFrame;
+    
     }
-    
-    _playButton.frame = tempFrame;
-    
-    tempFrame = _shareButton.frame;
-    tempFrame.origin.x = _playButton.frame.origin.x + _playButton.frame.size.width - 1;
-    _shareButton.frame = tempFrame;
-    
-    tempFrame = _favoriteButton.frame;
-    tempFrame.origin.x = _shareButton.frame.origin.x + _shareButton.frame.size.width - 1;
-    _favoriteButton.frame = tempFrame;
-    
-    tempFrame = _progressBar.frame;
-    tempFrame.size.width = self.frame.size.width + 30; // overlap for extra thumb slider space
-    _progressBar.frame = tempFrame;
     
     [_progressBar layoutSubviews];
 }
@@ -203,6 +218,11 @@ static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (void)adjustProgressBarForTV
+{
+    [_progressBar adjustForTV];
 }
 
 @end

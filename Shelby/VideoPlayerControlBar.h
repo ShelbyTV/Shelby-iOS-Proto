@@ -38,7 +38,9 @@
 @property (assign) id <VideoPlayerControlBarDelegate> delegate;
 @property (readwrite) float progress;
 @property (readwrite) float duration;
+@property (readwrite) BOOL tv;
 
++ (VideoPlayerControlBar *)controlBarFromTVNib;
 + (VideoPlayerControlBar *)controlBarFromNib;
 
 - (BOOL)isFavoriteButtonSelected;
@@ -56,5 +58,7 @@
 
 - (void)showFullscreenExpandButtonIcon;
 - (void)showFullscreenContractButtonIcon;
+
+- (void)adjustProgressBarForTV;
 
 @end
