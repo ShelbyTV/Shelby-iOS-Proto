@@ -52,4 +52,6 @@
 - (void)updateVideoTableCell:(Video *)video;
 - (void)enableDemoMode;
 
+- (NSInteger)currentVideoMode;
+
 @end

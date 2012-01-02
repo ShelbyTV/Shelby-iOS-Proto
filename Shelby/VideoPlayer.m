@@ -603,6 +603,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)hideControls
 {
+    if (!_controlsVisible) {
+        return;
+    }
+    
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
             for (UIView *control in _controls) {
                 if ([[UIScreen screens] count] > 1 &&
@@ -624,6 +628,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)drawControls
 {
+    if (_controlsVisible) {
+        return;
+    }
+    
     [self recordButtonPressOrControlsVisible:NO];
     
     [UIView animateWithDuration:kFadeControlsDuration animations:^{
@@ -766,12 +774,13 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)updateProgress
 {
+    if (NOT_NULL(_tvControlBar)) {
+        _tvControlBar.progress = [_moviePlayer currentPlaybackTime];
+    }
+    
     if (!_paused && !_stoppedIntentionally && !_changingVideo) {
         float currentTime = [_moviePlayer currentPlaybackTime];
         _controlBar.progress = currentTime;
-        if (NOT_NULL(_tvControlBar)) {
-            _tvControlBar.progress = currentTime;
-        }
         
         if (NOT_NULL(_currentVideo) && _currentVideo.isWatchLater &&
             _currentVideoWatchLaterAtStart && !_currentVideoUnwatchLaterSent &&
@@ -873,7 +882,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)controlBarFullscreenButtonWasPressed:(VideoPlayerControlBar *)controlBar
 {
     [self recordButtonPressOrControlsVisible:YES];
-
+    
     if (self.delegate) {
         [self.delegate videoPlayerFullscreenButtonWasPressed: self];
     }
@@ -1132,6 +1141,12 @@ static const float kNextPrevXOffset        =  0.0f;
             [secondScreenWindow addSubview:_tvControlBar];
         }
         
+        if (_fullscreen) {
+            [self controlBarFullscreenButtonWasPressed:_controlBar];
+        }
+        
+        [_controlBar showFullscreenRemoteModeButtonIcon];
+        
         [_moviePlayer.view removeFromSuperview];
         _moviePlayer.view.frame = secondScreenWindow.bounds;
         [secondScreenWindow insertSubview:_moviePlayer.view belowSubview:self.tvTitleBar];
@@ -1151,6 +1166,27 @@ static const float kNextPrevXOffset        =  0.0f;
         [_moviePlayer.view removeFromSuperview];
         _moviePlayer.view.frame = self.bounds;
         [self insertSubview: _moviePlayer.view aboveSubview:_bgView];
+    }
+}
+
+- (void)scanForward
+{
+    [self controlBarChangedTimeManually:_controlBar
+                                   time:MIN(_moviePlayer.currentPlaybackTime + 10,
+                                            _duration)];
+}
+
+- (void)scanBackward
+{
+    [self controlBarChangedTimeManually:_controlBar
+                                   time:MAX(_moviePlayer.currentPlaybackTime - 10,
+                                            0)];
+}
+
+- (void)hideControlsIfNotPaused
+{
+    if (!_paused) {
+        [self hideControls];
     }
 }
 

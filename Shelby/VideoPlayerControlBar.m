@@ -107,6 +107,18 @@ static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
     }
 }
 
+- (void)showFullscreenRemoteModeButtonIcon
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [_fullscreenButton setImage:[UIImage imageNamed:@"remoteMode_iPad"] 
+                           forState:UIControlStateNormal];
+    } else {
+        // no reason to show this button ever on the iPhone right now...
+        //        [_fullscreenButton setImage:[UIImage imageNamed:@"remoteMode_iPhone"] 
+        //                           forState:UIControlStateNormal];
+    }
+}
+
 - (void)setProgress:(float)progress {
     _progressBar.progress = progress;
 }
@@ -180,7 +192,13 @@ static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
 }
 
 - (IBAction)fullscreenButtonWasPressed:(id)sender {
+    
+    NSLog(@"VideoPlayerControlBar fullscreenButtonWasPressed");
+    
     if (self.delegate) {
+        
+        NSLog(@"VideoPlayerControlBar calling self.delegate controlBarFullscreenButtonWasPressed");
+
         [self.delegate controlBarFullscreenButtonWasPressed: self];
     }
 }

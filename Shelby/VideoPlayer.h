@@ -101,6 +101,11 @@
 
 - (void)recordButtonPressOrControlsVisible:(BOOL)informDelegate;
 
+- (void)drawControls;
+- (void)hideControlsIfNotPaused;
+- (void)scanForward;
+- (void)scanBackward;
+
 - (void)screenDidConnect;
 - (void)screenDidDisconnect;
 

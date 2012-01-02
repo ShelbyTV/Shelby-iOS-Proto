@@ -27,6 +27,7 @@
 @implementation NavigationViewController
 
 @synthesize shareView = _shareView;
+
 @synthesize networkCounter;
 @synthesize touched;
 
@@ -53,11 +54,11 @@
                                                      name:@"UserLoggedOut"
                                                    object:nil];
 
-        // Network Activity
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(networkActiveNotification:)
                                                      name:@"ShelbyAppNetworkActive"
                                                    object:nil];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(networkInactiveNotification:)
                                                      name:@"ShelbyAppNetworkInactive"
@@ -88,6 +89,9 @@
         ShareViewController *shareView;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPad" bundle:nil] autorelease];
+            _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPad" bundle:nil];
+            _remoteModeView.view.hidden = YES;
+            _remoteModeView.delegate = self;
         } else {
             shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPhone" bundle:nil] autorelease];
         }
@@ -100,10 +104,15 @@
         [self.view addSubview:self.shareView.view];
         [self.view addSubview:[[VideoGetter singleton] getView]];
         
+        
         _fullscreenWebView = [FullscreenWebView fullscreenWebViewFromNib];
         _fullscreenWebView.hidden = YES;
         [_fullscreenWebView setDelegate:self];
         [self.view addSubview:_fullscreenWebView];
+         
+         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+             [self.view addSubview:_remoteModeView.view];
+         }
     }
     return self;
 }
@@ -642,6 +651,79 @@
 - (void) screenDidDisconnect:(NSNotification *)notification
 {
     [_videoPlayer screenDidDisconnect];
+}
+
+#pragma mark - RemoteModeDelegate
+
+- (void)remoteModePreviousVideo
+{
+    [self videoPlayerPrevButtonWasPressed:_videoPlayer];
+}
+
+- (void)remoteModeNextVideo
+{
+    [self videoPlayerNextButtonWasPressed:_videoPlayer];
+}
+
+- (void)remoteModeLikeVideo
+{
+    [self videoPlayerLikeButtonWasPressed:_videoPlayer];
+}
+
+- (void)remoteModeWatchLaterVideo
+{
+    [self videoPlayerWatchLaterButtonWasPressed:_videoPlayer];
+}
+
+- (void)remoteModeNextChannel
+{
+    if ([videoTable currentVideoMode] == 0) {
+        [self favoritesButtonPressed:self];
+    } else if ([videoTable currentVideoMode] == 1) {
+        [self watchLaterButtonPressed:self];
+    } else if ([videoTable currentVideoMode] == 2) {
+        [self listButtonPressed:self];
+    }
+}
+
+- (void)remoteModePreviousChannel
+{
+    if ([videoTable currentVideoMode] == 0) {
+        [self watchLaterButtonPressed:self];
+    } else if ([videoTable currentVideoMode] == 1) {
+        [self listButtonPressed:self];
+    } else if ([videoTable currentVideoMode] == 2) {
+        [self favoritesButtonPressed:self];
+    }
+}
+
+- (void)remoteModeScanForward
+{
+    [_videoPlayer scanForward];
+}
+
+- (void)remoteModeScanBackward
+{
+    [_videoPlayer scanBackward];
+}
+
+- (void)remoteModeShowInfo
+{
+    [_videoPlayer drawControls];
+}
+
+- (void)remoteModeHideInfo
+{
+    [_videoPlayer hideControlsIfNotPaused];
+}
+
+- (void)remoteModeTogglePlayPause
+{
+    if (![self isVideoPlaying]) {
+        [_videoPlayer play];
+    } else {
+        [_videoPlayer pause];
+    }
 }
 
 @end

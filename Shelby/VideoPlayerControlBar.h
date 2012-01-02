@@ -33,6 +33,7 @@
     IBOutlet VideoPlayerProgressBar *_progressBar;
 
     BOOL _initialized;
+    BOOL _remoteModeButton;
 }
 
 @property (assign) id <VideoPlayerControlBarDelegate> delegate;
@@ -58,6 +59,7 @@
 
 - (void)showFullscreenExpandButtonIcon;
 - (void)showFullscreenContractButtonIcon;
+- (void)showFullscreenRemoteModeButtonIcon;
 
 - (void)adjustProgressBarForTV;
 

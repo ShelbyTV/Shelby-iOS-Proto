@@ -85,6 +85,8 @@
 		0ABB3D511463047300D182F3 /* LogoutHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D4F1463047300D182F3 /* LogoutHighlighted.png */; };
 		0ABB3D541463062E00D182F3 /* Legal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D521463062D00D182F3 /* Legal.png */; };
 		0ABB3D551463062E00D182F3 /* LegalHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D531463062D00D182F3 /* LegalHighlighted.png */; };
+		0AC0499014AFCD2000FD6820 /* remoteMode_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0498F14AFCD2000FD6820 /* remoteMode_iPad.png */; };
+		0AC0499414AFF17800FD6820 /* RemoteModeGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */; };
 		0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8260A148FED1E009FF975 /* FullscreenWebView.m */; };
 		0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */; };
 		0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */; };
@@ -172,6 +174,33 @@
 		0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */; };
 		0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib */; };
 		0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoGetter.m */; };
+		0AF7DE5714AFF2A9005B48BF /* RemoteMode_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */; };
+		0AF7DE5A14B10DB1005B48BF /* pinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5914B10DB1005B48BF /* pinch.png */; };
+		0AF7DE6614B10E16005B48BF /* double_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5B14B10E16005B48BF /* double_tap.png */; };
+		0AF7DE6714B10E16005B48BF /* swipe_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5C14B10E16005B48BF /* swipe_down.png */; };
+		0AF7DE6814B10E16005B48BF /* swipe_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5D14B10E16005B48BF /* swipe_left.png */; };
+		0AF7DE6914B10E16005B48BF /* swipe_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5E14B10E16005B48BF /* swipe_right.png */; };
+		0AF7DE6A14B10E16005B48BF /* swipe_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5F14B10E16005B48BF /* swipe_up.png */; };
+		0AF7DE6B14B10E16005B48BF /* tap_and_hold.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE6014B10E16005B48BF /* tap_and_hold.png */; };
+		0AF7DE6C14B10E16005B48BF /* tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE6114B10E16005B48BF /* tap.png */; };
+		0AF7DE6D14B10E16005B48BF /* two_finger_swipe_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE6214B10E16005B48BF /* two_finger_swipe_down.png */; };
+		0AF7DE6E14B10E16005B48BF /* two_finger_swipe_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE6314B10E16005B48BF /* two_finger_swipe_left.png */; };
+		0AF7DE6F14B10E16005B48BF /* two_finger_swipe_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE6414B10E16005B48BF /* two_finger_swipe_right.png */; };
+		0AF7DE7014B10E16005B48BF /* two_finger_swipe_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE6514B10E16005B48BF /* two_finger_swipe_up.png */; };
+		0AF7DE7214B10E4F005B48BF /* airplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7114B10E4F005B48BF /* airplay.png */; };
+		0AF7DE7414B10E7F005B48BF /* logoGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7314B10E7F005B48BF /* logoGray.png */; };
+		0AF7DE7814B12B37005B48BF /* RemoteModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7614B12B37005B48BF /* RemoteModeViewController.m */; };
+		0AF7DE8514B19171005B48BF /* double_tap_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7A14B1916B005B48BF /* double_tap_white.png */; };
+		0AF7DE8614B19171005B48BF /* pinch_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7B14B1916B005B48BF /* pinch_white.png */; };
+		0AF7DE8714B19171005B48BF /* swipe_down_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7C14B1916C005B48BF /* swipe_down_white.png */; };
+		0AF7DE8814B19171005B48BF /* swipe_left_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7D14B1916D005B48BF /* swipe_left_white.png */; };
+		0AF7DE8914B19171005B48BF /* swipe_right_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7E14B1916D005B48BF /* swipe_right_white.png */; };
+		0AF7DE8A14B19171005B48BF /* swipe_up_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE7F14B1916E005B48BF /* swipe_up_white.png */; };
+		0AF7DE8B14B19171005B48BF /* tap_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE8014B1916E005B48BF /* tap_white.png */; };
+		0AF7DE8C14B19171005B48BF /* two_finger_swipe_down_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE8114B1916E005B48BF /* two_finger_swipe_down_white.png */; };
+		0AF7DE8D14B19171005B48BF /* two_finger_swipe_left_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE8214B1916F005B48BF /* two_finger_swipe_left_white.png */; };
+		0AF7DE8E14B19171005B48BF /* two_finger_swipe_right_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE8314B19170005B48BF /* two_finger_swipe_right_white.png */; };
+		0AF7DE8F14B19171005B48BF /* two_finger_swipe_up_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE8414B19170005B48BF /* two_finger_swipe_up_white.png */; };
 		4200E50413F41F0C00609C3E /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4200E50313F41F0C00609C3E /* Video.m */; };
 		4200E51713F42BB100609C3E /* ButtonFavoritesHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */; };
 		4200E51813F42BB100609C3E /* ButtonFavoritesNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */; };
@@ -369,6 +398,9 @@
 		0ABB3D4F1463047300D182F3 /* LogoutHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoutHighlighted.png; path = Resources/Images/LogoutHighlighted.png; sourceTree = "<group>"; };
 		0ABB3D521463062D00D182F3 /* Legal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Legal.png; path = Resources/Images/Legal.png; sourceTree = "<group>"; };
 		0ABB3D531463062D00D182F3 /* LegalHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LegalHighlighted.png; path = Resources/Images/LegalHighlighted.png; sourceTree = "<group>"; };
+		0AC0498F14AFCD2000FD6820 /* remoteMode_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remoteMode_iPad.png; path = Resources/Images/remoteMode_iPad.png; sourceTree = "<group>"; };
+		0AC0499214AFF17800FD6820 /* RemoteModeGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteModeGradientView.h; sourceTree = "<group>"; };
+		0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteModeGradientView.m; sourceTree = "<group>"; };
 		0AC82609148FED1E009FF975 /* FullscreenWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullscreenWebView.h; sourceTree = "<group>"; };
 		0AC8260A148FED1E009FF975 /* FullscreenWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullscreenWebView.m; sourceTree = "<group>"; };
 		0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPad.xib; sourceTree = "<group>"; };
@@ -464,6 +496,34 @@
 		0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VideoPlayerTitleBar_TV.xib; path = Resources/TV/VideoPlayerTitleBar_TV.xib; sourceTree = "<group>"; };
 		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0AEFC39B144FD65D00FC9015 /* VideoGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0AF7DE5614AFF2A9005B48BF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/RemoteMode_iPad.xib; sourceTree = SOURCE_ROOT; };
+		0AF7DE5914B10DB1005B48BF /* pinch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinch.png; sourceTree = "<group>"; };
+		0AF7DE5B14B10E16005B48BF /* double_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = double_tap.png; sourceTree = "<group>"; };
+		0AF7DE5C14B10E16005B48BF /* swipe_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_down.png; sourceTree = "<group>"; };
+		0AF7DE5D14B10E16005B48BF /* swipe_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_left.png; sourceTree = "<group>"; };
+		0AF7DE5E14B10E16005B48BF /* swipe_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_right.png; sourceTree = "<group>"; };
+		0AF7DE5F14B10E16005B48BF /* swipe_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_up.png; sourceTree = "<group>"; };
+		0AF7DE6014B10E16005B48BF /* tap_and_hold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tap_and_hold.png; sourceTree = "<group>"; };
+		0AF7DE6114B10E16005B48BF /* tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tap.png; sourceTree = "<group>"; };
+		0AF7DE6214B10E16005B48BF /* two_finger_swipe_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_down.png; sourceTree = "<group>"; };
+		0AF7DE6314B10E16005B48BF /* two_finger_swipe_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_left.png; sourceTree = "<group>"; };
+		0AF7DE6414B10E16005B48BF /* two_finger_swipe_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_right.png; sourceTree = "<group>"; };
+		0AF7DE6514B10E16005B48BF /* two_finger_swipe_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_up.png; sourceTree = "<group>"; };
+		0AF7DE7114B10E4F005B48BF /* airplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = airplay.png; path = Resources/Images/airplay.png; sourceTree = "<group>"; };
+		0AF7DE7314B10E7F005B48BF /* logoGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoGray.png; path = Resources/Images/logoGray.png; sourceTree = "<group>"; };
+		0AF7DE7514B12B37005B48BF /* RemoteModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteModeViewController.h; sourceTree = "<group>"; };
+		0AF7DE7614B12B37005B48BF /* RemoteModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteModeViewController.m; sourceTree = "<group>"; };
+		0AF7DE7A14B1916B005B48BF /* double_tap_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = double_tap_white.png; sourceTree = "<group>"; };
+		0AF7DE7B14B1916B005B48BF /* pinch_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinch_white.png; sourceTree = "<group>"; };
+		0AF7DE7C14B1916C005B48BF /* swipe_down_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_down_white.png; sourceTree = "<group>"; };
+		0AF7DE7D14B1916D005B48BF /* swipe_left_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_left_white.png; sourceTree = "<group>"; };
+		0AF7DE7E14B1916D005B48BF /* swipe_right_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_right_white.png; sourceTree = "<group>"; };
+		0AF7DE7F14B1916E005B48BF /* swipe_up_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swipe_up_white.png; sourceTree = "<group>"; };
+		0AF7DE8014B1916E005B48BF /* tap_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tap_white.png; sourceTree = "<group>"; };
+		0AF7DE8114B1916E005B48BF /* two_finger_swipe_down_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_down_white.png; sourceTree = "<group>"; };
+		0AF7DE8214B1916F005B48BF /* two_finger_swipe_left_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_left_white.png; sourceTree = "<group>"; };
+		0AF7DE8314B19170005B48BF /* two_finger_swipe_right_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_right_white.png; sourceTree = "<group>"; };
+		0AF7DE8414B19170005B48BF /* two_finger_swipe_up_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_swipe_up_white.png; sourceTree = "<group>"; };
 		4200E50213F41F0C00609C3E /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		4200E50313F41F0C00609C3E /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		4200E51313F42BB100609C3E /* ButtonFavoritesHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonFavoritesHighlighted.png; path = Resources/Images/ButtonFavoritesHighlighted.png; sourceTree = "<group>"; };
@@ -693,6 +753,7 @@
 				0A363C44148453F100CB3BDA /* share_iPad.png */,
 				0A28A660147B1C3B00625FCB /* watchLaterOff_iPad.png */,
 				0A28A661147B1C3B00625FCB /* watchLaterOn_iPad.png */,
+				0AC0498F14AFCD2000FD6820 /* remoteMode_iPad.png */,
 			);
 			name = iPad;
 			sourceTree = "<group>";
@@ -972,6 +1033,7 @@
 				0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */,
 				0AE0500E148D81BA00952C02 /* WatchLaterOnboardCell_iPad.xib */,
 				0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */,
+				0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */,
 			);
 			name = iPad;
 			path = Shelby;
@@ -1037,6 +1099,38 @@
 			name = TV;
 			sourceTree = "<group>";
 		};
+		0AF7DE5814B10D86005B48BF /* RemoteMode */ = {
+			isa = PBXGroup;
+			children = (
+				0AF7DE7A14B1916B005B48BF /* double_tap_white.png */,
+				0AF7DE7B14B1916B005B48BF /* pinch_white.png */,
+				0AF7DE7C14B1916C005B48BF /* swipe_down_white.png */,
+				0AF7DE7D14B1916D005B48BF /* swipe_left_white.png */,
+				0AF7DE7E14B1916D005B48BF /* swipe_right_white.png */,
+				0AF7DE7F14B1916E005B48BF /* swipe_up_white.png */,
+				0AF7DE8014B1916E005B48BF /* tap_white.png */,
+				0AF7DE8114B1916E005B48BF /* two_finger_swipe_down_white.png */,
+				0AF7DE8214B1916F005B48BF /* two_finger_swipe_left_white.png */,
+				0AF7DE8314B19170005B48BF /* two_finger_swipe_right_white.png */,
+				0AF7DE8414B19170005B48BF /* two_finger_swipe_up_white.png */,
+				0AF7DE7114B10E4F005B48BF /* airplay.png */,
+				0AF7DE7314B10E7F005B48BF /* logoGray.png */,
+				0AF7DE5B14B10E16005B48BF /* double_tap.png */,
+				0AF7DE5C14B10E16005B48BF /* swipe_down.png */,
+				0AF7DE5D14B10E16005B48BF /* swipe_left.png */,
+				0AF7DE5E14B10E16005B48BF /* swipe_right.png */,
+				0AF7DE5F14B10E16005B48BF /* swipe_up.png */,
+				0AF7DE6014B10E16005B48BF /* tap_and_hold.png */,
+				0AF7DE6114B10E16005B48BF /* tap.png */,
+				0AF7DE6214B10E16005B48BF /* two_finger_swipe_down.png */,
+				0AF7DE6314B10E16005B48BF /* two_finger_swipe_left.png */,
+				0AF7DE6414B10E16005B48BF /* two_finger_swipe_right.png */,
+				0AF7DE6514B10E16005B48BF /* two_finger_swipe_up.png */,
+				0AF7DE5914B10DB1005B48BF /* pinch.png */,
+			);
+			name = RemoteMode;
+			sourceTree = "<group>";
+		};
 		427A622513F4717C00C945E2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -1075,6 +1169,8 @@
 				0AC8260A148FED1E009FF975 /* FullscreenWebView.m */,
 				0AC8261E1490222E009FF975 /* LoginGradientView.h */,
 				0AC8261F1490222F009FF975 /* LoginGradientView.m */,
+				0AC0499214AFF17800FD6820 /* RemoteModeGradientView.h */,
+				0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1211,6 +1307,7 @@
 		42C4C55613E8A6AC0034AC97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0AF7DE5814B10D86005B48BF /* RemoteMode */,
 				0AC8261114900751009FF975 /* Common */,
 				0AC849661430356100FDF996 /* Login */,
 				0AC84968143036DC00FDF996 /* Logo */,
@@ -1249,6 +1346,8 @@
 				0AE04FB714896FBA00952C02 /* COPeoplePickerViewController.m */,
 				0A12933913DD0DBF009D254F /* VideoTableViewController.h */,
 				0A12933A13DD0DC0009D254F /* VideoTableViewController.m */,
+				0AF7DE7514B12B37005B48BF /* RemoteModeViewController.h */,
+				0AF7DE7614B12B37005B48BF /* RemoteModeViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1568,6 +1667,33 @@
 				0A05EF8514AEC89B0010BFFF /* SliderThumbLightGray_TV.png in Resources */,
 				0A05EF8614AEC89B0010BFFF /* SliderPurple_TV.png in Resources */,
 				0A05EF8714AEC89B0010BFFF /* SliderGray_TV.png in Resources */,
+				0AC0499014AFCD2000FD6820 /* remoteMode_iPad.png in Resources */,
+				0AF7DE5714AFF2A9005B48BF /* RemoteMode_iPad.xib in Resources */,
+				0AF7DE5A14B10DB1005B48BF /* pinch.png in Resources */,
+				0AF7DE6614B10E16005B48BF /* double_tap.png in Resources */,
+				0AF7DE6714B10E16005B48BF /* swipe_down.png in Resources */,
+				0AF7DE6814B10E16005B48BF /* swipe_left.png in Resources */,
+				0AF7DE6914B10E16005B48BF /* swipe_right.png in Resources */,
+				0AF7DE6A14B10E16005B48BF /* swipe_up.png in Resources */,
+				0AF7DE6B14B10E16005B48BF /* tap_and_hold.png in Resources */,
+				0AF7DE6C14B10E16005B48BF /* tap.png in Resources */,
+				0AF7DE6D14B10E16005B48BF /* two_finger_swipe_down.png in Resources */,
+				0AF7DE6E14B10E16005B48BF /* two_finger_swipe_left.png in Resources */,
+				0AF7DE6F14B10E16005B48BF /* two_finger_swipe_right.png in Resources */,
+				0AF7DE7014B10E16005B48BF /* two_finger_swipe_up.png in Resources */,
+				0AF7DE7214B10E4F005B48BF /* airplay.png in Resources */,
+				0AF7DE7414B10E7F005B48BF /* logoGray.png in Resources */,
+				0AF7DE8514B19171005B48BF /* double_tap_white.png in Resources */,
+				0AF7DE8614B19171005B48BF /* pinch_white.png in Resources */,
+				0AF7DE8714B19171005B48BF /* swipe_down_white.png in Resources */,
+				0AF7DE8814B19171005B48BF /* swipe_left_white.png in Resources */,
+				0AF7DE8914B19171005B48BF /* swipe_right_white.png in Resources */,
+				0AF7DE8A14B19171005B48BF /* swipe_up_white.png in Resources */,
+				0AF7DE8B14B19171005B48BF /* tap_white.png in Resources */,
+				0AF7DE8C14B19171005B48BF /* two_finger_swipe_down_white.png in Resources */,
+				0AF7DE8D14B19171005B48BF /* two_finger_swipe_left_white.png in Resources */,
+				0AF7DE8E14B19171005B48BF /* two_finger_swipe_right_white.png in Resources */,
+				0AF7DE8F14B19171005B48BF /* two_finger_swipe_up_white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1678,6 +1804,8 @@
 				0AC8262014902230009FF975 /* LoginGradientView.m in Sources */,
 				0A5C09A014980CB800C08F41 /* SessionStats.m in Sources */,
 				0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */,
+				0AC0499414AFF17800FD6820 /* RemoteModeGradientView.m in Sources */,
+				0AF7DE7814B12B37005B48BF /* RemoteModeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1772,6 +1900,14 @@
 				0AE0500F148D81BA00952C02 /* en */,
 			);
 			name = WatchLaterOnboardCell_iPad.xib;
+			sourceTree = "<group>";
+		};
+		0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AF7DE5614AFF2A9005B48BF /* en */,
+			);
+			name = RemoteMode_iPad.xib;
 			sourceTree = "<group>";
 		};
 		42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */ = {

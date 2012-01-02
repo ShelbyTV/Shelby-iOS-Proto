@@ -12,11 +12,12 @@
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
 #import "FullscreenWebView.h"
+#import "RemoteModeViewController.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewDelegate, RemoteModeDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -37,6 +38,8 @@
     IBOutlet UIImageView *userButton;
 
     ShareViewController *_shareView;
+    
+    RemoteModeViewController *_remoteModeView;
 
     BOOL _settingsSliding;
     BOOL _settingsVisible;
@@ -56,6 +59,7 @@
 }
 
 @property (nonatomic, retain) ShareViewController *shareView;
+
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL touched;
 

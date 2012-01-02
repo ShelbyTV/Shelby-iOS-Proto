@@ -430,5 +430,10 @@
     [videoTableData enableDemoMode];
 }
 
+- (NSInteger)currentVideoMode
+{
+    return videoMode;
+}
+
 
 @end

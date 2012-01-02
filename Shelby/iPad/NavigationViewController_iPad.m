@@ -109,7 +109,12 @@ static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - UI Callbacks
 
-- (IBAction)shelbyIconWasPanned:(id)sender {
+- (IBAction)shelbyIconWasPanned:(id)sender
+{
+    if ([[UIScreen screens] count] > 1) {
+        return;
+    }
+    
     UIPanGestureRecognizer *gestureRecognizer = (UIPanGestureRecognizer *) sender;
 
     CGPoint velocity = [gestureRecognizer velocityInView: _logoButton];
@@ -128,6 +133,10 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (IBAction)shelbyIconWasPressed:(id)sender {
     // Slide the tray in and out.
+    if ([[UIScreen screens] count] > 1) {
+        return;
+    }
+    
     [self toggleTray];
 }
 
@@ -152,9 +161,13 @@ static const float ANIMATION_TIME = 0.5f;
 
 #pragma mark - VideoPlayerDelegate Methods
 
-- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {
-   LOG(@"[NavigationViewController_iPad videoPlayerFullscreenButtonWasPressed]");
-
+- (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer
+{
+    if ([[UIScreen screens] count] > 1) {
+        _remoteModeView.view.hidden = FALSE;
+        return;
+    }
+    
    [self toggleTray];
    _fullscreen = !_fullscreen;
 }
