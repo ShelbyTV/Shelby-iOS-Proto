@@ -163,7 +163,7 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer
 {
-    if ([[UIScreen screens] count] > 1) {
+    if ([[UIScreen screens] count] > 1 && !_fullscreen) {
         _remoteModeView.view.hidden = FALSE;
         return;
     }
