@@ -1168,6 +1168,9 @@ static const float kNextPrevXOffset        =  0.0f;
         [_moviePlayer.view removeFromSuperview];
         _moviePlayer.view.frame = self.bounds;
         [self insertSubview: _moviePlayer.view aboveSubview:_bgView];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            [_controlBar showFullscreenExpandButtonIcon];
+        }
     }
 }
 
