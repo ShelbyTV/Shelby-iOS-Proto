@@ -498,10 +498,12 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)setFullscreen:(BOOL)fullscreen
 {
     _fullscreen = fullscreen;
-    if (fullscreen) {
-        [_controlBar showFullscreenContractButtonIcon];
-    } else {
-        [_controlBar showFullscreenExpandButtonIcon];
+    if ([[UIScreen screens] count] == 1) {
+        if (fullscreen) {
+            [_controlBar showFullscreenContractButtonIcon];
+        } else {
+            [_controlBar showFullscreenExpandButtonIcon];
+        }
     }
     if (_controlsVisible && fullscreen) {
         _nextButton.alpha = 1.0;

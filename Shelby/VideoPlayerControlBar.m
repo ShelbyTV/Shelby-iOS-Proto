@@ -86,6 +86,7 @@ static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
 
 - (void)showFullscreenExpandButtonIcon
 {
+    NSLog(@"showFullscreenExpandButtonIcon");
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
                            forState:UIControlStateNormal];
@@ -98,6 +99,8 @@ static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
 
 - (void)showFullscreenContractButtonIcon
 {
+    NSLog(@"showFullscreenContractButtonIcon");
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenContract_iPad"] 
                            forState:UIControlStateNormal];
@@ -109,6 +112,8 @@ static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
 
 - (void)showFullscreenRemoteModeButtonIcon
 {
+    NSLog(@"showFullscreenRemoteModeButtonIcon");
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [_fullscreenButton setImage:[UIImage imageNamed:@"remoteMode_iPad"] 
                            forState:UIControlStateNormal];
