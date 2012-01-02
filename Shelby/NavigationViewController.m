@@ -496,8 +496,8 @@
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     
     // check if we're a developer or beta build to see if we need to remove demo mode button
-    if (![(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] isEqualToString:@"X.X"] ||
-        [(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] rangeOfString:@"b"].location != NSNotFound) 
+    if (![(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] isEqualToString:@"X.X"] &&
+        [(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] rangeOfString:@"b"].location == NSNotFound) 
     {
         NSMutableArray *items = [[_settingsToolbar.items mutableCopy] autorelease];
         [items removeObject:_demoModeButton];
