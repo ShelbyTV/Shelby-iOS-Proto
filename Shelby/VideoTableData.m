@@ -284,6 +284,10 @@
 
 - (void)downloadSharerImage:(Video *)video
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSURLResponse *response = nil;
@@ -353,6 +357,10 @@
 
 - (void)downloadVideoThumbnail:(Video *)video
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSURLResponse *response = nil;
@@ -580,6 +588,23 @@
 
 - (void)checkPlayable:(Video *)video
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) 
+        {
+            @synchronized(tableVideos)
+            {
+                video.contentURL = [NSURL fileURLWithPath:path];
+                [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
+                videoTableNeedsUpdate = TRUE;
+            }
+        }
+        
+        return;
+    }
+    
     // check for a valid Vimeo ID (should be a single number) 
     if ([video.provider isEqualToString: @"vimeo"] &&
         [self checkVimeoMobileURL:video.providerId])

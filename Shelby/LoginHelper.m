@@ -457,6 +457,13 @@
         return;
     }
     
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcasts" 
+                                                            object:self 
+                                                          userInfo:nil];
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, self.channel.shelbyId]];
     LOG(@"Fetching broadcasts from: %@", url);
     

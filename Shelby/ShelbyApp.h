@@ -20,6 +20,8 @@
     NSInteger _networkCounter;
     NSMutableSet *_networkObjects;
     NSManagedObjectContext *context; // context for LoginHelper
+    
+    BOOL _demoModeEnabled;
 }
 
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;

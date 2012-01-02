@@ -290,6 +290,23 @@
     if (_settingsVisible) {
         [self toggleSettings];
     }
+    
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+         
+        NSError *error = nil;
+        NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[paths objectAtIndex:0] error:&error];
+        if (error == nil) {
+            for (NSString *path in directoryContents) {
+                if ([path hasPrefix:@"youtube"] || [path hasPrefix:@"vimeo"]) {
+                    NSString *fullPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:path];
+                    [[NSFileManager defaultManager] removeItemAtPath:fullPath error:&error];
+                }
+            }
+        } else {
+            // Error handling
+        }
+    }
     [[ShelbyApp sharedApp].loginHelper logout];
     _demoModeButton.title = @"Demo Mode";
     _demoModeButton.enabled = TRUE;
@@ -485,6 +502,11 @@
         NSMutableArray *items = [[_settingsToolbar.items mutableCopy] autorelease];
         [items removeObject:_demoModeButton];
         _settingsToolbar.items = items;
+    } else {
+        if ([ShelbyApp sharedApp].demoModeEnabled) {
+            _demoModeButton.title = @"Demo Mode On";
+            [self setDemoModeButtonDisabled];
+        }
     }
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];

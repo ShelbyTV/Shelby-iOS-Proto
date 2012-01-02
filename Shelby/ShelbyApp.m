@@ -23,7 +23,7 @@
 @synthesize loginHelper;
 @synthesize apiHelper;
 @synthesize navigationViewController;
-@synthesize demoModeEnabled;
+@synthesize demoModeEnabled = _demoModeEnabled;
 @synthesize safariUserAgent;
 
 #pragma mark - Singleton
@@ -79,6 +79,12 @@ static UIWindow *gSecondScreenWindow;
         [self addNetworkObject:self.loginHelper];
         [self addNetworkObject:self.apiHelper];
         [self addNetworkObject:[VideoGetter singleton]];
+        
+        if(![[NSUserDefaults standardUserDefaults] boolForKey:@"demoModeEnabled"]) {
+            _demoModeEnabled = FALSE;
+        } else {
+            _demoModeEnabled = TRUE;
+        }
     }
 
     return self;
@@ -137,6 +143,16 @@ static UIWindow *gSecondScreenWindow;
         [super observeValueForKeyPath:keyPath ofObject:object
                                change:change context:keyPathContext];
     }
+}
+
+#pragma mark - Demo Mode
+
+- (void)setDemoModeEnabled:(BOOL)demoModeEnabled
+{
+    _demoModeEnabled = demoModeEnabled;
+    
+    [[NSUserDefaults standardUserDefaults] setBool:demoModeEnabled forKey:@"demoModeEnabled"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
