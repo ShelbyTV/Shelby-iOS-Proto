@@ -13,8 +13,6 @@
   IBOutlet UIButton *_logoButton;
   BOOL _trayClosed;
   BOOL _traySliding;
-  // Are we in fullscreen mode?
-  BOOL _fullscreen;
   // The original (non-fullscreen) frame for the videoPlayer.
   CGRect _videoPlayerOriginal;
 }

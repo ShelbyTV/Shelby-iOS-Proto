@@ -53,6 +53,7 @@ static const float kNextPrevXOffset        =  0.0f;
 @synthesize tvTitleBar;
 @synthesize moviePlayer = _moviePlayer;
 @synthesize currentVideo = _currentVideo;
+@synthesize fullscreen = _fullscreen;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer 
        shouldReceiveTouch:(UITouch *)touch

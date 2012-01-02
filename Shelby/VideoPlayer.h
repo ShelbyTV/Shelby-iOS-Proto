@@ -84,6 +84,8 @@
 @property (nonatomic, retain) VideoPlayerTitleBar *tvTitleBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, readwrite, retain) Video *currentVideo;
+@property (nonatomic) BOOL fullscreen;
+
 
 - (void)setCurrentVideo:(Video *)currentVideo;
 - (Video *)getCurrentVideo;

@@ -673,6 +673,7 @@
 - (void) screenDidDisconnect:(NSNotification *)notification
 {
     [_videoPlayer screenDidDisconnect];
+    _remoteModeView.view.hidden = YES;
 }
 
 #pragma mark - RemoteModeDelegate
