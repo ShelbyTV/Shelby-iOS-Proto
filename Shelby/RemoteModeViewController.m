@@ -83,6 +83,23 @@ static const float kTapTime = 0.5f;
     return self;
 }
 
+- (void)flashPinchAndClose
+{
+    alreadyClosing = TRUE;
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        pinchWhite.alpha = 1.0;
+    }
+                     completion:^(BOOL finished){
+                         [UIView animateWithDuration:0.3 animations:^{
+                             pinchWhite.alpha = 0.0;
+                         }                      completion:^(BOOL finished){
+                             self.view.hidden = YES;
+                             alreadyClosing = FALSE;
+                         }];
+                     }];
+}
+
 - (void)flashImageView:(UIImageView *)imageView
 {
     [UIView animateWithDuration:0.1 animations:^{
@@ -102,8 +119,9 @@ static const float kTapTime = 0.5f;
 {
     NSLog(@"scale: %.2f velocity: %.2f", gestureRecognizer.scale, gestureRecognizer.velocity);
     
-    if (gestureRecognizer.scale < 0.5 && gestureRecognizer.velocity < -1.0) {
-        self.view.hidden = YES;
+    if (gestureRecognizer.scale < 0.5 && gestureRecognizer.velocity < -1.0 &&
+        !alreadyClosing) {
+        [self flashPinchAndClose];
     }
 }
 

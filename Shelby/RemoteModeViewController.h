@@ -53,6 +53,8 @@
     IBOutlet UIImageView *doubleSwipeDownWhite;
     IBOutlet UIImageView *tapWhite;
     IBOutlet UIImageView *doubleTapWhite;
+    
+    BOOL alreadyClosing;
 }
 
 @property (assign) id <RemoteModeDelegate> delegate;
