@@ -246,8 +246,12 @@ static const float kNextPrevXOffset        =  0.0f;
     rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     rightSwipeRecognizer.delaysTouchesBegan = YES;
     
+    pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+    pinchRecognizer.delaysTouchesBegan = NO;
+    
     [_gestureView addGestureRecognizer:leftSwipeRecognizer];
     [_gestureView addGestureRecognizer:rightSwipeRecognizer];
+    [_gestureView addGestureRecognizer:pinchRecognizer];
     
     [self addNotificationListeners];
     
@@ -538,7 +542,7 @@ static const float kNextPrevXOffset        =  0.0f;
     for (UITouch *touch in touches) {
         NSArray *array = touch.gestureRecognizers;
         for (UIGestureRecognizer *gesture in array) {
-            if (gesture.enabled && [gesture isMemberOfClass:[UIPinchGestureRecognizer class]]) {
+            if (gesture != pinchRecognizer && gesture.enabled && [gesture isMemberOfClass:[UIPinchGestureRecognizer class]]) {
                 gesture.enabled = NO;
             }
         }
@@ -1067,6 +1071,21 @@ static const float kNextPrevXOffset        =  0.0f;
     [super dealloc];
 }
 
+#pragma mark - Pinch Handling
+
+- (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    if ([[UIScreen screens] count] < 2)
+    {
+        return;
+    }
+    
+    if (gestureRecognizer.scale > 2 && gestureRecognizer.velocity > 1.0) {
+        if (self.delegate) {
+            [self.delegate videoPlayerShowRemoteView];
+        }
+    }
+}
 
 #pragma mark - Swipe Handling
 

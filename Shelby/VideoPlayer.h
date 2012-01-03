@@ -29,6 +29,7 @@
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer;
 - (void)updateVideoTableCell:(Video *)video;
 - (void)videoPlayerWasTouched;
+- (void)videoPlayerShowRemoteView;
 
 @end
 
@@ -55,6 +56,7 @@
     UIView *_gestureView;
     UISwipeGestureRecognizer *leftSwipeRecognizer;
     UISwipeGestureRecognizer *rightSwipeRecognizer;
+    UIPinchGestureRecognizer *pinchRecognizer;
     
     BOOL _fullscreen;
     BOOL _paused;

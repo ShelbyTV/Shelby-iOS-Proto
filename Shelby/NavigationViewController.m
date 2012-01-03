@@ -444,6 +444,11 @@
     [videoTable updateVideoTableCell:video];
 }
 
+- (void)videoPlayerShowRemoteView
+{
+    _remoteModeView.view.hidden = FALSE;
+}
+
 #pragma mark - Button Handling
 
 - (IBAction)listButtonPressed:(id)sender
