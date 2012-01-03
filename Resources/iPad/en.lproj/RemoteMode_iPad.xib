@@ -100,7 +100,7 @@
 								<string key="NSFrame">{{13, 0}, {203, 64}}</string>
 								<reference key="NSSuperview" ref="961487496"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="195805276"/>
+								<reference key="NSNextKeyView" ref="297713417"/>
 								<string key="NSReuseIdentifierKey">_NS:569</string>
 								<float key="IBUIAlpha">0.0</float>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -119,7 +119,7 @@
 								<string key="NSFrame">{{0, 72}, {228, 21}}</string>
 								<reference key="NSSuperview" ref="961487496"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="172882452"/>
+								<reference key="NSNextKeyView" ref="502447980"/>
 								<string key="NSReuseIdentifierKey">_NS:345</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -137,6 +137,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUITextAlignment">1</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="488991755">
 									<int key="type">1</int>
 									<double key="pointSize">17</double>
@@ -147,8 +148,64 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
+							<object class="IBUILabel" id="502447980">
+								<reference key="NSNextResponder" ref="961487496"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{320, 72}, {178, 21}}</string>
+								<reference key="NSSuperview" ref="961487496"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="172882452"/>
+								<string key="NSReuseIdentifierKey">_NS:345</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+									<integer value="320" key="IBUIAccessibilityTraits"/>
+								</object>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<string key="IBUIText">Spread To Share Video</string>
+								<reference key="IBUITextColor" ref="778289407"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUITextAlignment">1</int>
+								<reference key="IBUIFontDescription" ref="488991755"/>
+								<reference key="IBUIFont" ref="606679090"/>
+							</object>
+							<object class="IBUIImageView" id="297713417">
+								<reference key="NSNextResponder" ref="961487496"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{308, 0}, {203, 64}}</string>
+								<reference key="NSSuperview" ref="961487496"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="1012580692"/>
+								<string key="NSReuseIdentifierKey">_NS:569</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">spread.png</string>
+								</object>
+							</object>
+							<object class="IBUIImageView" id="1012580692">
+								<reference key="NSNextResponder" ref="961487496"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{308, 0}, {203, 64}}</string>
+								<reference key="NSSuperview" ref="961487496"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="195805276"/>
+								<string key="NSReuseIdentifierKey">_NS:569</string>
+								<float key="IBUIAlpha">0.0</float>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">spread_white.png</string>
+								</object>
+							</object>
 						</array>
-						<string key="NSFrame">{{40, 40}, {228, 93}}</string>
+						<string key="NSFrame">{{40, 40}, {511, 93}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="775329503"/>
@@ -442,7 +499,7 @@
 								<reference key="IBUIFont" ref="606679090"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{40, 299}, {385, 333}}</string>
+						<string key="NSFrame">{{40, 321}, {385, 333}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="977737154"/>
@@ -734,7 +791,7 @@
 								<reference key="IBUIFont" ref="606679090"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{355, 90}, {649, 307}}</string>
+						<string key="NSFrame">{{355, 134}, {649, 307}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="495404431"/>
@@ -876,7 +933,7 @@
 								<reference key="IBUIFont" ref="606679090"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{687, 466}, {248, 178}}</string>
+						<string key="NSFrame">{{687, 486}, {248, 178}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="882564534"/>
@@ -1001,6 +1058,14 @@
 					</object>
 					<int key="connectionID">57</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">spreadWhite</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1012580692"/>
+					</object>
+					<int key="connectionID">62</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1018,8 +1083,8 @@
 							<reference ref="671065660"/>
 							<reference ref="961487496"/>
 							<reference ref="172882452"/>
-							<reference ref="109942636"/>
 							<reference ref="426933866"/>
+							<reference ref="109942636"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1051,6 +1116,9 @@
 							<reference ref="195805276"/>
 							<reference ref="775329503"/>
 							<reference ref="771366830"/>
+							<reference ref="297713417"/>
+							<reference ref="502447980"/>
+							<reference ref="1012580692"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1201,9 +1269,9 @@
 							<reference ref="165639929"/>
 							<reference ref="882564534"/>
 							<reference ref="261282301"/>
-							<reference ref="91104053"/>
 							<reference ref="261005874"/>
 							<reference ref="366032748"/>
+							<reference ref="91104053"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1282,6 +1350,21 @@
 						<reference key="object" ref="366032748"/>
 						<reference key="parent" ref="426933866"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">58</int>
+						<reference key="object" ref="297713417"/>
+						<reference key="parent" ref="961487496"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">59</int>
+						<reference key="object" ref="502447980"/>
+						<reference key="parent" ref="961487496"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">60</int>
+						<reference key="object" ref="1012580692"/>
+						<reference key="parent" ref="961487496"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1328,7 +1411,10 @@
 				<string key="52.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="59.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="60.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1337,7 +1423,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">57</int>
+			<int key="maxID">62</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1359,6 +1445,7 @@
 						<string key="doubleSwipeUpWhite">UIImageView</string>
 						<string key="doubleTapWhite">UIImageView</string>
 						<string key="pinchWhite">UIImageView</string>
+						<string key="spreadWhite">UIImageView</string>
 						<string key="swipeDownWhite">UIImageView</string>
 						<string key="swipeLeftWhite">UIImageView</string>
 						<string key="swipeRightWhite">UIImageView</string>
@@ -1388,6 +1475,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="pinchWhite">
 							<string key="name">pinchWhite</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="spreadWhite">
+							<string key="name">spreadWhite</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="swipeDownWhite">
@@ -1429,6 +1520,8 @@
 			<string key="logoGray.png">{232, 58}</string>
 			<string key="pinch.png">{203, 64}</string>
 			<string key="pinch_white.png">{203, 64}</string>
+			<string key="spread.png">{203, 64}</string>
+			<string key="spread_white.png">{203, 64}</string>
 			<string key="swipe_down.png">{64, 96}</string>
 			<string key="swipe_down_white.png">{64, 96}</string>
 			<string key="swipe_left.png">{96, 64}</string>

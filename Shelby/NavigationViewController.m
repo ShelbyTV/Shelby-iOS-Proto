@@ -92,6 +92,7 @@
             _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPad" bundle:nil];
             _remoteModeView.view.hidden = YES;
             _remoteModeView.delegate = self;
+            [self.view addSubview:_remoteModeView.view];
         } else {
             shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPhone" bundle:nil] autorelease];
         }
@@ -110,9 +111,7 @@
         [_fullscreenWebView setDelegate:self];
         [self.view addSubview:_fullscreenWebView];
          
-         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-             [self.view addSubview:_remoteModeView.view];
-         }
+
     }
     return self;
 }
@@ -747,6 +746,11 @@
     } else {
         [_videoPlayer pause];
     }
+}
+
+- (void)remoteModeShowSharing
+{
+    [self videoPlayerShareButtonWasPressed:_videoPlayer];
 }
 
 @end

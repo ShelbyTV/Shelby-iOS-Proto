@@ -85,7 +85,7 @@ static const float kTapTime = 0.5f;
 
 - (void)flashPinchAndClose
 {
-    alreadyClosing = TRUE;
+    alreadyPinching = TRUE;
     
     [UIView animateWithDuration:0.1 animations:^{
         pinchWhite.alpha = 1.0;
@@ -95,7 +95,26 @@ static const float kTapTime = 0.5f;
                              pinchWhite.alpha = 0.0;
                          }                      completion:^(BOOL finished){
                              self.view.hidden = YES;
-                             alreadyClosing = FALSE;
+                             alreadyPinching = FALSE;
+                         }];
+                     }];
+}
+
+- (void)flashSpreadAndShowSharing
+{
+    alreadySpreading = TRUE;
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        spreadWhite.alpha = 1.0;
+    }
+                     completion:^(BOOL finished){
+                         [UIView animateWithDuration:0.3 animations:^{
+                             spreadWhite.alpha = 0.0;
+                         }                      completion:^(BOOL finished){
+                             if (delegate) {
+                                 [delegate remoteModeShowSharing];
+                             }
+                             alreadySpreading = FALSE;
                          }];
                      }];
 }
@@ -117,11 +136,13 @@ static const float kTapTime = 0.5f;
 
 - (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"scale: %.2f velocity: %.2f", gestureRecognizer.scale, gestureRecognizer.velocity);
+    //NSLog(@"scale: %.2f velocity: %.2f", gestureRecognizer.scale, gestureRecognizer.velocity);
     
     if (gestureRecognizer.scale < 0.5 && gestureRecognizer.velocity < -1.0 &&
-        !alreadyClosing) {
+        !alreadyPinching) {
         [self flashPinchAndClose];
+    } else if (gestureRecognizer.scale > 2 && gestureRecognizer.velocity > 1.0 && !alreadySpreading) {
+        [self flashSpreadAndShowSharing];
     }
 }
 

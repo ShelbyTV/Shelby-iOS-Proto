@@ -21,6 +21,7 @@
 - (void)remoteModeShowInfo;
 - (void)remoteModeHideInfo;
 - (void)remoteModeTogglePlayPause;
+- (void)remoteModeShowSharing;
 
 @end
 
@@ -43,6 +44,7 @@
     double _lastTouchesBegan;
     
     IBOutlet UIImageView *pinchWhite;
+    IBOutlet UIImageView *spreadWhite;
     IBOutlet UIImageView *swipeUpWhite;
     IBOutlet UIImageView *swipeLeftWhite;
     IBOutlet UIImageView *swipeRightWhite;
@@ -54,7 +56,8 @@
     IBOutlet UIImageView *tapWhite;
     IBOutlet UIImageView *doubleTapWhite;
     
-    BOOL alreadyClosing;
+    BOOL alreadyPinching;
+    BOOL alreadySpreading;
 }
 
 @property (assign) id <RemoteModeDelegate> delegate;
