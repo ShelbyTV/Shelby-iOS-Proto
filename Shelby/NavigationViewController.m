@@ -95,6 +95,10 @@
             [self.view addSubview:_remoteModeView.view];
         } else {
             shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPhone" bundle:nil] autorelease];
+            _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPhone" bundle:nil];
+            _remoteModeView.view.hidden = YES;
+            _remoteModeView.delegate = self;
+            [self.view addSubview:_remoteModeView.view];
         }
         shareView.delegate = self;
         [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];

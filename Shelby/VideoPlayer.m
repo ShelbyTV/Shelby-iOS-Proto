@@ -1163,7 +1163,7 @@ static const float kNextPrevXOffset        =  0.0f;
             [secondScreenWindow addSubview:_tvControlBar];
         }
         
-        if (_fullscreen) {
+        if (_fullscreen && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [self controlBarFullscreenButtonWasPressed:_controlBar];
         }
         
