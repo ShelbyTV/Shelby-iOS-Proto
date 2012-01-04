@@ -461,6 +461,7 @@
     [watchLaterButton setSelected:NO];
     [listButton setSelected:YES];
     [videoTable changeVideoMode:0];
+    [_videoPlayer setVideoMode:0];
 }
 
 - (IBAction)favoritesButtonPressed:(id)sender
@@ -469,6 +470,7 @@
     [watchLaterButton setSelected:NO];
     [favoritesButton setSelected:YES];
     [videoTable changeVideoMode:1];
+    [_videoPlayer setVideoMode:1];
 }
 
 - (IBAction)watchLaterButtonPressed:(id)sender
@@ -477,6 +479,7 @@
     [favoritesButton setSelected:NO];
     [watchLaterButton setSelected:YES];
     [videoTable changeVideoMode:2];
+    [_videoPlayer setVideoMode:2];
 }
 
 #pragma mark - View lifecycle
@@ -760,6 +763,24 @@
 - (void)remoteModeShowSharing
 {
     [self videoPlayerShareButtonWasPressed:_videoPlayer];
+}
+
+- (int)videoPlayerGetCurrentMode
+{
+    if (listButton.selected) {
+        return 0;
+    }
+    
+    if (favoritesButton.selected) {
+        return 1;
+    }
+    
+    if (watchLaterButton.selected) {
+        return 2;
+    }
+    
+    // should hopefully never get here
+    return 0;
 }
 
 @end

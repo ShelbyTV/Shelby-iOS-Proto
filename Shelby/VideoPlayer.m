@@ -255,6 +255,8 @@ static const float kNextPrevXOffset        =  0.0f;
     
     [self addNotificationListeners];
     
+    [self setVideoMode:0];
+
     _initialized = TRUE;
     
     if ([[UIScreen screens] count] > 1)
@@ -361,7 +363,7 @@ static const float kNextPrevXOffset        =  0.0f;
         
         CGFloat textOriginX = 170;
         CGFloat textOriginY = 85;
-        CGFloat textRightBorder = 30;
+        CGFloat textRightBorder = 180; // leaves space for channel icon
         CGFloat maxTextHeight = 65;
         CGFloat maxTextWidth = self.tvTitleBar.frame.size.width - textOriginX - textRightBorder;
         
@@ -1145,6 +1147,7 @@ static const float kNextPrevXOffset        =  0.0f;
             self.tvTitleBar.title.text = self.titleBar.title.text;
             self.tvTitleBar.comment.text = self.titleBar.comment.text;
             self.tvTitleBar.sharerPic.image = self.titleBar.sharerPic.image;
+            [self setVideoMode:[delegate videoPlayerGetCurrentMode]];
             
             [_controls addObject:self.tvTitleBar];
             [secondScreenWindow addSubview:self.tvTitleBar];
@@ -1212,6 +1215,19 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     if (!_paused) {
         [self hideControls];
+    }
+}
+
+- (void)setVideoMode:(int)mode
+{
+    if (NOT_NULL(tvTitleBar)) {
+        if (mode == 0) {
+            tvTitleBar.channelPic.image = [UIImage imageNamed:@"timelineChannel"];
+        } else if (mode == 1) {
+            tvTitleBar.channelPic.image = [UIImage imageNamed:@"favoritesChannel"];
+        } else if (mode == 2) {
+            tvTitleBar.channelPic.image = [UIImage imageNamed:@"watchLaterChannel"];
+        }
     }
 }
 

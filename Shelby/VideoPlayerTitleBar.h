@@ -19,4 +19,6 @@
 @property(nonatomic, retain) IBOutlet UILabel *comment;
 @property(nonatomic, retain) IBOutlet UIImageView *sharerPic;
 
+@property(nonatomic, retain) IBOutlet UIImageView *channelPic;
+
 @end

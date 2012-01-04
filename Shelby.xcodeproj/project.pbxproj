@@ -174,6 +174,9 @@
 		0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */; };
 		0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib */; };
 		0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoGetter.m */; };
+		0AF4F24814B4240F00C9DC2D /* favoritesChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */; };
+		0AF4F24B14B4243400C9DC2D /* watchLaterChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */; };
+		0AF4F24D14B4243C00C9DC2D /* timelineChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */; };
 		0AF7DE5714AFF2A9005B48BF /* RemoteMode_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */; };
 		0AF7DE5A14B10DB1005B48BF /* pinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5914B10DB1005B48BF /* pinch.png */; };
 		0AF7DE6614B10E16005B48BF /* double_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5B14B10E16005B48BF /* double_tap.png */; };
@@ -499,6 +502,9 @@
 		0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VideoPlayerTitleBar_TV.xib; path = Resources/TV/VideoPlayerTitleBar_TV.xib; sourceTree = "<group>"; };
 		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0AEFC39B144FD65D00FC9015 /* VideoGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favoritesChannel.png; path = Resources/Images/favoritesChannel.png; sourceTree = "<group>"; };
+		0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watchLaterChannel.png; path = Resources/Images/watchLaterChannel.png; sourceTree = "<group>"; };
+		0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timelineChannel.png; path = Resources/Images/timelineChannel.png; sourceTree = "<group>"; };
 		0AF7DE5614AFF2A9005B48BF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/RemoteMode_iPad.xib; sourceTree = SOURCE_ROOT; };
 		0AF7DE5914B10DB1005B48BF /* pinch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinch.png; sourceTree = "<group>"; };
 		0AF7DE5B14B10E16005B48BF /* double_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = double_tap.png; sourceTree = "<group>"; };
@@ -708,6 +714,9 @@
 				0A05EF8214AEC89B0010BFFF /* SliderThumbLightGray_TV.png */,
 				0A05EF8314AEC89B0010BFFF /* SliderPurple_TV.png */,
 				0A05EF8414AEC89B0010BFFF /* SliderGray_TV.png */,
+				0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */,
+				0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */,
+				0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */,
 				0A05EF7A14AE8B4D0010BFFF /* likeOff_TV.png */,
 				0A05EF7B14AE8B4D0010BFFF /* likeOn_TV.png */,
 				0A05EF7C14AE8B4D0010BFFF /* watchLaterOff_TV.png */,
@@ -1706,6 +1715,9 @@
 				0AF7DEA114B3A41C005B48BF /* spread.png in Resources */,
 				0AF7DEA414B3A431005B48BF /* spread_white.png in Resources */,
 				0AF7DEA614B3B34C005B48BF /* RemoteMode_iPhone.xib in Resources */,
+				0AF4F24814B4240F00C9DC2D /* favoritesChannel.png in Resources */,
+				0AF4F24B14B4243400C9DC2D /* watchLaterChannel.png in Resources */,
+				0AF4F24D14B4243C00C9DC2D /* timelineChannel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

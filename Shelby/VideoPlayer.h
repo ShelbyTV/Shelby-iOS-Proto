@@ -30,6 +30,7 @@
 - (void)updateVideoTableCell:(Video *)video;
 - (void)videoPlayerWasTouched;
 - (void)videoPlayerShowRemoteView;
+- (int)videoPlayerGetCurrentMode;
 
 @end
 
@@ -112,5 +113,7 @@
 
 - (void)screenDidConnect;
 - (void)screenDidDisconnect;
+
+- (void)setVideoMode:(int)mode;
 
 @end
