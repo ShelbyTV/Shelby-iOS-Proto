@@ -1148,7 +1148,10 @@ static const float kNextPrevXOffset        =  0.0f;
     if ([[UIScreen screens] count] > 1)
     {
         UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
-        secondScreen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
+        
+        if ([secondScreen respondsToSelector:@selector(setOverscanCompensation:)]) {
+            secondScreen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
+        }
         
         UIWindow *secondScreenWindow = [ShelbyApp secondScreenWindow];
         secondScreenWindow.frame = secondScreen.bounds;
