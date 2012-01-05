@@ -1148,9 +1148,13 @@ static const float kNextPrevXOffset        =  0.0f;
     if ([[UIScreen screens] count] > 1)
     {
         UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        secondScreen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
         
         UIWindow *secondScreenWindow = [ShelbyApp secondScreenWindow];
         secondScreenWindow.frame = secondScreen.bounds;
+        
+        NSLog(@"secondScreen.bounds: width: %f height: %f", secondScreen.bounds.size.width,
+              secondScreen.bounds.size.height);
         
         if (IS_NULL(self.tvTitleBar)) {
             self.tvTitleBar = [VideoPlayerTitleBar titleBarFromTVNib];

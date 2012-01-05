@@ -461,10 +461,27 @@
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
-    if ([ShelbyApp sharedApp].demoModeEnabled &&
-        ((Video *)[dupeArray objectAtIndex:0]).contentURL == nil) 
-    {
-        return FALSE;
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        BOOL videoHasContentURL = FALSE;
+        NSURL *dupeContentURL = nil;
+        for (Video *video in dupeArray) {
+            if (video.contentURL != nil) {
+                videoHasContentURL = TRUE;
+                dupeContentURL = video.contentURL;
+                break;
+            }
+        }
+        
+        if (videoHasContentURL) {
+            for (Video *video in dupeArray) {
+                video.contentURL = dupeContentURL;
+            }
+            
+            return TRUE;
+            
+        } else {
+            return FALSE;
+        }
     }
     
     
