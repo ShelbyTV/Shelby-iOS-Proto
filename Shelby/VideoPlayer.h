@@ -68,6 +68,8 @@
     VideoPlayerControlBar *_controlBar;
     VideoPlayerControlBar *_tvControlBar;
     
+    UIImageView *_tvPaused;
+    
     MPMoviePlayerController *_moviePlayer;
 
     NSMutableArray *_controls;

@@ -753,11 +753,7 @@
 
 - (void)remoteModeTogglePlayPause
 {
-    if (![self isVideoPlaying]) {
-        [_videoPlayer play];
-    } else {
-        [_videoPlayer pause];
-    }
+    [_videoPlayer controlBarPlayButtonWasPressed:nil];
 }
 
 - (void)remoteModeShowSharing

@@ -832,6 +832,10 @@ static const float kNextPrevXOffset        =  0.0f;
     } else {
         [self play];
     }
+    
+    if (NOT_NULL(_tvPaused)) {
+        _tvPaused.hidden = !_paused;
+    }
 }
 
 /*
@@ -1164,6 +1168,15 @@ static const float kNextPrevXOffset        =  0.0f;
             
             [_controls addObject:_tvControlBar];
             [secondScreenWindow addSubview:_tvControlBar];
+        }
+        
+        if (IS_NULL(_tvPaused)) {
+            _tvPaused = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV"]] retain];
+            _tvPaused.frame = CGRectMake((secondScreen.bounds.size.width - 600) / 2.0, 
+                                         ((secondScreen.bounds.size.height - 150) / 2.0) + 20,
+                                         600, 150);
+            _tvPaused.hidden = !_paused;
+            [secondScreenWindow addSubview:_tvPaused];
         }
         
         if (_fullscreen && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

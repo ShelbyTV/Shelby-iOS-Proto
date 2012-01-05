@@ -22,7 +22,7 @@ static const float kTapTime = 0.5f;
     if (self) {
         
         pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
-        pinchRecognizer.delaysTouchesBegan = NO;
+        pinchRecognizer.delaysTouchesBegan = YES;
         
         leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
         leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -63,7 +63,8 @@ static const float kTapTime = 0.5f;
 
         
         doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
-        doubleTapRecognizer.numberOfTapsRequired = 2;
+        doubleTapRecognizer.numberOfTapsRequired = 1;
+        doubleTapRecognizer.numberOfTouchesRequired = 2;
         doubleTapRecognizer.delaysTouchesBegan = NO;
                 
         [self.view addGestureRecognizer:pinchRecognizer];

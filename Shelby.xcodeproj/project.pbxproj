@@ -177,6 +177,9 @@
 		0AF4F24814B4240F00C9DC2D /* favoritesChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */; };
 		0AF4F24B14B4243400C9DC2D /* watchLaterChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */; };
 		0AF4F24D14B4243C00C9DC2D /* timelineChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */; };
+		0AF4F25514B4E26C00C9DC2D /* two_finger_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F25414B4E26C00C9DC2D /* two_finger_tap.png */; };
+		0AF4F25814B4E28800C9DC2D /* two_finger_tap_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F25714B4E28800C9DC2D /* two_finger_tap_white.png */; };
+		0AF4F25A14B50DCD00C9DC2D /* paused_TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F25914B50DCD00C9DC2D /* paused_TV.png */; };
 		0AF7DE5714AFF2A9005B48BF /* RemoteMode_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */; };
 		0AF7DE5A14B10DB1005B48BF /* pinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5914B10DB1005B48BF /* pinch.png */; };
 		0AF7DE6614B10E16005B48BF /* double_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7DE5B14B10E16005B48BF /* double_tap.png */; };
@@ -505,6 +508,9 @@
 		0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favoritesChannel.png; path = Resources/Images/favoritesChannel.png; sourceTree = "<group>"; };
 		0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watchLaterChannel.png; path = Resources/Images/watchLaterChannel.png; sourceTree = "<group>"; };
 		0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timelineChannel.png; path = Resources/Images/timelineChannel.png; sourceTree = "<group>"; };
+		0AF4F25414B4E26C00C9DC2D /* two_finger_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_tap.png; sourceTree = "<group>"; };
+		0AF4F25714B4E28800C9DC2D /* two_finger_tap_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_finger_tap_white.png; sourceTree = "<group>"; };
+		0AF4F25914B50DCD00C9DC2D /* paused_TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paused_TV.png; path = Resources/Images/paused_TV.png; sourceTree = "<group>"; };
 		0AF7DE5614AFF2A9005B48BF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/RemoteMode_iPad.xib; sourceTree = SOURCE_ROOT; };
 		0AF7DE5914B10DB1005B48BF /* pinch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinch.png; sourceTree = "<group>"; };
 		0AF7DE5B14B10E16005B48BF /* double_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = double_tap.png; sourceTree = "<group>"; };
@@ -711,6 +717,7 @@
 		0A05EF7914AE8B2F0010BFFF /* TV */ = {
 			isa = PBXGroup;
 			children = (
+				0AF4F25914B50DCD00C9DC2D /* paused_TV.png */,
 				0A05EF8214AEC89B0010BFFF /* SliderThumbLightGray_TV.png */,
 				0A05EF8314AEC89B0010BFFF /* SliderPurple_TV.png */,
 				0A05EF8414AEC89B0010BFFF /* SliderGray_TV.png */,
@@ -1129,6 +1136,8 @@
 				0AF7DE8214B1916F005B48BF /* two_finger_swipe_left_white.png */,
 				0AF7DE8314B19170005B48BF /* two_finger_swipe_right_white.png */,
 				0AF7DE8414B19170005B48BF /* two_finger_swipe_up_white.png */,
+				0AF4F25414B4E26C00C9DC2D /* two_finger_tap.png */,
+				0AF4F25714B4E28800C9DC2D /* two_finger_tap_white.png */,
 				0AF7DE7114B10E4F005B48BF /* airplay.png */,
 				0AF7DEA314B3A431005B48BF /* spread_white.png */,
 				0AF7DEA014B3A41C005B48BF /* spread.png */,
@@ -1718,6 +1727,9 @@
 				0AF4F24814B4240F00C9DC2D /* favoritesChannel.png in Resources */,
 				0AF4F24B14B4243400C9DC2D /* watchLaterChannel.png in Resources */,
 				0AF4F24D14B4243C00C9DC2D /* timelineChannel.png in Resources */,
+				0AF4F25514B4E26C00C9DC2D /* two_finger_tap.png in Resources */,
+				0AF4F25814B4E28800C9DC2D /* two_finger_tap_white.png in Resources */,
+				0AF4F25A14B50DCD00C9DC2D /* paused_TV.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

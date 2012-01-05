@@ -60,6 +60,7 @@
 						<string key="NSFrame">{{901, 679}, {93, 69}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:569</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -808,7 +809,7 @@
 							<object class="IBUIImageView" id="882564534">
 								<reference key="NSNextResponder" ref="426933866"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{64, 64}</string>
+								<string key="NSFrame">{{60, 0}, {64, 64}}</string>
 								<reference key="NSSuperview" ref="426933866"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="261005874"/>
@@ -826,7 +827,7 @@
 							<object class="IBUIImageView" id="261005874">
 								<reference key="NSNextResponder" ref="426933866"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{64, 64}</string>
+								<string key="NSFrame">{{60, 0}, {64, 64}}</string>
 								<reference key="NSSuperview" ref="426933866"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="91104053"/>
@@ -845,7 +846,7 @@
 							<object class="IBUIImageView" id="165639929">
 								<reference key="NSNextResponder" ref="426933866"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 105}, {64, 73}}</string>
+								<string key="NSFrame">{{0, 105}, {124, 64}}</string>
 								<reference key="NSSuperview" ref="426933866"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="366032748"/>
@@ -857,13 +858,13 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">double_tap.png</string>
+									<string key="NSResourceName">two_finger_tap.png</string>
 								</object>
 							</object>
 							<object class="IBUIImageView" id="366032748">
 								<reference key="NSNextResponder" ref="426933866"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 105}, {64, 73}}</string>
+								<string key="NSFrame">{{0, 105}, {124, 64}}</string>
 								<reference key="NSSuperview" ref="426933866"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="261282301"/>
@@ -876,13 +877,13 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">double_tap_white.png</string>
+									<string key="NSResourceName">two_finger_tap_white.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="91104053">
 								<reference key="NSNextResponder" ref="426933866"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{96, 10}, {145, 43}}</string>
+								<string key="NSFrame">{{156, 10}, {145, 43}}</string>
 								<reference key="NSSuperview" ref="426933866"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="165639929"/>
@@ -908,7 +909,7 @@
 							<object class="IBUILabel" id="261282301">
 								<reference key="NSNextResponder" ref="426933866"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{89, 120}, {159, 43}}</string>
+								<string key="NSFrame">{{149, 120}, {159, 43}}</string>
 								<reference key="NSSuperview" ref="426933866"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1054245967"/>
@@ -921,7 +922,7 @@
 									<integer value="320" key="IBUIAccessibilityTraits"/>
 								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<string type="base64-UTF8" key="IBUIText">RG91YmxlIFRhcApUbyBQbGF5L1BhdXNlIFZpZGVvA</string>
+								<string type="base64-UTF8" key="IBUIText">MiBGaW5nZXIgVGFwClRvIFBsYXkvUGF1c2UgVmlkZW8</string>
 								<reference key="IBUITextColor" ref="778289407"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -932,7 +933,7 @@
 								<reference key="IBUIFont" ref="606679090"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{687, 486}, {248, 178}}</string>
+						<string key="NSFrame">{{627, 486}, {308, 178}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="882564534"/>
@@ -1514,8 +1515,6 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="airplay.png">{93, 69}</string>
-			<string key="double_tap.png">{64, 73}</string>
-			<string key="double_tap_white.png">{64, 73}</string>
 			<string key="logoGray.png">{232, 58}</string>
 			<string key="pinch.png">{203, 64}</string>
 			<string key="pinch_white.png">{203, 64}</string>
@@ -1539,6 +1538,8 @@
 			<string key="two_finger_swipe_right_white.png">{156, 64}</string>
 			<string key="two_finger_swipe_up.png">{124, 96}</string>
 			<string key="two_finger_swipe_up_white.png">{124, 96}</string>
+			<string key="two_finger_tap.png">{124, 64}</string>
+			<string key="two_finger_tap_white.png">{124, 64}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
