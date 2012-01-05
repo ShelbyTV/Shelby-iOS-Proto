@@ -536,7 +536,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)resumeAfterCloseShareView
 {
-    if (_wasPlayingBeforeShare) {
+    if (_wasPlayingBeforeShare && [[UIScreen screens] count] == 1) {
         [self play];
     }
 }
@@ -849,8 +849,11 @@ static const float kNextPrevXOffset        =  0.0f;
     [self recordButtonPressOrControlsVisible:YES];
 
     // Inform our delegate
-    _wasPlayingBeforeShare = !_paused;
-    [self pause];
+    if ([[UIScreen screens] count] == 1) {
+        _wasPlayingBeforeShare = !_paused;
+        [self pause];
+    }
+    
     if (self.delegate) {
         [self.delegate videoPlayerShareButtonWasPressed: self];
     }

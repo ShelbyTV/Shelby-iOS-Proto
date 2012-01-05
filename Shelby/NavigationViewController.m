@@ -316,8 +316,11 @@
 }
 
 - (void)showWebPage:(NSString *)urlString
-{    
-    [_videoPlayer pause];
+{   
+    if ([[UIScreen screens] count] == 1) {
+        [_videoPlayer pause];
+    }
+    
     [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                              cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                          timeoutInterval:60.0]];
@@ -691,26 +694,35 @@
 
 - (void)remoteModePreviousVideo
 {
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
     [self videoPlayerPrevButtonWasPressed:_videoPlayer];
 }
 
 - (void)remoteModeNextVideo
 {
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
     [self videoPlayerNextButtonWasPressed:_videoPlayer];
 }
 
 - (void)remoteModeLikeVideo
 {
+    [_videoPlayer drawControls];
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
     [self videoPlayerLikeButtonWasPressed:_videoPlayer];
 }
 
 - (void)remoteModeWatchLaterVideo
 {
+    [_videoPlayer drawControls];
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
     [self videoPlayerWatchLaterButtonWasPressed:_videoPlayer];
 }
 
 - (void)remoteModeNextChannel
 {
+    [_videoPlayer drawControls];
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
+
     if ([videoTable currentVideoMode] == 0) {
         [self favoritesButtonPressed:self];
     } else if ([videoTable currentVideoMode] == 1) {
@@ -721,7 +733,10 @@
 }
 
 - (void)remoteModePreviousChannel
-{
+{    
+    [_videoPlayer drawControls];
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
+
     if ([videoTable currentVideoMode] == 0) {
         [self watchLaterButtonPressed:self];
     } else if ([videoTable currentVideoMode] == 1) {
@@ -733,16 +748,24 @@
 
 - (void)remoteModeScanForward
 {
+    [_videoPlayer drawControls];
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
+
     [_videoPlayer scanForward];
 }
 
 - (void)remoteModeScanBackward
 {
+    [_videoPlayer drawControls];
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
+
     [_videoPlayer scanBackward];
 }
 
 - (void)remoteModeShowInfo
 {
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
+
     [_videoPlayer drawControls];
 }
 
@@ -753,6 +776,8 @@
 
 - (void)remoteModeTogglePlayPause
 {
+    [_videoPlayer recordButtonPressOrControlsVisible:YES];
+
     [_videoPlayer controlBarPlayButtonWasPressed:nil];
 }
 
