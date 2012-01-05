@@ -484,6 +484,9 @@ static const float kNextPrevXOffset        =  0.0f;
     [_controlBar showPauseButtonIcon];
     [_moviePlayer play];
     _paused = FALSE;
+    if (NOT_NULL(_tvPaused)) {
+        _tvPaused.hidden = !_paused;
+    }
 }
 
 - (void)pause 
