@@ -708,14 +708,14 @@
 {
     [_videoPlayer drawControls];
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
-    [self videoPlayerLikeButtonWasPressed:_videoPlayer];
+    [_videoPlayer controlBarFavoriteButtonWasPressed:nil];
 }
 
 - (void)remoteModeWatchLaterVideo
 {
     [_videoPlayer drawControls];
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
-    [self videoPlayerWatchLaterButtonWasPressed:_videoPlayer];
+    [_videoPlayer controlBarWatchLaterButtonWasPressed:nil];
 }
 
 - (void)remoteModeNextChannel
