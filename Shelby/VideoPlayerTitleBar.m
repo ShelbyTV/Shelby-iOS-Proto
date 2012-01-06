@@ -19,11 +19,18 @@
 
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerTitleBar_iPhone";
 static NSString *IPAD_NIB_NAME = @"VideoPlayerTitleBar_iPad";
-static NSString *TV_NIB_NAME = @"VideoPlayerTitleBar_TV";
+static NSString *TV_NIB_NAME_720 = @"VideoPlayerTitleBar_TV_720";
+static NSString *TV_NIB_NAME_1080 = @"VideoPlayerTitleBar_TV_1080";
 
-+ (VideoPlayerTitleBar *)titleBarFromTVNib 
++ (VideoPlayerTitleBar *)titleBarFromTVNib:(CGRect)screenBounds
 {
-    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME owner:self options:nil];
+    NSArray *objects;
+    
+    if (screenBounds.size.height == 1080) {
+        objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME_1080 owner:self options:nil];
+    } else {
+        objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME_720 owner:self options:nil];
+    }
     
     return [objects objectAtIndex:0];
 }

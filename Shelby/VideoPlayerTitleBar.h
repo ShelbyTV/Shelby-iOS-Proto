@@ -12,7 +12,7 @@
 @interface VideoPlayerTitleBar : UIView {
 }
 
-+ (VideoPlayerTitleBar *)titleBarFromTVNib;
++ (VideoPlayerTitleBar *)titleBarFromTVNib:(CGRect)screenBounds;
 + (VideoPlayerTitleBar *)titleBarFromNib;
 
 @property(nonatomic, retain) IBOutlet UILabel *title;

@@ -191,24 +191,47 @@ static const float kProgressUpdateBuffer = 1.0f;
 
 - (void)adjustForTV
 {
-    UIImage *stetchLeftTrack = [[UIImage imageNamed:@"SliderPurple_TV.png"]
-                                stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
-    UIImage *stetchRightTrack = [[UIImage imageNamed:@"SliderGray_TV.png"]
-                                 stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
-    [_slider setThumbImage: [UIImage imageNamed:@"SliderThumbLightGray_TV.png"] forState:UIControlStateNormal];
-    [_slider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
-    [_slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
+    UIImage *stretchLeftTrack;
+    UIImage *stretchRightTrack;
+    UIImage *thumbImage;
+
+    CGRect tempFrame = self.bounds;
     
-    _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 30.0];
+    if ([[UIScreen screens] count] > 1) {
+        
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
+        
+        if (secondScreen.bounds.size.height == 1080) {
+            stretchLeftTrack = [[UIImage imageNamed:@"SliderPurple_TV_1080.png"]
+                               stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+            stretchRightTrack = [[UIImage imageNamed:@"SliderGray_TV_1080.png"]
+                                stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+            thumbImage = [UIImage imageNamed:@"SliderThumbLightGray_TV_1080.png"];
+            
+            _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 45.0];
+            tempFrame.origin.y = 20;
+            tempFrame.origin.x = -15;
+        } else {
+            stretchLeftTrack = [[UIImage imageNamed:@"SliderPurple_TV_720.png"]
+                               stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+            stretchRightTrack = [[UIImage imageNamed:@"SliderGray_TV_720.png"]
+                                stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
+            thumbImage = [UIImage imageNamed:@"SliderThumbLightGray_TV_720.png"];
+            
+            _label.font = [UIFont fontWithName: @"Thonburi-Bold" size: 30.0];
+            tempFrame.origin.y = 10;
+            tempFrame.origin.x = -10;
+        }
+    }
+
+    [_slider setThumbImage:thumbImage forState:UIControlStateNormal];
+    [_slider setMinimumTrackImage:stretchLeftTrack forState:UIControlStateNormal];
+    [_slider setMaximumTrackImage:stretchRightTrack forState:UIControlStateNormal];
     
     _blackLineStartOverlay.hidden = TRUE;
     _blackLineEndOverlay.hidden = TRUE;
     
-    CGRect tempFrame = self.bounds;
-    tempFrame.origin.x = -10;
-    tempFrame.origin.y = 10;
     _label.frame = tempFrame;
-    
 }
 
 @end

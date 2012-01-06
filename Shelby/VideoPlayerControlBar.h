@@ -41,7 +41,7 @@
 @property (readwrite) float duration;
 @property (readwrite) BOOL tv;
 
-+ (VideoPlayerControlBar *)controlBarFromTVNib;
++ (VideoPlayerControlBar *)controlBarFromTVNib:(CGRect)screenBounds;
 + (VideoPlayerControlBar *)controlBarFromNib;
 
 - (BOOL)isFavoriteButtonSelected;

@@ -340,13 +340,19 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)fitTitleBars
 {
+    CGFloat textOriginX = 0;
+    CGFloat textOriginY = 0;
+    CGFloat textRightBorder = 0;
+    CGFloat maxTextHeight = 0;
+    CGFloat maxTextWidth = 0;
+    
     if (!IS_NULL(self.titleBar)) {
         
-        CGFloat textOriginX = 56;
-        CGFloat textOriginY = 27;
-        CGFloat textRightBorder = 20;
-        CGFloat maxTextHeight = 35;
-        CGFloat maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
+        textOriginX = 56;
+        textOriginY = 27;
+        textRightBorder = 20;
+        maxTextHeight = 35;
+        maxTextWidth = self.titleBar.frame.size.width - textOriginX - textRightBorder;
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             maxTextWidth -= 95; // iPadShelbyLogoOverhang
@@ -359,20 +365,33 @@ static const float kNextPrevXOffset        =  0.0f;
         withMaxTextHeight:maxTextHeight];
     }
    
-    if (!IS_NULL(self.tvTitleBar)) {
+    if ([[UIScreen screens] count] > 1) {
         
-        CGFloat textOriginX = 170;
-        CGFloat textOriginY = 85;
-        CGFloat textRightBorder = 180; // leaves space for channel icon
-        CGFloat maxTextHeight = 65;
-        CGFloat maxTextWidth = self.tvTitleBar.frame.size.width - textOriginX - textRightBorder;
+        UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
         
-        [self fitTitleBar:self.tvTitleBar
-              withOriginX:textOriginX 
-              withOriginY:textOriginY   
-         withMaxTextWidth:maxTextWidth
-        withMaxTextHeight:maxTextHeight
-         ];
+        if (secondScreen.bounds.size.height == 1080) {
+            textOriginX = 255;
+            textOriginY = 132;
+            textRightBorder = 270; // leaves space for channel icon
+            maxTextHeight = 95;
+        } else {
+            textOriginX = 170;
+            textOriginY = 85;
+            textRightBorder = 180; // leaves space for channel icon
+            maxTextHeight = 65;
+        }
+        
+        maxTextWidth = self.tvTitleBar.frame.size.width - textOriginX - textRightBorder;
+        
+        if (!IS_NULL(self.tvTitleBar)) {
+
+            [self fitTitleBar:self.tvTitleBar
+                  withOriginX:textOriginX 
+                  withOriginY:textOriginY   
+             withMaxTextWidth:maxTextWidth
+            withMaxTextHeight:maxTextHeight
+             ];
+        }
     }
 }
 
@@ -995,7 +1014,7 @@ static const float kNextPrevXOffset        =  0.0f;
                                          0,
                                          0,
                                          secondScreen.bounds.size.width,
-                                         180.0
+                                         self.tvTitleBar.bounds.size.height
                                          );
     }
     
@@ -1057,11 +1076,22 @@ static const float kNextPrevXOffset        =  0.0f;
         
         UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
         
-        CGFloat tvControlBarWidth = 1000; 
-        CGFloat tvControlBarHeight = 75; 
+        CGFloat tvControlBarWidth;
+        CGFloat tvControlBarHeight;
+        CGFloat bottomMargin;
+        
+        if (secondScreen.bounds.size.height == 1080) {
+            tvControlBarWidth = 1500;
+            tvControlBarHeight = 113;
+            bottomMargin = 45;
+        } else {
+            tvControlBarWidth = 1000;
+            tvControlBarHeight = 75;
+            bottomMargin = 30;
+        }
 
         _tvControlBar.frame = CGRectMake(secondScreen.bounds.size.width / 2 - (tvControlBarWidth / 2), 
-                                         secondScreen.bounds.size.height - 105, 
+                                         secondScreen.bounds.size.height - tvControlBarHeight - bottomMargin, 
                                          tvControlBarWidth, 
                                          tvControlBarHeight);
 
@@ -1160,7 +1190,7 @@ static const float kNextPrevXOffset        =  0.0f;
               secondScreen.bounds.size.height);
         
         if (IS_NULL(self.tvTitleBar)) {
-            self.tvTitleBar = [VideoPlayerTitleBar titleBarFromTVNib];
+            self.tvTitleBar = [VideoPlayerTitleBar titleBarFromTVNib:secondScreen.bounds];
             self.tvTitleBar.title.text = self.titleBar.title.text;
             self.tvTitleBar.comment.text = self.titleBar.comment.text;
             self.tvTitleBar.sharerPic.image = self.titleBar.sharerPic.image;
@@ -1173,7 +1203,7 @@ static const float kNextPrevXOffset        =  0.0f;
         }
         
         if (IS_NULL(_tvControlBar)) {
-            _tvControlBar = [VideoPlayerControlBar controlBarFromTVNib];
+            _tvControlBar = [VideoPlayerControlBar controlBarFromTVNib:secondScreen.bounds];
             [_tvControlBar setFavoriteButtonSelected:[_controlBar isFavoriteButtonSelected]];
             [_tvControlBar setWatchLaterButtonSelected:[_controlBar isWatchLaterButtonSelected]];
             
@@ -1184,10 +1214,14 @@ static const float kNextPrevXOffset        =  0.0f;
         }
         
         if (IS_NULL(_tvPaused)) {
-            _tvPaused = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV"]] retain];
-            _tvPaused.frame = CGRectMake((secondScreen.bounds.size.width - 600) / 2.0, 
-                                         ((secondScreen.bounds.size.height - 150) / 2.0) + 20,
-                                         600, 150);
+            if (secondScreen.bounds.size.height == 1080) {
+                _tvPaused = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV_1080"]] retain];
+            } else {
+                _tvPaused = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV_720"]] retain];
+            }
+            _tvPaused.frame = CGRectMake((secondScreen.bounds.size.width - _tvPaused.image.size.width) / 2.0, 
+                                         ((secondScreen.bounds.size.height - _tvPaused.image.size.height) / 2.0) + 25,
+                                         _tvPaused.image.size.width, _tvPaused.image.size.height);
             _tvPaused.hidden = !_paused;
             [secondScreenWindow addSubview:_tvPaused];
         }
@@ -1220,6 +1254,16 @@ static const float kNextPrevXOffset        =  0.0f;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [_controlBar showFullscreenExpandButtonIcon];
         }
+        
+        [_tvPaused removeFromSuperview];
+        [_tvPaused release];
+        _tvPaused = nil;
+        
+        [_tvControlBar removeFromSuperview];
+        _tvControlBar = nil;
+        
+        [tvTitleBar removeFromSuperview];
+        tvTitleBar = nil;
     }
 }
 

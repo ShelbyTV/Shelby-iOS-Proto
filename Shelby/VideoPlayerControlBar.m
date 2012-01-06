@@ -16,14 +16,21 @@
 
 static NSString *IPAD_NIB_NAME = @"VideoPlayerControlBar_iPad";
 static NSString *IPHONE_NIB_NAME = @"VideoPlayerControlBar_iPhone";
-static NSString *TV_NIB_NAME = @"VideoPlayerControlBar_TV";
+static NSString *TV_NIB_NAME_720 = @"VideoPlayerControlBar_TV_720";
+static NSString *TV_NIB_NAME_1080 = @"VideoPlayerControlBar_TV_1080";
 
 #pragma mark - Factory
 
-+ (VideoPlayerControlBar *)controlBarFromTVNib 
++ (VideoPlayerControlBar *)controlBarFromTVNib:(CGRect)screenBounds
 {
-    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME owner:self options:nil];
+    NSArray *objects;
     
+    if (screenBounds.size.height == 1080) {
+        objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME_1080 owner:self options:nil];
+    } else {
+        objects = [[NSBundle mainBundle] loadNibNamed:TV_NIB_NAME_720 owner:self options:nil];
+    }
+        
     ((VideoPlayerControlBar *)[objects objectAtIndex:0]).tv = TRUE;
     
     return [objects objectAtIndex:0];
