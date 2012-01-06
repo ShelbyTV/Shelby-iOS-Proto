@@ -1207,6 +1207,7 @@ static const float kNextPrevXOffset        =  0.0f;
             [_tvControlBar setFavoriteButtonSelected:[_controlBar isFavoriteButtonSelected]];
             [_tvControlBar setWatchLaterButtonSelected:[_controlBar isWatchLaterButtonSelected]];
             
+            _tvControlBar.duration = _duration;
             [_tvControlBar adjustProgressBarForTV];
             
             [_controls addObject:_tvControlBar];
