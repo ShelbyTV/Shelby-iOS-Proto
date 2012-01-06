@@ -476,9 +476,6 @@
             for (Video *video in dupeArray) {
                 video.contentURL = dupeContentURL;
             }
-            
-            return TRUE;
-            
         } else {
             return FALSE;
         }
