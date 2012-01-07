@@ -37,7 +37,7 @@
 @property (nonatomic, retain) Channel *channel;
 @property (nonatomic, retain) NSString *identityProvider;
 
-- (BOOL)fetchUserId;
+- (void)fetchUserId;
 - (void)deleteUser;
 - (NSArray *)retrieveChannels;
 - (Channel *)getPublicChannel:(NSInteger)public fromArray:(NSArray *)channels;
@@ -190,8 +190,12 @@
 
 #pragma mark - User Id
 
-- (BOOL)fetchUserId
+- (void)fetchUserId
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString: kUserUrl];
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
@@ -201,10 +205,7 @@
 
         [NSURLConnection sendAsyncRequest:req delegate:self completionSelector:@selector(receivedGetUserResponse:data:error:forRequest:)];
         [self incrementNetworkCounter];
-        return YES;
     }
-    // We failed to send the request. Let the caller know.
-    return NO;
 }
 
 - (void)receivedGetUserResponse: (NSURLResponse *) resp data: (NSData *)data error: (NSError *)error forRequest: (NSURLRequest *)request
@@ -227,6 +228,10 @@
 
 - (NSData *)fetchUserImageDataWithDictionary:(NSDictionary *)dict
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return NULL;
+    }
+    
     NSURLResponse *response = nil;
     NSError *error = nil;
     NSURL *url = [[[NSURL alloc] initWithString:[dict objectForKey:@"user_image"]] autorelease];
@@ -303,6 +308,10 @@
 
 - (void)fetchAuthentications
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString: kAuthenticationsUrl];
     OAuthMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
 
@@ -366,6 +375,10 @@
 
 - (void)fetchChannels
 {
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:[NSURL URLWithString:kChannelsUrl] 
                                                                     withMethod:@"GET"];
     // Set to plaintext on request because oAuth library is broken.
