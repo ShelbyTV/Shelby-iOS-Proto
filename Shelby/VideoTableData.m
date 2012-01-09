@@ -1074,6 +1074,8 @@
 
     for (NSString *key in uniqueVideoKeys)
     {
+        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
+        
         if (NOT_NULL([playableVideoKeys objectForKey:key]))
         {
             NSArray *dupeArray = [videoDupeDict objectForKey:key];
@@ -1118,6 +1120,8 @@
                 video.contentURL = [NSURL fileURLWithPath:path];
             }
         }
+        
+        [loopPool drain];
     }
     
     [self reloadTableVideos];
