@@ -37,6 +37,39 @@
     int _dupeCount;
     
     Video* _video;
+    
+    CGFloat _kCellWidth;
+    CGFloat _kCellHeight;
+    CGFloat _kVideoWidth;
+    CGFloat _kVideoHeight;
+    CGFloat _kBadgeWidth;
+    CGFloat _kBadgeHeight;
+    CGFloat _kCommentViewOriginX;
+    CGFloat _kCommentViewOriginY;
+    CGFloat _kCommentViewWidth;
+    CGFloat _kCommentViewHeight;
+    CGFloat _kVideoFooterOriginX;
+    CGFloat _kVideoFooterOriginY;
+    CGFloat _kVideoFooterWidth;
+    CGFloat _kVideoFooterHeight;
+    CGFloat _kSharerOriginX;
+    CGFloat _kSharerOriginY;
+    CGFloat _kSharerWidth;
+    CGFloat _kSharerHeight;
+    CGFloat _kCommentOriginX;
+    CGFloat _kCommentOriginY;
+    CGFloat _kCommentWidth;
+    CGFloat _kCommentHeight;
+    CGFloat _kSharerNameOriginX;
+    CGFloat _kSharerNameOriginY;
+    CGFloat _kSharerNameWidth;
+    CGFloat _kSharerNameHeight;
+    CGFloat _kSharetimeOriginX;
+    CGFloat _kSharetimeOriginY;
+    CGFloat _kSharetimeWidth;
+    CGFloat _kSharetimeHeight;
+    CGFloat _kCellHorizontalMargin;
+    CGFloat _kCellVerticalMargin;
 }
 
 @property (nonatomic, retain) VideoTableData* videoTableData;

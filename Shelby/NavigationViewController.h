@@ -90,4 +90,6 @@
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation;
+
 @end

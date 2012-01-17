@@ -289,9 +289,7 @@
 		42C4C58313E8AADF0034AC97 /* Login_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57913E8AADF0034AC97 /* Login_iPhone.xib */; };
 		42C4C58413E8AADF0034AC97 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57B13E8AADF0034AC97 /* MainWindow_iPhone.xib */; };
 		42C4C58513E8AADF0034AC97 /* Navigation_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C57D13E8AADF0034AC97 /* Navigation_iPhone.xib */; };
-		42C4C58713E8AADF0034AC97 /* VideoCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */; };
 		42C4C59113E8AB1D0034AC97 /* Navigation_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58A13E8AB1D0034AC97 /* Navigation_iPad.xib */; };
-		42C4C59313E8AB1D0034AC97 /* VideoCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */; };
 		42C4C59A13E8AB5E0034AC97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C59813E8AB5E0034AC97 /* InfoPlist.strings */; };
 		42C4C5E213E8D28B0034AC97 /* Login_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C5E013E8D28B0034AC97 /* Login_iPad.xib */; };
 		42C4C5EA13E9AA100034AC97 /* VideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4C5E913E9AA100034AC97 /* VideoPlayer.m */; };
@@ -664,9 +662,7 @@
 		42C4C57A13E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Login_iPhone.xib; sourceTree = "<group>"; };
 		42C4C57C13E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		42C4C57E13E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Navigation_iPhone.xib; sourceTree = "<group>"; };
-		42C4C58213E8AADF0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = VideoCell_iPhone.xib; sourceTree = "<group>"; };
 		42C4C58B13E8AB1D0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Navigation_iPad.xib; sourceTree = SOURCE_ROOT; };
-		42C4C58F13E8AB1D0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/VideoCell_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C59513E8AB420034AC97 /* Shelby-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Shelby-Info.plist"; path = "Resources/Shelby-Info.plist"; sourceTree = SOURCE_ROOT; };
 		42C4C59913E8AB5E0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		42C4C5E113E8D28B0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Login_iPad.xib; sourceTree = SOURCE_ROOT; };
@@ -1058,7 +1054,6 @@
 				42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */,
 				0AE05005148D817B00952C02 /* ShareView_iPhone.xib */,
 				0A53951A14424066004721B9 /* TimelineOnboardCell_iPhone.xib */,
-				42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */,
 				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
 				0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */,
 				0A53951E14424186004721B9 /* WatchLaterOnboardCell_iPhone.xib */,
@@ -1079,7 +1074,6 @@
 				42084C871427DACD00C3C556 /* OfflineView_iPad.xib */,
 				0AE05008148D819100952C02 /* ShareView_iPad.xib */,
 				0AE0500B148D81B500952C02 /* TimelineOnboardCell_iPad.xib */,
-				42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */,
 				428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */,
 				0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */,
 				0AE0500E148D81BA00952C02 /* WatchLaterOnboardCell_iPad.xib */,
@@ -1562,9 +1556,7 @@
 				42C4C58313E8AADF0034AC97 /* Login_iPhone.xib in Resources */,
 				42C4C58413E8AADF0034AC97 /* MainWindow_iPhone.xib in Resources */,
 				42C4C58513E8AADF0034AC97 /* Navigation_iPhone.xib in Resources */,
-				42C4C58713E8AADF0034AC97 /* VideoCell_iPhone.xib in Resources */,
 				42C4C59113E8AB1D0034AC97 /* Navigation_iPad.xib in Resources */,
-				42C4C59313E8AB1D0034AC97 /* VideoCell_iPad.xib in Resources */,
 				42C4C59A13E8AB5E0034AC97 /* InfoPlist.strings in Resources */,
 				42C4C5E213E8D28B0034AC97 /* Login_iPad.xib in Resources */,
 				42C4C60213E9CBE30034AC97 /* MainWindow_iPad.xib in Resources */,
@@ -2046,29 +2038,12 @@
 			path = ../Resources/iPhone/en.lproj;
 			sourceTree = "<group>";
 		};
-		42C4C58113E8AADF0034AC97 /* VideoCell_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C4C58213E8AADF0034AC97 /* en */,
-			);
-			name = VideoCell_iPhone.xib;
-			path = ../Resources/iPhone/en.lproj;
-			sourceTree = "<group>";
-		};
 		42C4C58A13E8AB1D0034AC97 /* Navigation_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				42C4C58B13E8AB1D0034AC97 /* en */,
 			);
 			name = Navigation_iPad.xib;
-			sourceTree = "<group>";
-		};
-		42C4C58E13E8AB1D0034AC97 /* VideoCell_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C4C58F13E8AB1D0034AC97 /* en */,
-			);
-			name = VideoCell_iPad.xib;
 			sourceTree = "<group>";
 		};
 		42C4C59813E8AB5E0034AC97 /* InfoPlist.strings */ = {

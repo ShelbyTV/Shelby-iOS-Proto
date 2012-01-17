@@ -573,6 +573,8 @@
     if (self.shareView) {
         [self.shareView adjustViewsForOrientation:interfaceOrientation];
     }
+    
+    [self adjustViewsForOrientation:interfaceOrientation];
 }
 
 
@@ -802,6 +804,11 @@
     
     // should hopefully never get here
     return 0;
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation
+{
+    
 }
 
 @end

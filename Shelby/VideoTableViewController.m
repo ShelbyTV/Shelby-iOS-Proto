@@ -378,13 +378,11 @@
         }
     }
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        return IPHONE_CELL_HEIGHT;
-    }
-    
     Video *video = [videoTableData videoAtIndex:row];
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
+    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return IPHONE_CELL_HEIGHT;
     } else {
         return IPAD_CELL_HEIGHT;
     }
