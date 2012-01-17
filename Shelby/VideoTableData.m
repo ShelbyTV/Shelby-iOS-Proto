@@ -390,15 +390,16 @@
 - (void)clearVideoTableWithArrayLockHeld
 {
     [tableVideos removeAllObjects];
-        
-    NSMutableArray* indexPaths = [[[NSMutableArray alloc] init] autorelease];
-    for (int i = 0; i < self.numItemsInserted; i++) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-    }
     
-    [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    NSIndexSet *indexSet = [[[NSIndexSet alloc] initWithIndex:0] autorelease];
+
+    [tableView beginUpdates];        
+    
+    [tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+    [tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+    
     self.numItemsInserted = 0;
+
     [tableView endUpdates];
 }
 
@@ -500,7 +501,7 @@
 {    
     if (self.numItemsInserted == 0) {
         [tableView beginUpdates];
-        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
         self.numItemsInserted = 1;
         [tableView endUpdates];
     }
@@ -534,7 +535,7 @@
             videoTableIndex++;
             
             [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
             self.numItemsInserted = [tableVideos count] + 1; // +1 is for the onboarding cell
             [tableView endUpdates];
         }
@@ -556,11 +557,11 @@
     {
         [self clearVideoTableWithArrayLockHeld];
         [self insertTableVideos];
-        if (self.numItemsInserted > 1) {
-            [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection: 0]
-                             atScrollPosition: UITableViewScrollPositionTop
-                                     animated: NO];
-        }
+//        if (self.numItemsInserted > 1) {
+//            [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection: 0]
+//                             atScrollPosition: UITableViewScrollPositionTop
+//                                     animated: NO];
+//        }
     }
 }
 

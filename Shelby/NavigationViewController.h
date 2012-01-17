@@ -17,7 +17,7 @@
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewDelegate, RemoteModeDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewDelegate, RemoteModeDelegate, UITabBarDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -30,6 +30,12 @@
     IBOutlet UIButton *watchLaterButton;
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
 
+    IBOutlet UITabBarItem *timelineTabBarItem;
+    IBOutlet UITabBarItem *favoritesTabBarItem;
+    IBOutlet UITabBarItem *watchLaterTabBarItem;
+    IBOutlet UITabBarItem *searchTabBarItem;
+    IBOutlet UITabBar *tabBar;
+    
     IBOutlet UIImageView *userImage;
     IBOutlet UILabel     *userName;
     IBOutlet UIImageView *userFacebook;

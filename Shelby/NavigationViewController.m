@@ -485,6 +485,18 @@
     [_videoPlayer setVideoMode:2];
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if (item == timelineTabBarItem) {
+        NSLog(@"Timeline Tab Bar Item pressed");
+        [self listButtonPressed:self];
+    } else if (item == favoritesTabBarItem) {
+        [self favoritesButtonPressed:self];
+    } else if (item == watchLaterTabBarItem) {
+        [self watchLaterButtonPressed:self];
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -527,6 +539,8 @@
     [self becomeFirstResponder];
     
     _demoModeButton.possibleTitles = [NSSet setWithObjects:@"Demo Mode", @"Waiting...", @"Downloading...", @"Demo Mode On", nil];
+    
+    [tabBar setSelectedItem:timelineTabBarItem];
 }
 
 #pragma mark - Notification Handlers
