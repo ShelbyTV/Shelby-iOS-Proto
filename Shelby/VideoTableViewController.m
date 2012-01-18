@@ -37,7 +37,7 @@
 
         callbackObject = object;
         callbackSelector = selector;
-        _currentVideoIndex = 1;
+        _currentVideoIndex = 0;
     }
     
     return self;
@@ -76,7 +76,7 @@
 {
     // Clear out the table.
     [videoTableData clearVideoTableData];
-    _currentVideoIndex = 1;
+    _currentVideoIndex = 0;
 }
 
 - (void)loadVideos
@@ -116,15 +116,15 @@
 
 - (Video *)getFirstVideo
 {
-    return [self videoAtTableDataIndex:1];
+    return [self videoAtTableDataIndex:0];
 }
 
 - (Video *)getNextVideo
 {
     _currentVideoIndex++;
-    if (_currentVideoIndex >= [videoTableData numItemsInserted]) {
+    if (_currentVideoIndex > [videoTableData numItemsInserted]) {
         // Set to first index.
-        _currentVideoIndex = 1;
+        _currentVideoIndex = 0;
     }
 
     // Return the next video.
@@ -145,9 +145,9 @@
 - (Video *)getPreviousVideo
 {
     _currentVideoIndex--;
-    if (_currentVideoIndex < 1) {
+    if (_currentVideoIndex < 0) {
         // Set to last index.
-        _currentVideoIndex = [videoTableData numItemsInserted] - 1;
+        _currentVideoIndex = [videoTableData numItemsInserted];
     }
 
     // Return the previous video.
@@ -291,52 +291,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *videoCellIdentifier = @"VideoTableViewCell";
-    static NSString *timelineOnboardIdentifier = @"TimelineOnbardCell";
-    static NSString *favoritesOnboardIdentifier = @"FavoritesOnboardCell";
-    static NSString *watchLaterOnboardIdentifier = @"WatchLaterOnboardCell";
     
     NSUInteger row = indexPath.row;
-    
-    if (row == 0) {
-        if (videoMode == 0) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:timelineOnboardIdentifier];
-            if (cell == nil) {
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                    [[NSBundle mainBundle] loadNibNamed:@"TimelineOnboardCell_iPad" owner:self options:nil];
-                } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                    [[NSBundle mainBundle] loadNibNamed:@"TimelineOnboardCell_iPhone" owner:self options:nil];
-                }
-                cell = timelineOnboardCell;
-                timelineOnboardCell = nil;
-            }
-            return cell;
-        } else if (videoMode == 1) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:favoritesOnboardIdentifier];
-            if (cell == nil) {
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                    [[NSBundle mainBundle] loadNibNamed:@"FavoritesOnboardCell_iPad" owner:self options:nil];
-                } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                    [[NSBundle mainBundle] loadNibNamed:@"FavoritesOnboardCell_iPhone" owner:self options:nil];
-                }
-                cell = favoritesOnboardCell;
-                favoritesOnboardCell = nil;
-            }
-            return cell;
-        } else if (videoMode == 2) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:watchLaterOnboardIdentifier];
-            if (cell == nil) {
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                    [[NSBundle mainBundle] loadNibNamed:@"WatchLaterOnboardCell_iPad" owner:self options:nil];
-                } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                    [[NSBundle mainBundle] loadNibNamed:@"WatchLaterOnboardCell_iPhone" owner:self options:nil];
-                }
-                cell = watchLaterOnboardCell;
-                watchLaterOnboardCell = nil;
-            }
-            return cell;
-        }
-    }
-    
     VideoTableViewCell *dynVideoCell = (VideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:videoCellIdentifier];
     
     if (dynVideoCell == nil) {
@@ -354,30 +310,7 @@
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
-    
-    // onboarding cell heights here derived from the NIB files.
-    if (row == 0) {
-        if (videoMode == 0 ) {
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                return 111;
-            } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                return 71;
-            }
-        } else if (videoMode == 1) {
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                return 210;
-            } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                return 138;
-            }
-        } else if (videoMode == 2) {
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                return 150;
-            } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                return 105;
-            }
-        }
-    }
-    
+
     Video *video = [videoTableData videoAtIndex:row];
     if (video.cellHeightCurrent != 0.0f) {
         return video.cellHeightCurrent;
@@ -401,11 +334,6 @@
 
     // Right now we can just bank on only having a single table, so no need to do anything fancy with the indexPath.
     NSUInteger row = indexPath.row;
-    
-    // user clicked onboarding cell
-    if (row == 0) {
-        return;
-    }
     
     Video *video = [self videoAtTableDataIndex:row];
     _currentVideoIndex = row;

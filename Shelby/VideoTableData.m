@@ -110,12 +110,12 @@
 {    
     @synchronized(tableVideos)
     {
-        if (index > [tableVideos count] || index == 0)
+        if (index >= [tableVideos count])
         {
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        return [[(Video *)[tableVideos objectAtIndex:(index - 1)] retain] autorelease];
+        return [[(Video *)[tableVideos objectAtIndex:index] retain] autorelease];
     }
 }
 
@@ -200,12 +200,12 @@
 
     @synchronized(tableVideos)
     {
-        if (index > [tableVideos count] || index == 0)
+        if (index >= [tableVideos count])
         {
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        videoData = [[[tableVideos objectAtIndex:(index - 1)] retain] autorelease];
+        videoData = [[[tableVideos objectAtIndex:index] retain] autorelease];
     }
     
     if (IS_NULL(videoData.contentURL) && ![ShelbyApp sharedApp].demoModeEnabled) {
@@ -228,7 +228,7 @@
             return;
         }
         
-        cell = [[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex + 1) inSection:0]] retain] autorelease];
+        cell = [[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex) inSection:0]] retain] autorelease];
     }
     
     [cell performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
@@ -498,14 +498,7 @@
 }
 
 - (void)insertTableVideos
-{    
-    if (self.numItemsInserted == 0) {
-        [tableView beginUpdates];
-        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-        self.numItemsInserted = 1;
-        [tableView endUpdates];
-    }
-
+{
     int videoTableIndex = 0;
     
     for (NSString *key in uniqueVideoKeys)
@@ -532,12 +525,13 @@
             }
             
             [tableVideos insertObject:video atIndex:videoTableIndex];
-            videoTableIndex++;
             
             [tableView beginUpdates];
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-            self.numItemsInserted = [tableVideos count] + 1; // +1 is for the onboarding cell
+            self.numItemsInserted = [tableVideos count];
             [tableView endUpdates];
+            
+            videoTableIndex++;
         }
     }
 }
