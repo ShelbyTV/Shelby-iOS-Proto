@@ -1008,7 +1008,7 @@
         playableVideoKeys = [[NSMutableDictionary alloc] init];
 
         operationQueue = [[NSOperationQueue alloc] init];
-        [operationQueue setMaxConcurrentOperationCount:1];
+        [operationQueue setMaxConcurrentOperationCount:3];
         
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerCallback) userInfo:nil repeats:YES];
 
