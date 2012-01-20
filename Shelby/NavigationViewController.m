@@ -470,11 +470,56 @@
 
 #pragma mark - Button Handling
 
+- (void)hideSearchBar
+{
+    if (!_searchBarVisible) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        CGRect temp = searchBar.frame;
+        temp.origin.y -= temp.size.height;
+        searchBar.frame = temp;
+        
+        temp = videoTableHolder.frame;
+        temp.origin.y -= searchBar.frame.size.height;
+        temp.size.height += searchBar.frame.size.height;
+        videoTableHolder.frame = temp;
+    }
+                     completion:^(BOOL finished){
+                         _searchBarVisible = NO;
+                     }]; 
+}
+
+- (void)showSearchBar
+{
+    if (_searchBarVisible) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        CGRect temp = searchBar.frame;
+        temp.origin.y += temp.size.height;
+        searchBar.frame = temp;
+        
+        temp = videoTableHolder.frame;
+        temp.origin.y += searchBar.frame.size.height;
+        temp.size.height -= searchBar.frame.size.height;
+        videoTableHolder.frame = temp;
+    }
+                     completion:^(BOOL finished){
+                         _searchBarVisible = YES;
+                     }];
+}
+
 - (IBAction)listButtonPressed:(id)sender
 {
     [favoritesButton setSelected:NO];
     [watchLaterButton setSelected:NO];
     [listButton setSelected:YES];
+    
+    [self hideSearchBar];
+    
     [videoTable changeVideoMode:0];
     [_videoPlayer setVideoMode:0];
 }
@@ -484,6 +529,9 @@
     [listButton setSelected:NO];
     [watchLaterButton setSelected:NO];
     [favoritesButton setSelected:YES];
+    
+    [self hideSearchBar];
+    
     [videoTable changeVideoMode:1];
     [_videoPlayer setVideoMode:1];
 }
@@ -493,8 +541,23 @@
     [listButton setSelected:NO];
     [favoritesButton setSelected:NO];
     [watchLaterButton setSelected:YES];
+    
+    [self hideSearchBar];
+    
     [videoTable changeVideoMode:2];
     [_videoPlayer setVideoMode:2];
+}
+
+- (IBAction)searchButtonPressed:(id)sender
+{
+    [listButton setSelected:NO];
+    [favoritesButton setSelected:NO];
+    [watchLaterButton setSelected:NO];
+    
+    [self showSearchBar];
+
+    [videoTable changeVideoMode:3];
+    [_videoPlayer setVideoMode:3];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
@@ -506,6 +569,8 @@
         [self favoritesButtonPressed:self];
     } else if (item == watchLaterTabBarItem) {
         [self watchLaterButtonPressed:self];
+    } else if (item == searchTabBarItem) {
+        [self searchButtonPressed:self];
     }
 }
 
@@ -557,6 +622,22 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [_videoPlayer removeFromSuperview];
         _videoPlayerViewController.view = _videoPlayer;
+    }
+    
+    // loop around subviews of UISearchBar
+    for (UIView *searchBarSubview in [searchBar subviews]) {    
+        if ([searchBarSubview conformsToProtocol:@protocol(UITextInputTraits)]) {    
+            @try {
+                // set style of keyboard
+                //[(UITextField *)searchBarSubview setReturnKeyType:UIReturnKeyDone];
+                
+                // always force return key to be enabled
+                [(UITextField *)searchBarSubview setEnablesReturnKeyAutomatically:NO];
+            }
+            @catch (NSException * e) {        
+                // ignore exception
+            }
+        }
     }
 }
 
@@ -819,23 +900,25 @@
 {
     if (listButton.selected) {
         return 0;
-    }
-    
-    if (favoritesButton.selected) {
+    } else if (favoritesButton.selected) {
         return 1;
-    }
-    
-    if (watchLaterButton.selected) {
+    } else if (watchLaterButton.selected) {
         return 2;
     }
-    
-    // should hopefully never get here
-    return 0;
+
+    // otherwise we're in search
+    return 3;
 }
 
-- (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBarClicked
+{
+    [searchBar resignFirstResponder];
+    [videoTable performSearch:searchBarClicked.text];
+}
+
 
 @end

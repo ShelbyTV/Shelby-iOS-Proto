@@ -54,4 +54,6 @@
 
 - (NSInteger)currentVideoMode;
 
+- (void)performSearch:(NSString *)searchText;
+
 @end

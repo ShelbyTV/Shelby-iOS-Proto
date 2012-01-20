@@ -45,6 +45,9 @@
     IBOutlet UIImageView *userTwitter;
     IBOutlet UIImageView *userTumblr;
     IBOutlet UIImageView *userButton;
+    
+    IBOutlet UISearchBar *searchBar;
+    BOOL _searchBarVisible;
 
     ShareView *_shareView;
     

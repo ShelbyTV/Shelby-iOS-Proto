@@ -34,7 +34,9 @@
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL likedOnly;
 @property (readwrite) BOOL watchLaterOnly;
+@property (readwrite) BOOL searchOnly;
 @property (readonly) NSUInteger numItemsInserted;
+@property (nonatomic, retain) NSString *searchString;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 

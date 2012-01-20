@@ -55,18 +55,31 @@
 
     //LOG(@"changeVideoMode %d", mode);
     if (mode == 0) {
+        videoTableData.searchOnly = NO;
         videoTableData.likedOnly = NO;
         videoTableData.watchLaterOnly = NO;
     } else if (mode == 1) {
+        videoTableData.searchOnly = NO;
         videoTableData.likedOnly = YES;
         videoTableData.watchLaterOnly = NO;
     } else if (mode == 2) {
+        videoTableData.searchOnly = NO;
         videoTableData.likedOnly = NO;
         videoTableData.watchLaterOnly = YES;
+    } else if (mode == 3) {
+        videoTableData.searchOnly = YES;
+        videoTableData.likedOnly = NO;
+        videoTableData.watchLaterOnly = NO;
     }
     
     // Change the channel.
     videoMode = mode;
+    [videoTableData reloadTableVideos];
+}
+
+- (void)performSearch:(NSString *)searchText
+{
+    videoTableData.searchString = searchText;
     [videoTableData reloadTableVideos];
 }
 
@@ -122,7 +135,7 @@
 - (Video *)getNextVideo
 {
     _currentVideoIndex++;
-    if (_currentVideoIndex > [videoTableData numItemsInserted]) {
+    if (_currentVideoIndex >= [videoTableData numItemsInserted]) {
         // Set to first index.
         _currentVideoIndex = 0;
     }
@@ -147,7 +160,7 @@
     _currentVideoIndex--;
     if (_currentVideoIndex < 0) {
         // Set to last index.
-        _currentVideoIndex = [videoTableData numItemsInserted];
+        _currentVideoIndex = [videoTableData numItemsInserted] - 1;
     }
 
     // Return the previous video.
