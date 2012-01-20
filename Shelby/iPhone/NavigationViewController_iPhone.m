@@ -38,7 +38,11 @@
 
 - (void)hideVideoPlayer
 {
-    [[ShelbyApp sharedApp].transitionController transitionToViewController:(UIViewController *)[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionNone];
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
+    
+    [[ShelbyApp sharedApp].hiddenAllRotationsWindow addSubview:_videoPlayerViewController.view];
+    [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = _videoPlayerViewController;
+    
     [_videoPlayer pause];
 }
 

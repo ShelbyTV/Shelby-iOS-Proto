@@ -52,6 +52,11 @@
         } else {
             _videoPlayerViewController = [[VideoPlayerViewController alloc] init];
             _videoPlayer = (VideoPlayer *)_videoPlayerViewController.view;
+            
+            [_videoPlayerViewController loadView];
+            
+            [[ShelbyApp sharedApp].hiddenAllRotationsWindow addSubview:_videoPlayerViewController.view];
+            [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = _videoPlayerViewController;
         }
         _videoPlayer.delegate = self;
             
@@ -631,6 +636,9 @@
         [ShelbyApp sharedApp].transitionController.viewController == self) {
         
         NSLog(@"HERE about to transitionToViewController to _videoPlayerViewController!");
+        
+        [_videoPlayerViewController.view removeFromSuperview];
+        [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = nil;
         
         [[ShelbyApp sharedApp].transitionController transitionToViewController:_videoPlayerViewController withOptions:UIViewAnimationOptionTransitionNone];
     }
