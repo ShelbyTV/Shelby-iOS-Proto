@@ -12,6 +12,8 @@
  */
 
 #import "NavigationViewController_iPhone.h"
+#import "ShelbyApp.h"
+#import "TransitionController.h"
 
 @implementation NavigationViewController_iPhone
 
@@ -29,36 +31,14 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-    //return YES;
 }
-
-#pragma mark - 
-
-//- (void)showSettings {
-//    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
-//        // If we're not already showing settings, show settings.
-//        SettingsViewController *vc = [SettingsViewController viewController];
-//        vc.delegate = self;
-//        
-//        UIBarButtonItem *doneButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:vc action:@selector(doneWasPressed:)
-//                                       ] autorelease];
-//        vc.navigationItem.leftBarButtonItem = doneButton;
-//        
-//        UINavigationController *navController =  [[[UINavigationController alloc] initWithRootViewController: vc] autorelease];
-//        navController.navigationBar.barStyle = UIBarStyleBlack;
-//        //[_navigationController pushViewController: vc animated: YES];
-//        [self presentModalViewController: navController
-//                                animated: YES
-//                          ];
-//    }
-//}
 
 #pragma mark - User Button Methods
 
-- (void)hideVideoPlayer {
-    _videoPlayer.hidden = YES;
+- (void)hideVideoPlayer
+{
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:(UIViewController *)[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionNone];
     [_videoPlayer pause];
 }
 
@@ -78,77 +58,6 @@
         temp.origin.y = 480;
     }
     settingsView.frame = temp;
-}
-
-- (void) adjustViewsForOrientation:(UIInterfaceOrientation)orientation
-{
-    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-        
-//        NSLog(@"Layout iPhone NavCont Landscape");
-//        
-//        CGRect temp = videoTableHolder.frame;
-//        
-//        temp.origin.x = 160;
-//        temp.origin.y = 0;
-//        temp.size.width = 320;
-//        temp.size.height = 320;
-//        
-//        videoTableHolder.frame = temp;
-//
-//        
-//        temp = videoTableAndButtonsHolder.frame;
-//        
-//        temp.origin.x = 0;
-//        temp.origin.y = 50;
-//        temp.size.width = 160;
-//        temp.size.height = 46;
-//        
-//        videoTableAndButtonsHolder.frame = temp;
-//        
-//        
-//        temp = header.frame;
-//        
-//        temp.origin.x = 0;
-//        temp.origin.y = 0;
-//        temp.size.width = 160;
-//        temp.size.height = 320;
-//        
-//        header.frame = temp;
-        
-    } else {
-        
-//        NSLog(@"Layout iPhone NavCont Portrait");
-//        
-//        CGRect temp = videoTableHolder.frame;
-//        
-//        temp.origin.x = 0;
-//        temp.origin.y = 96;
-//        temp.size.width = 320;
-//        temp.size.height = 384;
-//        
-//        videoTableHolder.frame = temp;
-//
-//        
-//        temp = videoTableAndButtonsHolder.frame;
-//        
-//        temp.origin.x = 0;
-//        temp.origin.y = 50;
-//        temp.size.width = 320;
-//        temp.size.height = 46;
-//        
-//        videoTableAndButtonsHolder.frame = temp;
-//        
-//        
-//        temp = header.frame;
-//        
-//        temp.origin.x = 0;
-//        temp.origin.y = 0;
-//        temp.size.width = 320;
-//        temp.size.height = 50;
-//        
-//        header.frame = temp;
-        
-    }
 }
 
 @end

@@ -12,6 +12,7 @@
 @class LoginHelper;
 @class ApiHelper;
 @class NavigationViewController;
+@class TransitionController;
 
 /*
  * Global singleton for maintaining state.
@@ -28,8 +29,10 @@
 @property (nonatomic, retain) LoginHelper *loginHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
 @property (nonatomic, retain) NavigationViewController *navigationViewController;
+@property (nonatomic, retain) TransitionController *transitionController;
 @property (nonatomic) BOOL demoModeEnabled;
 @property (nonatomic, retain) NSString *safariUserAgent;
+@property (nonatomic, retain) UIWindow *shelbyWindow;
 
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 

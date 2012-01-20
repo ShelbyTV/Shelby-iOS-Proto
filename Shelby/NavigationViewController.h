@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
-#import "ShareViewController.h"
+#import "ShareView.h"
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
-#import "FullscreenWebView.h"
+#import "FullscreenWebViewController.h"
 #import "RemoteModeViewController.h"
+#import "VideoPlayerViewController.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewDelegate, RemoteModeDelegate, UITabBarDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewControllerDelegate, RemoteModeDelegate, UITabBarDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -28,6 +29,8 @@
     IBOutlet UIButton *listButton;
     IBOutlet UIButton *favoritesButton;
     IBOutlet UIButton *watchLaterButton;
+    
+    VideoPlayerViewController *_videoPlayerViewController; // used with a UINavigationController on iPhone for auto-rotation
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
 
     IBOutlet UITabBarItem *timelineTabBarItem;
@@ -43,7 +46,7 @@
     IBOutlet UIImageView *userTumblr;
     IBOutlet UIImageView *userButton;
 
-    ShareViewController *_shareView;
+    ShareView *_shareView;
     
     RemoteModeViewController *_remoteModeView;
 
@@ -56,7 +59,7 @@
     
     IBOutlet UIView *videoTableAndButtonsHolder;
     
-    FullscreenWebView *_fullscreenWebView;
+    FullscreenWebViewController *_fullscreenWebView;
     
     NSSet *_authorizations;
     
@@ -64,7 +67,7 @@
     IBOutlet UIBarButtonItem *_demoModeButton;
 }
 
-@property (nonatomic, retain) ShareViewController *shareView;
+@property (nonatomic, retain) ShareView *shareView;
 
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL touched;
@@ -91,7 +94,7 @@
 
 - (BOOL)isVideoPlaying;
 
-// FullscreenWebViewDelegate
+// FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender;
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;

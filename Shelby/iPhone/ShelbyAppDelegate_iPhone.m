@@ -12,6 +12,7 @@
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
 #import "ShelbyWindow.h"
+#import "TransitionController.h"
 
 @implementation ShelbyAppDelegate_iPhone
 
@@ -25,7 +26,7 @@
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
     shelbyWindow.frame = frame;
     navigationViewController.view.frame = frame;
-
+    
     BOOL userAlreadyLoggedIn = [ShelbyApp sharedApp].loginHelper.loggedIn;
     
     loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone"
@@ -34,23 +35,25 @@
                                                       callbackSelector:@selector(loadUserData)];
     loginViewController.view.frame = navigationViewController.view.bounds;
 
+    [ShelbyApp sharedApp].shelbyWindow = shelbyWindow;
     [[ShelbyApp sharedApp] addNetworkObject:loginViewController];
     [[ShelbyApp sharedApp] addNetworkObject:navigationViewController];
     
     [ShelbyApp sharedApp].navigationViewController = navigationViewController;
     
-    // If we're logged in, we can bypass login here and below...
-    if (userAlreadyLoggedIn) {
-        loginViewController.view.alpha = 0.0;
-        loginViewController.view.hidden = YES;
-    }
+    [ShelbyApp sharedApp].transitionController = [[TransitionController alloc] initWithViewController:navigationViewController];
+
     
+    // If we're logged in, we can bypass login here and below...
+    if (!userAlreadyLoggedIn) {
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:loginViewController withOptions:UIViewAnimationOptionTransitionNone];
+    }
+        
     [loginViewController viewWillAppear: NO];
-    [navigationViewController.view addSubview:loginViewController.view];
     [loginViewController viewDidAppear: NO];
 
-    [shelbyWindow addSubview: navigationViewController.view];
-    shelbyWindow.rootViewController = navigationViewController;
+    [shelbyWindow addSubview: [ShelbyApp sharedApp].transitionController.view];
+    shelbyWindow.rootViewController = [ShelbyApp sharedApp].transitionController;
     shelbyWindow.windowLevel = UIWindowLevelNormal;
     [shelbyWindow makeKeyAndVisible];
     shelbyWindow.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;

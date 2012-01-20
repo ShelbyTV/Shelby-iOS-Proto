@@ -982,6 +982,8 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)layoutSubviews 
 {    
+    NSLog(@"Inside VideoPlayer layoutSubviews");
+    
     CGRect frame = self.bounds;
     LogRect(@"VideoPlayer", frame);
     const CGFloat width = frame.size.width;

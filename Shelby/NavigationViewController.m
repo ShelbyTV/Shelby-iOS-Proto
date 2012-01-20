@@ -15,10 +15,11 @@
 #import "LoginHelper.h"
 #import "BroadcastApi.h"
 #import "Video.h"
-#import "ShareViewController.h"
+#import "ShareView.h"
 #import "VideoGetter.h"
 #import "ShelbyAppDelegate.h"
 #import "ApiHelper.h"
+#import "TransitionController.h"
 
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -46,8 +47,15 @@
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
         // So instead, we pull the view out via its tag.
-        _videoPlayer = (VideoPlayer *) [self.view viewWithTag: 1];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _videoPlayer = (VideoPlayer *) [self.view viewWithTag: 1];
+        } else {
+            _videoPlayerViewController = [[VideoPlayerViewController alloc] init];
+            _videoPlayer = (VideoPlayer *)_videoPlayerViewController.view;
+        }
         _videoPlayer.delegate = self;
+            
+        
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedOut:)
@@ -86,36 +94,35 @@
             @"auth_tumblr",
             nil];
         
-        ShareViewController *shareView;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPad" bundle:nil] autorelease];
             _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPad" bundle:nil];
             _remoteModeView.view.hidden = YES;
             _remoteModeView.delegate = self;
             [self.view addSubview:_remoteModeView.view];
         } else {
-            shareView = [[[ShareViewController alloc] initWithNibName:@"ShareView_iPhone" bundle:nil] autorelease];
             _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPhone" bundle:nil];
             _remoteModeView.view.hidden = YES;
             _remoteModeView.delegate = self;
             [self.view addSubview:_remoteModeView.view];
         }
-        shareView.delegate = self;
-        [shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
-        shareView.view.frame = self.view.bounds;
         
-        self.shareView = shareView;
-        self.shareView.view.hidden = YES;
-        [self.view addSubview:self.shareView.view];
+        self.shareView = [ShareView shareViewFromNib];
+        self.shareView.delegate = self;
+        [self.shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
+        self.shareView.frame = self.view.bounds;
+        
+        self.shareView.hidden = YES;
+        [_videoPlayer addSubview:self.shareView];
         [self.view addSubview:[[VideoGetter singleton] getView]];
         
         
-        _fullscreenWebView = [FullscreenWebView fullscreenWebViewFromNib];
-        _fullscreenWebView.hidden = YES;
-        [_fullscreenWebView setDelegate:self];
-        [self.view addSubview:_fullscreenWebView];
-         
-
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _fullscreenWebView = [[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPad" bundle:[NSBundle mainBundle]];
+        } else {
+            _fullscreenWebView = [[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPhone" bundle:[NSBundle mainBundle]];
+        }
+        [_fullscreenWebView loadView];
+        [_fullscreenWebView setDelegate:self];         
     }
     return self;
 }
@@ -261,13 +268,13 @@
 
 #pragma mark - ShareViewDelegate Methods
 
-- (void)shareViewClosePressed:(ShareViewController*)shareView
+- (void)shareViewClosePressed:(ShareView*)shareView
 {
-    self.shareView.view.hidden = YES;
+    self.shareView.hidden = YES;
     [_videoPlayer resumeAfterCloseShareView];
 }
 
-- (void)shareView:(ShareViewController *)shareView 
+- (void)shareView:(ShareView *)shareView 
       sentMessage:(NSString *)message
      withNetworks:(NSArray *)networks
     andRecipients:(NSString *)recipients
@@ -279,7 +286,7 @@
                networks:networks
               recipient:recipients];
     
-    self.shareView.view.hidden = YES;
+    self.shareView.hidden = YES;
 }
 
 - (void)shareViewWasTouched
@@ -289,7 +296,7 @@
 
 - (void)logOut:(id)sender
 {
-    self.shareView.view.hidden = YES;
+    self.shareView.hidden = YES;
     if (_settingsVisible) {
         [self toggleSettings];
     }
@@ -430,7 +437,7 @@
     
     [self.shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
 
-    self.shareView.view.hidden = NO;
+    self.shareView.hidden = NO;
 
     // Use this to reveal the keyboard.
     [self.shareView.bodyTextView becomeFirstResponder];
@@ -541,6 +548,11 @@
     _demoModeButton.possibleTitles = [NSSet setWithObjects:@"Demo Mode", @"Waiting...", @"Downloading...", @"Demo Mode On", nil];
     
     [tabBar setSelectedItem:timelineTabBarItem];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [_videoPlayer removeFromSuperview];
+        _videoPlayerViewController.view = _videoPlayer;
+    }
 }
 
 #pragma mark - Notification Handlers
@@ -580,18 +592,6 @@
     }
 }
 
-#pragma mark - Layout
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
-{
-    if (self.shareView) {
-        [self.shareView adjustViewsForOrientation:interfaceOrientation];
-    }
-    
-    [self adjustViewsForOrientation:interfaceOrientation];
-}
-
-
 #pragma mark - Cleanup
 
 - (void)viewDidUnload
@@ -627,7 +627,13 @@
     }
     
     // Make videoPlayer visible. Really only does something on iPhone.
-    _videoPlayer.hidden = NO;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
+        [ShelbyApp sharedApp].transitionController.viewController == self) {
+        
+        NSLog(@"HERE about to transitionToViewController to _videoPlayerViewController!");
+        
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:_videoPlayerViewController withOptions:UIViewAnimationOptionTransitionNone];
+    }
     [_videoPlayer playVideo: video];
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
@@ -635,23 +641,22 @@
 }
 
 
-// FullscreenWebViewDelegate
+// FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    _fullscreenWebView.hidden = YES;
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView
 {
-    _fullscreenWebView.hidden = NO;
-    self.networkCounter = 0;
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:_fullscreenWebView withOptions:UIViewAnimationOptionTransitionNone];    self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 {
-    _fullscreenWebView.hidden = YES;
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }

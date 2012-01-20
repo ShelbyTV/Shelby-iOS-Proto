@@ -13,6 +13,8 @@
 #import "Reachability.h"
 #import "GraphiteStats.h"
 #import "ShelbyAppDelegate.h"
+#import "UINavigationController+Transitions.h"
+#import "TransitionController.h"
 
 @interface LoginViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -64,10 +66,15 @@
                                                      name:@"LoginURLAvailable"
                                                    object:nil];
         
-        _fullscreenWebView = [FullscreenWebView fullscreenWebViewFromNib];
-        _fullscreenWebView.hidden = YES;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _fullscreenWebView = [[[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPad" bundle:[NSBundle mainBundle]] retain];
+        } else {
+            _fullscreenWebView = [[[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPhone" bundle:[NSBundle mainBundle]] retain];
+        }
+        [_fullscreenWebView loadView];
         [_fullscreenWebView setDelegate:self];
-        [self.view addSubview:_fullscreenWebView];
+
+        NSAssert(NOT_NULL(_fullscreenWebView.webView), @"_fullscreenWebView.webView is NULL!");
     }
     return self;
 }
@@ -91,28 +98,6 @@
 }
 
 #pragma mark - Misc Methods
-
-- (void)fade:(BOOL)visible {
-    float alpha;
-    BOOL hidden;
-    if (visible) {
-        alpha = 1.0f;
-        hidden = NO;
-    } else {
-        alpha = 0.0f;
-        hidden = YES;
-    }
-    // Note: this won't work on iOS3.
-    [UIView animateWithDuration:0.25 animations:^{
-        self.view.alpha = alpha;
-    }
-    completion:^(BOOL finished){
-       if (finished) {
-           [self.view setHidden: hidden];
-           _fullscreenWebView.hidden = YES;
-       }
-    }];
-}
 
 - (void)clearAllCookies
 {
@@ -138,13 +123,13 @@
 {    
     [GraphiteStats incrementCounter:@"signin" withAction:@"signin"];
     [callbackObject performSelector:callbackSelector];
-    [self fade:NO];
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:(UIViewController *)[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionNone];
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
     [self clearAllCookies];
-    [self fade:YES];
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -155,6 +140,9 @@
 - (void)loginURLAvailable:(NSNotification*)aNotification
 {   
     NSLog(@"loginURL: %@", [aNotification.userInfo objectForKey:@"url"]);
+
+    NSAssert(NOT_NULL(_fullscreenWebView.webView), @"_fullscreenWebView.webView is NULL!");
+    
     [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
                                                              cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                          timeoutInterval:60.0]];
@@ -175,16 +163,16 @@
     [self beginLoginWithProvider: @"twitter"];
 }
 
-// FullscreenWebViewDelegate
+// FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    _fullscreenWebView.hidden = YES;
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
 {
-    _fullscreenWebView.hidden = NO;
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:_fullscreenWebView withOptions:UIViewAnimationOptionTransitionNone];
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
     
@@ -194,7 +182,7 @@
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    _fullscreenWebView.hidden = YES;
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
     
@@ -227,6 +215,11 @@
             infoViewExpanded = !infoViewExpanded;
         }
     }];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
 }
 
 @end

@@ -42,7 +42,7 @@
 			</object>
 			<object class="IBUIView" id="454735877">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">290</int>
+				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIView" id="985251360">
@@ -544,174 +544,158 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">view</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="454735877"/>
-					</object>
-					<int key="connectionID">241</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_dialogContainerView</string>
-						<reference key="source" ref="841351856"/>
+						<reference key="source" ref="454735877"/>
 						<reference key="destination" ref="698254765"/>
 					</object>
-					<int key="connectionID">242</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_postButtonsContainerView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="747246548"/>
-					</object>
-					<int key="connectionID">245</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_tweetRemainingLabel</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="389782430"/>
-					</object>
-					<int key="connectionID">248</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_emailRecipientFieldHolder</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="342775328"/>
-					</object>
-					<int key="connectionID">249</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_emailRecipientContainerView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="914532307"/>
-					</object>
-					<int key="connectionID">250</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_bodyTextContainerView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="58029591"/>
-					</object>
-					<int key="connectionID">251</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_bodyTextView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="37582643"/>
-					</object>
-					<int key="connectionID">252</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_emailRecipientSuggestionsHolder</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="457561110"/>
-					</object>
-					<int key="connectionID">253</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_facebookButton</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="170764482"/>
-					</object>
-					<int key="connectionID">255</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_twitterButton</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="226765512"/>
-					</object>
-					<int key="connectionID">256</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_emailBodyPlaceholder</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="725659668"/>
-					</object>
-					<int key="connectionID">258</int>
+					<int key="connectionID">287</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_socialBodyPlaceholder</string>
-						<reference key="source" ref="841351856"/>
+						<reference key="source" ref="454735877"/>
 						<reference key="destination" ref="211886283"/>
 					</object>
-					<int key="connectionID">259</int>
+					<int key="connectionID">288</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_shareTypeSelector</string>
-						<reference key="source" ref="841351856"/>
+						<reference key="source" ref="454735877"/>
 						<reference key="destination" ref="85569629"/>
 					</object>
-					<int key="connectionID">260</int>
+					<int key="connectionID">291</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_postButtonsContainerView</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="747246548"/>
+					</object>
+					<int key="connectionID">292</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_twitterButton</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="226765512"/>
+					</object>
+					<int key="connectionID">294</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_facebookButton</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="170764482"/>
+					</object>
+					<int key="connectionID">296</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_tweetRemainingLabel</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="389782430"/>
+					</object>
+					<int key="connectionID">297</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailBodyPlaceholder</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="914532307"/>
+					</object>
+					<int key="connectionID">298</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailRecipientFieldHolder</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="342775328"/>
+					</object>
+					<int key="connectionID">299</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_bodyTextContainerView</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="58029591"/>
+					</object>
+					<int key="connectionID">300</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_bodyTextView</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="37582643"/>
+					</object>
+					<int key="connectionID">302</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailRecipientSuggestionsHolder</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="457561110"/>
+					</object>
+					<int key="connectionID">303</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_sendButton</string>
-						<reference key="source" ref="841351856"/>
+						<reference key="source" ref="454735877"/>
 						<reference key="destination" ref="760946514"/>
 					</object>
-					<int key="connectionID">265</int>
+					<int key="connectionID">306</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">closeWasPressed:</string>
 						<reference key="source" ref="775822437"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="454735877"/>
 					</object>
-					<int key="connectionID">254</int>
+					<int key="connectionID">304</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">segmentedControlValueChanged:</string>
 						<reference key="source" ref="85569629"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="454735877"/>
 						<int key="IBEventType">13</int>
 					</object>
-					<int key="connectionID">244</int>
+					<int key="connectionID">290</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">twitterWasPressed:</string>
 						<reference key="source" ref="226765512"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="454735877"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">247</int>
+					<int key="connectionID">293</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">facebookWasPressed:</string>
 						<reference key="source" ref="170764482"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="454735877"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">246</int>
+					<int key="connectionID">295</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="37582643"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="454735877"/>
 					</object>
-					<int key="connectionID">261</int>
+					<int key="connectionID">301</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">sendWasPressed:</string>
 						<reference key="source" ref="760946514"/>
-						<reference key="destination" ref="841351856"/>
+						<reference key="destination" ref="454735877"/>
 					</object>
-					<int key="connectionID">264</int>
+					<int key="connectionID">305</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -910,10 +894,10 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="NSArray" key="dict.sortedKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>-1.CustomClassName</string>
 					<string>-1.IBPluginDependency</string>
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
+					<string>218.CustomClassName</string>
 					<string>218.IBPluginDependency</string>
 					<string>219.IBPluginDependency</string>
 					<string>220.IBPluginDependency</string>
@@ -944,10 +928,10 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>ShareViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>ShareView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -989,20 +973,19 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">265</int>
+			<int key="maxID">306</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">ShareViewController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="className">ShareView</string>
+					<string key="superclassName">UIView</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeWasPressed:</string>
-							<string>emailRecipientValueChanged:</string>
 							<string>facebookWasPressed:</string>
 							<string>segmentedControlValueChanged:</string>
 							<string>sendWasPressed:</string>
@@ -1010,7 +993,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1023,7 +1005,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeWasPressed:</string>
-							<string>emailRecipientValueChanged:</string>
 							<string>facebookWasPressed:</string>
 							<string>segmentedControlValueChanged:</string>
 							<string>sendWasPressed:</string>
@@ -1033,10 +1014,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">closeWasPressed:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">emailRecipientValueChanged:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1182,7 +1159,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ShareViewController.h</string>
+						<string key="minorKey">./Classes/ShareView.h</string>
 					</object>
 				</object>
 			</object>
@@ -1209,7 +1186,7 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{16, 16}</string>
+				<string>{35, 35}</string>
 				<string>{25, 25}</string>
 				<string>{25, 25}</string>
 				<string>{526, 95}</string>

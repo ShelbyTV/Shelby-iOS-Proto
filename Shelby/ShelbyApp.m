@@ -25,6 +25,8 @@
 @synthesize navigationViewController;
 @synthesize demoModeEnabled = _demoModeEnabled;
 @synthesize safariUserAgent;
+@synthesize transitionController;
+@synthesize shelbyWindow;
 
 #pragma mark - Singleton
 

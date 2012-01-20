@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ConnectivityViewController.h"
 #import "NetworkObject.h"
-#import "FullscreenWebView.h"
+#import "FullscreenWebViewController.h"
 
 @class LoginHelper;
 @class Reachability;
 
-@interface LoginViewController : ConnectivityViewController <FullscreenWebViewDelegate, NetworkObject> {
+@interface LoginViewController : ConnectivityViewController <FullscreenWebViewControllerDelegate, NetworkObject> {
     id callbackObject;
     SEL callbackSelector;
     
@@ -33,7 +33,7 @@
     // Actual login stuff
     LoginHelper *_loginHelper;
     
-    FullscreenWebView *_fullscreenWebView;
+    FullscreenWebViewController *_fullscreenWebView;
 }
 
 @property (readonly) NSInteger networkCounter;
@@ -48,7 +48,7 @@
 
 - (IBAction)infoTabPressed:(id)sender;
 
-// FullscreenWebViewDelegate
+// FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender;
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;

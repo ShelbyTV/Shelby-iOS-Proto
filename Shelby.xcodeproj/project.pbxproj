@@ -90,6 +90,9 @@
 		0A6D996A14C5F44F008762D7 /* favoritesTabBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D996814C5F44F008762D7 /* favoritesTabBar@2x.png */; };
 		0A6D996D14C5F52D008762D7 /* watchLaterTabBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D996B14C5F52D008762D7 /* watchLaterTabBar.png */; };
 		0A6D996E14C5F52D008762D7 /* watchLaterTabBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D996C14C5F52D008762D7 /* watchLaterTabBar@2x.png */; };
+		0A6D99BA14C8CAF4008762D7 /* UINavigationController+Transitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D99B914C8CAF4008762D7 /* UINavigationController+Transitions.m */; };
+		0A6D99BD14C8D633008762D7 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D99BC14C8D632008762D7 /* VideoPlayerViewController.m */; };
+		0A6D99C014C9067F008762D7 /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D99BF14C9067E008762D7 /* TransitionController.m */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
 		0A74BB43142D45A500D65A02 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB42142D45A500D65A02 /* Icon@2x.png */; };
 		0A74BB48142D468200D65A02 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB47142D468200D65A02 /* iTunesArtwork.png */; };
@@ -100,7 +103,7 @@
 		0A7C1BEC146E0531006293F5 /* CellGradientPlaying.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7C1BEB146E0531006293F5 /* CellGradientPlaying.png */; };
 		0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871145143D0FBA001AE70D /* CoreDataHelper.m */; };
 		0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871149143D74E7001AE70D /* VideoTableViewCell.m */; };
-		0A978AF714455B74005DFF18 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A978AF614455B74005DFF18 /* ShareViewController.m */; };
+		0A978AF714455B74005DFF18 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A978AF614455B74005DFF18 /* ShareView.m */; };
 		0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB364FF143137A100DCEAFD /* GraphiteStats.m */; };
 		0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB3650314313E6A00DCEAFD /* CFNetwork.framework */; };
 		0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */; };
@@ -119,9 +122,9 @@
 		0ABB3D551463062E00D182F3 /* LegalHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB3D531463062D00D182F3 /* LegalHighlighted.png */; };
 		0AC0499014AFCD2000FD6820 /* remoteMode_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0498F14AFCD2000FD6820 /* remoteMode_iPad.png */; };
 		0AC0499414AFF17800FD6820 /* RemoteModeGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */; };
-		0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8260A148FED1E009FF975 /* FullscreenWebView.m */; };
-		0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */; };
-		0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */; };
+		0AC8260B148FED1F009FF975 /* FullscreenWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC8260A148FED1E009FF975 /* FullscreenWebViewController.m */; };
+		0AC8260D148FF02C009FF975 /* FullscreenWebViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260C148FF02C009FF975 /* FullscreenWebViewController_iPad.xib */; };
+		0AC8260F148FFA3F009FF975 /* FullscreenWebViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8260E148FFA3F009FF975 /* FullscreenWebViewController_iPhone.xib */; };
 		0AC82613149009F1009FF975 /* LoginLogo_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC82612149009F1009FF975 /* LoginLogo_iPad.png */; };
 		0AC8261614900B27009FF975 /* LoginFacebook_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */; };
 		0AC8261714900B27009FF975 /* LoginTwitter_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */; };
@@ -416,6 +419,12 @@
 		0A6D996814C5F44F008762D7 /* favoritesTabBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favoritesTabBar@2x.png"; path = "Resources/Images/favoritesTabBar@2x.png"; sourceTree = "<group>"; };
 		0A6D996B14C5F52D008762D7 /* watchLaterTabBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watchLaterTabBar.png; path = Resources/Images/watchLaterTabBar.png; sourceTree = "<group>"; };
 		0A6D996C14C5F52D008762D7 /* watchLaterTabBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watchLaterTabBar@2x.png"; path = "Resources/Images/watchLaterTabBar@2x.png"; sourceTree = "<group>"; };
+		0A6D99B814C8CAF4008762D7 /* UINavigationController+Transitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Transitions.h"; sourceTree = "<group>"; };
+		0A6D99B914C8CAF4008762D7 /* UINavigationController+Transitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Transitions.m"; sourceTree = "<group>"; };
+		0A6D99BB14C8D632008762D7 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		0A6D99BC14C8D632008762D7 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
+		0A6D99BE14C9067E008762D7 /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
+		0A6D99BF14C9067E008762D7 /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		0A74BB42142D45A500D65A02 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		0A74BB47142D468200D65A02 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
@@ -428,8 +437,8 @@
 		0A871145143D0FBA001AE70D /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		0A871148143D74E6001AE70D /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
 		0A871149143D74E7001AE70D /* VideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
-		0A978AF514455B74005DFF18 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
-		0A978AF614455B74005DFF18 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		0A978AF514455B74005DFF18 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		0A978AF614455B74005DFF18 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		0AB364FE143137A100DCEAFD /* GraphiteStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphiteStats.h; sourceTree = "<group>"; };
 		0AB364FF143137A100DCEAFD /* GraphiteStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphiteStats.m; sourceTree = "<group>"; };
 		0AB3650314313E6A00DCEAFD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -450,10 +459,10 @@
 		0AC0498F14AFCD2000FD6820 /* remoteMode_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remoteMode_iPad.png; path = Resources/Images/remoteMode_iPad.png; sourceTree = "<group>"; };
 		0AC0499214AFF17800FD6820 /* RemoteModeGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteModeGradientView.h; sourceTree = "<group>"; };
 		0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteModeGradientView.m; sourceTree = "<group>"; };
-		0AC82609148FED1E009FF975 /* FullscreenWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullscreenWebView.h; sourceTree = "<group>"; };
-		0AC8260A148FED1E009FF975 /* FullscreenWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullscreenWebView.m; sourceTree = "<group>"; };
-		0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPad.xib; sourceTree = "<group>"; };
-		0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebView_iPhone.xib; sourceTree = "<group>"; };
+		0AC82609148FED1E009FF975 /* FullscreenWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullscreenWebViewController.h; sourceTree = "<group>"; };
+		0AC8260A148FED1E009FF975 /* FullscreenWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullscreenWebViewController.m; sourceTree = "<group>"; };
+		0AC8260C148FF02C009FF975 /* FullscreenWebViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebViewController_iPad.xib; sourceTree = "<group>"; };
+		0AC8260E148FFA3F009FF975 /* FullscreenWebViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullscreenWebViewController_iPhone.xib; sourceTree = "<group>"; };
 		0AC82612149009F1009FF975 /* LoginLogo_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginLogo_iPad.png; path = Resources/Images/LoginLogo_iPad.png; sourceTree = "<group>"; };
 		0AC8261414900B27009FF975 /* LoginFacebook_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginFacebook_iPad.png; path = Resources/Images/LoginFacebook_iPad.png; sourceTree = "<group>"; };
 		0AC8261514900B27009FF975 /* LoginTwitter_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginTwitter_iPad.png; path = Resources/Images/LoginTwitter_iPad.png; sourceTree = "<group>"; };
@@ -1060,7 +1069,7 @@
 				0AE05005148D817B00952C02 /* ShareView_iPhone.xib */,
 				428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */,
 				0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */,
-				0AC8260E148FFA3F009FF975 /* FullscreenWebView_iPhone.xib */,
+				0AC8260E148FFA3F009FF975 /* FullscreenWebViewController_iPhone.xib */,
 				0AF7DEA514B3B34C005B48BF /* RemoteMode_iPhone.xib */,
 			);
 			name = iPhone;
@@ -1077,7 +1086,7 @@
 				0AE05008148D819100952C02 /* ShareView_iPad.xib */,
 				428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */,
 				0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */,
-				0AC8260C148FF02C009FF975 /* FullscreenWebView_iPad.xib */,
+				0AC8260C148FF02C009FF975 /* FullscreenWebViewController_iPad.xib */,
 				0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */,
 			);
 			name = iPad;
@@ -1213,11 +1222,11 @@
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
 				42084C7B1427B99A00C3C556 /* OfflineView.h */,
 				42084C7C1427B99A00C3C556 /* OfflineView.m */,
+				0A978AF514455B74005DFF18 /* ShareView.h */,
+				0A978AF614455B74005DFF18 /* ShareView.m */,
 				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
 				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
 				0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */,
-				0AC82609148FED1E009FF975 /* FullscreenWebView.h */,
-				0AC8260A148FED1E009FF975 /* FullscreenWebView.m */,
 				0AC8261E1490222E009FF975 /* LoginGradientView.h */,
 				0AC8261F1490222F009FF975 /* LoginGradientView.m */,
 				0AC0499214AFF17800FD6820 /* RemoteModeGradientView.h */,
@@ -1387,18 +1396,22 @@
 			children = (
 				42084C8A1427DC3300C3C556 /* ConnectivityViewController.h */,
 				42084C8B1427DC3300C3C556 /* ConnectivityViewController.m */,
+				0AC82609148FED1E009FF975 /* FullscreenWebViewController.h */,
+				0AC8260A148FED1E009FF975 /* FullscreenWebViewController.m */,
 				0AD9A3F313D6A45200EFECE0 /* LoginViewController.h */,
 				0AD9A3F413D6A45200EFECE0 /* LoginViewController.m */,
 				0A12931413DCD300009D254F /* NavigationViewController.h */,
 				0A12931513DCD300009D254F /* NavigationViewController.m */,
-				0A978AF514455B74005DFF18 /* ShareViewController.h */,
-				0A978AF614455B74005DFF18 /* ShareViewController.m */,
 				0AE04FB614896FBA00952C02 /* COPeoplePickerViewController.h */,
 				0AE04FB714896FBA00952C02 /* COPeoplePickerViewController.m */,
 				0A12933913DD0DBF009D254F /* VideoTableViewController.h */,
 				0A12933A13DD0DC0009D254F /* VideoTableViewController.m */,
 				0AF7DE7514B12B37005B48BF /* RemoteModeViewController.h */,
 				0AF7DE7614B12B37005B48BF /* RemoteModeViewController.m */,
+				0A6D99BB14C8D632008762D7 /* VideoPlayerViewController.h */,
+				0A6D99BC14C8D632008762D7 /* VideoPlayerViewController.m */,
+				0A6D99BE14C9067E008762D7 /* TransitionController.h */,
+				0A6D99BF14C9067E008762D7 /* TransitionController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1470,6 +1483,8 @@
 				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
 				0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */,
 				0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */,
+				0A6D99B814C8CAF4008762D7 /* UINavigationController+Transitions.h */,
+				0A6D99B914C8CAF4008762D7 /* UINavigationController+Transitions.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1668,8 +1683,8 @@
 				0AE0500A148D819100952C02 /* ShareView_iPad.xib in Resources */,
 				0AE05013148D89EC00952C02 /* playBackground_iPhone.png in Resources */,
 				0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */,
-				0AC8260D148FF02C009FF975 /* FullscreenWebView_iPad.xib in Resources */,
-				0AC8260F148FFA3F009FF975 /* FullscreenWebView_iPhone.xib in Resources */,
+				0AC8260D148FF02C009FF975 /* FullscreenWebViewController_iPad.xib in Resources */,
+				0AC8260F148FFA3F009FF975 /* FullscreenWebViewController_iPhone.xib in Resources */,
 				0AC82613149009F1009FF975 /* LoginLogo_iPad.png in Resources */,
 				0AC8261614900B27009FF975 /* LoginFacebook_iPad.png in Resources */,
 				0AC8261714900B27009FF975 /* LoginTwitter_iPad.png in Resources */,
@@ -1861,19 +1876,22 @@
 				0A4DB3DE1432512D00618605 /* ApiMutableURLRequest.m in Sources */,
 				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
-				0A978AF714455B74005DFF18 /* ShareViewController.m in Sources */,
+				0A978AF714455B74005DFF18 /* ShareView.m in Sources */,
 				0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */,
 				0A14C80D145C713400632FB0 /* ShelbyWindow.m in Sources */,
 				0A6B278E1474C58500CF3A47 /* PlatformHelper.m in Sources */,
 				0A6B279D1475C41300CF3A47 /* ThumbnailImage.m in Sources */,
 				0A6B27A11475C54800CF3A47 /* SharerImage.m in Sources */,
 				0AE04FB814896FBB00952C02 /* COPeoplePickerViewController.m in Sources */,
-				0AC8260B148FED1F009FF975 /* FullscreenWebView.m in Sources */,
+				0AC8260B148FED1F009FF975 /* FullscreenWebViewController.m in Sources */,
 				0AC8262014902230009FF975 /* LoginGradientView.m in Sources */,
 				0A5C09A014980CB800C08F41 /* SessionStats.m in Sources */,
 				0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */,
 				0AC0499414AFF17800FD6820 /* RemoteModeGradientView.m in Sources */,
 				0AF7DE7814B12B37005B48BF /* RemoteModeViewController.m in Sources */,
+				0A6D99BA14C8CAF4008762D7 /* UINavigationController+Transitions.m in Sources */,
+				0A6D99BD14C8D633008762D7 /* VideoPlayerViewController.m in Sources */,
+				0A6D99C014C9067F008762D7 /* TransitionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
