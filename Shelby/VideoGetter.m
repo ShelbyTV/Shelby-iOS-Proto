@@ -90,6 +90,8 @@ static VideoGetter *singletonYouTubeGetter = nil;
 {
     @synchronized(self)
     {
+        [_webView stopLoading];
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] clearWebViewAnimations];
         }
