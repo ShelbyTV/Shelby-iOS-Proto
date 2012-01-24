@@ -129,12 +129,13 @@
 
 - (void)userLoggedIn:(NSNotification*)aNotification
 {    
+    NSLog(@"userLoggedIn");
     [GraphiteStats incrementCounter:@"signin" withAction:@"signin"];
     [callbackObject performSelector:callbackSelector];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.view.hidden = TRUE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionNone];
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionCrossDissolve];
     }
 }
 
@@ -144,7 +145,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.view.hidden = FALSE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionCrossDissolve];
     }
 }
 
@@ -182,12 +183,13 @@
 // FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
+    NSLog(@"fullscreenWebViewCloseWasPressed");
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _fullscreenWebView.view.hidden = TRUE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionCrossDissolve];
     }
-    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
@@ -195,7 +197,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _fullscreenWebView.view.hidden = FALSE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:_fullscreenWebView withOptions:UIViewAnimationOptionTransitionNone];
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:_fullscreenWebView withOptions:UIViewAnimationOptionTransitionCrossDissolve];
     }
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
@@ -209,7 +211,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _fullscreenWebView.view.hidden = TRUE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
+        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionCrossDissolve];
     }
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];

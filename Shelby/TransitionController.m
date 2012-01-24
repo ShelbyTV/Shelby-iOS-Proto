@@ -56,9 +56,13 @@ viewController = _viewController;
 - (void)transitionToViewController:(UIViewController *)viewController
                        withOptions:(UIViewAnimationOptions)transition
 {
+    if (_viewController == viewController) {
+        return;
+    }
+    
     [UIView transitionFromView:[ShelbyApp sharedApp].shelbyWindow.rootViewController.view
                         toView:viewController.view
-                      duration:0.65f
+                      duration:0.0f
                        options:transition
                     completion:^(BOOL finished){
                         [ShelbyApp sharedApp].shelbyWindow.rootViewController = viewController;
