@@ -510,6 +510,33 @@
     }
 }
 
+- (void)storeBroadcastVideoPlayableStatus:(Video *)video 
+                  inContext:(NSManagedObjectContext *)context
+{
+    Broadcast *update = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:video.shelbyId inContext:context];
+    
+    if (NULL == update ) 
+    {
+        NSLog(@"Couldn't find CoreData entry for video %@; aborting store of sharerImageData", video.shelbyId);
+        return;
+    }
+    
+    update.isPlayable = [NSNumber numberWithInt:video.isPlayable];
+    
+    NSError *error;
+    if (![context save:&error]) {
+        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if(detailedErrors != nil && [detailedErrors count] > 0) {
+            for(NSError* detailedError in detailedErrors) {
+                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+            }
+        } else {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+    }
+}
+
 - (void)storeBroadcastVideo:(Video *)video 
         withSharerImageData:(NSData *)sharerImageData 
                   inContext:(NSManagedObjectContext *)context

@@ -33,6 +33,7 @@
 @synthesize allComments;
 @synthesize cellHeightCurrent;
 @synthesize currentlyPlaying;
+@synthesize isPlayable;
 
 - (id)initWithBroadcast:(Broadcast *)broadcast
 {
@@ -66,6 +67,7 @@
         if (NOT_NULL(broadcast.liked)) self.isLiked = [broadcast.liked boolValue];
         if (NOT_NULL(broadcast.watchLater)) self.isWatchLater = [broadcast.watchLater boolValue];
         if (NOT_NULL(broadcast.watched)) self.isWatched = [broadcast.watched boolValue];
+        if (NOT_NULL(broadcast.isPlayable)) self.isPlayable = [broadcast.isPlayable intValue];
     }
     
     return self;

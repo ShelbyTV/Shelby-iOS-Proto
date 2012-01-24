@@ -2,6 +2,7 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Broadcast" representedClassName="Broadcast">
         <attribute name="createdAt" optional="YES" attributeType="Date"/>
+        <attribute name="isPlayable" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="liked" optional="YES" attributeType="Boolean"/>
         <attribute name="origin" optional="YES" attributeType="String"/>
         <attribute name="provider" optional="YES" attributeType="String"/>
@@ -46,10 +47,10 @@
         <relationship name="channels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Channel" inverseName="user" inverseEntity="Channel"/>
     </entity>
     <elements>
-        <element name="Broadcast" positionX="27" positionY="438" width="128" height="300"/>
+        <element name="Broadcast" positionX="27" positionY="438" width="128" height="315"/>
         <element name="Channel" positionX="-173" positionY="207" width="128" height="120"/>
-        <element name="User" positionX="315" positionY="213" width="128" height="180"/>
-        <element name="ThumbnailImage" positionX="313" positionY="639" width="128" height="75"/>
         <element name="SharerImage" positionX="277" positionY="510" width="128" height="75"/>
+        <element name="ThumbnailImage" positionX="313" positionY="639" width="128" height="75"/>
+        <element name="User" positionX="315" positionY="213" width="128" height="180"/>
     </elements>
 </model>

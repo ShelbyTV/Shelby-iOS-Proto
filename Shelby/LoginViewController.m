@@ -15,6 +15,7 @@
 #import "ShelbyAppDelegate.h"
 #import "UINavigationController+Transitions.h"
 #import "TransitionController.h"
+#import "NavigationViewController.h"
 
 @interface LoginViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -123,7 +124,7 @@
 {    
     [GraphiteStats incrementCounter:@"signin" withAction:@"signin"];
     [callbackObject performSelector:callbackSelector];
-    [[ShelbyApp sharedApp].transitionController transitionToViewController:(UIViewController *)[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionNone];
+    [[ShelbyApp sharedApp].transitionController transitionToViewController:[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionNone];
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification

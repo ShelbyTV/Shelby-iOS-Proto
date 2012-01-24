@@ -433,6 +433,7 @@
 		0A74BB51142D4C8F00D65A02 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		0A74BB53142D4CA200D65A02 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		0A7C1BEB146E0531006293F5 /* CellGradientPlaying.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellGradientPlaying.png; path = Resources/Images/CellGradientPlaying.png; sourceTree = "<group>"; };
+		0A84058214CE1DA800F13FC2 /* Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 		0A871144143D0FBA001AE70D /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		0A871145143D0FBA001AE70D /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		0A871148143D74E6001AE70D /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
@@ -1055,6 +1056,7 @@
 				0AD9A36213D53BD300EFECE0 /* Shelby-Prefix.pch */,
 				0AD9A36313D53BD300EFECE0 /* main.m */,
 				42CA0DBF13EC862700B9BF15 /* Macros.h */,
+				0A84058214CE1DA800F13FC2 /* Enums.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

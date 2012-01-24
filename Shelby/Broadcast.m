@@ -7,6 +7,7 @@
 //
 
 #import "Broadcast.h"
+#import "Enums.h"
 
 @implementation Broadcast
 
@@ -28,6 +29,15 @@
 @dynamic thumbnailImageUrl;
 @dynamic title;
 @dynamic watched;
+@dynamic isPlayable;
+
+// initialize isPlayable state only on object creation
+- (void) awakeFromInsert
+{
+    [super awakeFromInsert];
+    
+    self.isPlayable = [NSNumber numberWithInt:PLAYABLE_UNSET];
+}
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 {    

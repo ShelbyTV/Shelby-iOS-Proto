@@ -34,6 +34,7 @@
 @property (nonatomic) BOOL allComments;
 @property (nonatomic) float cellHeightCurrent;
 @property (nonatomic) BOOL currentlyPlaying;
+@property (nonatomic) int isPlayable;
 
 - (id)initWithBroadcast:(Broadcast *)broadcast;
 

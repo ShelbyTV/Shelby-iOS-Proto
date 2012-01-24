@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSString *thumbnailImageUrl;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSNumber *watched;
+@property (nonatomic, retain) NSNumber *isPlayable;
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 

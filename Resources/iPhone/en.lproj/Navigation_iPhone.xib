@@ -51,7 +51,8 @@
 						<int key="NSvFlags">273</int>
 						<string key="NSFrame">{{0, 50}, {320, 381}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="522482069"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="17322012"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="680184008">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
@@ -63,6 +64,7 @@
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="76630946"/>
 						<string key="NSReuseIdentifierKey">_NS:541</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="406797638">
@@ -111,7 +113,8 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{0, 6}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="17322012"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="676551548"/>
 						<string key="NSReuseIdentifierKey">_NS:597</string>
 						<int key="IBUIContentMode">3</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -135,7 +138,8 @@
 								<int key="NSvFlags">265</int>
 								<string key="NSFrame">{{274, 6}, {36, 36}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
-								<reference key="NSNextKeyView" ref="676551548"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="522482069"/>
 								<string key="NSReuseIdentifierKey">_NS:544</string>
 								<reference key="IBUIBackgroundColor" ref="406797638"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -146,6 +150,7 @@
 								<int key="NSvFlags">-2147483383</int>
 								<string key="NSFrame">{{252, 25}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="595252148"/>
 								<string key="NSReuseIdentifierKey">_NS:544</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -164,6 +169,7 @@
 								<int key="NSvFlags">265</int>
 								<string key="NSFrame">{{252, 25}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="846600648"/>
 								<string key="NSReuseIdentifierKey">_NS:544</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -182,6 +188,7 @@
 								<int key="NSvFlags">265</int>
 								<string key="NSFrame">{{234, 25}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="173617882"/>
 								<string key="NSReuseIdentifierKey">_NS:544</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -200,6 +207,7 @@
 								<int key="NSvFlags">265</int>
 								<string key="NSFrame">{{169, 4}, {100, 21}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="185809759"/>
 								<string key="NSReuseIdentifierKey">_NS:327</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -233,7 +241,8 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{-1, 0}, {158, 48}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
-								<reference key="NSNextKeyView" ref="94840193"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="943798817"/>
 								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -247,6 +256,7 @@
 								<int key="NSvFlags">265</int>
 								<string key="NSFrame">{{167, 6}, {143, 38}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="775064286"/>
 								<string key="NSReuseIdentifierKey">_NS:222</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -275,9 +285,21 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
+							<object class="IBUIView" id="943798817">
+								<reference key="NSNextResponder" ref="267012245"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{280, 12}, {25, 25}}</string>
+								<reference key="NSSuperview" ref="267012245"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="94840193"/>
+								<string key="NSReuseIdentifierKey">_NS:196</string>
+								<reference key="IBUIBackgroundColor" ref="406797638"/>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
 						</object>
 						<string key="NSFrameSize">{320, 50}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="775763401"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -295,6 +317,7 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrameSize">{320, 44}</string>
 								<reference key="NSSuperview" ref="76630946"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="925242773"/>
 								<string key="NSReuseIdentifierKey">_NS:372</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -335,6 +358,7 @@
 								<int key="NSvFlags">293</int>
 								<string key="NSFrame">{{20, 64}, {280, 44}}</string>
 								<reference key="NSSuperview" ref="76630946"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="766310622"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<reference key="IBUIBackgroundColor" ref="406797638"/>
@@ -378,6 +402,7 @@
 								<int key="NSvFlags">293</int>
 								<string key="NSFrame">{{20, 116}, {280, 44}}</string>
 								<reference key="NSSuperview" ref="76630946"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="721246129"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<reference key="IBUIBackgroundColor" ref="406797638"/>
@@ -411,6 +436,7 @@
 								<int key="NSvFlags">-2147483347</int>
 								<string key="NSFrame">{{20, 193}, {280, 44}}</string>
 								<reference key="NSSuperview" ref="76630946"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="831667800"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -443,6 +469,7 @@
 								<int key="NSvFlags">293</int>
 								<string key="NSFrame">{{20, 168}, {280, 44}}</string>
 								<reference key="NSSuperview" ref="76630946"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="950426742"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -478,6 +505,7 @@
 										<int key="NSvFlags">303</int>
 										<string key="NSFrame">{{20, 10}, {280, 21}}</string>
 										<reference key="NSSuperview" ref="831667800"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="499708527"/>
 										<string key="NSReuseIdentifierKey">_NS:345</string>
 										<bool key="IBUIOpaque">NO</bool>
@@ -512,6 +540,7 @@
 										<int key="NSvFlags">302</int>
 										<string key="NSFrame">{{20, 42}, {136, 44}}</string>
 										<reference key="NSSuperview" ref="831667800"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="807882945"/>
 										<string key="NSReuseIdentifierKey">_NS:241</string>
 										<bool key="IBUIOpaque">NO</bool>
@@ -549,6 +578,7 @@
 										<int key="NSvFlags">299</int>
 										<string key="NSFrame">{{164, 42}, {136, 44}}</string>
 										<reference key="NSSuperview" ref="831667800"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:241</string>
 										<bool key="IBUIOpaque">NO</bool>
@@ -571,6 +601,7 @@
 								</object>
 								<string key="NSFrame">{{0, 374}, {320, 106}}</string>
 								<reference key="NSSuperview" ref="76630946"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="455689717"/>
 								<string key="NSReuseIdentifierKey">_NS:212</string>
 								<reference key="IBUIBackgroundColor" ref="680184008"/>
@@ -579,6 +610,7 @@
 						</object>
 						<string key="NSFrame">{{0, 480}, {320, 480}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="156510604"/>
 						<string key="NSReuseIdentifierKey">_NS:212</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -590,6 +622,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="267012245"/>
 				<reference key="IBUIBackgroundColor" ref="680184008"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -759,6 +792,14 @@
 					<int key="connectionID">144</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityHolder</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="943798817"/>
+					</object>
+					<int key="connectionID">146</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">userViewWasPressed:</string>
 						<reference key="source" ref="94840193"/>
@@ -901,6 +942,7 @@
 							<reference ref="595252148"/>
 							<reference ref="185809759"/>
 							<reference ref="94840193"/>
+							<reference ref="943798817"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1071,6 +1113,11 @@
 						<reference key="object" ref="522482069"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">145</int>
+						<reference key="object" ref="943798817"/>
+						<reference key="parent" ref="267012245"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1095,6 +1142,7 @@
 					<string>132.IBPluginDependency</string>
 					<string>133.IBPluginDependency</string>
 					<string>142.IBPluginDependency</string>
+					<string>145.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
 					<string>21.IBPluginDependency</string>
 					<string>42.IBPluginDependency</string>
@@ -1149,6 +1197,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
@@ -1172,9 +1221,361 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">144</int>
+			<int key="maxID">146</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">ConnectivityViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ConnectivityViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NavigationViewController</string>
+					<string key="superclassName">ConnectivityViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addFacebook:</string>
+							<string>addTumblr:</string>
+							<string>addTwitter:</string>
+							<string>backToVideos:</string>
+							<string>demoMode:</string>
+							<string>favoritesButtonPressed:</string>
+							<string>listButtonPressed:</string>
+							<string>logOut:</string>
+							<string>privacyPolicy:</string>
+							<string>termsOfUse:</string>
+							<string>userViewWasPressed:</string>
+							<string>watchLaterButtonPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addFacebook:</string>
+							<string>addTumblr:</string>
+							<string>addTwitter:</string>
+							<string>backToVideos:</string>
+							<string>demoMode:</string>
+							<string>favoritesButtonPressed:</string>
+							<string>listButtonPressed:</string>
+							<string>logOut:</string>
+							<string>privacyPolicy:</string>
+							<string>termsOfUse:</string>
+							<string>userViewWasPressed:</string>
+							<string>watchLaterButtonPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">addFacebook:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">addTumblr:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">addTwitter:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">backToVideos:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">demoMode:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">favoritesButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">listButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">logOut:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">privacyPolicy:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">termsOfUse:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">userViewWasPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">watchLaterButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_demoModeButton</string>
+							<string>_settingsToolbar</string>
+							<string>_videoPlayer</string>
+							<string>activityHolder</string>
+							<string>addFacebookButton</string>
+							<string>addTumblrButton</string>
+							<string>addTwitterButton</string>
+							<string>buttonsFiller</string>
+							<string>buttonsHolder</string>
+							<string>favoritesButton</string>
+							<string>favoritesTabBarItem</string>
+							<string>header</string>
+							<string>listButton</string>
+							<string>searchBar</string>
+							<string>searchTabBarItem</string>
+							<string>settingsView</string>
+							<string>tabBar</string>
+							<string>timelineTabBarItem</string>
+							<string>userButton</string>
+							<string>userFacebook</string>
+							<string>userImage</string>
+							<string>userName</string>
+							<string>userTumblr</string>
+							<string>userTwitter</string>
+							<string>videoTableAndButtonsHolder</string>
+							<string>videoTableHolder</string>
+							<string>watchLaterButton</string>
+							<string>watchLaterTabBarItem</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIBarButtonItem</string>
+							<string>UIToolbar</string>
+							<string>VideoPlayer</string>
+							<string>UIView</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>UIView</string>
+							<string>UIView</string>
+							<string>UIButton</string>
+							<string>UITabBarItem</string>
+							<string>UIView</string>
+							<string>UIButton</string>
+							<string>UISearchBar</string>
+							<string>UITabBarItem</string>
+							<string>UIView</string>
+							<string>UITabBar</string>
+							<string>UITabBarItem</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UILabel</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UIView</string>
+							<string>UIView</string>
+							<string>UIButton</string>
+							<string>UITabBarItem</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_demoModeButton</string>
+							<string>_settingsToolbar</string>
+							<string>_videoPlayer</string>
+							<string>activityHolder</string>
+							<string>addFacebookButton</string>
+							<string>addTumblrButton</string>
+							<string>addTwitterButton</string>
+							<string>buttonsFiller</string>
+							<string>buttonsHolder</string>
+							<string>favoritesButton</string>
+							<string>favoritesTabBarItem</string>
+							<string>header</string>
+							<string>listButton</string>
+							<string>searchBar</string>
+							<string>searchTabBarItem</string>
+							<string>settingsView</string>
+							<string>tabBar</string>
+							<string>timelineTabBarItem</string>
+							<string>userButton</string>
+							<string>userFacebook</string>
+							<string>userImage</string>
+							<string>userName</string>
+							<string>userTumblr</string>
+							<string>userTwitter</string>
+							<string>videoTableAndButtonsHolder</string>
+							<string>videoTableHolder</string>
+							<string>watchLaterButton</string>
+							<string>watchLaterTabBarItem</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_demoModeButton</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_settingsToolbar</string>
+								<string key="candidateClassName">UIToolbar</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_videoPlayer</string>
+								<string key="candidateClassName">VideoPlayer</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">activityHolder</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">addFacebookButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">addTumblrButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">addTwitterButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buttonsFiller</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buttonsHolder</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">favoritesButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">favoritesTabBarItem</string>
+								<string key="candidateClassName">UITabBarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">header</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">listButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">searchBar</string>
+								<string key="candidateClassName">UISearchBar</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">searchTabBarItem</string>
+								<string key="candidateClassName">UITabBarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">settingsView</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">tabBar</string>
+								<string key="candidateClassName">UITabBar</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">timelineTabBarItem</string>
+								<string key="candidateClassName">UITabBarItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userButton</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userFacebook</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userImage</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userName</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userTumblr</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userTwitter</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">videoTableAndButtonsHolder</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">videoTableHolder</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">watchLaterButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">watchLaterTabBarItem</string>
+								<string key="candidateClassName">UITabBarItem</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NavigationViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NavigationViewController_iPhone</string>
+					<string key="superclassName">NavigationViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NavigationViewController_iPhone.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">VideoPlayer</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VideoPlayer.h</string>
+					</object>
+				</object>
+			</object>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">

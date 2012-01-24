@@ -43,17 +43,16 @@
     
     [ShelbyApp sharedApp].navigationViewController = navigationViewController;
     
-    [ShelbyApp sharedApp].transitionController = [[TransitionController alloc] initWithViewController:navigationViewController];
-
+    [loginViewController viewWillAppear: NO];
+    [loginViewController viewDidAppear: NO];
     
     // If we're logged in, we can bypass login here and below...
     if (!userAlreadyLoggedIn) {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:loginViewController withOptions:UIViewAnimationOptionTransitionNone];
+        [ShelbyApp sharedApp].transitionController = [[TransitionController alloc] initWithViewController:loginViewController];
+    } else {
+        [ShelbyApp sharedApp].transitionController = [[TransitionController alloc] initWithViewController:navigationViewController];
     }
-        
-    [loginViewController viewWillAppear: NO];
-    [loginViewController viewDidAppear: NO];
-
+  
     [shelbyWindow addSubview: [ShelbyApp sharedApp].transitionController.view];
     shelbyWindow.rootViewController = [ShelbyApp sharedApp].transitionController;
     shelbyWindow.windowLevel = UIWindowLevelNormal;

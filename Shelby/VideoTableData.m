@@ -19,6 +19,7 @@
 #import "CoreDataHelper.h"
 #import "VideoGetter.h"
 #import "PlatformHelper.h"
+#import "Enums.h"
 
 #import "Foundation/Foundation.h"
 
@@ -624,44 +625,62 @@
     return TRUE;
 }
 
+- (void)storePlayableStatus:(Video *)video
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    [context setUndoManager:nil];
+    [context setPersistentStoreCoordinator:psCoordinator];
+    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+    
+    [[ShelbyApp sharedApp].loginHelper storeBroadcastVideoPlayableStatus:video
+                                                 inContext:context];
+    
+    [context release];
+    [pool release];
+}
+
 - (void)checkPlayable:(Video *)video
 {
-    if ([ShelbyApp sharedApp].demoModeEnabled) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];
+    BOOL needsCoreDataUpdate = FALSE;
+    
+    if (video.isPlayable == PLAYABLE_UNSET) {
+        needsCoreDataUpdate = TRUE;
         
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) 
-        {
-            @synchronized(tableVideos)
+        // assume NOT_PLAYABLE, override if PLAYABLE
+        video.isPlayable = NOT_PLAYABLE;
+        
+        if ([ShelbyApp sharedApp].demoModeEnabled) {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];
+            
+            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) 
             {
                 video.contentURL = [NSURL fileURLWithPath:path];
-                [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
-                videoTableNeedsUpdate = TRUE;
+                video.isPlayable = IS_PLAYABLE;
+            }
+        } else {
+            if ([video.provider isEqualToString: @"vimeo"] &&
+                [self checkVimeoMobileURL:video.providerId]) {
+                video.isPlayable = IS_PLAYABLE;
+            }
+            if ([video.provider isEqualToString: @"youtube"] &&
+                [self checkYouTubePrivileges:video.providerId]) {
+                video.isPlayable = IS_PLAYABLE;
             }
         }
-        
-        return;
     }
     
-    // check for a valid Vimeo ID (should be a single number) 
-    if ([video.provider isEqualToString: @"vimeo"] &&
-        [self checkVimeoMobileURL:video.providerId])
-    {
-        @synchronized(tableVideos)
-        {
+    if (video.isPlayable == IS_PLAYABLE) {
+        @synchronized(tableVideos) {
             [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
             videoTableNeedsUpdate = TRUE;
         }
     }
     
-    if ([video.provider isEqualToString: @"youtube"] &&
-        [self checkYouTubePrivileges:video.providerId])
-    {
-        @synchronized(tableVideos)
-        {
-            [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
-            videoTableNeedsUpdate = TRUE;
-        }
+    if (needsCoreDataUpdate) {
+        [self storePlayableStatus:video];
     }
 }
 
@@ -717,6 +736,26 @@
     return returnDict;
 }
 
+- (BOOL)providerPassesBasicChecks:(NSString *)provider withId:(NSString *)providerId
+{
+    if (IS_NULL(provider) || !([provider isEqualToString: @"youtube"] ||
+                               [provider isEqualToString: @"vimeo"])) {
+        return FALSE;
+    }
+    
+    if (IS_NULL(providerId) || [providerId isEqualToString:@""]) {
+        return FALSE;;
+    }
+    
+    if ([provider isEqualToString: @"vimeo"] &&
+        ![providerId isEqualToString:[NSString stringWithFormat:@"%d", [providerId intValue]]])
+    {
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
 - (NSDictionary *)addOrUpdateBroadcasts:(NSMutableArray *)broadcasts 
                        withNewJSON:(NSArray *)jsonDictionariesArray 
                        withChannel:(Channel *)jsonChannel
@@ -733,18 +772,7 @@
         NSString *provider = [dict objectForKey:@"video_provider_name"];
         NSString *providerId = [dict objectForKey:@"video_id_at_provider"];
         
-        if (IS_NULL(provider) || !([provider isEqualToString: @"youtube"] ||
-                                   [provider isEqualToString: @"vimeo"])) {
-            continue;
-        }
-        
-        if (IS_NULL(providerId) || [providerId isEqualToString:@""]) {
-            continue;
-        }
-        
-        if ([provider isEqualToString: @"vimeo"] &&
-            ![providerId isEqualToString:[NSString stringWithFormat:@"%d", [providerId intValue]]])
-        {
+        if (![self providerPassesBasicChecks:provider withId:providerId]) {
             continue;
         }
         
@@ -1154,5 +1182,42 @@
     
     [pool release];
 }
+
+//- (void)addOrUpdateWithNewJSON:(NSArray *)jsonDictionariesArray 
+//{
+//    NSMutableArray *newVideos = [[NSMutableArray alloc] init];
+//    NSMutableArray *newCommentsOnExistingVideos = [[NSMutableArray alloc] init];
+//    
+//    for (NSDictionary *dict in jsonDictionariesArray)
+//    {
+//        // easy checks, should do now rather than later
+//        NSString *provider = [dict objectForKey:@"video_provider_name"];
+//        NSString *providerId = [dict objectForKey:@"video_id_at_provider"];
+//        
+//        if (![self providerPassesBasicChecks:provider withId:providerId]) {
+//            continue;
+//        }
+//        
+//        NSMutableArray *dupeArray = [videoDupeDict objectForKey:[self dupeKeyWithProvider:provider withId:providerId]];
+//        if (NOT_NULL(dupeArray)) {
+//            // we already know about this video
+//            
+//            
+//            
+//        } else {
+//            dupeArray = [[[NSMutableArray alloc] init] autorelease];
+//            [dupeArray addObject:video];
+//            [videoDupeDict setObject:dupeArray forKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+//            [uniqueVideoKeys addObject:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+//            
+//
+//    }
+//}
+//
+//
+//- (void)detectNumberOfNewVideosAndComments:(NSTimer*)timer
+//{
+//    
+//}
 
 @end
