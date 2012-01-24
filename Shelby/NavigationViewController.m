@@ -142,11 +142,11 @@
 {
     userTwitter.highlighted = [user.auth_twitter boolValue];
     userFacebook.highlighted = [user.auth_facebook boolValue];
-//    userTumblr.highlighted = [user.auth_tumblr boolValue];
+    userTumblr.highlighted = [user.auth_tumblr boolValue];
     
     addTwitterButton.enabled = ![user.auth_twitter boolValue];
     addFacebookButton.enabled = ![user.auth_facebook boolValue];
-//    addTumblrButton.enabled = ![user.auth_tumblr boolValue];
+    addTumblrButton.enabled = ![user.auth_tumblr boolValue];
 }
 
 - (void)loadUserData

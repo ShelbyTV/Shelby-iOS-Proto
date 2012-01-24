@@ -209,13 +209,46 @@
 													<int key="NSfFlags">16</int>
 												</object>
 											</object>
+											<object class="IBUIButton" id="676685828">
+												<reference key="NSNextResponder" ref="747246548"/>
+												<int key="NSvFlags">292</int>
+												<string key="NSFrame">{{100, 25}, {35, 35}}</string>
+												<reference key="NSSuperview" ref="747246548"/>
+												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="457561110"/>
+												<string key="NSReuseIdentifierKey">_NS:222</string>
+												<bool key="IBUIOpaque">NO</bool>
+												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+												<int key="IBUIContentHorizontalAlignment">0</int>
+												<int key="IBUIContentVerticalAlignment">0</int>
+												<reference key="IBUIHighlightedTitleColor" ref="997322477"/>
+												<object class="NSColor" key="IBUINormalTitleColor">
+													<int key="NSColorSpace">1</int>
+													<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
+												</object>
+												<reference key="IBUINormalTitleShadowColor" ref="192979874"/>
+												<object class="NSCustomResource" key="IBUIDisabledImage" id="640691990">
+													<string key="NSClassName">NSImage</string>
+													<string key="NSResourceName">TumblrDead.png</string>
+												</object>
+												<reference key="IBUISelectedImage" ref="640691990"/>
+												<object class="NSCustomResource" key="IBUINormalImage">
+													<string key="NSClassName">NSImage</string>
+													<string key="NSResourceName">TumblrActive.png</string>
+												</object>
+												<reference key="IBUIDisabledBackgroundImage" ref="621654312"/>
+												<reference key="IBUISelectedBackgroundImage" ref="621654312"/>
+												<reference key="IBUINormalBackgroundImage" ref="621654312"/>
+												<reference key="IBUIFontDescription" ref="835059325"/>
+												<reference key="IBUIFont" ref="480518772"/>
+											</object>
 											<object class="IBUIButton" id="170764482">
 												<reference key="NSNextResponder" ref="747246548"/>
 												<int key="NSvFlags">292</int>
 												<string key="NSFrame">{{55, 25}, {35, 35}}</string>
 												<reference key="NSSuperview" ref="747246548"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="457561110"/>
+												<reference key="NSNextKeyView" ref="676685828"/>
 												<string key="NSReuseIdentifierKey">_NS:222</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -243,7 +276,7 @@
 												<reference key="IBUIFont" ref="480518772"/>
 											</object>
 										</object>
-										<string key="NSFrame">{{11, 150}, {90, 60}}</string>
+										<string key="NSFrame">{{11, 150}, {135, 60}}</string>
 										<reference key="NSSuperview" ref="698254765"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="905373258"/>
@@ -647,6 +680,14 @@
 					<int key="connectionID">306</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_tumblrButton</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="676685828"/>
+					</object>
+					<int key="connectionID">310</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">closeWasPressed:</string>
 						<reference key="source" ref="775822437"/>
@@ -696,6 +737,15 @@
 						<reference key="destination" ref="454735877"/>
 					</object>
 					<int key="connectionID">305</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">tumblrWasPressed:</string>
+						<reference key="source" ref="676685828"/>
+						<reference key="destination" ref="454735877"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">309</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -828,6 +878,7 @@
 							<reference ref="905373258"/>
 							<reference ref="226765512"/>
 							<reference ref="170764482"/>
+							<reference ref="676685828"/>
 						</object>
 						<reference key="parent" ref="698254765"/>
 					</object>
@@ -888,6 +939,11 @@
 						<reference key="object" ref="79672896"/>
 						<reference key="parent" ref="682022811"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">307</int>
+						<reference key="object" ref="676685828"/>
+						<reference key="parent" ref="747246548"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -925,6 +981,8 @@
 					<string>240.IBPluginDependency</string>
 					<string>262.IBPluginDependency</string>
 					<string>263.IBPluginDependency</string>
+					<string>307.IBPluginDependency</string>
+					<string>307.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -959,6 +1017,8 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="3"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -973,7 +1033,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">306</int>
+			<int key="maxID">310</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -989,10 +1049,12 @@
 							<string>facebookWasPressed:</string>
 							<string>segmentedControlValueChanged:</string>
 							<string>sendWasPressed:</string>
+							<string>tumblrWasPressed:</string>
 							<string>twitterWasPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1008,6 +1070,7 @@
 							<string>facebookWasPressed:</string>
 							<string>segmentedControlValueChanged:</string>
 							<string>sendWasPressed:</string>
+							<string>tumblrWasPressed:</string>
 							<string>twitterWasPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1026,6 +1089,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">sendWasPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">tumblrWasPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1050,6 +1117,7 @@
 							<string>_sendButton</string>
 							<string>_shareTypeSelector</string>
 							<string>_socialBodyPlaceholder</string>
+							<string>_tumblrButton</string>
 							<string>_tweetRemainingLabel</string>
 							<string>_twitterButton</string>
 							<string>bodyTextView</string>
@@ -1068,6 +1136,7 @@
 							<string>UIBarButtonItem</string>
 							<string>UISegmentedControl</string>
 							<string>UIView</string>
+							<string>UIButton</string>
 							<string>UILabel</string>
 							<string>UIButton</string>
 							<string>UITextView</string>
@@ -1089,6 +1158,7 @@
 							<string>_sendButton</string>
 							<string>_shareTypeSelector</string>
 							<string>_socialBodyPlaceholder</string>
+							<string>_tumblrButton</string>
 							<string>_tweetRemainingLabel</string>
 							<string>_twitterButton</string>
 							<string>bodyTextView</string>
@@ -1144,6 +1214,10 @@
 								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">_tumblrButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">_tweetRemainingLabel</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
@@ -1181,6 +1255,8 @@
 				<string>FacebookDead.png</string>
 				<string>TextAreaGray.png</string>
 				<string>TextFieldGray.png</string>
+				<string>TumblrActive.png</string>
+				<string>TumblrDead.png</string>
 				<string>TwitterActive.png</string>
 				<string>TwitterDead.png</string>
 			</object>
@@ -1191,6 +1267,8 @@
 				<string>{25, 25}</string>
 				<string>{526, 95}</string>
 				<string>{491, 31}</string>
+				<string>{25, 25}</string>
+				<string>{25, 25}</string>
 				<string>{25, 25}</string>
 				<string>{25, 25}</string>
 			</object>

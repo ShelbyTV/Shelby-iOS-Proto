@@ -111,6 +111,7 @@
     } else {
         BOOL twitter  = !_twitterButton.selected;
         BOOL facebook = !_facebookButton.selected;
+        BOOL tumblr = !_tumblrButton.selected;
         
         // Check the state of the FB & Twitter buttons
         if (twitter) {
@@ -118,6 +119,9 @@
         }
         if (facebook) {
             [array addObject: @"facebook"];
+        }
+        if (tumblr) {
+            [array addObject: @"tumblr"];
         }
     }
     return [NSArray arrayWithArray: array];
@@ -248,6 +252,17 @@
     [self updateSendButton];
 }
 
+- (IBAction)tumblrWasPressed:(id)sender
+{
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
+    UIButton *button = (UIButton *) sender;
+    [button setSelected:!button.selected];
+    [self updateSendButton];
+}
+
 - (IBAction)sendWasPressed:(id)sender
 {
     if (delegate) {
@@ -307,6 +322,13 @@
         _facebookButton.selected  = NO;
     } else {
         _facebookButton.enabled  = NO;
+    }
+    
+    if ([user.auth_tumblr boolValue]) {
+        _tumblrButton.enabled   = YES;
+        _tumblrButton.selected  = NO;
+    } else {
+        _tumblrButton.enabled  = NO;
     }
     
     [self updateSendButton];
