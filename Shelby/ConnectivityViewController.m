@@ -23,7 +23,13 @@
 - (UIView *)networkActivityView
 {
     if (!_networkActivityView) {
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhite];
+        
+        UIActivityIndicatorViewStyle desiredStyle = UIActivityIndicatorViewStyleWhite;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            desiredStyle = UIActivityIndicatorViewStyleWhite;
+        }
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: desiredStyle];
         activityIndicator.hidesWhenStopped = NO;
         [activityIndicator startAnimating];
         _networkActivityView = activityIndicator;

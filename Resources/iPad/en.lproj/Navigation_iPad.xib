@@ -71,7 +71,7 @@
 								<string key="NSFrame">{{15, 7}, {201, 62}}</string>
 								<reference key="NSSuperview" ref="129868568"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="39781779"/>
+								<reference key="NSNextKeyView" ref="838400868"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -232,6 +232,17 @@
 								<reference key="IBUINormalTitleShadowColor" ref="799090235"/>
 								<reference key="IBUIFontDescription" ref="530341338"/>
 								<reference key="IBUIFont" ref="740699682"/>
+							</object>
+							<object class="IBUIView" id="838400868">
+								<reference key="NSNextResponder" ref="129868568"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{41, 27}, {21, 21}}</string>
+								<reference key="NSSuperview" ref="129868568"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="39781779"/>
+								<string key="NSReuseIdentifierKey">_NS:212</string>
+								<reference key="IBUIBackgroundColor" ref="962938265"/>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 						</object>
 						<string key="NSFrame">{{599, 0}, {425, 75}}</string>
@@ -852,6 +863,14 @@
 					<int key="connectionID">116</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityHolder</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="838400868"/>
+					</object>
+					<int key="connectionID">125</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">shelbyIconWasPressed:</string>
 						<reference key="source" ref="256397958"/>
@@ -1000,6 +1019,7 @@
 							<reference ref="39781779"/>
 							<reference ref="275320726"/>
 							<reference ref="46710700"/>
+							<reference ref="838400868"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Logo &amp; Profile</string>
@@ -1193,6 +1213,11 @@
 						<reference key="object" ref="708963379"/>
 						<reference key="parent" ref="458968162"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">124</int>
+						<reference key="object" ref="838400868"/>
+						<reference key="parent" ref="129868568"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1212,6 +1237,7 @@
 					<string>113.IBPluginDependency</string>
 					<string>114.IBPluginDependency</string>
 					<string>121.IBPluginDependency</string>
+					<string>124.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>21.CustomClassName</string>
 					<string>21.IBPluginDependency</string>
@@ -1247,6 +1273,7 @@
 					<string>NavigationViewController_iPad</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1300,7 +1327,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">123</int>
+			<int key="maxID">125</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

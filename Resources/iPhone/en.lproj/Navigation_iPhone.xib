@@ -242,7 +242,7 @@
 								<string key="NSFrame">{{-1, 0}, {158, 48}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="943798817"/>
+								<reference key="NSNextKeyView" ref="790562289"/>
 								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -285,10 +285,10 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUIView" id="943798817">
+							<object class="IBUIView" id="790562289">
 								<reference key="NSNextResponder" ref="267012245"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{280, 12}, {25, 25}}</string>
+								<string key="NSFrame">{{20, 13}, {21, 21}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="94840193"/>
@@ -795,7 +795,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">activityHolder</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="943798817"/>
+						<reference key="destination" ref="790562289"/>
 					</object>
 					<int key="connectionID">146</int>
 				</object>
@@ -942,7 +942,7 @@
 							<reference ref="595252148"/>
 							<reference ref="185809759"/>
 							<reference ref="94840193"/>
-							<reference ref="943798817"/>
+							<reference ref="790562289"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1115,7 +1115,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">145</int>
-						<reference key="object" ref="943798817"/>
+						<reference key="object" ref="790562289"/>
 						<reference key="parent" ref="267012245"/>
 					</object>
 				</object>
