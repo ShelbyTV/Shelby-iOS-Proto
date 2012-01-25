@@ -112,7 +112,10 @@
             _fullscreenWebView = [[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPhone" bundle:[NSBundle mainBundle]];
         }
         [_fullscreenWebView loadView];
-        [_fullscreenWebView setDelegate:self];         
+        [_fullscreenWebView setDelegate:self];  
+        
+        _fullscreenWebView.view.hidden = YES;
+        [self.view addSubview:_fullscreenWebView.view];
     }
     return self;
 }
@@ -703,23 +706,20 @@
 // FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
-                                                             withEndOfCompletionBlock:^(void){}];
+    _fullscreenWebView.view.hidden = YES;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView
 {
-    [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:_fullscreenWebView
-                                                             withEndOfCompletionBlock:^(void){}];
+    _fullscreenWebView.view.hidden = NO;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 {
-    [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
-                                                             withEndOfCompletionBlock:^(void){}];
+    _fullscreenWebView.view.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
