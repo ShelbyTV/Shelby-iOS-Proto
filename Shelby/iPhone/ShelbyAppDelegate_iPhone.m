@@ -12,7 +12,6 @@
 #import "ShelbyApp.h"
 #import "LoginHelper.h"
 #import "ShelbyWindow.h"
-#import "TransitionController.h"
 
 @implementation ShelbyAppDelegate_iPhone
 

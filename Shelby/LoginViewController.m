@@ -13,8 +13,6 @@
 #import "Reachability.h"
 #import "GraphiteStats.h"
 #import "ShelbyAppDelegate.h"
-#import "UINavigationController+Transitions.h"
-#import "TransitionController.h"
 #import "NavigationViewController.h"
 
 @interface LoginViewController ()

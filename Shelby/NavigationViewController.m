@@ -19,7 +19,6 @@
 #import "VideoGetter.h"
 #import "ShelbyAppDelegate.h"
 #import "ApiHelper.h"
-#import "TransitionController.h"
 
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -695,10 +694,9 @@
         return;
     }
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && _videoPlayer.hidden) {
         [self zoomInToVideoPlayerWithCompletionBlock:(^(void){})];
     }
-    _videoPlayer.hidden = FALSE;
     [_videoPlayer playVideo: video];
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
