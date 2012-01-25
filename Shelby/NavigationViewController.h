@@ -13,7 +13,6 @@
 #import "VideoTableViewController.h"
 #import "FullscreenWebViewController.h"
 #import "RemoteModeViewController.h"
-#import "VideoPlayerViewController.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
@@ -30,7 +29,6 @@
     IBOutlet UIButton *favoritesButton;
     IBOutlet UIButton *watchLaterButton;
     
-    VideoPlayerViewController *_videoPlayerViewController; // used with a UINavigationController on iPhone for auto-rotation
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
 
     IBOutlet UITabBarItem *timelineTabBarItem;

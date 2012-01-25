@@ -47,20 +47,8 @@
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
         // So instead, we pull the view out via its tag.
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            _videoPlayer = (VideoPlayer *) [self.view viewWithTag: 1];
-        } else {
-            _videoPlayerViewController = [[VideoPlayerViewController alloc] init];
-            _videoPlayer = (VideoPlayer *)_videoPlayerViewController.view;
-            
-            [_videoPlayerViewController loadView];
-            
-            [[ShelbyApp sharedApp].hiddenAllRotationsWindow addSubview:_videoPlayerViewController.view];
-            [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = _videoPlayerViewController;
-        }
+        _videoPlayer = (VideoPlayer *) [self.view viewWithTag: 1];
         _videoPlayer.delegate = self;
-            
-        
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedOut:)
@@ -621,11 +609,6 @@
     
     [tabBar setSelectedItem:timelineTabBarItem];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [_videoPlayer removeFromSuperview];
-        _videoPlayerViewController.view = _videoPlayer;
-    }
-    
     // loop around subviews of UISearchBar
     for (UIView *searchBarSubview in [searchBar subviews]) {    
         if ([searchBarSubview conformsToProtocol:@protocol(UITextInputTraits)]) {    
@@ -714,18 +697,7 @@
         return;
     }
     
-    // Make videoPlayer visible. Really only does something on iPhone.
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
-        [ShelbyApp sharedApp].transitionController.viewController == self) {
-        
-        NSLog(@"HERE about to transitionToViewController to _videoPlayerViewController!");
-        
-        [_videoPlayerViewController.view removeFromSuperview];
-        [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = nil;
-        
-        [[ShelbyApp sharedApp].transitionController transitionZoomInToViewController:_videoPlayerViewController
-                                                            withEndOfCompletionBlock:^(void){}];
-    }
+    _videoPlayer.hidden = FALSE;
     [_videoPlayer playVideo: video];
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];

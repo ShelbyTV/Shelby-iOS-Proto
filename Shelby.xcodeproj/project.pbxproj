@@ -91,7 +91,6 @@
 		0A6D996D14C5F52D008762D7 /* watchLaterTabBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D996B14C5F52D008762D7 /* watchLaterTabBar.png */; };
 		0A6D996E14C5F52D008762D7 /* watchLaterTabBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D996C14C5F52D008762D7 /* watchLaterTabBar@2x.png */; };
 		0A6D99BA14C8CAF4008762D7 /* UINavigationController+Transitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D99B914C8CAF4008762D7 /* UINavigationController+Transitions.m */; };
-		0A6D99BD14C8D633008762D7 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D99BC14C8D632008762D7 /* VideoPlayerViewController.m */; };
 		0A6D99C014C9067F008762D7 /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D99BF14C9067E008762D7 /* TransitionController.m */; };
 		0A74BB41142D459800D65A02 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB40142D459800D65A02 /* Icon.png */; };
 		0A74BB43142D45A500D65A02 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A74BB42142D45A500D65A02 /* Icon@2x.png */; };
@@ -422,8 +421,6 @@
 		0A6D996C14C5F52D008762D7 /* watchLaterTabBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watchLaterTabBar@2x.png"; path = "Resources/Images/watchLaterTabBar@2x.png"; sourceTree = "<group>"; };
 		0A6D99B814C8CAF4008762D7 /* UINavigationController+Transitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Transitions.h"; sourceTree = "<group>"; };
 		0A6D99B914C8CAF4008762D7 /* UINavigationController+Transitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Transitions.m"; sourceTree = "<group>"; };
-		0A6D99BB14C8D632008762D7 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
-		0A6D99BC14C8D632008762D7 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		0A6D99BE14C9067E008762D7 /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		0A6D99BF14C9067E008762D7 /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		0A74BB40142D459800D65A02 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -1413,8 +1410,6 @@
 				0A12933A13DD0DC0009D254F /* VideoTableViewController.m */,
 				0AF7DE7514B12B37005B48BF /* RemoteModeViewController.h */,
 				0AF7DE7614B12B37005B48BF /* RemoteModeViewController.m */,
-				0A6D99BB14C8D632008762D7 /* VideoPlayerViewController.h */,
-				0A6D99BC14C8D632008762D7 /* VideoPlayerViewController.m */,
 				0A6D99BE14C9067E008762D7 /* TransitionController.h */,
 				0A6D99BF14C9067E008762D7 /* TransitionController.m */,
 			);
@@ -1896,7 +1891,6 @@
 				0AC0499414AFF17800FD6820 /* RemoteModeGradientView.m in Sources */,
 				0AF7DE7814B12B37005B48BF /* RemoteModeViewController.m in Sources */,
 				0A6D99BA14C8CAF4008762D7 /* UINavigationController+Transitions.m in Sources */,
-				0A6D99BD14C8D633008762D7 /* VideoPlayerViewController.m in Sources */,
 				0A6D99C014C9067F008762D7 /* TransitionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
