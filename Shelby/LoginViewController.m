@@ -75,12 +75,8 @@
         [_fullscreenWebView loadView];
         [_fullscreenWebView setDelegate:self];
 
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            _fullscreenWebView.view.hidden = TRUE;
-            [self.view addSubview:_fullscreenWebView.view];
-            
-            self.view.hidden = TRUE;
-        }
+        _fullscreenWebView.view.hidden = TRUE;
+        [self.view addSubview:_fullscreenWebView.view];
 
         NSAssert(NOT_NULL(_fullscreenWebView.webView), @"_fullscreenWebView.webView is NULL!");
     }
@@ -132,23 +128,13 @@
     NSLog(@"userLoggedIn");
     [GraphiteStats incrementCounter:@"signin" withAction:@"signin"];
     [callbackObject performSelector:callbackSelector];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.view.hidden = TRUE;
-    } else {
-        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:[ShelbyApp sharedApp].navigationViewController
-                                                                 withEndOfCompletionBlock:^(void){}];
-    }
+    self.view.hidden = TRUE;
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
     [self clearAllCookies];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.view.hidden = FALSE;
-    } else {
-        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
-                                                                 withEndOfCompletionBlock:^(void){}];
-    }
+    self.view.hidden = FALSE;
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,22 +173,13 @@
 {
     NSLog(@"fullscreenWebViewCloseWasPressed");
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _fullscreenWebView.view.hidden = TRUE;
-    } else {
-        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
-                                                                 withEndOfCompletionBlock:^(void){}];
-    }
+    _fullscreenWebView.view.hidden = TRUE;
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _fullscreenWebView.view.hidden = FALSE;
-    } else {
-        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:_fullscreenWebView
-                                                                 withEndOfCompletionBlock:^(void){}];
-    }
+    _fullscreenWebView.view.hidden = FALSE;
+
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
     
@@ -212,12 +189,8 @@
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _fullscreenWebView.view.hidden = TRUE;
-    } else {
-        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
-                                                                 withEndOfCompletionBlock:^(void){}];
-    }
+    _fullscreenWebView.view.hidden = TRUE;
+
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
     
