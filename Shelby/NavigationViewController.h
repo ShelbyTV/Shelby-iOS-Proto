@@ -100,4 +100,7 @@
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView;
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 
+- (void)zoomInToVideoPlayerWithCompletionBlock:(void (^)(void))block;
+- (void)zoomOutToGuideWithCompletionBlock:(void (^)(void))block;
+
 @end

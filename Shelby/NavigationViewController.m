@@ -695,6 +695,9 @@
         return;
     }
     
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self zoomInToVideoPlayerWithCompletionBlock:(^(void){})];
+    }
     _videoPlayer.hidden = FALSE;
     [_videoPlayer playVideo: video];
     
@@ -893,6 +896,47 @@
     [searchBar resignFirstResponder];
     [videoTable performSearch:searchBarClicked.text];
 }
+
+
+- (void)zoomInToVideoPlayerWithCompletionBlock:(void (^)(void))block
+{
+    dispatch_queue_t currentQueue = dispatch_get_current_queue();
+    
+    [_videoPlayer.layer setAffineTransform:CGAffineTransformMakeScale(0.01, 0.01)];
+    _videoPlayer.hidden = FALSE;
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [_videoPlayer.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                     }
+                     completion:^(BOOL finished){
+                         dispatch_async( currentQueue, ^{
+                             block();  
+                         });
+                     }
+     ];
+}
+
+- (void)zoomOutToGuideWithCompletionBlock:(void (^)(void))block
+{
+    dispatch_queue_t currentQueue = dispatch_get_current_queue();
+    
+    [_videoPlayer.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [_videoPlayer.layer setAffineTransform:CGAffineTransformMakeScale(0.01, 0.01)];
+                     }
+                     completion:^(BOOL finished){
+                         _videoPlayer.hidden = YES;
+                         [_videoPlayer.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                         dispatch_async( currentQueue, ^{
+                             block();  
+                         });
+                     }
+     ];
+}
+
 
 
 @end
