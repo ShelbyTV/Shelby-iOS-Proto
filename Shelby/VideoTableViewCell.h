@@ -70,6 +70,8 @@
     CGFloat _kSharetimeHeight;
     CGFloat _kCellHorizontalMargin;
     CGFloat _kCellVerticalMargin;
+    
+    BOOL _inLayoutSubviewsAlready;
 }
 
 @property (nonatomic, retain) VideoTableData* videoTableData;
@@ -77,5 +79,6 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setVideo:(Video *)video;
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
 
 @end

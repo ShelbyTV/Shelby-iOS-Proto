@@ -31,7 +31,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 #pragma mark - User Button Methods
@@ -67,6 +68,18 @@
         temp.origin.y = 480;
     }
     settingsView.frame = temp;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSLog(@"NavigationViewController_iPhone willRotateToInterfaceOrientation");
+    [videoTable willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    NSLog(@"NavigationViewController_iPhone didRotateFromInterfaceOrientation");
+    [videoTable didRotateFromInterfaceOrientation:fromInterfaceOrientation]; 
 }
 
 @end

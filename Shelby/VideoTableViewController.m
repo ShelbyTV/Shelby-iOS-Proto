@@ -374,5 +374,21 @@
     return videoMode;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return;
+    }
+    
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    NSArray *visibleCells = [[[NSArray alloc] initWithArray:self.tableView.visibleCells] autorelease];
+    
+    for (UITableViewCell *cell in visibleCells) {
+        [(VideoTableViewCell *)cell didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    }
+}
 
 @end

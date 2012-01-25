@@ -154,8 +154,10 @@
     _shareTime.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     _sharerComment.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _sharerName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _expandButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     _videoView.contentMode = UIViewContentModeScaleAspectFill;
+    _videoView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _videoView.clipsToBounds = TRUE;
     
     [self addSubview:_bgView];
@@ -215,7 +217,7 @@
 
 - (CGSize)getCommentTextSize:(NSString *)comment
 {
-    CGFloat maxTextWidth = _kVideoWidth - _kSharerNameOriginX - 7; // 7 is right margin?
+    CGFloat maxTextWidth = _videoView.bounds.size.width - _kSharerNameOriginX - 7; // 7 is right margin?
     return [comment sizeWithFont:[UIFont fontWithName:@"Thonburi-Bold" size:16.0]
                constrainedToSize:CGSizeMake(maxTextWidth, 80)
                    lineBreakMode:UILineBreakModeTailTruncation];
@@ -307,7 +309,7 @@
             dupeSharerName.numberOfLines = 1;
             dupeSharerName.text = dupe.sharer;
             
-            UILabel *dupeShareTime = [[UILabel alloc] initWithFrame:CGRectMake(_kSharetimeOriginX, _kSharetimeOriginY + _kVideoFooterHeight + additionalHeight + 2, _kSharetimeWidth, _kSharetimeHeight)];
+            UILabel *dupeShareTime = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - (_kCellWidth - _kSharetimeOriginX), _kSharetimeOriginY + _kVideoFooterHeight + additionalHeight, _kSharetimeWidth, _kSharetimeHeight)];
             
             dupeShareTime.font = [UIFont fontWithName:@"Thonburi-Bold" size:14.0];
             dupeShareTime.textColor = [UIColor lightGrayColor];
@@ -321,13 +323,13 @@
             additionalHeight += _kSharerHeight + 8;
             
             [_dupeShareTimes addObject:dupeShareTime];
-            [_clipView addSubview:dupeShareTime];
+            [_clipView insertSubview:dupeShareTime belowSubview:_expandButton];
             
             [_dupeSharerNames addObject:dupeSharerName];
-            [_clipView addSubview:dupeSharerName];
+            [_clipView insertSubview:dupeSharerName belowSubview:_expandButton];
             
             [_dupeSharerImages addObject:dupeSharerImage];
-            [_clipView addSubview:dupeSharerImage];
+            [_clipView insertSubview:dupeSharerImage belowSubview:_expandButton];
         }
 
         CGSize textSize;
@@ -349,7 +351,7 @@
         dupeComment.backgroundColor = [UIColor clearColor];
         
         [_dupeComments addObject:dupeComment];
-        [_clipView addSubview:dupeComment];
+        [_clipView insertSubview:dupeComment belowSubview:_expandButton];
         
         additionalHeight += textSize.height;
         additionalHeight += IPAD_EXPANDED_COMMENT_MARGIN;
@@ -357,12 +359,7 @@
         first = FALSE;
     }
     
-    [_expandButton removeFromSuperview];
-    [_clipView addSubview:_expandButton];
-    
     _video.cellHeightAllComments = _kCellHeight + additionalHeight;
-
-    [self sizeFramesForComments];
 }
 
 #pragma mark - Dealloc
@@ -489,6 +486,41 @@
     }
     
     _shareTime.text = [self prettyDateDiff:_video.createdAt];
+}
+
+//- (void)layoutSubviews 
+//{
+//    if (_inLayoutSubviewsAlready) {
+//        return;
+//    }
+//    _inLayoutSubviewsAlready = TRUE;
+//    
+//    NSLog(@"##### VideoTableViewCell layoutSubviews #####");
+//    [self setVideo:_video];
+//    [self sizeFramesForComments];
+//    [self setNeedsDisplay];
+//    [viewController.tableView beginUpdates];
+//    [viewController.tableView endUpdates];
+//    
+//    _inLayoutSubviewsAlready = FALSE;
+//}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self setVideo:_video];
+    
+    // the Video* cache of height information that we can use in the table view controller
+    _video.cellHeightCurrent = _video.allComments ? _video.cellHeightAllComments : _kCellHeight;    
+    
+    // 0.275 seems to match the OS default fairly well for table cell height adjustment animation
+    [UIView animateWithDuration:0.275 animations:^{
+        [self sizeFramesForComments];
+    }];
+    
+    // forces an update of all the table cell heights
+    [self setNeedsDisplay];
+    [viewController.tableView beginUpdates];
+    [viewController.tableView endUpdates];
 }
 
 @end

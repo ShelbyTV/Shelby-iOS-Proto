@@ -48,7 +48,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIView" id="676551548">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">273</int>
+						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 50}, {320, 381}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -242,7 +242,7 @@
 								<string key="NSFrame">{{-1, 0}, {158, 48}}</string>
 								<reference key="NSSuperview" ref="267012245"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="503640121"/>
+								<reference key="NSNextKeyView" ref="913982610"/>
 								<int key="IBUIContentMode">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -285,7 +285,7 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUIView" id="503640121">
+							<object class="IBUIView" id="913982610">
 								<reference key="NSNextResponder" ref="267012245"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 13}, {21, 21}}</string>
@@ -795,7 +795,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">activityHolder</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="503640121"/>
+						<reference key="destination" ref="913982610"/>
 					</object>
 					<int key="connectionID">146</int>
 				</object>
@@ -942,7 +942,7 @@
 							<reference ref="595252148"/>
 							<reference ref="185809759"/>
 							<reference ref="94840193"/>
-							<reference ref="503640121"/>
+							<reference ref="913982610"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -1115,7 +1115,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">145</int>
-						<reference key="object" ref="503640121"/>
+						<reference key="object" ref="913982610"/>
 						<reference key="parent" ref="267012245"/>
 					</object>
 				</object>
