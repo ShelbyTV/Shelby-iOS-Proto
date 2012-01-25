@@ -135,7 +135,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.view.hidden = TRUE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:[ShelbyApp sharedApp].navigationViewController withOptions:UIViewAnimationOptionTransitionCrossDissolve];
+        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:[ShelbyApp sharedApp].navigationViewController
+                                                                 withEndOfCompletionBlock:^(void){}];
     }
 }
 
@@ -145,7 +146,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.view.hidden = FALSE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionCrossDissolve];
+        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
+                                                                 withEndOfCompletionBlock:^(void){}];
     }
 }
 
@@ -188,7 +190,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _fullscreenWebView.view.hidden = TRUE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionCrossDissolve];
+        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
+                                                                 withEndOfCompletionBlock:^(void){}];
     }
 }
 
@@ -197,7 +200,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _fullscreenWebView.view.hidden = FALSE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:_fullscreenWebView withOptions:UIViewAnimationOptionTransitionCrossDissolve];
+        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:_fullscreenWebView
+                                                                 withEndOfCompletionBlock:^(void){}];
     }
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
@@ -211,7 +215,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         _fullscreenWebView.view.hidden = TRUE;
     } else {
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionCrossDissolve];
+        [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
+                                                                 withEndOfCompletionBlock:^(void){}];
     }
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];

@@ -17,6 +17,7 @@
     self = [super init];
     if (self) {
         self.view = [[VideoPlayer alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     }
     return self;
 }

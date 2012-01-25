@@ -38,12 +38,17 @@
 
 - (void)hideVideoPlayer
 {
-    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
-    
-    [[ShelbyApp sharedApp].hiddenAllRotationsWindow addSubview:_videoPlayerViewController.view];
-    [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = _videoPlayerViewController;
-    
     [_videoPlayer pause];
+    
+    [[ShelbyApp sharedApp].transitionController transitionZoomOutToViewController:self
+                                                         withEndOfCompletionBlock:^(void){
+                                                         
+                                                             [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = _videoPlayerViewController;
+                                                             
+                                                             [_videoPlayer stop];
+                                                             [_videoPlayer reset];
+                                                         
+                                                         }];
 }
 
 - (void)videoPlayerFullscreenButtonWasPressed:(VideoPlayer *)videoPlayer {

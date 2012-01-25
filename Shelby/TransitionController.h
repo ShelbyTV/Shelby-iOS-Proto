@@ -10,11 +10,15 @@
 
 @interface TransitionController : UIViewController
 
-@property (nonatomic, strong)   UIView *                containerView;
 @property (nonatomic, strong)   UIViewController *      viewController;
 
 - (id)initWithViewController:(UIViewController *)viewController;
-- (void)transitionToViewController:(UIViewController *)viewController
-                       withOptions:(UIViewAnimationOptions)options;
+
+- (void)transitionZoomInToViewController:(UIViewController *)viewController
+                withEndOfCompletionBlock:(void (^)(void))block;
+- (void)transitionZoomOutToViewController:(UIViewController *)viewController
+                 withEndOfCompletionBlock:(void (^)(void))block;
+- (void)transitionImmediatelyToViewController:(UIViewController *)viewController
+                     withEndOfCompletionBlock:(void (^)(void))block;
 
 @end

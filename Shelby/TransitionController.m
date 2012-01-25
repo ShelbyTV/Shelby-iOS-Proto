@@ -8,11 +8,11 @@
 
 #import "TransitionController.h"
 #import "ShelbyApp.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation TransitionController
 
-@synthesize containerView = _containerView,
-viewController = _viewController;
+@synthesize viewController = _viewController;
 
 - (id)initWithViewController:(UIViewController *)viewController
 {
@@ -24,18 +24,12 @@ viewController = _viewController;
 
 - (void)loadView
 {
-//    self.wantsFullScreenLayout = YES;
+    self.wantsFullScreenLayout = YES;
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.view = view;
     self.view.autoresizesSubviews = TRUE;
     
-    _containerView = [[UIView alloc] initWithFrame:view.bounds];
-    _containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _containerView.autoresizesSubviews = TRUE;
-    [self.view addSubview:_containerView];
-    
-    [_containerView addSubview:self.viewController.view];
+    [self.view addSubview:self.viewController.view];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -53,22 +47,75 @@ viewController = _viewController;
     [self.viewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
-- (void)transitionToViewController:(UIViewController *)viewController
-                       withOptions:(UIViewAnimationOptions)transition
+- (void)transitionZoomInToViewController:(UIViewController *)viewController
+                withEndOfCompletionBlock:(void (^)(void))block
 {
     if (_viewController == viewController) {
         return;
     }
     
-    [UIView transitionFromView:[ShelbyApp sharedApp].shelbyWindow.rootViewController.view
-                        toView:viewController.view
-                      duration:0.0f
-                       options:transition
-                    completion:^(BOOL finished){
-                        [ShelbyApp sharedApp].shelbyWindow.rootViewController = viewController;
-                    }];
+    dispatch_queue_t currentQueue = dispatch_get_current_queue();
+        
+    [viewController.view.layer setAffineTransform:CGAffineTransformMakeScale(0.01, 0.01)];
+    [self.view addSubview:viewController.view];
     
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [viewController.view.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                     }
+                     completion:^(BOOL finished){
+                         [_viewController.view removeFromSuperview]; 
+                         _viewController = viewController;
+                         dispatch_async( currentQueue, ^{
+                             block();  
+                         });
+                     }
+     ];
+}
+
+- (void)transitionZoomOutToViewController:(UIViewController *)viewController
+                 withEndOfCompletionBlock:(void (^)(void))block
+{
+    if (_viewController == viewController) {
+        return;
+    }
+    
+    dispatch_queue_t currentQueue = dispatch_get_current_queue();
+    
+    [_viewController.view.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+    [self.view insertSubview:viewController.view atIndex:0];
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [_viewController.view.layer setAffineTransform:CGAffineTransformMakeScale(0.01, 0.01)];
+                     }
+                     completion:^(BOOL finished){
+                         [_viewController.view removeFromSuperview];
+                         [_viewController.view.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                         _viewController = viewController;
+                         dispatch_async( currentQueue, ^{
+                             block();  
+                         });
+                     }
+     ];
+}
+
+- (void)transitionImmediatelyToViewController:(UIViewController *)viewController
+                     withEndOfCompletionBlock:(void (^)(void))block
+{
+    if (_viewController == viewController) {
+        return;
+    }
+    
+    dispatch_queue_t currentQueue = dispatch_get_current_queue();
+    
+    [self.view addSubview:viewController.view];
+    [_viewController.view removeFromSuperview];
     _viewController = viewController;
+    
+    dispatch_async( currentQueue, ^{
+        block();  
+    });
 }
 
 @end

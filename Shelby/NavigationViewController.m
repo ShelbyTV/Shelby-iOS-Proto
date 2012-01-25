@@ -723,7 +723,8 @@
         [_videoPlayerViewController.view removeFromSuperview];
         [ShelbyApp sharedApp].hiddenAllRotationsWindow.rootViewController = nil;
         
-        [[ShelbyApp sharedApp].transitionController transitionToViewController:_videoPlayerViewController withOptions:UIViewAnimationOptionTransitionNone];
+        [[ShelbyApp sharedApp].transitionController transitionZoomInToViewController:_videoPlayerViewController
+                                                            withEndOfCompletionBlock:^(void){}];
     }
     [_videoPlayer playVideo: video];
     
@@ -735,19 +736,23 @@
 // FullscreenWebViewControllerDelegate
 - (void)fullscreenWebViewCloseWasPressed:(id)sender
 {
-    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
+    [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
+                                                             withEndOfCompletionBlock:^(void){}];
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView
 {
-    [[ShelbyApp sharedApp].transitionController transitionToViewController:_fullscreenWebView withOptions:UIViewAnimationOptionTransitionNone];    self.networkCounter = 0;
+    [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:_fullscreenWebView
+                                                             withEndOfCompletionBlock:^(void){}];
+    self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 {
-    [[ShelbyApp sharedApp].transitionController transitionToViewController:self withOptions:UIViewAnimationOptionTransitionNone];
+    [[ShelbyApp sharedApp].transitionController transitionImmediatelyToViewController:self
+                                                             withEndOfCompletionBlock:^(void){}];
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
 }
