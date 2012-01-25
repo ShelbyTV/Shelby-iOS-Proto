@@ -36,6 +36,7 @@
     
     // If we're logged in, we can bypass login here and below...
     if (userAlreadyLoggedIn) {
+        loginViewController.view.alpha = 0.0;
         loginViewController.view.hidden = YES;
     }
     

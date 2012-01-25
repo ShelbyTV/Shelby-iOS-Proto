@@ -103,6 +103,28 @@
 
 #pragma mark - Misc Methods
 
+- (void)fade:(BOOL)visible {
+    float alpha;
+    BOOL hidden;
+    if (visible) {
+        alpha = 1.0f;
+        hidden = NO;
+    } else {
+        alpha = 0.0f;
+        hidden = YES;
+    }
+    // Note: this won't work on iOS3.
+    [UIView animateWithDuration:0.25 animations:^{
+        self.view.alpha = alpha;
+    }
+                     completion:^(BOOL finished){
+                         if (finished) {
+                             [self.view setHidden: hidden];
+                             _fullscreenWebView.view.hidden = YES;
+                         }
+                     }];
+}
+
 - (void)clearAllCookies
 {
     NSHTTPCookie *cookie;
@@ -128,13 +150,13 @@
     NSLog(@"userLoggedIn");
     [GraphiteStats incrementCounter:@"signin" withAction:@"signin"];
     [callbackObject performSelector:callbackSelector];
-    self.view.hidden = TRUE;
+    [self fade:NO];
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
     [self clearAllCookies];
-    self.view.hidden = FALSE;
+    [self fade:YES];
 }
 
 - (void)didReceiveMemoryWarning
