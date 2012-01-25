@@ -33,7 +33,6 @@
 @property (nonatomic) BOOL demoModeEnabled;
 @property (nonatomic, retain) NSString *safariUserAgent;
 @property (nonatomic, retain) UIWindow *shelbyWindow;
-@property (nonatomic, retain) UIWindow *hiddenAllRotationsWindow;
 
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 

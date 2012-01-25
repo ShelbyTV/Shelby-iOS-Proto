@@ -27,7 +27,6 @@
 @synthesize safariUserAgent;
 @synthesize transitionController;
 @synthesize shelbyWindow;
-@synthesize hiddenAllRotationsWindow;
 
 #pragma mark - Singleton
 

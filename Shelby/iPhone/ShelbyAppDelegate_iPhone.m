@@ -20,7 +20,6 @@
 {
     // Override point for customization after application launch.
     self.window.hidden = YES;
-    [ShelbyApp sharedApp].hiddenAllRotationsWindow = self.window;
 
     shelbyWindow = [[ShelbyWindow alloc] init];
     
