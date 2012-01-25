@@ -95,19 +95,14 @@
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPad" bundle:nil];
-            _remoteModeView.view.hidden = YES;
-            _remoteModeView.delegate = self;
-            [self.view addSubview:_remoteModeView.view];
-            
-            [self.view addSubview:self.shareView];
         } else {
             _remoteModeView = [[RemoteModeViewController alloc] initWithNibName:@"RemoteMode_iPhone" bundle:nil];
-            _remoteModeView.view.hidden = YES;
-            _remoteModeView.delegate = self;
-            [self.view addSubview:_remoteModeView.view];
-            
-            [_videoPlayer addSubview:self.shareView];
         }
+        _remoteModeView.view.hidden = YES;
+        _remoteModeView.delegate = self;
+        [self.view addSubview:_remoteModeView.view];
+        
+        [self.view addSubview:self.shareView];
         
         [self.view addSubview:[[VideoGetter singleton] getView]];
         
