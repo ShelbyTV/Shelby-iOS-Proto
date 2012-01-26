@@ -31,7 +31,7 @@
 #pragma mark - Singleton
 
 static ShelbyApp *gShelbyApp;
-static UIWindow *gSecondScreenWindow;
+static ShelbyWindow *gSecondScreenWindow;
 
 + (ShelbyApp *)sharedApp
 {
@@ -53,7 +53,7 @@ static UIWindow *gSecondScreenWindow;
 + (UIWindow *)secondScreenWindow
 {
     if (IS_NULL(gSecondScreenWindow)) {
-        gSecondScreenWindow = [[UIWindow alloc] init];
+        gSecondScreenWindow = [[ShelbyWindow alloc] init];
     }
     
     return gSecondScreenWindow;

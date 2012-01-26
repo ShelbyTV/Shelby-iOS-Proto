@@ -489,6 +489,17 @@ static const float kNextPrevXOffset        =  0.0f;
                 _moviePlayer.contentURL = video.contentURL;
                 NSLog(@"playVideo calling [self play]");
                 [self play];
+//                if ([[UIScreen screens] count] > 1)
+//                {
+//                    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+//                        if (window.screen == [[UIScreen screens] objectAtIndex:1] &&
+//                            window != [ShelbyApp secondScreenWindow]) {
+//                            window.hidden = YES;
+//                        }
+//                    }
+//                }
+//                [ShelbyApp secondScreenWindow].hidden = NO;
+
                 _changingVideo = NO;
             }
                         
@@ -1187,6 +1198,7 @@ static const float kNextPrevXOffset        =  0.0f;
         
         UIWindow *secondScreenWindow = [ShelbyApp secondScreenWindow];
         secondScreenWindow.frame = secondScreen.bounds;
+        secondScreenWindow.windowLevel = UIWindowLevelStatusBar;
         
         NSLog(@"secondScreen.bounds: width: %f height: %f", secondScreen.bounds.size.width,
               secondScreen.bounds.size.height);
