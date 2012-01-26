@@ -187,14 +187,14 @@ static const float ANIMATION_TIME = 0.5f;
 
 - (void)slideSettings:(BOOL)becomingVisible
 {
-    CGRect temp = settingsView.frame;
+    CGRect temp = settingsHolder.frame;
     if (becomingVisible) {
         temp.origin = videoTableAndButtonsHolder.bounds.origin;
     } else {
         temp.origin = videoTableAndButtonsHolder.bounds.origin;
         temp.origin.x += videoTableAndButtonsHolder.frame.size.width;
     }
-    settingsView.frame = temp;
+    settingsHolder.frame = temp;
 }
 
 @end

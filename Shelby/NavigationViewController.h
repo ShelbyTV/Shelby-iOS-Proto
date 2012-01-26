@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoPlayer.h"
-#import "ShareView.h"
 #import "ConnectivityViewController.h"
 #import "VideoTableViewController.h"
 #import "FullscreenWebViewController.h"
 #import "RemoteModeViewController.h"
+#import "ShareView.h"
+#import "UserAccountView.h"
 
 @class VideoTableViewController;
 @class VideoPlayer;
 
-@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewControllerDelegate, RemoteModeDelegate, UITabBarDelegate>
+@interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewControllerDelegate, RemoteModeDelegate, UITabBarDelegate, UserAccountViewDelegate>
 {
     IBOutlet UIView *header;
     IBOutlet UIView *buttonsHolder;
@@ -48,24 +49,19 @@
     BOOL _searchBarVisible;
 
     ShareView *_shareView;
+    UserAccountView *_userAccountView;
     
     RemoteModeViewController *_remoteModeView;
 
     BOOL _settingsSliding;
     BOOL _settingsVisible;
-    IBOutlet UIView *settingsView;
-    IBOutlet UIButton *addFacebookButton;
-    IBOutlet UIButton *addTwitterButton;
-    IBOutlet UIButton *addTumblrButton;
-    
+    IBOutlet UIView *settingsHolder;
+
     IBOutlet UIView *videoTableAndButtonsHolder;
     
     FullscreenWebViewController *_fullscreenWebView;
     
     NSSet *_authorizations;
-    
-    IBOutlet UIToolbar *_settingsToolbar;
-    IBOutlet UIBarButtonItem *_demoModeButton;
 }
 
 @property (nonatomic, retain) ShareView *shareView;
@@ -80,15 +76,6 @@
 - (void)pauseCurrentVideo;
 
 - (void)loadUserData;
-
-- (IBAction)demoMode:(id)sender;
-- (IBAction)backToVideos:(id)sender;
-- (IBAction)addFacebook:(id)sender;
-- (IBAction)addTwitter:(id)sender;
-- (IBAction)addTumblr:(id)sender;
-- (IBAction)logOut:(id)sender;
-- (IBAction)termsOfUse:(id)sender;
-- (IBAction)privacyPolicy:(id)sender;
 
 - (void)slideSettings:(BOOL)becomingVisible;
 - (void)playVideo:(Video *)video;

@@ -50,7 +50,7 @@
 
 - (void)slideSettings:(BOOL)becomingVisible
 {
-    CGRect temp = settingsView.frame;
+    CGRect temp = settingsHolder.frame;
     if (becomingVisible) {
         temp.origin.x = 0;
         temp.origin.y = 0;
@@ -58,7 +58,7 @@
         temp.origin.x = 0;
         temp.origin.y = 480;
     }
-    settingsView.frame = temp;
+    settingsHolder.frame = temp;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

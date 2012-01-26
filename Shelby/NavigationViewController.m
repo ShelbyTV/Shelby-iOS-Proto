@@ -19,6 +19,7 @@
 #import "VideoGetter.h"
 #import "ShelbyAppDelegate.h"
 #import "ApiHelper.h"
+#import "UserAccountView.h"
 
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -85,6 +86,9 @@
             @"auth_facebook",
             @"auth_tumblr",
             nil];
+        
+        _userAccountView = [UserAccountView userAccountViewFromNibWithFrame:settingsHolder.bounds withDelegate:self];
+        [settingsHolder addSubview:_userAccountView];
          
         self.shareView = [ShareView shareViewFromNib];
         self.shareView.delegate = self;
@@ -122,16 +126,13 @@
 
 #pragma mark - 
 
-
 - (void)updateAuthorizations:(User *)user
 {
     userTwitter.highlighted = [user.auth_twitter boolValue];
     userFacebook.highlighted = [user.auth_facebook boolValue];
     userTumblr.highlighted = [user.auth_tumblr boolValue];
-    
-    addTwitterButton.enabled = ![user.auth_twitter boolValue];
-    addFacebookButton.enabled = ![user.auth_facebook boolValue];
-    addTumblrButton.enabled = ![user.auth_tumblr boolValue];
+
+    [_userAccountView updateUserAuthorizations:user];
 }
 
 - (void)loadUserData
@@ -158,19 +159,9 @@
     [videoTable loadVideos];
 }
 
-- (void)setDemoModeButtonEnabled
-{
-    _demoModeButton.enabled = TRUE;
-}
-
-- (void)setDemoModeButtonDisabled
-{
-    _demoModeButton.enabled = FALSE;
-}
-
 - (void)enableDemoMode
 {
-    [self performSelectorOnMainThread:@selector(setDemoModeButtonDisabled) withObject:nil waitUntilDone:NO];
+    [_userAccountView performSelectorOnMainThread:@selector(setDemoModeButtonDisabled) withObject:nil waitUntilDone:NO];
     
     NSLog(@"########## Setting demoModeEnabled = TRUE");
     
@@ -182,7 +173,7 @@
     // pause any playing video
     [_videoPlayer pause];
     
-    [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Waiting..." waitUntilDone:NO];
+    [_userAccountView setDemoModeButtonTitle:@"Waiting..."];
 
     NSLog(@"########## Waiting for network ops to finish");
     
@@ -204,10 +195,10 @@
     NSLog(@"########## Tell videoTable to enableDemoMode.");
     
     // download videos
-    [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Downloading..." waitUntilDone:NO];
+    [_userAccountView setDemoModeButtonTitle:@"Downloading..."];
     [videoTable enableDemoMode];
     
-    [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Demo Mode On" waitUntilDone:NO];
+    [_userAccountView setDemoModeButtonTitle:@"Demo Mode On"];
 }
 
 #pragma mark - UIAlertViewDelegate Methods
@@ -222,7 +213,7 @@
 
 #pragma mark - User Button Methods
 
-- (IBAction)demoMode:(id)sender
+- (void)userAccountViewDemoMode
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo mode?" message:@"Would you like to turn demo mode on?"
                                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
@@ -248,7 +239,7 @@
 
 }
 
-- (IBAction)backToVideos:(id)sender
+- (void)userAccountViewBackToVideos
 {
     [self toggleSettings];
 }
@@ -286,7 +277,7 @@
     self.touched = TRUE;
 }
 
-- (void)logOut:(id)sender
+- (void)userAccountViewLogOut
 {
     self.shareView.hidden = YES;
     if (_settingsVisible) {
@@ -310,8 +301,8 @@
         }
     }
     [[ShelbyApp sharedApp].loginHelper logout];
-    _demoModeButton.title = @"Demo Mode";
-    _demoModeButton.enabled = TRUE;
+    [_userAccountView setDemoModeButtonTitle:@"Demo Mode"];
+    [_userAccountView setDemoModeButtonEnabled];
 }
 
 - (void)showWebPage:(NSString *)urlString
@@ -326,30 +317,30 @@
     self.networkCounter = 1;
 }
 
-- (void)addFacebook:(id)sender
+- (void)userAccountViewAddFacebook
 {
     LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=facebook&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
     [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=facebook&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
-- (void)addTwitter:(id)sender
+- (void)userAccountViewAddTwitter
 {
     LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=twitter&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
     [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=twitter&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
-- (void)addTumblr:(id)sender
+- (void)userAccountViewAddTumblr
 {
     LOG(@"Showing %@", [NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=tumblr&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]);
     [self showWebPage:[NSString stringWithFormat:@"http://dev.shelby.tv/auth/add?provider=tumblr&token=%@", [ShelbyApp sharedApp].apiHelper.accessToken]];
 }
 
-- (void)termsOfUse:(id)sender
+- (void)userAccountViewTermsOfUse
 {
     [self showWebPage:@"http://shelby.tv/tou.html"];
 }
 
-- (void)privacyPolicy:(id)sender
+- (void)userAccountViewPrivacyPolicy
 {
     [self showWebPage:@"http://shelby.tv/privacy.html"];
 }
@@ -583,27 +574,12 @@
 
     [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
     
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    
-    // check if we're a developer or beta build to see if we need to remove demo mode button
-    if (![(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] isEqualToString:@"X.X"] &&
-        [(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] rangeOfString:@"b"].location == NSNotFound) 
-    {
-        NSMutableArray *items = [[_settingsToolbar.items mutableCopy] autorelease];
-        [items removeObject:_demoModeButton];
-        _settingsToolbar.items = items;
-    } else {
-        if ([ShelbyApp sharedApp].demoModeEnabled) {
-            _demoModeButton.title = @"Demo Mode On";
-            [self setDemoModeButtonDisabled];
-        }
-    }
+
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
     
-    _demoModeButton.possibleTitles = [NSSet setWithObjects:@"Demo Mode", @"Waiting...", @"Downloading...", @"Demo Mode On", nil];
-    
+
     [tabBar setSelectedItem:timelineTabBarItem];
     
     // loop around subviews of UISearchBar
