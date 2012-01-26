@@ -311,9 +311,9 @@
         [_videoPlayer pause];
     }
     
-    [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
-                                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                         timeoutInterval:60.0]];
+    [_fullscreenWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                     cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                 timeoutInterval:60.0]];
     self.networkCounter = 1;
 }
 

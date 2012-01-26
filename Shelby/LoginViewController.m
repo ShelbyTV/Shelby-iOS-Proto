@@ -168,9 +168,9 @@
 
     NSAssert(NOT_NULL(_fullscreenWebView.webView), @"_fullscreenWebView.webView is NULL!");
     
-    [_fullscreenWebView.webView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
-                                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                         timeoutInterval:60.0]];
+    [_fullscreenWebView loadRequest:[NSURLRequest requestWithURL:[aNotification.userInfo objectForKey:@"url"]
+                                                     cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                 timeoutInterval:60.0]];
     self.networkCounter = 1;
 }
 

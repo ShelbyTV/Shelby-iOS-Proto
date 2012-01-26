@@ -20,6 +20,7 @@
 @interface FullscreenWebViewController : UIViewController <UIWebViewDelegate>
 {
     IBOutlet UIWebView *_webView;
+    IBOutlet UIActivityIndicatorView *_activityIndicatorView;
 }
 
 @property (assign) id <FullscreenWebViewControllerDelegate> delegate;
@@ -28,6 +29,8 @@
 - (IBAction)closeFullscreenWebViewController:(id)sender;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+
+- (void)loadRequest:(NSURLRequest *)request;
 
 // UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)view;

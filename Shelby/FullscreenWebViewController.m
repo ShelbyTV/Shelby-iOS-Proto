@@ -18,27 +18,45 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // other stuff
     }
     return self;
 }
 
+- (void)loadRequest:(NSURLRequest *)request
+{
+    _activityIndicatorView.hidesWhenStopped = YES;
+    [_activityIndicatorView startAnimating];
+    [_webView loadRequest:request];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    _activityIndicatorView.hidesWhenStopped = YES;
+    [_activityIndicatorView startAnimating];
+}
+
 - (IBAction)closeFullscreenWebViewController:(id)sender
 {
+    _activityIndicatorView.hidesWhenStopped = YES;
+    [_activityIndicatorView stopAnimating];
     if (delegate) {
         [delegate fullscreenWebViewCloseWasPressed:self];
     }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)view
-{    
+{   
+    _activityIndicatorView.hidesWhenStopped = YES;
+    [_activityIndicatorView stopAnimating];
     if (delegate) {
         [delegate fullscreenWebViewDidFinishLoad:view];
     }
 }
 
 - (void)webView:(UIWebView *)view didFailLoadWithError:(NSError *)error
-{    
+{   
+    _activityIndicatorView.hidesWhenStopped = YES;
+    [_activityIndicatorView stopAnimating];
     if (delegate) {
         [delegate fullscreenWebView:view didFailLoadWithError:error];
     }
