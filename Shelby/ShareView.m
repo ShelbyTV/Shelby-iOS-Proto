@@ -419,14 +419,10 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         return;
     }
-    
-    NSLog(@"inside ShareView layoutSubviews");
-    
+        
     // on iPhone we do some manual adjustments.
     if (self.bounds.size.width > self.bounds.size.height) {
-        
-        NSLog(@"inside ShareView layoutSubviews - LANDSCAPE");
-        
+                
         CGRect temp = _shareTypeSelector.frame;
         temp.size.width = 150;
         temp.origin.x = 10;
@@ -470,8 +466,6 @@
         _emailRecipientSuggestionsHolder.frame = temp;
 
     } else {
-
-        NSLog(@"inside ShareView layoutSubviews - PORTRAIT");
         
         CGRect temp = _shareTypeSelector.frame;
         temp.size.width = 207;

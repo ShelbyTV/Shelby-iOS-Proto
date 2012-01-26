@@ -134,4 +134,125 @@
     [_demoModeButton performSelectorOnMainThread:@selector(setTitle:) withObject:title waitUntilDone:NO];
 }
 
+- (void)layoutSubviews
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return;
+    }
+
+    // landscape
+    if (self.bounds.size.width > self.bounds.size.height) {
+        
+        CGRect temp;
+        
+        temp = addFacebookButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 64;
+        temp.size.width = 280;
+        addFacebookButton.frame = temp;
+        
+        temp = addTwitterButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 116;
+        temp.size.width = 280;
+        addTwitterButton.frame = temp;
+        
+        temp = addTumblrButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 168;
+        temp.size.width = 280;
+        addTumblrButton.frame = temp;
+        
+        temp = logoutButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 244;
+        temp.size.width = 280;
+        logoutButton.frame = temp;
+        
+        temp = legalBackgroundView.frame;
+        temp.origin.x = 320;
+        temp.origin.y = 44;
+        temp.size.width = 160;
+        temp.size.height = 276;
+        legalBackgroundView.frame = temp;
+        
+        temp = legalBeagleLabel.frame;
+        temp.origin.x = 15;
+        temp.origin.y = 20;
+        temp.size.width = 130;
+        temp.size.height = 100;
+        legalBeagleLabel.frame = temp;
+        
+        temp = termsOfUseButton.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 132;
+        temp.size.width = 140;
+        temp.size.height = 44;
+        termsOfUseButton.frame = temp;
+        
+        temp = privacyPolicyButton.frame;
+        temp.origin.x = 10;
+        temp.origin.y = 184;
+        temp.size.width = 140;
+        temp.size.height = 44;
+        privacyPolicyButton.frame = temp;
+
+    } else { // portrait (values taken from NIB)
+     
+        CGRect temp;
+        
+        temp = addFacebookButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 64;
+        temp.size.width = 280;
+        addFacebookButton.frame = temp;
+        
+        temp = addTwitterButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 116;
+        temp.size.width = 280;
+        addTwitterButton.frame = temp;
+                
+        temp = addTumblrButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 168;
+        temp.size.width = 280;
+        addTumblrButton.frame = temp;
+        
+        temp = logoutButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 244;
+        temp.size.width = 280;
+        logoutButton.frame = temp;
+        
+        temp = legalBackgroundView.frame;
+        temp.origin.x = 0;
+        temp.origin.y = 374;
+        temp.size.width = 320;
+        temp.size.height = 106;
+        legalBackgroundView.frame = temp;
+        
+        temp = legalBeagleLabel.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 10;
+        temp.size.width = 280;
+        temp.size.height = 21;
+        legalBeagleLabel.frame = temp;
+        
+        temp = termsOfUseButton.frame;
+        temp.origin.x = 20;
+        temp.origin.y = 42;
+        temp.size.width = 136;
+        temp.size.height = 44;
+        termsOfUseButton.frame = temp;
+        
+        temp = privacyPolicyButton.frame;
+        temp.origin.x = 164;
+        temp.origin.y = 42;
+        temp.size.width = 136;
+        temp.size.height = 44;
+        privacyPolicyButton.frame = temp;
+    }
+}
+
 @end
