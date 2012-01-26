@@ -567,6 +567,10 @@
     [self becomeFirstResponder];
     
 
+    if ([tabBar respondsToSelector:@selector(setSelectedImageTintColor:)]) {
+        [tabBar setSelectedImageTintColor:[UIColor colorWithRed:0.48 green:0.19 blue:0.57 alpha:1.0]];
+    }
+    
     [tabBar setSelectedItem:timelineTabBarItem];
     
     // loop around subviews of UISearchBar
