@@ -492,10 +492,7 @@
 
 - (IBAction)listButtonPressed:(id)sender
 {
-    [favoritesButton setSelected:NO];
-    [watchLaterButton setSelected:NO];
-    [listButton setSelected:YES];
-    
+    [tabBar setSelectedItem:timelineTabBarItem];
     [self hideSearchBar];
     
     [videoTable changeVideoMode:0];
@@ -504,10 +501,7 @@
 
 - (IBAction)favoritesButtonPressed:(id)sender
 {
-    [listButton setSelected:NO];
-    [watchLaterButton setSelected:NO];
-    [favoritesButton setSelected:YES];
-    
+    [tabBar setSelectedItem:favoritesTabBarItem];
     [self hideSearchBar];
     
     [videoTable changeVideoMode:1];
@@ -516,10 +510,7 @@
 
 - (IBAction)watchLaterButtonPressed:(id)sender
 {
-    [listButton setSelected:NO];
-    [favoritesButton setSelected:NO];
-    [watchLaterButton setSelected:YES];
-    
+    [tabBar setSelectedItem:watchLaterTabBarItem];
     [self hideSearchBar];
     
     [videoTable changeVideoMode:2];
@@ -528,10 +519,7 @@
 
 - (IBAction)searchButtonPressed:(id)sender
 {
-    [listButton setSelected:NO];
-    [favoritesButton setSelected:NO];
-    [watchLaterButton setSelected:NO];
-    
+    [tabBar setSelectedItem:searchTabBarItem];
     [self showSearchBar];
 
     [videoTable changeVideoMode:3];
@@ -571,10 +559,6 @@
     [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     [videoTableHolder addSubview:videoTable.tableView];
-
-    [buttonsFiller setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ButtonBackground"]]];
-    
-
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
@@ -789,6 +773,8 @@
     } else if ([videoTable currentVideoMode] == 1) {
         [self watchLaterButtonPressed:self];
     } else if ([videoTable currentVideoMode] == 2) {
+        [self searchButtonPressed:self];
+    } else if ([videoTable currentVideoMode] == 3) {
         [self listButtonPressed:self];
     }
 }
@@ -799,11 +785,13 @@
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
 
     if ([videoTable currentVideoMode] == 0) {
-        [self watchLaterButtonPressed:self];
+        [self searchButtonPressed:self];
     } else if ([videoTable currentVideoMode] == 1) {
         [self listButtonPressed:self];
     } else if ([videoTable currentVideoMode] == 2) {
         [self favoritesButtonPressed:self];
+    } else if ([videoTable currentVideoMode] == 3) {
+        [self watchLaterButtonPressed:self];
     }
 }
 
@@ -849,16 +837,17 @@
 
 - (int)videoPlayerGetCurrentMode
 {
-    if (listButton.selected) {
+    UITabBarItem * selected = [tabBar selectedItem];
+    
+    if (selected == timelineTabBarItem) {
         return 0;
-    } else if (favoritesButton.selected) {
+    } else if (selected == favoritesTabBarItem) {
         return 1;
-    } else if (watchLaterButton.selected) {
+    } else if (selected == watchLaterTabBarItem) {
         return 2;
+    } else {
+        return 3;
     }
-
-    // otherwise we're in search
-    return 3;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText

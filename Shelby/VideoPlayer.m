@@ -1300,6 +1300,8 @@ static const float kNextPrevXOffset        =  0.0f;
             tvTitleBar.channelPic.image = [UIImage imageNamed:@"favoritesChannel"];
         } else if (mode == 2) {
             tvTitleBar.channelPic.image = [UIImage imageNamed:@"watchLaterChannel"];
+        } else if (mode == 3) {
+            tvTitleBar.channelPic.image = [UIImage imageNamed:@"searchChannel"];
         }
     }
 }

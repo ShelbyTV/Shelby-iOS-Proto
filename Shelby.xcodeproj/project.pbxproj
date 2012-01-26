@@ -102,6 +102,7 @@
 		0A84058814D0DB5600F13FC2 /* UserAccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A84058714D0DB5500F13FC2 /* UserAccountView.m */; };
 		0A84058A14D0DB7200F13FC2 /* UserAccount_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A84058914D0DB7200F13FC2 /* UserAccount_iPhone.xib */; };
 		0A84058C14D0DB8E00F13FC2 /* UserAccount_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A84058B14D0DB8E00F13FC2 /* UserAccount_iPad.xib */; };
+		0A84058E14D11F4800F13FC2 /* searchChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A84058D14D11F4800F13FC2 /* searchChannel.png */; };
 		0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871145143D0FBA001AE70D /* CoreDataHelper.m */; };
 		0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871149143D74E7001AE70D /* VideoTableViewCell.m */; };
 		0A978AF714455B74005DFF18 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A978AF614455B74005DFF18 /* ShareView.m */; };
@@ -434,6 +435,7 @@
 		0A84058714D0DB5500F13FC2 /* UserAccountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAccountView.m; sourceTree = "<group>"; };
 		0A84058914D0DB7200F13FC2 /* UserAccount_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAccount_iPhone.xib; sourceTree = "<group>"; };
 		0A84058B14D0DB8E00F13FC2 /* UserAccount_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAccount_iPad.xib; sourceTree = "<group>"; };
+		0A84058D14D11F4800F13FC2 /* searchChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = searchChannel.png; path = Resources/Images/searchChannel.png; sourceTree = "<group>"; };
 		0A871144143D0FBA001AE70D /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		0A871145143D0FBA001AE70D /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		0A871148143D74E6001AE70D /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
@@ -758,6 +760,7 @@
 				0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */,
 				0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */,
 				0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */,
+				0A84058D14D11F4800F13FC2 /* searchChannel.png */,
 				0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */,
 				0A05EF7B14AE8B4D0010BFFF /* likeOn_TV_720.png */,
 				0A05EF7C14AE8B4D0010BFFF /* watchLaterOff_TV_720.png */,
@@ -1781,6 +1784,7 @@
 				0A84058514CEA63C00F13FC2 /* TumblrDead.png in Resources */,
 				0A84058A14D0DB7200F13FC2 /* UserAccount_iPhone.xib in Resources */,
 				0A84058C14D0DB8E00F13FC2 /* UserAccount_iPad.xib in Resources */,
+				0A84058E14D11F4800F13FC2 /* searchChannel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
