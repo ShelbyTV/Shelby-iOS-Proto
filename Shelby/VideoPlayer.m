@@ -438,7 +438,7 @@ static const float kNextPrevXOffset        =  0.0f;
     @synchronized(self) {
         
         if (NOT_NULL(video)) {
-            [self pause];
+            [self stop];
             _stoppedIntentionally = FALSE;
             
             double now = CACurrentMediaTime();
@@ -528,6 +528,9 @@ static const float kNextPrevXOffset        =  0.0f;
     [_controlBar showPlayButtonIcon];
     [_moviePlayer pause];
     _paused = TRUE;
+    if (NOT_NULL(_tvPaused)) {
+        _tvPaused.hidden = !_paused;
+    }
 }
 
 - (void)stop {
@@ -864,10 +867,6 @@ static const float kNextPrevXOffset        =  0.0f;
         [self pause];
     } else {
         [self play];
-    }
-    
-    if (NOT_NULL(_tvPaused)) {
-        _tvPaused.hidden = !_paused;
     }
 }
 

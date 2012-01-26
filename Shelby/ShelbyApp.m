@@ -13,6 +13,7 @@
 #import "VideoGetter.h"
 #import "SessionStats.h"
 #import "BSWebViewUserAgent.h"
+#import "ShelbyWindow.h"
 
 #import "TestFlight.h"
 #import <Crashlytics/Crashlytics.h>

@@ -381,6 +381,7 @@
     Video *video = [videoTable getNextVideo];
 
     // Tell player to start playing new video.
+    [_videoPlayer stop];
     [self playVideo:video];
 }
 
@@ -389,6 +390,8 @@
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
     Video *video = [videoTable getPreviousVideo];
     // Tell player to start playing new video.
+    
+    [_videoPlayer stop];
     [self playVideo:video];
 }
 

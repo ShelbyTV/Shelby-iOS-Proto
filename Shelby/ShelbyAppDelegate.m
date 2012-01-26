@@ -78,9 +78,7 @@
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [(NavigationViewController *)[UIApplication sharedApplication].keyWindow.rootViewController pauseCurrentVideo];
-    }
+    [[ShelbyApp sharedApp].navigationViewController pauseCurrentVideo];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -90,9 +88,7 @@
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [(NavigationViewController *)[UIApplication sharedApplication].keyWindow.rootViewController pauseCurrentVideo];
-    }
+    [[ShelbyApp sharedApp].navigationViewController pauseCurrentVideo];
     
     [SessionStats endSessionReportingTimer];
 }
