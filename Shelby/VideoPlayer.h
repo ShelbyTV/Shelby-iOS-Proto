@@ -64,6 +64,7 @@
     BOOL _stoppedIntentionally;
     
     BOOL _touchOccurring;
+    BOOL _alreadyPinching;
     
     VideoPlayerControlBar *_controlBar;
     VideoPlayerControlBar *_tvControlBar;

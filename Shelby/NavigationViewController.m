@@ -446,7 +446,7 @@
 
 - (void)videoPlayerShowRemoteView
 {
-    _remoteModeView.view.hidden = FALSE;
+    [_remoteModeView showRemoteMode];
 }
 
 #pragma mark - Button Handling
@@ -739,7 +739,7 @@
 - (void) screenDidDisconnect:(NSNotification *)notification
 {
     [_videoPlayer screenDidDisconnect];
-    _remoteModeView.view.hidden = YES;
+    [_remoteModeView hideRemoteMode];
 }
 
 #pragma mark - RemoteModeDelegate

@@ -103,6 +103,13 @@
 		0A84058A14D0DB7200F13FC2 /* UserAccount_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A84058914D0DB7200F13FC2 /* UserAccount_iPhone.xib */; };
 		0A84058C14D0DB8E00F13FC2 /* UserAccount_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A84058B14D0DB8E00F13FC2 /* UserAccount_iPad.xib */; };
 		0A84058E14D11F4800F13FC2 /* searchChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A84058D14D11F4800F13FC2 /* searchChannel.png */; };
+		0A8405A414D2474500F13FC2 /* logoGrayTouchPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405A314D2474500F13FC2 /* logoGrayTouchPlay.png */; };
+		0A8405A714D3358800F13FC2 /* remoteModeHelp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405A614D3358800F13FC2 /* remoteModeHelp.png */; };
+		0A8405A914D3560F00F13FC2 /* remoteModeHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405A814D3560F00F13FC2 /* remoteModeHelp@2x.png */; };
+		0A8405AB14D3600200F13FC2 /* tapAnywhere.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405AA14D3600200F13FC2 /* tapAnywhere.png */; };
+		0A8405AD14D3620D00F13FC2 /* remoteModeNeedSomeHelp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405AC14D3620D00F13FC2 /* remoteModeNeedSomeHelp.png */; };
+		0A8405B014D37AFD00F13FC2 /* remoteModeHelpSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405AE14D37AFD00F13FC2 /* remoteModeHelpSelected.png */; };
+		0A8405B114D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8405AF14D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png */; };
 		0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871145143D0FBA001AE70D /* CoreDataHelper.m */; };
 		0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871149143D74E7001AE70D /* VideoTableViewCell.m */; };
 		0A978AF714455B74005DFF18 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A978AF614455B74005DFF18 /* ShareView.m */; };
@@ -436,6 +443,13 @@
 		0A84058914D0DB7200F13FC2 /* UserAccount_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAccount_iPhone.xib; sourceTree = "<group>"; };
 		0A84058B14D0DB8E00F13FC2 /* UserAccount_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAccount_iPad.xib; sourceTree = "<group>"; };
 		0A84058D14D11F4800F13FC2 /* searchChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = searchChannel.png; path = Resources/Images/searchChannel.png; sourceTree = "<group>"; };
+		0A8405A314D2474500F13FC2 /* logoGrayTouchPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoGrayTouchPlay.png; path = Resources/Images/logoGrayTouchPlay.png; sourceTree = "<group>"; };
+		0A8405A614D3358800F13FC2 /* remoteModeHelp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remoteModeHelp.png; path = Resources/Images/remoteModeHelp.png; sourceTree = "<group>"; };
+		0A8405A814D3560F00F13FC2 /* remoteModeHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "remoteModeHelp@2x.png"; path = "Resources/Images/remoteModeHelp@2x.png"; sourceTree = "<group>"; };
+		0A8405AA14D3600200F13FC2 /* tapAnywhere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tapAnywhere.png; path = Resources/Images/tapAnywhere.png; sourceTree = "<group>"; };
+		0A8405AC14D3620D00F13FC2 /* remoteModeNeedSomeHelp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remoteModeNeedSomeHelp.png; path = Resources/Images/remoteModeNeedSomeHelp.png; sourceTree = "<group>"; };
+		0A8405AE14D37AFD00F13FC2 /* remoteModeHelpSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remoteModeHelpSelected.png; path = Resources/Images/remoteModeHelpSelected.png; sourceTree = "<group>"; };
+		0A8405AF14D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "remoteModeHelpSelected@2x.png"; path = "Resources/Images/remoteModeHelpSelected@2x.png"; sourceTree = "<group>"; };
 		0A871144143D0FBA001AE70D /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		0A871145143D0FBA001AE70D /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		0A871148143D74E6001AE70D /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
@@ -1166,8 +1180,15 @@
 		0AF7DE5814B10D86005B48BF /* RemoteMode */ = {
 			isa = PBXGroup;
 			children = (
+				0A8405AA14D3600200F13FC2 /* tapAnywhere.png */,
+				0A8405A614D3358800F13FC2 /* remoteModeHelp.png */,
+				0A8405A814D3560F00F13FC2 /* remoteModeHelp@2x.png */,
+				0A8405AC14D3620D00F13FC2 /* remoteModeNeedSomeHelp.png */,
+				0A8405AE14D37AFD00F13FC2 /* remoteModeHelpSelected.png */,
+				0A8405AF14D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png */,
 				0AF7DE7114B10E4F005B48BF /* airplay.png */,
 				0A6D991B14C4AB39008762D7 /* double_tap_white.png */,
+				0A8405A314D2474500F13FC2 /* logoGrayTouchPlay.png */,
 				0A6D991C14C4AB39008762D7 /* double_tap.png */,
 				0AF7DE7314B10E7F005B48BF /* logoGray.png */,
 				0A6D991F14C4AB48008762D7 /* pinch_white.png */,
@@ -1785,6 +1806,13 @@
 				0A84058A14D0DB7200F13FC2 /* UserAccount_iPhone.xib in Resources */,
 				0A84058C14D0DB8E00F13FC2 /* UserAccount_iPad.xib in Resources */,
 				0A84058E14D11F4800F13FC2 /* searchChannel.png in Resources */,
+				0A8405A414D2474500F13FC2 /* logoGrayTouchPlay.png in Resources */,
+				0A8405A714D3358800F13FC2 /* remoteModeHelp.png in Resources */,
+				0A8405A914D3560F00F13FC2 /* remoteModeHelp@2x.png in Resources */,
+				0A8405AB14D3600200F13FC2 /* tapAnywhere.png in Resources */,
+				0A8405AD14D3620D00F13FC2 /* remoteModeNeedSomeHelp.png in Resources */,
+				0A8405B014D37AFD00F13FC2 /* remoteModeHelpSelected.png in Resources */,
+				0A8405B114D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

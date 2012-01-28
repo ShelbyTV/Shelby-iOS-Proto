@@ -43,23 +43,23 @@
     
     double _lastTouchesBegan;
     
-    IBOutlet UIImageView *pinchWhite;
-    IBOutlet UIImageView *spreadWhite;
-    IBOutlet UIImageView *swipeUpWhite;
-    IBOutlet UIImageView *swipeLeftWhite;
-    IBOutlet UIImageView *swipeRightWhite;
-    IBOutlet UIImageView *swipeDownWhite;
-    IBOutlet UIImageView *doubleSwipeUpWhite;
-    IBOutlet UIImageView *doubleSwipeLeftWhite;
-    IBOutlet UIImageView *doubleSwipeRightWhite;
-    IBOutlet UIImageView *doubleSwipeDownWhite;
-    IBOutlet UIImageView *tapWhite;
-    IBOutlet UIImageView *doubleTapWhite;
+    IBOutlet UIView *stripesView;
+    
+    IBOutlet UIImageView *needHelpImage;
+    IBOutlet UIButton *helpButton;
+    IBOutlet UIView *helpContainerView;
+    
+    IBOutlet UIImageView *tapAnywhereImage;
     
     BOOL alreadyPinching;
     BOOL alreadySpreading;
 }
 
 @property (assign) id <RemoteModeDelegate> delegate;
+
+- (IBAction)helpPressed:(id)sender;
+
+- (void)showRemoteMode;
+- (void)hideRemoteMode;
 
 @end

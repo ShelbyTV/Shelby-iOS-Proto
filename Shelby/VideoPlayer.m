@@ -248,6 +248,8 @@ static const float kNextPrevXOffset        =  0.0f;
     
     pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
     pinchRecognizer.delaysTouchesBegan = NO;
+    pinchRecognizer.delaysTouchesEnded = NO;
+    pinchRecognizer.cancelsTouchesInView = NO;
     
     [_gestureView addGestureRecognizer:leftSwipeRecognizer];
     [_gestureView addGestureRecognizer:rightSwipeRecognizer];
@@ -599,6 +601,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     _touchOccurring = FALSE;
+    _alreadyPinching = FALSE;
     [self recordButtonPressOrControlsVisible:YES];
 
     // treat short presses as a tap and close controls if visible
@@ -611,6 +614,8 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     _touchOccurring = FALSE;
+    _alreadyPinching = FALSE;
+
     [self recordButtonPressOrControlsVisible:YES];
     
     // treat short presses as a tap and close controls if visible
@@ -1129,12 +1134,14 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer
 {
-    if ([[UIScreen screens] count] < 2)
+    if (_alreadyPinching || [[UIScreen screens] count] < 2)
     {
         return;
     }
-    
+     
     if (gestureRecognizer.scale > 2 && gestureRecognizer.velocity > 1.0) {
+        _alreadyPinching = TRUE;
+
         if (self.delegate) {
             [self.delegate videoPlayerShowRemoteView];
         }

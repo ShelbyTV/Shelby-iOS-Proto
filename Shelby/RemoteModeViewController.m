@@ -87,37 +87,42 @@ static const float kTapTime = 0.5f;
 - (void)flashPinchAndClose
 {
     alreadyPinching = TRUE;
+    [self hideRemoteMode];
     
-    [UIView animateWithDuration:0.1 animations:^{
-        pinchWhite.alpha = 1.0;
-    }
-                     completion:^(BOOL finished){
-                         [UIView animateWithDuration:0.3 animations:^{
-                             pinchWhite.alpha = 0.0;
-                         }                      completion:^(BOOL finished){
-                             self.view.hidden = YES;
-                             alreadyPinching = FALSE;
-                         }];
-                     }];
+//    [UIView animateWithDuration:0.1 animations:^{
+//        pinchWhite.alpha = 1.0;
+//    }
+//                     completion:^(BOOL finished){
+//                         [UIView animateWithDuration:0.3 animations:^{
+//                             pinchWhite.alpha = 0.0;
+//                         }                      completion:^(BOOL finished){
+//                             self.view.hidden = YES;
+//                             alreadyPinching = FALSE;
+//                         }];
+//                     }];
 }
 
 - (void)flashSpreadAndShowSharing
 {
-    alreadySpreading = TRUE;
+//    alreadySpreading = TRUE;
     
-    [UIView animateWithDuration:0.1 animations:^{
-        spreadWhite.alpha = 1.0;
+    if (delegate) {
+        [delegate remoteModeShowSharing];
     }
-                     completion:^(BOOL finished){
-                         [UIView animateWithDuration:0.3 animations:^{
-                             spreadWhite.alpha = 0.0;
-                         }                      completion:^(BOOL finished){
-                             if (delegate) {
-                                 [delegate remoteModeShowSharing];
-                             }
-                             alreadySpreading = FALSE;
-                         }];
-                     }];
+
+//    [UIView animateWithDuration:0.1 animations:^{
+//        spreadWhite.alpha = 1.0;
+//    }
+//                     completion:^(BOOL finished){
+//                         [UIView animateWithDuration:0.3 animations:^{
+//                             spreadWhite.alpha = 0.0;
+//                         }                      completion:^(BOOL finished){
+//                             if (delegate) {
+//                                 [delegate remoteModeShowSharing];
+//                             }
+//                             alreadySpreading = FALSE;
+//                         }];
+//                     }];
 }
 
 - (void)flashImageView:(UIImageView *)imageView
@@ -155,7 +160,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:swipeLeftWhite];
+//        [self flashImageView:swipeLeftWhite];
         [delegate remoteModeNextVideo];
     }
 }
@@ -166,7 +171,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:swipeRightWhite];
+//        [self flashImageView:swipeRightWhite];
         [delegate remoteModePreviousVideo];
     }
 }
@@ -177,7 +182,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:swipeUpWhite];
+//        [self flashImageView:swipeUpWhite];
         [delegate remoteModeLikeVideo];
     }
 }
@@ -188,7 +193,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:swipeDownWhite];
+//        [self flashImageView:swipeDownWhite];
         [delegate remoteModeWatchLaterVideo];
     }
 }
@@ -201,7 +206,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:doubleSwipeLeftWhite];
+//        [self flashImageView:doubleSwipeLeftWhite];
         [delegate remoteModeScanBackward];
     }
 }
@@ -212,7 +217,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:doubleSwipeRightWhite];
+//        [self flashImageView:doubleSwipeRightWhite];
         [delegate remoteModeScanForward];
     }
 }
@@ -223,7 +228,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:doubleSwipeUpWhite];
+//        [self flashImageView:doubleSwipeUpWhite];
         [delegate remoteModePreviousChannel];
     }
 }
@@ -234,7 +239,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:doubleSwipeDownWhite];
+//        [self flashImageView:doubleSwipeDownWhite];
         [delegate remoteModeNextChannel];
     }
 }
@@ -247,7 +252,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-        [self flashImageView:doubleTapWhite];
+//        [self flashImageView:doubleTapWhite];
         [delegate remoteModeTogglePlayPause];
     }
 }
@@ -278,7 +283,7 @@ static const float kTapTime = 0.5f;
     {
         if (CACurrentMediaTime() - _lastTouchesBegan < kTapTime)
         {
-            [self flashImageView:tapWhite];
+//            [self flashImageView:tapWhite];
             [delegate remoteModeHideInfo];
         }
     }
@@ -297,7 +302,15 @@ static const float kTapTime = 0.5f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackgroundStripes_iPad"]]];
+    } else {
+        [stripesView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"LoginBackgroundStripes_iPhone"]]];
+    }
+    [stripesView setOpaque:NO];
+    [[stripesView layer] setOpaque:NO]; // hack needed for transparent backgrounds on iOS < 5
 }
 
 - (void)viewDidUnload
@@ -312,5 +325,166 @@ static const float kTapTime = 0.5f;
     // Return YES for supported orientations
 	return YES;
 }
+
+- (IBAction)helpPressed:(id)sender
+{
+    [needHelpImage.layer removeAllAnimations];
+    
+    if (needHelpImage.alpha != 0.0) {
+        
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^(void) {needHelpImage.alpha = 0.0;} 
+                         completion:^(BOOL finished) {}];
+        
+    }
+         
+    helpButton.selected = !helpButton.selected;
+    if (helpButton.selected) {
+        
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^(void) {
+                         
+                             CGRect temp = helpContainerView.frame;
+                             
+                             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                                 temp.origin.x -= temp.size.width;
+                             } else {
+                                 temp.origin.y -= temp.size.height;
+                             }
+                             
+                             helpContainerView.frame = temp;
+                         
+                         } 
+                         completion:^(BOOL finished) {}];
+        
+    } else {
+        
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^(void) {
+                             
+                             CGRect temp = helpContainerView.frame;
+                             
+                             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                                 temp.origin.x += temp.size.width;
+                             } else {
+                                 temp.origin.y += temp.size.height;
+                             }
+                             
+                             helpContainerView.frame = temp;
+                             
+                         } 
+                         completion:^(BOOL finished) {}];
+    }
+}
+
+- (void)showRemoteMode
+{
+    self.view.hidden = FALSE;
+    alreadyPinching = FALSE; 
+    alreadySpreading = FALSE;
+    
+    [needHelpImage.layer removeAllAnimations];
+    
+    [UIView animateWithDuration:0.5
+                          delay:1.0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^(void) {needHelpImage.alpha = 1.0;}
+                     completion:^(BOOL finished) {
+         
+                         [UIView animateWithDuration:0.5 
+                                               delay:6.0 
+                                             options:UIViewAnimationCurveEaseInOut 
+                                          animations:^(void) {needHelpImage.alpha = 0.0;} 
+                                          completion:^(BOOL finished) {}
+                          ];
+                         
+                     }
+     ];
+}
+
+- (void)hideRemoteMode
+{
+    if (helpButton.selected) {
+        helpButton.selected = FALSE;
+        
+        [UIView animateWithDuration:0.2 
+                              delay:0.0 
+                            options:UIViewAnimationCurveEaseInOut 
+                         animations:^(void) {
+                             
+                             CGRect temp = helpContainerView.frame;
+                             
+                             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                                 temp.origin.x += temp.size.width;
+                             } else {
+                                 temp.origin.y += temp.size.height;
+                             }
+                             
+                             helpContainerView.frame = temp;
+                             
+                         } 
+                         completion:^(BOOL finished) {
+                         
+                             [UIView animateWithDuration:0.0 
+                                                   delay:0.5
+                                                 options:UIViewAnimationCurveEaseInOut 
+                                              animations:^(void) {
+                                 
+                                                  self.view.hidden = TRUE;  
+                                                  
+                                              }
+                                              completion:^(BOOL finished) {
+                                              
+                                                  alreadyPinching = FALSE; 
+                                                  
+                                              }
+                              ];
+                         
+                         }];
+    } else {
+    
+        self.view.hidden = TRUE;
+    
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
