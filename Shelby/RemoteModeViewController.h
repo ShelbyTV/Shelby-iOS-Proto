@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class RemoteModeHelpTableViewController;
+
 @protocol RemoteModeDelegate
 
 - (void)remoteModePreviousVideo;
@@ -53,6 +55,8 @@
     
     BOOL alreadyPinching;
     BOOL alreadySpreading;
+    
+    RemoteModeHelpTableViewController *helpController;
 }
 
 @property (assign) id <RemoteModeDelegate> delegate;

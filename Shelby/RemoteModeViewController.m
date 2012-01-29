@@ -7,6 +7,7 @@
 //
 
 #import "RemoteModeViewController.h"
+#import "RemoteModeHelpTableViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -80,6 +81,14 @@ static const float kTapTime = 0.5f;
         [self.view addGestureRecognizer:downDoubleSwipeRecognizer];
         
         [self.view addGestureRecognizer:doubleTapRecognizer];
+        
+        helpController = [[RemoteModeHelpTableViewController alloc] init];
+        helpController.view.frame = helpContainerView.bounds;
+        
+        [(UITableView *)helpController.view setSeparatorColor:[UIColor darkGrayColor]];
+        [(UITableView *)helpController.view setBackgroundColor:[UIColor blackColor]];
+        
+        [helpContainerView addSubview:helpController.view];
     }
     return self;
 }
