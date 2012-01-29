@@ -43,6 +43,7 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrameSize">{330, 44}</string>
 						<reference key="NSSuperview" ref="830339194"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="636113266"/>
 						<string key="NSReuseIdentifierKey">_NS:372</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -82,6 +83,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 64}, {290, 44}}</string>
 						<reference key="NSSuperview" ref="830339194"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="173622468"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="164633736">
@@ -134,6 +136,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 116}, {290, 44}}</string>
 						<reference key="NSSuperview" ref="830339194"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="718646341"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<reference key="IBUIBackgroundColor" ref="164633736"/>
@@ -164,10 +167,11 @@
 					</object>
 					<object class="IBUIButton" id="718646341">
 						<reference key="NSNextResponder" ref="830339194"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{20, 168}, {290, 44}}</string>
 						<reference key="NSSuperview" ref="830339194"/>
-						<reference key="NSNextKeyView" ref="146071646"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -199,6 +203,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 250}, {290, 44}}</string>
 						<reference key="NSSuperview" ref="830339194"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="821284603"/>
 						<string key="NSReuseIdentifierKey">_NS:241</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -233,6 +238,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 20}, {290, 21}}</string>
 								<reference key="NSSuperview" ref="821284603"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="540564715"/>
 								<string key="NSReuseIdentifierKey">_NS:345</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -267,6 +273,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 59}, {141, 44}}</string>
 								<reference key="NSSuperview" ref="821284603"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="437067559"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -304,6 +311,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{169, 59}, {141, 44}}</string>
 								<reference key="NSSuperview" ref="821284603"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:241</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -326,6 +334,7 @@
 						</array>
 						<string key="NSFrame">{{0, 570}, {330, 123}}</string>
 						<reference key="NSSuperview" ref="830339194"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="243547875"/>
 						<string key="NSReuseIdentifierKey">_NS:212</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -337,6 +346,7 @@
 				</array>
 				<string key="NSFrameSize">{330, 693}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="902739306"/>
 				<string key="NSReuseIdentifierKey">_NS:212</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -632,9 +642,118 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">33</int>
+			<int key="maxID">35</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">UserAccountView</string>
+					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addFacebook:">id</string>
+						<string key="addTumblr:">id</string>
+						<string key="addTwitter:">id</string>
+						<string key="backToVideos:">id</string>
+						<string key="demoMode:">id</string>
+						<string key="logOut:">id</string>
+						<string key="privacyPolicy:">id</string>
+						<string key="termsOfUse:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addFacebook:">
+							<string key="name">addFacebook:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addTumblr:">
+							<string key="name">addTumblr:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addTwitter:">
+							<string key="name">addTwitter:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="backToVideos:">
+							<string key="name">backToVideos:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="demoMode:">
+							<string key="name">demoMode:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="logOut:">
+							<string key="name">logOut:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="privacyPolicy:">
+							<string key="name">privacyPolicy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="termsOfUse:">
+							<string key="name">termsOfUse:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_demoModeButton">UIBarButtonItem</string>
+						<string key="_settingsToolbar">UIToolbar</string>
+						<string key="addFacebookButton">UIButton</string>
+						<string key="addTumblrButton">UIButton</string>
+						<string key="addTwitterButton">UIButton</string>
+						<string key="legalBackgroundView">UIView</string>
+						<string key="legalBeagleLabel">UILabel</string>
+						<string key="logoutButton">UIButton</string>
+						<string key="privacyPolicyButton">UIButton</string>
+						<string key="termsOfUseButton">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_demoModeButton">
+							<string key="name">_demoModeButton</string>
+							<string key="candidateClassName">UIBarButtonItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_settingsToolbar">
+							<string key="name">_settingsToolbar</string>
+							<string key="candidateClassName">UIToolbar</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="addFacebookButton">
+							<string key="name">addFacebookButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="addTumblrButton">
+							<string key="name">addTumblrButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="addTwitterButton">
+							<string key="name">addTwitterButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="legalBackgroundView">
+							<string key="name">legalBackgroundView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="legalBeagleLabel">
+							<string key="name">legalBeagleLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="logoutButton">
+							<string key="name">logoutButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="privacyPolicyButton">
+							<string key="name">privacyPolicyButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="termsOfUseButton">
+							<string key="name">termsOfUseButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UserAccountView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
