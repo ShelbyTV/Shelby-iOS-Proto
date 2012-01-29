@@ -90,6 +90,65 @@
     return 12;
 }
 
+- (UIImage *)gestureImageForRow:(int)row
+{
+    switch (row) {
+        case 0:
+            return [UIImage imageNamed:@"oneFingerTap"];
+            break;
+            
+        case 1:
+            return [UIImage imageNamed:@"twoFingerTap"];
+            break;
+            
+        case 2:
+            return [UIImage imageNamed:@"oneFingerSwipeLeft"];
+            break;
+            
+        case 3:
+            return [UIImage imageNamed:@"oneFingerSwipeRight"];
+            break;
+            
+        case 4:
+            return [UIImage imageNamed:@"oneFingerSwipeDown"];
+            break;
+            
+        case 5:
+            return [UIImage imageNamed:@"oneFingerSwipeUp"];
+            break;
+            
+        case 6:
+            return [UIImage imageNamed:@"twoFingerSwipeLeft"];
+            break;
+            
+        case 7:
+            return [UIImage imageNamed:@"twoFingerSwipeRight"];
+            break;
+            
+        case 8:
+            return [UIImage imageNamed:@"twoFingerSwipeDown"];
+            break;
+            
+        case 9:
+            return [UIImage imageNamed:@"twoFingerSwipeUp"];
+            break;
+            
+        case 10:
+            return [UIImage imageNamed:@"spread"];
+            break;
+            
+        case 11:
+            return [UIImage imageNamed:@"pinch"];
+            break;
+            
+        default:
+            return nil;
+            break;
+    }
+    
+    return nil;
+}
+
 - (NSString *)gestureStringForRow:(int)row
 {
     switch (row) {
@@ -177,11 +236,11 @@
             break;
             
         case 6:
-            return @"10 SECONDS BACK";
+            return @"SCAN BACK";
             break;
             
         case 7:
-            return @"10 SECONDS AHEAD";
+            return @"SCAN AHEAD";
             break;
             
         case 8:
@@ -208,6 +267,8 @@
     return nil;
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"RemoteModeHelpCell";
@@ -221,6 +282,7 @@
     
     ((UILabel *)[cell viewWithTag:1]).text = [self gestureStringForRow:indexPath.row];
     ((UILabel *)[cell viewWithTag:2]).text = [self commandStringForRow:indexPath.row];
+    ((UIImageView *)[cell viewWithTag:3]).image = [self gestureImageForRow:indexPath.row];
     
     return cell;
 }

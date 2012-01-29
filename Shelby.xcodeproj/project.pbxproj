@@ -34,6 +34,17 @@
 		0A28095E14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib */; };
 		0A28096114D4ACBB007C19B7 /* twoFingerTap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096014D4ACBB007C19B7 /* twoFingerTap.png */; };
 		0A28096414D4CF50007C19B7 /* RemoteModeHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A28096314D4CF50007C19B7 /* RemoteModeHelpTableViewController.m */; };
+		0A28096914D4DD25007C19B7 /* twoFingerSwipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096514D4DD25007C19B7 /* twoFingerSwipeDown.png */; };
+		0A28096A14D4DD25007C19B7 /* twoFingerSwipeLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096614D4DD25007C19B7 /* twoFingerSwipeLeft.png */; };
+		0A28096B14D4DD25007C19B7 /* twoFingerSwipeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096714D4DD25007C19B7 /* twoFingerSwipeRight.png */; };
+		0A28096C14D4DD25007C19B7 /* twoFingerSwipeUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096814D4DD25007C19B7 /* twoFingerSwipeUp.png */; };
+		0A28097214D4DD34007C19B7 /* oneFingerSwipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096D14D4DD34007C19B7 /* oneFingerSwipeDown.png */; };
+		0A28097314D4DD34007C19B7 /* oneFingerSwipeLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096E14D4DD34007C19B7 /* oneFingerSwipeLeft.png */; };
+		0A28097414D4DD34007C19B7 /* oneFingerSwipeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096F14D4DD34007C19B7 /* oneFingerSwipeRight.png */; };
+		0A28097514D4DD34007C19B7 /* oneFingerSwipeUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097014D4DD34007C19B7 /* oneFingerSwipeUp.png */; };
+		0A28097614D4DD34007C19B7 /* oneFingerTap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097114D4DD34007C19B7 /* oneFingerTap.png */; };
+		0A28097814D4DD41007C19B7 /* pinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097714D4DD41007C19B7 /* pinch.png */; };
+		0A28097A14D4DD47007C19B7 /* spread.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097914D4DD47007C19B7 /* spread.png */; };
 		0A28A663147B1C3B00625FCB /* fullscreenContract_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A653147B1C3B00625FCB /* fullscreenContract_iPad.png */; };
 		0A28A666147B1C3B00625FCB /* likeOff_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A656147B1C3B00625FCB /* likeOff_iPad.png */; };
 		0A28A667147B1C3B00625FCB /* likeOn_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A657147B1C3B00625FCB /* likeOn_iPad.png */; };
@@ -340,6 +351,17 @@
 		0A28096014D4ACBB007C19B7 /* twoFingerTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twoFingerTap.png; path = Resources/Images/twoFingerTap.png; sourceTree = "<group>"; };
 		0A28096214D4CF50007C19B7 /* RemoteModeHelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteModeHelpTableViewController.h; sourceTree = "<group>"; };
 		0A28096314D4CF50007C19B7 /* RemoteModeHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteModeHelpTableViewController.m; sourceTree = "<group>"; };
+		0A28096514D4DD25007C19B7 /* twoFingerSwipeDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twoFingerSwipeDown.png; path = Resources/Images/twoFingerSwipeDown.png; sourceTree = "<group>"; };
+		0A28096614D4DD25007C19B7 /* twoFingerSwipeLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twoFingerSwipeLeft.png; path = Resources/Images/twoFingerSwipeLeft.png; sourceTree = "<group>"; };
+		0A28096714D4DD25007C19B7 /* twoFingerSwipeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twoFingerSwipeRight.png; path = Resources/Images/twoFingerSwipeRight.png; sourceTree = "<group>"; };
+		0A28096814D4DD25007C19B7 /* twoFingerSwipeUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twoFingerSwipeUp.png; path = Resources/Images/twoFingerSwipeUp.png; sourceTree = "<group>"; };
+		0A28096D14D4DD34007C19B7 /* oneFingerSwipeDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oneFingerSwipeDown.png; path = Resources/Images/oneFingerSwipeDown.png; sourceTree = "<group>"; };
+		0A28096E14D4DD34007C19B7 /* oneFingerSwipeLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oneFingerSwipeLeft.png; path = Resources/Images/oneFingerSwipeLeft.png; sourceTree = "<group>"; };
+		0A28096F14D4DD34007C19B7 /* oneFingerSwipeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oneFingerSwipeRight.png; path = Resources/Images/oneFingerSwipeRight.png; sourceTree = "<group>"; };
+		0A28097014D4DD34007C19B7 /* oneFingerSwipeUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oneFingerSwipeUp.png; path = Resources/Images/oneFingerSwipeUp.png; sourceTree = "<group>"; };
+		0A28097114D4DD34007C19B7 /* oneFingerTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oneFingerTap.png; path = Resources/Images/oneFingerTap.png; sourceTree = "<group>"; };
+		0A28097714D4DD41007C19B7 /* pinch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pinch.png; path = Resources/Images/pinch.png; sourceTree = "<group>"; };
+		0A28097914D4DD47007C19B7 /* spread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spread.png; path = Resources/Images/spread.png; sourceTree = "<group>"; };
 		0A28A653147B1C3B00625FCB /* fullscreenContract_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreenContract_iPad.png; path = Resources/Images/fullscreenContract_iPad.png; sourceTree = "<group>"; };
 		0A28A656147B1C3B00625FCB /* likeOff_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_iPad.png; path = Resources/Images/likeOff_iPad.png; sourceTree = "<group>"; };
 		0A28A657147B1C3B00625FCB /* likeOn_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOn_iPad.png; path = Resources/Images/likeOn_iPad.png; sourceTree = "<group>"; };
@@ -1138,6 +1160,17 @@
 				0A8405AF14D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png */,
 				0A8405A314D2474500F13FC2 /* logoGrayTouchPlay.png */,
 				0A28096014D4ACBB007C19B7 /* twoFingerTap.png */,
+				0A28096514D4DD25007C19B7 /* twoFingerSwipeDown.png */,
+				0A28096614D4DD25007C19B7 /* twoFingerSwipeLeft.png */,
+				0A28096714D4DD25007C19B7 /* twoFingerSwipeRight.png */,
+				0A28096814D4DD25007C19B7 /* twoFingerSwipeUp.png */,
+				0A28096D14D4DD34007C19B7 /* oneFingerSwipeDown.png */,
+				0A28096E14D4DD34007C19B7 /* oneFingerSwipeLeft.png */,
+				0A28096F14D4DD34007C19B7 /* oneFingerSwipeRight.png */,
+				0A28097014D4DD34007C19B7 /* oneFingerSwipeUp.png */,
+				0A28097114D4DD34007C19B7 /* oneFingerTap.png */,
+				0A28097714D4DD41007C19B7 /* pinch.png */,
+				0A28097914D4DD47007C19B7 /* spread.png */,
 			);
 			name = RemoteMode;
 			sourceTree = "<group>";
@@ -1710,6 +1743,17 @@
 				0A8405B114D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png in Resources */,
 				0A28095E14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib in Resources */,
 				0A28096114D4ACBB007C19B7 /* twoFingerTap.png in Resources */,
+				0A28096914D4DD25007C19B7 /* twoFingerSwipeDown.png in Resources */,
+				0A28096A14D4DD25007C19B7 /* twoFingerSwipeLeft.png in Resources */,
+				0A28096B14D4DD25007C19B7 /* twoFingerSwipeRight.png in Resources */,
+				0A28096C14D4DD25007C19B7 /* twoFingerSwipeUp.png in Resources */,
+				0A28097214D4DD34007C19B7 /* oneFingerSwipeDown.png in Resources */,
+				0A28097314D4DD34007C19B7 /* oneFingerSwipeLeft.png in Resources */,
+				0A28097414D4DD34007C19B7 /* oneFingerSwipeRight.png in Resources */,
+				0A28097514D4DD34007C19B7 /* oneFingerSwipeUp.png in Resources */,
+				0A28097614D4DD34007C19B7 /* oneFingerTap.png in Resources */,
+				0A28097814D4DD41007C19B7 /* pinch.png in Resources */,
+				0A28097A14D4DD47007C19B7 /* spread.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
