@@ -263,69 +263,6 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-- (UINavigationBar *)findNavigationBarInView:(UIView *)view
-{
-    UINavigationBar *button = nil;
-    
-    if ([view isKindOfClass:[UINavigationBar class]]) {
-        NSLog(@"Found Navigation Bar!");
-        return (UINavigationBar *)view;
-    }
-    
-    if (view.subviews && [view.subviews count] > 0) {
-        for (UIView *subview in view.subviews) {
-            button = [self findNavigationBarInView:subview];
-            if (button) return button;
-        }
-    }
-    
-    return button;
-}
-
-- (void)removeAllAnimationsInView:(UIView *)view inWindow:(UIWindow *)window
-{
-    if (view.subviews && [view.subviews count] > 0) {
-        for (UIView *subview in view.subviews) {
-            [self removeAllAnimationsInView:subview inWindow:window];
-        }
-    }
-    
-    if (view.layer.sublayers && [view.layer.sublayers count] > 0) {
-        for (CALayer *layer in [[view.layer.sublayers copy] autorelease]) {
-            for (NSString *animationKey in layer.animationKeys) {
-                CAAnimation *animation = [layer animationForKey:animationKey];
-                NSLog(@"animationDelegate = %@", animation.delegate);
-            }
-            [layer removeAllAnimations];
-        }
-    }
-    
-    for (NSString *animationKey in view.layer.animationKeys) {
-        CAAnimation *animation = [view.layer animationForKey:animationKey];
-        NSLog(@"animationDelegate = %@", animation.delegate);
-    }
-    [view.layer removeAllAnimations];
-
-}
-
-- (void)clearWebViewAnimations
-{   
-    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-                
-        if (window == shelbyWindow || window == self.window) {
-            continue;
-        }
-        
-        [self removeAllAnimationsInView:window inWindow:window];
-    }
-}
-
-- (void)resetShelbyWindowRotation
-{
-    SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@", @"e",@"n",@"d",@"D",@"i",@"s",@"a",@"b",@"l",@"i",@"n",@"g",@"I",@"n",@"t",@"e",@"r",@"f",@"a",@"c",@"e",@"A",@"u",@"t",@"o",@"r",@"o",@"t",@"a",@"t",@"i",@"o",@"n"]);
-    [shelbyWindow performSelector:sel];
-}
-
 - (void)raiseShelbyWindow
 {
     shelbyWindow.windowLevel = UIWindowLevelStatusBar;
@@ -334,11 +271,6 @@
 - (void)lowerShelbyWindow
 {
     shelbyWindow.windowLevel = UIWindowLevelNormal;
-}
-
-- (BOOL) correctKeyWindow
-{
-    return [UIApplication sharedApplication].keyWindow == shelbyWindow;
 }
 
 @end

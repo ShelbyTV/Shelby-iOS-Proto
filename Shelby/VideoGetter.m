@@ -90,17 +90,8 @@ static VideoGetter *singletonYouTubeGetter = nil;
 {
     @synchronized(self)
     {
-        [_webView stopLoading];
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] clearWebViewAnimations];
-        }
         static NSString *htmlString = @"<html><body></body></html>";
         [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] resetShelbyWindowRotation];
-        }
     }
 }
     
@@ -212,12 +203,9 @@ static VideoGetter *singletonYouTubeGetter = nil;
                 if ([_seenPaths objectForKey:path] != nil) {
                     break; // already seen
                 }
-                
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                    [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(resetWebView) userInfo:nil repeats:NO];
-                } else {
-                    [self resetWebView];
-                }
+
+                [self resetWebView];
+
                 [[NSNotificationCenter defaultCenter] removeObserver:self];
 
                 self.networkCounter = 0;
