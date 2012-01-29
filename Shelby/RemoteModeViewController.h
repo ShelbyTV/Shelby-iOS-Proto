@@ -59,9 +59,12 @@
     
     RemoteModeHelpTableViewController *helpController;
     
+    IBOutlet UIView *lastGestureContainerContainerView;
     IBOutlet UIView *lastGestureContainerView;
     IBOutlet UIImageView *lastGestureImageView;
     IBOutlet UILabel *lastGestureCommandLabel;
+    
+    IBOutlet UIImageView *touchPlayLogo;
 }
 
 @property (assign) id <RemoteModeDelegate> delegate;

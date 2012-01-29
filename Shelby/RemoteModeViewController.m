@@ -83,7 +83,7 @@ static const float kTapTime = 0.5f;
         [self.view addGestureRecognizer:doubleTapRecognizer];
         
         helpController = [[RemoteModeHelpTableViewController alloc] init];
-        helpController.view.frame = helpContainerView.bounds;
+        helpController.view.frame = helpTableContainerView.bounds;
         
         [(UITableView *)helpController.view setSeparatorColor:[UIColor darkGrayColor]];
         [(UITableView *)helpController.view setBackgroundColor:[UIColor blackColor]];
@@ -371,6 +371,13 @@ static const float kTapTime = 0.5f;
                              
                              if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                                  temp.origin.x -= temp.size.width;
+                                 
+                                 CGRect temp2 = lastGestureContainerContainerView.frame;
+                                 temp2.size.width -= temp.size.width;
+                                 lastGestureContainerContainerView.frame = temp2;
+                                 
+                                 helpButton.alpha = 0.0;
+                                 
                              } else {
                                  temp.origin.y -= temp.size.height;
                              }
@@ -391,6 +398,13 @@ static const float kTapTime = 0.5f;
                              
                              if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                                  temp.origin.x += temp.size.width;
+                                 
+                                 CGRect temp2 = lastGestureContainerContainerView.frame;
+                                 temp2.size.width += temp.size.width;
+                                 lastGestureContainerContainerView.frame = temp2;
+                                 
+                                 helpButton.alpha = 1.0;
+                                 
                              } else {
                                  temp.origin.y += temp.size.height;
                              }
@@ -441,6 +455,13 @@ static const float kTapTime = 0.5f;
                              
                              if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                                  temp.origin.x += temp.size.width;
+                                 
+                                 CGRect temp2 = lastGestureContainerContainerView.frame;
+                                 temp2.size.width += temp.size.width;
+                                 lastGestureContainerContainerView.frame = temp2;
+                                 
+                                 helpButton.alpha = 1.0;
+                                 
                              } else {
                                  temp.origin.y += temp.size.height;
                              }
