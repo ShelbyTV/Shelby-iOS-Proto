@@ -46,6 +46,7 @@
 		0A28097814D4DD41007C19B7 /* pinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097714D4DD41007C19B7 /* pinch.png */; };
 		0A28097A14D4DD47007C19B7 /* spread.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097914D4DD47007C19B7 /* spread.png */; };
 		0A28097E14D51D81007C19B7 /* NoPassthroughClicksUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A28097D14D51D81007C19B7 /* NoPassthroughClicksUIView.m */; };
+		0A28098014D5261C007C19B7 /* remoteMode_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28097F14D5261C007C19B7 /* remoteMode_iPhone.png */; };
 		0A28A663147B1C3B00625FCB /* fullscreenContract_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A653147B1C3B00625FCB /* fullscreenContract_iPad.png */; };
 		0A28A666147B1C3B00625FCB /* likeOff_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A656147B1C3B00625FCB /* likeOff_iPad.png */; };
 		0A28A667147B1C3B00625FCB /* likeOn_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28A657147B1C3B00625FCB /* likeOn_iPad.png */; };
@@ -365,6 +366,7 @@
 		0A28097914D4DD47007C19B7 /* spread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spread.png; path = Resources/Images/spread.png; sourceTree = "<group>"; };
 		0A28097C14D51D80007C19B7 /* NoPassthroughClicksUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoPassthroughClicksUIView.h; sourceTree = "<group>"; };
 		0A28097D14D51D81007C19B7 /* NoPassthroughClicksUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoPassthroughClicksUIView.m; sourceTree = "<group>"; };
+		0A28097F14D5261C007C19B7 /* remoteMode_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remoteMode_iPhone.png; path = Resources/Images/remoteMode_iPhone.png; sourceTree = "<group>"; };
 		0A28A653147B1C3B00625FCB /* fullscreenContract_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreenContract_iPad.png; path = Resources/Images/fullscreenContract_iPad.png; sourceTree = "<group>"; };
 		0A28A656147B1C3B00625FCB /* likeOff_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_iPad.png; path = Resources/Images/likeOff_iPad.png; sourceTree = "<group>"; };
 		0A28A657147B1C3B00625FCB /* likeOn_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOn_iPad.png; path = Resources/Images/likeOn_iPad.png; sourceTree = "<group>"; };
@@ -1144,6 +1146,7 @@
 				0AE04FED148D517A00952C02 /* watchLaterOff_iPhone@2x.png */,
 				0AE04FEE148D517A00952C02 /* watchLaterOn_iPhone.png */,
 				0AE04FEF148D517A00952C02 /* watchLaterOn_iPhone@2x.png */,
+				0A28097F14D5261C007C19B7 /* remoteMode_iPhone.png */,
 			);
 			name = iPhone;
 			sourceTree = "<group>";
@@ -1767,6 +1770,7 @@
 				0A28097614D4DD34007C19B7 /* oneFingerTap.png in Resources */,
 				0A28097814D4DD41007C19B7 /* pinch.png in Resources */,
 				0A28097A14D4DD47007C19B7 /* spread.png in Resources */,
+				0A28098014D5261C007C19B7 /* remoteMode_iPhone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

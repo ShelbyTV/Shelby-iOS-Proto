@@ -81,6 +81,8 @@
     BOOL _currentVideoWatchLaterAtStart;
     BOOL _currentVideoUnwatchLaterSent;
     
+    UIButton *_remoteModeIPhone;
+    
     BOOL _initialized;
 }
 

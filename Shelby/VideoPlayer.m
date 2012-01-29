@@ -180,6 +180,7 @@ static const float kNextPrevXOffset        =  0.0f;
     [_nextButton addTarget: self
                     action: @selector(nextButtonWasPressed:)
           forControlEvents: UIControlEventTouchUpInside];
+    _nextButton.alpha = 0.0;
 
     _prevButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
     [_prevButton setImage: [UIImage imageNamed: @"ButtonPrevious.png"]
@@ -187,7 +188,8 @@ static const float kNextPrevXOffset        =  0.0f;
     [_prevButton addTarget: self
                     action: @selector(prevButtonWasPressed:)
           forControlEvents: UIControlEventTouchUpInside];
-
+    _prevButton.alpha = 0.0;
+    
     // Control Bar
     _controlBar = [VideoPlayerControlBar controlBarFromNib];
     _controlBar.delegate = self;
@@ -209,6 +211,20 @@ static const float kNextPrevXOffset        =  0.0f;
     // Title Bar
     self.titleBar = [VideoPlayerTitleBar titleBarFromNib];
     
+    // Remote Mode iPhone Button
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _remoteModeIPhone = [[UIButton alloc] initWithFrame:CGRectMake((self.bounds.size.width - 200) / 2.0, 
+                                                                      ((self.bounds.size.height - 74) / 2.0) - 30,
+                                                                      200,
+                                                                       74)];
+        [_remoteModeIPhone setImage:[UIImage imageNamed:@"remoteMode_iPhone"] forState:UIControlStateNormal];
+        [_remoteModeIPhone addTarget:self action:@selector(showRemoteView) forControlEvents:UIControlEventTouchUpInside];
+        
+        _remoteModeIPhone.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        _remoteModeIPhone.hidden = TRUE;
+    }
+    
     // Add views.
     [self addSubview: _moviePlayer.view];
     [self addSubview: self.titleBar];
@@ -219,6 +235,10 @@ static const float kNextPrevXOffset        =  0.0f;
 
     [self addSubview: _nextButton];
     [self addSubview: _prevButton];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self addSubview:_remoteModeIPhone];
+    }
     
     _controls = [[NSMutableArray alloc] initWithObjects:
         _controlBar,
@@ -550,7 +570,7 @@ static const float kNextPrevXOffset        =  0.0f;
             [_controlBar showFullscreenExpandButtonIcon];
         }
     }
-    if (_controlsVisible && fullscreen) {
+    if (_controlsVisible && fullscreen && [[UIScreen screens] count] == 1) {
         _nextButton.alpha = 1.0;
         _prevButton.alpha = 1.0;
     } else if (_controlsVisible && !fullscreen) {
@@ -691,7 +711,7 @@ static const float kNextPrevXOffset        =  0.0f;
             }
             control.alpha = 1.0;
         }
-        if (_fullscreen) {
+        if (_fullscreen && [[UIScreen screens] count] == 1) {
             _nextButton.alpha = 1.0;
             _prevButton.alpha = 1.0;
         }
@@ -1132,6 +1152,13 @@ static const float kNextPrevXOffset        =  0.0f;
 
 #pragma mark - Pinch Handling
 
+- (void)showRemoteView
+{
+    if (self.delegate) {
+        [self.delegate videoPlayerShowRemoteView];
+    }
+}
+
 - (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer
 {
     if (_alreadyPinching || [[UIScreen screens] count] < 2)
@@ -1142,9 +1169,7 @@ static const float kNextPrevXOffset        =  0.0f;
     if (gestureRecognizer.scale > 2 && gestureRecognizer.velocity > 1.0) {
         _alreadyPinching = TRUE;
 
-        if (self.delegate) {
-            [self.delegate videoPlayerShowRemoteView];
-        }
+        [self showRemoteView];
     }
 }
 
@@ -1196,6 +1221,12 @@ static const float kNextPrevXOffset        =  0.0f;
     
     if ([[UIScreen screens] count] > 1)
     {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            _remoteModeIPhone.hidden = FALSE;
+            _prevButton.alpha = 0.0;
+            _nextButton.alpha = 0.0;
+        }
+        
         UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
         
         if ([secondScreen respondsToSelector:@selector(setOverscanCompensation:)]) {
@@ -1269,6 +1300,12 @@ static const float kNextPrevXOffset        =  0.0f;
     }
     
     if ([[UIScreen screens] count] == 1) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            _remoteModeIPhone.hidden = TRUE;
+            _prevButton.alpha = 1.0;
+            _nextButton.alpha = 1.0;
+        }
+        
         [_moviePlayer.view removeFromSuperview];
         _moviePlayer.view.frame = self.bounds;
         [self insertSubview: _moviePlayer.view aboveSubview:_bgView];
