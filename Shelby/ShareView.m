@@ -109,9 +109,9 @@
     if ([_shareTypeSelector selectedSegmentIndex] == 1) {
         [array addObject: @"email"];
     } else {
-        BOOL twitter  = !_twitterButton.selected;
-        BOOL facebook = !_facebookButton.selected;
-        BOOL tumblr = !_tumblrButton.selected;
+        BOOL twitter  = (!_twitterButton.selected) && (_twitterButton.enabled);
+        BOOL facebook = (!_facebookButton.selected) && (_facebookButton.enabled);
+        BOOL tumblr = (!_tumblrButton.selected) && (_tumblrButton.enabled);
         
         // Check the state of the FB & Twitter buttons
         if (twitter) {
