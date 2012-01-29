@@ -290,7 +290,6 @@
 										<string key="NSFrame">{{104, 150}, {205, 20}}</string>
 										<reference key="NSSuperview" ref="698254765"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:328</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -633,14 +632,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">_emailBodyPlaceholder</string>
-						<reference key="source" ref="454735877"/>
-						<reference key="destination" ref="914532307"/>
-					</object>
-					<int key="connectionID">298</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_emailRecipientFieldHolder</string>
 						<reference key="source" ref="454735877"/>
 						<reference key="destination" ref="342775328"/>
@@ -686,6 +677,22 @@
 						<reference key="destination" ref="676685828"/>
 					</object>
 					<int key="connectionID">310</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailRecipientContainerView</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="914532307"/>
+					</object>
+					<int key="connectionID">311</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_emailBodyPlaceholder</string>
+						<reference key="source" ref="454735877"/>
+						<reference key="destination" ref="725659668"/>
+					</object>
+					<int key="connectionID">312</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1033,7 +1040,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">310</int>
+			<int key="maxID">312</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
