@@ -78,7 +78,7 @@
 @property (nonatomic, retain) VideoTableViewController* viewController;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-- (void)setVideo:(Video *)video;
+- (void)setVideo:(Video *)video andSizeFrames:(BOOL)sizeFrames;
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
 
 @end

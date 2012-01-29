@@ -313,7 +313,7 @@
     }
     
     dynVideoCell.videoTableData = videoTableData;
-    [dynVideoCell setVideo:[videoTableData videoAtIndex:row]];
+    [dynVideoCell setVideo:[videoTableData videoAtIndex:row] andSizeFrames:YES];
     dynVideoCell.viewController = self;
     [dynVideoCell setNeedsDisplay];
     

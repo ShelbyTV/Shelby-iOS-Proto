@@ -274,7 +274,7 @@
 
 #pragma mark - Video Setting
 
-- (void)setVideo:(Video *)video
+- (void)setVideo:(Video *)video andSizeFrames:(BOOL)sizeFrames
 {
     // use this to clean up old videos also from cell caching
     if (NOT_NULL(_video)) {
@@ -360,6 +360,10 @@
     }
     
     _video.cellHeightAllComments = _kCellHeight + additionalHeight;
+    
+    if (sizeFrames) {
+        [self sizeFramesForComments];
+    }
 }
 
 #pragma mark - Dealloc
@@ -507,7 +511,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self setVideo:_video];
+    [self setVideo:_video andSizeFrames:NO];
     
     // the Video* cache of height information that we can use in the table view controller
     _video.cellHeightCurrent = _video.allComments ? _video.cellHeightAllComments : _kCellHeight;    
