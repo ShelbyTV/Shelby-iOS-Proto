@@ -29,10 +29,10 @@
     CGFloat locations[2];
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
-    UIColor *color = [UIColor colorWithRed:0.234 green:0.234 blue:0.234 alpha:1.0];
+    UIColor *color = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     locations[0] = 0.0;
-    color = [UIColor colorWithRed:0.099 green:0.099 blue:0.099 alpha:1.0];
+    color = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     locations[1] = 1.0;
     
