@@ -228,11 +228,11 @@
             break;
             
         case 4:
-            return @"(UN)WATCH LATER";
+            return @"TOGGLE WATCH LATER";
             break;
             
         case 5:
-            return @"(UN)FAVORITE";
+            return @"TOGGLE FAVORITE";
             break;
             
         case 6:

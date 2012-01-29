@@ -58,6 +58,10 @@
     BOOL alreadySpreading;
     
     RemoteModeHelpTableViewController *helpController;
+    
+    IBOutlet UIView *lastGestureContainerView;
+    IBOutlet UIImageView *lastGestureImageView;
+    IBOutlet UILabel *lastGestureCommandLabel;
 }
 
 @property (assign) id <RemoteModeDelegate> delegate;

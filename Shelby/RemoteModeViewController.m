@@ -134,16 +134,26 @@ static const float kTapTime = 0.5f;
 //                     }];
 }
 
-- (void)flashImageView:(UIImageView *)imageView
+- (void)flashGestureWithImage:(UIImage *)image withCommand:(NSString *)command
 {
-    [UIView animateWithDuration:0.1 animations:^{
-        imageView.alpha = 1.0;
-    }
-                     completion:^(BOOL finished){
-                         [UIView animateWithDuration:0.3 animations:^{
-                             imageView.alpha = 0.0;
-                         }];
-                     }];
+    [UIView animateWithDuration:0.1 
+                     animations:^{
+                         
+                         lastGestureImageView.image = image;
+                         lastGestureCommandLabel.text = command;
+                         lastGestureContainerView.alpha = 1.0;
+                     
+                     }
+                     completion:^(BOOL finished) {
+            
+                         [UIView animateWithDuration:1.5 
+                                               delay:0.1
+                                             options:UIViewAnimationCurveEaseInOut 
+                                          animations:^{lastGestureContainerView.alpha = 0.0;}
+                                          completion:^(BOOL finished){}
+                          ];
+                     }
+     ];
 }
 
 
@@ -169,7 +179,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:swipeLeftWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"oneFingerSwipeLeft"] withCommand:@"NEXT VIDEO"];
         [delegate remoteModeNextVideo];
     }
 }
@@ -180,7 +190,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:swipeRightWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"oneFingerSwipeRight"] withCommand:@"PREVIOUS VIDEO"];
         [delegate remoteModePreviousVideo];
     }
 }
@@ -191,7 +201,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:swipeUpWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"oneFingerSwipeUp"] withCommand:@"TOGGLE FAVORITE"];
         [delegate remoteModeLikeVideo];
     }
 }
@@ -202,7 +212,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:swipeDownWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"oneFingerSwipeDown"] withCommand:@"TOGGLE WATCH LATER"];
         [delegate remoteModeWatchLaterVideo];
     }
 }
@@ -215,7 +225,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:doubleSwipeLeftWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeLeft"] withCommand:@"SCAN BACK"];
         [delegate remoteModeScanBackward];
     }
 }
@@ -226,7 +236,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:doubleSwipeRightWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeRight"] withCommand:@"SCAN FORWARD"];
         [delegate remoteModeScanForward];
     }
 }
@@ -237,7 +247,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:doubleSwipeUpWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeUp"] withCommand:@"PREVIOUS CHANNEL"];
         [delegate remoteModePreviousChannel];
     }
 }
@@ -248,7 +258,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:doubleSwipeDownWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeDown"] withCommand:@"NEXT CHANNEL"];
         [delegate remoteModeNextChannel];
     }
 }
@@ -261,7 +271,7 @@ static const float kTapTime = 0.5f;
     
     if (delegate)
     {
-//        [self flashImageView:doubleTapWhite];
+        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerTap"] withCommand:@"PLAY/PAUSE"];
         [delegate remoteModeTogglePlayPause];
     }
 }
@@ -292,7 +302,7 @@ static const float kTapTime = 0.5f;
     {
         if (CACurrentMediaTime() - _lastTouchesBegan < kTapTime)
         {
-//            [self flashImageView:tapWhite];
+            [self flashGestureWithImage:[UIImage imageNamed:@"oneFingerTap"] withCommand:@"SHOW/HIDE CONTEXT"];
             [delegate remoteModeHideInfo];
         }
     }
