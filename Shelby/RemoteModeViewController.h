@@ -50,6 +50,7 @@
     IBOutlet UIImageView *needHelpImage;
     IBOutlet UIButton *helpButton;
     IBOutlet UIView *helpContainerView;
+    IBOutlet UIView *helpTableContainerView;
     
     IBOutlet UIImageView *tapAnywhereImage;
     

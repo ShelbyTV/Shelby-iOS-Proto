@@ -31,7 +31,7 @@
 		0A214A71147C79C000A8F530 /* playBackground_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A214A70147C79C000A8F530 /* playBackground_iPad.png */; };
 		0A214A74147C7D5400A8F530 /* playIcon_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A214A73147C7D5400A8F530 /* playIcon_iPad.png */; };
 		0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A220C9613DE8193004BE680 /* VideoTableData.m */; };
-		0A28095E14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib */; };
+		0A28095E14D4A9BD007C19B7 /* RemoteModeHelpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell.xib */; };
 		0A28096114D4ACBB007C19B7 /* twoFingerTap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096014D4ACBB007C19B7 /* twoFingerTap.png */; };
 		0A28096414D4CF50007C19B7 /* RemoteModeHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A28096314D4CF50007C19B7 /* RemoteModeHelpTableViewController.m */; };
 		0A28096914D4DD25007C19B7 /* twoFingerSwipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A28096514D4DD25007C19B7 /* twoFingerSwipeDown.png */; };
@@ -347,7 +347,7 @@
 		0A214A73147C7D5400A8F530 /* playIcon_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playIcon_iPad.png; path = Resources/Images/playIcon_iPad.png; sourceTree = "<group>"; };
 		0A220C9513DE8193004BE680 /* VideoTableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableData.h; sourceTree = "<group>"; };
 		0A220C9613DE8193004BE680 /* VideoTableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoTableData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemoteModeHelpCell_iPad.xib; sourceTree = "<group>"; };
+		0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RemoteModeHelpCell.xib; path = Shelby/RemoteModeHelpCell.xib; sourceTree = "<group>"; };
 		0A28096014D4ACBB007C19B7 /* twoFingerTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twoFingerTap.png; path = Resources/Images/twoFingerTap.png; sourceTree = "<group>"; };
 		0A28096214D4CF50007C19B7 /* RemoteModeHelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteModeHelpTableViewController.h; sourceTree = "<group>"; };
 		0A28096314D4CF50007C19B7 /* RemoteModeHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteModeHelpTableViewController.m; sourceTree = "<group>"; };
@@ -754,6 +754,14 @@
 			name = TV;
 			sourceTree = "<group>";
 		};
+		0A28097B14D4DF0F007C19B7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell.xib */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		0A2A802D144CA5FC00D0C8AD /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,7 +1089,6 @@
 				0AC8260C148FF02C009FF975 /* FullscreenWebViewController_iPad.xib */,
 				0AF7DE5514AFF2A9005B48BF /* RemoteMode_iPad.xib */,
 				0A84058B14D0DB8E00F13FC2 /* UserAccount_iPad.xib */,
-				0A28095D14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib */,
 			);
 			name = iPad;
 			path = Shelby;
@@ -1370,6 +1377,7 @@
 		42C4C57313E8A6F00034AC97 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
+				0A28097B14D4DF0F007C19B7 /* Common */,
 				0AE4E4681496CE9F00469C8D /* TV */,
 				0AD9A37213D53BD300EFECE0 /* iPad */,
 				0AD9A36B13D53BD300EFECE0 /* iPhone */,
@@ -1741,7 +1749,7 @@
 				0A8405AD14D3620D00F13FC2 /* remoteModeNeedSomeHelp.png in Resources */,
 				0A8405B014D37AFD00F13FC2 /* remoteModeHelpSelected.png in Resources */,
 				0A8405B114D37AFD00F13FC2 /* remoteModeHelpSelected@2x.png in Resources */,
-				0A28095E14D4A9BD007C19B7 /* RemoteModeHelpCell_iPad.xib in Resources */,
+				0A28095E14D4A9BD007C19B7 /* RemoteModeHelpCell.xib in Resources */,
 				0A28096114D4ACBB007C19B7 /* twoFingerTap.png in Resources */,
 				0A28096914D4DD25007C19B7 /* twoFingerSwipeDown.png in Resources */,
 				0A28096A14D4DD25007C19B7 /* twoFingerSwipeLeft.png in Resources */,

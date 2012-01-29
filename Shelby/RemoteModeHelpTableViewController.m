@@ -275,7 +275,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        [[NSBundle mainBundle] loadNibNamed:@"RemoteModeHelpCell_iPad" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"RemoteModeHelpCell" owner:self options:nil];
         cell = helpCell;
         self.helpCell = nil;
     }

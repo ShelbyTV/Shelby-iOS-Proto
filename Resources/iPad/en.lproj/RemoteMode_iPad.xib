@@ -145,15 +145,28 @@
 					<object class="IBUIView" id="215676335">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">313</int>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIView" id="939805443">
+								<reference key="NSNextResponder" ref="215676335"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrameSize">{320, 618}</string>
+								<reference key="NSSuperview" ref="215676335"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+								<string key="NSReuseIdentifierKey">_NS:212</string>
+								<object class="NSColor" key="IBUIBackgroundColor" id="784543673">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MAA</bytes>
+								</object>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							</object>
+						</array>
 						<string key="NSFrame">{{1024, 75}, {320, 618}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="939805443"/>
 						<string key="NSReuseIdentifierKey">_NS:212</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="784543673"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 				</array>
@@ -221,6 +234,14 @@
 						<reference key="destination" ref="557654417"/>
 					</object>
 					<int key="connectionID">75</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">helpTableContainerView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="939805443"/>
+					</object>
+					<int key="connectionID">77</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -293,8 +314,15 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">69</int>
 						<reference key="object" ref="215676335"/>
-						<array class="NSMutableArray" key="children"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="939805443"/>
+						</array>
 						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">76</int>
+						<reference key="object" ref="939805443"/>
+						<reference key="parent" ref="215676335"/>
 					</object>
 				</array>
 			</object>
@@ -312,12 +340,13 @@
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="76.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">75</int>
+			<int key="maxID">77</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -346,6 +375,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="helpButton">UIButton</string>
 						<string key="helpContainerView">UIView</string>
+						<string key="helpTableContainerView">UIView</string>
 						<string key="needHelpImage">UIImageView</string>
 						<string key="stripesView">UIView</string>
 						<string key="tapAnywhereImage">UIImageView</string>
@@ -357,6 +387,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="helpContainerView">
 							<string key="name">helpContainerView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="helpTableContainerView">
+							<string key="name">helpTableContainerView</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="needHelpImage">

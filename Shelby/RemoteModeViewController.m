@@ -88,7 +88,7 @@ static const float kTapTime = 0.5f;
         [(UITableView *)helpController.view setSeparatorColor:[UIColor darkGrayColor]];
         [(UITableView *)helpController.view setBackgroundColor:[UIColor blackColor]];
         
-        [helpContainerView addSubview:helpController.view];
+        [helpTableContainerView addSubview:helpController.view];
     }
     return self;
 }
