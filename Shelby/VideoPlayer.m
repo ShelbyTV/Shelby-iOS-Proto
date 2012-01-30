@@ -499,6 +499,7 @@ static const float kNextPrevXOffset        =  0.0f;
             
             // Reset our duration.
             _duration = 0.0f;
+            [_controlBar setProgress:0.0];
             // Load the video and play it.
             if (video.contentURL) {
                 if ([ShelbyApp sharedApp].demoModeEnabled) {
@@ -512,17 +513,6 @@ static const float kNextPrevXOffset        =  0.0f;
                 _moviePlayer.contentURL = video.contentURL;
                 NSLog(@"playVideo calling [self play]");
                 [self play];
-//                if ([[UIScreen screens] count] > 1)
-//                {
-//                    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-//                        if (window.screen == [[UIScreen screens] objectAtIndex:1] &&
-//                            window != [ShelbyApp secondScreenWindow]) {
-//                            window.hidden = YES;
-//                        }
-//                    }
-//                }
-//                [ShelbyApp secondScreenWindow].hidden = NO;
-
                 _changingVideo = NO;
             }
                         
@@ -559,6 +549,7 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)stop {
     _stoppedIntentionally = TRUE;
     [_moviePlayer stop];
+    [_controlBar showPlayButtonIcon];
 }
 
 - (void)setFullscreen:(BOOL)fullscreen
@@ -764,8 +755,11 @@ static const float kNextPrevXOffset        =  0.0f;
 {
     MPMoviePlaybackState currentState = [_moviePlayer playbackState];
     if (currentState == MPMoviePlaybackStateInterrupted ||
-        currentState == MPMoviePlaybackStatePaused) {
-        [self pause];
+        currentState == MPMoviePlaybackStatePaused)
+    {
+        [_controlBar showPlayButtonIcon];
+        [_moviePlayer pause];
+        _paused = TRUE;
     }
 }
 
@@ -845,13 +839,20 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)updateProgress
 {
-    if (NOT_NULL(_tvControlBar)) {
-        _tvControlBar.progress = [_moviePlayer currentPlaybackTime];
-    }
+    MPMoviePlaybackState currentState = [_moviePlayer playbackState];
     
-    if (!_paused && !_stoppedIntentionally && !_changingVideo) {
+    if (!_paused && 
+        !_stoppedIntentionally && 
+        !_changingVideo && 
+        currentState != MPMoviePlaybackStateInterrupted &&
+        currentState != MPMoviePlaybackStatePaused)
+    {
         float currentTime = [_moviePlayer currentPlaybackTime];
         _controlBar.progress = currentTime;
+        
+        if (NOT_NULL(_tvControlBar)) {
+            _tvControlBar.progress = [_moviePlayer currentPlaybackTime];
+        }
         
         if (NOT_NULL(_currentVideo) && _currentVideo.isWatchLater &&
             _currentVideoWatchLaterAtStart && !_currentVideoUnwatchLaterSent &&
