@@ -43,6 +43,8 @@
     CGColorSpaceRelease(space);
 
     CGContextDrawRadialGradient(context, gradient, startCenter, startRadius, endCenter, endRadius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+    
+    CGGradientRelease(gradient);
 
 	[super drawRect:rect];
 }

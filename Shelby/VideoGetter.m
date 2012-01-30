@@ -172,7 +172,7 @@ static VideoGetter *singletonYouTubeGetter = nil;
         NSString *htmlString;
         if ([self.currentVideo.provider isEqualToString:@"youtube"]) {
             htmlString = [NSString stringWithFormat:youtubeFormatString, self.currentVideo.providerId];
-        } else if ([self.currentVideo.provider isEqualToString:@"vimeo"]) {
+        } else { // ([self.currentVideo.provider isEqualToString:@"vimeo"]) {
             htmlString = [NSString stringWithFormat:vimeoFormatString, self.currentVideo.providerId];
         }
         [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];

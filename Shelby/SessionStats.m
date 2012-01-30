@@ -157,7 +157,7 @@ static SessionStats *singletonSessionStats = nil;
             }
         }
               
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://cobra.shelby.tv/v1/sessions"]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[[NSURL alloc] initWithString:@"http://cobra.shelby.tv/v1/sessions"] autorelease]];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:[formString dataUsingEncoding:NSUTF8StringEncoding]];

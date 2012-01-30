@@ -222,16 +222,16 @@ static const float kProgressUpdateBuffer = 1.0f;
             tempFrame.origin.y = 10;
             tempFrame.origin.x = -10;
         }
+        
+        [_slider setThumbImage:thumbImage forState:UIControlStateNormal];
+        [_slider setMinimumTrackImage:stretchLeftTrack forState:UIControlStateNormal];
+        [_slider setMaximumTrackImage:stretchRightTrack forState:UIControlStateNormal];
+        
+        _blackLineStartOverlay.hidden = TRUE;
+        _blackLineEndOverlay.hidden = TRUE;
+        
+        _label.frame = tempFrame;
     }
-
-    [_slider setThumbImage:thumbImage forState:UIControlStateNormal];
-    [_slider setMinimumTrackImage:stretchLeftTrack forState:UIControlStateNormal];
-    [_slider setMaximumTrackImage:stretchRightTrack forState:UIControlStateNormal];
-    
-    _blackLineStartOverlay.hidden = TRUE;
-    _blackLineEndOverlay.hidden = TRUE;
-    
-    _label.frame = tempFrame;
 }
 
 @end

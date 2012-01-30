@@ -41,6 +41,8 @@
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
 
+    CGGradientRelease(gradient);
+    
 	[super drawRect:rect];
 }
 
