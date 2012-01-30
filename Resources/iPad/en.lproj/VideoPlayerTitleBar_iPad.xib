@@ -41,6 +41,7 @@
 						<int key="NSvFlags">314</int>
 						<string key="NSFrameSize">{554, 75}</string>
 						<reference key="NSSuperview" ref="933737971"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="210807851"/>
 						<string key="NSReuseIdentifierKey">_NS:195</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="460614444">
@@ -49,6 +50,7 @@
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<float key="IBUIAlpha">0.30000001192092896</float>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIImageView" id="936315098">
@@ -56,6 +58,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{8, 27}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="933737971"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="445584400"/>
 						<int key="IBUITag">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -66,7 +69,7 @@
 						<int key="NSvFlags">300</int>
 						<string key="NSFrame">{{56, 27}, {478, 35}}</string>
 						<reference key="NSSuperview" ref="933737971"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="681808823">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -104,6 +107,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{9, 3}, {440, 20}}</string>
 						<reference key="NSSuperview" ref="933737971"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="936315098"/>
 						<string key="NSReuseIdentifierKey">_NS:345</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -133,8 +137,10 @@
 				</array>
 				<string key="NSFrameSize">{554, 75}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="379279475"/>
 				<reference key="IBUIBackgroundColor" ref="681808823"/>
+				<bool key="IBUIUserInteractionEnabled">NO</bool>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 		</array>
@@ -236,7 +242,42 @@
 			<nil key="sourceID"/>
 			<int key="maxID">13</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">VideoPlayerTitleBar</string>
+					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="channelPic">UIImageView</string>
+						<string key="comment">UILabel</string>
+						<string key="sharerPic">UIImageView</string>
+						<string key="title">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="channelPic">
+							<string key="name">channelPic</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="comment">
+							<string key="name">comment</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="sharerPic">
+							<string key="name">sharerPic</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="title">
+							<string key="name">title</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/VideoPlayerTitleBar.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

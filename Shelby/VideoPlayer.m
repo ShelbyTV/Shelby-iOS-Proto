@@ -205,6 +205,7 @@ static const float kNextPrevXOffset        =  0.0f;
     }
 
     _gestureView = [[UIView alloc] initWithFrame:self.bounds];
+    _gestureView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     [self addSubview:_bgView];
       
@@ -1037,12 +1038,6 @@ static const float kNextPrevXOffset        =  0.0f;
 
     }
     
-    CGRect gestureRect = frame;
-    gestureRect.origin.y = titleBarHeight;
-    gestureRect.size.height = height - titleBarHeight;
-    
-    _gestureView.frame = gestureRect;
-    
     if ([[UIScreen screens] count] > 1 && !IS_NULL(self.tvTitleBar)) {
         
         NSLog(@"!!!!!!!!!!!!! setting the tvTitleBar frame"); 
@@ -1161,15 +1156,33 @@ static const float kNextPrevXOffset        =  0.0f;
 
 - (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer
 {
-    if (_alreadyPinching || [[UIScreen screens] count] < 2)
+    if (_alreadyPinching)
     {
         return;
     }
      
     if (gestureRecognizer.scale > 2 && gestureRecognizer.velocity > 1.0) {
         _alreadyPinching = TRUE;
-
-        [self showRemoteView];
+        if ([[UIScreen screens] count] > 1)
+        {
+            [self showRemoteView];
+        } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&
+                   !_fullscreen) {
+            [_controlBar fullscreenButtonWasPressed:self];
+        }
+    }
+    
+    if (gestureRecognizer.scale < 0.5 && gestureRecognizer.velocity < -1.0 &&
+        !_alreadyPinching) {
+        _alreadyPinching = TRUE;
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_controlBar fullscreenButtonWasPressed:self];
+        } else  {
+            if (_fullscreen) {
+                [_controlBar fullscreenButtonWasPressed:self];
+            }
+        }
     }
 }
 
