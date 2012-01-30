@@ -92,6 +92,12 @@
     _currentVideoIndex = 0;
 }
 
+- (void)clearPendingOperations
+{
+    // Clear out the table.
+    [videoTableData clearPendingOperations];
+}
+
 - (void)loadVideos
 {
     [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];

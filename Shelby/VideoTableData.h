@@ -46,6 +46,7 @@
 - (Video *)videoAtIndex:(NSUInteger)index;
 - (NSArray *)videoDupes:(Video *)video;
 
+- (void)clearPendingOperations;
 - (void)clearVideoTableData;
 - (void)reloadTableVideos;
 - (void)updateVideoTableCell:(Video *)video;

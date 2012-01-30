@@ -1220,4 +1220,12 @@
 //    
 //}
 
+- (void)clearPendingOperations
+{
+    @synchronized(self)
+    {
+        [operationQueue cancelAllOperations];
+    }
+}
+
 @end

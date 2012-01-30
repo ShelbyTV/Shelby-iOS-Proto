@@ -44,6 +44,7 @@
    callbackSelector:(SEL)selector;
 
 - (void)changeVideoMode:(NSInteger)mode;
+- (void)clearPendingOperations;
 - (void)clearVideoTableData;
 - (Video *)getFirstVideo;
 - (Video *)getNextVideo;

@@ -608,6 +608,7 @@
     [_videoPlayer reset];
 
     // Clear out the video table
+    [videoTable clearPendingOperations];
     [videoTable clearVideoTableData];
 }
 
