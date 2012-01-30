@@ -87,7 +87,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 12;
+    return 10;
 }
 
 - (UIImage *)gestureImageForRow:(int)row
@@ -126,18 +126,10 @@
             break;
             
         case 8:
-            return [UIImage imageNamed:@"twoFingerSwipeDown"];
-            break;
-            
-        case 9:
-            return [UIImage imageNamed:@"twoFingerSwipeUp"];
-            break;
-            
-        case 10:
             return [UIImage imageNamed:@"spread"];
             break;
             
-        case 11:
+        case 9:
             return [UIImage imageNamed:@"pinch"];
             break;
             
@@ -183,20 +175,12 @@
         case 7:
             return @"TWO FINGER SWIPE RIGHT";
             break;
-            
+
         case 8:
-            return @"TWO FINGER SWIPE DOWN";
-            break;
-            
-        case 9:
-            return @"TWO FINGER SWIPE UP";
-            break;
-            
-        case 10:
             return @"TWO FINGER SPREAD";
             break;
             
-        case 11:
+        case 9:
             return @"TWO FINGER PINCH";
             break;
             
@@ -244,18 +228,10 @@
             break;
             
         case 8:
-            return @"NEXT CHANNEL";
-            break;
-            
-        case 9:
-            return @"PREVIOUS CHANNEL";
-            break;
-            
-        case 10:
             return @"SHARE VIDEO";
             break;
             
-        case 11:
+        case 9:
             return @"EXIT TOUCHPLAY";
             break;
             

@@ -243,24 +243,24 @@ static const float kTapTime = 0.5f;
 
 - (void)swipeDoubleUp:(UIGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"swipeDoubleUp");
-    
-    if (delegate)
-    {
-        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeUp"] withCommand:@"PREVIOUS CHANNEL"];
-        [delegate remoteModePreviousChannel];
-    }
+//    NSLog(@"swipeDoubleUp");
+//    
+//    if (delegate)
+//    {
+//        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeUp"] withCommand:@"PREVIOUS CHANNEL"];
+//        [delegate remoteModePreviousChannel];
+//    }
 }
 
 - (void)swipeDoubleDown:(UIGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"swipeDoubleDown");
-    
-    if (delegate)
-    {
-        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeDown"] withCommand:@"NEXT CHANNEL"];
-        [delegate remoteModeNextChannel];
-    }
+//    NSLog(@"swipeDoubleDown");
+//    
+//    if (delegate)
+//    {
+//        [self flashGestureWithImage:[UIImage imageNamed:@"twoFingerSwipeDown"] withCommand:@"NEXT CHANNEL"];
+//        [delegate remoteModeNextChannel];
+//    }
 }
 
 #pragma mark - Tap Handling
