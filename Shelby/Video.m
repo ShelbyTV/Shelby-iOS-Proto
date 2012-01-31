@@ -75,20 +75,20 @@
 
 - (void) dealloc
 {
-    provider = nil;
-    providerId = nil;
-    contentURL = nil;
-    thumbnailURL = nil;
-    thumbnailImage = nil;
+    [provider release]; provider = nil;
+    [providerId release]; providerId = nil;
+    [contentURL release]; contentURL = nil;
+    [thumbnailURL release]; thumbnailURL = nil;
+    [thumbnailImage release]; thumbnailImage = nil;
     title = nil;
     sharer = nil;
     sharerComment = nil;
-    sharerImageURL = nil;
-    sharerImage = nil;
+    [sharerImageURL release]; sharerImageURL = nil;
+    [sharerImage release]; sharerImage = nil;
     source = nil;
     shelbyId = nil;
     shortPermalink = nil;
-    createdAt = nil;
+    [createdAt release]; createdAt = nil;
     
     [super dealloc];
 }
