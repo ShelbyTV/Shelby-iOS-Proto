@@ -23,14 +23,14 @@
 @synthesize currentVideo;
 @synthesize networkCounter;
 
-static VideoGetter *singletonYouTubeGetter = nil;
+static VideoGetter *singletonVideoGetter = nil;
 
-+ (VideoGetter*)singleton
++ (VideoGetter *)singleton
 {
-    if (singletonYouTubeGetter == nil) {
-        singletonYouTubeGetter = [[super allocWithZone:NULL] init];
+    if (singletonVideoGetter == nil) {
+        singletonVideoGetter = [[super allocWithZone:NULL] init];
     }
-    return singletonYouTubeGetter;
+    return singletonVideoGetter;
 }
 
 + (id)allocWithZone:(NSZone *)zone
