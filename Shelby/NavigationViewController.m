@@ -135,18 +135,18 @@
     [_userAccountView updateUserAuthorizations:user];
 }
 
-- (void)loadUserData
+- (void)loadInitialUserDataCommon
 {
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
     
     User *user = [ShelbyApp sharedApp].loginHelper.user;
-
+    
     for (NSString *auth in _authorizations) {
         [user addObserver:self forKeyPath:auth options:0 context:NULL];
     }
-
+    
     [self updateAuthorizations: user];
-
+    
     // Draw user image & name.
     userName.text = user.nickname;
     if (user.image) {
@@ -155,8 +155,18 @@
         userImage.image = [UIImage imageNamed: @"PlaceholderFace"];
     }
 
-    // Refresh Video list.
-    [videoTable loadVideos];
+}
+
+- (void)loadInitialUserDataAfterLogin
+{
+    [self loadInitialUserDataCommon];
+    [videoTable loadInitialVideosFromAPI];
+}
+
+- (void)loadInitialUserDataAlreadyLoggedIn
+{
+    [self loadInitialUserDataCommon];
+    [videoTable loadInitialVideosFromCoreData];
 }
 
 - (void)enableDemoMode

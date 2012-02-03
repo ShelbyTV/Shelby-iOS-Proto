@@ -22,9 +22,7 @@
 {
     UITableView *tableView;
     NSMutableArray *tableVideos;
-    NSMutableArray *uniqueVideoKeys;
     NSMutableDictionary *playableVideoKeys;
-    NSMutableDictionary *videoDupeDict;
     NSOperationQueue *operationQueue;
     NSTimer *updateTimer;
     BOOL videoTableNeedsUpdate;
@@ -40,17 +38,13 @@
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
-- (BOOL)isLoading;
 - (NSUInteger)numItemsInserted;
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
-- (NSArray *)videoDupes:(Video *)video;
 
-- (void)clearPendingOperations;
 - (void)clearVideoTableData;
 - (void)reloadTableVideos;
 - (void)updateVideoTableCell:(Video *)video;
 
-- (void)enableDemoMode;
 
 @end

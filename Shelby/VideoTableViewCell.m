@@ -11,6 +11,8 @@
 #import "VideoTableData.h"
 #import "VideoTableViewController.h"
 #import "VideoTableViewCellConstants.h"
+#import "ShelbyApp.h"
+#import "VideoData.h"
 
 @implementation VideoTableViewCell
 
@@ -284,7 +286,7 @@
 
     [self clearDupeData];
 
-    NSArray *dupes = [videoTableData videoDupes:_video];
+    NSArray *dupes = [[ShelbyApp sharedApp].videoData videoDupes:_video];
     _dupeCount = [dupes count] - 1;
     
     [_expandButton setEnabled:YES];
@@ -462,7 +464,7 @@
     
     BOOL first = TRUE;
     NSUInteger i = 0;
-    NSArray *dupes = [videoTableData videoDupes:_video];
+    NSArray *dupes = [[ShelbyApp sharedApp].videoData videoDupes:_video];
     for (Video *dupe in dupes) {
         if (first) {
             first = FALSE;

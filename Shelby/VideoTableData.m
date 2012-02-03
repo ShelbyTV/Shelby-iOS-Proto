@@ -20,15 +20,9 @@
 #import "VideoGetter.h"
 #import "PlatformHelper.h"
 #import "Enums.h"
+#import "VideoData.h"
 
 #import "Foundation/Foundation.h"
-
-#pragma mark - Constants
-
-#define kMaxVideoThumbnailHeight 163
-#define kMaxVideoThumbnailWidth 290
-#define kMaxSharerImageHeight 120
-#define kMaxSharerImageWidth 120
 
 #pragma mark - VideoTableData
 
@@ -49,66 +43,6 @@
 @synthesize numItemsInserted;
 @synthesize searchString;
 
-#pragma mark - Utility Methods
-
-- (NSString *)dupeKeyWithProvider:(NSString *)provider 
-                           withId:(NSString *)providerId
-{
-    return [NSString stringWithFormat:@"%@%@", provider, providerId];
-}
-
-// sync just needed for writes to make sure two simultaneous inc/decrements don't result in same value
-// this is because OSAtomicInc* doesn't exist on iOS
-- (void)incrementNetworkCounter
-{
-    @synchronized(self) { self.networkCounter++; }
-}
-
-- (void)decrementNetworkCounter
-{
-    @synchronized(self) { self.networkCounter--; }
-}
-
-- (UIImage *)scaleImage:(UIImage *)image 
-                 toSize:(CGSize)targetSize
-{
-    //If scaleFactor is not touched, no scaling will occur      
-    CGFloat scaleFactor = 1.0;
-    
-    if (!((scaleFactor = (targetSize.width / image.size.width)) > (targetSize.height / image.size.height))) //scale to fit width, or
-        scaleFactor = targetSize.height / image.size.height; // scale to fit heigth.
-    
-    UIGraphicsBeginImageContext(targetSize); 
-    
-    //Creating the rect where the scaled image is drawn in
-    CGRect rect = CGRectMake((targetSize.width - image.size.width * scaleFactor) / 2,
-                             (targetSize.height -  image.size.height * scaleFactor) / 2,
-                             image.size.width * scaleFactor, image.size.height * scaleFactor);
-    
-    [image drawInRect:rect];
-    
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return scaledImage;
-}
-
-#pragma mark - Accessors
-
-- (BOOL)isLoading
-{
-    // no synchronized needed for reads, since networkCounter is an int
-    return self.networkCounter != 0;
-}
-
-- (NSArray *)videoDupes:(Video *)video
-{
-    @synchronized(tableVideos)
-    {
-        return [[[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] retain] autorelease];
-    } 
-}
-
 - (Video *)videoAtIndex:(NSUInteger)index
 {    
     @synchronized(tableVideos)
@@ -122,84 +56,9 @@
     }
 }
 
-- (void)getVideoContentURLSimulator:(Video *)videoData
-{
-    /*
-     * Content URL
-     */
-    NSString *baseURL = @"http://www.youtube.com/get_video_info?video_id=";
-    NSURL *youTubeURL = [[[NSURL alloc] initWithString:[baseURL stringByAppendingString:videoData.providerId]] autorelease];
-    NSError *error = nil;
-    NSString *youTubeVideoDataRaw = [[[NSString alloc] initWithContentsOfURL:youTubeURL encoding:NSASCIIStringEncoding error:&error] autorelease];
-    NSString *youTubeVideoDataReadable = [[[[youTubeVideoDataRaw stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"%2C" withString:@","] stringByReplacingOccurrencesOfString:@"%3A" withString:@":"];
-    
-    /*
-     * The code below tries to parse out the MPEG URL from a YouTube video info page.
-     * We have to do this because YouTube encodes some parameters into the string
-     * that make it valid only on the machine that accessed the YouTube video URL.
-     */
-    
-    // useful for debugging
-    // LOG(@"%@", youTubeVideoDataReadable);
-    
-    NSRange statusFailResponse = [youTubeVideoDataReadable rangeOfString:@"status=fail"];
-    
-    if (statusFailResponse.location == NSNotFound) { // means we probably got good data; still need better error checking
-        
-        NSRange format18 = [youTubeVideoDataReadable rangeOfString:@"itag=18"];
-        NSRange roughMpegHttpStream;
-        roughMpegHttpStream.location = 0;
-        roughMpegHttpStream.length = format18.location;
-        
-        NSRange mpegHttpStreamStart = [youTubeVideoDataReadable rangeOfString:@"url=http" options:NSBackwardsSearch range:roughMpegHttpStream];
-        
-        roughMpegHttpStream.location = mpegHttpStreamStart.location;
-        roughMpegHttpStream.length = [youTubeVideoDataReadable length] - mpegHttpStreamStart.location;
-        
-        NSRange httpAtStart = [youTubeVideoDataReadable rangeOfString:@"http" options:0 range:roughMpegHttpStream];
-        
-        NSRange fallbackHostAtEnd = [youTubeVideoDataReadable rangeOfString:@"&fallback_host" options:0 range:roughMpegHttpStream];
-        
-        NSRange finalMpegHttpStream;
-        finalMpegHttpStream.location = httpAtStart.location;
-        finalMpegHttpStream.length = fallbackHostAtEnd.location - httpAtStart.location;
-        
-        NSString *movieURLString = [[youTubeVideoDataReadable substringWithRange:finalMpegHttpStream] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        
-        // useful for debugging YouTube page changes
-        LOG(@"movieURLString = %@", movieURLString);
-        
-        videoData.contentURL = [NSURL URLWithString:movieURLString];
-    }
-}
-
-- (void)getVideoContentURLDevice:(Video *)video
-{
-    [[VideoGetter singleton] processVideo:video];
-    NSLog(@"after processVideo");
-}
-
-- (NSURL *)getVideoContentURL:(Video *)videoData
-{
-    
-    NSURL *contentURL = videoData.contentURL;
-    
-    if (contentURL == nil) {
-#if TARGET_IPHONE_SIMULATOR
-        [self getVideoContentURLSimulator:videoData];
-#else
-        [self getVideoContentURLDevice:videoData];
-#endif
-        contentURL = videoData.contentURL;
-    }
-    
-    
-    return contentURL;
-}
-
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index
 {
-    Video *videoData = nil;
+    Video *video = nil;
 
     @synchronized(tableVideos)
     {
@@ -208,14 +67,14 @@
             // something racy happened, and our index is no longer valid
             return nil;
         }
-        videoData = [[[tableVideos objectAtIndex:index] retain] autorelease];
+        video = [[[tableVideos objectAtIndex:index] retain] autorelease];
     }
     
-    if (IS_NULL(videoData.contentURL) && ![ShelbyApp sharedApp].demoModeEnabled) {
-        [self getVideoContentURL:videoData];
+    if (IS_NULL(video.contentURL) && ![ShelbyApp sharedApp].demoModeEnabled) {
+        [[ShelbyApp sharedApp].videoData getVideoContentURL:video];
     }
 
-    return [[videoData.contentURL retain] autorelease];
+    return [[video.contentURL retain] autorelease];
 }
 
 #pragma mark - Table Updates
@@ -239,150 +98,6 @@
 
 #pragma mark - Image Downloading
 
-- (void)storeSharerImage:(Video *)video
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-
-    if (NOT_NULL(video.sharerImage)) 
-    {
-        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-        [context setUndoManager:nil];
-        [context setPersistentStoreCoordinator:psCoordinator];
-        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-        
-        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:video
-                                           withSharerImageData:UIImagePNGRepresentation(video.sharerImage)
-                                                     inContext:context];
-        
-        [context release];
-    }
-    
-    [pool release];
-}
-
-- (void)loadSharerImageFromCoreData:(Video *)video
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setPersistentStoreCoordinator:psCoordinator];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    
-    SharerImage *sharerImage = [CoreDataHelper fetchExistingUniqueEntity:@"SharerImage" withBroadcastShelbyId:video.shelbyId inContext:context];
-    
-    if (IS_NULL(sharerImage)) 
-    {
-        NSLog(@"Couldn't find CoreData sharerImage entry for video %@; aborting load of sharerImage", video.shelbyId);
-    } else {
-        video.sharerImage = [UIImage imageWithData:sharerImage.imageData];
-        [self updateVideoTableCell:video];
-    }
-    
-    [context release];
-    [pool release];
-}
-
-- (void)downloadSharerImage:(Video *)video
-{
-    if ([ShelbyApp sharedApp].demoModeEnabled) {
-        return;
-    }
-    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:video.sharerImageURL];
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (NOT_NULL(data)) {
-
-        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
-                                                                                            kMaxSharerImageHeight)];
-        
-        [self updateVideoTableCell:video];
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(storeSharerImage:) object:video] autorelease]];
-    }
-    
-    [pool release];
-}
-
-- (void)storeVideoThumbnail:(Video *)video
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    if (NOT_NULL(video.sharerImage)) 
-    {
-        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-        [context setUndoManager:nil];
-        [context setPersistentStoreCoordinator:psCoordinator];
-        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-        
-        [[ShelbyApp sharedApp].loginHelper storeBroadcastVideo:video 
-                                             withThumbnailData:UIImagePNGRepresentation(video.thumbnailImage)
-                                                     inContext:context];
-        
-        [context release];
-    }
-    
-    [pool release];
-}
-
-- (void)loadVideoThumbnailFromCoreData:(Video *)video
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setPersistentStoreCoordinator:psCoordinator];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    
-    ThumbnailImage *thumbnailImage = [CoreDataHelper fetchExistingUniqueEntity:@"ThumbnailImage" withBroadcastShelbyId:video.shelbyId inContext:context];
-    
-    if (IS_NULL(thumbnailImage)) 
-    {
-        NSLog(@"Couldn't find CoreData thumbnailImage entry for video %@; aborting load of thumbnailImage", video.shelbyId);
-    } else {
-        video.thumbnailImage = [UIImage imageWithData:thumbnailImage.imageData];
-        [self updateVideoTableCell:video];
-    }
-    
-    [context release];
-    [pool release];
-}
-
-- (void)downloadVideoThumbnail:(Video *)video
-{
-    if ([ShelbyApp sharedApp].demoModeEnabled) {
-        return;
-    }
-    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:video.thumbnailURL];
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (NOT_NULL(data)) {
-        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
-                                                                                               kMaxVideoThumbnailHeight)];
-        
-        [self updateVideoTableCell:video];
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
-    } 
-
-    [pool release];
-}
 
 #pragma mark - Clearing
 
@@ -408,59 +123,12 @@
 
 - (void)clearVideoTableData
 {
-    @synchronized(tableVideos)
-    {
-        [videoDupeDict removeAllObjects];
-        [uniqueVideoKeys removeAllObjects];
-        [self clearVideoTableWithArrayLockHeld];
-    }
-}
-
-#pragma mark - Loading
-
-- (Channel *)fetchPublicChannelFromCoreDataContext:(NSManagedObjectContext *)context
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Channel" 
-                                              inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"public=0"];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error = nil;
-    NSArray *channels = [context executeFetchRequest:fetchRequest error:&error];
-    
-    [fetchRequest release];
-    
-    return [channels objectAtIndex:0];
-}
-
-- (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
-                                              inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel.public=0"];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
-    
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sorter]];
-    
-    NSError *error = nil;
-    NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
-    
-    [fetchRequest release];
-    [sorter release];
-    
-    return broadcasts;
+//    @synchronized(tableVideos)
+//    {
+//        [videoDupeDict removeAllObjects];
+//        [uniqueVideoKeys removeAllObjects];
+//        [self clearVideoTableWithArrayLockHeld];
+//    }
 }
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
@@ -529,41 +197,41 @@
 
 - (void)insertTableVideos
 {
-    int videoTableIndex = 0;
-    
-    for (NSString *key in uniqueVideoKeys)
-    {
-        if (NOT_NULL([playableVideoKeys objectForKey:key]))
-        {
-            NSArray *dupeArray = [videoDupeDict objectForKey:key];
-            Video *video = [dupeArray objectAtIndex:0];        
-
-            if (![self shouldIncludeVideo:dupeArray]) {
-                continue;
-            }
-            
-            if ([tableVideos count] > videoTableIndex) 
-            {
-                Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
-                NSString *videoAtTableIndexDupeKey = [self dupeKeyWithProvider:videoAtTableIndex.provider withId:videoAtTableIndex.providerId];
-
-                if ([[self dupeKeyWithProvider:video.provider withId:video.providerId] isEqualToString:videoAtTableIndexDupeKey])
-                {
-                    videoTableIndex++;
-                    continue;
-                }
-            }
-            
-            [tableVideos insertObject:video atIndex:videoTableIndex];
-            
-            [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-            self.numItemsInserted = [tableVideos count];
-            [tableView endUpdates];
-            
-            videoTableIndex++;
-        }
-    }
+//    int videoTableIndex = 0;
+//    
+//    for (NSString *key in uniqueVideoKeys)
+//    {
+//        if (NOT_NULL([playableVideoKeys objectForKey:key]))
+//        {
+//            NSArray *dupeArray = [videoDupeDict objectForKey:key];
+//            Video *video = [dupeArray objectAtIndex:0];        
+//
+//            if (![self shouldIncludeVideo:dupeArray]) {
+//                continue;
+//            }
+//            
+//            if ([tableVideos count] > videoTableIndex) 
+//            {
+//                Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
+//                NSString *videoAtTableIndexDupeKey = [self dupeKeyWithProvider:videoAtTableIndex.provider withId:videoAtTableIndex.providerId];
+//
+//                if ([[self dupeKeyWithProvider:video.provider withId:video.providerId] isEqualToString:videoAtTableIndexDupeKey])
+//                {
+//                    videoTableIndex++;
+//                    continue;
+//                }
+//            }
+//            
+//            [tableVideos insertObject:video atIndex:videoTableIndex];
+//            
+//            [tableView beginUpdates];
+//            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+//            self.numItemsInserted = [tableVideos count];
+//            [tableView endUpdates];
+//            
+//            videoTableIndex++;
+//        }
+//    }
 }
 
 - (void)loadNewTableVideos
@@ -593,460 +261,19 @@
 {
     [self performSelectorOnMainThread:@selector(reloadTableVideosInt) withObject:nil waitUntilDone:NO];
 }
-
-- (BOOL)checkVimeoMobileURL:(NSString *)providerId
-{
-//    NSError *error = nil;
-//    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
-//    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
-//    
-//    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
-//    
-//    if (mobileURL.location == NSNotFound) { // means there's no mobile version
-//        return FALSE;
-//    }
-    
-    return TRUE;
-}
-
-- (BOOL)checkYouTubePrivileges:(NSString *)providerId
-{
-    NSError *error = nil;
-    NSString *requestString = [NSString stringWithFormat:@"http://gdata.youtube.com/feeds/api/videos/%@?v=2", providerId];    
-    NSString *youTubeVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
-
-    NSRange syndicateDenied = [youTubeVideoData rangeOfString:@"yt:accessControl action='syndicate' permission='denied'"];
-    NSRange syndicateLimited = [youTubeVideoData rangeOfString:@"yt:state name='restricted' reasonCode='limitedSyndication'"];
-    
-    if (syndicateDenied.location != NSNotFound || syndicateLimited.location != NSNotFound) { // means syndication on mobile devices is disallowed
-        return FALSE;
-    }
-    
-    return TRUE;
-}
-
-- (void)storePlayableStatus:(Video *)video
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setPersistentStoreCoordinator:psCoordinator];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    
-    [[ShelbyApp sharedApp].loginHelper storeBroadcastVideoPlayableStatus:video
-                                                 inContext:context];
-    
-    [context release];
-    [pool release];
-}
-
-- (void)checkPlayable:(Video *)video
-{
-    BOOL needsCoreDataUpdate = FALSE;
-    
-    if (video.isPlayable == PLAYABLE_UNSET) {
-        needsCoreDataUpdate = TRUE;
-        
-        // assume NOT_PLAYABLE, override if PLAYABLE
-        video.isPlayable = NOT_PLAYABLE;
-        
-        if ([ShelbyApp sharedApp].demoModeEnabled) {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];
-            
-            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) 
-            {
-                video.contentURL = [NSURL fileURLWithPath:path];
-                video.isPlayable = IS_PLAYABLE;
-            }
-        } else {
-            if ([video.provider isEqualToString: @"vimeo"] &&
-                [self checkVimeoMobileURL:video.providerId]) {
-                video.isPlayable = IS_PLAYABLE;
-            }
-            if ([video.provider isEqualToString: @"youtube"] &&
-                [self checkYouTubePrivileges:video.providerId]) {
-                video.isPlayable = IS_PLAYABLE;
-            }
-        }
-    }
-    
-    if (video.isPlayable == IS_PLAYABLE) {
-        @synchronized(tableVideos) {
-            [playableVideoKeys setObject:self forKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]];
-            videoTableNeedsUpdate = TRUE;
-        }
-    }
-    
-    if (needsCoreDataUpdate) {
-        [self storePlayableStatus:video];
-    }
-}
-
 - (void)clearTempDataStructuresForNewBroadcasts
 {
-    [videoDupeDict removeAllObjects];
-    [uniqueVideoKeys removeAllObjects];
-    [playableVideoKeys removeAllObjects];
-    [self clearVideoTableWithArrayLockHeld];
+//    [videoDupeDict removeAllObjects];
+//    [uniqueVideoKeys removeAllObjects];
+//    [playableVideoKeys removeAllObjects];
+//    [self clearVideoTableWithArrayLockHeld];
 }
 
-- (void)processBroadcastArray:(NSArray *)broadcasts
-{
-    for (Broadcast *broadcast in broadcasts) {
-        Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
-        
-        NSMutableArray *dupeArray = [videoDupeDict objectForKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-        if (NOT_NULL(dupeArray)) {
-            [dupeArray insertObject:video atIndex:0];
-        } else {
-            dupeArray = [[[NSMutableArray alloc] init] autorelease];
-            [dupeArray addObject:video];
-            [videoDupeDict setObject:dupeArray forKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-            [uniqueVideoKeys addObject:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-            
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(checkPlayable:) object:video] autorelease]];
-        }
-        
-        // need the sharerImage even for dupes
-        if (IS_NULL(broadcast.sharerImage)) {
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
-        } else {
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video] autorelease]];
-        }
 
-        // could optimize to not re-download for dupes, but don't bother for now...
-        if (IS_NULL(broadcast.thumbnailImage)) {
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
-        } else {
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video] autorelease]];
-        }
-    }
-}
 
-- (NSDictionary *)createBroadcastShelbyIdentDict:(NSArray *)broadcasts
-{
-    NSMutableDictionary *returnDict = [[[NSMutableDictionary alloc] initWithCapacity:[broadcasts count]] autorelease];
-    
-    for (Broadcast *broadcast in broadcasts) {
-        [returnDict setObject:broadcast forKey:broadcast.shelbyId];
-    }
-    
-    return returnDict;
-}
-
-- (BOOL)providerPassesBasicChecks:(NSString *)provider withId:(NSString *)providerId
-{
-    if (IS_NULL(provider) || !([provider isEqualToString: @"youtube"] ||
-                               [provider isEqualToString: @"vimeo"])) {
-        return FALSE;
-    }
-    
-    if (IS_NULL(providerId) || [providerId isEqualToString:@""]) {
-        return FALSE;;
-    }
-    
-    if ([provider isEqualToString: @"vimeo"] &&
-        ![providerId isEqualToString:[NSString stringWithFormat:@"%d", [providerId intValue]]])
-    {
-        return FALSE;
-    }
-    
-    return TRUE;
-}
-
-- (NSDictionary *)addOrUpdateBroadcasts:(NSMutableArray *)broadcasts 
-                       withNewJSON:(NSArray *)jsonDictionariesArray 
-                       withChannel:(Channel *)jsonChannel
-                       withContext:(NSManagedObjectContext *)context
-{
-    NSMutableDictionary *jsonBroadcasts = [[[NSMutableDictionary alloc] init] autorelease];
-    
-    // create lookup dictionary of shelbyID => old broadast
-    NSDictionary *existingBroadcastShelbyIDs = [self createBroadcastShelbyIdentDict:broadcasts];
-    
-    for (NSDictionary *dict in jsonDictionariesArray)
-    {
-        // easy checks, should do now rather than later
-        NSString *provider = [dict objectForKey:@"video_provider_name"];
-        NSString *providerId = [dict objectForKey:@"video_id_at_provider"];
-        
-        if (![self providerPassesBasicChecks:provider withId:providerId]) {
-            continue;
-        }
-        
-        Broadcast *upsert = [existingBroadcastShelbyIDs objectForKey:[dict objectForKey:@"_id"]];
-        
-        if (IS_NULL(upsert)) {
-            upsert = [NSEntityDescription
-                      insertNewObjectForEntityForName:@"Broadcast"
-                      inManagedObjectContext:context];
-            
-            [broadcasts addObject:upsert];
-        }
-        
-        [jsonBroadcasts setObject:upsert forKey:[dict objectForKey:@"_id"]];
-        [upsert populateFromApiJSONDictionary:dict];
-        
-        if (jsonChannel) {
-           upsert.channel = jsonChannel; 
-        }
-    }
-    
-    return jsonBroadcasts;
-}
-
-- (void)sortBroadcasts:(NSMutableArray *)broadcasts 
-{
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                  ascending:NO] autorelease];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    [broadcasts sortUsingDescriptors:sortDescriptors];
-}
-
-- (void)removeExtraBroadcasts:(NSMutableArray *)broadcasts 
-                  withNewJSON:(NSDictionary *)jsonBroadcasts
-                  withContext:(NSManagedObjectContext *)context
-{
-    int numBroadcasts = [broadcasts count];
-    int numToKeep;
-    
-    int minRAM = [PlatformHelper minimumRAM];
-    if (minRAM <= 128) {
-        numToKeep = 60;
-    } else if (minRAM <= 256) {
-        numToKeep = 200;
-    } else {
-        numToKeep = 300;
-    }
-    
-    int numToRemove = numBroadcasts - numToKeep;
-    int numRemoved = 0;
-    
-    if (numToRemove <= 0) {
-        return;
-    }
-    
-    NSMutableArray *discardedBroadcasts = [[[NSMutableArray alloc] initWithCapacity:numToRemove] autorelease];
-    
-    int jsonBroadcastsCount = [jsonBroadcasts count];
-    
-    for (Broadcast *broadcast in [broadcasts reverseObjectEnumerator]) {
-        if (numRemoved >= numToRemove) {
-            break;
-        }
-        
-        if ((numToKeep > jsonBroadcastsCount) && NOT_NULL([jsonBroadcasts objectForKey:broadcast.shelbyId])) {
-            continue; // don't remove anything Shelby just told us about
-        }
-        
-        [discardedBroadcasts addObject:broadcast];
-        numRemoved++;
-    }
-    
-    [broadcasts removeObjectsInArray:discardedBroadcasts];
-    
-    for (Broadcast *broadcast in discardedBroadcasts) {
-        if (NOT_NULL(broadcast.sharerImage)) {
-            [context deleteObject:broadcast.sharerImage];
-        }
-        if (NOT_NULL(broadcast.thumbnailImage)) {
-            [context deleteObject:broadcast.thumbnailImage];
-        }
-        [context deleteObject:broadcast];
-    }
-}
-
-/*
- * This is probably the most complicated piece of the entire iOS app.
- * Basically what we're trying to do here is process any new videos, make
- * sure we try not to download anything we don't have to, make sure any
- * videos we show are playable on mobile devices, and try to update the UI
- * as quickly and incrementally as possible for low latency.
- *
- * One thing we have to keep in mind through all of this is that accessing
- * CoreData for hundreds 
- */ 
-- (void)loadNewBroadcastsFromJSON:(NSTimer*)timer
-{
-    // set up our CoreData context
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil]; // don't need undo, and this speeds things up / requires less memory
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    [context setPersistentStoreCoordinator:psCoordinator];
-    
-    // new JSON data
-    NSArray *jsonDictionariesArray = [timer.userInfo objectForKey:@"jsonDictionariesArray"];
-    
-    @synchronized(tableVideos)
-    {
-        // get rid of old temporary data
-        [self clearTempDataStructuresForNewBroadcasts];
-        
-        // fetch old broadcasts from CoreData
-        NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-        [broadcasts addObjectsFromArray:[self fetchBroadcastsFromCoreDataContext:context]];
-        
-        Channel *publicChannel = [self fetchPublicChannelFromCoreDataContext:context];
-        
-        // go through new JSON broadcast data and identify ones with same shelbyIDs as old broadcasts
-        // if shelbyID already exists, update old broadcast object with any new data
-        // if doesn't already exist, create new Broadcast in CoreData with new JSON data
-        NSDictionary *jsonBroadcasts = [self addOrUpdateBroadcasts:broadcasts 
-                                                       withNewJSON:jsonDictionariesArray 
-                                                       withChannel:publicChannel
-                                                       withContext:context];
-        
-        // sort array by createdAt date
-        [self sortBroadcasts:broadcasts];
-        
-        // determine numToKeep and numToDelete
-        // iterate through and delete broadcasts from CoreData and array somehow?
-        [self removeExtraBroadcasts:broadcasts withNewJSON:jsonBroadcasts withContext:context];
-        
-        [operationQueue setSuspended:TRUE];
-        
-        // iterate through sorted broadcast array, finding dupes, creating operationQueue jobs, etc.
-        [self processBroadcastArray:broadcasts];
-        
-        // save CoreData context
-        [CoreDataHelper saveContextAndLogErrors:context];
-
-        [operationQueue setSuspended:FALSE];
-    }
-    
-    [context release];
-}
 
 #pragma mark - Notifications
 
-- (void)receivedBroadcastsNotification:(NSNotification *)notification
-{
-    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(loadNewBroadcastsFromJSON:) userInfo:notification.userInfo repeats:NO];
-}
-
-- (void)updateLikeStatusForVideo:(Video *)video withStatus:(BOOL)status
-{
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    [context setPersistentStoreCoordinator:psCoordinator];
-    
-    video.isLiked = status;
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    if (IS_NULL(broadcast)) {
-        [context release];
-        return;
-    }
-    
-    broadcast.liked = [NSNumber numberWithBool:status];
-    
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-    }
-    
-    [context release];
-}
-
-- (void)likeVideoSucceeded:(NSNotification *)notification
-{
-    if (NOT_NULL(notification.userInfo)) {
-        [self updateLikeStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:TRUE];
-    }
-}
-
-- (void)dislikeVideoSucceeded:(NSNotification *)notification
-{
-    if (NOT_NULL(notification.userInfo)) {
-        [self updateLikeStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:FALSE];
-    }
-}
-
-- (void)updateWatchLaterStatusForVideo:(Video *)video withStatus:(BOOL)status
-{
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    [context setPersistentStoreCoordinator:psCoordinator];
-    
-    video.isWatchLater = status;
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    if (IS_NULL(broadcast)) {
-        [context release];
-        return;
-    }
-    
-    broadcast.watchLater = [NSNumber numberWithBool:status];
-    
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-    }
-    
-    [context release];
-}
-
-- (void)watchLaterSucceeded:(NSNotification *)notification
-{
-    if (NOT_NULL(notification.userInfo)) {
-        [self updateWatchLaterStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:TRUE];
-    }
-}
-
-- (void)unwatchLaterSucceeded:(NSNotification *)notification
-{
-    if (NOT_NULL(notification.userInfo)) {
-        [self updateWatchLaterStatusForVideo:[notification.userInfo objectForKey:@"video"] withStatus:FALSE];
-    }
-}
-
-- (void)watchVideoSucceeded:(NSNotification *)notification
-{
-    if (NOT_NULL(notification.userInfo)) {
-        Video *video = [notification.userInfo objectForKey:@"video"];
-        
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-        [context setUndoManager:nil];
-        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-        [context setPersistentStoreCoordinator:psCoordinator];
-        
-        video.isWatched = TRUE;
-        
-        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                            withShelbyId:video.shelbyId
-                                                               inContext:context];
-        if (IS_NULL(broadcast)) {
-            [context release];
-            return;
-        }
-        
-        broadcast.watched = [NSNumber numberWithBool:TRUE];
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-        }
-        
-        [context release];
-        [self updateVideoTableCell:video];
-    }
-}
 
 #pragma mark - Initialization
 
@@ -1060,8 +287,7 @@
 
         self.numItemsInserted = 0;
         tableVideos = [[NSMutableArray alloc] init];
-        videoDupeDict = [[NSMutableDictionary alloc] init];
-        uniqueVideoKeys = [[NSMutableArray alloc] init];
+
         playableVideoKeys = [[NSMutableDictionary alloc] init];
 
         operationQueue = [[NSOperationQueue alloc] init];
@@ -1116,116 +342,5 @@
     }
 }
 
-- (void)enableDemoMode
-{    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSMutableURLRequest *request = nil;
-
-    for (NSString *key in uniqueVideoKeys)
-    {
-        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
-        
-        if (NOT_NULL([playableVideoKeys objectForKey:key]))
-        {
-            NSArray *dupeArray = [videoDupeDict objectForKey:key];
-            Video *video = [dupeArray objectAtIndex:0];        
-            
-            if (NOT_NULL(video.contentURL)) {
-                
-                NSLog(@"########## Creating NSURLRequest.");
-                
-                request = [NSMutableURLRequest requestWithURL:video.contentURL];
-                
-                NSLog(@"########## Sending SynchronousRequest.");
-                
-                [request setValue:[ShelbyApp sharedApp].safariUserAgent forHTTPHeaderField:@"User-Agent"];
-                
-                NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-                
-                NSLog(@"########## Data in MB: %.2f", (float)([data length] / 1024.0 / 1024.0));
-                NSLog(@"########## Error: %@", [error localizedDescription]);
-                
-                NSLog(@"########## Creating fileURL in bundle.");
-                
-                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                
-                NSLog(@"########## Creating directory path in bundle.");
-                [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:YES attributes:nil error:&error];
-                
-                NSLog(@"########## Error: %@", [error localizedDescription]);
-                
-                NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];
-                
-                NSLog(@"########## Writing video to file.");
-
-                if ([data writeToFile:path options:0 error:&error]) {
-                    NSLog(@"########## Write video file successful: %@", path);
-                } else {
-                    NSLog(@"########## Write video file failed: %@", path);
-                }
-                
-                NSLog(@"########## Error: %@", [error localizedDescription]);
-                
-                video.contentURL = [NSURL fileURLWithPath:path];
-            }
-        }
-        
-        [loopPool drain];
-    }
-    
-    [self reloadTableVideos];
-    
-    NSLog(@"########## Done.");
-    
-    [pool release];
-}
-
-//- (void)addOrUpdateWithNewJSON:(NSArray *)jsonDictionariesArray 
-//{
-//    NSMutableArray *newVideos = [[NSMutableArray alloc] init];
-//    NSMutableArray *newCommentsOnExistingVideos = [[NSMutableArray alloc] init];
-//    
-//    for (NSDictionary *dict in jsonDictionariesArray)
-//    {
-//        // easy checks, should do now rather than later
-//        NSString *provider = [dict objectForKey:@"video_provider_name"];
-//        NSString *providerId = [dict objectForKey:@"video_id_at_provider"];
-//        
-//        if (![self providerPassesBasicChecks:provider withId:providerId]) {
-//            continue;
-//        }
-//        
-//        NSMutableArray *dupeArray = [videoDupeDict objectForKey:[self dupeKeyWithProvider:provider withId:providerId]];
-//        if (NOT_NULL(dupeArray)) {
-//            // we already know about this video
-//            
-//            
-//            
-//        } else {
-//            dupeArray = [[[NSMutableArray alloc] init] autorelease];
-//            [dupeArray addObject:video];
-//            [videoDupeDict setObject:dupeArray forKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-//            [uniqueVideoKeys addObject:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-//            
-//
-//    }
-//}
-//
-//
-//- (void)detectNumberOfNewVideosAndComments:(NSTimer*)timer
-//{
-//    
-//}
-
-- (void)clearPendingOperations
-{
-    @synchronized(self)
-    {
-        [operationQueue cancelAllOperations];
-    }
-}
 
 @end

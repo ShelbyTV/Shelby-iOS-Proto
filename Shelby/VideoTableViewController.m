@@ -15,6 +15,7 @@
 #import "VideoTableViewCell.h"
 #import "User.h"
 #import "VideoTableViewCellConstants.h"
+#import "VideoData.h"
 
 @implementation VideoTableViewController
 
@@ -95,12 +96,17 @@
 - (void)clearPendingOperations
 {
     // Clear out the table.
-    [videoTableData clearPendingOperations];
+//    [videoTableData clearPendingOperations];
 }
 
-- (void)loadVideos
+- (void)loadInitialVideosFromAPI
 {
     [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
+}
+
+- (void)loadInitialVideosFromCoreData
+{
+    [[ShelbyApp sharedApp].videoData loadFromCoreData];
 }
 
 - (void)doneLoadingTableViewData
@@ -221,12 +227,13 @@
         return;
     }
     
-	[self loadVideos];
+	[self loadInitialVideosFromAPI];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-	return [videoTableData isLoading]; // return if data source model is reloading
+//	return [videoTableData isLoading]; // return if data source model is reloading
+    return FALSE;
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
@@ -372,7 +379,7 @@
 
 - (void)enableDemoMode
 {
-    [videoTableData enableDemoMode];
+//    [videoTableData enableDemoMode];
 }
 
 - (NSInteger)currentVideoMode

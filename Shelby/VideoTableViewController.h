@@ -49,7 +49,10 @@
 - (Video *)getFirstVideo;
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
-- (void)loadVideos;
+
+- (void)loadInitialVideosFromAPI;
+- (void)loadInitialVideosFromCoreData;
+
 - (void)updateVideoTableCell:(Video *)video;
 - (void)enableDemoMode;
 

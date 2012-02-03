@@ -47,8 +47,5 @@ typedef enum {
 
 - (void)fetchAuthentications;
 - (void)fetchBroadcasts;
-- (void)storeBroadcastVideo:(Video *)video withThumbnailData:(NSData *)thumbnailData inContext:(NSManagedObjectContext *)context;
-- (void)storeBroadcastVideo:(Video *)video withSharerImageData:(NSData *)sharerImageData inContext:(NSManagedObjectContext *)context;
-- (void)storeBroadcastVideoPlayableStatus:(Video *)video inContext:(NSManagedObjectContext *)context;
 
 @end

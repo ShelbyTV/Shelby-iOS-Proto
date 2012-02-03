@@ -71,7 +71,8 @@
 - (IBAction)watchLaterButtonPressed:(id)sender;
 - (void)pauseCurrentVideo;
 
-- (void)loadUserData;
+- (void)loadInitialUserDataAfterLogin;
+- (void)loadInitialUserDataAlreadyLoggedIn;
 
 - (void)slideSettings:(BOOL)becomingVisible;
 - (void)playVideo:(Video *)video;

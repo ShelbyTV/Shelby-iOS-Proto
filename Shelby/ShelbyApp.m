@@ -14,6 +14,7 @@
 #import "SessionStats.h"
 #import "BSWebViewUserAgent.h"
 #import "ShelbyWindow.h"
+#import "VideoData.h"
 
 #import "TestFlight.h"
 #import <Crashlytics/Crashlytics.h>
@@ -26,7 +27,7 @@
 @synthesize navigationViewController;
 @synthesize demoModeEnabled = _demoModeEnabled;
 @synthesize safariUserAgent;
-@synthesize transitionController;
+@synthesize videoData;
 @synthesize shelbyWindow;
 
 #pragma mark - Singleton
@@ -77,6 +78,7 @@ static ShelbyWindow *gSecondScreenWindow;
         persistentStoreCoordinator = appDelegate.persistentStoreCoordinator; // used to create other contexts for other threads / subsystems
         
         self.loginHelper = [[[LoginHelper alloc] initWithContext:context] autorelease];
+        self.videoData = [[[VideoData alloc] init] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
         [self.apiHelper loadTokens];
         [self addNetworkObject:self.loginHelper];

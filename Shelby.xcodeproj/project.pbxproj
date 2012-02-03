@@ -205,6 +205,11 @@
 		0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */; };
 		0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */; };
 		0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoGetter.m */; };
+		0AF0E9CE14DA06BD005E9550 /* VideoDataPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */; };
+		0AF0E9D514DA074A005E9550 /* VideoCoreDataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9D414DA074A005E9550 /* VideoCoreDataInterface.m */; };
+		0AF0E9D814DA1BD2005E9550 /* VideoDataProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9D714DA1BD2005E9550 /* VideoDataProcessor.m */; };
+		0AF0E9DB14DA2157005E9550 /* VideoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9DA14DA2157005E9550 /* VideoData.m */; };
+		0AF0E9DE14DA218A005E9550 /* DemoMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9DD14DA218A005E9550 /* DemoMode.m */; };
 		0AF4F24814B4240F00C9DC2D /* favoritesChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */; };
 		0AF4F24B14B4243400C9DC2D /* watchLaterChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */; };
 		0AF4F24D14B4243C00C9DC2D /* timelineChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */; };
@@ -548,6 +553,16 @@
 		0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VideoPlayerTitleBar_TV_720.xib; path = Resources/TV/VideoPlayerTitleBar_TV_720.xib; sourceTree = "<group>"; };
 		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0AEFC39B144FD65D00FC9015 /* VideoGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0AF0E9CC14DA06BD005E9550 /* VideoDataPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDataPoller.h; sourceTree = "<group>"; };
+		0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDataPoller.m; sourceTree = "<group>"; };
+		0AF0E9D314DA074A005E9550 /* VideoCoreDataInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCoreDataInterface.h; sourceTree = "<group>"; };
+		0AF0E9D414DA074A005E9550 /* VideoCoreDataInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCoreDataInterface.m; sourceTree = "<group>"; };
+		0AF0E9D614DA1BD2005E9550 /* VideoDataProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDataProcessor.h; sourceTree = "<group>"; };
+		0AF0E9D714DA1BD2005E9550 /* VideoDataProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDataProcessor.m; sourceTree = "<group>"; };
+		0AF0E9D914DA2157005E9550 /* VideoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoData.h; sourceTree = "<group>"; };
+		0AF0E9DA14DA2157005E9550 /* VideoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoData.m; sourceTree = "<group>"; };
+		0AF0E9DC14DA218A005E9550 /* DemoMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoMode.h; sourceTree = "<group>"; };
+		0AF0E9DD14DA218A005E9550 /* DemoMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoMode.m; sourceTree = "<group>"; };
 		0AF4F24714B4240F00C9DC2D /* favoritesChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favoritesChannel.png; path = Resources/Images/favoritesChannel.png; sourceTree = "<group>"; };
 		0AF4F24A14B4243400C9DC2D /* watchLaterChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watchLaterChannel.png; path = Resources/Images/watchLaterChannel.png; sourceTree = "<group>"; };
 		0AF4F24C14B4243C00C9DC2D /* timelineChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timelineChannel.png; path = Resources/Images/timelineChannel.png; sourceTree = "<group>"; };
@@ -1466,6 +1481,14 @@
 				4200E50313F41F0C00609C3E /* Video.m */,
 				0A220C9513DE8193004BE680 /* VideoTableData.h */,
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
+				0AF0E9CC14DA06BD005E9550 /* VideoDataPoller.h */,
+				0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */,
+				0AF0E9D314DA074A005E9550 /* VideoCoreDataInterface.h */,
+				0AF0E9D414DA074A005E9550 /* VideoCoreDataInterface.m */,
+				0AF0E9D614DA1BD2005E9550 /* VideoDataProcessor.h */,
+				0AF0E9D714DA1BD2005E9550 /* VideoDataProcessor.m */,
+				0AF0E9D914DA2157005E9550 /* VideoData.h */,
+				0AF0E9DA14DA2157005E9550 /* VideoData.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1486,6 +1509,8 @@
 				42FAA3AE13FD841900BC1D28 /* URLParser.m */,
 				0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */,
 				0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */,
+				0AF0E9DC14DA218A005E9550 /* DemoMode.h */,
+				0AF0E9DD14DA218A005E9550 /* DemoMode.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1890,6 +1915,11 @@
 				0A84058814D0DB5600F13FC2 /* UserAccountView.m in Sources */,
 				0A28096414D4CF50007C19B7 /* RemoteModeHelpTableViewController.m in Sources */,
 				0A28097E14D51D81007C19B7 /* NoPassthroughClicksUIView.m in Sources */,
+				0AF0E9CE14DA06BD005E9550 /* VideoDataPoller.m in Sources */,
+				0AF0E9D514DA074A005E9550 /* VideoCoreDataInterface.m in Sources */,
+				0AF0E9D814DA1BD2005E9550 /* VideoDataProcessor.m in Sources */,
+				0AF0E9DB14DA2157005E9550 /* VideoData.m in Sources */,
+				0AF0E9DE14DA218A005E9550 /* DemoMode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

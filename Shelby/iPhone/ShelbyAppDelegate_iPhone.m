@@ -32,7 +32,7 @@
     loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone"
                                                                 bundle:nil
                                                         callbackObject:navigationViewController
-                                                      callbackSelector:@selector(loadUserData)];
+                                                      callbackSelector:@selector(loadInitialUserDataAfterLogin)];
     loginViewController.view.frame = navigationViewController.view.bounds;
 
     // If we're logged in, we can bypass login here and below...
@@ -58,7 +58,7 @@
     shelbyWindow.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     
     if (userAlreadyLoggedIn) {
-        [navigationViewController loadUserData];
+        [navigationViewController loadInitialUserDataAlreadyLoggedIn];
     }
         
     return YES;
