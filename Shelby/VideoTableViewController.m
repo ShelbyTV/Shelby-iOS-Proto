@@ -16,73 +16,13 @@
 #import "User.h"
 #import "VideoTableViewCellConstants.h"
 #import "VideoData.h"
+#import "Enums.h"
 
 @implementation VideoTableViewController
 
 @synthesize videoCell;
 @synthesize delegate;
-
-#pragma mark - Initialization
-
-- (id)initWithStyle:(UITableViewStyle)style
-     callbackObject:(id)object
-   callbackSelector:(SEL)selector
-{
-    self = [super initWithStyle:style];
-    
-    if (self) {
-        videoTableData = [[VideoTableData alloc] initWithUITableView:self.tableView];
-        videoTableData.delegate = self;
-
-        [[ShelbyApp sharedApp] addNetworkObject: videoTableData];
-
-        callbackObject = object;
-        callbackSelector = selector;
-        _currentVideoIndex = 0;
-    }
-    
-    return self;
-}
-
-#pragma mark - Video Mode
-
-// Alternate between favorites and timeline.
-
-- (void)changeVideoMode:(NSInteger)mode
-{
-    if (mode == videoMode) {
-        return;
-    }
-
-    //LOG(@"changeVideoMode %d", mode);
-    if (mode == 0) {
-        videoTableData.searchOnly = NO;
-        videoTableData.likedOnly = NO;
-        videoTableData.watchLaterOnly = NO;
-    } else if (mode == 1) {
-        videoTableData.searchOnly = NO;
-        videoTableData.likedOnly = YES;
-        videoTableData.watchLaterOnly = NO;
-    } else if (mode == 2) {
-        videoTableData.searchOnly = NO;
-        videoTableData.likedOnly = NO;
-        videoTableData.watchLaterOnly = YES;
-    } else if (mode == 3) {
-        videoTableData.searchOnly = YES;
-        videoTableData.likedOnly = NO;
-        videoTableData.watchLaterOnly = NO;
-    }
-    
-    // Change the channel.
-    videoMode = mode;
-    [videoTableData reloadTableVideos];
-}
-
-- (void)performSearch:(NSString *)searchText
-{
-    videoTableData.searchString = searchText;
-    [videoTableData reloadTableVideos];
-}
+@synthesize videoTableData;
 
 #pragma mark - Data Refresh
 
@@ -122,11 +62,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName: @"VideoTableViewControllerFinishedRefresh"
                                                         object: self
                                                         ];
-}
-
-- (void)updateVideoTableCell:(Video *)video
-{
-    [videoTableData updateVideoTableCell:video];
 }
 
 #pragma mark - Next/Previous Videos
@@ -380,11 +315,6 @@
 - (void)enableDemoMode
 {
 //    [videoTableData enableDemoMode];
-}
-
-- (NSInteger)currentVideoMode
-{
-    return videoMode;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

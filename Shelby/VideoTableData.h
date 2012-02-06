@@ -30,11 +30,7 @@
 
 @property (assign) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
-@property (readwrite) BOOL likedOnly;
-@property (readwrite) BOOL watchLaterOnly;
-@property (readwrite) BOOL searchOnly;
 @property (readonly) NSUInteger numItemsInserted;
-@property (nonatomic, retain) NSString *searchString;
 
 - (id)initWithUITableView:(UITableView *)linkedTableView;
 
@@ -45,6 +41,6 @@
 - (void)clearVideoTableData;
 - (void)reloadTableVideos;
 - (void)updateVideoTableCell:(Video *)video;
-
+- (BOOL)shouldIncludeVideo:(NSArray *)dupeArray;
 
 @end

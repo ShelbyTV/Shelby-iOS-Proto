@@ -16,8 +16,6 @@
 - (void)remoteModeNextVideo;
 - (void)remoteModeLikeVideo;
 - (void)remoteModeWatchLaterVideo;
-- (void)remoteModeNextChannel;
-- (void)remoteModePreviousChannel;
 - (void)remoteModeScanForward;
 - (void)remoteModeScanBackward;
 - (void)remoteModeShowInfo;

@@ -23,27 +23,17 @@
 
 @interface VideoTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate, VideoTableDataDelegate>
 {
-    VideoTableData *videoTableData;
     id callbackObject;
     SEL callbackSelector;
     NSInteger _currentVideoIndex;
-    NSInteger videoMode;
-    
-    IBOutlet UITableViewCell *timelineOnboardCell;
-    IBOutlet UITableViewCell *favoritesOnboardCell;
-    IBOutlet UITableViewCell *watchLaterOnboardCell;
 
     EGORefreshTableHeaderView *_refreshHeaderView;
 }
 
 @property (nonatomic, assign) id <VideoTableViewControllerDelegate> delegate;
 @property (nonatomic, assign) IBOutlet UITableViewCell *videoCell;
+@property (nonatomic, assign) VideoTableData *videoTableData;
 
-- (id)initWithStyle:(UITableViewStyle)style
-     callbackObject:(id)object
-   callbackSelector:(SEL)selector;
-
-- (void)changeVideoMode:(NSInteger)mode;
 - (void)clearPendingOperations;
 - (void)clearVideoTableData;
 - (Video *)getFirstVideo;
@@ -53,11 +43,6 @@
 - (void)loadInitialVideosFromAPI;
 - (void)loadInitialVideosFromCoreData;
 
-- (void)updateVideoTableCell:(Video *)video;
 - (void)enableDemoMode;
-
-- (NSInteger)currentVideoMode;
-
-- (void)performSearch:(NSString *)searchText;
 
 @end

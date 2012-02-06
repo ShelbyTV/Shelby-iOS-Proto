@@ -20,6 +20,12 @@
 #import "ShelbyAppDelegate.h"
 #import "ApiHelper.h"
 #import "UserAccountView.h"
+#import "Enums.h"
+
+#import "VideoGuideTimelineView.h"
+#import "VideoGuideFavoritesView.h"
+#import "VideoGuideWatchLaterView.h"
+#import "VideoGuideSearchView.h"
 
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -39,10 +45,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        videoTable = [[VideoTableViewController alloc] initWithStyle:UITableViewStylePlain
-                                                      //callbackObject:self callbackSelector:@selector(playContentURL:)];
-                                                      callbackObject:self callbackSelector:@selector(playVideo:)];
-        videoTable.delegate = self;
+        timelineVideoGuide = [[VideoGuideTimelineView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
+        favoritesVideoGuide = [[VideoGuideFavoritesView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
+        watchLaterVideoGuide = [[VideoGuideWatchLaterView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
+        searchVideoGuide = [[VideoGuideSearchView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
 
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
@@ -160,13 +166,13 @@
 - (void)loadInitialUserDataAfterLogin
 {
     [self loadInitialUserDataCommon];
-    [videoTable loadInitialVideosFromAPI];
+    [[ShelbyApp sharedApp].videoData loadInitialVideosFromAPI];
 }
 
 - (void)loadInitialUserDataAlreadyLoggedIn
 {
     [self loadInitialUserDataCommon];
-    [videoTable loadInitialVideosFromCoreData];
+    [[ShelbyApp sharedApp].videoData loadInitialVideosFromCoreData];
 }
 
 - (void)enableDemoMode
@@ -206,7 +212,7 @@
     
     // download videos
     [_userAccountView setDemoModeButtonTitle:@"Downloading..."];
-    [videoTable enableDemoMode];
+    //[videoTable enableDemoMode];
     
     [_userAccountView setDemoModeButtonTitle:@"Demo Mode On"];
 }
@@ -388,7 +394,7 @@
 - (void)videoPlayerNextButtonWasPressed:(VideoPlayer *)videoPlayer
 {
     LOG(@"[NavigationViewController videoPlayerNextButtonWasPressed]");
-    Video *video = [videoTable getNextVideo];
+    Video *video = [currentGuide getNextVideo];
 
     // Tell player to start playing new video.
     [_videoPlayer stop];
@@ -398,7 +404,7 @@
 - (void)videoPlayerPrevButtonWasPressed:(VideoPlayer *)videoPlayer
 {
     LOG(@"[NavigationViewController videoPlayerPrevButtonWasPressed]");
-    Video *video = [videoTable getPreviousVideo];
+    Video *video = [currentGuide getPreviousVideo];
     // Tell player to start playing new video.
     
     [_videoPlayer stop];
@@ -444,14 +450,14 @@
     LOG(@"[NavigationViewController videoPlayerVideoDidFinish]");
 
     // Fetch the video next in queue.
-    Video *url = [videoTable getNextVideo];
+    Video *url = [currentGuide getNextVideo];
     // Tell player to start playing new video.
     [self playVideo:url];
 }
 
 - (void)updateVideoTableCell:(Video *)video
 {
-    [videoTable updateVideoTableCell:video];
+    [currentGuide updateVideoTableCell:video];
 }
 
 - (void)videoPlayerShowRemoteView
@@ -508,7 +514,6 @@
     [tabBar setSelectedItem:timelineTabBarItem];
     [self hideSearchBar];
     
-    [videoTable changeVideoMode:0];
     [_videoPlayer setVideoMode:0];
 }
 
@@ -517,7 +522,6 @@
     [tabBar setSelectedItem:favoritesTabBarItem];
     [self hideSearchBar];
     
-    [videoTable changeVideoMode:1];
     [_videoPlayer setVideoMode:1];
 }
 
@@ -526,7 +530,6 @@
     [tabBar setSelectedItem:watchLaterTabBarItem];
     [self hideSearchBar];
     
-    [videoTable changeVideoMode:2];
     [_videoPlayer setVideoMode:2];
 }
 
@@ -535,7 +538,6 @@
     [tabBar setSelectedItem:searchTabBarItem];
     [self showSearchBar];
 
-    [videoTable changeVideoMode:3];
     [_videoPlayer setVideoMode:3];
 }
 
@@ -560,23 +562,23 @@
     [super viewDidLoad];
     _networkActivityViewParent = activityHolder;
     
-    videoTable.tableView.frame = videoTableHolder.bounds;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        videoTable.tableView.rowHeight = 118;
-    } else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        videoTable.tableView.rowHeight = 232;
-    }
-
-    // this color matches the bottom color of the table cell gradient
-    [videoTable.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
-    [videoTable.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
-    [videoTableHolder addSubview:videoTable.tableView];
+    timelineVideoGuide.frame = videoTableHolder.bounds;
+    favoritesVideoGuide.frame = videoTableHolder.bounds;
+    watchLaterVideoGuide.frame = videoTableHolder.bounds;
+    searchVideoGuide.frame = videoTableHolder.bounds;
     
-    [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    favoritesVideoGuide.hidden = YES;
+    watchLaterVideoGuide.hidden = YES;
+    searchVideoGuide.hidden = YES;
+
+    [videoTableHolder addSubview:timelineVideoGuide];
+    [videoTableHolder addSubview:favoritesVideoGuide];
+    [videoTableHolder addSubview:watchLaterVideoGuide];
+    [videoTableHolder addSubview:searchVideoGuide];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
     
-
     if ([tabBar respondsToSelector:@selector(setSelectedImageTintColor:)]) {
         [tabBar setSelectedImageTintColor:[UIColor colorWithRed:0.48 green:0.19 blue:0.57 alpha:1.0]];
     }
@@ -618,8 +620,8 @@
     [_videoPlayer reset];
 
     // Clear out the video table
-    [videoTable clearPendingOperations];
-    [videoTable clearVideoTableData];
+    //[videoTable clearPendingOperations];
+    //[videoTable clearVideoTableData];
 }
 
 #pragma mark - KVO
@@ -781,38 +783,6 @@
     [_videoPlayer controlBarWatchLaterButtonWasPressed:nil];
 }
 
-- (void)remoteModeNextChannel
-{
-    [_videoPlayer drawControls];
-    [_videoPlayer recordButtonPressOrControlsVisible:YES];
-
-    if ([videoTable currentVideoMode] == 0) {
-        [self favoritesButtonPressed:self];
-    } else if ([videoTable currentVideoMode] == 1) {
-        [self watchLaterButtonPressed:self];
-    } else if ([videoTable currentVideoMode] == 2) {
-        [self searchButtonPressed:self];
-    } else if ([videoTable currentVideoMode] == 3) {
-        [self listButtonPressed:self];
-    }
-}
-
-- (void)remoteModePreviousChannel
-{    
-    [_videoPlayer drawControls];
-    [_videoPlayer recordButtonPressOrControlsVisible:YES];
-
-    if ([videoTable currentVideoMode] == 0) {
-        [self searchButtonPressed:self];
-    } else if ([videoTable currentVideoMode] == 1) {
-        [self listButtonPressed:self];
-    } else if ([videoTable currentVideoMode] == 2) {
-        [self favoritesButtonPressed:self];
-    } else if ([videoTable currentVideoMode] == 3) {
-        [self watchLaterButtonPressed:self];
-    }
-}
-
 - (void)remoteModeScanForward
 {
     [_videoPlayer drawControls];
@@ -875,7 +845,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBarClicked
 {
     [searchBar resignFirstResponder];
-    [videoTable performSearch:searchBarClicked.text];
+    [searchVideoGuide performSearch:searchBarClicked.text];
 }
 
 

@@ -37,11 +37,7 @@
 
 @synthesize delegate;
 @synthesize networkCounter;
-@synthesize likedOnly;
-@synthesize watchLaterOnly;
-@synthesize searchOnly;
 @synthesize numItemsInserted;
-@synthesize searchString;
 
 - (Video *)videoAtIndex:(NSUInteger)index
 {    
@@ -133,66 +129,8 @@
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
-    if ([ShelbyApp sharedApp].demoModeEnabled) {
-        BOOL videoHasContentURL = FALSE;
-        NSURL *dupeContentURL = nil;
-        for (Video *video in dupeArray) {
-            if (video.contentURL != nil) {
-                videoHasContentURL = TRUE;
-                dupeContentURL = video.contentURL;
-                break;
-            }
-        }
-        
-        if (videoHasContentURL) {
-            for (Video *video in dupeArray) {
-                video.contentURL = dupeContentURL;
-            }
-        } else {
-            return FALSE;
-        }
-    }
-    
-    if (searchOnly) {
-        if (IS_NULL(searchString)) {
-            return FALSE;
-        }
-
-        for (Video *video in dupeArray) {
-            if (NOT_NULL(video.sharer) && [video.sharer rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                NSLog(@"video.sharer (%@) contains searchString (%@)", video.sharer, searchString);
-                return TRUE;
-            }
-//            if (NOT_NULL(video.description) && [video.description rangeOfString:searchString].location != NSNotFound) {
-//                NSLog(@"video.description (%@) contains searchString (%@)", video.description, searchString);
-//                return TRUE;
-//            }
-            if (NOT_NULL(video.title) && [video.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                NSLog(@"video.title (%@) contains searchString (%@)", video.title, searchString);
-                return TRUE;
-            }
-            if (NOT_NULL(video.sharerComment) && [video.sharerComment rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) 
-            {
-                NSLog(@"video.sharerComment (%@) contains searchString (%@)", video.sharerComment, searchString);
-                return TRUE;
-            }
-        }
-        
-        return FALSE;
-    }
-    
-    // Depending on the view, only display certain videos...
-    if (likedOnly || watchLaterOnly) {
-        for (Video *video in dupeArray) {
-            if ((likedOnly && video.isLiked) ||
-                (watchLaterOnly && video.isWatchLater)) {
-                return TRUE;
-            }
-        }
-        return FALSE;
-    }
-    
-    return TRUE;
+    // implemented in subclass
+    return FALSE;
 }
 
 - (void)insertTableVideos

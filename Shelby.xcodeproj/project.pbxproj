@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A02DD1714DCAD9900204025 /* VideoTableTimelineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD1614DCAD9900204025 /* VideoTableTimelineData.m */; };
+		0A02DD1B14DCADA700204025 /* VideoTableFavoritesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD1A14DCADA700204025 /* VideoTableFavoritesData.m */; };
+		0A02DD1E14DCADB900204025 /* VideoTableWatchLaterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD1D14DCADB900204025 /* VideoTableWatchLaterData.m */; };
+		0A02DD2114DCADC800204025 /* VideoTableSearchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD2014DCADC800204025 /* VideoTableSearchData.m */; };
+		0A02DD2814DCC39800204025 /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD2714DCC39800204025 /* VideoTableViewController.m */; };
+		0A02DD2B14DCC41200204025 /* VideoGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD2A14DCC41200204025 /* VideoGuideView.m */; };
+		0A02DD2E14DCC43100204025 /* VideoGuideTimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD2D14DCC43100204025 /* VideoGuideTimelineView.m */; };
+		0A02DD3114DCC43B00204025 /* VideoGuideFavoritesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3014DCC43B00204025 /* VideoGuideFavoritesView.m */; };
+		0A02DD3414DCC44700204025 /* VideoGuideWatchLaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */; };
+		0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */; };
 		0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */; };
 		0A05EF7E14AE8B4D0010BFFF /* likeOff_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */; };
 		0A05EF7F14AE8B4D0010BFFF /* likeOn_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7B14AE8B4D0010BFFF /* likeOn_TV_720.png */; };
@@ -22,7 +32,6 @@
 		0A08EA0214281C8700D964E7 /* TumblrNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FC14281C8700D964E7 /* TumblrNew.png */; };
 		0A08EA0314281C8700D964E7 /* TumblrWatched.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A08E9FD14281C8700D964E7 /* TumblrWatched.png */; };
 		0A12931613DCD300009D254F /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12931513DCD300009D254F /* NavigationViewController.m */; };
-		0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A12933A13DD0DC0009D254F /* VideoTableViewController.m */; };
 		0A12934113DD2EE4009D254F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934013DD2EE3009D254F /* AVFoundation.framework */; };
 		0A12934313DD2FFC009D254F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A12934213DD2FFB009D254F /* MediaPlayer.framework */; };
 		0A14C80D145C713400632FB0 /* ShelbyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A14C80C145C713400632FB0 /* ShelbyWindow.m */; };
@@ -326,6 +335,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A02DD1514DCAD9800204025 /* VideoTableTimelineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableTimelineData.h; sourceTree = "<group>"; };
+		0A02DD1614DCAD9900204025 /* VideoTableTimelineData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableTimelineData.m; sourceTree = "<group>"; };
+		0A02DD1914DCADA700204025 /* VideoTableFavoritesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableFavoritesData.h; sourceTree = "<group>"; };
+		0A02DD1A14DCADA700204025 /* VideoTableFavoritesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableFavoritesData.m; sourceTree = "<group>"; };
+		0A02DD1C14DCADB900204025 /* VideoTableWatchLaterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableWatchLaterData.h; sourceTree = "<group>"; };
+		0A02DD1D14DCADB900204025 /* VideoTableWatchLaterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableWatchLaterData.m; sourceTree = "<group>"; };
+		0A02DD1F14DCADC800204025 /* VideoTableSearchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableSearchData.h; sourceTree = "<group>"; };
+		0A02DD2014DCADC800204025 /* VideoTableSearchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableSearchData.m; sourceTree = "<group>"; };
+		0A02DD2614DCC38700204025 /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
+		0A02DD2714DCC39800204025 /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
+		0A02DD2914DCC41200204025 /* VideoGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoGuideView.h; sourceTree = "<group>"; };
+		0A02DD2A14DCC41200204025 /* VideoGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideView.m; sourceTree = "<group>"; };
+		0A02DD2C14DCC43100204025 /* VideoGuideTimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoGuideTimelineView.h; sourceTree = "<group>"; };
+		0A02DD2D14DCC43100204025 /* VideoGuideTimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideTimelineView.m; sourceTree = "<group>"; };
+		0A02DD2F14DCC43B00204025 /* VideoGuideFavoritesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoGuideFavoritesView.h; sourceTree = "<group>"; };
+		0A02DD3014DCC43B00204025 /* VideoGuideFavoritesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideFavoritesView.m; sourceTree = "<group>"; };
+		0A02DD3214DCC44700204025 /* VideoGuideWatchLaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoGuideWatchLaterView.h; sourceTree = "<group>"; };
+		0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideWatchLaterView.m; sourceTree = "<group>"; };
+		0A02DD3514DCC45100204025 /* VideoGuideSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoGuideSearchView.h; sourceTree = "<group>"; };
+		0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideSearchView.m; sourceTree = "<group>"; };
 		0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSWebViewUserAgent.h; sourceTree = "<group>"; };
 		0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSWebViewUserAgent.m; sourceTree = "<group>"; };
 		0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_TV_720.png; path = Resources/Images/likeOff_TV_720.png; sourceTree = "<group>"; };
@@ -343,8 +372,6 @@
 		0A08E9FD14281C8700D964E7 /* TumblrWatched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TumblrWatched.png; path = Resources/Images/TumblrWatched.png; sourceTree = "<group>"; };
 		0A12931413DCD300009D254F /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		0A12931513DCD300009D254F /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
-		0A12933913DD0DBF009D254F /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
-		0A12933A13DD0DC0009D254F /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0A12934013DD2EE3009D254F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0A12934213DD2FFB009D254F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		0A14C80B145C713400632FB0 /* ShelbyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelbyWindow.h; sourceTree = "<group>"; };
@@ -1235,6 +1262,16 @@
 			isa = PBXGroup;
 			children = (
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
+				0A02DD2914DCC41200204025 /* VideoGuideView.h */,
+				0A02DD2A14DCC41200204025 /* VideoGuideView.m */,
+				0A02DD2C14DCC43100204025 /* VideoGuideTimelineView.h */,
+				0A02DD2D14DCC43100204025 /* VideoGuideTimelineView.m */,
+				0A02DD2F14DCC43B00204025 /* VideoGuideFavoritesView.h */,
+				0A02DD3014DCC43B00204025 /* VideoGuideFavoritesView.m */,
+				0A02DD3214DCC44700204025 /* VideoGuideWatchLaterView.h */,
+				0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */,
+				0A02DD3514DCC45100204025 /* VideoGuideSearchView.h */,
+				0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */,
 				42084C7B1427B99A00C3C556 /* OfflineView.h */,
 				42084C7C1427B99A00C3C556 /* OfflineView.m */,
 				0A978AF514455B74005DFF18 /* ShareView.h */,
@@ -1424,8 +1461,8 @@
 				0A12931513DCD300009D254F /* NavigationViewController.m */,
 				0AE04FB614896FBA00952C02 /* COPeoplePickerViewController.h */,
 				0AE04FB714896FBA00952C02 /* COPeoplePickerViewController.m */,
-				0A12933913DD0DBF009D254F /* VideoTableViewController.h */,
-				0A12933A13DD0DC0009D254F /* VideoTableViewController.m */,
+				0A02DD2614DCC38700204025 /* VideoTableViewController.h */,
+				0A02DD2714DCC39800204025 /* VideoTableViewController.m */,
 				0AF7DE7514B12B37005B48BF /* RemoteModeViewController.h */,
 				0AF7DE7614B12B37005B48BF /* RemoteModeViewController.m */,
 				0A28096214D4CF50007C19B7 /* RemoteModeHelpTableViewController.h */,
@@ -1481,6 +1518,14 @@
 				4200E50313F41F0C00609C3E /* Video.m */,
 				0A220C9513DE8193004BE680 /* VideoTableData.h */,
 				0A220C9613DE8193004BE680 /* VideoTableData.m */,
+				0A02DD1514DCAD9800204025 /* VideoTableTimelineData.h */,
+				0A02DD1614DCAD9900204025 /* VideoTableTimelineData.m */,
+				0A02DD1914DCADA700204025 /* VideoTableFavoritesData.h */,
+				0A02DD1A14DCADA700204025 /* VideoTableFavoritesData.m */,
+				0A02DD1C14DCADB900204025 /* VideoTableWatchLaterData.h */,
+				0A02DD1D14DCADB900204025 /* VideoTableWatchLaterData.m */,
+				0A02DD1F14DCADC800204025 /* VideoTableSearchData.h */,
+				0A02DD2014DCADC800204025 /* VideoTableSearchData.m */,
 				0AF0E9CC14DA06BD005E9550 /* VideoDataPoller.h */,
 				0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */,
 				0AF0E9D314DA074A005E9550 /* VideoCoreDataInterface.h */,
@@ -1852,7 +1897,6 @@
 				0AD9A36713D53BD300EFECE0 /* ShelbyAppDelegate.m in Sources */,
 				0AD9A3F613D6A45300EFECE0 /* LoginViewController.m in Sources */,
 				0A12931613DCD300009D254F /* NavigationViewController.m in Sources */,
-				0A12933B13DD0DC0009D254F /* VideoTableViewController.m in Sources */,
 				0A220C9713DE8193004BE680 /* VideoTableData.m in Sources */,
 				42C4C5EA13E9AA100034AC97 /* VideoPlayer.m in Sources */,
 				42C4C60A13E9CCC00034AC97 /* ShelbyAppDelegate_iPad.m in Sources */,
@@ -1920,6 +1964,16 @@
 				0AF0E9D814DA1BD2005E9550 /* VideoDataProcessor.m in Sources */,
 				0AF0E9DB14DA2157005E9550 /* VideoData.m in Sources */,
 				0AF0E9DE14DA218A005E9550 /* DemoMode.m in Sources */,
+				0A02DD1714DCAD9900204025 /* VideoTableTimelineData.m in Sources */,
+				0A02DD1B14DCADA700204025 /* VideoTableFavoritesData.m in Sources */,
+				0A02DD1E14DCADB900204025 /* VideoTableWatchLaterData.m in Sources */,
+				0A02DD2114DCADC800204025 /* VideoTableSearchData.m in Sources */,
+				0A02DD2814DCC39800204025 /* VideoTableViewController.m in Sources */,
+				0A02DD2B14DCC41200204025 /* VideoGuideView.m in Sources */,
+				0A02DD2E14DCC43100204025 /* VideoGuideTimelineView.m in Sources */,
+				0A02DD3114DCC43B00204025 /* VideoGuideFavoritesView.m in Sources */,
+				0A02DD3414DCC44700204025 /* VideoGuideWatchLaterView.m in Sources */,
+				0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

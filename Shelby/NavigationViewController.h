@@ -17,6 +17,11 @@
 
 @class VideoTableViewController;
 @class VideoPlayer;
+@class VideoGuideTimelineView;
+@class VideoGuideFavoritesView;
+@class VideoGuideWatchLaterView;
+@class VideoGuideSearchView;
+@class VideoGuideView;
 
 @interface NavigationViewController : ConnectivityViewController <VideoPlayerDelegate, VideoTableViewControllerDelegate, ShareViewDelegate, NetworkObject, FullscreenWebViewControllerDelegate, RemoteModeDelegate, UITabBarDelegate, UserAccountViewDelegate>
 {
@@ -24,7 +29,13 @@
     IBOutlet UIView *buttonsHolder;
     IBOutlet UIView *activityHolder;
     IBOutlet UIView *videoTableHolder; // this view just tells us where in device .xib file to show the video table
-    VideoTableViewController *videoTable;
+    
+    VideoGuideTimelineView *timelineVideoGuide;
+    VideoGuideFavoritesView *favoritesVideoGuide;
+    VideoGuideWatchLaterView *watchLaterVideoGuide;
+    VideoGuideSearchView *searchVideoGuide;
+    
+    VideoGuideView *currentGuide;
     
     IBOutlet VideoPlayer *_videoPlayer; // main navigation view for iPhone, view off to the side for iPad
 
