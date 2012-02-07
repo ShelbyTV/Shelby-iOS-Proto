@@ -30,10 +30,6 @@
 {
     self = [super init];
     if (self) {
-        
-        operationQueue = [[NSOperationQueue alloc] init];
-        [operationQueue setMaxConcurrentOperationCount:3];
-        
         videoDupeDict = [[NSMutableDictionary alloc] init];
         
         uniqueVideoKeys = [[NSMutableArray alloc] init];
@@ -42,6 +38,37 @@
         dataProcessor.delegate = self;
         
         videoDataDelegates = [[NSMutableArray alloc] init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(receivedBroadcastsNotification:)
+                                                     name: @"ReceivedBroadcasts"
+                                                   object: nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(likeVideoSucceeded:)
+                                                     name:@"LikeBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dislikeVideoSucceeded:)
+                                                     name:@"DislikeBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(watchLaterSucceeded:)
+                                                     name:@"WatchLaterBroadcastSucceeded"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(unwatchLaterSucceeded:)
+                                                     name:@"UnwatchLaterBroadcastSucceeded"
+                                                   object:nil];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(watchVideoSucceeded:)
+                                                     name:@"WatchBroadcastSucceeded"
+                                                   object:nil];
     }
     
     return self;
@@ -94,23 +121,12 @@
             [videoDupeDict setObject:dupeArray forKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             [uniqueVideoKeys addObject:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:dataProcessor selector:@selector(checkPlayable:) object:video] autorelease]];
+            [dataProcessor scheduleCheckPlayable:video];
+            
             NSLog(@"added checkPlayable Op");
         }
         
-//        // need the sharerImage even for dupes
-//        if (IS_NULL(broadcast.sharerImage)) {
-//            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
-//        } else {
-//            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video] autorelease]];
-//        }
-//        
-//        // could optimize to not re-download for dupes, but don't bother for now...
-//        if (IS_NULL(broadcast.thumbnailImage)) {
-//            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
-//        } else {
-//            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video] autorelease]];
-//        }
+        [dataProcessor scheduleImageAcquisition:video];
     }
 }
 
@@ -122,7 +138,7 @@
     [context setPersistentStoreCoordinator:psCoordinator];
     
     NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-    [broadcasts addObjectsFromArray:[[VideoCoreDataInterface singleton] fetchBroadcastsFromCoreDataContext:context]];
+    [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
     [self processBroadcastArray:broadcasts];
     
     [context release];
@@ -135,7 +151,7 @@
 - (void)updateLikeStatusForVideo:(Video *)video withStatus:(BOOL)status
 {
     video.isLiked = status;
-    [[VideoCoreDataInterface singleton] storeLikeStatus:video];
+    [VideoCoreDataInterface storeLikeStatus:video];
 }
 
 - (void)likeVideoSucceeded:(NSNotification *)notification
@@ -157,7 +173,7 @@
 - (void)updateWatchLaterStatusForVideo:(Video *)video withStatus:(BOOL)status
 {
     video.isWatchLater = status;
-    [[VideoCoreDataInterface singleton] storeWatchLaterStatus:video];
+    [VideoCoreDataInterface storeWatchLaterStatus:video];
 }
 
 - (void)watchLaterSucceeded:(NSNotification *)notification
@@ -181,7 +197,7 @@
     if (NOT_NULL(notification.userInfo)) {
         Video *video = [notification.userInfo objectForKey:@"video"];
         video.isWatched = TRUE;
-        [[VideoCoreDataInterface singleton] storeWatchStatus:video];
+        [VideoCoreDataInterface storeWatchStatus:video];
         //[self updateVideoTableCell:video];
     }
 }
@@ -192,6 +208,13 @@
 {
     for (id <VideoDataDelegate> delegate in videoDataDelegates) {
         [delegate newPlayableVideoAvailable:video];
+    }
+}
+
+- (void)updateVideoTableCell:(Video *)video
+{
+    for (id <VideoDataDelegate> delegate in videoDataDelegates) {
+        [delegate updateVideoTableCell:video];
     }
 }
 

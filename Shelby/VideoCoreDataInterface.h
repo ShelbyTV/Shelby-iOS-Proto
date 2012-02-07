@@ -12,14 +12,13 @@
 
 @interface VideoCoreDataInterface : NSObject
 
-+ (VideoCoreDataInterface *)singleton;
++ (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context;
 
-- (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context;
++ (void)storeLikeStatus:(Video *)video;
++ (void)storeWatchLaterStatus:(Video *)video;
++ (void)storeWatchStatus:(Video *)video;
 
-- (void)storeLikeStatus:(Video *)video;
-- (void)storeWatchLaterStatus:(Video *)video;
-- (void)storeWatchStatus:(Video *)video;
-
-
++ (void)loadSharerImageFromCoreData:(Video *)video;
++ (void)loadVideoThumbnailFromCoreData:(Video *)video;
 
 @end

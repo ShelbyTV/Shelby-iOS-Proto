@@ -237,37 +237,6 @@
         [operationQueue setMaxConcurrentOperationCount:3];
         
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerCallback) userInfo:nil repeats:YES];
-
-//        [[NSNotificationCenter defaultCenter] addObserver: self
-//                                                 selector: @selector(receivedBroadcastsNotification:)
-//                                                     name: @"ReceivedBroadcasts"
-//                                                   object: nil];
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(likeVideoSucceeded:)
-//                                                     name:@"LikeBroadcastSucceeded"
-//                                                   object:nil];
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(dislikeVideoSucceeded:)
-//                                                     name:@"DislikeBroadcastSucceeded"
-//                                                   object:nil];
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(watchLaterSucceeded:)
-//                                                     name:@"WatchLaterBroadcastSucceeded"
-//                                                   object:nil];
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(unwatchLaterSucceeded:)
-//                                                     name:@"UnwatchLaterBroadcastSucceeded"
-//                                                   object:nil];
-//        
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(watchVideoSucceeded:)
-//                                                     name:@"WatchBroadcastSucceeded"
-//                                                   object:nil];
         
         [[ShelbyApp sharedApp] addNetworkObject:self];
         

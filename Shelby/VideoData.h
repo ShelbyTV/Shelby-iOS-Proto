@@ -15,12 +15,12 @@
 @protocol VideoDataDelegate
 
 - (void)newPlayableVideoAvailable:(Video *)video;
+- (void)updateVideoTableCell:(Video *)video;
 
 @end
 
 @interface VideoData : NSObject <VideoDataProcessorDelegate>
 {
-    NSOperationQueue *operationQueue;
     NSMutableDictionary *videoDupeDict;
     NSMutableArray *uniqueVideoKeys;
     

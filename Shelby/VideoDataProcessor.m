@@ -10,6 +10,7 @@
 #import "Video.h"
 #import "ShelbyApp.h"
 #import "Enums.h"
+#import "VideoCoreDataInterface.h"
 
 @implementation VideoDataProcessor
 
@@ -29,7 +30,8 @@
     self = [super init];
     if (self)
     {
-        
+        operationQueue = [[NSOperationQueue alloc] init];
+        [operationQueue setMaxConcurrentOperationCount:3];
     }
     
     return self;
@@ -103,8 +105,8 @@
         video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
                                                                                             kMaxSharerImageHeight)];
         
-//        [self updateVideoTableCell:video];
-//        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(storeSharerImage:) object:video] autorelease]];
+        [delegate updateVideoTableCell:video];
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeSharerImage:) object:video] autorelease]];
     }
     
     [pool release];
@@ -130,8 +132,8 @@
         video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
                                                                                                kMaxVideoThumbnailHeight)];
         
-//        [self updateVideoTableCell:video];
-//        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
+        [delegate updateVideoTableCell:video];
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
     } 
     
     [pool release];
@@ -222,6 +224,38 @@
 //    }
 }
 
+- (void)loadSharerImageFromCoreData:(Video *)video
+{
+    [VideoCoreDataInterface loadSharerImageFromCoreData:video];
+    [delegate updateVideoTableCell:video];
+}
 
+- (void)loadVideoThumbnailFromCoreData:(Video *)video
+{
+    [VideoCoreDataInterface loadVideoThumbnailFromCoreData:video];
+    [delegate updateVideoTableCell:video];
+}
+
+- (void)scheduleCheckPlayable:(Video *)video
+{
+    [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(checkPlayable:) object:video] autorelease]];
+}
+
+- (void)scheduleImageAcquisition:(Video *)video
+{
+    // need the sharerImage even for dupes
+    if (IS_NULL(video.sharerImage)) {
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
+    } else {
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video] autorelease]];
+    }
+    
+    // could optimize to not re-download for dupes, but don't bother for now...
+    if (IS_NULL(video.thumbnailImage)) {
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
+    } else {
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video] autorelease]];
+    }
+}
 
 @end

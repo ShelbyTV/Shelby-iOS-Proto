@@ -14,11 +14,18 @@
 
 - (void)newPlayableVideoAvailable:(Video *)video;
 - (void)storePlayableStatus:(Video *)video;
+- (void)updateVideoTableCell:(Video *)video;
 
 @end
 
 @interface VideoDataProcessor : NSObject
+{
+    NSOperationQueue *operationQueue;
+}
 
 @property (assign) id <VideoDataProcessorDelegate> delegate;
+
+- (void)scheduleCheckPlayable:(Video *)video;
+- (void)scheduleImageAcquisition:(Video *)video;
 
 @end

@@ -18,64 +18,9 @@
 
 @implementation VideoCoreDataInterface
 
-#pragma mark - Singleton Implementation
-
-static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
-
-+ (VideoCoreDataInterface *)singleton
-{
-    if (singletonVideoCoreDataInterface == nil) {
-        singletonVideoCoreDataInterface = [[super allocWithZone:NULL] init];
-    }
-    return singletonVideoCoreDataInterface;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self singleton] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
-
-#pragma mark - Init
-
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-
-    }
-    
-    return self;
-}
-
 #pragma mark - Context Helpers
 
-- (NSManagedObjectContext *)allocateContext
++ (NSManagedObjectContext *)allocateContext
 {
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     [context setUndoManager:nil];
@@ -86,14 +31,14 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     return context;
 }
 
-- (BOOL)contextHasChanges:(NSManagedObjectContext *)context
++ (BOOL)contextHasChanges:(NSManagedObjectContext *)context
 {
     return (context.insertedObjects.count != 0 ||
             context.deletedObjects.count != 0 ||
             context.updatedObjects.count != 0);
 }
 
-- (void)saveAndReleaseContext:(NSManagedObjectContext *)context
++ (void)saveAndReleaseContext:(NSManagedObjectContext *)context
 {
     NSError *error = nil;
     
@@ -114,7 +59,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
 
 #pragma mark - Video Status Storage
 
-- (void)storeLikeStatus:(Video *)video
++ (void)storeLikeStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [self allocateContext];
@@ -130,7 +75,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     [pool release];
 }
 
-- (void)storeWatchLaterStatus:(Video *)video
++ (void)storeWatchLaterStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [self allocateContext];
@@ -146,7 +91,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     [pool release];
 }
 
-- (void)storeWatchStatus:(Video *)video
++ (void)storeWatchStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [self allocateContext];
@@ -162,7 +107,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     [pool release];
 }
 
-- (void)storePlayableStatus:(Video *)video
++ (void)storePlayableStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [self allocateContext];
@@ -180,7 +125,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
 
 #pragma mark - Video Image Storage
 
-- (void)storeSharerImage:(NSData *)sharerImage
++ (void)storeSharerImage:(NSData *)sharerImage
                 forVideo:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -205,7 +150,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     [pool release];
 }
 
-- (void)storeThumbnailImage:(NSData *)thumbnail
++ (void)storeThumbnailImage:(NSData *)thumbnail
                    forVideo:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -232,7 +177,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
 
 #pragma mark - Unorganized
 
-- (Channel *)fetchPublicChannelFromCoreDataContext:(NSManagedObjectContext *)context
++ (Channel *)fetchPublicChannelFromCoreDataContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Channel" 
@@ -252,7 +197,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     return [channels objectAtIndex:0];
 }
 
-- (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
++ (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
@@ -277,7 +222,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     return broadcasts;
 }
 
-- (void)storeVideoThumbnail:(Video *)video
++ (void)storeVideoThumbnail:(Video *)video
 {
     if (NOT_NULL(video.sharerImage)) 
     {
@@ -286,7 +231,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     }
 }
 
-- (void)loadVideoThumbnailFromCoreData:(Video *)video
++ (void)loadVideoThumbnailFromCoreData:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
@@ -313,15 +258,15 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
 
 
 
-- (void)storeSharerImage:(Video *)video
++ (void)storeSharerImage:(Video *)video
 { 
     if (NOT_NULL(video.sharerImage)) 
     {
-        [self storeSharerImage:UIImagePNGRepresentation(video.sharerImage) forVideo:video];
+        [VideoCoreDataInterface storeSharerImage:UIImagePNGRepresentation(video.sharerImage) forVideo:video];
     }
 }
 
-- (void)loadSharerImageFromCoreData:(Video *)video
++ (void)loadSharerImageFromCoreData:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
@@ -338,14 +283,13 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
         NSLog(@"Couldn't find CoreData sharerImage entry for video %@; aborting load of sharerImage", video.shelbyId);
     } else {
         video.sharerImage = [UIImage imageWithData:sharerImage.imageData];
-        //[self updateVideoTableCell:video];
     }
     
     [context release];
     [pool release];
 }
 
-- (void)sortBroadcasts:(NSMutableArray *)broadcasts 
++ (void)sortBroadcasts:(NSMutableArray *)broadcasts 
 {
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"createdAt"
@@ -355,7 +299,7 @@ static VideoCoreDataInterface *singletonVideoCoreDataInterface = nil;
     [broadcasts sortUsingDescriptors:sortDescriptors];
 }
 
-- (void)removeExtraBroadcasts:(NSMutableArray *)broadcasts 
++ (void)removeExtraBroadcasts:(NSMutableArray *)broadcasts 
                   withNewJSON:(NSDictionary *)jsonBroadcasts
                   withContext:(NSManagedObjectContext *)context
 {
