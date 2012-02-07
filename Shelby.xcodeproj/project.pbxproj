@@ -779,6 +779,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A02DD4814E1E1CD00204025 /* VideoGuide */ = {
+			isa = PBXGroup;
+			children = (
+				0A02DD2914DCC41200204025 /* VideoGuideView.h */,
+				0A02DD2A14DCC41200204025 /* VideoGuideView.m */,
+				0A02DD2C14DCC43100204025 /* VideoGuideTimelineView.h */,
+				0A02DD2D14DCC43100204025 /* VideoGuideTimelineView.m */,
+				0A02DD2F14DCC43B00204025 /* VideoGuideFavoritesView.h */,
+				0A02DD3014DCC43B00204025 /* VideoGuideFavoritesView.m */,
+				0A02DD3214DCC44700204025 /* VideoGuideWatchLaterView.h */,
+				0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */,
+				0A02DD3514DCC45100204025 /* VideoGuideSearchView.h */,
+				0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */,
+			);
+			name = VideoGuide;
+			sourceTree = "<group>";
+		};
+		0A02DD4914E1E20500204025 /* Auxiliary */ = {
+			isa = PBXGroup;
+			children = (
+				0AC8261E1490222E009FF975 /* LoginGradientView.h */,
+				0AC8261F1490222F009FF975 /* LoginGradientView.m */,
+				0AC0499214AFF17800FD6820 /* RemoteModeGradientView.h */,
+				0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */,
+				0A28097C14D51D80007C19B7 /* NoPassthroughClicksUIView.h */,
+				0A28097D14D51D81007C19B7 /* NoPassthroughClicksUIView.m */,
+			);
+			name = Auxiliary;
+			sourceTree = "<group>";
+		};
+		0A02DD4A14E1E25300204025 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
+				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
+				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
+				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
+				0A14C80B145C713400632FB0 /* ShelbyWindow.h */,
+				0A14C80C145C713400632FB0 /* ShelbyWindow.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
 		0A05EF7914AE8B2F0010BFFF /* TV */ = {
 			isa = PBXGroup;
 			children = (
@@ -1077,20 +1120,14 @@
 		0AD9A35C13D53BD200EFECE0 /* Shelby */ = {
 			isa = PBXGroup;
 			children = (
+				0A02DD4A14E1E25300204025 /* App */,
 				42A09B4313FC6CC400570DBE /* API */,
 				42C4C60413E9CCB80034AC97 /* iPad */,
 				42C4C60B13E9CCD10034AC97 /* iPhone */,
-				42DAF45B141129C500936536 /* Model */,
-				42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */,
-				42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */,
-				0AD9A36513D53BD300EFECE0 /* ShelbyAppDelegate.h */,
-				0AD9A36613D53BD300EFECE0 /* ShelbyAppDelegate.m */,
-				0A14C80B145C713400632FB0 /* ShelbyWindow.h */,
-				0A14C80C145C713400632FB0 /* ShelbyWindow.m */,
+				0A2A802D144CA5FC00D0C8AD /* Core Data */,
+				42DAF45B141129C500936536 /* Video */,
 				0AD9A35D13D53BD200EFECE0 /* Supporting Files */,
 				42FAA3AB13FD840B00BC1D28 /* Utility */,
-				0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */,
-				0AEFC39B144FD65D00FC9015 /* VideoGetter.m */,
 				42C4C5E613E9A9800034AC97 /* ViewControllers */,
 				427A623013F4840E00C945E2 /* Views */,
 			);
@@ -1264,17 +1301,9 @@
 		427A623013F4840E00C945E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A02DD4914E1E20500204025 /* Auxiliary */,
+				0A02DD4814E1E1CD00204025 /* VideoGuide */,
 				42C4C5E713E9A99A0034AC97 /* VideoPlayer */,
-				0A02DD2914DCC41200204025 /* VideoGuideView.h */,
-				0A02DD2A14DCC41200204025 /* VideoGuideView.m */,
-				0A02DD2C14DCC43100204025 /* VideoGuideTimelineView.h */,
-				0A02DD2D14DCC43100204025 /* VideoGuideTimelineView.m */,
-				0A02DD2F14DCC43B00204025 /* VideoGuideFavoritesView.h */,
-				0A02DD3014DCC43B00204025 /* VideoGuideFavoritesView.m */,
-				0A02DD3214DCC44700204025 /* VideoGuideWatchLaterView.h */,
-				0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */,
-				0A02DD3514DCC45100204025 /* VideoGuideSearchView.h */,
-				0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */,
 				42084C7B1427B99A00C3C556 /* OfflineView.h */,
 				42084C7C1427B99A00C3C556 /* OfflineView.m */,
 				0A978AF514455B74005DFF18 /* ShareView.h */,
@@ -1282,14 +1311,8 @@
 				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
 				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
 				0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */,
-				0AC8261E1490222E009FF975 /* LoginGradientView.h */,
-				0AC8261F1490222F009FF975 /* LoginGradientView.m */,
-				0AC0499214AFF17800FD6820 /* RemoteModeGradientView.h */,
-				0AC0499314AFF17800FD6820 /* RemoteModeGradientView.m */,
 				0A84058614D0DB5500F13FC2 /* UserAccountView.h */,
 				0A84058714D0DB5500F13FC2 /* UserAccountView.m */,
-				0A28097C14D51D80007C19B7 /* NoPassthroughClicksUIView.h */,
-				0A28097D14D51D81007C19B7 /* NoPassthroughClicksUIView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1513,10 +1536,11 @@
 			name = iPhone;
 			sourceTree = "<group>";
 		};
-		42DAF45B141129C500936536 /* Model */ = {
+		42DAF45B141129C500936536 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				0A2A802D144CA5FC00D0C8AD /* Core Data */,
+				0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */,
+				0AEFC39B144FD65D00FC9015 /* VideoGetter.m */,
 				4200E50213F41F0C00609C3E /* Video.h */,
 				4200E50313F41F0C00609C3E /* Video.m */,
 				0A220C9513DE8193004BE680 /* VideoTableData.h */,
@@ -1538,7 +1562,7 @@
 				0AF0E9D914DA2157005E9550 /* VideoData.h */,
 				0AF0E9DA14DA2157005E9550 /* VideoData.m */,
 			);
-			name = Model;
+			name = Video;
 			sourceTree = "<group>";
 		};
 		42FAA3AB13FD840B00BC1D28 /* Utility */ = {
