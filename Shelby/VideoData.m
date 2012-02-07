@@ -20,7 +20,7 @@
 #import "Broadcast.h"
 
 // Content URL Support
-#import "VideoGetter.h"
+#import "VideoContentURLGetter.h"
 
 @implementation VideoData
 
@@ -94,7 +94,7 @@
 - (NSURL *)getVideoContentURL:(Video *)video
 {
     if (video.contentURL == nil) {
-        [[VideoGetter singleton] processVideo:video];
+        [[VideoContentURLGetter singleton] processVideo:video];
     }
     
     return video.contentURL;

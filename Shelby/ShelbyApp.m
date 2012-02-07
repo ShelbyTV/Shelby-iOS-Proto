@@ -10,7 +10,7 @@
 #import "LoginHelper.h"
 #import "ApiHelper.h"
 #import "ShelbyAppDelegate.h"
-#import "VideoGetter.h"
+#import "VideoContentURLGetter.h"
 #import "SessionStats.h"
 #import "BSWebViewUserAgent.h"
 #import "ShelbyWindow.h"
@@ -83,7 +83,7 @@ static ShelbyWindow *gSecondScreenWindow;
         [self.apiHelper loadTokens];
         [self addNetworkObject:self.loginHelper];
         [self addNetworkObject:self.apiHelper];
-        [self addNetworkObject:[VideoGetter singleton]];
+        [self addNetworkObject:[VideoContentURLGetter singleton]];
         
         if(![[NSUserDefaults standardUserDefaults] boolForKey:@"demoModeEnabled"]) {
             _demoModeEnabled = FALSE;

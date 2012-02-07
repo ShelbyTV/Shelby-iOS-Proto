@@ -17,7 +17,7 @@
 #import "Video.h"
 #import "LoginHelper.h"
 #import "CoreDataHelper.h"
-#import "VideoGetter.h"
+#import "VideoContentURLGetter.h"
 #import "PlatformHelper.h"
 #import "Enums.h"
 #import "VideoData.h"

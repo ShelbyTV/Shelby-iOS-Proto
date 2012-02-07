@@ -214,7 +214,7 @@
 		0AE05013148D89EC00952C02 /* playBackground_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05011148D89EC00952C02 /* playBackground_iPhone.png */; };
 		0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */; };
 		0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */; };
-		0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoGetter.m */; };
+		0AEFC39C144FD65D00FC9015 /* VideoContentURLGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */; };
 		0AF0E9CE14DA06BD005E9550 /* VideoDataPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */; };
 		0AF0E9D514DA074A005E9550 /* VideoCoreDataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9D414DA074A005E9550 /* VideoCoreDataInterface.m */; };
 		0AF0E9D814DA1BD2005E9550 /* VideoDataProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9D714DA1BD2005E9550 /* VideoDataProcessor.m */; };
@@ -581,8 +581,8 @@
 		0AE05011148D89EC00952C02 /* playBackground_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playBackground_iPhone.png; path = Resources/Images/playBackground_iPhone.png; sourceTree = "<group>"; };
 		0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playBackground_iPhone@2x.png"; path = "Resources/Images/playBackground_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VideoPlayerTitleBar_TV_720.xib; path = Resources/TV/VideoPlayerTitleBar_TV_720.xib; sourceTree = "<group>"; };
-		0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		0AEFC39B144FD65D00FC9015 /* VideoGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0AEFC39A144FD65D00FC9015 /* VIdeoContentURLGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoContentURLGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoContentURLGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AF0E9CC14DA06BD005E9550 /* VideoDataPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDataPoller.h; sourceTree = "<group>"; };
 		0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDataPoller.m; sourceTree = "<group>"; };
 		0AF0E9D314DA074A005E9550 /* VideoCoreDataInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCoreDataInterface.h; sourceTree = "<group>"; };
@@ -1539,8 +1539,8 @@
 		42DAF45B141129C500936536 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				0AEFC39A144FD65D00FC9015 /* VIdeoGetter.h */,
-				0AEFC39B144FD65D00FC9015 /* VideoGetter.m */,
+				0AEFC39A144FD65D00FC9015 /* VIdeoContentURLGetter.h */,
+				0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */,
 				4200E50213F41F0C00609C3E /* Video.h */,
 				4200E50313F41F0C00609C3E /* Video.m */,
 				0A220C9513DE8193004BE680 /* VideoTableData.h */,
@@ -1973,7 +1973,7 @@
 				0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */,
 				0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */,
 				0A978AF714455B74005DFF18 /* ShareView.m in Sources */,
-				0AEFC39C144FD65D00FC9015 /* VideoGetter.m in Sources */,
+				0AEFC39C144FD65D00FC9015 /* VideoContentURLGetter.m in Sources */,
 				0A14C80D145C713400632FB0 /* ShelbyWindow.m in Sources */,
 				0A6B278E1474C58500CF3A47 /* PlatformHelper.m in Sources */,
 				0A6B279D1475C41300CF3A47 /* ThumbnailImage.m in Sources */,

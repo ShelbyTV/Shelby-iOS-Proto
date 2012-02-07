@@ -16,7 +16,7 @@
 #import "BroadcastApi.h"
 #import "Video.h"
 #import "ShareView.h"
-#import "VideoGetter.h"
+#import "VideoContentURLGetter.h"
 #import "ShelbyAppDelegate.h"
 #import "ApiHelper.h"
 #import "UserAccountView.h"
@@ -114,7 +114,7 @@
         
         [self.view addSubview:self.shareView];
         
-        [self.view addSubview:[[VideoGetter singleton] getView]];
+        [self.view addSubview:[[VideoContentURLGetter singleton] getView]];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             _fullscreenWebView = [[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPad" bundle:[NSBundle mainBundle]];
