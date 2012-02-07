@@ -13,54 +13,14 @@
 
 @implementation VideoDataProcessor
 
+@synthesize delegate;
+
 #pragma mark - Constants
 
 #define kMaxVideoThumbnailHeight 163
 #define kMaxVideoThumbnailWidth 290
 #define kMaxSharerImageHeight 120
 #define kMaxSharerImageWidth 120
-
-#pragma mark - Singleton Implementation
-
-static VideoDataProcessor *singletonVideoDataProcessor = nil;
-
-+ (VideoDataProcessor *)singleton
-{
-    if (singletonVideoDataProcessor == nil) {
-        singletonVideoDataProcessor = [[super allocWithZone:NULL] init];
-    }
-    return singletonVideoDataProcessor;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self singleton] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
 
 #pragma mark - Init
 
@@ -211,6 +171,8 @@ static VideoDataProcessor *singletonVideoDataProcessor = nil;
 
 - (void)checkPlayable:(Video *)video
 {
+    NSLog(@"in checkPlayable Op");
+    
     BOOL needsCoreDataUpdate = FALSE;
     
     if (video.isPlayable == PLAYABLE_UNSET) {
@@ -239,14 +201,16 @@ static VideoDataProcessor *singletonVideoDataProcessor = nil;
             }
         }
     }
-//    
-//    if (video.isPlayable == IS_PLAYABLE) {
-//        videoTableNeedsUpdate = TRUE;
-//    }
-//
-//    if (needsCoreDataUpdate) {
-//        [self storePlayableStatus:video];
-//    }
+    
+    if (video.isPlayable == IS_PLAYABLE && self.delegate) {
+        NSLog(@"checkPlayable: newPlayableVideoAvailable");
+        [delegate newPlayableVideoAvailable:video];
+    }
+
+    if (needsCoreDataUpdate && self.delegate) {
+        NSLog(@"checkPlayable: storePlayableStatus");
+        [delegate storePlayableStatus:video];
+    }
 }
 
 

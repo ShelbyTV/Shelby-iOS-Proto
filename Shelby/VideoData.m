@@ -13,6 +13,8 @@
 #import "VideoData.h"
 #import "VideoCoreDataInterface.h"
 #import "Video.h"
+#import "VideoDataProcessor.h"
+#import "VideoHelper.h"
 
 // Core Data
 #import "Broadcast.h"
@@ -36,6 +38,10 @@
         
         uniqueVideoKeys = [[NSMutableArray alloc] init];
         
+        dataProcessor = [[VideoDataProcessor alloc] init];
+        dataProcessor.delegate = self;
+        
+        videoDataDelegates = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -43,21 +49,19 @@
 
 #pragma mark - Utility
 
-- (NSString *)dupeKeyWithProvider:(NSString *)provider 
-                           withId:(NSString *)providerId
-{
-    return [NSString stringWithFormat:@"%@%@", provider, providerId];
-}
+
 
 #pragma mark - Video Info
 
-- (NSArray *)videoDupes:(Video *)video
+- (NSArray *)videoDupesForVideo:(Video *)video
 {
-//    @synchronized(tableVideos)
-//    {
-//        return [[[videoDupeDict objectForKey:[self dupeKeyWithProvider:video.provider withId:video.providerId]] retain] autorelease];
-//    } 
-    return nil;
+    return [[[videoDupeDict objectForKey:[video dupeKey]] retain] autorelease];
+}
+
+
+- (NSArray *)videoDupesForKey:(NSString *)videoKey
+{
+    return [[[videoDupeDict objectForKey:videoKey] retain] autorelease];
 }
 
 - (NSURL *)getVideoContentURL:(Video *)video
@@ -69,6 +73,11 @@
     return video.contentURL;
 }
 
+- (NSArray *)uniqueVideoKeys
+{
+    return uniqueVideoKeys;
+}
+
 #pragma mark - Core Data Broadcast Processing
 
 - (void)processBroadcastArray:(NSArray *)broadcasts
@@ -76,16 +85,17 @@
     for (Broadcast *broadcast in broadcasts) {
         Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
         
-        NSMutableArray *dupeArray = [videoDupeDict objectForKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+        NSMutableArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
         if (NOT_NULL(dupeArray)) {
             [dupeArray insertObject:video atIndex:0];
         } else {
             dupeArray = [[[NSMutableArray alloc] init] autorelease];
             [dupeArray addObject:video];
-            [videoDupeDict setObject:dupeArray forKey:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-            [uniqueVideoKeys addObject:[self dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+            [videoDupeDict setObject:dupeArray forKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+            [uniqueVideoKeys addObject:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(checkPlayable:) object:video] autorelease]];
+            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:dataProcessor selector:@selector(checkPlayable:) object:video] autorelease]];
+            NSLog(@"added checkPlayable Op");
         }
         
 //        // need the sharerImage even for dupes
@@ -104,7 +114,7 @@
     }
 }
 
-- (void)loadFromCoreData
+- (void)loadInitialVideosFromCoreData
 {
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     [context setUndoManager:nil]; // don't need undo, and this speeds things up / requires less memory
@@ -174,6 +184,20 @@
         [[VideoCoreDataInterface singleton] storeWatchStatus:video];
         //[self updateVideoTableCell:video];
     }
+}
+
+#pragma mark - VideoDataProcessorDelegate Methods
+
+- (void)newPlayableVideoAvailable:(Video *)video
+{
+    for (id <VideoDataDelegate> delegate in videoDataDelegates) {
+        [delegate newPlayableVideoAvailable:video];
+    }
+}
+
+- (void)storePlayableStatus:(Video *)video
+{
+    
 }
 
 #pragma mark - Unorganized
@@ -255,11 +279,14 @@
     [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(loadNewBroadcastsFromJSON:) userInfo:notification.userInfo repeats:NO];
 }
 
+- (void)loadInitialVideosFromAPI
+{
+//    [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
+}
 
-
-
-
-
-
+- (void)addDelegate:(id<VideoDataDelegate>)consumer
+{
+    [videoDataDelegates addObject:consumer];
+}
 
 @end

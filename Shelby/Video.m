@@ -9,6 +9,7 @@
 #import "Video.h"
 #import "Broadcast.h"
 #import "VideoTableViewCellConstants.h"
+#import "VideoHelper.h"
 
 @implementation Video
 
@@ -71,6 +72,11 @@
     }
     
     return self;
+}
+
+- (NSString *)dupeKey
+{
+    return [VideoHelper dupeKeyWithProvider:self.provider withId:self.providerId];
 }
 
 - (void) dealloc

@@ -37,5 +37,6 @@
 @property (nonatomic) int isPlayable;
 
 - (id)initWithBroadcast:(Broadcast *)broadcast;
+- (NSString *)dupeKey;
 
 @end

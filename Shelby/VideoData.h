@@ -7,19 +7,41 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VideoDataProcessor.h"
 
 @class Video;
+@class VideoDataProcessor;
 
-@interface VideoData : NSObject
+@protocol VideoDataDelegate
+
+- (void)newPlayableVideoAvailable:(Video *)video;
+
+@end
+
+@interface VideoData : NSObject <VideoDataProcessorDelegate>
 {
     NSOperationQueue *operationQueue;
     NSMutableDictionary *videoDupeDict;
     NSMutableArray *uniqueVideoKeys;
+    
+    VideoDataProcessor *dataProcessor;
+    
+    NSMutableArray *videoDataDelegates;
 }
 
-- (void)loadFromCoreData;
-
 - (NSURL *)getVideoContentURL:(Video *)video;
-- (NSArray *)videoDupes:(Video *)video;
+
+- (NSArray *)videoDupesForVideo:(Video *)video;
+- (NSArray *)videoDupesForKey:(NSString *)videoKey;
+
+- (NSArray *)uniqueVideoKeys;
+
+- (void)loadInitialVideosFromAPI;
+- (void)loadInitialVideosFromCoreData;
+
+- (void)newPlayableVideoAvailable:(Video *)video;
+- (void)storePlayableStatus:(Video *)video;
+
+- (void)addDelegate:(id<VideoDataDelegate>)consumer;
 
 @end

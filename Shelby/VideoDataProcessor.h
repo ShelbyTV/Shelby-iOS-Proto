@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class Video;
+
+@protocol VideoDataProcessorDelegate
+
+- (void)newPlayableVideoAvailable:(Video *)video;
+- (void)storePlayableStatus:(Video *)video;
+
+@end
+
 @interface VideoDataProcessor : NSObject
+
+@property (assign) id <VideoDataProcessorDelegate> delegate;
 
 @end

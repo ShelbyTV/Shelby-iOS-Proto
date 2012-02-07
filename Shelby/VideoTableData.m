@@ -135,41 +135,46 @@
 
 - (void)insertTableVideos
 {
-//    int videoTableIndex = 0;
-//    
-//    for (NSString *key in uniqueVideoKeys)
-//    {
-//        if (NOT_NULL([playableVideoKeys objectForKey:key]))
-//        {
-//            NSArray *dupeArray = [videoDupeDict objectForKey:key];
-//            Video *video = [dupeArray objectAtIndex:0];        
-//
-//            if (![self shouldIncludeVideo:dupeArray]) {
-//                continue;
-//            }
-//            
-//            if ([tableVideos count] > videoTableIndex) 
-//            {
-//                Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
-//                NSString *videoAtTableIndexDupeKey = [self dupeKeyWithProvider:videoAtTableIndex.provider withId:videoAtTableIndex.providerId];
-//
-//                if ([[self dupeKeyWithProvider:video.provider withId:video.providerId] isEqualToString:videoAtTableIndexDupeKey])
-//                {
-//                    videoTableIndex++;
-//                    continue;
-//                }
-//            }
-//            
-//            [tableVideos insertObject:video atIndex:videoTableIndex];
-//            
-//            [tableView beginUpdates];
-//            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-//            self.numItemsInserted = [tableVideos count];
-//            [tableView endUpdates];
-//            
-//            videoTableIndex++;
-//        }
-//    }
+    NSLog(@"Inside insertTableVideos");
+    
+    int videoTableIndex = 0;
+    
+    for (NSString *key in [ShelbyApp sharedApp].videoData.uniqueVideoKeys)
+    {
+        NSArray *dupeArray = [[ShelbyApp sharedApp].videoData videoDupesForKey:key];
+        Video *video = [dupeArray objectAtIndex:0];
+        
+        if (video.isPlayable != IS_PLAYABLE) {
+            continue;
+        }
+        
+        if (![self shouldIncludeVideo:dupeArray]) {
+            continue;
+        }
+        
+        if ([tableVideos count] > videoTableIndex) 
+        {
+            Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
+            NSString *videoAtTableIndexDupeKey = [videoAtTableIndex dupeKey];
+            
+            if ([[video dupeKey] isEqualToString:videoAtTableIndexDupeKey])
+            {
+                videoTableIndex++;
+                continue;
+            }
+        }
+        
+        [tableVideos insertObject:video atIndex:videoTableIndex];
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        self.numItemsInserted = [tableVideos count];
+        [tableView endUpdates];
+        
+        videoTableIndex++;
+        
+        NSLog(@"Inserted a video.");
+    }
 }
 
 - (void)loadNewTableVideos
@@ -233,38 +238,40 @@
         
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerCallback) userInfo:nil repeats:YES];
 
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(receivedBroadcastsNotification:)
-                                                     name: @"ReceivedBroadcasts"
-                                                   object: nil];
+//        [[NSNotificationCenter defaultCenter] addObserver: self
+//                                                 selector: @selector(receivedBroadcastsNotification:)
+//                                                     name: @"ReceivedBroadcasts"
+//                                                   object: nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(likeVideoSucceeded:)
+//                                                     name:@"LikeBroadcastSucceeded"
+//                                                   object:nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(dislikeVideoSucceeded:)
+//                                                     name:@"DislikeBroadcastSucceeded"
+//                                                   object:nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(watchLaterSucceeded:)
+//                                                     name:@"WatchLaterBroadcastSucceeded"
+//                                                   object:nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(unwatchLaterSucceeded:)
+//                                                     name:@"UnwatchLaterBroadcastSucceeded"
+//                                                   object:nil];
+//        
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(watchVideoSucceeded:)
+//                                                     name:@"WatchBroadcastSucceeded"
+//                                                   object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(likeVideoSucceeded:)
-                                                     name:@"LikeBroadcastSucceeded"
-                                                   object:nil];
+        [[ShelbyApp sharedApp] addNetworkObject:self];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(dislikeVideoSucceeded:)
-                                                     name:@"DislikeBroadcastSucceeded"
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(watchLaterSucceeded:)
-                                                     name:@"WatchLaterBroadcastSucceeded"
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(unwatchLaterSucceeded:)
-                                                     name:@"UnwatchLaterBroadcastSucceeded"
-                                                   object:nil];
-        
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(watchVideoSucceeded:)
-                                                     name:@"WatchBroadcastSucceeded"
-                                                   object:nil];
-        
-        [[ShelbyApp sharedApp] addNetworkObject: self];
+        [[ShelbyApp sharedApp].videoData addDelegate:self];
     }
     
     return self;
@@ -280,5 +287,10 @@
     }
 }
 
+- (void)newPlayableVideoAvailable:(Video *)video
+{
+    NSLog(@"VideoTableData: newPlayableVideoAvailable");
+    videoTableNeedsUpdate = TRUE;
+}
 
 @end

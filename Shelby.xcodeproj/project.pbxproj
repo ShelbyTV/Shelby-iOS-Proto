@@ -17,6 +17,7 @@
 		0A02DD3114DCC43B00204025 /* VideoGuideFavoritesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3014DCC43B00204025 /* VideoGuideFavoritesView.m */; };
 		0A02DD3414DCC44700204025 /* VideoGuideWatchLaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */; };
 		0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */; };
+		0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3D14E0AA5B00204025 /* VideoHelper.m */; };
 		0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */; };
 		0A05EF7E14AE8B4D0010BFFF /* likeOff_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */; };
 		0A05EF7F14AE8B4D0010BFFF /* likeOn_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7B14AE8B4D0010BFFF /* likeOn_TV_720.png */; };
@@ -355,6 +356,8 @@
 		0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideWatchLaterView.m; sourceTree = "<group>"; };
 		0A02DD3514DCC45100204025 /* VideoGuideSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoGuideSearchView.h; sourceTree = "<group>"; };
 		0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideSearchView.m; sourceTree = "<group>"; };
+		0A02DD3C14E0AA5B00204025 /* VideoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoHelper.h; sourceTree = "<group>"; };
+		0A02DD3D14E0AA5B00204025 /* VideoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoHelper.m; sourceTree = "<group>"; };
 		0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSWebViewUserAgent.h; sourceTree = "<group>"; };
 		0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSWebViewUserAgent.m; sourceTree = "<group>"; };
 		0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_TV_720.png; path = Resources/Images/likeOff_TV_720.png; sourceTree = "<group>"; };
@@ -1556,6 +1559,8 @@
 				0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */,
 				0AF0E9DC14DA218A005E9550 /* DemoMode.h */,
 				0AF0E9DD14DA218A005E9550 /* DemoMode.m */,
+				0A02DD3C14E0AA5B00204025 /* VideoHelper.h */,
+				0A02DD3D14E0AA5B00204025 /* VideoHelper.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1974,6 +1979,7 @@
 				0A02DD3114DCC43B00204025 /* VideoGuideFavoritesView.m in Sources */,
 				0A02DD3414DCC44700204025 /* VideoGuideWatchLaterView.m in Sources */,
 				0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */,
+				0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

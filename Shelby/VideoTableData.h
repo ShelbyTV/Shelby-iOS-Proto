@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NetworkObject.h"
+#import "VideoData.h"
 
 @class VideoTableData;
 @class Video;
@@ -18,7 +19,7 @@
 
 @end
 
-@interface VideoTableData : NSObject <NetworkObject>
+@interface VideoTableData : NSObject <NetworkObject, VideoDataDelegate>
 {
     UITableView *tableView;
     NSMutableArray *tableVideos;
@@ -42,5 +43,7 @@
 - (void)reloadTableVideos;
 - (void)updateVideoTableCell:(Video *)video;
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray;
+
+- (void)newPlayableVideoAvailable:(Video *)video;
 
 @end

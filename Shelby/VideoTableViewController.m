@@ -39,15 +39,6 @@
 //    [videoTableData clearPendingOperations];
 }
 
-- (void)loadInitialVideosFromAPI
-{
-    [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
-}
-
-- (void)loadInitialVideosFromCoreData
-{
-    [[ShelbyApp sharedApp].videoData loadFromCoreData];
-}
 
 - (void)doneLoadingTableViewData
 {
@@ -162,7 +153,7 @@
         return;
     }
     
-	[self loadInitialVideosFromAPI];
+//	[self loadInitialVideosFromAPI];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
@@ -299,7 +290,11 @@
     Video *video = [self videoAtTableDataIndex:row];
     _currentVideoIndex = row;
 
-    [callbackObject performSelector:callbackSelector withObject:video];
+    if (delegate)
+    {
+        NSLog(@"Calling VideoTableViewController delegate playVideo");
+        [delegate playVideo:video];
+    }
 }
 
 #pragma mark - Cleanup

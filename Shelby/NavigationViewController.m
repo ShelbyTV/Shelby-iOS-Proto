@@ -21,6 +21,7 @@
 #import "ApiHelper.h"
 #import "UserAccountView.h"
 #import "Enums.h"
+#import "VideoData.h"
 
 #import "VideoGuideTimelineView.h"
 #import "VideoGuideFavoritesView.h"
@@ -45,10 +46,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        timelineVideoGuide = [[VideoGuideTimelineView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
-        favoritesVideoGuide = [[VideoGuideFavoritesView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
-        watchLaterVideoGuide = [[VideoGuideWatchLaterView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
-        searchVideoGuide = [[VideoGuideSearchView alloc] initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)self];
+        timelineVideoGuide = [[VideoGuideTimelineView alloc] initWithVideoTableViewControllerDelegate:self];
+        favoritesVideoGuide = [[VideoGuideFavoritesView alloc] initWithVideoTableViewControllerDelegate:self];
+        watchLaterVideoGuide = [[VideoGuideWatchLaterView alloc] initWithVideoTableViewControllerDelegate:self];
+        searchVideoGuide = [[VideoGuideSearchView alloc] initWithVideoTableViewControllerDelegate:self];
 
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
@@ -515,6 +516,11 @@
     [self hideSearchBar];
     
     [_videoPlayer setVideoMode:0];
+    
+    timelineVideoGuide.hidden = NO;
+    favoritesVideoGuide.hidden = YES;
+    watchLaterVideoGuide.hidden = YES;
+    searchVideoGuide.hidden = YES;
 }
 
 - (IBAction)favoritesButtonPressed:(id)sender
@@ -523,6 +529,11 @@
     [self hideSearchBar];
     
     [_videoPlayer setVideoMode:1];
+    
+    timelineVideoGuide.hidden = YES;
+    favoritesVideoGuide.hidden = NO;
+    watchLaterVideoGuide.hidden = YES;
+    searchVideoGuide.hidden = YES;
 }
 
 - (IBAction)watchLaterButtonPressed:(id)sender
@@ -531,6 +542,11 @@
     [self hideSearchBar];
     
     [_videoPlayer setVideoMode:2];
+    
+    timelineVideoGuide.hidden = YES;
+    favoritesVideoGuide.hidden = YES;
+    watchLaterVideoGuide.hidden = NO;
+    searchVideoGuide.hidden = YES;
 }
 
 - (IBAction)searchButtonPressed:(id)sender
@@ -539,6 +555,11 @@
     [self showSearchBar];
 
     [_videoPlayer setVideoMode:3];
+    
+    timelineVideoGuide.hidden = YES;
+    favoritesVideoGuide.hidden = YES;
+    watchLaterVideoGuide.hidden = YES;
+    searchVideoGuide.hidden = NO;
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
@@ -567,6 +588,7 @@
     watchLaterVideoGuide.frame = videoTableHolder.bounds;
     searchVideoGuide.frame = videoTableHolder.bounds;
     
+    timelineVideoGuide.hidden = NO;
     favoritesVideoGuide.hidden = YES;
     watchLaterVideoGuide.hidden = YES;
     searchVideoGuide.hidden = YES;

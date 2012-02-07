@@ -11,7 +11,7 @@
 
 @implementation VideoGuideView
 
-- (id)initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)delegate
+- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate
 {
     self = [super init];
     if (self) {

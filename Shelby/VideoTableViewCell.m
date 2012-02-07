@@ -286,7 +286,7 @@
 
     [self clearDupeData];
 
-    NSArray *dupes = [[ShelbyApp sharedApp].videoData videoDupes:_video];
+    NSArray *dupes = [[ShelbyApp sharedApp].videoData videoDupesForVideo:_video];
     _dupeCount = [dupes count] - 1;
     
     [_expandButton setEnabled:YES];
@@ -464,7 +464,7 @@
     
     BOOL first = TRUE;
     NSUInteger i = 0;
-    NSArray *dupes = [[ShelbyApp sharedApp].videoData videoDupes:_video];
+    NSArray *dupes = [[ShelbyApp sharedApp].videoData videoDupesForVideo:_video];
     for (Video *dupe in dupes) {
         if (first) {
             first = FALSE;

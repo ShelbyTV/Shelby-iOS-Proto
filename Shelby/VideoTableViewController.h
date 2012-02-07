@@ -18,6 +18,7 @@
 
 - (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller;
 - (void)videoTableWasTouched;
+- (void)playVideo:(Video *)video;
 
 @end
 
@@ -39,9 +40,6 @@
 - (Video *)getFirstVideo;
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
-
-- (void)loadInitialVideosFromAPI;
-- (void)loadInitialVideosFromCoreData;
 
 - (void)enableDemoMode;
 

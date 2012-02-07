@@ -7,20 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VideoTableViewController.h"
 
 @class VideoTableViewController;
-@class VideoTableViewControllerDelegate;
 @class VideoTableData;
 @class Video;
 
 @interface VideoGuideView : UIView
 {
-    VideoTableViewControllerDelegate *_delegate;
+    id<VideoTableViewControllerDelegate> _delegate;
     VideoTableViewController *_videoTableViewController;
     VideoTableData *_videoTableData;
 }
 
-- (id)initWithVideoTableViewControllerDelegate:(VideoTableViewControllerDelegate *)delegate;
+- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate;
 
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
