@@ -122,8 +122,6 @@
             [uniqueVideoKeys addObject:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             
             [dataProcessor scheduleCheckPlayable:video];
-            
-            NSLog(@"added checkPlayable Op");
         }
         
         [dataProcessor scheduleImageAcquisition:video];

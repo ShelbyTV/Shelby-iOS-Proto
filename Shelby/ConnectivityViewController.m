@@ -177,7 +177,6 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    LOG(@"viewWillAppear");
     [super viewWillAppear: animated];
     // check for internet connection
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];

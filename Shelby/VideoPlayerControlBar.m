@@ -93,7 +93,6 @@ static NSString *TV_NIB_NAME_1080 = @"VideoPlayerControlBar_TV_1080";
 
 - (void)showFullscreenExpandButtonIcon
 {
-    NSLog(@"showFullscreenExpandButtonIcon");
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [_fullscreenButton setImage:[UIImage imageNamed:@"fullscreenExpand_iPad"] 
                            forState:UIControlStateNormal];

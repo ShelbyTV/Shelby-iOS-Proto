@@ -24,10 +24,8 @@ static SessionStats *singletonSessionStats = nil;
 + (SessionStats *)singleton
 {
     if (singletonSessionStats == nil) {
-        NSLog(@"allocating new singletonSessionStats");
         singletonSessionStats = [[super allocWithZone:NULL] init];
         [singletonSessionStats initVariables];
-        NSLog(@"alloc'ed new singletonSessionStats");
     }
     return singletonSessionStats;
 }

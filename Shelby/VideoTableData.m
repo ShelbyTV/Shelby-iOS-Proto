@@ -134,9 +134,7 @@
 }
 
 - (void)insertTableVideos
-{
-    NSLog(@"Inside insertTableVideos");
-    
+{    
     int videoTableIndex = 0;
     
     for (NSString *key in [ShelbyApp sharedApp].videoData.uniqueVideoKeys)
@@ -172,8 +170,6 @@
         [tableView endUpdates];
         
         videoTableIndex++;
-        
-        NSLog(@"Inserted a video.");
     }
 }
 
@@ -258,7 +254,6 @@
 
 - (void)newPlayableVideoAvailable:(Video *)video
 {
-    NSLog(@"VideoTableData: newPlayableVideoAvailable");
     videoTableNeedsUpdate = TRUE;
 }
 

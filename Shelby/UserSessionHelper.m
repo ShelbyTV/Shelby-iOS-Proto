@@ -48,14 +48,11 @@
 
 - (id)initWithContext:(NSManagedObjectContext *)context
 {
-    NSLog(@"UserSessionHelper init started");
-
     self = [super init];
     if (self) {
         _context = context;
         self.currentUser = [CoreDataHelper fetchUserFromCoreDataContext:_context];
         self.currentUserPublicChannel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:_context];
-        NSLog(@"UserSessionHelper init finished");
     }
 
     return self;

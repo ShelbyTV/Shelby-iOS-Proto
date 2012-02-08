@@ -1018,11 +1018,8 @@ static const float kNextPrevXOffset        =  0.0f;
 */
 
 - (void)layoutSubviews 
-{    
-    NSLog(@"Inside VideoPlayer layoutSubviews");
-    
+{
     CGRect frame = self.bounds;
-    LogRect(@"VideoPlayer", frame);
     const CGFloat width = frame.size.width;
     const CGFloat height = frame.size.height;
 
@@ -1041,7 +1038,6 @@ static const float kNextPrevXOffset        =  0.0f;
     
     if ([[UIScreen screens] count] > 1 && !IS_NULL(self.tvTitleBar)) {
         
-        NSLog(@"!!!!!!!!!!!!! setting the tvTitleBar frame"); 
         UIScreen *secondScreen = [[UIScreen screens] objectAtIndex:1];
         self.tvTitleBar.frame = CGRectMake(
                                          0,
