@@ -7,7 +7,7 @@
 //
 
 #import "ApiTest.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "Broadcast.h"
 
 #import "SBJsonParser.h"
@@ -17,11 +17,11 @@
 #pragma mark - Set Up & Tear Down
 
 - (void)setUp {
-    _loginHelper = [[LoginHelper alloc] init];
+    _userSessionHelper = [[userSessionHelper alloc] init];
 }
 
 - (void)tearDown {
-    [_loginHelper release];
+    [_userSessionHelper release];
 }
 
 #pragma mark - Helper Functions
@@ -64,7 +64,7 @@ NSString *sampleJson = @"{ \"_id\" : 4e7179b8fa44c4166b005e8c, \"channel_id\" : 
 //    //NSString *videoId = [dict objectForKey: @"_id"];
 //
 //    NSString *videoId = @"4e7179b8fa44c4166b005e8c";
-//    Broadcast *original = [_loginHelper fetchBroadcastWithId: videoId];
+//    Broadcast *original = [_userSessionHelper fetchBroadcastWithId: videoId];
 //    NSLog(@"Original: %@", [original description]);
 //    // Mark it liked
 //    STAssertNotNil(videoId, @"VideoID should not be nil. Was: %@", videoId);
@@ -72,10 +72,10 @@ NSString *sampleJson = @"{ \"_id\" : 4e7179b8fa44c4166b005e8c, \"channel_id\" : 
 //    STAssertNotNil(original.shelbyId, @"Original id should not be nil. Was: %@", original.shelbyId);
 //
 //    // Tell the API
-//    [_loginHelper likeBroadcastWithId: videoId];
+//    [_userSessionHelper likeBroadcastWithId: videoId];
 //
 //    // Get it back
-//    Broadcast *newBroadcast = [_loginHelper fetchBroadcastWithId: videoId];
+//    Broadcast *newBroadcast = [_userSessionHelper fetchBroadcastWithId: videoId];
 //    NSLog(@"newBroadcast: %@", [original description]);
 //
 //    STAssertEqualObjects(newBroadcast.shelbyId, videoId, @"Broadcast.shelbyId %@ should be == to original %@", newBroadcast.shelbyId, videoId);

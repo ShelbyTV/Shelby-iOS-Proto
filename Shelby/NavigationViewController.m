@@ -11,8 +11,8 @@
 #import "VideoTableViewController.h"
 #import "VideoPlayer.h"
 #import "User.h"
+#import "UserSessionHelper.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
 #import "BroadcastApi.h"
 #import "Video.h"
 #import "ShareView.h"
@@ -99,7 +99,7 @@
          
         self.shareView = [ShareView shareViewFromNib];
         self.shareView.delegate = self;
-        [self.shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
+        [self.shareView updateAuthorizations: [ShelbyApp sharedApp].userSessionHelper.currentUser];
         self.shareView.frame = self.view.bounds;
         self.shareView.hidden = YES;
         
@@ -146,7 +146,7 @@
 {
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
     
-    User *user = [ShelbyApp sharedApp].loginHelper.user;
+    User *user = [ShelbyApp sharedApp].userSessionHelper.currentUser;
     
     for (NSString *auth in _authorizations) {
         [user addObserver:self forKeyPath:auth options:0 context:NULL];
@@ -317,7 +317,7 @@
             // Error handling
         }
     }
-    [[ShelbyApp sharedApp].loginHelper logout];
+    [[ShelbyApp sharedApp].userSessionHelper logout];
     [_userAccountView setDemoModeButtonTitle:@"Demo Mode"];
     [_userAccountView setDemoModeButtonEnabled];
 }
@@ -438,7 +438,7 @@
     Video *video = _videoPlayer.currentVideo;
     [self.shareView setVideo:video];
     
-    [self.shareView updateAuthorizations: [ShelbyApp sharedApp].loginHelper.user];
+    [self.shareView updateAuthorizations: [ShelbyApp sharedApp].userSessionHelper.currentUser];
 
     self.shareView.hidden = NO;
 

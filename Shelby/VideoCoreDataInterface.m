@@ -9,7 +9,7 @@
 #import "VideoCoreDataInterface.h"
 #import "Video.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "ThumbnailImage.h"
 #import "SharerImage.h"
 #import "Broadcast.h"
@@ -18,51 +18,14 @@
 
 @implementation VideoCoreDataInterface
 
-#pragma mark - Context Helpers
 
-+ (NSManagedObjectContext *)allocateContext
-{
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    [context setPersistentStoreCoordinator:psCoordinator];
-    
-    return context;
-}
-
-+ (BOOL)contextHasChanges:(NSManagedObjectContext *)context
-{
-    return (context.insertedObjects.count != 0 ||
-            context.deletedObjects.count != 0 ||
-            context.updatedObjects.count != 0);
-}
-
-+ (void)saveAndReleaseContext:(NSManagedObjectContext *)context
-{
-    NSError *error = nil;
-    
-    if ([self contextHasChanges:context] && ![context save:&error]) {
-        NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-        if(detailedErrors != nil && [detailedErrors count] > 0) {
-            for(NSError* detailedError in detailedErrors) {
-                NSLog(@"  DetailedError: %@", [detailedError userInfo]);
-            }
-        } else {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
-    }
-    
-    [context release];
-}
 
 #pragma mark - Video Status Storage
 
 + (void)storeLikeStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [self allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -71,14 +34,14 @@
         broadcast.liked = [NSNumber numberWithBool:video.isLiked];
     }
     
-    [self saveAndReleaseContext:context];
+    [CoreDataHelper saveAndReleaseContext:context];
     [pool release];
 }
 
 + (void)storeWatchLaterStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [self allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -87,14 +50,14 @@
         broadcast.watchLater = [NSNumber numberWithBool:video.isWatchLater];
     }
     
-    [self saveAndReleaseContext:context];
+    [CoreDataHelper saveAndReleaseContext:context];
     [pool release];
 }
 
 + (void)storeWatchStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [self allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -103,14 +66,14 @@
         broadcast.watched = [NSNumber numberWithBool:video.isWatched];
     }
     
-    [self saveAndReleaseContext:context];
+    [CoreDataHelper saveAndReleaseContext:context];
     [pool release];
 }
 
 + (void)storePlayableStatus:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [self allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -119,7 +82,7 @@
         broadcast.isPlayable = [NSNumber numberWithBool:video.isPlayable];
     }
     
-    [self saveAndReleaseContext:context];
+    [CoreDataHelper saveAndReleaseContext:context];
     [pool release];
 }
 
@@ -129,7 +92,7 @@
                 forVideo:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [self allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -146,7 +109,7 @@
         broadcast.sharerImage.imageData = sharerImage;
     }
     
-    [self saveAndReleaseContext:context];
+    [CoreDataHelper saveAndReleaseContext:context];
     [pool release];
 }
 
@@ -154,7 +117,7 @@
                    forVideo:(Video *)video
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [self allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -171,31 +134,13 @@
         broadcast.thumbnailImage.imageData = thumbnail;
     }
     
-    [self saveAndReleaseContext:context];
+    [CoreDataHelper saveAndReleaseContext:context];
     [pool release];
 }
 
 #pragma mark - Unorganized
 
-+ (Channel *)fetchPublicChannelFromCoreDataContext:(NSManagedObjectContext *)context
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Channel" 
-                                              inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"public=0"];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error = nil;
-    NSArray *channels = [context executeFetchRequest:fetchRequest error:&error];
-    
-    [fetchRequest release];
-    
-    return [channels objectAtIndex:0];
-}
+
 
 + (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
 {

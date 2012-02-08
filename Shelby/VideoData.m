@@ -304,7 +304,7 @@
 
 - (void)loadInitialVideosFromAPI
 {
-//    [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
+//    [[ShelbyApp sharedApp].userSessionHelper fetchBroadcasts];
 }
 
 - (void)addDelegate:(id<VideoDataDelegate>)consumer

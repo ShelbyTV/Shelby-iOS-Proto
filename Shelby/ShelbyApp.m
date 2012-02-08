@@ -7,7 +7,7 @@
 //
 
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "ApiHelper.h"
 #import "ShelbyAppDelegate.h"
 #import "VideoContentURLGetter.h"
@@ -15,14 +15,16 @@
 #import "BSWebViewUserAgent.h"
 #import "ShelbyWindow.h"
 #import "VideoData.h"
+#import "DataApi.h"
 
 #import "TestFlight.h"
 #import <Crashlytics/Crashlytics.h>
 
 @implementation ShelbyApp
 
+@synthesize dataApi;
 @synthesize persistentStoreCoordinator;
-@synthesize loginHelper;
+@synthesize userSessionHelper;
 @synthesize apiHelper;
 @synthesize navigationViewController;
 @synthesize demoModeEnabled = _demoModeEnabled;
@@ -73,15 +75,16 @@ static ShelbyWindow *gSecondScreenWindow;
         _networkObjects = [[NSMutableSet alloc] initWithCapacity: 20];
         
         ShelbyAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        context = appDelegate.managedObjectContext; // just for loginHelper and app open/close
+        context = appDelegate.managedObjectContext; // just for userSessionHelper and app open/close
         
         persistentStoreCoordinator = appDelegate.persistentStoreCoordinator; // used to create other contexts for other threads / subsystems
         
-        self.loginHelper = [[[LoginHelper alloc] initWithContext:context] autorelease];
+        self.userSessionHelper = [[[UserSessionHelper alloc] initWithContext:context] autorelease];
+        self.dataApi = [[[DataApi alloc] init] autorelease];
         self.videoData = [[[VideoData alloc] init] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
         [self.apiHelper loadTokens];
-        [self addNetworkObject:self.loginHelper];
+        [self addNetworkObject:self.userSessionHelper];
         [self addNetworkObject:self.apiHelper];
         [self addNetworkObject:[VideoContentURLGetter singleton]];
         

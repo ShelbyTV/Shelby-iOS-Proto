@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "NavigationViewController_iPhone.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "ShelbyWindow.h"
 
 @implementation ShelbyAppDelegate_iPhone
@@ -27,7 +27,7 @@
     shelbyWindow.frame = frame;
     navigationViewController.view.frame = frame;
     
-    BOOL userAlreadyLoggedIn = [ShelbyApp sharedApp].loginHelper.loggedIn;
+    BOOL userAlreadyLoggedIn = [ShelbyApp sharedApp].userSessionHelper.loggedIn;
     
     loginViewController = [[LoginViewController alloc] initWithNibName:@"Login_iPhone"
                                                                 bundle:nil

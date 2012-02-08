@@ -11,7 +11,7 @@
 #import "NetworkObject.h"
 #import "FullscreenWebViewController.h"
 
-@class LoginHelper;
+@class userSessionHelper;
 @class Reachability;
 
 @interface LoginViewController : ConnectivityViewController <FullscreenWebViewControllerDelegate, NetworkObject> {
@@ -29,10 +29,7 @@
     BOOL infoViewExpanded;
 
     IBOutlet UIImageView *footerText;
-    
-    // Actual login stuff
-    LoginHelper *_loginHelper;
-    
+
     FullscreenWebViewController *_fullscreenWebView;
 }
 

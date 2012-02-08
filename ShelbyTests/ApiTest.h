@@ -16,10 +16,10 @@
 #import <UIKit/UIKit.h>
 //#import "application_headers" as required
 
-@class LoginHelper;
+@class userSessionHelper;
 
 @interface ApiTest : SenTestCase {
-  LoginHelper *_loginHelper;
+  userSessionHelper *_userSessionHelper;
 }
 
 //#if USE_APPLICATION_UNIT_TEST

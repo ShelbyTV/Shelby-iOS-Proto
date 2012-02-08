@@ -10,7 +10,7 @@
 #import "VideoTableData.h"
 #import "Video.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "GraphiteStats.h"
 #import "VideoTableViewCell.h"
 #import "User.h"
@@ -164,8 +164,9 @@
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-	return IS_NULL([ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts) ? [NSDate date] : 
-              [ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts; // should return date data source was last changed
+//	return IS_NULL([ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts) ? [NSDate date] : 
+//              [ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts; // should return date data source was last changed
+    return [NSDate date];
 }
 
 #pragma mark - VideoTableDataDelegate Methods

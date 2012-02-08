@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class Channel;
+@class User;
+
 @interface CoreDataHelper : NSObject
 
 + (id)fetchExistingUniqueEntity:(NSString *)entityName 
@@ -18,6 +21,14 @@
           withBroadcastShelbyId:(NSString *)shelbyId 
                       inContext:(NSManagedObjectContext *)context;
 
-+ (void)saveContextAndLogErrors:(NSManagedObjectContext *)context;
+
++ (NSManagedObjectContext *)allocateContext;
++ (BOOL)contextHasChanges:(NSManagedObjectContext *)context;
++ (void)saveAndReleaseContext:(NSManagedObjectContext *)context;
+
++ (void)deleteAllData;
+
++ (Channel *)fetchPublicChannelFromCoreDataContext:(NSManagedObjectContext *)context;
++ (User *)fetchUserFromCoreDataContext:(NSManagedObjectContext *)context;
 
 @end

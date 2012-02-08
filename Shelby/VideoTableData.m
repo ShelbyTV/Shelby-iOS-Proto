@@ -15,7 +15,7 @@
 #import "ShelbyApp.h"
 #import "NSURLConnection+AsyncBlock.h"
 #import "Video.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "CoreDataHelper.h"
 #import "VideoContentURLGetter.h"
 #import "PlatformHelper.h"

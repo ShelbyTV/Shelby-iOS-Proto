@@ -18,6 +18,7 @@
 		0A02DD3414DCC44700204025 /* VideoGuideWatchLaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3314DCC44700204025 /* VideoGuideWatchLaterView.m */; };
 		0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */; };
 		0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3D14E0AA5B00204025 /* VideoHelper.m */; };
+		0A02DD4D14E1F12E00204025 /* DataApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD4C14E1F12D00204025 /* DataApi.m */; };
 		0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */; };
 		0A05EF7E14AE8B4D0010BFFF /* likeOff_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */; };
 		0A05EF7F14AE8B4D0010BFFF /* likeOn_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7B14AE8B4D0010BFFF /* likeOn_TV_720.png */; };
@@ -274,7 +275,7 @@
 		42925B281401C01B00333F46 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B1F1401C01B00333F46 /* whiteArrow.png */; };
 		42925B291401C01B00333F46 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42925B201401C01B00333F46 /* whiteArrow@2x.png */; };
 		42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42925B2B1401C2AA00333F46 /* QuartzCore.framework */; };
-		42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* LoginHelper.m */; };
+		42A09B4A13FC6CD100570DBE /* UserSessionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* UserSessionHelper.m */; };
 		42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214B13FEE40500A8FC00 /* NSData+Base64.m */; };
 		42AB21C113FEE40500A8FC00 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214D13FEE40500A8FC00 /* NSString+URLEncoding.m */; };
 		42AB21C213FEE40500A8FC00 /* NSURLConnection+AsyncBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214F13FEE40500A8FC00 /* NSURLConnection+AsyncBlock.m */; };
@@ -358,6 +359,8 @@
 		0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoGuideSearchView.m; sourceTree = "<group>"; };
 		0A02DD3C14E0AA5B00204025 /* VideoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoHelper.h; sourceTree = "<group>"; };
 		0A02DD3D14E0AA5B00204025 /* VideoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoHelper.m; sourceTree = "<group>"; };
+		0A02DD4B14E1F12D00204025 /* DataApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataApi.h; sourceTree = "<group>"; };
+		0A02DD4C14E1F12D00204025 /* DataApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataApi.m; sourceTree = "<group>"; };
 		0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSWebViewUserAgent.h; sourceTree = "<group>"; };
 		0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSWebViewUserAgent.m; sourceTree = "<group>"; };
 		0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_TV_720.png; path = Resources/Images/likeOff_TV_720.png; sourceTree = "<group>"; };
@@ -660,8 +663,8 @@
 		42925B1F1401C01B00333F46 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		42925B201401C01B00333F46 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		42925B2B1401C2AA00333F46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		42A09B4613FC6CD100570DBE /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		42A09B4813FC6CD100570DBE /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
+		42A09B4613FC6CD100570DBE /* UserSessionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserSessionHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		42A09B4813FC6CD100570DBE /* UserSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; path = UserSessionHelper.h; sourceTree = "<group>"; };
 		42AB214A13FEE40500A8FC00 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "OAuth/NSData+Base64.h"; sourceTree = "<group>"; };
 		42AB214B13FEE40500A8FC00 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "OAuth/NSData+Base64.m"; sourceTree = "<group>"; };
 		42AB214C13FEE40500A8FC00 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncoding.h"; path = "OAuth/NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -1379,8 +1382,10 @@
 				0A4DB3DD1432512D00618605 /* ApiMutableURLRequest.m */,
 				0AC8496914303B1800FDF996 /* BroadcastApi.h */,
 				0AC8496A14303B1800FDF996 /* BroadcastApi.m */,
-				42A09B4813FC6CD100570DBE /* LoginHelper.h */,
-				42A09B4613FC6CD100570DBE /* LoginHelper.m */,
+				42A09B4813FC6CD100570DBE /* UserSessionHelper.h */,
+				42A09B4613FC6CD100570DBE /* UserSessionHelper.m */,
+				0A02DD4B14E1F12D00204025 /* DataApi.h */,
+				0A02DD4C14E1F12D00204025 /* DataApi.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1936,7 +1941,7 @@
 				4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */,
 				4200E50413F41F0C00609C3E /* Video.m in Sources */,
 				427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */,
-				42A09B4A13FC6CD100570DBE /* LoginHelper.m in Sources */,
+				42A09B4A13FC6CD100570DBE /* UserSessionHelper.m in Sources */,
 				42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */,
 				42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */,
 				42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */,
@@ -2004,6 +2009,7 @@
 				0A02DD3414DCC44700204025 /* VideoGuideWatchLaterView.m in Sources */,
 				0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */,
 				0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */,
+				0A02DD4D14E1F12E00204025 /* DataApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

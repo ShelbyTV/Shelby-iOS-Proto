@@ -7,7 +7,7 @@
 //
 
 #import "CoreDataTest.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "Channel.h"
 #import "User.h"
 
@@ -104,9 +104,9 @@
 - (void)testStoreUser {
 //    // Insert a user.
 //    NSDictionary *sampleDict = [self sampleUserDictionary];
-//    LoginHelper *loginHelper = [[[LoginHelper alloc] initWithContext: ctx] autorelease];
-//    [loginHelper storeUserWithDictionary: sampleDict withImageData: nil];
-//    User *user = [loginHelper retrieveUser];
+//    userSessionHelper *userSessionHelper = [[[userSessionHelper alloc] initWithContext: ctx] autorelease];
+//    [userSessionHelper storeUserWithDictionary: sampleDict withImageData: nil];
+//    User *user = [userSessionHelper retrieveUser];
 //
 //    STAssertNotNil(user, @"User was nil!");
 //    // Make sure that our data persisted.
@@ -127,8 +127,8 @@
 //        sampleChannel2,
 //        nil];
 //
-//    [loginHelper storeChannelsWithArray: sampleChannels user: user];
-//    NSArray *channels = [loginHelper retrieveChannels];
+//    [userSessionHelper storeChannelsWithArray: sampleChannels user: user];
+//    NSArray *channels = [userSessionHelper retrieveChannels];
 //    STAssertNotNil(channels, @"Channels was nil!");
 //    STAssertTrue([channels count] == 2, @"Channels count was: %d.", [channels count]);
 //

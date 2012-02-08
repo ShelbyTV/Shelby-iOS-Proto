@@ -8,7 +8,7 @@
 
 #import "SessionStats.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "User.h"
 #import "NavigationViewController.h"
 #import "NSURLConnection+AsyncBlock.h"
@@ -116,7 +116,7 @@ static SessionStats *singletonSessionStats = nil;
         return;
     }
     
-    if (NOT_NULL([ShelbyApp sharedApp].loginHelper.user.shelbyId))
+    if (NOT_NULL([ShelbyApp sharedApp].userSessionHelper.currentUser.shelbyId))
     {
         BOOL wasTouched = [ShelbyApp sharedApp].navigationViewController.touched;
         [ShelbyApp sharedApp].navigationViewController.touched = FALSE;
@@ -127,7 +127,7 @@ static SessionStats *singletonSessionStats = nil;
         NSString *timeString = [dateFormatter stringFromDate:[NSDate date]];
         
 //        NSLog(@"=========== Session Stats ===========");
-//        NSLog(@"   user_id: %@", [ShelbyApp sharedApp].loginHelper.user.shelbyId);
+//        NSLog(@"   user_id: %@", [ShelbyApp sharedApp].userSessionHelper.user.shelbyId);
 //        NSLog(@"   time: %@", timeString);
 //        NSLog(@"   heartbeat_count: %d", heartbeatCount);
 //        NSLog(@"   focus: true");
@@ -138,7 +138,7 @@ static SessionStats *singletonSessionStats = nil;
 
         
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [ShelbyApp sharedApp].loginHelper.user.shelbyId , @"user_id",
+                                [ShelbyApp sharedApp].userSessionHelper.currentUser.shelbyId , @"user_id",
                                 timeString                                      , @"time",
                                 heartbeatCountString                            , @"heartbeat_count",
                                 @"true"                                         , @"focus",

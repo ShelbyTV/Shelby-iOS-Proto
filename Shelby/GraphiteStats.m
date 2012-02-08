@@ -8,7 +8,7 @@
 
 #import "GraphiteStats.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "User.h"
 
 #include <sys/socket.h>
@@ -68,10 +68,10 @@
     NSString *statName = [NSString stringWithFormat:@"app.%@.%@/?", client, counterName];
     NSString *actionParam = [NSString stringWithFormat:@"action=%@_%@", client, actionName];
     
-    if (NOT_NULL([ShelbyApp sharedApp].loginHelper.user) && 
-        NOT_NULL([ShelbyApp sharedApp].loginHelper.user.shelbyId))
+    if (NOT_NULL([ShelbyApp sharedApp].userSessionHelper.currentUser) && 
+        NOT_NULL([ShelbyApp sharedApp].userSessionHelper.currentUser.shelbyId))
     {
-        command = [NSString stringWithFormat:@"%@uid=%@&%@:1|c", statName, [ShelbyApp sharedApp].loginHelper.user.shelbyId, actionParam];
+        command = [NSString stringWithFormat:@"%@uid=%@&%@:1|c", statName, [ShelbyApp sharedApp].userSessionHelper.currentUser.shelbyId, actionParam];
     } else {
         command = [NSString stringWithFormat:@"%@%@:1|c", statName, actionParam];
     }

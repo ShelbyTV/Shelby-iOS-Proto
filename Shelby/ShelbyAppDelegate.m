@@ -9,12 +9,13 @@
 #import "ShelbyAppDelegate.h"
 #import "URLParser.h"
 #import "ShelbyApp.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "NavigationViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ShelbyWindow.h"
 #import "SessionStats.h"
+#import "DataApi.h"
 
 @implementation ShelbyAppDelegate
 
@@ -47,7 +48,7 @@
     if ([[url absoluteString] rangeOfString:@"add_provider"].location != NSNotFound) {
         NSLog(@"Receiving add_provider response!");
         
-        [[ShelbyApp sharedApp].loginHelper fetchAuthentications];
+        [[ShelbyApp sharedApp].dataApi fetchCurrentUserAuthentications];
         [navigationViewController fullscreenWebViewCloseWasPressed:self];
         
         return YES;
@@ -64,7 +65,7 @@
         LOG(@"oauthVerifier: %@", oauthVerifier);
         
         // If we're coming from oAuth, capture the incoming verifier.
-        [[ShelbyApp sharedApp].loginHelper verifierReturnedFromAuth:oauthVerifier];
+        [[ShelbyApp sharedApp].userSessionHelper verifierReturnedFromAuth:oauthVerifier];
         
         return YES;
     }
@@ -113,13 +114,13 @@
     [sharedCache release];
     
     // make sure we fetch new broadcasts as least once a day. should prevent video link timeouts...
-    if ([[ShelbyApp sharedApp].loginHelper loggedIn] && NOT_NULL([ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts)) {
-        NSTimeInterval diff = abs([[ShelbyApp sharedApp].loginHelper.lastFetchBroadcasts timeIntervalSinceNow]);
-        NSInteger days = floor(diff / 86400.0);
-        if (days >= 1 && ![ShelbyApp sharedApp].demoModeEnabled) {
-            [[ShelbyApp sharedApp].loginHelper fetchBroadcasts];
-        }
-    }
+//    if ([[ShelbyApp sharedApp].userSessionHelper loggedIn] && NOT_NULL([ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts)) {
+//        NSTimeInterval diff = abs([[ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts timeIntervalSinceNow]);
+//        NSInteger days = floor(diff / 86400.0);
+//        if (days >= 1 && ![ShelbyApp sharedApp].demoModeEnabled) {
+//            [[ShelbyApp sharedApp].userSessionHelper fetchBroadcasts];
+//        }
+//    }
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];

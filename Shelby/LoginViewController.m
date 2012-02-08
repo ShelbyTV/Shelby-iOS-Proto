@@ -8,12 +8,13 @@
 //
 
 #import "LoginViewController.h"
-#import "LoginHelper.h"
+#import "UserSessionHelper.h"
 #import "ShelbyApp.h"
 #import "Reachability.h"
 #import "GraphiteStats.h"
 #import "ShelbyAppDelegate.h"
 #import "NavigationViewController.h"
+#import "DataApi.h"
 
 @interface LoginViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -35,7 +36,6 @@
         callbackObject = object;
         callbackSelector = selector;
 
-        _loginHelper = [ShelbyApp sharedApp].loginHelper;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userLoggedIn:)
                                                      name:@"UserLoggedIn"
@@ -46,8 +46,13 @@
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(showShelbyDown) 
+                                                 selector:@selector(showShelbyDown)
                                                      name:@"OAuthHandshakeFailed" 
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(handshakeSucceeded:) 
+                                                     name:@"OAuthAuthorizedAccessToken" 
                                                    object:nil];
         
         // Network Activity
@@ -138,7 +143,7 @@
     [facebookButton setEnabled:NO];
     
     [self clearAllCookies];
-    [_loginHelper getRequestTokenWithProvider:provider];
+    [[ShelbyApp sharedApp].userSessionHelper getRequestTokenWithProvider:provider];
 }
 
 #pragma mark - Notification Handlers
@@ -155,6 +160,11 @@
 {
     [self clearAllCookies];
     [self fade:YES];
+}
+
+- (void)handshakeSucceeded:(NSNotification*)aNotification
+{
+    [[ShelbyApp sharedApp].dataApi fetchUserId];
 }
 
 - (void)didReceiveMemoryWarning

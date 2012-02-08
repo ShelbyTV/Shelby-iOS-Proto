@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "NetworkObject.h"
 
-@class LoginHelper;
+@class UserSessionHelper;
 @class ApiHelper;
 @class NavigationViewController;
 @class VideoData;
+@class DataApi;
 
 /*
  * Global singleton for maintaining state.
@@ -20,14 +21,15 @@
 @interface ShelbyApp : NSObject {
     NSInteger _networkCounter;
     NSMutableSet *_networkObjects;
-    NSManagedObjectContext *context; // context for LoginHelper
+    NSManagedObjectContext *context; // context for userSessionHelper
     
     BOOL _demoModeEnabled;
 }
 
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (nonatomic, retain) LoginHelper *loginHelper;
+@property (nonatomic, retain) DataApi *dataApi;
+@property (nonatomic, retain) UserSessionHelper *userSessionHelper;
 @property (nonatomic, retain) ApiHelper *apiHelper;
 @property (nonatomic, retain) VideoData *videoData;
 
