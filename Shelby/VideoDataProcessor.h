@@ -13,7 +13,6 @@
 @protocol VideoDataProcessorDelegate
 
 - (void)newPlayableVideoAvailable:(Video *)video;
-- (void)storePlayableStatus:(Video *)video;
 - (void)updateVideoTableCell:(Video *)video;
 
 @end

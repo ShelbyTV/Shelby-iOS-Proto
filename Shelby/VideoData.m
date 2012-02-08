@@ -218,10 +218,14 @@
     }
 }
 
-- (void)storePlayableStatus:(Video *)video
-{
-    
-}
+
+
+
+
+
+
+
+
 
 #pragma mark - Unorganized
 

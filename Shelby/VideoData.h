@@ -40,7 +40,7 @@
 - (void)loadInitialVideosFromCoreData;
 
 - (void)newPlayableVideoAvailable:(Video *)video;
-- (void)storePlayableStatus:(Video *)video;
+- (void)updateVideoTableCell:(Video *)video;
 
 - (void)addDelegate:(id<VideoDataDelegate>)consumer;
 

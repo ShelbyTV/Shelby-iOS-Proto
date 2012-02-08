@@ -172,9 +172,7 @@
 }
 
 - (void)checkPlayable:(Video *)video
-{
-    NSLog(@"in checkPlayable Op");
-    
+{    
     BOOL needsCoreDataUpdate = FALSE;
     
     if (video.isPlayable == PLAYABLE_UNSET) {
@@ -205,16 +203,13 @@
     }
     
     if (video.isPlayable == IS_PLAYABLE && self.delegate) {
-        NSLog(@"checkPlayable: newPlayableVideoAvailable");
         [delegate newPlayableVideoAvailable:video];
     }
 
     if (needsCoreDataUpdate && self.delegate) {
-        NSLog(@"checkPlayable: storePlayableStatus");
-        [delegate storePlayableStatus:video];
+        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storePlayableStatus:) object:video] autorelease]];
     }
 }
-
 
 - (void)clearPendingOperations
 {
