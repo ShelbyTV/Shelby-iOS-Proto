@@ -36,13 +36,11 @@
     self = [super init];
     if (self) {
         videoDupeDict = [[NSMutableDictionary alloc] init];
-        
         uniqueVideoKeys = [[NSMutableArray alloc] init];
-        
+        videoDataDelegates = [[NSMutableArray alloc] init];
+
         dataProcessor = [[VideoDataProcessor alloc] init];
         dataProcessor.delegate = self;
-        
-        videoDataDelegates = [[NSMutableArray alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedBroadcastsAndStoredInCoreDataNotification:)
@@ -69,7 +67,6 @@
                                                      name:@"UnwatchLaterBroadcastSucceeded"
                                                    object:nil];
         
-        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(watchVideoSucceeded:)
                                                      name:@"WatchBroadcastSucceeded"
@@ -85,7 +82,6 @@
 {
     return [[[videoDupeDict objectForKey:[video dupeKey]] retain] autorelease];
 }
-
 
 - (NSArray *)videoDupesForKey:(NSString *)videoKey
 {
@@ -131,10 +127,7 @@
 
 - (void)loadInitialVideosFromCoreData
 {
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil]; // don't need undo, and this speeds things up / requires less memory
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    [context setPersistentStoreCoordinator:psCoordinator];
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
     [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
