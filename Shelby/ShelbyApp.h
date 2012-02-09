@@ -27,17 +27,14 @@
 }
 
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, retain) UserSessionHelper            *userSessionHelper;
+@property (nonatomic, retain) ApiHelper                    *apiHelper;
+@property (nonatomic, retain) VideoData                    *videoData;
+@property (nonatomic, retain) NavigationViewController     *navigationViewController;
+@property (nonatomic, retain) NSString                     *safariUserAgent;
+@property (nonatomic, retain) UIWindow                     *shelbyWindow;
 
-@property (nonatomic, retain) DataApi *dataApi;
-@property (nonatomic, retain) UserSessionHelper *userSessionHelper;
-@property (nonatomic, retain) ApiHelper *apiHelper;
-@property (nonatomic, retain) VideoData *videoData;
-
-@property (nonatomic, retain) NavigationViewController *navigationViewController;
 @property (nonatomic) BOOL demoModeEnabled;
-@property (nonatomic, retain) NSString *safariUserAgent;
-@property (nonatomic, retain) UIWindow *shelbyWindow;
-
 @property (nonatomic, readonly) BOOL isNetworkBusy;
 
 + (ShelbyApp *)sharedApp;

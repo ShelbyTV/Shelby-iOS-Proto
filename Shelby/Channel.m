@@ -17,4 +17,15 @@
 @dynamic user;
 @dynamic broadcasts;
 
+- (void)populateFromApiJSONDictionary:(NSDictionary *)dict
+{
+    NSNumber *public = [dict objectForKey:@"public"];
+    if (NOT_NULL(public)) {
+        self.public = [NSNumber numberWithBool:[public boolValue]];
+    }
+
+    SET_IF_NOT_NULL(self.name,              [dict objectForKey:@"name"])
+    SET_IF_NOT_NULL(self.shelbyId,          [dict objectForKey:@"_id"])
+}
+
 @end

@@ -20,4 +20,6 @@
 @property (nonatomic, retain) User     *user;
 @property (nonatomic, retain) NSSet    *broadcasts;
 
+- (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
+
 @end

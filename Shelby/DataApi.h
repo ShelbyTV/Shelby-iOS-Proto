@@ -7,25 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SBJsonStreamParser.h"
 
-typedef enum {
-    ParserModeIdle,
-    ParserModeUser,
-    ParserModeBroadcasts,
-    ParserModeChannels,
-} ParserMode;
+@interface DataApi : NSObject
 
-@interface DataApi : NSObject <SBJsonStreamParserDelegate>
-{
-    SBJsonStreamParser *_parser;
-    ParserMode _parserMode;
-}
++ (void)fetchCurrentUserAuthentications;
++ (void)fetchChannels;
++ (void)fetchAndStoreUserSessionData;
 
-@property (nonatomic, retain) NSDate *lastFetchBroadcasts;
-
-- (void)fetchCurrentUserAuthentications;
-- (void)fetchBroadcasts;
-- (void)fetchUserId;
++ (void)fetchBroadcastsAndStoreInCoreData;
 
 @end

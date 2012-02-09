@@ -39,7 +39,7 @@
     self.isPlayable = [NSNumber numberWithInt:PLAYABLE_UNSET];
 }
 
-- (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
+- (void)populateFromApiJSONDictionary:(NSDictionary *)dict
 {    
     //API sends us dates in this format, basically UTC / GMT format
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];

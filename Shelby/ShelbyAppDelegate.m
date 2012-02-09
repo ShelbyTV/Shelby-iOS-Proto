@@ -48,7 +48,7 @@
     if ([[url absoluteString] rangeOfString:@"add_provider"].location != NSNotFound) {
         NSLog(@"Receiving add_provider response!");
         
-        [[ShelbyApp sharedApp].dataApi fetchCurrentUserAuthentications];
+        [DataApi fetchCurrentUserAuthentications];
         [navigationViewController fullscreenWebViewCloseWasPressed:self];
         
         return YES;

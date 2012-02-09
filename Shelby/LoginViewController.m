@@ -50,11 +50,6 @@
                                                      name:@"OAuthHandshakeFailed" 
                                                    object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(handshakeSucceeded:) 
-                                                     name:@"OAuthAuthorizedAccessToken" 
-                                                   object:nil];
-        
         // Network Activity
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(networkActiveNotification:)
@@ -143,7 +138,7 @@
     [facebookButton setEnabled:NO];
     
     [self clearAllCookies];
-    [[ShelbyApp sharedApp].userSessionHelper getRequestTokenWithProvider:provider];
+    [[ShelbyApp sharedApp].userSessionHelper beginLoginWithProvider:provider];
 }
 
 #pragma mark - Notification Handlers
@@ -160,11 +155,6 @@
 {
     [self clearAllCookies];
     [self fade:YES];
-}
-
-- (void)handshakeSucceeded:(NSNotification*)aNotification
-{
-    [[ShelbyApp sharedApp].dataApi fetchUserId];
 }
 
 - (void)didReceiveMemoryWarning

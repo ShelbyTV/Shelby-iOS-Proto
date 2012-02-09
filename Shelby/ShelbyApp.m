@@ -22,7 +22,6 @@
 
 @implementation ShelbyApp
 
-@synthesize dataApi;
 @synthesize persistentStoreCoordinator;
 @synthesize userSessionHelper;
 @synthesize apiHelper;
@@ -80,7 +79,6 @@ static ShelbyWindow *gSecondScreenWindow;
         persistentStoreCoordinator = appDelegate.persistentStoreCoordinator; // used to create other contexts for other threads / subsystems
         
         self.userSessionHelper = [[[UserSessionHelper alloc] initWithContext:context] autorelease];
-        self.dataApi = [[[DataApi alloc] init] autorelease];
         self.videoData = [[[VideoData alloc] init] autorelease];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
         [self.apiHelper loadTokens];

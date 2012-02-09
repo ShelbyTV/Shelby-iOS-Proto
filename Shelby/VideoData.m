@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 Shelby.tv. All rights reserved.
 //
 
-// Globals
+// Kitchen Sink
 #import "ShelbyApp.h"
+#import "UserSessionHelper.h"
+#import "CoreDataHelper.h"
 
 // Video 
 #import "VideoData.h"
@@ -18,6 +20,9 @@
 
 // Core Data
 #import "Broadcast.h"
+
+// API
+#import "DataApi.h"
 
 // Content URL Support
 #import "VideoContentURLGetter.h"
@@ -40,8 +45,8 @@
         videoDataDelegates = [[NSMutableArray alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(receivedBroadcastsNotification:)
-                                                     name: @"ReceivedBroadcasts"
+                                                 selector: @selector(receivedBroadcastsAndStoredInCoreDataNotification:)
+                                                     name: @"ReceivedBroadcastsAndStoredInCoreData"
                                                    object: nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -142,6 +147,27 @@
     [context release];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewVideoDataAvailable" object:self];
+}
+
+#pragma mark - API Broadcast Processing
+
+- (void)loadInitialVideosFromAPI
+{
+    [DataApi fetchBroadcastsAndStoreInCoreData];
+}
+
+- (void)receivedBroadcastsAndStoredInCoreDataNotification:(NSNotification *)notification
+{
+    [NSTimer scheduledTimerWithTimeInterval:0 
+                                     target:self
+                                   selector:@selector(loadInitialVideosFromAPIAfterBroadcastsFetched:) 
+                                   userInfo:notification.userInfo 
+                                    repeats:NO];
+}
+
+- (void)loadInitialVideosFromAPIAfterBroadcastsFetched:(NSTimer*)timer
+{
+    [self loadInitialVideosFromCoreData];
 }
 
 #pragma mark - Like Status
@@ -299,15 +325,7 @@
     return jsonBroadcasts;
 }
 
-- (void)receivedBroadcastsNotification:(NSNotification *)notification
-{
-    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(loadNewBroadcastsFromJSON:) userInfo:notification.userInfo repeats:NO];
-}
 
-- (void)loadInitialVideosFromAPI
-{
-//    [[ShelbyApp sharedApp].userSessionHelper fetchBroadcasts];
-}
 
 - (void)addDelegate:(id<VideoDataDelegate>)consumer
 {

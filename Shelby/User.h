@@ -23,4 +23,7 @@
 @property (nonatomic, retain) NSNumber *auth_facebook;
 @property (nonatomic, retain) NSNumber *auth_tumblr;
 @property (nonatomic, retain) NSSet    *channels;
+
+- (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
+
 @end

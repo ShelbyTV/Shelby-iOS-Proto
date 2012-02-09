@@ -27,4 +27,7 @@
 - (void)scheduleCheckPlayable:(Video *)video;
 - (void)scheduleImageAcquisition:(Video *)video;
 
+- (void)suspendOperations;
+- (void)resumeOperations;
+
 @end

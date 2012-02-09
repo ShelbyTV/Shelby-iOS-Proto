@@ -21,4 +21,13 @@
 @dynamic auth_tumblr;
 @dynamic channels;
 
+- (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
+{   
+    SET_IF_NOT_NULL(self.name, [dict objectForKey:@"name"])
+    SET_IF_NOT_NULL(self.nickname, [dict objectForKey:@"nickname"])
+    SET_IF_NOT_NULL(self.imageUrl, [dict objectForKey:@"user_image"])
+    SET_IF_NOT_NULL(self.shelbyId, [dict objectForKey:@"_id"])
+}
+
+
 @end

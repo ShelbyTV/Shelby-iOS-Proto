@@ -30,6 +30,8 @@
 #import "GraphiteStats.h"
 #import "SessionStats.h"
 
+#import "DataApi.h"
+
 @interface UserSessionHelper ()
 
 @property (nonatomic, readwrite, retain) User *currentUser;
@@ -61,6 +63,11 @@
 - (void)setCurrentUserFromCoreData
 {
     self.currentUser = [CoreDataHelper fetchUserFromCoreDataContext:_context];
+}
+
+- (void)setCurrentUserPublicChannelFromCoreData
+{
+    self.currentUserPublicChannel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:_context];
 }
 
 #pragma mark - Network Activity
@@ -104,7 +111,7 @@
 
 #pragma mark - Request Token
 
-- (void)getRequestTokenWithProvider:(NSString *)provider
+- (void)beginLoginWithProvider:(NSString *)provider
 {
     self.identityProvider = provider;
 
@@ -165,9 +172,7 @@
 
     [[ShelbyApp sharedApp].apiHelper storeAccessToken:token accessTokenSecret:tokenSecret];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"OAuthAuthorizedAccessToken"
-                                                        object:self
-                                                        ];
+    [DataApi fetchAndStoreUserSessionData];
 }
 
 @end

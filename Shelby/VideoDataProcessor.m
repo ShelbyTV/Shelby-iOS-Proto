@@ -253,4 +253,14 @@
     }
 }
 
+- (void)suspendOperations
+{
+    [operationQueue setSuspended:YES];
+}
+
+- (void)resumeOperations
+{
+    [operationQueue setSuspended:NO];
+}
+
 @end

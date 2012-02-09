@@ -25,10 +25,11 @@
 
 - (id)initWithContext:(NSManagedObjectContext *)context;
 
-- (void)getRequestTokenWithProvider:(NSString *)provider;
+- (void)beginLoginWithProvider:(NSString *)provider;
 - (void)verifierReturnedFromAuth:(NSString *)verifier;
 
 - (void)setCurrentUserFromCoreData;
+- (void)setCurrentUserPublicChannelFromCoreData;
 
 - (void)logout;
 - (BOOL)loggedIn;
