@@ -200,9 +200,6 @@
     [pool release];
 }
 
-
-
-
 + (void)storeSharerImage:(Video *)video
 { 
     if (NOT_NULL(video.sharerImage)) 

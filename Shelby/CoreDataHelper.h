@@ -24,6 +24,7 @@
 
 + (NSManagedObjectContext *)allocateContext;
 + (BOOL)contextHasChanges:(NSManagedObjectContext *)context;
++ (void)saveContextAndLogErrors:(NSManagedObjectContext *)context;
 + (void)saveAndReleaseContext:(NSManagedObjectContext *)context;
 
 + (void)deleteAllData;

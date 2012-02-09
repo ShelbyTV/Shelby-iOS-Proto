@@ -521,6 +521,8 @@
     favoritesVideoGuide.hidden = YES;
     watchLaterVideoGuide.hidden = YES;
     searchVideoGuide.hidden = YES;
+    
+    currentGuide = timelineVideoGuide;
 }
 
 - (IBAction)favoritesButtonPressed:(id)sender
@@ -534,6 +536,8 @@
     favoritesVideoGuide.hidden = NO;
     watchLaterVideoGuide.hidden = YES;
     searchVideoGuide.hidden = YES;
+    
+    currentGuide = favoritesVideoGuide;
 }
 
 - (IBAction)watchLaterButtonPressed:(id)sender
@@ -547,6 +551,8 @@
     favoritesVideoGuide.hidden = YES;
     watchLaterVideoGuide.hidden = NO;
     searchVideoGuide.hidden = YES;
+    
+    currentGuide = watchLaterVideoGuide;
 }
 
 - (IBAction)searchButtonPressed:(id)sender
@@ -560,6 +566,8 @@
     favoritesVideoGuide.hidden = YES;
     watchLaterVideoGuide.hidden = YES;
     searchVideoGuide.hidden = NO;
+    
+    currentGuide = searchVideoGuide;
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
@@ -592,6 +600,8 @@
     favoritesVideoGuide.hidden = YES;
     watchLaterVideoGuide.hidden = YES;
     searchVideoGuide.hidden = YES;
+    
+    currentGuide = timelineVideoGuide;
 
     [videoTableHolder addSubview:timelineVideoGuide];
     [videoTableHolder addSubview:favoritesVideoGuide];

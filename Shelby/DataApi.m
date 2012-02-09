@@ -145,6 +145,8 @@ withProcessResponseSelector:(SEL)processResponseSelector
             [ShelbyApp sharedApp].userSessionHelper.currentUser.auth_tumblr = [NSNumber numberWithBool:YES];
         }
     }
+    
+    [[ShelbyApp sharedApp].userSessionHelper updateCurrentUserInCoreData];
 
     // fire off the next step
     [DataApi fetchChannels];

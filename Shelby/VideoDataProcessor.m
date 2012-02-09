@@ -142,17 +142,22 @@
 
 - (BOOL)checkVimeoMobileURL:(NSString *)providerId
 {
-    //    NSError *error = nil;
-    //    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
-    //    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
-    //    
-    //    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
-    //    
-    //    if (mobileURL.location == NSNotFound) { // means there's no mobile version
-    //        return FALSE;
-    //    }
+    if ([providerId isEqualToString:[NSString stringWithFormat:@"%d", [providerId intValue]]])
+    {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
     
-    return TRUE;
+//    NSError *error = nil;
+//    NSString *requestString = [NSString stringWithFormat:@"http://vimeo.com/api/v2/video/%@.json", providerId];    
+//    NSString *vimeoVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
+//    
+//    NSRange mobileURL = [vimeoVideoData rangeOfString:@"\"mobile_url\""];
+//    
+//    if (mobileURL.location == NSNotFound) { // means there's no mobile version
+//        return FALSE;
+//    }
 }
 
 - (BOOL)checkYouTubePrivileges:(NSString *)providerId
@@ -213,10 +218,10 @@
 
 - (void)clearPendingOperations
 {
-//    @synchronized(self)
-//    {
-//        [operationQueue cancelAllOperations];
-//    }
+    @synchronized(self)
+    {
+        [operationQueue cancelAllOperations];
+    }
 }
 
 - (void)loadSharerImageFromCoreData:(Video *)video

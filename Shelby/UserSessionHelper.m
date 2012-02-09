@@ -70,6 +70,11 @@
     self.currentUserPublicChannel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:_context];
 }
 
+- (void)updateCurrentUserInCoreData
+{
+    [CoreDataHelper saveContextAndLogErrors:_context];
+}
+
 #pragma mark - Network Activity
 
 - (void)incrementNetworkCounter

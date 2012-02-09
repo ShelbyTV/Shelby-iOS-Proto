@@ -76,7 +76,7 @@
 #pragma mark - Table Updates
 
 - (void)updateVideoTableCell:(Video *)video
-{
+{    
     UITableViewCell *cell;
     
     @synchronized(tableVideos)

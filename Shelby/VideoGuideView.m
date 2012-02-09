@@ -30,6 +30,11 @@
     return [_videoTableViewController getPreviousVideo];
 }
 
+- (Video *)getFirstVideo
+{
+    return [_videoTableViewController getFirstVideo];
+}
+
 - (void)updateVideoTableCell:(Video *)video
 {
     [_videoTableData updateVideoTableCell:video];

@@ -79,10 +79,6 @@
     return self;
 }
 
-#pragma mark - Utility
-
-
-
 #pragma mark - Video Info
 
 - (NSArray *)videoDupesForVideo:(Video *)video
@@ -222,7 +218,7 @@
         Video *video = [notification.userInfo objectForKey:@"video"];
         video.isWatched = TRUE;
         [VideoCoreDataInterface storeWatchStatus:video];
-        //[self updateVideoTableCell:video];
+        [self updateVideoTableCell:video];
     }
 }
 
@@ -242,90 +238,7 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-#pragma mark - Unorganized
-
-- (NSDictionary *)createBroadcastShelbyIdentDict:(NSArray *)broadcasts
-{
-    NSMutableDictionary *returnDict = [[[NSMutableDictionary alloc] initWithCapacity:[broadcasts count]] autorelease];
-    
-    for (Broadcast *broadcast in broadcasts) {
-        [returnDict setObject:broadcast forKey:broadcast.shelbyId];
-    }
-    
-    return returnDict;
-}
-
-- (BOOL)providerPassesBasicChecks:(NSString *)provider withId:(NSString *)providerId
-{
-    if (IS_NULL(provider) || !([provider isEqualToString: @"youtube"] ||
-                               [provider isEqualToString: @"vimeo"])) {
-        return FALSE;
-    }
-    
-    if (IS_NULL(providerId) || [providerId isEqualToString:@""]) {
-        return FALSE;;
-    }
-    
-    if ([provider isEqualToString: @"vimeo"] &&
-        ![providerId isEqualToString:[NSString stringWithFormat:@"%d", [providerId intValue]]])
-    {
-        return FALSE;
-    }
-    
-    return TRUE;
-}
-
-- (NSDictionary *)addOrUpdateBroadcasts:(NSMutableArray *)broadcasts 
-                            withNewJSON:(NSArray *)jsonDictionariesArray 
-                            withChannel:(Channel *)jsonChannel
-                            withContext:(NSManagedObjectContext *)context
-{
-    NSMutableDictionary *jsonBroadcasts = [[[NSMutableDictionary alloc] init] autorelease];
-    
-    // create lookup dictionary of shelbyID => old broadast
-    NSDictionary *existingBroadcastShelbyIDs = [self createBroadcastShelbyIdentDict:broadcasts];
-    
-    for (NSDictionary *dict in jsonDictionariesArray)
-    {
-        // easy checks, should do now rather than later
-        NSString *provider = [dict objectForKey:@"video_provider_name"];
-        NSString *providerId = [dict objectForKey:@"video_id_at_provider"];
-        
-        if (![self providerPassesBasicChecks:provider withId:providerId]) {
-            continue;
-        }
-        
-        Broadcast *upsert = [existingBroadcastShelbyIDs objectForKey:[dict objectForKey:@"_id"]];
-        
-        if (IS_NULL(upsert)) {
-            upsert = [NSEntityDescription
-                      insertNewObjectForEntityForName:@"Broadcast"
-                      inManagedObjectContext:context];
-            
-            [broadcasts addObject:upsert];
-        }
-        
-        [jsonBroadcasts setObject:upsert forKey:[dict objectForKey:@"_id"]];
-        [upsert populateFromApiJSONDictionary:dict];
-        
-        if (jsonChannel) {
-            upsert.channel = jsonChannel; 
-        }
-    }
-    
-    return jsonBroadcasts;
-}
-
-
+#pragma mark - Delegate Registration
 
 - (void)addDelegate:(id<VideoDataDelegate>)consumer
 {

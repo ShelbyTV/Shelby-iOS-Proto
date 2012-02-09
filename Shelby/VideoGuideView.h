@@ -24,6 +24,8 @@
 
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;
+- (Video *)getFirstVideo;
+
 - (void)updateVideoTableCell:(Video *)video;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;

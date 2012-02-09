@@ -494,23 +494,6 @@
     _shareTime.text = [self prettyDateDiff:_video.createdAt];
 }
 
-//- (void)layoutSubviews 
-//{
-//    if (_inLayoutSubviewsAlready) {
-//        return;
-//    }
-//    _inLayoutSubviewsAlready = TRUE;
-//    
-//    NSLog(@"##### VideoTableViewCell layoutSubviews #####");
-//    [self setVideo:_video];
-//    [self sizeFramesForComments];
-//    [self setNeedsDisplay];
-//    [viewController.tableView beginUpdates];
-//    [viewController.tableView endUpdates];
-//    
-//    _inLayoutSubviewsAlready = FALSE;
-//}
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self setVideo:_video andSizeFrames:NO];

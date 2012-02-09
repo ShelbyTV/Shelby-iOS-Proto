@@ -31,6 +31,8 @@
 - (void)setCurrentUserFromCoreData;
 - (void)setCurrentUserPublicChannelFromCoreData;
 
+- (void)updateCurrentUserInCoreData;
+
 - (void)logout;
 - (BOOL)loggedIn;
 
