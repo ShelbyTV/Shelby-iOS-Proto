@@ -17,6 +17,7 @@
 #import "Video.h"
 #import "VideoDataProcessor.h"
 #import "VideoHelper.h"
+#import "VideoDataPoller.h"
 
 // Core Data
 #import "Broadcast.h"
@@ -38,7 +39,8 @@
         videoDupeDict = [[NSMutableDictionary alloc] init];
         uniqueVideoKeys = [[NSMutableArray alloc] init];
         videoDataDelegates = [[NSMutableArray alloc] init];
-
+        videoDataPoller = [[VideoDataPoller alloc] init];
+        
         dataProcessor = [[VideoDataProcessor alloc] init];
         dataProcessor.delegate = self;
         

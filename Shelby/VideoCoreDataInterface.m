@@ -140,8 +140,6 @@
 
 #pragma mark - Unorganized
 
-
-
 + (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -163,6 +161,38 @@
     
     [fetchRequest release];
     [sorter release];
+    
+    return broadcasts;
+}
+
++ (NSArray *)fetchKeyBroadcastFieldDictionariesFromCoreDataContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
+                                              inManagedObjectContext:context];
+    
+    [fetchRequest setEntity:entity];
+    NSDictionary *attributes = [entity attributesByName];
+    
+    NSArray *propertiesToFetch = [[[NSArray alloc] initWithObjects:
+                                  [attributes objectForKey:@"provider"],
+                                  [attributes objectForKey:@"providerId"],
+                                  [attributes objectForKey:@"isPlayable"],
+                                  [attributes objectForKey:@"shelbyId"],
+                                  nil] autorelease];
+    
+    [fetchRequest setPropertiesToFetch:propertiesToFetch];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel.public=0"];
+    
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
+    
+    [fetchRequest release];
     
     return broadcasts;
 }

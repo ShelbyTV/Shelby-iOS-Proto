@@ -10,6 +10,7 @@
 #import "VideoDataProcessor.h"
 
 @class Video;
+@class VideoDataPoller;
 @class VideoDataProcessor;
 
 @protocol VideoDataDelegate
@@ -27,6 +28,8 @@
     VideoDataProcessor *dataProcessor;
     
     NSMutableArray *videoDataDelegates;
+    
+    VideoDataPoller *videoDataPoller;
 }
 
 - (NSURL *)getVideoContentURL:(Video *)video;

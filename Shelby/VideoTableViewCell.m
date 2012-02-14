@@ -470,7 +470,8 @@
             first = FALSE;
             continue;
         }
-        UIImageView *dupeSharerImage = [_dupeSharerImages objectAtIndex:i];
+        // XXX if this races with setVideo, _dupeSharerImages might not be full initialized. need to really fix this, not this hack...
+        UIImageView *dupeSharerImage = ([_dupeSharerImages count] > i) ? [_dupeSharerImages objectAtIndex:i] : nil;
         if (NOT_NULL(dupe.sharerImage)) {
             dupeSharerImage.image = dupe.sharerImage;
         } else {

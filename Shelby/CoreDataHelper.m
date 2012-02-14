@@ -152,7 +152,7 @@
     
     [fetchRequest release];
     
-    return ([channels count] > 0) ? [channels objectAtIndex:0] : nil;
+    return (NOT_NULL(channels) && [channels count] > 0) ? [channels objectAtIndex:0] : nil;
 }
 
 + (User *)fetchUserFromCoreDataContext:(NSManagedObjectContext *)context
@@ -164,7 +164,7 @@
     NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     
-    return ([objects count] > 0) ? [objects objectAtIndex:0] : nil;
+    return (NOT_NULL(objects) && [objects count] > 0) ? [objects objectAtIndex:0] : nil;
 }
 
 @end

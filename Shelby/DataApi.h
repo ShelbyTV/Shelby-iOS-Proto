@@ -15,5 +15,6 @@
 + (void)fetchAndStoreUserSessionData;
 
 + (void)fetchBroadcastsAndStoreInCoreData;
++ (void)fetchBroadcastsAndReturnJSON;
 
 @end

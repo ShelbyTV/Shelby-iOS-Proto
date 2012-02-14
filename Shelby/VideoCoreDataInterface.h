@@ -13,6 +13,7 @@
 @interface VideoCoreDataInterface : NSObject
 
 + (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context;
++ (NSArray *)fetchKeyBroadcastFieldDictionariesFromCoreDataContext:(NSManagedObjectContext *)context;
 
 + (void)storeLikeStatus:(Video *)video;
 + (void)storeWatchLaterStatus:(Video *)video;

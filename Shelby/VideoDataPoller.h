@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VideoDataProcessor.h"
 
-@interface VideoDataPoller : NSObject
+@interface VideoDataPoller : NSObject <VideoDataProcessorDelegate>
 {
-    int lastPollIntervalSeconds;
-    NSTimer *pollingTimer;
+    int lastApiPollIntervalSeconds;
+    
+    BOOL newPlayableBroadcasts;
+    
+    VideoDataProcessor *dataProcessor;
 }
 
 @end
