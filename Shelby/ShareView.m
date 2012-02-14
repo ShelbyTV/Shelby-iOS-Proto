@@ -48,12 +48,30 @@
 {
     // Populate the UI.
     NSString *defaultComment = @"";
-    if (_video.sharer) {
-        defaultComment = [NSString stringWithFormat: @"\"%@\" on [shelby.tv_short_link] via %@ ", _video.title, [_video.sharer lowercaseString]];
-    }
+    
+    if (NOT_NULL(_video.title)) {
+        
+        if (NOT_NULL(_video.sharer)) {
+            defaultComment = [NSString stringWithFormat: @"\"%@\" on [shelby.tv_short_link] via %@", _video.title, [_video.sharer lowercaseString]];
+        } else {
+            defaultComment = [NSString stringWithFormat: @"\"%@\" on [shelby.tv_short_link]", _video.title];
+        }
 
-    _bodyTextView.text = defaultComment;
-    _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"\"%@\" on", _video.title] length]);
+        _bodyTextView.text = defaultComment;
+        _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"\"%@\" on", _video.title] length]);
+        
+    } else {
+        
+        if (NOT_NULL(_video.sharer)) {
+            defaultComment = [NSString stringWithFormat: @"Great video on [shelby.tv_short_link] via %@", [_video.sharer lowercaseString]];
+        } else {
+            defaultComment = @"Great video on [shelby.tv_short_link]";
+        }
+        
+        _bodyTextView.text = defaultComment;
+        _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"Great video on", _video.title] length]);
+    }
+    
     [self textViewDidChange:_bodyTextView];
     
     [_peoplePicker clearTokenField];
