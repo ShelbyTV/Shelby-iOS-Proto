@@ -49,11 +49,11 @@
     // Populate the UI.
     NSString *defaultComment = @"";
     if (_video.sharer) {
-        defaultComment = [NSString stringWithFormat: @"Great video via %@ [shelby.tv_short_link]", [_video.sharer lowercaseString]];
+        defaultComment = [NSString stringWithFormat: @"\"%@\" on [shelby.tv_short_link] via %@ ", _video.title, [_video.sharer lowercaseString]];
     }
 
     _bodyTextView.text = defaultComment;
-    _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"Great video via %@", [_video.sharer lowercaseString]] length]);
+    _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"\"%@\" on", _video.title] length]);
     [self textViewDidChange:_bodyTextView];
     
     [_peoplePicker clearTokenField];
