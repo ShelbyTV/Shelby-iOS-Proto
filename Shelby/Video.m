@@ -26,7 +26,6 @@
 @synthesize source;
 @synthesize createdAt;
 @synthesize shelbyId;
-@synthesize shortPermalink;
 @synthesize isLiked;
 @synthesize isWatchLater;
 @synthesize isWatched;
@@ -61,7 +60,6 @@
         SET_IF_NOT_NULL(self.title, broadcast.title)
         SET_IF_NOT_NULL(self.sharer, sharerName)
         SET_IF_NOT_NULL(self.sharerComment, broadcast.sharerComment)
-        SET_IF_NOT_NULL(self.shortPermalink, broadcast.shortPermalink)
         SET_IF_NOT_NULL(self.source, broadcast.origin)
         SET_IF_NOT_NULL(self.createdAt, broadcast.createdAt)
         
@@ -93,7 +91,6 @@
     [sharerImage release]; sharerImage = nil;
     source = nil;
     shelbyId = nil;
-    shortPermalink = nil;
     [createdAt release]; createdAt = nil;
     
     [super dealloc];
@@ -114,7 +111,6 @@
             "sharerImage: not displaying\n"
             "source: %@\n"
             "shelbyId: %@\n"
-            "shortPermalink: %@\n"
             "createdAt: not displaying\n"
             "isLiked: %@\n"
             "isWatchLater: %@\n"
@@ -132,7 +128,6 @@
             [self.sharerImageURL description],
             self.source,
             self.shelbyId,
-            self.shortPermalink,
             self.isLiked ? @"TRUE" : @"FALSE",
             self.isWatchLater ?  @"TRUE" : @"FALSE",
             self.isWatched ? @"TRUE" : @"FALSE",
