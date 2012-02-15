@@ -13,6 +13,10 @@
 @interface VideoGuideTimelineView : VideoGuideView
 {
     VideoTableTimelineData *_videoTableTimelineData;
+    
+    UIView *_updatesContainer;
+    UILabel *_updatesLabel;
+    BOOL _updatesVisible;
 }
 
 @end

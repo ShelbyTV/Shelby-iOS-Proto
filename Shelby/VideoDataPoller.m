@@ -134,7 +134,16 @@
             [alreadyCountedVideos setValue:dict forKey:videoKey];
         }
     }
-
+    
+    if (newVideos != 0 || newCommentsOnExistingVideos != 0)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewDataAvailableFromAPI"
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:newVideos], @"newVideos", 
+                                                                                                              [NSNumber numberWithInt:newCommentsOnExistingVideos], @"newCommentsOnExistingVideos",
+                                                                                                              nil]];
+    }
+    
     // XXX don't really need to "save" here, just release.
     [CoreDataHelper saveAndReleaseContext:context];
 }

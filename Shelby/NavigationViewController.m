@@ -88,6 +88,11 @@
                                                      name:UIScreenDidDisconnectNotification
                                                    object:nil];
 
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(receivedNewDataFromAPI:)
+                                                     name: @"NewDataAvailableFromAPI"
+                                                   object: nil];
+        
         _authorizations = [[NSSet alloc] initWithObjects:
             @"auth_twitter",
             @"auth_facebook",
@@ -596,6 +601,8 @@
     watchLaterVideoGuide.frame = videoTableHolder.bounds;
     searchVideoGuide.frame = videoTableHolder.bounds;
     
+    [timelineVideoGuide initSubviews];
+    
     timelineVideoGuide.hidden = NO;
     favoritesVideoGuide.hidden = YES;
     watchLaterVideoGuide.hidden = YES;
@@ -920,6 +927,18 @@
      ];
 }
 
+
+- (void)receivedNewDataFromAPI:(NSNotification *)notification
+{
+    int newVideos = [[notification.userInfo objectForKey:@"newVideos"] intValue];
+    int newCommentsOnExistingVideos = [[notification.userInfo objectForKey:@"newCommentsOnExistingVideos"] intValue];
+    
+    if (newVideos + newCommentsOnExistingVideos <= 0) {
+        [timelineTabBarItem setBadgeValue:@""];
+    } else {
+        [timelineTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", newVideos + newCommentsOnExistingVideos]];
+    }
+}
 
 
 @end
