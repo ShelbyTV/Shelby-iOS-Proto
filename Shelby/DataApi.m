@@ -198,7 +198,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
     [DataApi makeRequest:req withProcessResponseSelector:@selector(processGetBroadcastsResponseAndStoreInCoreData:)];
 }
 
-+ (void)processGetBroadcastsResponseAndStoreInCoreData:(NSArray *)array
++ (void)storeNewBroadcastsInCoreData:(NSArray *) array
 {
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
@@ -215,25 +215,31 @@ withProcessResponseSelector:(SEL)processResponseSelector
         [upsert populateFromApiJSONDictionary:dict];
         upsert.channel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:context]; 
     }
+    
+    [CoreDataHelper saveAndReleaseContext:context]; 
+}
 
-    [CoreDataHelper saveAndReleaseContext:context];
++ (void)processGetBroadcastsResponseAndStoreInCoreData:(NSArray *)array
+{
+    [DataApi storeNewBroadcastsInCoreData:array];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcastsAndStoredInCoreData" 
                                                         object:[DataApi class]];
 }
 
-+ (void)fetchBroadcastsAndReturnJSON
++ (void)fetchPollingBroadcastsAndStoreInCoreData
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId]];    
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
-    [DataApi makeRequest:req withProcessResponseSelector:@selector(processGetBroadcastsResponseAndReturnJSON:)];
+    [DataApi makeRequest:req withProcessResponseSelector:@selector(processPollBroadcastsResponseAndStoreInCoreData:)];
 }
 
-+ (void)processGetBroadcastsResponseAndReturnJSON:(NSArray *)array
++ (void)processPollBroadcastsResponseAndStoreInCoreData:(NSArray *)array
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcastsAndReturnedJSON" 
-                                                        object:[DataApi class] 
-                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:array, @"jsonDictionariesArray", nil]];
+    [DataApi storeNewBroadcastsInCoreData:array];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedPollingBroadcastsAndStoredInCoreData" 
+                                                        object:[DataApi class]];
 }
 
 @end

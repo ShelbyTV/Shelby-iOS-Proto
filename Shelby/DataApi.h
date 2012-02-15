@@ -15,6 +15,6 @@
 + (void)fetchAndStoreUserSessionData;
 
 + (void)fetchBroadcastsAndStoreInCoreData;
-+ (void)fetchBroadcastsAndReturnJSON;
++ (void)fetchPollingBroadcastsAndStoreInCoreData;
 
 @end

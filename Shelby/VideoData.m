@@ -40,6 +40,7 @@
         uniqueVideoKeys = [[NSMutableArray alloc] init];
         videoDataDelegates = [[NSMutableArray alloc] init];
         videoDataPoller = [[VideoDataPoller alloc] init];
+        knownShelbyIds = [[NSMutableDictionary alloc] init];
         
         dataProcessor = [[VideoDataProcessor alloc] init];
         dataProcessor.delegate = self;
@@ -110,6 +111,10 @@
 {
     for (Broadcast *broadcast in broadcasts) {
         Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
+        
+        if (IS_NULL([knownShelbyIds objectForKey:video.shelbyId])) {
+            [knownShelbyIds setObject:[NSValue valueWithPointer:nil] forKey:video.shelbyId];
+        }
         
         NSMutableArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
         if (NOT_NULL(dupeArray)) {
@@ -238,6 +243,18 @@
 - (void)addDelegate:(id<VideoDataDelegate>)consumer
 {
     [videoDataDelegates addObject:consumer];
+}
+
+#pragma mark - Uncategorized
+
+- (BOOL)isKnownVideoKey:(NSString *)key
+{
+    return NOT_NULL([videoDupeDict objectForKey:key]);
+}
+
+- (BOOL)isKnownShelbyId:(NSString *)shelbyId
+{
+    return NOT_NULL([knownShelbyIds objectForKey:shelbyId]);
 }
 
 @end

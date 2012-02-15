@@ -25,6 +25,8 @@
     NSMutableDictionary *videoDupeDict;
     NSMutableArray *uniqueVideoKeys;
     
+    NSMutableDictionary *knownShelbyIds;
+    
     VideoDataProcessor *dataProcessor;
     
     NSMutableArray *videoDataDelegates;
@@ -46,5 +48,8 @@
 - (void)updateVideoTableCell:(Video *)video;
 
 - (void)addDelegate:(id<VideoDataDelegate>)consumer;
+
+- (BOOL)isKnownVideoKey:(NSString *)key;
+- (BOOL)isKnownShelbyId:(NSString *)shelbyId;
 
 @end

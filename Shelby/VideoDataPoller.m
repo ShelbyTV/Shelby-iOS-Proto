@@ -15,6 +15,8 @@
 #import "Video.h"
 #import "Enums.h"
 #import "ShelbyApp.h"
+#import "VideoHelper.h"
+#import "VideoData.h"
 
 @implementation VideoDataPoller
 
@@ -40,6 +42,11 @@
                                        selector:@selector(updateNewVideosAndCommentsCounters) 
                                        userInfo:nil 
                                         repeats:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(receivedPollingBroadcastsAndStoredInCoreDataNotification:)
+                                                     name: @"ReceivedPollingBroadcastsAndStoredInCoreData"
+                                                   object: nil];
     }
     
     return self;    
@@ -47,32 +54,19 @@
 
 #pragma mark - Miscellaneous
 
+- (void)receivedPollingBroadcastsAndStoredInCoreDataNotification:(NSNotification *)notification
+{
+    [NSTimer scheduledTimerWithTimeInterval:0 
+                                     target:self
+                                   selector:@selector(processPollingBroadcastsStoredInCoreData:) 
+                                   userInfo:notification.userInfo 
+                                    repeats:NO];
+}
+
+
 - (void)updateCoreDataAndIssuePlayabilityChecks
 {
-    NSLog(@"Inside updateCoreDataAndIssuePlayabilityChecks");
-    [DataApi fetchBroadcastsAndStoreInCoreData];
-    NSLog(@"Done with fetchBroadcastsAndStoreInCoreData");
-    
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-    [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
-    
-    NSLog(@"Iterating through CoreData broadcasts");
-
-    for (Broadcast *broadcast in broadcasts) {
-        if ([broadcast.isPlayable intValue] == PLAYABLE_UNSET) {
-            Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
-        
-            [dataProcessor scheduleCheckPlayable:video];
-        }
-    }
-    
-    NSLog(@"Done iterating through CoreData broadcasts");
-
-    [context release];
-    
-    NSLog(@"Context released");
+    [DataApi fetchPollingBroadcastsAndStoreInCoreData];
     
     lastApiPollIntervalSeconds = MIN((lastApiPollIntervalSeconds * 2), 120);
     [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
@@ -80,17 +74,29 @@
                                    selector:@selector(updateCoreDataAndIssuePlayabilityChecks) 
                                    userInfo:nil 
                                     repeats:NO];
-    
-    NSLog(@"Rescheduled");
+}
 
+- (void)processPollingBroadcastsStoredInCoreData:(NSTimer*)timer
+{
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    
+    NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+    [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
+        
+    for (Broadcast *broadcast in broadcasts) {
+        if ([broadcast.isPlayable intValue] == PLAYABLE_UNSET) {
+            Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
+            
+            [dataProcessor scheduleCheckPlayable:video];
+        }
+    }
+        
+    [context release];
 }
 
 - (void)updateNewVideosAndCommentsCounters
 {
-    NSLog(@"Inside updateNewVideosAndCommentsCounters");
-
     if (!newPlayableBroadcasts) {
-        NSLog(@"No newPlayableBroadcasts");
         return;
     }
     
@@ -99,40 +105,38 @@
     // calculate number of new videos and comments on existing videos
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     NSArray *broadcastDicts = [VideoCoreDataInterface fetchKeyBroadcastFieldDictionariesFromCoreDataContext:context];
-    
-    if (IS_NULL(broadcastDicts) || [broadcastDicts count] <= 0) {
-        NSLog(@"Uh oh. something screwed up with broadcastDicts.");
-    }
-    
-    NSLog(@"Iterating through all broadcasts");
-    
+        
     int newVideos = 0;
     int newCommentsOnExistingVideos = 0;
     
     NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
     
     for (NSDictionary *dict in broadcastDicts) {
-        
-        if ([[dict objectForKey:@"isPlayable"] intValue] == IS_PLAYABLE) {
-//            if (![ShelbyApp sharedApp].videoData isKnownVideoKey) {
-//                newVideos++;
-//            } else {
-//                if (![ShelbyApp sharedApp].videoData isKnownShelbyId) {
-//                    newCommentsOnExistingVideos++;
-//                }
-//            }
+                
+        if ([[dict objectForKey:@"isPlayable"] intValue] != IS_PLAYABLE) {
+            continue;
         }
         
-        //NSLog(@"dict is %@", dict);
+        if ([[ShelbyApp sharedApp].videoData isKnownShelbyId:[dict objectForKey:@"shelbyId"]]) {
+            continue;
+        }
+            
+        NSString *videoKey = [VideoHelper dupeKeyWithProvider:[dict objectForKey:@"provider"] 
+                                                       withId:[dict objectForKey:@"providerId"]];
+        
+        if ([[ShelbyApp sharedApp].videoData isKnownVideoKey:videoKey])
+        {
+            newCommentsOnExistingVideos++;
+        
+        } else if (IS_NULL([alreadyCountedVideos objectForKey:videoKey])) {
+            
+            newVideos++;
+            [alreadyCountedVideos setValue:dict forKey:videoKey];
+        }
     }
-    
-    NSLog(@"Done iterating through all broadcasts");
 
     // XXX don't really need to "save" here, just release.
     [CoreDataHelper saveAndReleaseContext:context];
-    
-    NSLog(@"Finished saveAndReleaseContext");
-
 }
 
 #pragma mark - VideoDataProcessorDelegate Methods
