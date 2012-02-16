@@ -23,7 +23,7 @@
 @interface VideoData : NSObject <VideoDataProcessorDelegate>
 {
     NSMutableDictionary *videoDupeDict;
-    NSMutableArray *uniqueVideoKeys;
+    NSMutableArray *uniqueVideosSorted;
     
     NSMutableDictionary *knownShelbyIds;
     
@@ -32,14 +32,20 @@
     NSMutableArray *videoDataDelegates;
     
     VideoDataPoller *videoDataPoller;
+    
+    BOOL _isLoading;
 }
+
+@property (nonatomic, retain) NSDate *lastFetchBroadcasts;
+
+- (BOOL)isLoading;
 
 - (NSURL *)getVideoContentURL:(Video *)video;
 
 - (NSArray *)videoDupesForVideo:(Video *)video;
 - (NSArray *)videoDupesForKey:(NSString *)videoKey;
 
-- (NSArray *)uniqueVideoKeys;
+- (NSArray *)uniqueVideosSorted;
 
 - (void)loadInitialVideosFromAPI;
 - (void)loadInitialVideosFromCoreData;
@@ -51,5 +57,7 @@
 
 - (BOOL)isKnownVideoKey:(NSString *)key;
 - (BOOL)isKnownShelbyId:(NSString *)shelbyId;
+
+- (void)loadAdditionalVideosFromCoreData;
 
 @end

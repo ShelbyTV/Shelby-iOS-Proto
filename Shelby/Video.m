@@ -136,4 +136,17 @@
             self.cellHeightCurrent]; 
 }
 
+- (NSComparisonResult)compareByCreationTime:(Video *)otherVideo
+{
+	NSTimeInterval diff = [self.createdAt timeIntervalSinceDate:otherVideo.createdAt];
+    
+	if (diff > 0) {
+		return NSOrderedAscending;
+	} else if (diff < 0) {
+		return NSOrderedDescending;
+	}
+    
+	return NSOrderedSame;
+}
+
 @end

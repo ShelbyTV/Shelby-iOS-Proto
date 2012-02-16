@@ -122,7 +122,7 @@
 //    @synchronized(tableVideos)
 //    {
 //        [videoDupeDict removeAllObjects];
-//        [uniqueVideoKeys removeAllObjects];
+//        [uniqueVideosSorted removeAllObjects];
 //        [self clearVideoTableWithArrayLockHeld];
 //    }
 }
@@ -137,9 +137,9 @@
 {    
     int videoTableIndex = 0;
     
-    for (NSString *key in [ShelbyApp sharedApp].videoData.uniqueVideoKeys)
+    for (Video *iter in [ShelbyApp sharedApp].videoData.uniqueVideosSorted)
     {
-        NSArray *dupeArray = [[ShelbyApp sharedApp].videoData videoDupesForKey:key];
+        NSArray *dupeArray = [[ShelbyApp sharedApp].videoData videoDupesForKey:[iter dupeKey]];
         Video *video = [dupeArray objectAtIndex:0];
         
         if (video.isPlayable != IS_PLAYABLE) {
@@ -203,7 +203,7 @@
 - (void)clearTempDataStructuresForNewBroadcasts
 {
 //    [videoDupeDict removeAllObjects];
-//    [uniqueVideoKeys removeAllObjects];
+//    [uniqueVideosSorted removeAllObjects];
 //    [playableVideoKeys removeAllObjects];
 //    [self clearVideoTableWithArrayLockHeld];
 }

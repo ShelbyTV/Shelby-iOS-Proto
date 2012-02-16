@@ -934,7 +934,7 @@
     int newCommentsOnExistingVideos = [[notification.userInfo objectForKey:@"newCommentsOnExistingVideos"] intValue];
     
     if (newVideos + newCommentsOnExistingVideos <= 0) {
-        [timelineTabBarItem setBadgeValue:@""];
+        [timelineTabBarItem setBadgeValue:nil];
     } else {
         [timelineTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", newVideos + newCommentsOnExistingVideos]];
     }

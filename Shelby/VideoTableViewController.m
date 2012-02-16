@@ -153,19 +153,19 @@
         return;
     }
     
-//	[self loadInitialVideosFromAPI];
+    [[ShelbyApp sharedApp].videoData loadAdditionalVideosFromCoreData];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-//	return [videoTableData isLoading]; // return if data source model is reloading
-    return FALSE;
+	return [[ShelbyApp sharedApp].videoData isLoading]; // return if data source model is reloading
 }
 
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
+- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-//	return IS_NULL([ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts) ? [NSDate date] : 
-//              [ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts; // should return date data source was last changed
+//	return IS_NULL([ShelbyApp sharedApp].videoData) || IS_NULL([ShelbyApp sharedApp].videoData.lastFetchBroadcasts) ? [NSDate date] : 
+//              [ShelbyApp sharedApp].videoData.lastFetchBroadcasts; // should return date data source was last changed
+    
     return [NSDate date];
 }
 

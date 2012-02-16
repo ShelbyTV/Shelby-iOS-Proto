@@ -96,56 +96,63 @@
 
 - (void)updateNewVideosAndCommentsCounters
 {
-    if (!newPlayableBroadcasts) {
-        return;
-    }
-    
-    newPlayableBroadcasts = FALSE;
-    
-    // calculate number of new videos and comments on existing videos
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    NSArray *broadcastDicts = [VideoCoreDataInterface fetchKeyBroadcastFieldDictionariesFromCoreDataContext:context];
-        
-    int newVideos = 0;
-    int newCommentsOnExistingVideos = 0;
-    
-    NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
-    
-    for (NSDictionary *dict in broadcastDicts) {
-                
-        if ([[dict objectForKey:@"isPlayable"] intValue] != IS_PLAYABLE) {
-            continue;
-        }
-        
-        if ([[ShelbyApp sharedApp].videoData isKnownShelbyId:[dict objectForKey:@"shelbyId"]]) {
-            continue;
-        }
-            
-        NSString *videoKey = [VideoHelper dupeKeyWithProvider:[dict objectForKey:@"provider"] 
-                                                       withId:[dict objectForKey:@"providerId"]];
-        
-        if ([[ShelbyApp sharedApp].videoData isKnownVideoKey:videoKey])
-        {
-            newCommentsOnExistingVideos++;
-        
-        } else if (IS_NULL([alreadyCountedVideos objectForKey:videoKey])) {
-            
-            newVideos++;
-            [alreadyCountedVideos setValue:dict forKey:videoKey];
-        }
-    }
-    
-    if (newVideos != 0 || newCommentsOnExistingVideos != 0)
+    @synchronized(self)
     {
+        if (!newPlayableBroadcasts) {
+            return;
+        }
+        
+        newPlayableBroadcasts = FALSE;
+        
+        // calculate number of new videos and comments on existing videos
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSArray *broadcastDicts = [VideoCoreDataInterface fetchKeyBroadcastFieldDictionariesFromCoreDataContext:context];
+        
+        int newVideos = 0;
+        int newCommentsOnExistingVideos = 0;
+        
+        NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
+        
+        for (NSDictionary *dict in broadcastDicts) {
+            
+            if ([[dict objectForKey:@"isPlayable"] intValue] != IS_PLAYABLE) {
+                continue;
+            }
+            
+            if ([[ShelbyApp sharedApp].videoData isKnownShelbyId:[dict objectForKey:@"shelbyId"]]) {
+                continue;
+            }
+            
+            NSString *videoKey = [VideoHelper dupeKeyWithProvider:[dict objectForKey:@"provider"] 
+                                                           withId:[dict objectForKey:@"providerId"]];
+            
+            if ([[ShelbyApp sharedApp].videoData isKnownVideoKey:videoKey])
+            {
+                newCommentsOnExistingVideos++;
+                
+            } else if (IS_NULL([alreadyCountedVideos objectForKey:videoKey])) {
+                
+                newVideos++;
+                [alreadyCountedVideos setValue:dict forKey:videoKey];
+            }
+        }
+        
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewDataAvailableFromAPI"
                                                             object:self
                                                           userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:newVideos], @"newVideos", 
-                                                                                                              [NSNumber numberWithInt:newCommentsOnExistingVideos], @"newCommentsOnExistingVideos",
-                                                                                                              nil]];
+                                                                    [NSNumber numberWithInt:newCommentsOnExistingVideos], @"newCommentsOnExistingVideos",
+                                                                    nil]];
+        
+        // XXX don't really need to "save" here, just release.
+        [CoreDataHelper saveAndReleaseContext:context];
     }
-    
-    // XXX don't really need to "save" here, just release.
-    [CoreDataHelper saveAndReleaseContext:context];
+}
+
+- (void)recalculateImmediately
+{
+    newPlayableBroadcasts = TRUE;
+    [self updateNewVideosAndCommentsCounters];
 }
 
 #pragma mark - VideoDataProcessorDelegate Methods

@@ -18,7 +18,7 @@
 //    NSError *error = nil;
 //    NSMutableURLRequest *request = nil;
 //    
-//    for (NSString *key in uniqueVideoKeys)
+//    for (NSString *key in uniqueVideosSorted)
 //    {
 //        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
 //        

@@ -152,7 +152,7 @@
     
     [fetchRequest setPredicate:predicate];
     
-    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
+    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:YES];
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sorter]];
     

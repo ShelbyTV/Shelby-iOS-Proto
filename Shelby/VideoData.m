@@ -30,6 +30,8 @@
 
 @implementation VideoData
 
+@synthesize lastFetchBroadcasts;
+
 #pragma mark - Init
 
 - (id)init
@@ -37,7 +39,7 @@
     self = [super init];
     if (self) {
         videoDupeDict = [[NSMutableDictionary alloc] init];
-        uniqueVideoKeys = [[NSMutableArray alloc] init];
+        uniqueVideosSorted = [[NSMutableArray alloc] init];
         videoDataDelegates = [[NSMutableArray alloc] init];
         videoDataPoller = [[VideoDataPoller alloc] init];
         knownShelbyIds = [[NSMutableDictionary alloc] init];
@@ -100,40 +102,50 @@
     return video.contentURL;
 }
 
-- (NSArray *)uniqueVideoKeys
+- (NSArray *)uniqueVideosSorted
 {
-    return uniqueVideoKeys;
+    return uniqueVideosSorted;
 }
 
 #pragma mark - Core Data Broadcast Processing
 
 - (void)processBroadcastArray:(NSArray *)broadcasts
-{
+{       
     for (Broadcast *broadcast in broadcasts) {
         Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
         
         if (IS_NULL([knownShelbyIds objectForKey:video.shelbyId])) {
             [knownShelbyIds setObject:[NSValue valueWithPointer:nil] forKey:video.shelbyId];
+        } else {
+            continue;
         }
         
         NSMutableArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
         if (NOT_NULL(dupeArray)) {
-            [dupeArray insertObject:video atIndex:0];
+            [dupeArray addObject:video];
+            [self updateVideoTableCell:[dupeArray objectAtIndex:0]];
         } else {
             dupeArray = [[[NSMutableArray alloc] init] autorelease];
             [dupeArray addObject:video];
             [videoDupeDict setObject:dupeArray forKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-            [uniqueVideoKeys addObject:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+            @synchronized(uniqueVideosSorted) {
+                [uniqueVideosSorted addObject:video];
+                [uniqueVideosSorted sortUsingSelector:@selector(compareByCreationTime:)];
+            }
             
             [dataProcessor scheduleCheckPlayable:video];
         }
         
         [dataProcessor scheduleImageAcquisition:video];
     }
+    
+    lastFetchBroadcasts = [NSDate date];
 }
 
 - (void)loadInitialVideosFromCoreData
 {
+    _isLoading = TRUE;
+    
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
@@ -143,6 +155,8 @@
     [context release];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewVideoDataAvailable" object:self];
+    
+    _isLoading = FALSE;
 }
 
 #pragma mark - API Broadcast Processing
@@ -255,6 +269,28 @@
 - (BOOL)isKnownShelbyId:(NSString *)shelbyId
 {
     return NOT_NULL([knownShelbyIds objectForKey:shelbyId]);
+}
+
+- (void)loadAdditionalVideosFromCoreData
+{
+    _isLoading = TRUE;
+
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    
+    NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+    [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
+    [self processBroadcastArray:broadcasts];
+    
+    [context release];
+    
+    [videoDataPoller recalculateImmediately];
+    
+    _isLoading = FALSE;
+}
+
+- (BOOL)isLoading
+{
+    return _isLoading;
 }
 
 @end

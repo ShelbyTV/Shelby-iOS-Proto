@@ -18,4 +18,6 @@
     VideoDataProcessor *dataProcessor;
 }
 
+- (void)recalculateImmediately;
+
 @end

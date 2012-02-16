@@ -19,4 +19,6 @@
     BOOL _updatesVisible;
 }
 
+- (void)initSubviews;
+
 @end
