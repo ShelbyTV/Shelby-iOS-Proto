@@ -39,11 +39,11 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
 
+- (void)updateTableVideos;
 - (void)clearVideoTableData;
-- (void)reloadTableVideos;
 - (void)updateVideoTableCell:(Video *)video;
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray;
 
-- (void)newPlayableVideoAvailable:(Video *)video;
+- (void)videoTableNeedsUpdate;
 
 @end

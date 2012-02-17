@@ -296,9 +296,6 @@
     
     // go through all duplicate videos and add in comment stuff...
     for (Video *dupe in dupes) {
-        
-        NSLog(@"dupe time: %@  dupe comment: %@", dupe.createdAt, dupe.sharerComment);
-        
         if (!first) {
             UIImageView *dupeSharerImage = [[UIImageView alloc] initWithFrame:CGRectMake(_kSharerOriginX, _kSharerOriginY + _kVideoFooterHeight + additionalHeight, _kSharerWidth, _kSharerHeight)];
             // actual sharer image gets set in drawRect, so that a setNeedsDisplay will pick up newly downloaded sharer images

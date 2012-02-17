@@ -15,7 +15,7 @@
 
 @protocol VideoDataDelegate
 
-- (void)newPlayableVideoAvailable:(Video *)video;
+- (void)videoTableNeedsUpdate;
 - (void)updateVideoTableCell:(Video *)video;
 
 @end
@@ -50,7 +50,7 @@
 - (void)loadInitialVideosFromAPI;
 - (void)loadInitialVideosFromCoreData;
 
-- (void)newPlayableVideoAvailable:(Video *)video;
+- (void)videoTableNeedsUpdate;
 - (void)updateVideoTableCell:(Video *)video;
 
 - (void)addDelegate:(id<VideoDataDelegate>)consumer;

@@ -35,7 +35,8 @@
 - (void)performSearch:(NSString *)searchText
 {
     _videoTableSearchData.searchString = searchText;
-    [_videoTableData reloadTableVideos];
+    [_videoTableData clearVideoTableData];
+    [_videoTableData updateTableVideos];
 }
 
 @end

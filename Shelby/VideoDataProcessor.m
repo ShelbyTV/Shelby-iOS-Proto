@@ -208,7 +208,7 @@
     }
     
     if (video.isPlayable == IS_PLAYABLE && self.delegate) {
-        [delegate newPlayableVideoAvailable:video];
+        [delegate videoTableNeedsUpdate];
     }
 
     if (needsCoreDataUpdate && self.delegate) {

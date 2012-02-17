@@ -124,6 +124,9 @@
         VideoDupeArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
         if (NOT_NULL(dupeArray)) {
             [dupeArray addVideo:video];
+            @synchronized(videoDupeArraysSorted) {
+                [videoDupeArraysSorted sortUsingSelector:@selector(compareByCreationTime:)];
+            }
             [self updateVideoTableCell:[[dupeArray copyOfVideoArray] objectAtIndex:0]];
         } else {
             dupeArray = [[[VideoDupeArray alloc] init] autorelease];
@@ -141,6 +144,7 @@
     }
     
     lastFetchBroadcasts = [NSDate date];
+    [self videoTableNeedsUpdate];
 }
 
 - (void)loadInitialVideosFromCoreData
@@ -239,10 +243,10 @@
 
 #pragma mark - VideoDataProcessorDelegate Methods
 
-- (void)newPlayableVideoAvailable:(Video *)video
+- (void)videoTableNeedsUpdate
 {
     for (id <VideoDataDelegate> delegate in videoDataDelegates) {
-        [delegate newPlayableVideoAvailable:video];
+        [delegate videoTableNeedsUpdate];
     }
 }
 

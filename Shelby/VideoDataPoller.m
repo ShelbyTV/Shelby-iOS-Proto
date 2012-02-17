@@ -157,7 +157,7 @@
 
 #pragma mark - VideoDataProcessorDelegate Methods
 
-- (void)newPlayableVideoAvailable:(Video *)video
+- (void)videoTableNeedsUpdate
 {
     newPlayableBroadcasts = TRUE;
 }

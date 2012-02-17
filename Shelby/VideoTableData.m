@@ -44,9 +44,7 @@
 {    
     @synchronized(tableVideos)
     {
-        if (index >= [tableVideos count])
-        {
-            // something racy happened, and our index is no longer valid
+        if (index >= [tableVideos count]) {
             return nil;
         }
         return [[(Video *)[tableVideos objectAtIndex:index] retain] autorelease];
@@ -59,9 +57,7 @@
 
     @synchronized(tableVideos)
     {
-        if (index >= [tableVideos count])
-        {
-            // something racy happened, and our index is no longer valid
+        if (index >= [tableVideos count]) {
             return nil;
         }
         video = [[[tableVideos objectAtIndex:index] retain] autorelease];
@@ -83,6 +79,7 @@
     @synchronized(tableVideos)
     {
         int videoIndex = [tableVideos indexOfObject:video];
+        
         if (videoIndex == NSNotFound) {
             return;
         }
@@ -93,56 +90,45 @@
     [cell performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
 }
 
-#pragma mark - Image Downloading
-
 
 #pragma mark - Clearing
 
-/*
- * Clear the existing video table, and update the table view to delete all entries
- */
-
-- (void)clearVideoTableWithArrayLockHeld
-{
-    [tableVideos removeAllObjects];
-    
-    NSIndexSet *indexSet = [[[NSIndexSet alloc] initWithIndex:0] autorelease];
-
-    [tableView beginUpdates];        
-    
-    [tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
-    [tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-    
-    self.numItemsInserted = 0;
-
-    [tableView endUpdates];
-}
-
 - (void)clearVideoTableData
 {
-//    @synchronized(tableVideos)
-//    {
-//        [videoDupeDict removeAllObjects];
-//        [videoDupeArraysSorted removeAllObjects];
-//        [self clearVideoTableWithArrayLockHeld];
-//    }
+    @synchronized(tableVideos)
+    {
+        [tableVideos removeAllObjects];
+        
+        NSIndexSet *indexSet = [[[NSIndexSet alloc] initWithIndex:0] autorelease];
+        
+        [tableView beginUpdates];        
+        
+        [tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+        [tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        
+        self.numItemsInserted = 0;
+        
+        [tableView endUpdates];
+    }
 }
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
-    // implemented in subclass
+    NSAssert(FALSE, @"Should only be called in the subclass");
     return FALSE;
 }
 
-- (void)insertTableVideos
+- (void)updateTableVideosLocked
 {    
     int videoTableIndex = 0;
     
+    NSMutableDictionary *alreadyVisitedVideos = [[[NSMutableDictionary alloc] init] autorelease];
+        
     for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
     {
         NSArray *videos = [dupeArray copyOfVideoArray];
         Video *video = [videos objectAtIndex:0];
-        
+                
         if (video.isPlayable != IS_PLAYABLE) {
             continue;
         }
@@ -151,14 +137,37 @@
             continue;
         }
         
-        if ([tableVideos count] > videoTableIndex) 
-        {
+        if ([tableVideos count] > videoTableIndex) {
+            
             Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
             NSString *videoAtTableIndexDupeKey = [videoAtTableIndex dupeKey];
             
-            if ([[video dupeKey] isEqualToString:videoAtTableIndexDupeKey])
-            {
+            while (NOT_NULL([alreadyVisitedVideos objectForKey:videoAtTableIndexDupeKey])) {
+                [tableVideos removeObjectAtIndex:videoTableIndex];
+                
+                [tableView beginUpdates];
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                self.numItemsInserted = [tableVideos count];
+                [tableView endUpdates];
+                
+                // go on to next vid
+                if ([tableVideos count] > videoTableIndex) {
+                    videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
+                    videoAtTableIndexDupeKey = [videoAtTableIndex dupeKey];
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        if ([tableVideos count] > videoTableIndex) {
+            
+            Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
+            NSString *videoAtTableIndexDupeKey = [videoAtTableIndex dupeKey];
+            
+            if ([[video dupeKey] isEqualToString:videoAtTableIndexDupeKey]) {
                 videoTableIndex++;
+                [alreadyVisitedVideos setObject:dupeArray forKey:[video dupeKey]];
                 continue;
             }
         }
@@ -170,50 +179,19 @@
         self.numItemsInserted = [tableVideos count];
         [tableView endUpdates];
         
+        [alreadyVisitedVideos setObject:dupeArray forKey:[video dupeKey]];
         videoTableIndex++;
     }
 }
 
-- (void)loadNewTableVideos
+- (void)updateTableVideos
 {
     @synchronized(tableVideos)
     {
-        [self insertTableVideos];
+        [self updateTableVideosLocked];
     }
     [self.delegate videoTableDataDidFinishRefresh:self];
 }
-
-- (void)reloadTableVideosInt
-{
-    @synchronized(tableVideos)
-    {
-        [self clearVideoTableWithArrayLockHeld];
-        [self insertTableVideos];
-//        if (self.numItemsInserted > 1) {
-//            [tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection: 0]
-//                             atScrollPosition: UITableViewScrollPositionTop
-//                                     animated: NO];
-//        }
-    }
-}
-
-- (void)reloadTableVideos
-{
-    [self performSelectorOnMainThread:@selector(reloadTableVideosInt) withObject:nil waitUntilDone:NO];
-}
-- (void)clearTempDataStructuresForNewBroadcasts
-{
-//    [videoDupeDict removeAllObjects];
-//    [videoDupeArraysSorted removeAllObjects];
-//    [playableVideoKeys removeAllObjects];
-//    [self clearVideoTableWithArrayLockHeld];
-}
-
-
-
-
-#pragma mark - Notifications
-
 
 #pragma mark - Initialization
 
@@ -233,7 +211,7 @@
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:3];
         
-        updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimerCallback) userInfo:nil repeats:YES];
+        updateTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(updateTimerCallback) userInfo:nil repeats:YES];
         
         [[ShelbyApp sharedApp] addNetworkObject:self];
         
@@ -249,11 +227,11 @@
     
     if (videoTableNeedsUpdate) {
         videoTableNeedsUpdate = FALSE;
-        [self performSelectorOnMainThread:@selector(loadNewTableVideos) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(updateTableVideos) withObject:nil waitUntilDone:NO];
     }
 }
 
-- (void)newPlayableVideoAvailable:(Video *)video
+- (void)videoTableNeedsUpdate
 {
     videoTableNeedsUpdate = TRUE;
 }
