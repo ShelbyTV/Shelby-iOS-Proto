@@ -18,6 +18,7 @@
 #import "VideoDataProcessor.h"
 #import "VideoHelper.h"
 #import "VideoDataPoller.h"
+#import "VideoDupeArray.h"
 
 // Core Data
 #import "Broadcast.h"
@@ -39,7 +40,7 @@
     self = [super init];
     if (self) {
         videoDupeDict = [[NSMutableDictionary alloc] init];
-        uniqueVideosSorted = [[NSMutableArray alloc] init];
+        videoDupeArraysSorted = [[NSMutableArray alloc] init];
         videoDataDelegates = [[NSMutableArray alloc] init];
         videoDataPoller = [[VideoDataPoller alloc] init];
         knownShelbyIds = [[NSMutableDictionary alloc] init];
@@ -85,12 +86,12 @@
 
 - (NSArray *)videoDupesForVideo:(Video *)video
 {
-    return [[[videoDupeDict objectForKey:[video dupeKey]] retain] autorelease];
+    return [[[((VideoDupeArray *)[videoDupeDict objectForKey:[video dupeKey]]) copyOfVideoArray] retain] autorelease];
 }
 
 - (NSArray *)videoDupesForKey:(NSString *)videoKey
 {
-    return [[[videoDupeDict objectForKey:videoKey] retain] autorelease];
+    return [[[((VideoDupeArray *)[videoDupeDict objectForKey:videoKey]) copyOfVideoArray] retain] autorelease];
 }
 
 - (NSURL *)getVideoContentURL:(Video *)video
@@ -102,9 +103,9 @@
     return video.contentURL;
 }
 
-- (NSArray *)uniqueVideosSorted
+- (NSArray *)videoDupeArraysSorted
 {
-    return uniqueVideosSorted;
+    return videoDupeArraysSorted;
 }
 
 #pragma mark - Core Data Broadcast Processing
@@ -120,17 +121,17 @@
             continue;
         }
         
-        NSMutableArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+        VideoDupeArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
         if (NOT_NULL(dupeArray)) {
-            [dupeArray addObject:video];
-            [self updateVideoTableCell:[dupeArray objectAtIndex:0]];
+            [dupeArray addVideo:video];
+            [self updateVideoTableCell:[[dupeArray copyOfVideoArray] objectAtIndex:0]];
         } else {
-            dupeArray = [[[NSMutableArray alloc] init] autorelease];
-            [dupeArray addObject:video];
+            dupeArray = [[[VideoDupeArray alloc] init] autorelease];
+            [dupeArray addVideo:video];
             [videoDupeDict setObject:dupeArray forKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-            @synchronized(uniqueVideosSorted) {
-                [uniqueVideosSorted addObject:video];
-                [uniqueVideosSorted sortUsingSelector:@selector(compareByCreationTime:)];
+            @synchronized(videoDupeArraysSorted) {
+                [videoDupeArraysSorted addObject:dupeArray];
+                [videoDupeArraysSorted sortUsingSelector:@selector(compareByCreationTime:)];
             }
             
             [dataProcessor scheduleCheckPlayable:video];

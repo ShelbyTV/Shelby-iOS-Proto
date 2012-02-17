@@ -19,6 +19,7 @@
 		0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3614DCC45200204025 /* VideoGuideSearchView.m */; };
 		0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD3D14E0AA5B00204025 /* VideoHelper.m */; };
 		0A02DD4D14E1F12E00204025 /* DataApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD4C14E1F12D00204025 /* DataApi.m */; };
+		0A02DD7414EDAC7100204025 /* VideoDupeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02DD7314EDAC6F00204025 /* VideoDupeArray.m */; };
 		0A05EF7014AABE9B0010BFFF /* BSWebViewUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */; };
 		0A05EF7E14AE8B4D0010BFFF /* likeOff_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */; };
 		0A05EF7F14AE8B4D0010BFFF /* likeOn_TV_720.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A05EF7B14AE8B4D0010BFFF /* likeOn_TV_720.png */; };
@@ -361,6 +362,8 @@
 		0A02DD3D14E0AA5B00204025 /* VideoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoHelper.m; sourceTree = "<group>"; };
 		0A02DD4B14E1F12D00204025 /* DataApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataApi.h; sourceTree = "<group>"; };
 		0A02DD4C14E1F12D00204025 /* DataApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataApi.m; sourceTree = "<group>"; };
+		0A02DD7214EDAC6D00204025 /* VideoDupeArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDupeArray.h; sourceTree = "<group>"; };
+		0A02DD7314EDAC6F00204025 /* VideoDupeArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDupeArray.m; sourceTree = "<group>"; };
 		0A05EF6E14AABE9B0010BFFF /* BSWebViewUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSWebViewUserAgent.h; sourceTree = "<group>"; };
 		0A05EF6F14AABE9B0010BFFF /* BSWebViewUserAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSWebViewUserAgent.m; sourceTree = "<group>"; };
 		0A05EF7A14AE8B4D0010BFFF /* likeOff_TV_720.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeOff_TV_720.png; path = Resources/Images/likeOff_TV_720.png; sourceTree = "<group>"; };
@@ -664,7 +667,7 @@
 		42925B201401C01B00333F46 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		42925B2B1401C2AA00333F46 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		42A09B4613FC6CD100570DBE /* UserSessionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserSessionHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		42A09B4813FC6CD100570DBE /* UserSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; path = UserSessionHelper.h; sourceTree = "<group>"; };
+		42A09B4813FC6CD100570DBE /* UserSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSessionHelper.h; sourceTree = "<group>"; };
 		42AB214A13FEE40500A8FC00 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "OAuth/NSData+Base64.h"; sourceTree = "<group>"; };
 		42AB214B13FEE40500A8FC00 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "OAuth/NSData+Base64.m"; sourceTree = "<group>"; };
 		42AB214C13FEE40500A8FC00 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncoding.h"; path = "OAuth/NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -1566,6 +1569,8 @@
 				0AF0E9D714DA1BD2005E9550 /* VideoDataProcessor.m */,
 				0AF0E9D914DA2157005E9550 /* VideoData.h */,
 				0AF0E9DA14DA2157005E9550 /* VideoData.m */,
+				0A02DD7214EDAC6D00204025 /* VideoDupeArray.h */,
+				0A02DD7314EDAC6F00204025 /* VideoDupeArray.m */,
 			);
 			name = Video;
 			sourceTree = "<group>";
@@ -2010,6 +2015,7 @@
 				0A02DD3714DCC45200204025 /* VideoGuideSearchView.m in Sources */,
 				0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */,
 				0A02DD4D14E1F12E00204025 /* DataApi.m in Sources */,
+				0A02DD7414EDAC7100204025 /* VideoDupeArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

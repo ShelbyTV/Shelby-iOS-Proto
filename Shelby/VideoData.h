@@ -23,7 +23,7 @@
 @interface VideoData : NSObject <VideoDataProcessorDelegate>
 {
     NSMutableDictionary *videoDupeDict;
-    NSMutableArray *uniqueVideosSorted;
+    NSMutableArray *videoDupeArraysSorted;
     
     NSMutableDictionary *knownShelbyIds;
     
@@ -45,7 +45,7 @@
 - (NSArray *)videoDupesForVideo:(Video *)video;
 - (NSArray *)videoDupesForKey:(NSString *)videoKey;
 
-- (NSArray *)uniqueVideosSorted;
+- (NSArray *)videoDupeArraysSorted;
 
 - (void)loadInitialVideosFromAPI;
 - (void)loadInitialVideosFromCoreData;

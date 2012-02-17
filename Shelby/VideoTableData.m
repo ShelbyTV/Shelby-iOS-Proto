@@ -21,6 +21,7 @@
 #import "PlatformHelper.h"
 #import "Enums.h"
 #import "VideoData.h"
+#import "VideoDupeArray.h"
 
 #import "Foundation/Foundation.h"
 
@@ -122,7 +123,7 @@
 //    @synchronized(tableVideos)
 //    {
 //        [videoDupeDict removeAllObjects];
-//        [uniqueVideosSorted removeAllObjects];
+//        [videoDupeArraysSorted removeAllObjects];
 //        [self clearVideoTableWithArrayLockHeld];
 //    }
 }
@@ -137,16 +138,16 @@
 {    
     int videoTableIndex = 0;
     
-    for (Video *iter in [ShelbyApp sharedApp].videoData.uniqueVideosSorted)
+    for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
     {
-        NSArray *dupeArray = [[ShelbyApp sharedApp].videoData videoDupesForKey:[iter dupeKey]];
-        Video *video = [dupeArray objectAtIndex:0];
+        NSArray *videos = [dupeArray copyOfVideoArray];
+        Video *video = [videos objectAtIndex:0];
         
         if (video.isPlayable != IS_PLAYABLE) {
             continue;
         }
         
-        if (![self shouldIncludeVideo:dupeArray]) {
+        if (![self shouldIncludeVideo:videos]) {
             continue;
         }
         
@@ -203,7 +204,7 @@
 - (void)clearTempDataStructuresForNewBroadcasts
 {
 //    [videoDupeDict removeAllObjects];
-//    [uniqueVideosSorted removeAllObjects];
+//    [videoDupeArraysSorted removeAllObjects];
 //    [playableVideoKeys removeAllObjects];
 //    [self clearVideoTableWithArrayLockHeld];
 }
