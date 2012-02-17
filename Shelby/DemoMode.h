@@ -10,4 +10,7 @@
 
 @interface DemoMode : NSObject
 
++ (BOOL)passesDemoModeIncludeCheck:(NSArray *)dupeArray;
++ (void)enableDemoMode;
+
 @end

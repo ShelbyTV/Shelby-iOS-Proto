@@ -180,7 +180,7 @@
 {    
     BOOL needsCoreDataUpdate = FALSE;
     
-    if (video.isPlayable == PLAYABLE_UNSET) {
+    if (video.isPlayable == PLAYABLE_UNSET || [ShelbyApp sharedApp].demoModeEnabled) {
         needsCoreDataUpdate = TRUE;
         
         // assume NOT_PLAYABLE, override if PLAYABLE

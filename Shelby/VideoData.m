@@ -298,4 +298,12 @@
     return _isLoading;
 }
 
+- (void)reloadTableVideos
+{
+    for (id <VideoDataDelegate> delegate in videoDataDelegates) {
+        [delegate clearVideoTableData];
+        [delegate updateTableVideos];
+    }
+}
+
 @end

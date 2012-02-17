@@ -17,6 +17,8 @@
 
 - (void)videoTableNeedsUpdate;
 - (void)updateVideoTableCell:(Video *)video;
+- (void)updateTableVideos;
+- (void)clearVideoTableData;
 
 @end
 
@@ -59,5 +61,7 @@
 - (BOOL)isKnownShelbyId:(NSString *)shelbyId;
 
 - (void)loadAdditionalVideosFromCoreData;
+
+- (void)reloadTableVideos;
 
 @end

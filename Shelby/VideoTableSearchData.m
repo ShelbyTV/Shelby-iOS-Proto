@@ -9,6 +9,7 @@
 #import "VideoTableSearchData.h"
 #import "Video.h"
 #import "Macros.h"
+#import "DemoMode.h"
 
 @implementation VideoTableSearchData
 
@@ -17,6 +18,10 @@
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
     if (IS_NULL(searchString)) {
+        return FALSE;
+    }
+    
+    if (![DemoMode passesDemoModeIncludeCheck:dupeArray]) {
         return FALSE;
     }
     

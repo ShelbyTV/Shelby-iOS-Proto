@@ -9,32 +9,16 @@
 #import "VideoTableTimelineData.h"
 #import "Video.h"
 #import "Enums.h"
+#import "DemoMode.h"
 
 @implementation VideoTableTimelineData
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
-//    if ([ShelbyApp sharedApp].demoModeEnabled) {
-//        BOOL videoHasContentURL = FALSE;
-//        NSURL *dupeContentURL = nil;
-//        for (Video *video in dupeArray) {
-//            if (video.contentURL != nil) {
-//                videoHasContentURL = TRUE;
-//                dupeContentURL = video.contentURL;
-//                break;
-//            }
-//        }
-//        
-//        if (videoHasContentURL) {
-//            for (Video *video in dupeArray) {
-//                video.contentURL = dupeContentURL;
-//            }
-//        } else {
-//            return FALSE;
-//        }
-//    }
-//    
-
+    if (![DemoMode passesDemoModeIncludeCheck:dupeArray]) {
+        return FALSE;
+    }
+    
     return ((Video *)[dupeArray objectAtIndex:0]).isPlayable == IS_PLAYABLE;
 }
 

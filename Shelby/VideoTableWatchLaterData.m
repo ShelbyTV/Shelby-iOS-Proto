@@ -9,11 +9,16 @@
 #import "VideoTableWatchLaterData.h"
 #import "Video.h"
 #import "Enums.h"
+#import "DemoMode.h"
 
 @implementation VideoTableWatchLaterData
 
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray
 {
+    if (![DemoMode passesDemoModeIncludeCheck:dupeArray]) {
+        return FALSE;
+    }
+    
     if (((Video *)[dupeArray objectAtIndex:0]).isPlayable != IS_PLAYABLE) {
         return FALSE;
     }

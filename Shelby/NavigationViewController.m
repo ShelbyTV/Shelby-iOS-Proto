@@ -28,6 +28,8 @@
 #import "VideoGuideWatchLaterView.h"
 #import "VideoGuideSearchView.h"
 
+#import "DemoMode.h"
+
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
 @end
@@ -218,7 +220,7 @@
     
     // download videos
     [_userAccountView setDemoModeButtonTitle:@"Downloading..."];
-    //[videoTable enableDemoMode];
+    [DemoMode enableDemoMode];
     
     [_userAccountView setDemoModeButtonTitle:@"Demo Mode On"];
 }

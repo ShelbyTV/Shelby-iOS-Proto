@@ -18,6 +18,8 @@
 #import "VideoData.h"
 #import "Enums.h"
 
+#import "DemoMode.h"
+
 @implementation VideoTableViewController
 
 @synthesize videoCell;
@@ -310,7 +312,7 @@
 
 - (void)enableDemoMode
 {
-//    [videoTableData enableDemoMode];
+    [DemoMode enableDemoMode];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
