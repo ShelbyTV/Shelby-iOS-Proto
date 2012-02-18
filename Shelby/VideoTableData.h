@@ -39,6 +39,7 @@
 - (NSURL *)videoContentURLAtIndex:(NSUInteger)index;
 - (Video *)videoAtIndex:(NSUInteger)index;
 
+- (void)updateTableVideosNoAnimation;
 - (void)updateTableVideos;
 - (void)clearVideoTableData;
 - (void)updateVideoTableCell:(Video *)video;

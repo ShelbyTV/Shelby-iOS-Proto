@@ -50,4 +50,13 @@
     [_videoTableViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+    if (!hidden) {
+        [_videoTableData updateTableVideosNoAnimation];
+    }
+    
+    [super setHidden:hidden];
+}
+
 @end

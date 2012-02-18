@@ -118,7 +118,7 @@
     return FALSE;
 }
 
-- (void)updateTableVideosLocked
+- (void)updateTableVideosLockedWithAnimation:(UITableViewRowAnimation)animation
 {    
     int videoTableIndex = 0;
     
@@ -146,7 +146,7 @@
                 [tableVideos removeObjectAtIndex:videoTableIndex];
                 
                 [tableView beginUpdates];
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:animation];
                 self.numItemsInserted = [tableVideos count];
                 [tableView endUpdates];
                 
@@ -175,12 +175,21 @@
         [tableVideos insertObject:video atIndex:videoTableIndex];
         
         [tableView beginUpdates];
-        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:animation];
         self.numItemsInserted = [tableVideos count];
         [tableView endUpdates];
         
         [alreadyVisitedVideos setObject:dupeArray forKey:[video dupeKey]];
         videoTableIndex++;
+    }
+    
+    while ([tableVideos count] > videoTableIndex) {
+        [tableVideos removeObjectAtIndex:videoTableIndex];
+        
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:videoTableIndex inSection:0]] withRowAnimation:animation];
+        self.numItemsInserted = [tableVideos count];
+        [tableView endUpdates];
     }
 }
 
@@ -188,8 +197,18 @@
 {
     @synchronized(tableVideos)
     {
-        [self updateTableVideosLocked];
+        [self updateTableVideosLockedWithAnimation:UITableViewRowAnimationFade];
     }
+    [self.delegate videoTableDataDidFinishRefresh:self];
+}
+
+- (void)updateTableVideosNoAnimation
+{
+    @synchronized(tableVideos)
+    {
+        [self updateTableVideosLockedWithAnimation:UITableViewRowAnimationNone];
+    }
+    [tableView reloadData];
     [self.delegate videoTableDataDidFinishRefresh:self];
 }
 
