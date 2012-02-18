@@ -178,4 +178,9 @@
     // not necessary, not going to have new images available
 }
 
+- (void)clearPendingOperations
+{
+    [dataProcessor clearPendingOperations];
+}
+
 @end

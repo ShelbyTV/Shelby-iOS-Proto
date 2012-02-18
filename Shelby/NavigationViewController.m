@@ -660,9 +660,14 @@
     [_videoPlayer stop];
     [_videoPlayer reset];
 
-    // Clear out the video table
-    //[videoTable clearPendingOperations];
-    //[videoTable clearVideoTableData];
+    [[ShelbyApp sharedApp].videoData reset];
+    
+    [timelineVideoGuide reset];
+    [favoritesVideoGuide reset];
+    [watchLaterVideoGuide reset];
+    [searchVideoGuide reset];
+    
+    [self listButtonPressed:self];
 }
 
 #pragma mark - KVO

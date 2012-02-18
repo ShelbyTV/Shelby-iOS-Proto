@@ -64,4 +64,6 @@
 
 - (void)reloadTableVideos;
 
+- (void)reset;
+
 @end

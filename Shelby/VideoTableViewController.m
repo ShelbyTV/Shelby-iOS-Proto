@@ -28,19 +28,10 @@
 
 #pragma mark - Data Refresh
 
-- (void)clearVideoTableData
+- (void)reset
 {
-    // Clear out the table.
-    [videoTableData clearVideoTableData];
     _currentVideoIndex = 0;
 }
-
-- (void)clearPendingOperations
-{
-    // Clear out the table.
-//    [videoTableData clearPendingOperations];
-}
-
 
 - (void)doneLoadingTableViewData
 {

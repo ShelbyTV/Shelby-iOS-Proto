@@ -30,5 +30,6 @@
 
 - (void)suspendOperations;
 - (void)resumeOperations;
+- (void)clearPendingOperations;
 
 @end

@@ -33,4 +33,6 @@
 
 - (void)setHidden:(BOOL)hidden;
 
+- (void)reset;
+
 @end

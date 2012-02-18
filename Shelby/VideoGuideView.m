@@ -59,4 +59,9 @@
     [super setHidden:hidden];
 }
 
+- (void)reset
+{
+    [_videoTableData clearVideoTableData];
+}
+
 @end

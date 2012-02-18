@@ -305,4 +305,14 @@
     }
 }
 
+- (void)reset
+{
+    [dataProcessor clearPendingOperations];
+    [videoDataPoller clearPendingOperations];
+
+    [videoDupeDict removeAllObjects];
+    [videoDupeArraysSorted removeAllObjects];
+    [knownShelbyIds removeAllObjects];
+}
+
 @end

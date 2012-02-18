@@ -35,8 +35,7 @@
 @property (nonatomic, assign) IBOutlet UITableViewCell *videoCell;
 @property (nonatomic, assign) VideoTableData *videoTableData;
 
-- (void)clearPendingOperations;
-- (void)clearVideoTableData;
+- (void)reset;
 - (Video *)getFirstVideo;
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;

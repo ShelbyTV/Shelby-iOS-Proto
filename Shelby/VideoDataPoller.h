@@ -19,5 +19,6 @@
 }
 
 - (void)recalculateImmediately;
+- (void)clearPendingOperations;
 
 @end

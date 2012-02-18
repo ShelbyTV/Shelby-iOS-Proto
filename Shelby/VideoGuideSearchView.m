@@ -39,4 +39,10 @@
     [_videoTableData updateTableVideos];
 }
 
+- (void)reset
+{
+    _videoTableSearchData.searchString = @"";
+    [super reset];
+}
+
 @end
