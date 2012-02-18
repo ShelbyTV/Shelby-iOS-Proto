@@ -136,11 +136,10 @@
                 [videoDupeArraysSorted addObject:dupeArray];
                 [videoDupeArraysSorted sortUsingSelector:@selector(compareByCreationTime:)];
             }
-            
-            [dataProcessor scheduleCheckPlayable:video];
         }
         
-        [dataProcessor scheduleImageAcquisition:video];
+        [dataProcessor scheduleCheckPlayable:video];
+        [dataProcessor scheduleImageAcquisitionWithBroadcast:broadcast withVideo:video];
     }
     
     lastFetchBroadcasts = [NSDate date];

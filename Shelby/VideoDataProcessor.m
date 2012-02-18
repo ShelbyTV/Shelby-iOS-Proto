@@ -11,6 +11,7 @@
 #import "ShelbyApp.h"
 #import "Enums.h"
 #import "VideoCoreDataInterface.h"
+#import "Broadcast.h"
 
 @implementation VideoDataProcessor
 
@@ -241,19 +242,23 @@
     [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(checkPlayable:) object:video] autorelease]];
 }
 
-- (void)scheduleImageAcquisition:(Video *)video
+- (void)scheduleImageAcquisitionWithBroadcast:(Broadcast *)broadcast withVideo:(Video *)video;
 {
     // need the sharerImage even for dupes
-    if (IS_NULL(video.sharerImage)) {
+    if (IS_NULL(broadcast.sharerImage)) {
+        NSLog(@"Issuing downloadSharerImage");
         [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
     } else {
+        NSLog(@"Issuing loadSharerImageFromCoreData");
         [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video] autorelease]];
     }
     
     // could optimize to not re-download for dupes, but don't bother for now...
-    if (IS_NULL(video.thumbnailImage)) {
+    if (IS_NULL(broadcast.thumbnailImage)) {
+        NSLog(@"Issuing downloadVideoThumbnail");
         [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
     } else {
+        NSLog(@"Issuing loadVideoThumbnailFromCoreData");
         [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video] autorelease]];
     }
 }

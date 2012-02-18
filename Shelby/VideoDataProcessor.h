@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class Video;
+@class Broadcast;
 
 @protocol VideoDataProcessorDelegate
 
@@ -25,7 +26,7 @@
 @property (assign) id <VideoDataProcessorDelegate> delegate;
 
 - (void)scheduleCheckPlayable:(Video *)video;
-- (void)scheduleImageAcquisition:(Video *)video;
+- (void)scheduleImageAcquisitionWithBroadcast:(Broadcast *)broadcast withVideo:(Video *)video;
 
 - (void)suspendOperations;
 - (void)resumeOperations;

@@ -17,6 +17,7 @@
 #import "ShelbyApp.h"
 #import "VideoHelper.h"
 #import "VideoData.h"
+#import "UserSessionHelper.h"
 
 @implementation VideoDataPoller
 
@@ -66,6 +67,10 @@
 
 - (void)updateCoreDataAndIssuePlayabilityChecks
 {
+    if (![[ShelbyApp sharedApp].userSessionHelper loggedIn]) {
+        return;
+    }
+    
     [DataApi fetchPollingBroadcastsAndStoreInCoreData];
     
     lastApiPollIntervalSeconds = MIN((lastApiPollIntervalSeconds * 2), 120);
@@ -96,13 +101,19 @@
 
 - (void)updateNewVideosAndCommentsCounters
 {
+    if (![[ShelbyApp sharedApp].userSessionHelper loggedIn]) {
+        return;
+    }
+    
+    if (!newPlayableBroadcasts) {
+        return;
+    }
+    
+    newPlayableBroadcasts = FALSE;
+    
     @synchronized(self)
     {
-        if (!newPlayableBroadcasts) {
-            return;
-        }
-        
-        newPlayableBroadcasts = FALSE;
+
         
         // calculate number of new videos and comments on existing videos
         NSManagedObjectContext *context = [CoreDataHelper allocateContext];
