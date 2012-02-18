@@ -12,9 +12,9 @@
 
 @implementation VideoGuideTimelineView
 
-- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate
+- (id)initWithFrame:(CGRect)frame withDelegate:(id<VideoTableViewControllerDelegate>)delegate;
 {
-    self = [super initWithVideoTableViewControllerDelegate:delegate];
+    self = [super initWithFrame:frame withDelegate:delegate];
     if (self) {
 
         _videoTableViewController = [[VideoTableViewController alloc] init];
@@ -23,6 +23,7 @@
         _videoTableViewController.videoTableData = _videoTableData;
         _videoTableData.delegate = _videoTableViewController;
         
+        _videoTableViewController.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [_videoTableViewController.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
         [_videoTableViewController.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
@@ -55,16 +56,14 @@
                                                  selector: @selector(receivedNewDataFromAPI:)
                                                      name: @"NewDataAvailableFromAPI"
                                                    object: nil];
+        
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _videoTableViewController.tableView.frame = self.bounds;
+        [self addSubview:_videoTableViewController.tableView];
+        [self addSubview:_updatesContainer];
     }
     
     return self;
-}
-
-- (void)initSubviews
-{
-    _videoTableViewController.tableView.frame = self.bounds;
-    [self addSubview:_videoTableViewController.tableView];
-    [self addSubview:_updatesContainer];
 }
 
 - (NSString *)commentPluralized:(int)numComments

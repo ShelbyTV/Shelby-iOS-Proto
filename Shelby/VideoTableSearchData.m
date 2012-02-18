@@ -27,16 +27,16 @@
     
     for (Video *video in dupeArray) {
         if (NOT_NULL(video.sharer) && [video.sharer rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-            LOG(@"video.sharer (%@) contains searchString (%@)", video.sharer, searchString);
+            //LOG(@"video.sharer (%@) contains searchString (%@)", video.sharer, searchString);
             return TRUE;
         }
         if (NOT_NULL(video.title) && [video.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-            LOG(@"video.title (%@) contains searchString (%@)", video.title, searchString);
+            //LOG(@"video.title (%@) contains searchString (%@)", video.title, searchString);
             return TRUE;
         }
         if (NOT_NULL(video.sharerComment) && [video.sharerComment rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) 
         {
-            LOG(@"video.sharerComment (%@) contains searchString (%@)", video.sharerComment, searchString);
+            //LOG(@"video.sharerComment (%@) contains searchString (%@)", video.sharerComment, searchString);
             return TRUE;
         }
     }

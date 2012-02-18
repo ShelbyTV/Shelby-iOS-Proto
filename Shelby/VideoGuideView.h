@@ -20,7 +20,7 @@
     VideoTableData *_videoTableData;
 }
 
-- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate;
+- (id)initWithFrame:(CGRect)frame withDelegate:(id<VideoTableViewControllerDelegate>)delegate;
 
 - (Video *)getNextVideo;
 - (Video *)getPreviousVideo;

@@ -12,9 +12,9 @@
 
 @implementation VideoGuideWatchLaterView
 
-- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate
+- (id)initWithFrame:(CGRect)frame withDelegate:(id<VideoTableViewControllerDelegate>)delegate;
 {
-    self = [super initWithVideoTableViewControllerDelegate:delegate];
+    self = [super initWithFrame:frame withDelegate:delegate];
     if (self) {
         
         _videoTableViewController = [[VideoTableViewController alloc] init];
@@ -27,10 +27,13 @@
         [_videoTableViewController.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
         _videoTableViewController.tableView.frame = self.bounds;
+        _videoTableViewController.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _videoTableViewController.tableView.frame = self.bounds;
         [self addSubview:_videoTableViewController.tableView];
     }
     return self;
 }
-
 
 @end

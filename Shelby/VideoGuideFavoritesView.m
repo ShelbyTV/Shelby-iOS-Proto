@@ -12,9 +12,9 @@
 
 @implementation VideoGuideFavoritesView
 
-- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate
+- (id)initWithFrame:(CGRect)frame withDelegate:(id<VideoTableViewControllerDelegate>)delegate;
 {
-    self = [super initWithVideoTableViewControllerDelegate:delegate];
+    self = [super initWithFrame:frame withDelegate:delegate];
     if (self) {
         
         _videoTableViewController = [[VideoTableViewController alloc] init];
@@ -26,6 +26,10 @@
         [_videoTableViewController.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
         [_videoTableViewController.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
+        _videoTableViewController.tableView.frame = self.bounds;
+        _videoTableViewController.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _videoTableViewController.tableView.frame = self.bounds;
         [self addSubview:_videoTableViewController.tableView];
     }

@@ -11,9 +11,9 @@
 
 @implementation VideoGuideView
 
-- (id)initWithVideoTableViewControllerDelegate:(id<VideoTableViewControllerDelegate>)delegate
+- (id)initWithFrame:(CGRect)frame withDelegate:(id<VideoTableViewControllerDelegate>)delegate;
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         _delegate = delegate;
     }

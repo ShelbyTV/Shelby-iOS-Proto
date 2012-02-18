@@ -47,12 +47,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        timelineVideoGuide = [[VideoGuideTimelineView alloc] initWithVideoTableViewControllerDelegate:self];
-        favoritesVideoGuide = [[VideoGuideFavoritesView alloc] initWithVideoTableViewControllerDelegate:self];
-        watchLaterVideoGuide = [[VideoGuideWatchLaterView alloc] initWithVideoTableViewControllerDelegate:self];
-        searchVideoGuide = [[VideoGuideSearchView alloc] initWithVideoTableViewControllerDelegate:self];
-
         // This is a dirty hack, because for some reason, the NIB variables aren't bound immediately, so the following code doesn't work alone:
         // _videoPlayer.delegate = self;
         // So instead, we pull the view out via its tag.
@@ -598,12 +592,16 @@
     [super viewDidLoad];
     _networkActivityViewParent = activityHolder;
     
-    timelineVideoGuide.frame = videoTableHolder.bounds;
-    favoritesVideoGuide.frame = videoTableHolder.bounds;
-    watchLaterVideoGuide.frame = videoTableHolder.bounds;
-    searchVideoGuide.frame = videoTableHolder.bounds;
-    
-    [timelineVideoGuide initSubviews];
+    // Custom initialization
+    timelineVideoGuide = [[VideoGuideTimelineView alloc] initWithFrame:videoTableHolder.bounds withDelegate:self];
+    favoritesVideoGuide = [[VideoGuideFavoritesView alloc] initWithFrame:videoTableHolder.bounds withDelegate:self];
+    watchLaterVideoGuide = [[VideoGuideWatchLaterView alloc] initWithFrame:videoTableHolder.bounds withDelegate:self];
+    searchVideoGuide = [[VideoGuideSearchView alloc] initWithFrame:videoTableHolder.bounds withDelegate:self];
+
+    [videoTableHolder addSubview:timelineVideoGuide];
+    [videoTableHolder addSubview:favoritesVideoGuide];
+    [videoTableHolder addSubview:watchLaterVideoGuide];
+    [videoTableHolder addSubview:searchVideoGuide];
     
     timelineVideoGuide.hidden = NO;
     favoritesVideoGuide.hidden = YES;
@@ -611,11 +609,6 @@
     searchVideoGuide.hidden = YES;
     
     currentGuide = timelineVideoGuide;
-
-    [videoTableHolder addSubview:timelineVideoGuide];
-    [videoTableHolder addSubview:favoritesVideoGuide];
-    [videoTableHolder addSubview:watchLaterVideoGuide];
-    [videoTableHolder addSubview:searchVideoGuide];
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
