@@ -27,28 +27,49 @@
         [_videoTableViewController.tableView setBackgroundColor:[UIColor colorWithRed:0.196 green:0.196 blue:0.196 alpha:1.0]];
         [_videoTableViewController.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
-        CGFloat width;
+        CGFloat width = self.bounds.size.width;
         
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            width = 330;
-        } else {
-            width = 320;
-        }
-        
-        _updatesContainer = [[UIView alloc] initWithFrame:CGRectMake(0, -80, width, 80)];
+        _updatesContainer = [[UIView alloc] initWithFrame:CGRectMake(0, -82, width, 82)];
         _updatesContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _updatesContainer.backgroundColor = [UIColor colorWithRed:0.48 green:0.19 blue:0.57 alpha:1.0];
+        _updatesContainer.backgroundColor = [UIColor colorWithRed:0.235 green:0.235 blue:0.235 alpha:1.0];
         _updatesContainer.opaque = YES;
         
-        _updatesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, width - 40, 40)];
+        _updatesLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, width - 93, 20)];
         _updatesLabel.textColor = [UIColor whiteColor];
         _updatesLabel.shadowColor = [UIColor blackColor];
         _updatesLabel.shadowOffset = CGSizeMake(1.0, 1.0);
         _updatesLabel.backgroundColor = [UIColor clearColor];
-        _updatesLabel.numberOfLines = 2;
-        _updatesLabel.font = [UIFont fontWithName: @"Thonburi-Bold" size: 18.0];
+        _updatesLabel.numberOfLines = 1;
+        _updatesLabel.textAlignment = UITextAlignmentCenter;
+        _updatesLabel.font = [UIFont fontWithName: @"Thonburi-Bold" size: 19.0];
+        _updatesLabel.adjustsFontSizeToFitWidth = YES;
+        _updatesLabel.minimumFontSize = 14.0;
         _updatesLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
+        _pullToRefreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 40, width - 93, 20)];
+        _pullToRefreshLabel.textColor = [UIColor whiteColor];
+        _pullToRefreshLabel.shadowColor = [UIColor blackColor];
+        _pullToRefreshLabel.shadowOffset = CGSizeMake(1.0, 1.0);
+        _pullToRefreshLabel.backgroundColor = [UIColor clearColor];
+        _pullToRefreshLabel.numberOfLines = 1;
+        _pullToRefreshLabel.textAlignment = UITextAlignmentCenter;
+        _pullToRefreshLabel.font = [UIFont fontWithName: @"Thonburi-Bold" size: 19.0];
+        _pullToRefreshLabel.adjustsFontSizeToFitWidth = YES;
+        _pullToRefreshLabel.minimumFontSize = 14.0;
+        _pullToRefreshLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _pullToRefreshLabel.text = @"Pull to refresh...";
+        
+        _updatesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 54, 54)];
+        _updatesImageView.image = [UIImage imageNamed:@"refreshArrow"];
+        _updatesImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+        
+        _colorSeparator = [[UIView alloc]initWithFrame:CGRectMake(0, 80, width, 2)];
+        _colorSeparator.backgroundColor = [UIColor colorWithRed:.566 green:.1875 blue:.683 alpha:1.0];
+        _colorSeparator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        
+        [_updatesContainer addSubview:_colorSeparator];
+        [_updatesContainer addSubview:_updatesImageView];
+        [_updatesContainer addSubview:_pullToRefreshLabel];
         [_updatesContainer addSubview:_updatesLabel];
         _updatesContainer.hidden = FALSE;
         
@@ -74,11 +95,6 @@
 - (NSString *)videoPluralized:(int)numVideos
 {
     return (numVideos > 1) ? @"videos" : @"video";
-}
-
-- (NSString *)isOrAre:(int)num
-{
-    return (num > 1) ? @"are" : @"is";
 }
 
 - (void)hideUpdates
@@ -135,21 +151,19 @@
     }
     
     if (newVideos > 0 && newCommentsOnExistingVideos > 0) {
-        _updatesLabel.text = [NSString stringWithFormat:@"%d new %@ and %d new %@ are waiting for you. Pull to refresh.",
+        _updatesLabel.text = [NSString stringWithFormat:@"%d new %@ & %d new %@",
                               newVideos,
                               [self videoPluralized:newVideos],
                               newCommentsOnExistingVideos,
                               [self commentPluralized:newCommentsOnExistingVideos]];
     } else if (newVideos > 0) {
-        _updatesLabel.text = [NSString stringWithFormat:@"%d new %@ %@ waiting for you. Pull to refresh.",
+        _updatesLabel.text = [NSString stringWithFormat:@"%d new %@",
                               newVideos,
-                              [self videoPluralized:newVideos],
-                              [self isOrAre:newVideos]];
+                              [self videoPluralized:newVideos]];
     } else if (newCommentsOnExistingVideos > 0) {
-        _updatesLabel.text = [NSString stringWithFormat:@"%d new %@ %@ waiting for you. Pull to refresh.",
+        _updatesLabel.text = [NSString stringWithFormat:@"%d new %@",
                               newCommentsOnExistingVideos,
-                              [self commentPluralized:newCommentsOnExistingVideos],
-                              [self isOrAre:newCommentsOnExistingVideos]];
+                              [self commentPluralized:newCommentsOnExistingVideos]];
     }
     
     NSLog(@"%@", _updatesLabel.text);

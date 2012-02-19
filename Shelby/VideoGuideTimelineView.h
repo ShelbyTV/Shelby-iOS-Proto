@@ -16,6 +16,10 @@
     
     UIView *_updatesContainer;
     UILabel *_updatesLabel;
+    UILabel *_pullToRefreshLabel;
+    UIImageView *_updatesImageView;
+    UIView *_colorSeparator;
+    
     BOOL _updatesVisible;
 }
 
