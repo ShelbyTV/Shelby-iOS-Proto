@@ -331,6 +331,7 @@
 										<reference key="NSNextKeyView" ref="464777125"/>
 										<string key="NSReuseIdentifierKey">_NS:196</string>
 										<reference key="IBUIBackgroundColor" ref="383645627"/>
+										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
 									<object class="IBUIView" id="381514057">
@@ -342,6 +343,7 @@
 										<reference key="NSNextKeyView" ref="1046649772"/>
 										<string key="NSReuseIdentifierKey">_NS:196</string>
 										<reference key="IBUIBackgroundColor" ref="383645627"/>
+										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
 									<object class="IBUIButton" id="464777125">
