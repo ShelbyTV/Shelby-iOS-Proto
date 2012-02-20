@@ -104,6 +104,7 @@
 		0A2A131F14F221F60047C5C2 /* shareEmail_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A2A131D14F221F60047C5C2 /* shareEmail_iPad.png */; };
 		0A2A132014F221F60047C5C2 /* shareSocial_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A2A131E14F221F60047C5C2 /* shareSocial_iPad.png */; };
 		0A2A132214F22C130047C5C2 /* shareSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A2A132114F22C130047C5C2 /* shareSend.png */; };
+		0A2A132814F2F2890047C5C2 /* shareBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A2A132714F2F2890047C5C2 /* shareBackground.png */; };
 		0A363C3E1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C3C1484165B00CB3BDA /* VideoPlayerTitleBar_iPad.xib */; };
 		0A363C4114843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C3F14843C3700CB3BDA /* VideoPlayerTitleBar_iPhone.xib */; };
 		0A363C431484483400CB3BDA /* pauseIcon_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A363C421484483400CB3BDA /* pauseIcon_iPad.png */; };
@@ -484,6 +485,7 @@
 		0A2A131D14F221F60047C5C2 /* shareEmail_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shareEmail_iPad.png; path = Resources/Images/shareEmail_iPad.png; sourceTree = "<group>"; };
 		0A2A131E14F221F60047C5C2 /* shareSocial_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shareSocial_iPad.png; path = Resources/Images/shareSocial_iPad.png; sourceTree = "<group>"; };
 		0A2A132114F22C130047C5C2 /* shareSend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shareSend.png; path = Resources/Images/shareSend.png; sourceTree = "<group>"; };
+		0A2A132714F2F2890047C5C2 /* shareBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shareBackground.png; path = Resources/Images/shareBackground.png; sourceTree = "<group>"; };
 		0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCellConstants.h; sourceTree = "<group>"; };
 		0A363C3D1484165B00CB3BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/VideoPlayerTitleBar_iPad.xib; sourceTree = SOURCE_ROOT; };
 		0A363C4014843C3700CB3BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPhone/en.lproj/VideoPlayerTitleBar_iPhone.xib; sourceTree = SOURCE_ROOT; };
@@ -992,6 +994,7 @@
 		0AC82610149006BA009FF975 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
+				0A2A132714F2F2890047C5C2 /* shareBackground.png */,
 				0A2A130B14F221A50047C5C2 /* facebook_missing_iPad.png */,
 				0A2A130C14F221A50047C5C2 /* facebook_off_iPad.png */,
 				0A2A130D14F221A50047C5C2 /* facebook_on_iPad.png */,
@@ -2012,6 +2015,7 @@
 				0A2A131F14F221F60047C5C2 /* shareEmail_iPad.png in Resources */,
 				0A2A132014F221F60047C5C2 /* shareSocial_iPad.png in Resources */,
 				0A2A132214F22C130047C5C2 /* shareSend.png in Resources */,
+				0A2A132814F2F2890047C5C2 /* shareBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
