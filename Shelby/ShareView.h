@@ -41,11 +41,12 @@
     
     IBOutlet UIView *_dialogContainerView;
     
+    IBOutlet UIButton *_shareViaPostButton;
+    IBOutlet UIButton *_shareViaEmailButton;
+    
     IBOutlet UIView *_socialBodyPlaceholder;
     IBOutlet UIView *_emailBodyPlaceholder;
-    
-    IBOutlet UISegmentedControl *_shareTypeSelector;
-    
+        
     IBOutlet UILabel *_tweetRemainingLabel;
     
     COPeoplePickerViewController *_peoplePicker;
@@ -60,7 +61,10 @@
 + (ShareView *)shareViewFromNib;
 
 - (void)initView;
-- (IBAction)segmentedControlValueChanged:(id)sender;
+
+- (IBAction)shareViaPostButtonPressed:(id)sender;
+- (IBAction)shareViaEmailButtonPressed:(id)sender;
+
 - (IBAction)closeWasPressed:(id)sender;
 - (IBAction)twitterWasPressed:(id)sender;
 - (IBAction)facebookWasPressed:(id)sender;

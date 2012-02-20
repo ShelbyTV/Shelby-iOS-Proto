@@ -102,7 +102,7 @@
     _peoplePicker.delegate = self;
     [_emailRecipientFieldHolder addSubview:_peoplePicker.view];
     
-    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"ForegroundStripes"]];
+    UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"shareBackground"]];
     _dialogContainerView.backgroundColor = backgroundPattern;
 }
 
@@ -124,7 +124,7 @@
 - (NSArray *)socialNetworks
 {
     NSMutableArray *array = [NSMutableArray array];
-    if ([_shareTypeSelector selectedSegmentIndex] == 1) {
+    if (_shareViaEmailButton.selected) {
         [array addObject: @"email"];
     } else {
         BOOL twitter  = (!_twitterButton.selected) && (_twitterButton.enabled);
@@ -167,7 +167,7 @@
 
 - (void)updateInterfaceType
 {
-    if ([_shareTypeSelector selectedSegmentIndex] == 0) {
+    if (_shareViaPostButton.selected) {
         [UIView animateWithDuration:0.25 animations:^{
             _emailRecipientContainerView.alpha = 0.0;
             _postButtonsContainerView.alpha = 1.0;
@@ -203,11 +203,35 @@
     }
 }
 
-- (IBAction)segmentedControlValueChanged:(id)sender
+- (IBAction)shareViaPostButtonPressed:(id)sender
 {
     if (delegate) {
         [delegate shareViewWasTouched];
     }
+    
+    if (_shareViaPostButton.selected) {
+        return;
+    }
+    
+    _shareViaEmailButton.selected = NO;
+    _shareViaPostButton.selected = YES;
+    
+    [self updateInterfaceType];
+    [self updateSendButton];
+}
+
+- (IBAction)shareViaEmailButtonPressed:(id)sender
+{
+    if (delegate) {
+        [delegate shareViewWasTouched];
+    }
+    
+    if (_shareViaEmailButton.selected) {
+        return;
+    }
+    
+    _shareViaPostButton.selected = NO;
+    _shareViaEmailButton.selected = YES;
     
     [self updateInterfaceType];
     [self updateSendButton];
@@ -215,13 +239,13 @@
 
 - (void)updateSendButton
 {
-    if ([_shareTypeSelector selectedSegmentIndex] == 0 && 
+    if (_shareViaPostButton.selected && 
         [[self socialNetworks] count] == 0) {
         _sendButton.enabled = NO;
-    } else if ([_shareTypeSelector selectedSegmentIndex] == 1
+    } else if (_shareViaEmailButton.selected
                 && [_peoplePicker tokenCount] == 0) {
         _sendButton.enabled = NO;
-    } else if ([_shareTypeSelector selectedSegmentIndex] == 0 &&
+    } else if (_shareViaPostButton.selected &&
         !_twitterButton.selected && _bodyTextView.text.length > 140) {
         _sendButton.enabled = NO;
     } else {
@@ -233,7 +257,7 @@
 {
     _twitterButton.selected = !enabled;
     
-    if ([_shareTypeSelector selectedSegmentIndex] != 0) {
+    if (!_shareViaPostButton.selected) {
         return;
     }
     
@@ -288,12 +312,12 @@
     }
     
     // send should do nothing if in social mode and no social networks chosen
-    if ([_shareTypeSelector selectedSegmentIndex] == 0 && 
+    if (_shareViaPostButton.selected && 
         [[self socialNetworks] count] == 0) {
         return;
     }
     
-    if ([_shareTypeSelector selectedSegmentIndex] == 1
+    if (_shareViaEmailButton.selected
          && [_peoplePicker tokenCount] == 0)
     {
         return;
@@ -301,7 +325,7 @@
     
     NSString *message = _bodyTextView.text;
     NSArray *networks = [self socialNetworks];
-    NSString *recipients = ([_shareTypeSelector selectedSegmentIndex] == 1) ? [self recipients] : nil;
+    NSString *recipients = (_shareViaEmailButton.selected) ? [self recipients] : nil;
     
     [self resignFirstResponders];
 
@@ -405,13 +429,7 @@
     // on iPhone we do some manual adjustments.
     if (self.bounds.size.width > self.bounds.size.height) {
                 
-        CGRect temp = _shareTypeSelector.frame;
-        temp.size.width = 150;
-        temp.origin.x = 10;
-        temp.origin.y = 10;
-        _shareTypeSelector.frame = temp;
-    
-        temp = _socialBodyPlaceholder.frame;
+        CGRect temp = _socialBodyPlaceholder.frame;
         temp.origin.x = 170;
         temp.origin.y = 10;
         temp.size.height = 74;
@@ -449,13 +467,7 @@
 
     } else {
         
-        CGRect temp = _shareTypeSelector.frame;
-        temp.size.width = 207;
-        temp.origin.x = 56;
-        temp.origin.y = 10;
-        _shareTypeSelector.frame = temp;
-        
-        temp = _socialBodyPlaceholder.frame;
+        CGRect temp = _socialBodyPlaceholder.frame;
         temp.origin.x = 10;
         temp.origin.y = 50;
         temp.size.height = 95;
@@ -492,7 +504,7 @@
         _emailRecipientSuggestionsHolder.frame = temp;
     }
     
-    if ([_shareTypeSelector selectedSegmentIndex] == 0)
+    if (_shareViaPostButton.selected)
     {
         _bodyTextContainerView.frame = _socialBodyPlaceholder.frame;
     } else {

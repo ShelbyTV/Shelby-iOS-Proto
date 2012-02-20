@@ -160,7 +160,7 @@
         
     self.tokenField = [[COTokenField alloc] initWithFrame:tokenFieldFrame];
     self.tokenField.tokenFieldDelegate = self;
-    self.tokenField.textField.textColor = [UIColor whiteColor];
+    self.tokenField.textField.textColor = [UIColor blackColor];
     self.tokenField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     [self.tokenField addObserver:self forKeyPath:kTokenFieldFrameKeyPath options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     

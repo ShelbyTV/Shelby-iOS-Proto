@@ -56,7 +56,7 @@
 									<object class="IBUIView" id="1046649772">
 										<reference key="NSNextResponder" ref="558491996"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{170, 90}, {480, 157}}</string>
+										<string key="NSFrame">{{170, 117}, {480, 130}}</string>
 										<reference key="NSSuperview" ref="558491996"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="282230729"/>
@@ -289,7 +289,7 @@
 									<object class="IBUIButton" id="391560959">
 										<reference key="NSNextResponder" ref="558491996"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{39, 33.5}, {72, 99}}</string>
+										<string key="NSFrame">{{39, 33}, {72, 99}}</string>
 										<reference key="NSSuperview" ref="558491996"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="565859090"/>
@@ -297,15 +297,24 @@
 										<bool key="IBUIOpaque">NO</bool>
 										<int key="IBUIContentMode">5</int>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<bool key="IBUISelected">YES</bool>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">2</int>
+										<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+										<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 										<string key="IBUINormalTitle">Social</string>
-										<object class="NSColor" key="IBUIHighlightedTitleColor" id="383645627">
+										<reference key="IBUIHighlightedTitleColor" ref="997322477"/>
+										<reference key="IBUISelectedTitleColor" ref="997322477"/>
+										<object class="NSColor" key="IBUINormalTitleColor">
 											<int key="NSColorSpace">3</int>
-											<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+											<bytes key="NSWhite">MC41MwA</bytes>
 										</object>
-										<reference key="IBUINormalTitleColor" ref="997322477"/>
 										<reference key="IBUINormalTitleShadowColor" ref="192979874"/>
+										<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="619638967">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">shareSocial_selected_iPad.png</string>
+										</object>
+										<reference key="IBUISelectedBackgroundImage" ref="619638967"/>
 										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">shareSocial_iPad.png</string>
@@ -330,7 +339,10 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="464777125"/>
 										<string key="NSReuseIdentifierKey">_NS:196</string>
-										<reference key="IBUIBackgroundColor" ref="383645627"/>
+										<object class="NSColor" key="IBUIBackgroundColor">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MC4zMQA</bytes>
+										</object>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
@@ -342,7 +354,10 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="1046649772"/>
 										<string key="NSReuseIdentifierKey">_NS:196</string>
-										<reference key="IBUIBackgroundColor" ref="383645627"/>
+										<object class="NSColor" key="IBUIBackgroundColor">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MC4zMQA</bytes>
+										</object>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
@@ -358,10 +373,21 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">2</int>
+										<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+										<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 										<string key="IBUINormalTitle">Email</string>
 										<reference key="IBUIHighlightedTitleColor" ref="997322477"/>
-										<reference key="IBUINormalTitleColor" ref="997322477"/>
+										<reference key="IBUISelectedTitleColor" ref="997322477"/>
+										<object class="NSColor" key="IBUINormalTitleColor">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MC41MwA</bytes>
+										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="192979874"/>
+										<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="982622149">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">shareEmail_selected_iPad.png</string>
+										</object>
+										<reference key="IBUISelectedBackgroundImage" ref="982622149"/>
 										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">shareEmail_iPad.png</string>
@@ -377,7 +403,7 @@
 											<object class="IBUITextView" id="358547213">
 												<reference key="NSNextResponder" ref="988341200"/>
 												<int key="NSvFlags">274</int>
-												<string key="NSFrame">{{5, 5}, {470, 100}}</string>
+												<string key="NSFrameSize">{480, 110}</string>
 												<reference key="NSSuperview" ref="988341200"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="417793790"/>
@@ -405,11 +431,11 @@
 													<string key="name">Thonburi</string>
 													<string key="family">Thonburi</string>
 													<int key="traits">0</int>
-													<double key="pointSize">16</double>
+													<double key="pointSize">18</double>
 												</object>
 												<object class="NSFont" key="IBUIFont">
 													<string key="NSName">Thonburi</string>
-													<double key="NSSize">16</double>
+													<double key="NSSize">18</double>
 													<int key="NSfFlags">16</int>
 												</object>
 											</object>
@@ -424,7 +450,7 @@
 									</object>
 									<object class="IBUIView" id="853054502">
 										<reference key="NSNextResponder" ref="558491996"/>
-										<int key="NSvFlags">-2147483356</int>
+										<int key="NSvFlags">292</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="IBUILabel" id="583074721">
@@ -455,7 +481,7 @@
 											<object class="IBUIView" id="331893400">
 												<reference key="NSNextResponder" ref="853054502"/>
 												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{40, 0}, {440, 50}}</string>
+												<string key="NSFrame">{{40, 0}, {440, 67}}</string>
 												<reference key="NSSuperview" ref="853054502"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="32348301"/>
@@ -464,7 +490,7 @@
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 											</object>
 										</object>
-										<string key="NSFrame">{{170, 20}, {480, 50}}</string>
+										<string key="NSFrame">{{170, 20}, {480, 67}}</string>
 										<reference key="NSSuperview" ref="558491996"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="583074721"/>
@@ -476,7 +502,7 @@
 									<object class="IBUIView" id="107105568">
 										<reference key="NSNextResponder" ref="558491996"/>
 										<int key="NSvFlags">-2147483356</int>
-										<string key="NSFrame">{{210, 70}, {440, 260}}</string>
+										<string key="NSFrame">{{210, 87}, {440, 243}}</string>
 										<reference key="NSSuperview" ref="558491996"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="267815054"/>
@@ -718,6 +744,22 @@
 					<int key="connectionID">203</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_shareViaPostButton</string>
+						<reference key="source" ref="726784364"/>
+						<reference key="destination" ref="391560959"/>
+					</object>
+					<int key="connectionID">217</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_shareViaEmailButton</string>
+						<reference key="source" ref="726784364"/>
+						<reference key="destination" ref="464777125"/>
+					</object>
+					<int key="connectionID">219</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">closeWasPressed:</string>
 						<reference key="source" ref="10577837"/>
@@ -733,6 +775,24 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">210</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shareViaPostButtonPressed:</string>
+						<reference key="source" ref="391560959"/>
+						<reference key="destination" ref="726784364"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">218</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shareViaEmailButtonPressed:</string>
+						<reference key="source" ref="464777125"/>
+						<reference key="destination" ref="726784364"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">220</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -958,6 +1018,7 @@
 					<string>212.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>213.IBPluginDependency</string>
 					<string>214.IBPluginDependency</string>
+					<string>214.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>215.IBPluginDependency</string>
 					<string>34.IBPluginDependency</string>
 					<string>37.IBPluginDependency</string>
@@ -993,6 +1054,7 @@
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1017,7 +1079,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">216</int>
+			<int key="maxID">220</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1031,13 +1093,15 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeWasPressed:</string>
 							<string>facebookWasPressed:</string>
-							<string>segmentedControlValueChanged:</string>
 							<string>sendWasPressed:</string>
+							<string>shareViaEmailButtonPressed:</string>
+							<string>shareViaPostButtonPressed:</string>
 							<string>tumblrWasPressed:</string>
 							<string>twitterWasPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1052,8 +1116,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeWasPressed:</string>
 							<string>facebookWasPressed:</string>
-							<string>segmentedControlValueChanged:</string>
 							<string>sendWasPressed:</string>
+							<string>shareViaEmailButtonPressed:</string>
+							<string>shareViaPostButtonPressed:</string>
 							<string>tumblrWasPressed:</string>
 							<string>twitterWasPressed:</string>
 						</object>
@@ -1068,11 +1133,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">segmentedControlValueChanged:</string>
+								<string key="name">sendWasPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">sendWasPressed:</string>
+								<string key="name">shareViaEmailButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">shareViaPostButtonPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1099,7 +1168,8 @@
 							<string>_facebookButton</string>
 							<string>_postButtonsContainerView</string>
 							<string>_sendButton</string>
-							<string>_shareTypeSelector</string>
+							<string>_shareViaEmailButton</string>
+							<string>_shareViaPostButton</string>
 							<string>_socialBodyPlaceholder</string>
 							<string>_tumblrButton</string>
 							<string>_tweetRemainingLabel</string>
@@ -1118,7 +1188,8 @@
 							<string>UIButton</string>
 							<string>UIView</string>
 							<string>UIBarButtonItem</string>
-							<string>UISegmentedControl</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
 							<string>UIView</string>
 							<string>UIButton</string>
 							<string>UILabel</string>
@@ -1140,7 +1211,8 @@
 							<string>_facebookButton</string>
 							<string>_postButtonsContainerView</string>
 							<string>_sendButton</string>
-							<string>_shareTypeSelector</string>
+							<string>_shareViaEmailButton</string>
+							<string>_shareViaPostButton</string>
 							<string>_socialBodyPlaceholder</string>
 							<string>_tumblrButton</string>
 							<string>_tweetRemainingLabel</string>
@@ -1190,8 +1262,12 @@
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">_shareTypeSelector</string>
-								<string key="candidateClassName">UISegmentedControl</string>
+								<string key="name">_shareViaEmailButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_shareViaPostButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_socialBodyPlaceholder</string>
@@ -1241,8 +1317,10 @@
 				<string>facebook_off_iPad.png</string>
 				<string>facebook_on_iPad.png</string>
 				<string>shareEmail_iPad.png</string>
+				<string>shareEmail_selected_iPad.png</string>
 				<string>shareSend.png</string>
 				<string>shareSocial_iPad.png</string>
+				<string>shareSocial_selected_iPad.png</string>
 				<string>tumblr_missing_iPad.png</string>
 				<string>tumblr_off_iPad.png</string>
 				<string>tumblr_on_iPad.png</string>
@@ -1259,7 +1337,9 @@
 				<string>{69, 70}</string>
 				<string>{69, 70}</string>
 				<string>{73, 89}</string>
+				<string>{73, 89}</string>
 				<string>{270, 41}</string>
+				<string>{72, 99}</string>
 				<string>{72, 99}</string>
 				<string>{69, 70}</string>
 				<string>{69, 70}</string>
