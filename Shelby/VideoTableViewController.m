@@ -154,14 +154,6 @@
 	return [[ShelbyApp sharedApp].videoData isLoading]; // return if data source model is reloading
 }
 
-- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
-{
-//	return IS_NULL([ShelbyApp sharedApp].videoData) || IS_NULL([ShelbyApp sharedApp].videoData.lastFetchBroadcasts) ? [NSDate date] : 
-//              [ShelbyApp sharedApp].videoData.lastFetchBroadcasts; // should return date data source was last changed
-    
-    return [NSDate date];
-}
-
 #pragma mark - VideoTableDataDelegate Methods
 
 - (void)videoTableDataDidFinishRefresh:(VideoTableData *)videoTableData
@@ -182,8 +174,6 @@
       _refreshHeaderView = view;
       [view release];
     }
-    //  update the last update date
-    [_refreshHeaderView refreshLastUpdatedDate];
 }
 
 - (void)viewDidUnload
