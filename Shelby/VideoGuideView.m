@@ -61,7 +61,7 @@
 
 - (void)reset
 {
-    [_videoTableData clearVideoTableData];
+    [_videoTableData reset];
 }
 
 @end

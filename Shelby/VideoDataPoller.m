@@ -34,13 +34,13 @@
         lastApiPollIntervalSeconds = 10;
         [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
                                          target:self
-                                       selector:@selector(updateCoreDataAndIssuePlayabilityChecks) 
+                                       selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
                                        userInfo:nil 
                                         repeats:NO];
         
         [NSTimer scheduledTimerWithTimeInterval:5
                                          target:self
-                                       selector:@selector(updateNewVideosAndCommentsCounters) 
+                                       selector:@selector(updateNewVideosAndCommentsCountersTimer) 
                                        userInfo:nil 
                                         repeats:YES];
         
@@ -64,24 +64,30 @@
                                     repeats:NO];
 }
 
-
 - (void)updateCoreDataAndIssuePlayabilityChecks
 {
     if (![[ShelbyApp sharedApp].userSessionHelper loggedIn]) {
         return;
     }
-    
+        
     [DataApi fetchPollingBroadcastsAndStoreInCoreData];
+}
+
+- (void)updateCoreDataAndIssuePlayabilityChecksTimer
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self updateCoreDataAndIssuePlayabilityChecks];
+    });
     
     lastApiPollIntervalSeconds = MIN((lastApiPollIntervalSeconds * 2), 120);
     [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
                                      target:self
-                                   selector:@selector(updateCoreDataAndIssuePlayabilityChecks) 
+                                   selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
                                    userInfo:nil 
                                     repeats:NO];
 }
 
-- (void)processPollingBroadcastsStoredInCoreData:(NSTimer*)timer
+- (void)processPollingBroadcastsStoredInCoreDataInt
 {
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
@@ -99,8 +105,16 @@
     [context release];
 }
 
-- (void)updateNewVideosAndCommentsCounters
+- (void)processPollingBroadcastsStoredInCoreData:(NSTimer*)timer
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self processPollingBroadcastsStoredInCoreDataInt];
+    });
+}
+
+
+- (void)updateNewVideosAndCommentsCounters
+{    
     if (![[ShelbyApp sharedApp].userSessionHelper loggedIn]) {
         return;
     }
@@ -110,55 +124,59 @@
     }
     
     newPlayableBroadcasts = FALSE;
-    
-    @synchronized(self)
-    {
 
+    // calculate number of new videos and comments on existing videos
+    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSArray *broadcastDicts = [VideoCoreDataInterface fetchKeyBroadcastFieldDictionariesFromCoreDataContext:context];
+    
+    int newVideos = 0;
+    int newCommentsOnExistingVideos = 0;
+    
+    NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    for (NSDictionary *dict in broadcastDicts) {
         
-        // calculate number of new videos and comments on existing videos
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-        NSArray *broadcastDicts = [VideoCoreDataInterface fetchKeyBroadcastFieldDictionariesFromCoreDataContext:context];
-        
-        int newVideos = 0;
-        int newCommentsOnExistingVideos = 0;
-        
-        NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
-        
-        for (NSDictionary *dict in broadcastDicts) {
-            
-            if ([[dict objectForKey:@"isPlayable"] intValue] != IS_PLAYABLE) {
-                continue;
-            }
-            
-            if ([[ShelbyApp sharedApp].videoData isKnownShelbyId:[dict objectForKey:@"shelbyId"]]) {
-                continue;
-            }
-            
-            NSString *videoKey = [VideoHelper dupeKeyWithProvider:[dict objectForKey:@"provider"] 
-                                                           withId:[dict objectForKey:@"providerId"]];
-            
-            if ([[ShelbyApp sharedApp].videoData isKnownVideoKey:videoKey])
-            {
-                newCommentsOnExistingVideos++;
-                
-            } else if (IS_NULL([alreadyCountedVideos objectForKey:videoKey])) {
-                
-                newVideos++;
-                [alreadyCountedVideos setValue:dict forKey:videoKey];
-            }
+        if ([[dict objectForKey:@"isPlayable"] intValue] != IS_PLAYABLE) {
+            continue;
         }
         
+        if ([[ShelbyApp sharedApp].videoData isKnownShelbyId:[dict objectForKey:@"shelbyId"]]) {
+            continue;
+        }
+        
+        NSString *videoKey = [VideoHelper dupeKeyWithProvider:[dict objectForKey:@"provider"] 
+                                                       withId:[dict objectForKey:@"providerId"]];
+        
+        if ([[ShelbyApp sharedApp].videoData isKnownVideoKey:videoKey])
+        {
+            newCommentsOnExistingVideos++;
+            
+        } else if (IS_NULL([alreadyCountedVideos objectForKey:videoKey])) {
+            
+            newVideos++;
+            [alreadyCountedVideos setValue:dict forKey:videoKey];
+        }
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewDataAvailableFromAPI"
                                                             object:self
                                                           userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:newVideos], @"newVideos", 
                                                                     [NSNumber numberWithInt:newCommentsOnExistingVideos], @"newCommentsOnExistingVideos",
                                                                     nil]];
-        
-        // XXX don't really need to "save" here, just release.
-        [CoreDataHelper saveAndReleaseContext:context];
-    }
+    });
+    
+    // XXX don't really need to "save" here, just release.
+    [CoreDataHelper saveAndReleaseContext:context];
 }
+
+- (void)updateNewVideosAndCommentsCountersTimer
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self updateNewVideosAndCommentsCounters];
+    });
+}     
 
 - (void)recalculateImmediately
 {

@@ -41,10 +41,12 @@
 
 - (void)updateTableVideosNoAnimation;
 - (void)updateTableVideos;
-- (void)clearVideoTableData;
 - (void)updateVideoTableCell:(Video *)video;
 - (BOOL)shouldIncludeVideo:(NSArray *)dupeArray;
 
+- (void)videosAvailable;
+
 - (void)videoTableNeedsUpdate;
+- (void)reset;
 
 @end

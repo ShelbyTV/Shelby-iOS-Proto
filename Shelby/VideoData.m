@@ -157,9 +157,7 @@
     [self processBroadcastArray:broadcasts];
     
     [context release];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewVideoDataAvailable" object:self];
-    
+        
     _isLoading = FALSE;
 }
 

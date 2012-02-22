@@ -57,7 +57,7 @@
         _pullToRefreshLabel.adjustsFontSizeToFitWidth = YES;
         _pullToRefreshLabel.minimumFontSize = 14.0;
         _pullToRefreshLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _pullToRefreshLabel.text = @"Pull to refresh...";
+        _pullToRefreshLabel.text = @"Pull down to refresh...";
         
         _updatesImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 54, 54)];
         _updatesImageView.image = [UIImage imageNamed:@"refreshArrow"];
@@ -103,6 +103,8 @@
         return;
     }
     
+    _updatesVisible = NO;
+    
     [UIView animateWithDuration:0.25 animations:^{
         CGRect temp = _updatesContainer.frame;
         temp.origin.y -= temp.size.height;
@@ -112,10 +114,7 @@
         temp.origin.y -= _updatesContainer.frame.size.height;
         temp.size.height += _updatesContainer.frame.size.height;
         _videoTableViewController.view.frame = temp;
-    }
-                     completion:^(BOOL finished){
-                         _updatesVisible = NO;
-                     }];
+    }];
 }
 
 - (void)showUpdates
@@ -123,6 +122,8 @@
     if (_updatesVisible) {
         return;
     }
+    
+    _updatesVisible = YES;
  
     [UIView animateWithDuration:0.25 animations:^{
         CGRect temp = _updatesContainer.frame;
@@ -133,10 +134,7 @@
         temp.origin.y += _updatesContainer.frame.size.height;
         temp.size.height -= _updatesContainer.frame.size.height;
         _videoTableViewController.view.frame = temp;
-    }
-                     completion:^(BOOL finished){
-                         _updatesVisible = YES;
-                     }];
+    }];
 }
 
 - (void)receivedNewDataFromAPI:(NSNotification *)notification

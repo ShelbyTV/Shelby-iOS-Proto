@@ -24,8 +24,6 @@ static const float ANIMATION_TIME = 0.5f;
 #pragma mark - Rotation
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    //return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
     return YES;
 }
 
@@ -99,14 +97,6 @@ static const float ANIMATION_TIME = 0.5f;
     }
 }
 
-//- (void)showSettings {
-//    if (![_navigationController.topViewController isKindOfClass: [SettingsViewController class]]) {
-//        // If we're not already showing settings, show settings.
-//        SettingsViewController *vc = [SettingsViewController viewController];
-//        [_navigationController pushViewController: vc animated: YES];
-//    }
-//}
-
 #pragma mark - UI Callbacks
 
 - (IBAction)shelbyIconWasPanned:(id)sender
@@ -119,14 +109,9 @@ static const float ANIMATION_TIME = 0.5f;
 
     CGPoint velocity = [gestureRecognizer velocityInView: _logoButton];
 
-    //if(abs(velocity.x) > abs(velocity.y)) {
-    if(
-            // Slide right when open
-            (velocity.x > 0 && !_trayClosed) ||
-            // Slide left when closed
-            (velocity.x < 0 && _trayClosed)
-    ) {
-        LOG(@"horizontal gesture");
+    if((velocity.x > 0 && !_trayClosed) ||
+       (velocity.x < 0 && _trayClosed))
+    {
         [self toggleTray];
     }
 }
@@ -140,20 +125,10 @@ static const float ANIMATION_TIME = 0.5f;
     [self toggleTray];
 }
 
-//- (IBAction)settingsButtonWasPressed:(id)sender {
-//    // Open up the settings ViewController
-//    LOG(@"[NavigationViewController_iPad settingsButtonWasPressed]");
-//    [self showSettings];
-//}
-
-#pragma mark - VideoTableViewControllerDelegate Methods
-
-- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller
+- (void)newVideoDataAvailableAfterLogin
 {
-    static BOOL onlyOnce = FALSE;
     // If our videoplayer isn't doesn't have a video cued (isn't playing or paused), let's play a video.
-    if (!onlyOnce && _videoPlayer.isIdle) {
-        onlyOnce = TRUE;
+    if (_videoPlayer.isIdle) {
         Video *video = [currentGuide getFirstVideo];
         [self performSelectorOnMainThread:@selector(playVideo:) withObject:video waitUntilDone:NO];
     }

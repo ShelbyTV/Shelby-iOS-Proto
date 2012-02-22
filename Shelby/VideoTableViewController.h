@@ -16,7 +16,6 @@
 
 @protocol VideoTableViewControllerDelegate
 
-- (void)videoTableViewControllerFinishedRefresh:(VideoTableViewController *)controller;
 - (void)videoTableWasTouched;
 - (void)playVideo:(Video *)video;
 

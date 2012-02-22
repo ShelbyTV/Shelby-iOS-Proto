@@ -89,6 +89,11 @@
                                                      name: @"NewDataAvailableFromAPI"
                                                    object: nil];
         
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(newVideoDataAvailableAfterLogin)
+                                                     name: @"NewVideoDataAvailableAfterLogin"
+                                                   object: nil];
+        
         _authorizations = [[NSSet alloc] initWithObjects:
             @"auth_twitter",
             @"auth_facebook",
@@ -942,5 +947,9 @@
     }
 }
 
+- (void)newVideoDataAvailableAfterLogin
+{
+    // override in subclass
+}
 
 @end

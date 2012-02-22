@@ -9,5 +9,8 @@
 #import "VideoTableData.h"
 
 @interface VideoTableTimelineData : VideoTableData
+{
+    BOOL postedNotificationOfNewVideosAfterLogin; 
+}
 
 @end

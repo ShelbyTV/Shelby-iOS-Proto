@@ -38,11 +38,6 @@
 	// Tell the UI.
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 
-    // Tell the world?
-    if (self.delegate) {
-        [self.delegate videoTableViewControllerFinishedRefresh: self];
-    }
-
     [[NSNotificationCenter defaultCenter] postNotificationName: @"VideoTableViewControllerFinishedRefresh"
                                                         object: self
                                                         ];

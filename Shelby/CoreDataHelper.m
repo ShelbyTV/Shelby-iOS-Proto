@@ -70,7 +70,7 @@
         } else {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
-        [NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
+        //[NSException raise:@"unexpected" format:@"Couldn't Save context! %@", [error localizedDescription]];
     }
 }
 

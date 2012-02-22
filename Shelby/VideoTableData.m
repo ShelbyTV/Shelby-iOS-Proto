@@ -191,6 +191,10 @@
         self.numItemsInserted = [tableVideos count];
         [tableView endUpdates];
     }
+    
+    if ([tableVideos count] > 0) {
+        [self videosAvailable];
+    }
 }
 
 - (void)updateTableVideos
@@ -253,6 +257,16 @@
 - (void)videoTableNeedsUpdate
 {
     videoTableNeedsUpdate = TRUE;
+}
+
+- (void)reset
+{
+    [self clearVideoTableData];
+}
+
+- (void)videosAvailable
+{
+    //override in subclass to do something useful
 }
 
 @end

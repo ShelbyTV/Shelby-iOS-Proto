@@ -22,6 +22,19 @@
     return ((Video *)[dupeArray objectAtIndex:0]).isPlayable == IS_PLAYABLE;
 }
 
+- (void)videosAvailable
+{
+    if (!postedNotificationOfNewVideosAfterLogin) {
+        postedNotificationOfNewVideosAfterLogin = TRUE;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewVideoDataAvailableAfterLogin" object:self];
+    }
+}
 
+- (void)reset
+{
+    [super reset];
+    
+    postedNotificationOfNewVideosAfterLogin = FALSE;
+}
 
 @end
