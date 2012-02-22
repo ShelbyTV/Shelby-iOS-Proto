@@ -206,7 +206,7 @@
 }
 
 + (void)loadVideoThumbnailFromCoreData:(Video *)video
-{    
+{
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
@@ -230,7 +230,7 @@
 }
 
 + (void)storeSharerImage:(Video *)video
-{ 
+{
     if (NOT_NULL(video.sharerImage)) 
     {
         [VideoCoreDataInterface storeSharerImage:UIImagePNGRepresentation(video.sharerImage) forVideo:video];
@@ -238,7 +238,7 @@
 }
 
 + (void)loadSharerImageFromCoreData:(Video *)video
-{    
+{
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
