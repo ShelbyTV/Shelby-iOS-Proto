@@ -23,12 +23,20 @@
 
 @end
 
+typedef enum {
+    SHARE_SELECTION_SCREEN,
+    SHARE_TEXTENTRY_SCREEN
+} ShareScreen;
+
 @interface ShareView : UIView <COPeoplePickerDelegate>
 {
     IBOutlet UIButton *_twitterButton;
     IBOutlet UIButton *_facebookButton;
     IBOutlet UIButton *_tumblrButton;
     
+    IBOutlet UILabel *_toolbarLabel;
+    IBOutlet UIToolbar *_toolbar;
+    IBOutlet UIBarButtonItem *_cancelBackButton;
     IBOutlet UIBarButtonItem *_sendButton;
     
     IBOutlet UITextView *_bodyTextView;
@@ -41,6 +49,9 @@
     
     IBOutlet UIView *_dialogContainerView;
     
+    IBOutlet UIView *_shareViaButtonsContainerView;
+    IBOutlet UIView *_portraitShareButtonSeparatorView;
+    IBOutlet UIView *_landscapeShareButtonSeparatorView;
     IBOutlet UIButton *_shareViaPostButton;
     IBOutlet UIButton *_shareViaEmailButton;
     
@@ -50,6 +61,8 @@
     IBOutlet UILabel *_tweetRemainingLabel;
     
     COPeoplePickerViewController *_peoplePicker;
+    
+    ShareScreen _iPhoneShareScreenState;
     
     NSArray *_perfectTweetRemarks;
     Video *_video;

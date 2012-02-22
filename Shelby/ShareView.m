@@ -44,6 +44,29 @@
 
 #pragma mark - View lifecycle
 
+- (void)iPhoneInitializeSelectionScreen
+{
+    _iPhoneShareScreenState = SHARE_SELECTION_SCREEN;
+    _bodyTextContainerView.hidden = YES;
+    _emailRecipientContainerView.hidden = YES;
+    _postButtonsContainerView.hidden = YES;
+    _tweetRemainingLabel.hidden = YES;
+    
+    _shareViaEmailButton.selected = NO;
+    _shareViaPostButton.selected = NO;
+    _shareViaButtonsContainerView.hidden = NO;
+    
+    [_cancelBackButton setTitle:@"Cancel"];
+    _toolbarLabel.text = @"Share";
+    
+    NSMutableArray *toolbarItems = [[[NSMutableArray alloc] initWithArray:[_toolbar items]] autorelease];
+    if ([toolbarItems containsObject:_sendButton]) {
+        [toolbarItems removeObject:_sendButton];
+    }
+    
+    [_toolbar setItems:toolbarItems animated:NO];
+}
+
 - (void)populateUI
 {
     // Populate the UI.
@@ -70,6 +93,10 @@
         
         _bodyTextView.text = defaultComment;
         _bodyTextView.selectedRange = NSMakeRange(0, [[NSString stringWithFormat: @"Great video on", _video.title] length]);
+    }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self iPhoneInitializeSelectionScreen];
     }
     
     [self textViewDidChange:_bodyTextView];
@@ -104,6 +131,8 @@
     
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"shareBackground"]];
     _dialogContainerView.backgroundColor = backgroundPattern;
+    
+    [_sendButton retain];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -160,6 +189,14 @@
     }
     
     [self resignFirstResponders];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&  
+       _iPhoneShareScreenState == SHARE_TEXTENTRY_SCREEN)
+    {
+        [self iPhoneInitializeSelectionScreen];
+        return;
+    }
+    
     if (self.delegate) {
         [self.delegate shareViewClosePressed : self];
     }
@@ -167,6 +204,10 @@
 
 - (void)updateInterfaceType
 {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return;
+    }
+    
     if (_shareViaPostButton.selected) {
         [UIView animateWithDuration:0.25 animations:^{
             _emailRecipientContainerView.alpha = 0.0;
@@ -213,6 +254,28 @@
         return;
     }
     
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _iPhoneShareScreenState = SHARE_TEXTENTRY_SCREEN;
+        _bodyTextContainerView.hidden = NO;
+        _emailRecipientContainerView.hidden = YES;
+        _postButtonsContainerView.hidden = NO;
+        _tweetRemainingLabel.hidden = NO;
+        _shareViaButtonsContainerView.hidden = YES;
+        
+        _bodyTextContainerView.frame = _socialBodyPlaceholder.frame;
+        [_cancelBackButton setTitle:@"Back"];
+        _toolbarLabel.text = @"Post";
+        
+        NSMutableArray *toolbarItems = [[[NSMutableArray alloc] initWithArray:[_toolbar items]] autorelease];
+        if (![toolbarItems containsObject:_sendButton]) {
+            [toolbarItems addObject:_sendButton];
+        }
+        
+        [_toolbar setItems:toolbarItems animated:NO];
+        
+        [_bodyTextView becomeFirstResponder];
+    }
+    
     _shareViaEmailButton.selected = NO;
     _shareViaPostButton.selected = YES;
     
@@ -228,6 +291,28 @@
     
     if (_shareViaEmailButton.selected) {
         return;
+    }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _iPhoneShareScreenState = SHARE_TEXTENTRY_SCREEN;
+        _bodyTextContainerView.hidden = NO;
+        _emailRecipientContainerView.hidden = NO;
+        _postButtonsContainerView.hidden = YES;
+        _tweetRemainingLabel.hidden = YES;
+        _shareViaButtonsContainerView.hidden = YES;
+        
+        _bodyTextContainerView.frame = _emailBodyPlaceholder.frame;
+        [_cancelBackButton setTitle:@"Back"];
+        _toolbarLabel.text = @"Email";
+        
+        NSMutableArray *toolbarItems = [[[NSMutableArray alloc] initWithArray:[_toolbar items]] autorelease];
+        if (![toolbarItems containsObject:_sendButton]) {
+            [toolbarItems addObject:_sendButton];
+        }
+        
+        [_toolbar setItems:toolbarItems animated:NO];
+        
+        [_bodyTextView becomeFirstResponder];
     }
     
     _shareViaPostButton.selected = NO;
@@ -429,78 +514,112 @@
     // on iPhone we do some manual adjustments.
     if (self.bounds.size.width > self.bounds.size.height) {
                 
-        CGRect temp = _socialBodyPlaceholder.frame;
-        temp.origin.x = 170;
-        temp.origin.y = 10;
-        temp.size.height = 74;
+        CGRect temp = _shareViaPostButton.frame;
+        temp.origin.x = 76;
+        temp.origin.y = 82;
+        _shareViaPostButton.frame = temp;
+        
+        temp = _shareViaEmailButton.frame;
+        temp.origin.x = 311;
+        temp.origin.y = 86;
+        _shareViaEmailButton.frame = temp;
+        
+        _landscapeShareButtonSeparatorView.alpha = 1.0;
+        _portraitShareButtonSeparatorView.alpha = 0.0;
+        
+        temp = _socialBodyPlaceholder.frame;
+        temp.origin.x = 115;
+        temp.origin.y = 7;
+        temp.size.width = 355;
+        temp.size.height = 75;
         _socialBodyPlaceholder.frame = temp;
         
         temp = _postButtonsContainerView.frame;
-        temp.origin.x = 10;
-        temp.origin.y = 45;
+        temp.origin.x = 7;
+        temp.origin.y = 7;
+        temp.size.width = 100;
+        temp.size.height = 100;
         _postButtonsContainerView.frame = temp;
         
         temp = _tweetRemainingLabel.frame;
         temp.origin.x = 170;
-        temp.origin.y = 89;
-        temp.size.width = 300;
+        temp.origin.y = 87;
         _tweetRemainingLabel.frame = temp;
         
         temp = _emailBodyPlaceholder.frame;
-        temp.origin.x = 10;
-        temp.origin.y = 50;
-        temp.size.width = 460;
-        temp.size.height = 50;
+        temp.origin.x = 7;
+        temp.origin.y = 44;
+        temp.size.width = 466;
+        temp.size.height = 60;
         _emailBodyPlaceholder.frame = temp;
         
         temp = _emailRecipientContainerView.frame;
-        temp.origin.x = 170;
-        temp.origin.y = 10;
-        temp.size.height = 31;
+        temp.origin.x = 7;
+        temp.origin.y = 7;
+        temp.size.width = 466;
+        temp.size.height = 30;
         _emailRecipientContainerView.frame = temp;
         
         temp = _emailRecipientSuggestionsHolder.frame;
-        temp.origin.x = 205;
-        temp.origin.y = 40;
-        temp.size.height = 74;
+        temp.origin.x = 47;
+        temp.origin.y = 37;
+        temp.size.width = 466;
+        temp.size.height = 77;
         _emailRecipientSuggestionsHolder.frame = temp;
 
     } else {
         
-        CGRect temp = _socialBodyPlaceholder.frame;
+        CGRect temp = _shareViaPostButton.frame;
+        temp.origin.x = 116;
+        temp.origin.y = 56;
+        _shareViaPostButton.frame = temp;
+        
+        temp = _shareViaEmailButton.frame;
+        temp.origin.x = 111;
+        temp.origin.y = 266;
+        _shareViaEmailButton.frame = temp;
+        
+        _landscapeShareButtonSeparatorView.alpha = 0.0;
+        _portraitShareButtonSeparatorView.alpha = 1.0;
+                
+        temp = _socialBodyPlaceholder.frame;
         temp.origin.x = 10;
-        temp.origin.y = 50;
-        temp.size.height = 95;
+        temp.origin.y = 72;
+        temp.size.width = 300;
+        temp.size.height = 110;
         _socialBodyPlaceholder.frame = temp;
         
         temp = _postButtonsContainerView.frame;
-        temp.origin.x = 11;
-        temp.origin.y = 150;
+        temp.origin.x = 10;
+        temp.origin.y = 15;
+        temp.size.width = 154;
+        temp.size.height = 47;
         _postButtonsContainerView.frame = temp;
         
         temp = _tweetRemainingLabel.frame;
-        temp.origin.x = 104;
-        temp.origin.y = 150;
-        temp.size.width = 205;
+        temp.origin.x = 10;
+        temp.origin.y = 187;
         _tweetRemainingLabel.frame = temp;
         
         temp = _emailBodyPlaceholder.frame;
         temp.origin.x = 10;
-        temp.origin.y = 118;
+        temp.origin.y = 88;
         temp.size.width = 300;
-        temp.size.height = 92;
+        temp.size.height = 120;
         _emailBodyPlaceholder.frame = temp;
         
         temp = _emailRecipientContainerView.frame;
         temp.origin.x = 10;
-        temp.origin.y = 50;
+        temp.origin.y = 15;
+        temp.size.width = 300;
         temp.size.height = 58;
         _emailRecipientContainerView.frame = temp;
         
         temp = _emailRecipientSuggestionsHolder.frame;
-        temp.origin.x = 45;
-        temp.origin.y = 108;
-        temp.size.height = 112;
+        temp.origin.x = 50;
+        temp.origin.y = 73;
+        temp.size.width = 260;
+        temp.size.height = 147;
         _emailRecipientSuggestionsHolder.frame = temp;
     }
     

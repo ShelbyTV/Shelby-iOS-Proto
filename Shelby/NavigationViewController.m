@@ -444,7 +444,9 @@
     self.shareView.hidden = NO;
 
     // Use this to reveal the keyboard.
-    [self.shareView.bodyTextView becomeFirstResponder];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.shareView.bodyTextView becomeFirstResponder];
+    }
 }
 
 - (void)videoPlayerVideoDidFinish:(VideoPlayer *)videoPlayer
