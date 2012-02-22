@@ -63,13 +63,11 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    NSLog(@"NavigationViewController_iPhone willRotateToInterfaceOrientation");
     [currentGuide willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    NSLog(@"NavigationViewController_iPhone didRotateFromInterfaceOrientation");
     [currentGuide didRotateFromInterfaceOrientation:fromInterfaceOrientation]; 
 }
 
