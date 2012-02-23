@@ -338,19 +338,100 @@
     }
 }
 
-- (void)setTwitterEnabled:(BOOL)enabled
+- (void)setTumblrAuthorized:(BOOL)authorized
 {
-    _twitterButton.selected = !enabled;
+    _tumblrAuthorized = authorized;
+    
+    if (!authorized) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing"] forState:UIControlStateDisabled];
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing"] forState:UIControlStateNormal];
+        } else {
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing_iPad"] forState:UIControlStateDisabled];
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing_iPad"] forState:UIControlStateNormal];
+        }
+        
+        // tumblr is the only service where we don't support account addition on iOS
+        _tumblrButton.enabled = FALSE;
+    } else {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_off"] forState:UIControlStateSelected];
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_on"] forState:UIControlStateNormal];
+        } else {
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_off_iPad"] forState:UIControlStateSelected];
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_on_iPad"] forState:UIControlStateNormal];
+        }
+        
+        _tumblrButton.enabled = TRUE;
+    }
+    
+    [self updateSendButton];
+}
+
+- (void)setFacebookAuthorized:(BOOL)authorized
+{
+    _facebookAuthorized = authorized;
+    
+    if (!authorized) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_missing"] forState:UIControlStateSelected];
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_missing"] forState:UIControlStateNormal];
+        } else {
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_missing_iPad"] forState:UIControlStateSelected];
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_missing_iPad"] forState:UIControlStateNormal];
+        }
+        
+        _facebookButton.selected = YES;
+    } else {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_off"] forState:UIControlStateSelected];
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_on"] forState:UIControlStateNormal];
+        } else {
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_off_iPad"] forState:UIControlStateSelected];
+            [_facebookButton setImage:[UIImage imageNamed:@"facebook_on_iPad"] forState:UIControlStateNormal];
+        }
+        
+        _facebookButton.enabled = TRUE;
+    }
+    
+    [self updateSendButton];
+}
+
+- (void)setTwitterAuthorized:(BOOL)authorized
+{
+    _twitterAuthorized = authorized;
+    
+    if (!authorized) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_missing"] forState:UIControlStateSelected];
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_missing"] forState:UIControlStateNormal];
+        } else {
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_missing_iPad"] forState:UIControlStateSelected];
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_missing_iPad"] forState:UIControlStateNormal];
+        }
+        
+        _twitterButton.selected = YES;
+    } else {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_off"] forState:UIControlStateSelected];
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_on"] forState:UIControlStateNormal];
+        } else {
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_off_iPad"] forState:UIControlStateSelected];
+            [_twitterButton setImage:[UIImage imageNamed:@"twitter_on_iPad"] forState:UIControlStateNormal];
+        }
+        
+        _twitterButton.enabled = TRUE;
+    }
     
     if (!_shareViaPostButton.selected) {
         return;
     }
     
-    if (enabled && _tweetRemainingLabel.alpha != 1.0) {
+    if (authorized && _tweetRemainingLabel.alpha != 1.0) {
         [UIView animateWithDuration:0.25 animations:^{
             _tweetRemainingLabel.alpha = 1.0;
         }];
-    } else if (!enabled && _tweetRemainingLabel.alpha != 0.0) {
+    } else if (!authorized && _tweetRemainingLabel.alpha != 0.0) {
         [UIView animateWithDuration:0.25 animations:^{
             _tweetRemainingLabel.alpha = 0.0;
         }];
@@ -365,7 +446,15 @@
         [delegate shareViewWasTouched];
     }
     
-    [self setTwitterEnabled:_twitterButton.selected];
+    if (!_twitterAuthorized) {
+        if (delegate) {
+            [self resignFirstResponders];
+            [delegate userAccountViewAddTwitter];
+        }
+    } else {
+        _twitterButton.selected = !_twitterButton.selected;
+        [self setTwitterAuthorized:TRUE];
+    }
 }
 
 - (IBAction)facebookWasPressed:(id)sender
@@ -374,9 +463,15 @@
         [delegate shareViewWasTouched];
     }
     
-    UIButton *button = (UIButton *) sender;
-    [button setSelected:!button.selected];
-    [self updateSendButton];
+    if (!_facebookAuthorized) {
+        if (delegate) {
+            [self resignFirstResponders];
+            [delegate userAccountViewAddFacebook];
+        }
+    } else {
+        _facebookButton.selected = !_facebookButton.selected;
+        [self setFacebookAuthorized:TRUE];
+    }
 }
 
 - (IBAction)tumblrWasPressed:(id)sender
@@ -385,9 +480,15 @@
         [delegate shareViewWasTouched];
     }
     
-    UIButton *button = (UIButton *) sender;
-    [button setSelected:!button.selected];
-    [self updateSendButton];
+    if (!_tumblrAuthorized) {
+        if (delegate) {
+            [self resignFirstResponders];
+            [delegate userAccountViewAddTumblr];
+        }
+    } else {
+        _tumblrButton.selected = !_tumblrButton.selected;
+        [self setTumblrAuthorized:TRUE];
+    }
 }
 
 - (IBAction)sendWasPressed:(id)sender
@@ -435,30 +536,25 @@
     return _video;
 }
 
-- (void)updateAuthorizations:(User *)user {
-    // Set twitter view visible
-    if ([user.auth_twitter boolValue]) {
-        _twitterButton.enabled   = YES;
-        [self setTwitterEnabled:YES];
-    } else {
-        _twitterButton.enabled  = NO;
+- (void)updateAuthorizations:(User *)user
+{
+    if ([user.auth_twitter boolValue] && !_twitterAuthorized) {
+        _twitterButton.enabled = YES;
+        _twitterButton.selected = FALSE;
     }
+    [self setTwitterAuthorized:[user.auth_twitter boolValue]];
     
-    if ([user.auth_facebook boolValue]) {
-        _facebookButton.enabled   = YES;
-        _facebookButton.selected  = NO;
-    } else {
-        _facebookButton.enabled  = NO;
+    if ([user.auth_facebook boolValue] && !_facebookAuthorized) {
+        _facebookButton.enabled = YES;
+        _facebookButton.selected = FALSE;
     }
+    [self setFacebookAuthorized:[user.auth_facebook boolValue]];
     
-    if ([user.auth_tumblr boolValue]) {
-        _tumblrButton.enabled   = YES;
-        _tumblrButton.selected  = NO;
-    } else {
-        _tumblrButton.enabled  = NO;
+    if ([user.auth_tumblr boolValue] && !_tumblrAuthorized) {
+        _tumblrButton.enabled = YES;
+        _tumblrButton.selected = FALSE;
     }
-    
-    [self updateSendButton];
+    [self setTumblrAuthorized:[user.auth_tumblr boolValue]];
 }
 
 #pragma mark - UITextViewDelegate

@@ -20,6 +20,9 @@
 - (void)shareViewClosePressed:(ShareView*)shareView;
 - (void)shareView:(ShareView*)shareView sentMessage:(NSString *)message withNetworks:(NSArray *)networks andRecipients:(NSString *)recipients;
 - (void)shareViewWasTouched;
+- (void)userAccountViewAddFacebook;
+- (void)userAccountViewAddTwitter;
+- (void)userAccountViewAddTumblr;
 
 @end
 
@@ -31,8 +34,13 @@ typedef enum {
 @interface ShareView : UIView <COPeoplePickerDelegate>
 {
     IBOutlet UIButton *_twitterButton;
+    BOOL _twitterAuthorized;
+    
     IBOutlet UIButton *_facebookButton;
+    BOOL _facebookAuthorized;
+    
     IBOutlet UIButton *_tumblrButton;
+    BOOL _tumblrAuthorized;
     
     IBOutlet UILabel *_toolbarLabel;
     IBOutlet UIToolbar *_toolbar;

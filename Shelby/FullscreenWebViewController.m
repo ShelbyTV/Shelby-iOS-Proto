@@ -26,6 +26,7 @@
 {
     _activityIndicatorView.hidesWhenStopped = YES;
     [_activityIndicatorView startAnimating];
+    [_webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
     [_webView loadRequest:request];
 }
 

@@ -338,6 +338,8 @@
                                                      cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                  timeoutInterval:60.0]];
     self.networkCounter = 1;
+    _fullscreenWebView.view.hidden = NO;
+    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
 - (void)userAccountViewAddFacebook
@@ -735,13 +737,15 @@
 {
     _fullscreenWebView.view.hidden = YES;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+    
+    if (!_shareView.hidden) {
+        [_shareView.bodyTextView becomeFirstResponder];
+    }
 }
 
 - (void)fullscreenWebViewDidFinishLoad:(UIWebView *)webView
 {
-    _fullscreenWebView.view.hidden = NO;
     self.networkCounter = 0;
-    [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] lowerShelbyWindow];
 }
 
 - (void)fullscreenWebView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
@@ -749,6 +753,10 @@
     _fullscreenWebView.view.hidden = YES;
     self.networkCounter = 0;
     [(ShelbyAppDelegate *)[[UIApplication sharedApplication] delegate] raiseShelbyWindow];
+    
+    if (!_shareView.hidden) {
+        [_shareView.bodyTextView becomeFirstResponder];
+    }
 }
 
 - (void)slideSettings:(BOOL)becomingVisible
