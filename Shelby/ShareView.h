@@ -92,7 +92,7 @@ typedef enum {
 - (IBAction)tumblrWasPressed:(id)sender;
 - (IBAction)sendWasPressed:(id)sender;
 - (void)textViewDidChange:(UITextView *)textView;
-- (void)setTwitterEnabled:(BOOL)enabled;
+- (void)setTwitterAuthorized:(BOOL)authorized;
 
 - (void)updateSendButton;
 

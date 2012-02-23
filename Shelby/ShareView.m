@@ -220,7 +220,7 @@
                 }
                 completion:^(BOOL finished){
                     // keeps state the same, but makes sure tweet display is animated properly
-                    [self setTwitterEnabled:!_twitterButton.selected];
+                    [self setTwitterAuthorized:TRUE];
                 }];
             }
         }];

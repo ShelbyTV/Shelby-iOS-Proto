@@ -113,15 +113,6 @@
     [NSURLCache setSharedURLCache:sharedCache];
     [sharedCache release];
     
-    // make sure we fetch new broadcasts as least once a day. should prevent video link timeouts...
-//    if ([[ShelbyApp sharedApp].userSessionHelper loggedIn] && NOT_NULL([ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts)) {
-//        NSTimeInterval diff = abs([[ShelbyApp sharedApp].userSessionHelper.lastFetchBroadcasts timeIntervalSinceNow]);
-//        NSInteger days = floor(diff / 86400.0);
-//        if (days >= 1 && ![ShelbyApp sharedApp].demoModeEnabled) {
-//            [[ShelbyApp sharedApp].userSessionHelper fetchBroadcasts];
-//        }
-//    }
-    
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
     if (setCategoryError) { /* should really handle the error condition */ }

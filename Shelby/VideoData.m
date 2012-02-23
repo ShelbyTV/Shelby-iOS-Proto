@@ -31,8 +31,6 @@
 
 @implementation VideoData
 
-@synthesize lastFetchBroadcasts;
-
 #pragma mark - Init
 
 - (id)init
@@ -142,7 +140,6 @@
         [dataProcessor scheduleImageAcquisitionWithBroadcast:broadcast withVideo:video];
     }
     
-    lastFetchBroadcasts = [NSDate date];
     [self videoTableNeedsUpdate];
 }
 

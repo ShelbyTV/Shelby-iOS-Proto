@@ -38,8 +38,6 @@
     BOOL _isLoading;
 }
 
-@property (nonatomic, retain) NSDate *lastFetchBroadcasts;
-
 - (BOOL)isLoading;
 
 - (NSURL *)getVideoContentURL:(Video *)video;
