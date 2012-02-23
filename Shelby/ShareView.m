@@ -344,15 +344,15 @@
     
     if (!authorized) {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing"] forState:UIControlStateDisabled];
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing"] forState:UIControlStateSelected];
             [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing"] forState:UIControlStateNormal];
         } else {
-            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing_iPad"] forState:UIControlStateDisabled];
+            [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing_iPad"] forState:UIControlStateSelected];
             [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_missing_iPad"] forState:UIControlStateNormal];
         }
         
-        // tumblr is the only service where we don't support account addition on iOS
-        _tumblrButton.enabled = FALSE;
+        // tumblr is the only service where we don't support account addition on iOS, so we handle its clicks differently
+        _tumblrButton.selected = YES;
     } else {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             [_tumblrButton setImage:[UIImage imageNamed:@"tumblr_off"] forState:UIControlStateSelected];
@@ -427,11 +427,11 @@
         return;
     }
     
-    if (authorized && _tweetRemainingLabel.alpha != 1.0) {
+    if (!_twitterButton.selected && _tweetRemainingLabel.alpha != 1.0) {
         [UIView animateWithDuration:0.25 animations:^{
             _tweetRemainingLabel.alpha = 1.0;
         }];
-    } else if (!authorized && _tweetRemainingLabel.alpha != 0.0) {
+    } else if (_twitterButton.selected && _tweetRemainingLabel.alpha != 0.0) {
         [UIView animateWithDuration:0.25 animations:^{
             _tweetRemainingLabel.alpha = 0.0;
         }];
@@ -481,10 +481,10 @@
     }
     
     if (!_tumblrAuthorized) {
-        if (delegate) {
-            [self resignFirstResponders];
-            [delegate userAccountViewAddTumblr];
-        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"The only way to add a Tumblr account right now is via the web at http://shelby.tv."
+                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
     } else {
         _tumblrButton.selected = !_tumblrButton.selected;
         [self setTumblrAuthorized:TRUE];
