@@ -203,6 +203,7 @@
         __managedObjectContext = [[NSManagedObjectContext alloc] init];
         [__managedObjectContext setPersistentStoreCoordinator:coordinator];
         [__managedObjectContext setUndoManager:nil];
+        [__managedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
     }
     return __managedObjectContext;
 }

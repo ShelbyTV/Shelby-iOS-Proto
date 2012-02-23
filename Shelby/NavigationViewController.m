@@ -146,6 +146,7 @@
     userTumblr.highlighted = [user.auth_tumblr boolValue];
 
     [_userAccountView updateUserAuthorizations:user];
+    [_shareView updateAuthorizations:user];
 }
 
 - (void)loadInitialUserDataCommon
