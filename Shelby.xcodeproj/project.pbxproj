@@ -261,6 +261,8 @@
 		0AE05013148D89EC00952C02 /* playBackground_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05011148D89EC00952C02 /* playBackground_iPhone.png */; };
 		0AE05014148D89EC00952C02 /* playBackground_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */; };
 		0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */; };
+		0AEF194414FD6B6400FA65C5 /* refreshExclamation.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEF194214FD6B6400FA65C5 /* refreshExclamation.png */; };
+		0AEF194514FD6B6400FA65C5 /* refreshExclamation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEF194314FD6B6400FA65C5 /* refreshExclamation@2x.png */; };
 		0AEFC39C144FD65D00FC9015 /* VideoContentURLGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */; };
 		0AF0E9CE14DA06BD005E9550 /* VideoDataPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */; };
 		0AF0E9D514DA074A005E9550 /* VideoCoreDataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9D414DA074A005E9550 /* VideoCoreDataInterface.m */; };
@@ -669,6 +671,8 @@
 		0AE05011148D89EC00952C02 /* playBackground_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playBackground_iPhone.png; path = Resources/Images/playBackground_iPhone.png; sourceTree = "<group>"; };
 		0AE05012148D89EC00952C02 /* playBackground_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playBackground_iPhone@2x.png"; path = "Resources/Images/playBackground_iPhone@2x.png"; sourceTree = "<group>"; };
 		0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VideoPlayerTitleBar_TV_720.xib; path = Resources/TV/VideoPlayerTitleBar_TV_720.xib; sourceTree = "<group>"; };
+		0AEF194214FD6B6400FA65C5 /* refreshExclamation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshExclamation.png; path = Resources/Images/refreshExclamation.png; sourceTree = "<group>"; };
+		0AEF194314FD6B6400FA65C5 /* refreshExclamation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshExclamation@2x.png"; path = "Resources/Images/refreshExclamation@2x.png"; sourceTree = "<group>"; };
 		0AEFC39A144FD65D00FC9015 /* VIdeoContentURLGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoContentURLGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoContentURLGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AF0E9CC14DA06BD005E9550 /* VideoDataPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDataPoller.h; sourceTree = "<group>"; };
@@ -907,6 +911,8 @@
 			children = (
 				0A02DD7714F0753D00204025 /* refreshArrow.png */,
 				0A02DD7814F0753D00204025 /* refreshArrow@2x.png */,
+				0AEF194214FD6B6400FA65C5 /* refreshExclamation.png */,
+				0AEF194314FD6B6400FA65C5 /* refreshExclamation@2x.png */,
 			);
 			name = Refresh;
 			sourceTree = "<group>";
@@ -2040,6 +2046,8 @@
 				0A2A133314F2FEAC0047C5C2 /* shareSocial_selected_iPad.png in Resources */,
 				0A2A133414F2FEAC0047C5C2 /* shareSocial_selected.png in Resources */,
 				0A2A133514F2FEAC0047C5C2 /* shareSocial_selected@2x.png in Resources */,
+				0AEF194414FD6B6400FA65C5 /* refreshExclamation.png in Resources */,
+				0AEF194514FD6B6400FA65C5 /* refreshExclamation@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
