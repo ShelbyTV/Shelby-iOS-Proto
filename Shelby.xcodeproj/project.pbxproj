@@ -160,6 +160,7 @@
 		0A871146143D0FBA001AE70D /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871145143D0FBA001AE70D /* CoreDataHelper.m */; };
 		0A87114A143D74E9001AE70D /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A871149143D74E7001AE70D /* VideoTableViewCell.m */; };
 		0A978AF714455B74005DFF18 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A978AF614455B74005DFF18 /* ShareView.m */; };
+		0A9B02CE1506EA820017E2A6 /* KitchenSinkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9B02CD1506EA820017E2A6 /* KitchenSinkUtilities.m */; };
 		0AB36500143137A100DCEAFD /* GraphiteStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB364FF143137A100DCEAFD /* GraphiteStats.m */; };
 		0AB3650414313E6A00DCEAFD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB3650314313E6A00DCEAFD /* CFNetwork.framework */; };
 		0AB7BFB1142C41FD00AB25B3 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB7BFB0142C41FD00AB25B3 /* ButtonBackground.png */; };
@@ -562,6 +563,8 @@
 		0A871149143D74E7001AE70D /* VideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
 		0A978AF514455B74005DFF18 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
 		0A978AF614455B74005DFF18 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		0A9B02CC1506EA820017E2A6 /* KitchenSinkUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenSinkUtilities.h; sourceTree = "<group>"; };
+		0A9B02CD1506EA820017E2A6 /* KitchenSinkUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenSinkUtilities.m; sourceTree = "<group>"; };
 		0AB364FE143137A100DCEAFD /* GraphiteStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphiteStats.h; sourceTree = "<group>"; };
 		0AB364FF143137A100DCEAFD /* GraphiteStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphiteStats.m; sourceTree = "<group>"; };
 		0AB3650314313E6A00DCEAFD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1725,6 +1728,8 @@
 				0AF0E9DD14DA218A005E9550 /* DemoMode.m */,
 				0A02DD3C14E0AA5B00204025 /* VideoHelper.h */,
 				0A02DD3D14E0AA5B00204025 /* VideoHelper.m */,
+				0A9B02CC1506EA820017E2A6 /* KitchenSinkUtilities.h */,
+				0A9B02CD1506EA820017E2A6 /* KitchenSinkUtilities.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -2186,6 +2191,7 @@
 				0A02DD4D14E1F12E00204025 /* DataApi.m in Sources */,
 				0A02DD7414EDAC7100204025 /* VideoDupeArray.m in Sources */,
 				0AEF194814FD920300FA65C5 /* VideoSeparatorCell.m in Sources */,
+				0A9B02CE1506EA820017E2A6 /* KitchenSinkUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

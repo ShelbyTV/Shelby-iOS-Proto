@@ -9,6 +9,7 @@
 #import "VideoContentURLGetter.h"
 #import "Video.h"
 #import "ShelbyAppDelegate.h"
+#import "KitchenSinkUtilities.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -95,8 +96,10 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
 {
     @synchronized(self)
     {
-        static NSString *htmlString = @"<html><body></body></html>";
-        [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
+        [_webView stopLoading];
+        [_webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        [KitchenSinkUtilities clearAllCookies];
     }
 }
     
@@ -209,9 +212,8 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
                     break; // already seen
                 }
 
-                [self resetWebView];
-
                 [[NSNotificationCenter defaultCenter] removeObserver:self];
+                [self resetWebView];
 
                 self.networkCounter = 0;
                 _lastGetEnded = CACurrentMediaTime();

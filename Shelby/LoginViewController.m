@@ -15,6 +15,7 @@
 #import "ShelbyAppDelegate.h"
 #import "NavigationViewController.h"
 #import "DataApi.h"
+#import "KitchenSinkUtilities.h"
 
 @interface LoginViewController ()
 @property (readwrite) NSInteger networkCounter;
@@ -123,21 +124,14 @@
                      }];
 }
 
-- (void)clearAllCookies
-{
-    NSHTTPCookie *cookie;
-	for (cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
-		//NSLog(@"%@", [cookie description]);
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-	}
-}
+
 
 - (void)beginLoginWithProvider:(NSString *)provider
 {
     [twitterButton setEnabled:NO];
     [facebookButton setEnabled:NO];
     
-    [self clearAllCookies];
+    [KitchenSinkUtilities clearAllCookies];
     [[ShelbyApp sharedApp].userSessionHelper beginLoginWithProvider:provider];
 }
 
@@ -153,7 +147,7 @@
 
 - (void)userLoggedOut:(NSNotification*)aNotification
 {
-    [self clearAllCookies];
+    [KitchenSinkUtilities clearAllCookies];
     [self fade:YES];
 }
 
