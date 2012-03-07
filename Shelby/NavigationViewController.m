@@ -132,6 +132,8 @@
         
         _fullscreenWebView.view.hidden = YES;
         [self.view addSubview:_fullscreenWebView.view];
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }
     return self;
 }
@@ -327,6 +329,7 @@
     [[ShelbyApp sharedApp].userSessionHelper logout];
     [_userAccountView setDemoModeButtonTitle:@"Demo Mode"];
     [_userAccountView setDemoModeButtonEnabled];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 - (void)showWebPage:(NSString *)urlString
@@ -951,8 +954,10 @@
     
     if (newVideos + newCommentsOnExistingVideos <= 0) {
         [timelineTabBarItem setBadgeValue:nil];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     } else {
         [timelineTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", newVideos + newCommentsOnExistingVideos]];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:(newVideos + newCommentsOnExistingVideos)];
     }
 }
 
