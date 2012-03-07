@@ -141,7 +141,7 @@
 }
 
 
-- (BOOL)checkVimeoMobileURL:(NSString *)providerId
+- (BOOL)checkVimeoPlayable:(NSString *)providerId
 {
     if ([providerId isEqualToString:[NSString stringWithFormat:@"%d", [providerId intValue]]])
     {
@@ -161,7 +161,7 @@
 //    }
 }
 
-- (BOOL)checkYouTubePrivileges:(NSString *)providerId
+- (BOOL)checkYouTubePlayable:(NSString *)providerId
 {
     NSError *error = nil;
     NSString *requestString = [NSString stringWithFormat:@"http://gdata.youtube.com/feeds/api/videos/%@?v=2", providerId];    
@@ -169,8 +169,10 @@
     
     NSRange syndicateDenied = [youTubeVideoData rangeOfString:@"yt:accessControl action='syndicate' permission='denied'"];
     NSRange syndicateLimited = [youTubeVideoData rangeOfString:@"yt:state name='restricted' reasonCode='limitedSyndication'"];
+    NSRange liveEvent = [youTubeVideoData rangeOfString:@"http://gdata.youtube.com/schemas/2007#live.event"];
     
-    if (syndicateDenied.location != NSNotFound || syndicateLimited.location != NSNotFound) { // means syndication on mobile devices is disallowed
+    if (syndicateDenied.location != NSNotFound || syndicateLimited.location != NSNotFound || liveEvent.location != NSNotFound) { 
+        // means syndication on mobile devices is disallowed or it's a live event
         return FALSE;
     }
     
@@ -198,11 +200,11 @@
             }
         } else {
             if ([video.provider isEqualToString: @"vimeo"] &&
-                [self checkVimeoMobileURL:video.providerId]) {
+                [self checkVimeoPlayable:video.providerId]) {
                 video.isPlayable = IS_PLAYABLE;
             }
             if ([video.provider isEqualToString: @"youtube"] &&
-                [self checkYouTubePrivileges:video.providerId]) {
+                [self checkYouTubePlayable:video.providerId]) {
                 video.isPlayable = IS_PLAYABLE;
             }
         }
