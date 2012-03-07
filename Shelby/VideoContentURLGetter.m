@@ -63,27 +63,21 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     return self;
 }
 
-- (void)initWebView
-{
-    _webView = [[UIWebView alloc] init];
-    _webView.frame = CGRectMake(0, 240, 320, 1);
-    _webView.delegate = self;
-    _webView.allowsInlineMediaPlayback = YES;
-    _webView.mediaPlaybackRequiresUserAction = NO;
-    if ([_webView respondsToSelector:@selector(setMediaPlaybackAllowsAirplay:)]) {
-        _webView.mediaPlaybackAllowsAirPlay = NO;
-    }
-    _webView.hidden = YES;
-    _webView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-}
-
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        [self initWebView];
-
+        _webView = [[UIWebView alloc] init];
+        _webView.frame = CGRectMake(0, 240, 320, 1);
+        _webView.delegate = self;
+        _webView.allowsInlineMediaPlayback = YES;
+        _webView.mediaPlaybackRequiresUserAction = NO;
+        if ([_webView respondsToSelector:@selector(setMediaPlaybackAllowsAirplay:)]) {
+            _webView.mediaPlaybackAllowsAirPlay = NO;
+        }
+        _webView.hidden = YES;
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         _videoQueue = [[NSMutableArray alloc] init];
         _seenPaths = [[NSMutableDictionary alloc] init];
         [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkQueue) userInfo:nil repeats:YES];
@@ -97,13 +91,7 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     @synchronized(self)
     {
         static NSString *htmlString = @"<html><body></body></html>";
-        _webView.delegate = nil;
-        [_webView stopLoading];
         [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://shelby.tv"]];
-        [_webView release];
-        _webView = nil;
-        
-        [self initWebView];
     }
 }
     
@@ -250,4 +238,30 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     [super dealloc];
 }
 
+
+- (UIButton *)findButtonInView:(UIView *)view
+{
+    UIButton *button = nil;
+    
+    if ([view isMemberOfClass:[UIButton class]]) {
+        return (UIButton *)view;
+    }
+    
+    if (view.subviews && [view.subviews count] > 0) {
+        for (UIView *subview in view.subviews) {
+            button = [self findButtonInView:subview];
+            if (button) return button;
+        }
+    }
+    
+    return button;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{   
+    UIButton *b = [self findButtonInView:webView];
+    [b sendActionsForControlEvents:UIControlEventTouchUpInside];
+}
+
 @end
+
