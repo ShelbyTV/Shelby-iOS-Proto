@@ -263,6 +263,7 @@
 		0AE4E46B1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */; };
 		0AEF194414FD6B6400FA65C5 /* refreshExclamation.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEF194214FD6B6400FA65C5 /* refreshExclamation.png */; };
 		0AEF194514FD6B6400FA65C5 /* refreshExclamation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEF194314FD6B6400FA65C5 /* refreshExclamation@2x.png */; };
+		0AEF194814FD920300FA65C5 /* VideoSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEF194714FD920300FA65C5 /* VideoSeparatorCell.m */; };
 		0AEFC39C144FD65D00FC9015 /* VideoContentURLGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */; };
 		0AF0E9CE14DA06BD005E9550 /* VideoDataPoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9CD14DA06BD005E9550 /* VideoDataPoller.m */; };
 		0AF0E9D514DA074A005E9550 /* VideoCoreDataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0E9D414DA074A005E9550 /* VideoCoreDataInterface.m */; };
@@ -673,6 +674,8 @@
 		0AE4E46A1496CF3F00469C8D /* VideoPlayerTitleBar_TV_720.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VideoPlayerTitleBar_TV_720.xib; path = Resources/TV/VideoPlayerTitleBar_TV_720.xib; sourceTree = "<group>"; };
 		0AEF194214FD6B6400FA65C5 /* refreshExclamation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshExclamation.png; path = Resources/Images/refreshExclamation.png; sourceTree = "<group>"; };
 		0AEF194314FD6B6400FA65C5 /* refreshExclamation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshExclamation@2x.png"; path = "Resources/Images/refreshExclamation@2x.png"; sourceTree = "<group>"; };
+		0AEF194614FD920300FA65C5 /* VideoSeparatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoSeparatorCell.h; sourceTree = "<group>"; };
+		0AEF194714FD920300FA65C5 /* VideoSeparatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoSeparatorCell.m; sourceTree = "<group>"; };
 		0AEFC39A144FD65D00FC9015 /* VIdeoContentURLGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VIdeoContentURLGetter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0AEFC39B144FD65D00FC9015 /* VideoContentURLGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoContentURLGetter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0AF0E9CC14DA06BD005E9550 /* VideoDataPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDataPoller.h; sourceTree = "<group>"; };
@@ -800,7 +803,7 @@
 		42C4C59913E8AB5E0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		42C4C5E113E8D28B0034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/Login_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C5E813E9AA100034AC97 /* VideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
-		42C4C5E913E9AA100034AC97 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoPlayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		42C4C5E913E9AA100034AC97 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoPlayer.m; sourceTree = "<group>"; };
 		42C4C60113E9CBE30034AC97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/iPad/en.lproj/MainWindow_iPad.xib; sourceTree = SOURCE_ROOT; };
 		42C4C60513E9CCC00034AC97 /* NavigationViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationViewController_iPad.h; path = iPad/NavigationViewController_iPad.h; sourceTree = "<group>"; };
 		42C4C60713E9CCC00034AC97 /* ShelbyAppDelegate_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShelbyAppDelegate_iPad.h; path = iPad/ShelbyAppDelegate_iPad.h; sourceTree = "<group>"; };
@@ -1446,6 +1449,8 @@
 				0A978AF614455B74005DFF18 /* ShareView.m */,
 				0A871148143D74E6001AE70D /* VideoTableViewCell.h */,
 				0A871149143D74E7001AE70D /* VideoTableViewCell.m */,
+				0AEF194614FD920300FA65C5 /* VideoSeparatorCell.h */,
+				0AEF194714FD920300FA65C5 /* VideoSeparatorCell.m */,
 				0A32CF1C144E8C3E00E0C4C5 /* VideoTableViewCellConstants.h */,
 				0A84058614D0DB5500F13FC2 /* UserAccountView.h */,
 				0A84058714D0DB5500F13FC2 /* UserAccountView.m */,
@@ -1770,7 +1775,7 @@
 		0AD9A34713D53BD200EFECE0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 0AD9A34A13D53BD200EFECE0 /* Build configuration list for PBXProject "Shelby" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2180,6 +2185,7 @@
 				0A02DD3E14E0AA5B00204025 /* VideoHelper.m in Sources */,
 				0A02DD4D14E1F12E00204025 /* DataApi.m in Sources */,
 				0A02DD7414EDAC7100204025 /* VideoDupeArray.m in Sources */,
+				0AEF194814FD920300FA65C5 /* VideoSeparatorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2364,6 +2370,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -2381,6 +2388,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -2408,6 +2416,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -2437,6 +2446,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shelby/Shelby-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Resources/Shelby-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -2462,6 +2472,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
 				OTHER_LDFLAGS = (
@@ -2485,6 +2496,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShelbyTests/ShelbyTests-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShelbyTests/ShelbyTests-Info.plist";
 				OTHER_LDFLAGS = (
