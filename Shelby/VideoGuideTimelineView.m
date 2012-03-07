@@ -31,7 +31,7 @@
         
         _updatesContainer = [[UIView alloc] initWithFrame:CGRectMake(0, -50, width, 50)];
         _updatesContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _updatesContainer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundStripes"]]; //[UIColor colorWithRed:0.235 green:0.235 blue:0.235 alpha:1.0];
+        _updatesContainer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundStripes"]];
         _updatesContainer.opaque = YES;
         
         _updatesLabel = [[UILabel alloc] initWithFrame:CGRectMake(54, 12, width - 63, 20)];
