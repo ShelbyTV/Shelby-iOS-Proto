@@ -238,30 +238,4 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     [super dealloc];
 }
 
-
-- (UIButton *)findButtonInView:(UIView *)view
-{
-    UIButton *button = nil;
-    
-    if ([view isMemberOfClass:[UIButton class]]) {
-        return (UIButton *)view;
-    }
-    
-    if (view.subviews && [view.subviews count] > 0) {
-        for (UIView *subview in view.subviews) {
-            button = [self findButtonInView:subview];
-            if (button) return button;
-        }
-    }
-    
-    return button;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{   
-    UIButton *b = [self findButtonInView:webView];
-    [b sendActionsForControlEvents:UIControlEventTouchUpInside];
-}
-
 @end
-
