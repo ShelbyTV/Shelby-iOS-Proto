@@ -147,6 +147,8 @@
         CFRelease(addressBook_);
         addressBook_ = NULL;
     }
+    
+    [super dealloc];
 }
 
 - (void)viewDidLoad {  
@@ -171,7 +173,8 @@
                                                                          CGRectGetHeight(viewBounds) - CGRectGetHeight(tokenFieldFrame))
                                                         style:UITableViewStylePlain];
     self.searchTableView.opaque = YES;
-    self.searchTableView.backgroundColor = [UIColor blackColor];
+    self.searchTableView.backgroundColor = [UIColor colorWithRed:(225.0/255.0) green:(225.0/255.0) blue:(225.0/255.0) alpha:1.0];
+    self.searchTableView.separatorColor = [UIColor colorWithRed:(41.0/255.0) green:(41.0/255.0) blue:(41/255.0) alpha:1.0];;
     self.searchTableView.dataSource = self;
     self.searchTableView.delegate = self;
     self.searchTableView.hidden = YES;
@@ -339,13 +342,13 @@ static NSString *kCORecordEmailAddress = @"emailAddress";
     if (cell == nil) {
         cell = [[COEmailTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ridf];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor blackColor];
-        cell.nameLabel.textColor = [UIColor colorWithRed:(101.0/255.0) green:(30.0/255.0) blue:(125/255.0) alpha:1.0];
-        cell.nameLabel.backgroundColor = [UIColor blackColor];
-        cell.emailLabelLabel.textColor = [UIColor colorWithRed:(142.0/255.0) green:(142.0/255.0) blue:(142.0/255.0) alpha:1.0];
-        cell.emailLabelLabel.backgroundColor = [UIColor blackColor];
-        cell.emailAddressLabel.textColor = [UIColor colorWithRed:(142.0/255.0) green:(142.0/255.0) blue:(142.0/255.0) alpha:1.0];
-        cell.emailAddressLabel.backgroundColor = [UIColor blackColor];
+        cell.backgroundColor =  [UIColor colorWithRed:(225.0/255.0) green:(225.0/255.0) blue:(225.0/255.0) alpha:1.0];
+        cell.nameLabel.textColor = [UIColor colorWithRed:(41.0/255.0) green:(41.0/255.0) blue:(41/255.0) alpha:1.0];
+        cell.nameLabel.backgroundColor =  [UIColor colorWithRed:(225.0/255.0) green:(225.0/255.0) blue:(225.0/255.0) alpha:1.0];
+        cell.emailLabelLabel.textColor = [UIColor colorWithRed:(41.0/255.0) green:(41.0/255.0) blue:(41/255.0) alpha:1.0];
+        cell.emailLabelLabel.backgroundColor =  [UIColor colorWithRed:(225.0/255.0) green:(225.0/255.0) blue:(225.0/255.0) alpha:1.0];
+        cell.emailAddressLabel.textColor = [UIColor colorWithRed:(41.0/255.0) green:(41.0/255.0) blue:(41/255.0) alpha:1.0];
+        cell.emailAddressLabel.backgroundColor =  [UIColor colorWithRed:(225.0/255.0) green:(225.0/255.0) blue:(225.0/255.0) alpha:1.0];
     }
     
     cell.nameLabel.text = [result objectForKey:kCORecordFullName];
@@ -719,6 +722,8 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
         CFRelease(record_);
         record_ = NULL;
     }
+    
+    [super dealloc];
 }
 
 - (NSString *)fullName {
@@ -768,6 +773,8 @@ static BOOL containsString(NSString *haystack, NSString *needle) {
         CFRelease(emails_);
         emails_ = NULL;
     }
+    
+    [super dealloc];
 }
 
 - (NSString *)label {
