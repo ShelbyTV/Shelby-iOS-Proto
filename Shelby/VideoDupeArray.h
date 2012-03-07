@@ -14,8 +14,10 @@
 
 @property (nonatomic, retain, readonly) NSDate *latestCreationDate;
 
+- (void)removeVideoWithShelbyId:(NSString *)shelbyId;
 - (void)addVideo:(Video *)video;
 - (NSComparisonResult)compareByCreationTime:(VideoDupeArray *)otherVideoDupeArray;
 - (NSArray *)copyOfVideoArray;
+- (BOOL)isEmpty;
 
 @end

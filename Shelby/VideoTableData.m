@@ -123,7 +123,7 @@
     int videoTableIndex = 0;
     
     NSMutableDictionary *alreadyVisitedVideos = [[[NSMutableDictionary alloc] init] autorelease];
-        
+    
     for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
     {
         NSArray *videos = [dupeArray copyOfVideoArray];
@@ -142,7 +142,9 @@
             Video *videoAtTableIndex = [tableVideos objectAtIndex:videoTableIndex];
             NSString *videoAtTableIndexDupeKey = [videoAtTableIndex dupeKey];
             
-            while (NOT_NULL([alreadyVisitedVideos objectForKey:videoAtTableIndexDupeKey])) {
+            while (NOT_NULL([alreadyVisitedVideos objectForKey:videoAtTableIndexDupeKey]) ||
+                   [[ShelbyApp sharedApp].videoData videoDupesForKey:videoAtTableIndexDupeKey] == nil) 
+            {
                 [tableVideos removeObjectAtIndex:videoTableIndex];
                 
                 [tableView beginUpdates];

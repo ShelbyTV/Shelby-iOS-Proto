@@ -36,14 +36,33 @@
     [super dealloc];
 }
 
-// XXX need to handle removal methods (and updating earliest creation date)
-
 - (void)addVideo:(Video *)video
 {
     @synchronized (self) {
         [self.array addObject:video];
         [self.array sortUsingSelector:@selector(compareByCreationTime:)];
         self.latestCreationDate = ((Video *)[self.array lastObject]).createdAt;
+    }
+}
+
+- (void)removeVideoWithShelbyId:(NSString *)shelbyId
+{
+    @synchronized (self) {
+        for (Video *video in self.array) {
+            if ([video.shelbyId isEqualToString:shelbyId]) {
+                [self.array removeObject:video];
+                [self.array sortUsingSelector:@selector(compareByCreationTime:)];
+                self.latestCreationDate = ((Video *)[self.array lastObject]).createdAt;
+                break;
+            }
+        }
+    }
+}
+
+- (BOOL)isEmpty
+{
+    @synchronized(self) {
+        return [self.array count] == 0;
     }
 }
 
