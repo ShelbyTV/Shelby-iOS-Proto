@@ -63,21 +63,26 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     return self;
 }
 
+- (void)initWebView
+{
+    _webView = [[UIWebView alloc] init];
+    _webView.frame = CGRectMake(0, 240, 320, 1);
+    _webView.delegate = self;
+    _webView.allowsInlineMediaPlayback = YES;
+    _webView.mediaPlaybackRequiresUserAction = NO;
+    if ([_webView respondsToSelector:@selector(setMediaPlaybackAllowsAirplay:)]) {
+        _webView.mediaPlaybackAllowsAirPlay = NO;
+    }
+    _webView.hidden = YES;
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+}
+
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        _webView = [[UIWebView alloc] init];
-        _webView.frame = CGRectMake(0, 240, 320, 1);
-        _webView.delegate = self;
-        _webView.allowsInlineMediaPlayback = YES;
-        _webView.mediaPlaybackRequiresUserAction = NO;
-        if ([_webView respondsToSelector:@selector(setMediaPlaybackAllowsAirplay:)]) {
-            _webView.mediaPlaybackAllowsAirPlay = NO;
-        }
-        _webView.hidden = YES;
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        [self initWebView];
         _videoQueue = [[NSMutableArray alloc] init];
         _seenPaths = [[NSMutableDictionary alloc] init];
         [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkQueue) userInfo:nil repeats:YES];
