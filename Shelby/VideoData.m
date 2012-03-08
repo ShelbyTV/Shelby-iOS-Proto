@@ -32,6 +32,7 @@
 #import "VideoContentURLGetter.h"
 
 #import "PlatformHelper.h"
+#import "Enums.h"
 
 @implementation VideoData
 
@@ -112,8 +113,59 @@
 
 #pragma mark - Core Data Broadcast Processing
 
-- (void)processBroadcastArray:(NSArray *)broadcasts withContext:(NSManagedObjectContext *)context
-{       
+- (void)processBroadcastArray:(NSMutableArray *)broadcasts withContext:(NSManagedObjectContext *)context
+{  
+    /*
+     * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.
+     * Those spots are where we save videos to CoreData, where we calculate how many new videos there are, and
+     * where we actually populate our data in-memory data structures (here).
+     *
+     * By having all 3 locations all reference the maxVideos most recent videos, we can make sure that occasional blips
+     * or odd behaviors server-side don't cause any problems client-side (e.g. if a recently added CoreData video is missing
+     * from an API update).
+     */
+    
+    int numBroadcasts = [broadcasts count];
+    int numToKeep = [PlatformHelper maxVideos];
+
+    int numToRemove = numBroadcasts - numToKeep;
+    int numRemoved = 0;
+
+    if (numToRemove > 0) {
+        
+        NSMutableArray *discardedBroadcasts = [[[NSMutableArray alloc] initWithCapacity:numToRemove] autorelease];
+
+        for (Broadcast *broadcast in [broadcasts reverseObjectEnumerator]) {
+            if (numRemoved >= numToRemove) {
+                break;
+            }
+            
+            [discardedBroadcasts addObject:broadcast];
+            numRemoved++;
+        }
+        
+        for (Broadcast *broadcast in discardedBroadcasts) {
+            
+            @synchronized(videoDupeArraysSorted) { // probably need a more appropriate lock entity...
+                VideoDupeArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+                [dupeArray removeVideoWithShelbyId:broadcast.shelbyId];
+                if ([dupeArray isEmpty]) {
+                    [videoDupeDict removeObjectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
+                    [videoDupeArraysSorted removeObject:dupeArray];
+                }
+            }
+            
+            if (NOT_NULL(broadcast.sharerImage)) {
+                [context deleteObject:broadcast.sharerImage];
+            }
+            if (NOT_NULL(broadcast.thumbnailImage)) {
+                [context deleteObject:broadcast.thumbnailImage];
+            }
+            [context deleteObject:broadcast];
+            [broadcasts removeObject:broadcast];
+        }
+    }
+
     for (Broadcast *broadcast in broadcasts) {
         Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
         
@@ -143,56 +195,7 @@
         [dataProcessor scheduleCheckPlayable:video];
         [dataProcessor scheduleImageAcquisitionWithBroadcast:broadcast withVideo:video];
     }
-    
-    int numBroadcasts = [broadcasts count];
-    int numToKeep;
-    
-    int minRAM = [PlatformHelper minimumRAM];
-    if (minRAM <= 128) {
-        numToKeep = 60;
-    } else if (minRAM <= 256) {
-        numToKeep = 200;
-    } else {
-        numToKeep = 300;
-    }
-    
-    int numToRemove = numBroadcasts - numToKeep;
-    int numRemoved = 0;
-    
-    if (numToRemove <= 0) {
-        return;
-    }
-    
-    NSMutableArray *discardedBroadcasts = [[[NSMutableArray alloc] initWithCapacity:numToRemove] autorelease];
-    
-    for (Broadcast *broadcast in [broadcasts reverseObjectEnumerator]) {
-        if (numRemoved >= numToRemove) {
-            break;
-        }
-        
-        [discardedBroadcasts addObject:broadcast];
-        numRemoved++;
-    }
-    
-    for (Broadcast *broadcast in discardedBroadcasts) {
-        
-        @synchronized(videoDupeArraysSorted) { // probably need a more appropriate lock entity...
-            VideoDupeArray *dupeArray = [videoDupeDict objectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-            [dupeArray removeVideoWithShelbyId:broadcast.shelbyId];
-            if ([dupeArray isEmpty]) {
-                [videoDupeDict removeObjectForKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
-                [videoDupeArraysSorted removeObject:dupeArray];
-            }
-        }
-        
-        if (NOT_NULL(broadcast.sharerImage)) {
-            [context deleteObject:broadcast.sharerImage];
-        }
-        if (NOT_NULL(broadcast.thumbnailImage)) {
-            [context deleteObject:broadcast.thumbnailImage];
-        }
-        [context deleteObject:broadcast];
-    }
+
     
     [self videoTableNeedsUpdate];
 }
@@ -207,7 +210,7 @@
     [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
     [self processBroadcastArray:broadcasts withContext:context];
     
-    [context release];
+    [CoreDataHelper saveAndReleaseContext:context];
         
     _isLoading = FALSE;
 }
@@ -334,7 +337,7 @@
     [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
     [self processBroadcastArray:broadcasts withContext:context];
     
-    [context release];
+    [CoreDataHelper saveAndReleaseContext:context];
     
     [videoDataPoller recalculateImmediately];
     

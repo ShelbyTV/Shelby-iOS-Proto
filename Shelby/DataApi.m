@@ -18,6 +18,7 @@
 #import "SBJsonParser.h"
 #import "UserSessionHelper.h"
 #import "Broadcast.h"
+#import "PlatformHelper.h"
 
 @implementation DataApi
 
@@ -44,7 +45,8 @@ withProcessResponseSelector:(SEL)processResponseSelector
               forRequest:(NSURLRequest *)request
 {    
     if (NOT_NULL(error)) {
-        [NSException raise:@"unexpected" format:@"Data API request error! error: %@", error];
+        // XXX sigh, silently ignoring errors probably isn't good...
+        // [NSException raise:@"unexpected" format:@"Data API request error! error: %@", error];
     } else {
         SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
         id value = [parser objectWithData:data];
@@ -202,18 +204,64 @@ withProcessResponseSelector:(SEL)processResponseSelector
 {
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
-    for (NSDictionary *dict in array)
+    /*
+     * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.
+     * Those spots are where we save videos to CoreData (here), where we calculate how many new videos there are, and
+     * where we actually populate our data in-memory data structures.
+     *
+     * By having all 3 locations all reference the maxVideos most recent videos, we can make sure that occasional blips
+     * or odd behaviors server-side don't cause any problems client-side (e.g. if a recently added CoreData video is missing
+     * from an API update).
+     */
+    
+    int numToKeep = [PlatformHelper maxVideos];
+ 
+    NSArray *newBroadcastsSortedByDate = [array sortedArrayUsingComparator:(NSComparator)^(id dict1, id dict2) {
+        
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        NSDate *date1;
+        NSDate *date2;
+        
+        if (NOT_NULL([dict1 objectForKey:@"created_at"])) {
+            date1 = [dateFormatter dateFromString:[dict1 objectForKey: @"created_at"]];
+        }
+        if (NOT_NULL([dict2 objectForKey:@"created_at"])) {
+            date2 = [dateFormatter dateFromString:[dict2 objectForKey: @"created_at"]];
+        }
+
+        return [date2 compare:date1];
+    }];
+     
+    int upserted = 0;
+    
+    for (NSDictionary *dict in newBroadcastsSortedByDate)
     {
+        NSLog(@"st: id: %@ title: %@", [dict objectForKey:@"_id"], [dict objectForKey:@"video_title"]);
+    }
+    
+    for (NSDictionary *dict in newBroadcastsSortedByDate)
+    {        
+        if (upserted >= numToKeep) {
+            break;
+        }
+                
         Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:context];
         
         if (IS_NULL(upsert)) {
             upsert = [NSEntityDescription
                       insertNewObjectForEntityForName:@"Broadcast"
                       inManagedObjectContext:context];
+            
+            NSLog(@"upserted = %d; storeNewBroadcastsInCoreData: inserting new video: %@ %@", upserted, [dict objectForKey:@"_id"], [dict objectForKey:@"video_title"]);
         }
         
         [upsert populateFromApiJSONDictionary:dict];
-        upsert.channel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:context]; 
+        upsert.channel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:context];
+        
+        upserted++;
     }
     
     [CoreDataHelper saveAndReleaseContext:context]; 

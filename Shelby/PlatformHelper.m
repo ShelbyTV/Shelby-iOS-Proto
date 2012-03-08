@@ -69,4 +69,20 @@
     return 512;
 }
 
++ (int)maxVideos
+{
+    int minRAM = [PlatformHelper minimumRAM];
+    
+    if (minRAM <= 128) {
+        return 60;
+    } else if (minRAM <= 256) {
+        return 200;
+    } else {
+        return 300;
+    }
+    
+    // should never get here
+    return -1;
+}
+
 @end

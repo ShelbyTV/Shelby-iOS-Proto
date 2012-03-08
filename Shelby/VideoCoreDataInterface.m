@@ -181,9 +181,14 @@
                                   [attributes objectForKey:@"providerId"],
                                   [attributes objectForKey:@"isPlayable"],
                                   [attributes objectForKey:@"shelbyId"],
+                                  [attributes objectForKey:@"createdAt"],
                                   nil] autorelease];
     
     [fetchRequest setPropertiesToFetch:propertiesToFetch];
+    
+    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sorter]];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel.public=0"];
     
@@ -193,6 +198,7 @@
     NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
     
     [fetchRequest release];
+    [sorter release];
     
     return broadcasts;
 }
@@ -258,16 +264,6 @@
     
     [context release];
     [pool release];
-}
-
-+ (void)sortBroadcasts:(NSMutableArray *)broadcasts 
-{
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                  ascending:NO] autorelease];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    [broadcasts sortUsingDescriptors:sortDescriptors];
 }
 
 + (void)removeExtraBroadcasts:(NSMutableArray *)broadcasts 

@@ -18,6 +18,7 @@
 #import "VideoHelper.h"
 #import "VideoData.h"
 #import "UserSessionHelper.h"
+#import "PlatformHelper.h"
 
 @implementation VideoDataPoller
 
@@ -134,7 +135,25 @@
     
     NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
     
+    /*
+     * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.
+     * Those spots are where we save videos to CoreData, where we calculate how many new videos there are (here), and
+     * where we actually populate our data in-memory data structures.
+     *
+     * By having all 3 locations all reference the maxVideos most recent videos, we can make sure that occasional blips
+     * or odd behaviors server-side don't cause any problems client-side (e.g. if a recently added CoreData video is missing
+     * from an API update).
+     */
+    int numToExamine = [PlatformHelper maxVideos];
+    int numExamined = 0;
+    
     for (NSDictionary *dict in broadcastDicts) {
+        
+        numExamined++;
+        
+        if (numExamined > numToExamine) {
+            break;
+        }
         
         if ([[dict objectForKey:@"isPlayable"] intValue] != IS_PLAYABLE) {
             continue;
@@ -158,17 +177,16 @@
         }
     }
     
+    [context release];
+    
+    // need to dispatch update even if 0 newVideos, 0 newComments
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewDataAvailableFromAPI"
                                                             object:self
                                                           userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:newVideos], @"newVideos", 
                                                                     [NSNumber numberWithInt:newCommentsOnExistingVideos], @"newCommentsOnExistingVideos",
                                                                     nil]];
     });
-    
-    // XXX don't really need to "save" here, just release.
-    [CoreDataHelper saveAndReleaseContext:context];
 }
 
 - (void)updateNewVideosAndCommentsCountersTimer

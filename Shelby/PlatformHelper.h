@@ -12,5 +12,6 @@
 
 + (NSString *)platform;
 + (int)minimumRAM;
++ (int)maxVideos;
 
 @end
