@@ -18,6 +18,8 @@
     id<VideoTableViewControllerDelegate> _delegate;
     VideoTableViewController *_videoTableViewController;
     VideoTableData *_videoTableData;
+    
+    CGRect _originalFrame;
 }
 
 - (id)initWithFrame:(CGRect)frame withDelegate:(id<VideoTableViewControllerDelegate>)delegate;

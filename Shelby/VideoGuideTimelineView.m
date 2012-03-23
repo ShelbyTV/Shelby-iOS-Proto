@@ -93,12 +93,12 @@
     
     [UIView animateWithDuration:0.25 animations:^{
         CGRect temp = _updatesContainer.frame;
-        temp.origin.y -= temp.size.height;
+        temp.origin.y = -1 * temp.size.height;
         _updatesContainer.frame = temp;
         
         temp = _videoTableViewController.view.frame;
-        temp.origin.y -= _updatesContainer.frame.size.height;
-        temp.size.height += _updatesContainer.frame.size.height;
+        temp.origin.y = 0;
+        temp.size.height = _originalFrame.size.height;
         _videoTableViewController.view.frame = temp;
     }];
 }
@@ -113,12 +113,12 @@
  
     [UIView animateWithDuration:0.25 animations:^{
         CGRect temp = _updatesContainer.frame;
-        temp.origin.y += temp.size.height;
+        temp.origin.y = 0;
         _updatesContainer.frame = temp;
         
         temp = _videoTableViewController.view.frame;
-        temp.origin.y += _updatesContainer.frame.size.height;
-        temp.size.height -= _updatesContainer.frame.size.height;
+        temp.origin.y = _updatesContainer.frame.size.height;
+        temp.size.height = _originalFrame.size.height - _updatesContainer.frame.size.height;
         _videoTableViewController.view.frame = temp;
     }];
 }

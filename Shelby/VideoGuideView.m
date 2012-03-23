@@ -16,6 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _delegate = delegate;
+        _originalFrame = frame;
     }
     return self;
 }
