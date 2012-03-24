@@ -18,60 +18,70 @@
 
 @implementation VideoCoreDataInterface
 
-
-
 #pragma mark - Video Status Storage
 
 + (void)storeLikeStatus:(Video *)video
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    if (NOT_NULL(broadcast)) {
-        broadcast.liked = [NSNumber numberWithBool:video.isLiked];
-    }
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        if (NOT_NULL(broadcast)) {
+            broadcast.liked = [NSNumber numberWithBool:video.isLiked];
+        }
+        
+        [CoreDataHelper saveAndReleaseContext:context];
+        [pool release];
+    });
 }
 
 + (void)storeWatchLaterStatus:(Video *)video
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    if (NOT_NULL(broadcast)) {
-        broadcast.watchLater = [NSNumber numberWithBool:video.isWatchLater];
-    }
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        if (NOT_NULL(broadcast)) {
+            broadcast.watchLater = [NSNumber numberWithBool:video.isWatchLater];
+        }
+        
+        [CoreDataHelper saveAndReleaseContext:context];
+        [pool release];
+    });
 }
 
 + (void)storeWatchStatus:(Video *)video
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    if (NOT_NULL(broadcast)) {
-        broadcast.watched = [NSNumber numberWithBool:video.isWatched];
-    }
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        if (NOT_NULL(broadcast)) {
+            broadcast.watched = [NSNumber numberWithBool:video.isWatched];
+        }
+        
+        [CoreDataHelper saveAndReleaseContext:context];
+        [pool release];
+    });
 }
 
 + (void)storePlayableStatus:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
@@ -91,6 +101,9 @@
 + (void)storeSharerImage:(NSData *)sharerImage
                 forVideo:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
@@ -116,6 +129,9 @@
 + (void)storeThumbnailImage:(NSData *)thumbnail
                    forVideo:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
@@ -142,6 +158,9 @@
 
 + (NSArray *)fetchBroadcastsFromCoreDataContext:(NSManagedObjectContext *)context
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Broadcast" 
                                               inManagedObjectContext:context];
@@ -167,6 +186,9 @@
 
 + (NSArray *)fetchKeyBroadcastFieldDictionariesFromCoreDataContext:(NSManagedObjectContext *)context
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setResultType:NSDictionaryResultType];
     
@@ -205,6 +227,9 @@
 
 + (void)storeVideoThumbnail:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     if (NOT_NULL(video.thumbnailImage)) 
     {
         [self storeThumbnailImage:UIImagePNGRepresentation(video.thumbnailImage) forVideo:video];
@@ -237,6 +262,9 @@
 
 + (void)storeSharerImage:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     if (NOT_NULL(video.sharerImage)) 
     {
         [VideoCoreDataInterface storeSharerImage:UIImagePNGRepresentation(video.sharerImage) forVideo:video];
@@ -245,6 +273,9 @@
 
 + (void)loadSharerImageFromCoreData:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
@@ -270,6 +301,9 @@
                   withNewJSON:(NSDictionary *)jsonBroadcasts
                   withContext:(NSManagedObjectContext *)context
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     int numBroadcasts = [broadcasts count];
     int numToKeep;
     

@@ -451,8 +451,12 @@
             _badgeView.image = [UIImage imageNamed:@"TumblrWatched"];
         }
     } else if ([_video.source isEqualToString:@"bookmarklet"] ||
-               [_video.source isEqualToString:@"direct_link"]) {
+               [_video.source isEqualToString:@"direct_link"] ||
+               [_video.source isEqualToString:@"extension"]) {
         // clear image, so no watched/unwatched. easier than hiding/unhiding in this case.
+        _badgeView.image = [UIImage imageNamed:@"Bookmarklet"];
+    } else {
+        // who the hell knows, Shelby folks keep adding other names for source. just clear it if we don't recognize it.
         _badgeView.image = [UIImage imageNamed:@"Bookmarklet"];
     }
     

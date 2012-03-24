@@ -201,7 +201,10 @@ withProcessResponseSelector:(SEL)processResponseSelector
 }
 
 + (void)storeNewBroadcastsInCoreData:(NSArray *) array
-{
+{   
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     /*
@@ -236,12 +239,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
     }];
      
     int upserted = 0;
-    
-    for (NSDictionary *dict in newBroadcastsSortedByDate)
-    {
-        NSLog(@"st: id: %@ title: %@", [dict objectForKey:@"_id"], [dict objectForKey:@"video_title"]);
-    }
-    
+
     for (NSDictionary *dict in newBroadcastsSortedByDate)
     {        
         if (upserted >= numToKeep) {
@@ -254,8 +252,6 @@ withProcessResponseSelector:(SEL)processResponseSelector
             upsert = [NSEntityDescription
                       insertNewObjectForEntityForName:@"Broadcast"
                       inManagedObjectContext:context];
-            
-            NSLog(@"upserted = %d; storeNewBroadcastsInCoreData: inserting new video: %@ %@", upserted, [dict objectForKey:@"_id"], [dict objectForKey:@"video_title"]);
         }
         
         [upsert populateFromApiJSONDictionary:dict];
@@ -284,11 +280,15 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
 + (void)processPollBroadcastsResponseAndStoreInCoreData:(NSArray *)array
 {
-    [DataApi storeNewBroadcastsInCoreData:array];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedPollingBroadcastsAndStoredInCoreData" 
-                                                            object:[DataApi class]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        [DataApi storeNewBroadcastsInCoreData:array];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedPollingBroadcastsAndStoredInCoreData" 
+                                                                object:[DataApi class]];
+        });
+        
     });
 }
 

@@ -90,6 +90,9 @@
 
 - (void)processPollingBroadcastsStoredInCoreDataInt
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
     NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
@@ -115,7 +118,10 @@
 
 
 - (void)updateNewVideosAndCommentsCounters
-{    
+{
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     if (![[ShelbyApp sharedApp].userSessionHelper loggedIn]) {
         return;
     }

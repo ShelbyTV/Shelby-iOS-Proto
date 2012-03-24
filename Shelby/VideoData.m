@@ -108,7 +108,13 @@
 
 - (NSArray *)videoDupeArraysSorted
 {
-    return videoDupeArraysSorted;
+    NSArray *toReturn;
+    
+    @synchronized(videoDupeArraysSorted) {
+        toReturn = [videoDupeArraysSorted copy];
+    }
+    
+    return toReturn;
 }
 
 #pragma mark - Core Data Broadcast Processing
@@ -202,17 +208,20 @@
 
 - (void)loadInitialVideosFromCoreData
 {
-    _isLoading = TRUE;
-    
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-    [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
-    [self processBroadcastArray:broadcasts withContext:context];
-    
-    [CoreDataHelper saveAndReleaseContext:context];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-    _isLoading = FALSE;
+        _isLoading = TRUE;
+        
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+        [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
+        [self processBroadcastArray:broadcasts withContext:context];
+        
+        [CoreDataHelper saveAndReleaseContext:context];
+        
+        _isLoading = FALSE;
+    });
 }
 
 #pragma mark - API Broadcast Processing
@@ -329,19 +338,22 @@
 
 - (void)loadAdditionalVideosFromCoreData
 {
-    _isLoading = TRUE;
-
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
-    [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
-    [self processBroadcastArray:broadcasts withContext:context];
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    
-    [videoDataPoller recalculateImmediately];
-    
-    _isLoading = FALSE;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        _isLoading = TRUE;
+        
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+        [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
+        [self processBroadcastArray:broadcasts withContext:context];
+        
+        [CoreDataHelper saveAndReleaseContext:context];
+        
+        [videoDataPoller recalculateImmediately];
+        
+        _isLoading = FALSE;
+    });
 }
 
 - (BOOL)isLoading
@@ -363,7 +375,9 @@
     [videoDataPoller clearPendingOperations];
 
     [videoDupeDict removeAllObjects];
-    [videoDupeArraysSorted removeAllObjects];
+    @synchronized(videoDupeArraysSorted) {
+        [videoDupeArraysSorted removeAllObjects];
+    }
     [knownShelbyIds removeAllObjects];
 }
 

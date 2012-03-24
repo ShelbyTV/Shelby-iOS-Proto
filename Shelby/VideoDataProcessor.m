@@ -88,6 +88,9 @@
 
 - (void)downloadSharerImage:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     if ([ShelbyApp sharedApp].demoModeEnabled) {
         return;
     }
@@ -116,6 +119,9 @@
 
 - (void)downloadVideoThumbnail:(Video *)video
 {
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
     if ([ShelbyApp sharedApp].demoModeEnabled) {
         return;
     }
