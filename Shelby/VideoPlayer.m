@@ -204,7 +204,16 @@ static const float kNextPrevXOffset        =  0.0f;
         _moviePlayer.allowsAirPlay = YES;
     }
 
-    _gestureView = [[UIView alloc] initWithFrame:self.bounds];
+    // sadly, duplicated in layoutSubviews... sigh, need to fix in the future somehow
+    float controlBarOffsetFromBottom;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        controlBarOffsetFromBottom = 140;
+    } else {
+        controlBarOffsetFromBottom = 95;
+    }
+    
+    _gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - controlBarOffsetFromBottom)];
     _gestureView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     [self addSubview:_bgView];
