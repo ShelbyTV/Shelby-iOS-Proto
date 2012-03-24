@@ -265,10 +265,13 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
 + (void)processGetBroadcastsResponseAndStoreInCoreData:(NSArray *)array
 {
-    [DataApi storeNewBroadcastsInCoreData:array];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcastsAndStoredInCoreData" 
-                                                        object:[DataApi class]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        [DataApi storeNewBroadcastsInCoreData:array];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcastsAndStoredInCoreData" 
+                                                            object:[DataApi class]];
+    });
 }
 
 + (void)fetchPollingBroadcastsAndStoreInCoreData
