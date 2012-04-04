@@ -1,9 +1,9 @@
 [submodule "Libraries/OAuth"]
 	path = Libraries/OAuth
-	url = https://github.com/DavidYKay/OAuth.git
+	url = https://github.com/ShelbyTV/OAuth.git
 [submodule "Libraries/json-framework"]
 	path = Libraries/json-framework
 	url = https://github.com/stig/json-framework.git
 [submodule "Libraries/EGOTableViewPullRefresh"]
 	path = Libraries/EGOTableViewPullRefresh
-	url = https://github.com/enormego/EGOTableViewPullRefresh.git
+	url = https://github.com/ShelbyTV/EGOTableViewPullRefresh.git
