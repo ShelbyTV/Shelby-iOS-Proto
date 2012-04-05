@@ -50,6 +50,47 @@
 
 #### Navigation Controller
 
+This is supposed to be the main ViewController that should handle most high-level logic, handle user button touches, etc.
+
+In both iPhone and iPad, the NavigationController is in charge of what you see on the screen. It is never hidden, though other views may be overlaid on top of it.
+
+On iPad, the Navigation Controller most of the time shows you the VideoGuide and the VideoPlayer. On iPhone, it shows you *either* the VideoGuide or VideoPlayer, since there's not enough space to show both at the same time.
+
+#### API-related Objects
+
+DataAPI and BroadcastAPI classes allow communication with Shelby backend servers. This is how we get and interact with Broadcasts (Videos) coming from the Shelby backend.
+
+#### Video / Video Data
+
+Broadcasts from Shelby backend are stored in CoreData as Broadcasts (with Sharer and Thumbnail images also stored for network / performance optimization). These are loaded from CoreData and into in-memory data structures known as Videos.
+
+There are a lot of classes for dealing with Videos, organizing them for display in VideoTables, etc. This is the most complicated part of the app for sure.
+
+This also includes the VideoContentURLGetter, which is the sketchiest part of the app. Lots of superlatives for Videos.
+
+#### VideoPlayer
+
+This is responsible for taking a video, showing it, displaying info about a video, and allowing a user to control the video.
+
+In TouchPlay, VideoPlayer gets a little more complicated, with differents part of the UI on different UIScreens and some parts (video info UI) duplicated on both UIScreens.
+
+#### VideoGuide
+
+This contains the actual video table. There are currently 4 subclasses, one for each option: Timeline, Favorite, Watch Later, and Search.
+
+#### Login
+
+This gets overlaid on the NavigationController for user login.
+
+#### Sharing
+
+This is just overlaid on the NavigationController / VideoPlayer also. Sharing is only complicated because on iPhone, we don't have tons of screen space, so it's a multi-step dialog.
+
+Also, we use a somewhat complicated class taken from a guy on github to do email address book lookups / completion.
+
+#### Settings
+
+This is a fairly simple screen that slides in and is overlaid on top of the VideoGuide portion of the screen.
 
 ### App Flow
 
