@@ -24,18 +24,20 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        @autoreleasepool {
         
-        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                            withShelbyId:video.shelbyId
-                                                               inContext:context];
-        if (NOT_NULL(broadcast)) {
-            broadcast.liked = [NSNumber numberWithBool:video.isLiked];
+            NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+            
+            Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                                withShelbyId:video.shelbyId
+                                                                   inContext:context];
+            if (NOT_NULL(broadcast)) {
+                broadcast.liked = [NSNumber numberWithBool:video.isLiked];
+            }
+            
+            [CoreDataHelper saveAndReleaseContext:context];
+
         }
-        
-        [CoreDataHelper saveAndReleaseContext:context];
-        [pool release];
     });
 }
 
@@ -43,18 +45,19 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-        
-        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                            withShelbyId:video.shelbyId
-                                                               inContext:context];
-        if (NOT_NULL(broadcast)) {
-            broadcast.watchLater = [NSNumber numberWithBool:video.isWatchLater];
+        @autoreleasepool {
+            NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+            
+            Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                                withShelbyId:video.shelbyId
+                                                                   inContext:context];
+            if (NOT_NULL(broadcast)) {
+                broadcast.watchLater = [NSNumber numberWithBool:video.isWatchLater];
+            }
+            
+            [CoreDataHelper saveAndReleaseContext:context];
         }
-        
-        [CoreDataHelper saveAndReleaseContext:context];
-        [pool release];
+    
     });
 }
 
@@ -62,18 +65,19 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-        
-        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                            withShelbyId:video.shelbyId
-                                                               inContext:context];
-        if (NOT_NULL(broadcast)) {
-            broadcast.watched = [NSNumber numberWithBool:video.isWatched];
+        @autoreleasepool {
+            NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+            
+            Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                                withShelbyId:video.shelbyId
+                                                                   inContext:context];
+            if (NOT_NULL(broadcast)) {
+                broadcast.watched = [NSNumber numberWithBool:video.isWatched];
+            }
+            
+            [CoreDataHelper saveAndReleaseContext:context];
         }
         
-        [CoreDataHelper saveAndReleaseContext:context];
-        [pool release];
     });
 }
 
@@ -82,18 +86,18 @@
     // This method takes a long time to execute, and it should never be called from the main thread.
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    if (NOT_NULL(broadcast)) {
-        broadcast.isPlayable = [NSNumber numberWithBool:video.isPlayable];
+    @autoreleasepool {
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        if (NOT_NULL(broadcast)) {
+            broadcast.isPlayable = [NSNumber numberWithBool:video.isPlayable];
+        }
+        
+        [CoreDataHelper saveAndReleaseContext:context];
     }
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
 }
 
 #pragma mark - Video Image Storage
@@ -104,26 +108,26 @@
     // This method takes a long time to execute, and it should never be called from the main thread.
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    
-    if (NOT_NULL(broadcast)) {
+    @autoreleasepool {        
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
         
-        if (IS_NULL(broadcast.sharerImage)) {
-            broadcast.sharerImage = [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"SharerImage"
-                                     inManagedObjectContext:context];
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        
+        if (NOT_NULL(broadcast)) {
+            
+            if (IS_NULL(broadcast.sharerImage)) {
+                broadcast.sharerImage = [NSEntityDescription
+                                         insertNewObjectForEntityForName:@"SharerImage"
+                                         inManagedObjectContext:context];
+            }
+            
+            broadcast.sharerImage.imageData = sharerImage;
         }
         
-        broadcast.sharerImage.imageData = sharerImage;
+        [CoreDataHelper saveAndReleaseContext:context];
     }
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
 }
 
 + (void)storeThumbnailImage:(NSData *)thumbnail
@@ -132,26 +136,26 @@
     // This method takes a long time to execute, and it should never be called from the main thread.
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
-                                                        withShelbyId:video.shelbyId
-                                                           inContext:context];
-    
-    if (NOT_NULL(broadcast)) {
+    @autoreleasepool {
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
         
-        if (IS_NULL(broadcast.thumbnailImage)) {
-            broadcast.thumbnailImage = [NSEntityDescription
-                                        insertNewObjectForEntityForName:@"ThumbnailImage"
-                                        inManagedObjectContext:context];
+        Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
+                                                            withShelbyId:video.shelbyId
+                                                               inContext:context];
+        
+        if (NOT_NULL(broadcast)) {
+            
+            if (IS_NULL(broadcast.thumbnailImage)) {
+                broadcast.thumbnailImage = [NSEntityDescription
+                                            insertNewObjectForEntityForName:@"ThumbnailImage"
+                                            inManagedObjectContext:context];
+            }
+            
+            broadcast.thumbnailImage.imageData = thumbnail;
         }
         
-        broadcast.thumbnailImage.imageData = thumbnail;
+        [CoreDataHelper saveAndReleaseContext:context];
     }
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
 }
 
 #pragma mark - Unorganized
@@ -238,26 +242,27 @@
 
 + (void)loadVideoThumbnailFromCoreData:(Video *)video
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setPersistentStoreCoordinator:psCoordinator];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    
-    ThumbnailImage *thumbnailImage = [CoreDataHelper fetchExistingUniqueEntity:@"ThumbnailImage" withBroadcastShelbyId:video.shelbyId inContext:context];
-    
-    if (IS_NULL(thumbnailImage)) 
-    {
-        NSLog(@"Couldn't find CoreData thumbnailImage entry for video %@; aborting load of thumbnailImage", video.shelbyId);
-    } else {
-        video.thumbnailImage = [UIImage imageWithData:thumbnailImage.imageData];
-        //[self updateVideoTableCell:video];
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setUndoManager:nil];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
+        ThumbnailImage *thumbnailImage = [CoreDataHelper fetchExistingUniqueEntity:@"ThumbnailImage" withBroadcastShelbyId:video.shelbyId inContext:context];
+        
+        if (IS_NULL(thumbnailImage)) 
+        {
+            NSLog(@"Couldn't find CoreData thumbnailImage entry for video %@; aborting load of thumbnailImage", video.shelbyId);
+        } else {
+            video.thumbnailImage = [UIImage imageWithData:thumbnailImage.imageData];
+            //[self updateVideoTableCell:video];
+        }
+        
+        [context release];
+
     }
-    
-    [context release];
-    [pool release];
 }
 
 + (void)storeSharerImage:(Video *)video
@@ -276,25 +281,26 @@
     // This method takes a long time to execute, and it should never be called from the main thread.
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
+        
+        NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        [context setUndoManager:nil];
+        [context setPersistentStoreCoordinator:psCoordinator];
+        [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        
+        SharerImage *sharerImage = [CoreDataHelper fetchExistingUniqueEntity:@"SharerImage" withBroadcastShelbyId:video.shelbyId inContext:context];
+        
+        if (IS_NULL(sharerImage)) 
+        {
+            NSLog(@"Couldn't find CoreData sharerImage entry for video %@; aborting load of sharerImage", video.shelbyId);
+        } else {
+            video.sharerImage = [UIImage imageWithData:sharerImage.imageData];
+        }
+        
+        [context release];
     
-    NSPersistentStoreCoordinator *psCoordinator = [ShelbyApp sharedApp].persistentStoreCoordinator;
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    [context setUndoManager:nil];
-    [context setPersistentStoreCoordinator:psCoordinator];
-    [context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
-    
-    SharerImage *sharerImage = [CoreDataHelper fetchExistingUniqueEntity:@"SharerImage" withBroadcastShelbyId:video.shelbyId inContext:context];
-    
-    if (IS_NULL(sharerImage)) 
-    {
-        NSLog(@"Couldn't find CoreData sharerImage entry for video %@; aborting load of sharerImage", video.shelbyId);
-    } else {
-        video.sharerImage = [UIImage imageWithData:sharerImage.imageData];
     }
-    
-    [context release];
-    [pool release];
 }
 
 + (void)removeExtraBroadcasts:(NSMutableArray *)broadcasts 

@@ -238,7 +238,7 @@
 		0ADF890914344B10001BCCF8 /* Logo_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF890814344B10001BCCF8 /* Logo_iPad.png */; };
 		0AE04FB21488530700952C02 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE04FB11488530700952C02 /* AddressBook.framework */; };
 		0AE04FB51488530C00952C02 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE04FB41488530C00952C02 /* AddressBookUI.framework */; };
-		0AE04FB814896FBB00952C02 /* COPeoplePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE04FB714896FBA00952C02 /* COPeoplePickerViewController.m */; };
+		0AE04FB814896FBB00952C02 /* COPeoplePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE04FB714896FBA00952C02 /* COPeoplePickerViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0AE04FF0148D517A00952C02 /* fullscreenContract_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE04FDE148D517A00952C02 /* fullscreenContract_iPhone.png */; };
 		0AE04FF1148D517A00952C02 /* fullscreenContract_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE04FDF148D517A00952C02 /* fullscreenContract_iPhone@2x.png */; };
 		0AE04FF2148D517A00952C02 /* fullscreenExpand_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE04FE0148D517A00952C02 /* fullscreenExpand_iPhone.png */; };
@@ -291,7 +291,7 @@
 		4200E51813F42BB100609C3E /* ButtonFavoritesNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51413F42BB100609C3E /* ButtonFavoritesNormal.png */; };
 		4200E51913F42BB100609C3E /* ButtonListHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51513F42BB100609C3E /* ButtonListHighlighted.png */; };
 		4200E51A13F42BB100609C3E /* ButtonListNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4200E51613F42BB100609C3E /* ButtonListNormal.png */; };
-		42084C701427AB4800C3C556 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C6F1427AB4800C3C556 /* Reachability.m */; };
+		42084C701427AB4800C3C556 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C6F1427AB4800C3C556 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		42084C761427ADF000C3C556 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42084C751427ADF000C3C556 /* SystemConfiguration.framework */; };
 		42084C7D1427B99A00C3C556 /* OfflineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42084C7C1427B99A00C3C556 /* OfflineView.m */; };
 		42084C861427D82D00C3C556 /* OfflineView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42084C841427D82D00C3C556 /* OfflineView_iPhone.xib */; };
@@ -302,10 +302,6 @@
 		423FFDA514291A2400F8FF54 /* CellGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 423FFDA414291A2400F8FF54 /* CellGradient.png */; };
 		4240B36C142BF8F500819AC8 /* Broadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4240B36B142BF8F500819AC8 /* Broadcast.m */; };
 		427A622113F46D5B00C945E2 /* TextFieldGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A621D13F46D5B00C945E2 /* TextFieldGray.png */; };
-		427A622C13F4719800C945E2 /* switchBlueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622713F4719800C945E2 /* switchBlueBg.png */; };
-		427A622D13F4719800C945E2 /* switchOffPlain.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622813F4719800C945E2 /* switchOffPlain.png */; };
-		427A622E13F4719800C945E2 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 427A622913F4719800C945E2 /* switchThumb.png */; };
-		427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 427A622B13F4719800C945E2 /* UICustomSwitch.m */; };
 		4289EB7C1433D82E008311A7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4289EB7B1433D82E008311A7 /* User.m */; };
 		428AA5B8142409AC00E692B9 /* NavigationViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */; };
 		428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 428B02AD1421713D00C88063 /* PlaceholderFace.png */; };
@@ -315,27 +311,27 @@
 		428B02C114227C4F00C88063 /* VideoPlayerControlBar_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02BF14227C4E00C88063 /* VideoPlayerControlBar_iPhone.xib */; };
 		428B02C414227F6A00C88063 /* VideoPlayerControlBar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428B02C214227F6A00C88063 /* VideoPlayerControlBar_iPad.xib */; };
 		428B02C71422AE2500C88063 /* VideoPlayerFooterBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 428B02C61422AE2400C88063 /* VideoPlayerFooterBar.m */; };
-		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; };
+		42925B211401C01B00333F46 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42925B171401C01B00333F46 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		42925B2C1401C2AA00333F46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42925B2B1401C2AA00333F46 /* QuartzCore.framework */; };
 		42A09B4A13FC6CD100570DBE /* UserSessionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A09B4613FC6CD100570DBE /* UserSessionHelper.m */; };
-		42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214B13FEE40500A8FC00 /* NSData+Base64.m */; };
-		42AB21C113FEE40500A8FC00 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214D13FEE40500A8FC00 /* NSString+URLEncoding.m */; };
-		42AB21C213FEE40500A8FC00 /* NSURLConnection+AsyncBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214F13FEE40500A8FC00 /* NSURLConnection+AsyncBlock.m */; };
+		42AB21C013FEE40500A8FC00 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214B13FEE40500A8FC00 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21C113FEE40500A8FC00 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214D13FEE40500A8FC00 /* NSString+URLEncoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21C213FEE40500A8FC00 /* NSURLConnection+AsyncBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB214F13FEE40500A8FC00 /* NSURLConnection+AsyncBlock.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		42AB21C313FEE40500A8FC00 /* OAuth-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42AB215013FEE40500A8FC00 /* OAuth-Info.plist */; };
-		42AB21C413FEE40500A8FC00 /* OAuthHandshake.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB215313FEE40500A8FC00 /* OAuthHandshake.m */; };
-		42AB21C513FEE40500A8FC00 /* OAuthMultiDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB215513FEE40500A8FC00 /* OAuthMultiDictionary.m */; };
-		42AB21C613FEE40500A8FC00 /* OAuthMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB215713FEE40500A8FC00 /* OAuthMutableURLRequest.m */; };
-		42AB21E913FEF35D00A8FC00 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21D313FEF35D00A8FC00 /* NSObject+SBJson.m */; };
-		42AB21EA13FEF35D00A8FC00 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21D613FEF35D00A8FC00 /* SBJsonParser.m */; };
-		42AB21EB13FEF35D00A8FC00 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21D813FEF35D00A8FC00 /* SBJsonStreamParser.m */; };
-		42AB21EC13FEF35D00A8FC00 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21DA13FEF35D00A8FC00 /* SBJsonStreamParserAccumulator.m */; };
-		42AB21ED13FEF35D00A8FC00 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21DC13FEF35D00A8FC00 /* SBJsonStreamParserState.m */; };
-		42AB21EE13FEF35D00A8FC00 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21DE13FEF35D00A8FC00 /* SBJsonStreamWriter.m */; };
-		42AB21EF13FEF35D00A8FC00 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E013FEF35D00A8FC00 /* SBJsonStreamWriterAccumulator.m */; };
-		42AB21F013FEF35D00A8FC00 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E213FEF35D00A8FC00 /* SBJsonStreamWriterState.m */; };
-		42AB21F113FEF35D00A8FC00 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E413FEF35D00A8FC00 /* SBJsonTokeniser.m */; };
-		42AB21F213FEF35D00A8FC00 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E613FEF35D00A8FC00 /* SBJsonUTF8Stream.m */; };
-		42AB21F313FEF35D00A8FC00 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E813FEF35D00A8FC00 /* SBJsonWriter.m */; };
+		42AB21C413FEE40500A8FC00 /* OAuthHandshake.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB215313FEE40500A8FC00 /* OAuthHandshake.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21C513FEE40500A8FC00 /* OAuthMultiDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB215513FEE40500A8FC00 /* OAuthMultiDictionary.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21C613FEE40500A8FC00 /* OAuthMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB215713FEE40500A8FC00 /* OAuthMutableURLRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21E913FEF35D00A8FC00 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21D313FEF35D00A8FC00 /* NSObject+SBJson.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21EA13FEF35D00A8FC00 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21D613FEF35D00A8FC00 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21EB13FEF35D00A8FC00 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21D813FEF35D00A8FC00 /* SBJsonStreamParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21EC13FEF35D00A8FC00 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21DA13FEF35D00A8FC00 /* SBJsonStreamParserAccumulator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21ED13FEF35D00A8FC00 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21DC13FEF35D00A8FC00 /* SBJsonStreamParserState.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21EE13FEF35D00A8FC00 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21DE13FEF35D00A8FC00 /* SBJsonStreamWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21EF13FEF35D00A8FC00 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E013FEF35D00A8FC00 /* SBJsonStreamWriterAccumulator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21F013FEF35D00A8FC00 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E213FEF35D00A8FC00 /* SBJsonStreamWriterState.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21F113FEF35D00A8FC00 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E413FEF35D00A8FC00 /* SBJsonTokeniser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21F213FEF35D00A8FC00 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E613FEF35D00A8FC00 /* SBJsonUTF8Stream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		42AB21F313FEF35D00A8FC00 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB21E813FEF35D00A8FC00 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		42ACA2C6142A9262009FD812 /* TextAreaGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C5142A9262009FD812 /* TextAreaGray.png */; };
 		42ACA2C8142A9306009FD812 /* ButtonSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ACA2C7142A9305009FD812 /* ButtonSend.png */; };
 		42ACA2E6142BF1C1009FD812 /* ApiTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ACA2E5142BF1C1009FD812 /* ApiTest.m */; };
@@ -731,11 +727,6 @@
 		4240B36A142BF8F500819AC8 /* Broadcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Broadcast.h; sourceTree = "<group>"; };
 		4240B36B142BF8F500819AC8 /* Broadcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Broadcast.m; sourceTree = "<group>"; };
 		427A621D13F46D5B00C945E2 /* TextFieldGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextFieldGray.png; path = Resources/Images/TextFieldGray.png; sourceTree = "<group>"; };
-		427A622713F4719800C945E2 /* switchBlueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchBlueBg.png; sourceTree = "<group>"; };
-		427A622813F4719800C945E2 /* switchOffPlain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchOffPlain.png; sourceTree = "<group>"; };
-		427A622913F4719800C945E2 /* switchThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchThumb.png; sourceTree = "<group>"; };
-		427A622A13F4719800C945E2 /* UICustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSwitch.h; sourceTree = "<group>"; };
-		427A622B13F4719800C945E2 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		4289EB7A1433D82E008311A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4289EB7B1433D82E008311A7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		428AA5B7142409AC00E692B9 /* NavigationViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationViewController_iPad.m; path = iPad/NavigationViewController_iPad.m; sourceTree = "<group>"; };
@@ -1422,22 +1413,8 @@
 				42AB21D113FEF34C00A8FC00 /* JSON-Framework */,
 				42AB209013FEE40500A8FC00 /* OAuth */,
 				428E55D31427AA610063C3E7 /* Reachability */,
-				427A622613F4719800C945E2 /* UICustomSwitch */,
 			);
 			name = Libraries;
-			sourceTree = "<group>";
-		};
-		427A622613F4719800C945E2 /* UICustomSwitch */ = {
-			isa = PBXGroup;
-			children = (
-				427A622713F4719800C945E2 /* switchBlueBg.png */,
-				427A622813F4719800C945E2 /* switchOffPlain.png */,
-				427A622913F4719800C945E2 /* switchThumb.png */,
-				427A622A13F4719800C945E2 /* UICustomSwitch.h */,
-				427A622B13F4719800C945E2 /* UICustomSwitch.m */,
-			);
-			name = UICustomSwitch;
-			path = Libraries/UICustomSwitch;
 			sourceTree = "<group>";
 		};
 		427A623013F4840E00C945E2 /* Views */ = {
@@ -1827,9 +1804,6 @@
 				4200E51913F42BB100609C3E /* ButtonListHighlighted.png in Resources */,
 				4200E51A13F42BB100609C3E /* ButtonListNormal.png in Resources */,
 				427A622113F46D5B00C945E2 /* TextFieldGray.png in Resources */,
-				427A622C13F4719800C945E2 /* switchBlueBg.png in Resources */,
-				427A622D13F4719800C945E2 /* switchOffPlain.png in Resources */,
-				427A622E13F4719800C945E2 /* switchThumb.png in Resources */,
 				42AB21C313FEE40500A8FC00 /* OAuth-Info.plist in Resources */,
 				428B02AE1421713D00C88063 /* PlaceholderFace.png in Resources */,
 				428B02BB14217EB400C88063 /* SliderGray.png in Resources */,
@@ -2119,7 +2093,6 @@
 				4229CDEF13EC597B000F587E /* VideoPlayerTitleBar.m in Sources */,
 				4229CE0013EC6235000F587E /* VideoPlayerControlBar.m in Sources */,
 				4200E50413F41F0C00609C3E /* Video.m in Sources */,
-				427A622F13F4719800C945E2 /* UICustomSwitch.m in Sources */,
 				42A09B4A13FC6CD100570DBE /* UserSessionHelper.m in Sources */,
 				42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */,
 				42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */,

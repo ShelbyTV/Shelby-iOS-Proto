@@ -9,6 +9,6 @@
 	UIWebView *webView;
 }
 
-@property (nonatomic, retain) NSString *userAgent;
+@property (nonatomic, copy) NSString *userAgent;
 -(NSString*)userAgentString;
 @end

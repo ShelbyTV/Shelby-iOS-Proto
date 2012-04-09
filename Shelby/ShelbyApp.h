@@ -31,7 +31,7 @@
 @property (nonatomic, retain) ApiHelper                    *apiHelper;
 @property (nonatomic, retain) VideoData                    *videoData;
 @property (nonatomic, retain) NavigationViewController     *navigationViewController;
-@property (nonatomic, retain) NSString                     *safariUserAgent;
+@property (nonatomic, copy) NSString                     *safariUserAgent;
 @property (nonatomic, retain) UIWindow                     *shelbyWindow;
 
 @property (nonatomic) BOOL demoModeEnabled;

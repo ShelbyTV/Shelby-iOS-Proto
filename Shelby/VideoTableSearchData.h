@@ -10,6 +10,6 @@
 
 @interface VideoTableSearchData : VideoTableData
 
-@property (nonatomic, retain) NSString *searchString;
+@property (nonatomic, copy) NSString *searchString;
 
 @end

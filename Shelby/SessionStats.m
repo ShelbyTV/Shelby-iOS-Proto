@@ -40,27 +40,6 @@ static SessionStats *singletonSessionStats = nil;
     return self;
 }
 
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
-
-
 - (void)initVariables
 {
     dateFormatter = [[NSDateFormatter alloc] init];

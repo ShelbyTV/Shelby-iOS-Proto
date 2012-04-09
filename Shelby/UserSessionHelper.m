@@ -36,7 +36,7 @@
 
 @property (nonatomic, readwrite, retain) User *currentUser;
 @property (nonatomic, retain) Channel *currentUserPublicChannel;
-@property (nonatomic, retain) NSString *identityProvider;
+@property (nonatomic, copy) NSString *identityProvider;
 @property (readwrite) NSInteger networkCounter;
 
 @end

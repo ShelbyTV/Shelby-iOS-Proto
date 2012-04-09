@@ -39,7 +39,7 @@
     [colors addObject:(id)[color CGColor]];
     locations[1] = 1.0;
     
-    CGGradientRef gradient = CGGradientCreateWithColors(space, (CFArrayRef)colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(space, (__bridge CFArrayRef)colors, locations);
     CGColorSpaceRelease(space);
 
     CGContextDrawRadialGradient(context, gradient, startCenter, startRadius, endCenter, endRadius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);

@@ -15,10 +15,10 @@
 }
 
 @property (nonatomic, retain) NSData   *image;
-@property (nonatomic, retain) NSString *imageUrl;
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSString *nickname;
-@property (nonatomic, retain) NSString *shelbyId;
+@property (nonatomic, copy) NSString *imageUrl;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, retain) NSNumber *auth_twitter;
 @property (nonatomic, retain) NSNumber *auth_facebook;
 @property (nonatomic, retain) NSNumber *auth_tumblr;

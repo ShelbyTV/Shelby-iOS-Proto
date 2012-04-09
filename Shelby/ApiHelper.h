@@ -15,8 +15,8 @@
 }
 
 @property (readonly) NSInteger networkCounter;
-@property (nonatomic, retain) NSString *accessToken;
-@property (nonatomic, retain) NSString *accessTokenSecret;
+@property (nonatomic, copy) NSString *accessToken;
+@property (nonatomic, copy) NSString *accessTokenSecret;
 
 - (ApiMutableURLRequest *)requestForURL:(NSURL *)url 
                              withMethod:(NSString *)method;

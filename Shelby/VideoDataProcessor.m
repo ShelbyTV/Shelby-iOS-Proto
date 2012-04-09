@@ -12,6 +12,8 @@
 #import "Enums.h"
 #import "VideoCoreDataInterface.h"
 #import "Broadcast.h"
+#import "SharerImage.h"
+#import "ThumbnailImage.h"
 
 @implementation VideoDataProcessor
 
@@ -95,25 +97,23 @@
         return;
     }
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:video.sharerImageURL];
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (NOT_NULL(data)) {
+    @autoreleasepool {
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSURLRequest *request = [NSURLRequest requestWithURL:video.sharerImageURL];
         
-        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
-                                                                                            kMaxSharerImageHeight)];
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
         
-        [delegate updateVideoTableCell:video];
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeSharerImage:) object:video] autorelease]];
+        if (NOT_NULL(data)) {
+            
+            // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+            video.sharerImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxSharerImageWidth,
+                                                                                                kMaxSharerImageHeight)];
+            
+            [delegate updateVideoTableCell:video];
+            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeSharerImage:) object:video] autorelease]];
+        }
     }
-    
-    [pool release];
 }
 
 
@@ -126,24 +126,22 @@
         return;
     }
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSURLRequest *request = [NSURLRequest requestWithURL:video.thumbnailURL];
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (NOT_NULL(data)) {
-        // resize down to the largest size we use anywhere. this should speed up table view scrolling.
-        video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
-                                                                                               kMaxVideoThumbnailHeight)];
+    @autoreleasepool {
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSURLRequest *request = [NSURLRequest requestWithURL:video.thumbnailURL];
         
-        [delegate updateVideoTableCell:video];
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
-    } 
-    
-    [pool release];
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        if (NOT_NULL(data)) {
+            // resize down to the largest size we use anywhere. this should speed up table view scrolling.
+            video.thumbnailImage = [self scaleImage:[UIImage imageWithData:data] toSize:CGSizeMake(kMaxVideoThumbnailWidth,
+                                                                                                   kMaxVideoThumbnailHeight)];
+            
+            [delegate updateVideoTableCell:video];
+            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
+        } 
+    }
 }
 
 
@@ -254,16 +252,16 @@
 {
     // need the sharerImage even for dupes
     if (IS_NULL(broadcast.sharerImage)) {
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video] autorelease]];
+        [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadSharerImage:) object:video]];
     } else {
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video] autorelease]];
+        [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadSharerImageFromCoreData:) object:video]];
     }
     
     // could optimize to not re-download for dupes, but don't bother for now...
     if (IS_NULL(broadcast.thumbnailImage)) {
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video] autorelease]];
+        [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downloadVideoThumbnail:) object:video]];
     } else {
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video] autorelease]];
+        [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadVideoThumbnailFromCoreData:) object:video]];
     }
 }
 

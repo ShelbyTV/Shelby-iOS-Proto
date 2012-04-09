@@ -23,16 +23,16 @@
 @property (nonatomic, retain) NSDate   *createdAt;
 @property (nonatomic, retain) NSNumber *liked;
 @property (nonatomic, retain) NSNumber *watchLater;
-@property (nonatomic, retain) NSString *origin;
-@property (nonatomic, retain) NSString *provider;
-@property (nonatomic, retain) NSString *providerId;
-@property (nonatomic, retain) NSString *sharerComment;
-@property (nonatomic, retain) NSString *sharerImageUrl;
-@property (nonatomic, retain) NSString *sharerName;
-@property (nonatomic, retain) NSString *shelbyId;
-@property (nonatomic, retain) NSString *shortPermalink;
-@property (nonatomic, retain) NSString *thumbnailImageUrl;
-@property (nonatomic, retain) NSString *title;
+@property (nonatomic, copy) NSString *origin;
+@property (nonatomic, copy) NSString *provider;
+@property (nonatomic, copy) NSString *providerId;
+@property (nonatomic, copy) NSString *sharerComment;
+@property (nonatomic, copy) NSString *sharerImageUrl;
+@property (nonatomic, copy) NSString *sharerName;
+@property (nonatomic, copy) NSString *shelbyId;
+@property (nonatomic, copy) NSString *shortPermalink;
+@property (nonatomic, copy) NSString *thumbnailImageUrl;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSNumber *watched;
 @property (nonatomic, retain) NSNumber *isPlayable;
 

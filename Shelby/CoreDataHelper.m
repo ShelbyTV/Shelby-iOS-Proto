@@ -120,19 +120,21 @@
 
 + (void)deleteAllData
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    
+    @autoreleasepool {
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        
+        [self deleteEntityType:@"User" withContext:context];
+        [self deleteEntityType:@"Channel" withContext:context];
+        [self deleteEntityType:@"Broadcast" withContext:context];
+        [self deleteEntityType:@"ThumbnailImage" withContext:context];
+        [self deleteEntityType:@"SharerImage" withContext:context];
+        
+        [CoreDataHelper saveContextAndLogErrors:context];
+        
+        [CoreDataHelper saveAndReleaseContext:context];
+    }
 
-    [self deleteEntityType:@"User" withContext:context];
-    [self deleteEntityType:@"Channel" withContext:context];
-    [self deleteEntityType:@"Broadcast" withContext:context];
-    [self deleteEntityType:@"ThumbnailImage" withContext:context];
-    [self deleteEntityType:@"SharerImage" withContext:context];
-    
-    [CoreDataHelper saveContextAndLogErrors:context];
-    
-    [CoreDataHelper saveAndReleaseContext:context];
-    [pool release];
 }
 
 + (Channel *)fetchPublicChannelFromCoreDataContext:(NSManagedObjectContext *)context

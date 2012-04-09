@@ -13,8 +13,8 @@
 @interface Video : NSObject {
 }
 
-@property (nonatomic, retain) NSString *provider;
-@property (nonatomic, retain) NSString *providerId;
+@property (nonatomic, copy) NSString *provider;
+@property (nonatomic, copy) NSString *providerId;
 @property (nonatomic, retain) NSURL *contentURL;
 @property (nonatomic, retain) NSURL *thumbnailURL;
 @property (nonatomic, retain) UIImage *thumbnailImage;

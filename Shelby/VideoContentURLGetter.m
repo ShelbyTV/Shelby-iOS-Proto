@@ -44,26 +44,6 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     return self;
 }
 
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
-
 - (void)initWebView
 {
     _webView = [[UIWebView alloc] init];
@@ -194,49 +174,50 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
         // prevent infinite loops
         return;
     }
-    NSAutoreleasePool* myPool = [[NSAutoreleasePool alloc] init];
     
-    processingNotifications = TRUE;
     
-    @synchronized(self) {
-        if (NOT_NULL(notification.userInfo)) {
-            SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@", @"p",@"a",@"t",@"h"]);
-            NSArray *allValues = [notification.userInfo allValues];
-            for (id i in allValues) {
-                if (![i respondsToSelector:sel]) {
-                    continue;
-                }
-                NSString *path = [i performSelector:sel];
-                
-                if ([_seenPaths objectForKey:path] != nil) {
-                    break; // already seen
-                }
+    @autoreleasepool {
+    
+        processingNotifications = TRUE;
+        
+        @synchronized(self) {
+            if (NOT_NULL(notification.userInfo)) {
+                SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@%@%@%@", @"p",@"a",@"t",@"h"]);
+                NSArray *allValues = [notification.userInfo allValues];
+                for (id i in allValues) {
+                    if (![i respondsToSelector:sel]) {
+                        continue;
+                    }
+                    NSString *path = [i performSelector:sel];
+                    
+                    if ([_seenPaths objectForKey:path] != nil) {
+                        break; // already seen
+                    }
 
-                [[NSNotificationCenter defaultCenter] removeObserver:self];
-                [self resetWebView];
+                    [[NSNotificationCenter defaultCenter] removeObserver:self];
+                    [self resetWebView];
 
-                self.networkCounter = 0;
-                _lastGetEnded = CACurrentMediaTime();
-                
-                if (self.currentVideo == nil || self.currentVideo.contentURL != nil) {
+                    self.networkCounter = 0;
+                    _lastGetEnded = CACurrentMediaTime();
+                    
+                    if (self.currentVideo == nil || self.currentVideo.contentURL != nil) {
+                        break;
+                    }
+                    NSURL *contentURL = [NSURL URLWithString:path];
+                    [_seenPaths setObject:self.currentVideo.providerId forKey:path];
+                    self.currentVideo.contentURL = contentURL;
+                    LOG(@"posting ContentURLAvailable notification");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ContentURLAvailable"
+                                                                        object:self
+                                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.currentVideo, @"video", nil]];
+                    self.currentVideo = nil;
+
+                    NSLog(@"------------------------------------------");
                     break;
                 }
-                NSURL *contentURL = [NSURL URLWithString:path];
-                [_seenPaths setObject:self.currentVideo.providerId forKey:path];
-                self.currentVideo.contentURL = contentURL;
-                LOG(@"posting ContentURLAvailable notification");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ContentURLAvailable"
-                                                                    object:self
-                                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.currentVideo, @"video", nil]];
-                self.currentVideo = nil;
-
-                NSLog(@"------------------------------------------");
-                break;
             }
-        }
+        }    
     }
-    
-    [myPool release];
     processingNotifications = FALSE;
 }
 

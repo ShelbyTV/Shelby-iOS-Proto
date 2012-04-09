@@ -43,45 +43,47 @@
 
 + (void)enableDemoMode
 {    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+
+    @autoreleasepool {
     
-    for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
-    {
-        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
-        
-        NSArray *videos = [dupeArray copyOfVideoArray];
-        Video *video = [videos objectAtIndex:0];
-        
-        if (video.isPlayable != IS_PLAYABLE || IS_NULL(video.contentURL)) {
-            [loopPool drain];
-            continue;
+        for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
+        {
+            
+            @autoreleasepool { // For-Loop Auto Release Pool
+
+                NSArray *videos = [dupeArray copyOfVideoArray];
+                Video *video = [videos objectAtIndex:0];
+                
+                if (video.isPlayable != IS_PLAYABLE || IS_NULL(video.contentURL)) {
+//                  [loopPool drain];
+                    continue;
+                }
+                
+                NSURLResponse *response = nil;
+                NSError *error = nil;
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:video.contentURL];
+                [request setValue:[ShelbyApp sharedApp].safariUserAgent forHTTPHeaderField:@"User-Agent"];
+                
+                NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                
+                [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:YES attributes:nil error:&error];
+                
+                NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];      
+                
+                [data writeToFile:path options:0 error:&error];
+                
+                for (Video *iter in videos) {
+                    iter.contentURL = [NSURL fileURLWithPath:path];
+                }
+                
+            }
         }
         
-        NSURLResponse *response = nil;
-        NSError *error = nil;
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:video.contentURL];
-        [request setValue:[ShelbyApp sharedApp].safariUserAgent forHTTPHeaderField:@"User-Agent"];
-        
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        
-        [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:YES attributes:nil error:&error];
-        
-        NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@.mp4", video.provider, video.providerId]];      
-        
-        [data writeToFile:path options:0 error:&error];
-        
-        for (Video *iter in videos) {
-            iter.contentURL = [NSURL fileURLWithPath:path];
-        }
-        
-        [loopPool drain];
+        [[ShelbyApp sharedApp].videoData reloadTableVideos];
+    
     }
-    
-    [[ShelbyApp sharedApp].videoData reloadTableVideos];
-        
-    [pool release];
 }
 
 @end

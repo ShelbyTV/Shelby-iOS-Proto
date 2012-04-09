@@ -13,6 +13,7 @@
 
 #import "NavigationViewController_iPad.h"
 #import "ShelbyApp.h"
+#import "VideoGuideView.h"
 
 @implementation NavigationViewController_iPad
 
