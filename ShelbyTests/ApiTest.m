@@ -9,7 +9,6 @@
 #import "ApiTest.h"
 #import "UserSessionHelper.h"
 #import "Broadcast.h"
-#import "UserSessionHelper.h"
 #import "SBJsonParser.h"
 
 @implementation ApiTest
@@ -17,7 +16,7 @@
 #pragma mark - Set Up & Tear Down
 
 - (void)setUp {
-    _userSessionHelper = [[userSessionHelper alloc] init];
+    _userSessionHelper = [[UserSessionHelper alloc] init];
 }
 
 - (void)tearDown {

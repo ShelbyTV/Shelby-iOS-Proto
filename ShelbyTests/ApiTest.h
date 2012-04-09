@@ -14,12 +14,12 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
+#import "UserSessionHelper.h"
 //#import "application_headers" as required
 
-@class userSessionHelper;
 
 @interface ApiTest : SenTestCase {
-  userSessionHelper *_userSessionHelper;
+  UserSessionHelper *_userSessionHelper;
 }
 
 //#if USE_APPLICATION_UNIT_TEST
