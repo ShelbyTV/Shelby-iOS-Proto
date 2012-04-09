@@ -42,7 +42,7 @@
     if (![(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] isEqualToString:@"X.X"] &&
         [(NSString *)[infoDictionary objectForKey:@"CFBundleVersion"] rangeOfString:@"b"].location == NSNotFound) 
     {
-        NSMutableArray *items = [[_settingsToolbar.items mutableCopy] autorelease];
+        NSMutableArray *items = [_settingsToolbar.items mutableCopy];
         [items removeObject:_demoModeButton];
         _settingsToolbar.items = items;
     } else {

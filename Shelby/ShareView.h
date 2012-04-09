@@ -47,7 +47,7 @@ typedef enum {
     IBOutlet UIBarButtonItem *_cancelBackButton;
     IBOutlet UIBarButtonItem *_sendButton;
     
-    IBOutlet UITextView *_bodyTextView;
+    IBOutlet UITextView *__unsafe_unretained _bodyTextView;
     IBOutlet UIView *_emailRecipientFieldHolder;
     IBOutlet UIView *_emailRecipientSuggestionsHolder;
     
@@ -76,8 +76,8 @@ typedef enum {
     Video *_video;
 }
 
-@property (assign) id <ShareViewDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UITextView *bodyTextView;
+@property (unsafe_unretained) id <ShareViewDelegate> delegate;
+@property (unsafe_unretained, nonatomic) IBOutlet UITextView *bodyTextView;
 
 + (ShareView *)shareViewFromNib;
 

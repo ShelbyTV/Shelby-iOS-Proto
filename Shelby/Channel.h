@@ -16,9 +16,9 @@
 
 @property (nonatomic, copy) NSString *shelbyId;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain) NSNumber *public;
-@property (nonatomic, retain) User     *user;
-@property (nonatomic, retain) NSSet    *broadcasts;
+@property (strong, nonatomic) NSNumber *public;
+@property (strong, nonatomic) User     *user;
+@property (strong, nonatomic) NSSet    *broadcasts;
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 

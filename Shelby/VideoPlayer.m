@@ -85,8 +85,7 @@ static const float kNextPrevXOffset        =  0.0f;
     if (self.delegate && NOT_NULL(_currentVideo)) {
         [self.delegate updateVideoTableCell:_currentVideo];
     }
-    [_currentVideo release];
-    _currentVideo = [currentVideo retain];
+    _currentVideo = currentVideo;
     _currentVideoWatchLaterAtStart = [_currentVideo isWatchLater];
     _currentVideoUnwatchLaterSent = FALSE;
     _currentVideo.currentlyPlaying = TRUE;
@@ -174,7 +173,7 @@ static const float kNextPrevXOffset        =  0.0f;
     _bgView.backgroundColor = [UIColor blackColor];
     
     // Buttons
-    _nextButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
+    _nextButton = [UIButton buttonWithType: UIButtonTypeCustom];
     [_nextButton setImage: [UIImage imageNamed: @"ButtonNext.png"]
                  forState: UIControlStateNormal];
     [_nextButton addTarget: self
@@ -182,7 +181,7 @@ static const float kNextPrevXOffset        =  0.0f;
           forControlEvents: UIControlEventTouchUpInside];
     _nextButton.alpha = 0.0;
 
-    _prevButton = [[UIButton buttonWithType: UIButtonTypeCustom] retain];
+    _prevButton = [UIButton buttonWithType: UIButtonTypeCustom];
     [_prevButton setImage: [UIImage imageNamed: @"ButtonPrevious.png"]
                  forState: UIControlStateNormal];
     [_prevButton addTarget: self
@@ -1143,12 +1142,7 @@ static const float kNextPrevXOffset        =  0.0f;
 
     [self removeNotificationListeners];
 
-    [_nextButton release];
-    [_prevButton release];
 
-    [_controlBar release];
-    [_moviePlayer release];
-    [super dealloc];
 }
 
 #pragma mark - Pinch Handling
@@ -1286,9 +1280,9 @@ static const float kNextPrevXOffset        =  0.0f;
         
         if (IS_NULL(_tvPaused)) {
             if (secondScreen.bounds.size.height == 1080) {
-                _tvPaused = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV_1080"]] retain];
+                _tvPaused = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV_1080"]];
             } else {
-                _tvPaused = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV_720"]] retain];
+                _tvPaused = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"paused_TV_720"]];
             }
             _tvPaused.frame = CGRectMake((secondScreen.bounds.size.width - _tvPaused.image.size.width) / 2.0, 
                                          ((secondScreen.bounds.size.height - _tvPaused.image.size.height) / 2.0) + 25,
@@ -1333,7 +1327,6 @@ static const float kNextPrevXOffset        =  0.0f;
         }
         
         [_tvPaused removeFromSuperview];
-        [_tvPaused release];
         _tvPaused = nil;
         
         [_tvControlBar removeFromSuperview];

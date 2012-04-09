@@ -48,7 +48,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
         // XXX sigh, silently ignoring errors probably isn't good...
         // [NSException raise:@"unexpected" format:@"Data API request error! error: %@", error];
     } else {
-        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
         id value = [parser objectWithData:data];
         
         // we expect arrays for all DataApi requests -- if we get a Dictionary back, it means we had an error
@@ -101,7 +101,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
     [upsert populateFromApiJSONDictionary:dict];
 
-    NSURL *url = [[[NSURL alloc] initWithString:upsert.imageUrl] autorelease];
+    NSURL *url = [[NSURL alloc] initWithString:upsert.imageUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSURLResponse *response = nil;
@@ -221,7 +221,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
  
     NSArray *newBroadcastsSortedByDate = [array sortedArrayUsingComparator:(NSComparator)^(id dict1, id dict2) {
         
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
         [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         

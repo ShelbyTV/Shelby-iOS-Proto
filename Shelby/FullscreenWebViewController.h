@@ -23,8 +23,8 @@
     IBOutlet UIActivityIndicatorView *_activityIndicatorView;
 }
 
-@property (assign) id <FullscreenWebViewControllerDelegate> delegate;
-@property (nonatomic, readonly) UIWebView *webView;
+@property (unsafe_unretained) id <FullscreenWebViewControllerDelegate> delegate;
+@property (strong, nonatomic, readonly) UIWebView *webView;
 
 - (IBAction)closeFullscreenWebViewController:(id)sender;
 

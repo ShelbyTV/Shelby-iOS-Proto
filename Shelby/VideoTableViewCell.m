@@ -261,7 +261,6 @@
     for (UIView *view in array)
     {
         [view removeFromSuperview];
-        [view release];
     }
     [array removeAllObjects]; 
 }
@@ -280,9 +279,8 @@
 {
     // use this to clean up old videos also from cell caching
     if (NOT_NULL(_video)) {
-        [_video release];
     }
-    _video = [video retain];
+    _video = video;
 
     [self clearDupeData];
 
@@ -370,11 +368,6 @@
 
 #pragma mark - Dealloc
 
-- (void)dealloc 
-{
-    [_video release];
-    [super dealloc];
-}
 
 #pragma mark - Actions
 

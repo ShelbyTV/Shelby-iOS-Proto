@@ -86,9 +86,5 @@ static NSString *TV_NIB_NAME_1080 = @"VideoPlayerTitleBar_TV_1080";
 }
 */
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

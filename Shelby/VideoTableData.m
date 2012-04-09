@@ -47,7 +47,7 @@
         if (index >= [tableVideos count]) {
             return nil;
         }
-        return [[(Video *)[tableVideos objectAtIndex:index] retain] autorelease];
+        return (Video *)[tableVideos objectAtIndex:index];
     }
 }
 
@@ -60,14 +60,14 @@
         if (index >= [tableVideos count]) {
             return nil;
         }
-        video = [[[tableVideos objectAtIndex:index] retain] autorelease];
+        video = [tableVideos objectAtIndex:index];
     }
     
     if (IS_NULL(video.contentURL) && ![ShelbyApp sharedApp].demoModeEnabled) {
         [[ShelbyApp sharedApp].videoData getVideoContentURL:video];
     }
 
-    return [[video.contentURL retain] autorelease];
+    return video.contentURL;
 }
 
 #pragma mark - Table Updates
@@ -84,7 +84,7 @@
             return;
         }
         
-        cell = [[[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex) inSection:0]] retain] autorelease];
+        cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(videoIndex) inSection:0]];
     }
     
     [cell performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
@@ -99,7 +99,7 @@
     {
         [tableVideos removeAllObjects];
         
-        NSIndexSet *indexSet = [[[NSIndexSet alloc] initWithIndex:0] autorelease];
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
         
         [tableView beginUpdates];        
         
@@ -122,7 +122,7 @@
 {    
     int videoTableIndex = 0;
     
-    NSMutableDictionary *alreadyVisitedVideos = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *alreadyVisitedVideos = [[NSMutableDictionary alloc] init];
     
     for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
     {

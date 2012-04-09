@@ -12,10 +12,5 @@
 
 @synthesize userInfoDict;
 
-- (void) dealloc
-{
-    userInfoDict = nil;
-    [super dealloc];
-}
 
 @end

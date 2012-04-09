@@ -15,10 +15,10 @@
 + (VideoPlayerTitleBar *)titleBarFromTVNib:(CGRect)screenBounds;
 + (VideoPlayerTitleBar *)titleBarFromNib;
 
-@property(nonatomic, retain) IBOutlet UILabel *title;
-@property(nonatomic, retain) IBOutlet UILabel *comment;
-@property(nonatomic, retain) IBOutlet UIImageView *sharerPic;
+@property(strong, nonatomic) IBOutlet UILabel *title;
+@property(strong, nonatomic) IBOutlet UILabel *comment;
+@property(strong, nonatomic) IBOutlet UIImageView *sharerPic;
 
-@property(nonatomic, retain) IBOutlet UIImageView *channelPic;
+@property(strong, nonatomic) IBOutlet UIImageView *channelPic;
 
 @end

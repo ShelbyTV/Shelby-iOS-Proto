@@ -182,12 +182,6 @@ static const float kProgressUpdateBuffer = 1.0f;
 
 #pragma mark - Cleanup
 
-- (void)dealloc
-{
-    [_label release];
-    [_slider release];
-    [super dealloc];
-}
 
 - (void)adjustForTV
 {

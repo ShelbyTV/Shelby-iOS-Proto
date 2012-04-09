@@ -111,7 +111,7 @@
                                                                                                 kMaxSharerImageHeight)];
             
             [delegate updateVideoTableCell:video];
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeSharerImage:) object:video] autorelease]];
+            [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeSharerImage:) object:video]];
         }
     }
 }
@@ -139,7 +139,7 @@
                                                                                                    kMaxVideoThumbnailHeight)];
             
             [delegate updateVideoTableCell:video];
-            [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeVideoThumbnail:) object:video] autorelease]];
+            [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storeVideoThumbnail:) object:video]];
         } 
     }
 }
@@ -169,7 +169,7 @@
 {
     NSError *error = nil;
     NSString *requestString = [NSString stringWithFormat:@"http://gdata.youtube.com/feeds/api/videos/%@?v=2", providerId];    
-    NSString *youTubeVideoData = [[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error] autorelease];
+    NSString *youTubeVideoData = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:requestString] encoding:NSASCIIStringEncoding error:&error];
     
     NSRange syndicateDenied = [youTubeVideoData rangeOfString:@"yt:accessControl action='syndicate' permission='denied'"];
     NSRange syndicateLimited = [youTubeVideoData rangeOfString:@"yt:state name='restricted' reasonCode='limitedSyndication'"];
@@ -219,7 +219,7 @@
     }
 
     if (needsCoreDataUpdate && self.delegate) {
-        [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storePlayableStatus:) object:video] autorelease]];
+        [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:[VideoCoreDataInterface class] selector:@selector(storePlayableStatus:) object:video]];
     }
 }
 
@@ -245,7 +245,7 @@
 
 - (void)scheduleCheckPlayable:(Video *)video
 {
-    [operationQueue addOperation:[[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(checkPlayable:) object:video] autorelease]];
+    [operationQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(checkPlayable:) object:video]];
 }
 
 - (void)scheduleImageAcquisitionWithBroadcast:(Broadcast *)broadcast withVideo:(Video *)video;

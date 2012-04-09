@@ -74,8 +74,8 @@
     BOOL _inLayoutSubviewsAlready;
 }
 
-@property (nonatomic, retain) VideoTableData* videoTableData;
-@property (nonatomic, retain) VideoTableViewController* viewController;
+@property (strong, nonatomic) VideoTableData* videoTableData;
+@property (strong, nonatomic) VideoTableViewController* viewController;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setVideo:(Video *)video andSizeFrames:(BOOL)sizeFrames;

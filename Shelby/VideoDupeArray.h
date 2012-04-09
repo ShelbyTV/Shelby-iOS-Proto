@@ -12,7 +12,7 @@
 
 @interface VideoDupeArray : NSObject
 
-@property (nonatomic, retain, readonly) NSDate *latestCreationDate;
+@property (strong, nonatomic, readonly) NSDate *latestCreationDate;
 
 - (void)removeVideoWithShelbyId:(NSString *)shelbyId;
 - (void)addVideo:(Video *)video;

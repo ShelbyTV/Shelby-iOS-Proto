@@ -32,10 +32,4 @@
 	return NO;
 }
 
-- (void)dealloc 
-{
-	[webView release];
-	[userAgent release];
-	[super dealloc];
-}
 @end

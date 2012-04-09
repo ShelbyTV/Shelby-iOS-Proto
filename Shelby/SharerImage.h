@@ -12,7 +12,7 @@
 
 @interface SharerImage : NSManagedObject
 
-@property (nonatomic, retain) Broadcast *broadcast;
-@property (nonatomic, retain) NSData *imageData;
+@property (strong, nonatomic) Broadcast *broadcast;
+@property (strong, nonatomic) NSData *imageData;
 
 @end

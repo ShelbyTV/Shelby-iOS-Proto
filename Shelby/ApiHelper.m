@@ -29,7 +29,7 @@
 - (ApiMutableURLRequest *)requestForURL:(NSURL *)url 
                                withMethod:(NSString *)method;
 {
-    ApiMutableURLRequest *request = [[[ApiMutableURLRequest alloc] initWithURL: url] autorelease];
+    ApiMutableURLRequest *request = [[ApiMutableURLRequest alloc] initWithURL: url];
     
     [request setConsumerKey:kShelbyConsumerKey secret:kShelbyConsumerSecret];
     if (self.accessToken != nil) [request setToken: self.accessToken secret: self.accessTokenSecret];

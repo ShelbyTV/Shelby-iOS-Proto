@@ -95,18 +95,17 @@
     
     NSManagedObjectContext *context = [CoreDataHelper allocateContext];
     
-    NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *broadcasts = [[NSMutableArray alloc] init];
     [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
         
     for (Broadcast *broadcast in broadcasts) {
         if ([broadcast.isPlayable intValue] == PLAYABLE_UNSET) {
-            Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
+            Video *video = [[Video alloc] initWithBroadcast:broadcast];
             
             [dataProcessor scheduleCheckPlayable:video];
         }
     }
         
-    [context release];
 }
 
 - (void)processPollingBroadcastsStoredInCoreData:(NSTimer*)timer
@@ -139,7 +138,7 @@
     int newVideos = 0;
     int newCommentsOnExistingVideos = 0;
     
-    NSMutableDictionary *alreadyCountedVideos = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *alreadyCountedVideos = [[NSMutableDictionary alloc] init];
     
     /*
      * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.
@@ -183,7 +182,6 @@
         }
     }
     
-    [context release];
     
     // need to dispatch update even if 0 newVideos, 0 newComments
     dispatch_async(dispatch_get_main_queue(), ^{

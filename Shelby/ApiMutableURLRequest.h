@@ -11,6 +11,6 @@
 @interface ApiMutableURLRequest : OAuthMutableURLRequest {
 }
 
-@property (nonatomic, retain) NSDictionary *userInfoDict;
+@property (strong, nonatomic) NSDictionary *userInfoDict;
 
 @end

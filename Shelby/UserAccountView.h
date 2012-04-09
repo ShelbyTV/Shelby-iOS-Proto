@@ -39,7 +39,7 @@
     IBOutlet UIBarButtonItem *_demoModeButton;
 }
 
-@property (assign) id <UserAccountViewDelegate> delegate;
+@property (unsafe_unretained) id <UserAccountViewDelegate> delegate;
 
 + (UserAccountView *)userAccountViewFromNibWithFrame:(CGRect)frame
                                         withDelegate:(id <UserAccountViewDelegate>)delegate;

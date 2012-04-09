@@ -42,7 +42,7 @@
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict
 {    
     //API sends us dates in this format, basically UTC / GMT format
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
    

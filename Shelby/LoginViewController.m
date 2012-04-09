@@ -67,9 +67,9 @@
                                                    object:nil];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            _fullscreenWebView = [[[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPad" bundle:[NSBundle mainBundle]] retain];
+            _fullscreenWebView = [[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPad" bundle:[NSBundle mainBundle]];
         } else {
-            _fullscreenWebView = [[[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPhone" bundle:[NSBundle mainBundle]] retain];
+            _fullscreenWebView = [[FullscreenWebViewController alloc] initWithNibName:@"FullscreenWebViewController_iPhone" bundle:[NSBundle mainBundle]];
         }
         [_fullscreenWebView loadView];
         [_fullscreenWebView setDelegate:self];

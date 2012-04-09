@@ -36,7 +36,7 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    return [[self singleton] retain];
+    return [self singleton];
 }
 
 - (id)copyWithZone:(NSZone *)zone
@@ -221,9 +221,5 @@ static VideoContentURLGetter *singletonVideoContentURLGetter = nil;
     processingNotifications = FALSE;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

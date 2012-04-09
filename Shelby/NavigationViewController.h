@@ -55,7 +55,7 @@
     IBOutlet UISearchBar *searchBar;
     BOOL _searchBarVisible;
 
-    ShareView *_shareView;
+    ShareView * _shareView;
     UserAccountView *_userAccountView;
     
     RemoteModeViewController *_remoteModeView;
@@ -71,7 +71,7 @@
     NSSet *_authorizations;
 }
 
-@property (nonatomic, retain) ShareView *shareView;
+@property (strong, nonatomic) ShareView *shareView;
 
 @property (readonly) NSInteger networkCounter;
 @property (readwrite) BOOL touched;

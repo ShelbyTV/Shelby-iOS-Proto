@@ -182,8 +182,6 @@
     NSError *error = nil;
     NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
     
-    [fetchRequest release];
-    [sorter release];
     
     return broadcasts;
 }
@@ -202,13 +200,13 @@
     [fetchRequest setEntity:entity];
     NSDictionary *attributes = [entity attributesByName];
     
-    NSArray *propertiesToFetch = [[[NSArray alloc] initWithObjects:
+    NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:
                                   [attributes objectForKey:@"provider"],
                                   [attributes objectForKey:@"providerId"],
                                   [attributes objectForKey:@"isPlayable"],
                                   [attributes objectForKey:@"shelbyId"],
                                   [attributes objectForKey:@"createdAt"],
-                                  nil] autorelease];
+                                  nil];
     
     [fetchRequest setPropertiesToFetch:propertiesToFetch];
     
@@ -223,8 +221,6 @@
     NSError *error = nil;
     NSArray *broadcasts = [context executeFetchRequest:fetchRequest error:&error];
     
-    [fetchRequest release];
-    [sorter release];
     
     return broadcasts;
 }
@@ -260,7 +256,6 @@
             //[self updateVideoTableCell:video];
         }
         
-        [context release];
 
     }
 }
@@ -298,7 +293,6 @@
             video.sharerImage = [UIImage imageWithData:sharerImage.imageData];
         }
         
-        [context release];
     
     }
 }
@@ -329,7 +323,7 @@
         return;
     }
     
-    NSMutableArray *discardedBroadcasts = [[[NSMutableArray alloc] initWithCapacity:numToRemove] autorelease];
+    NSMutableArray *discardedBroadcasts = [[NSMutableArray alloc] initWithCapacity:numToRemove];
     
     int jsonBroadcastsCount = [jsonBroadcasts count];
     

@@ -34,8 +34,8 @@
 
 @interface UserSessionHelper ()
 
-@property (nonatomic, readwrite, retain) User *currentUser;
-@property (nonatomic, retain) Channel *currentUserPublicChannel;
+@property (strong, nonatomic, readwrite) User *currentUser;
+@property (strong, nonatomic) Channel *currentUserPublicChannel;
 @property (nonatomic, copy) NSString *identityProvider;
 @property (readwrite) NSInteger networkCounter;
 

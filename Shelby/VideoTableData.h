@@ -29,7 +29,7 @@
     BOOL videoTableNeedsUpdate;
 }
 
-@property (assign) id <VideoTableDataDelegate> delegate;
+@property (unsafe_unretained) id <VideoTableDataDelegate> delegate;
 @property (readonly) NSInteger networkCounter;
 @property (readonly) NSUInteger numItemsInserted;
 

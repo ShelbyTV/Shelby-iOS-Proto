@@ -36,7 +36,7 @@
     BOOL _remoteModeButton;
 }
 
-@property (assign) id <VideoPlayerControlBarDelegate> delegate;
+@property (unsafe_unretained) id <VideoPlayerControlBarDelegate> delegate;
 @property (readwrite) float progress;
 @property (readwrite) float duration;
 @property (readwrite) BOOL tv;

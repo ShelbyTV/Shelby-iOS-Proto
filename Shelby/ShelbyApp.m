@@ -45,7 +45,6 @@ static ShelbyWindow *gSecondScreenWindow;
         BSWebViewUserAgent *agent = [[BSWebViewUserAgent alloc] init];
         gShelbyApp.safariUserAgent = [agent userAgentString];
         NSLog(@"Safari user agent string: %@", gShelbyApp.safariUserAgent);
-        [agent release];
         
         [SessionStats startSessionReportingTimer];
     }
@@ -78,9 +77,9 @@ static ShelbyWindow *gSecondScreenWindow;
         
         persistentStoreCoordinator = appDelegate.persistentStoreCoordinator; // used to create other contexts for other threads / subsystems
         
-        self.userSessionHelper = [[[UserSessionHelper alloc] initWithContext:context] autorelease];
-        self.videoData = [[[VideoData alloc] init] autorelease];
-        self.apiHelper = [[[ApiHelper alloc] init] autorelease];
+        self.userSessionHelper = [[UserSessionHelper alloc] initWithContext:context];
+        self.videoData = [[VideoData alloc] init];
+        self.apiHelper = [[ApiHelper alloc] init];
         [self.apiHelper loadTokens];
         [self addNetworkObject:self.userSessionHelper];
         [self addNetworkObject:self.apiHelper];

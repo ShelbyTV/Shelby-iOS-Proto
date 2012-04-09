@@ -57,7 +57,7 @@
         // Example:
         // shelby://ios.shelby.tv/auth?oauth_token=WuhQpEQuyPaS1EczFnfRBA7ThXCwWerX3rhECBIz&oauth_verifier=NPkCVIlxYXYiBYYfGsB6
         
-        URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
+        URLParser *parser = [[URLParser alloc] initWithURLString: [url absoluteString]];
         
         NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];
         
@@ -111,7 +111,6 @@
 
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
     [NSURLCache setSharedURLCache:sharedCache];
-    [sharedCache release];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
@@ -139,14 +138,6 @@
     [SessionStats endSessionReportingTimer];
 }
 
-- (void)dealloc
-{
-    [_window release];
-    [__managedObjectContext release];
-    [__managedObjectModel release];
-    [__persistentStoreCoordinator release];
-    [super dealloc];
-}
 
 - (void)awakeFromNib
 {

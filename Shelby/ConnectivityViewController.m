@@ -87,7 +87,7 @@
 
 - (UIView *)offlineView {
     if (!_offlineView) {
-        _offlineView = [[OfflineView viewFromNib] retain];
+        _offlineView = [OfflineView viewFromNib];
     }
     return _offlineView;
 }
@@ -125,7 +125,6 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Doh!" message:@"Apparently there are just too many bits for our compy's right now. Take a walk and try again later?"
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
-    [alert release];
 }
 
 #pragma mark - Notification Handlers
@@ -181,11 +180,11 @@
     // check for internet connection
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
 
-    internetReachable = [[Reachability reachabilityForInternetConnection] retain];
+    internetReachable = [Reachability reachabilityForInternetConnection];
     [internetReachable startNotifier];
 
     // check if a pathway to a random host exists
-    hostReachable = [[Reachability reachabilityWithHostName: @"api.shelby.tv"] retain];
+    hostReachable = [Reachability reachabilityWithHostName: @"api.shelby.tv"];
     [hostReachable startNotifier];
 }
 

@@ -77,24 +77,6 @@
     return [VideoHelper dupeKeyWithProvider:self.provider withId:self.providerId];
 }
 
-- (void) dealloc
-{
-    [provider release]; provider = nil;
-    [providerId release]; providerId = nil;
-    [contentURL release]; contentURL = nil;
-    [thumbnailURL release]; thumbnailURL = nil;
-    [thumbnailImage release]; thumbnailImage = nil;
-    title = nil;
-    sharer = nil;
-    sharerComment = nil;
-    [sharerImageURL release]; sharerImageURL = nil;
-    [sharerImage release]; sharerImage = nil;
-    source = nil;
-    shelbyId = nil;
-    [createdAt release]; createdAt = nil;
-    
-    [super dealloc];
-}
 
 - (NSString *)description
 {

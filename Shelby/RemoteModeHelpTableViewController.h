@@ -10,6 +10,6 @@
 
 @interface RemoteModeHelpTableViewController : UITableViewController
 
-@property (nonatomic, assign) IBOutlet UITableViewCell *helpCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell *helpCell;
 
 @end

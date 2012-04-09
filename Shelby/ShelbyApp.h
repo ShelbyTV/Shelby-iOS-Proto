@@ -26,13 +26,13 @@
     BOOL _demoModeEnabled;
 }
 
-@property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, retain) UserSessionHelper            *userSessionHelper;
-@property (nonatomic, retain) ApiHelper                    *apiHelper;
-@property (nonatomic, retain) VideoData                    *videoData;
-@property (nonatomic, retain) NavigationViewController     *navigationViewController;
+@property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (strong, nonatomic) UserSessionHelper            *userSessionHelper;
+@property (strong, nonatomic) ApiHelper                    *apiHelper;
+@property (strong, nonatomic) VideoData                    *videoData;
+@property (strong, nonatomic) NavigationViewController     *navigationViewController;
 @property (nonatomic, copy) NSString                     *safariUserAgent;
-@property (nonatomic, retain) UIWindow                     *shelbyWindow;
+@property (strong, nonatomic) UIWindow                     *shelbyWindow;
 
 @property (nonatomic) BOOL demoModeEnabled;
 @property (nonatomic, readonly) BOOL isNetworkBusy;

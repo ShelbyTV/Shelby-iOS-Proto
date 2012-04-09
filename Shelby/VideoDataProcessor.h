@@ -23,7 +23,7 @@
     NSOperationQueue *operationQueue;
 }
 
-@property (assign) id <VideoDataProcessorDelegate> delegate;
+@property (unsafe_unretained) id <VideoDataProcessorDelegate> delegate;
 
 - (void)scheduleCheckPlayable:(Video *)video;
 - (void)scheduleImageAcquisitionWithBroadcast:(Broadcast *)broadcast withVideo:(Video *)video;

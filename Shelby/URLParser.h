@@ -12,7 +12,7 @@
 @interface URLParser : NSObject {
 }
 
-@property (nonatomic, retain) NSArray *variables;
+@property (strong, nonatomic) NSArray *variables;
 
 - (id)initWithURLString:(NSString *)url;
 - (NSString *)valueForVariable:(NSString *)varName;

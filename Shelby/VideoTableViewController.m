@@ -167,7 +167,6 @@
       view.delegate = self;
       [self.tableView addSubview:view];
       _refreshHeaderView = view;
-      [view release];
     }
 }
 
@@ -227,7 +226,7 @@
     VideoTableViewCell *dynVideoCell = (VideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:videoCellIdentifier];
     
     if (dynVideoCell == nil) {
-        dynVideoCell = [[[VideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellIdentifier] autorelease];
+        dynVideoCell = [[VideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellIdentifier];
     }
     
     dynVideoCell.videoTableData = videoTableData;
@@ -301,7 +300,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    NSArray *visibleCells = [[[NSArray alloc] initWithArray:self.tableView.visibleCells] autorelease];
+    NSArray *visibleCells = [[NSArray alloc] initWithArray:self.tableView.visibleCells];
     
     for (UITableViewCell *cell in visibleCells) {
         [(VideoTableViewCell *)cell didRotateFromInterfaceOrientation:fromInterfaceOrientation];

@@ -20,7 +20,7 @@
         NSScanner *scanner = [NSScanner scannerWithString:url];
         [scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@"&?"]];
         
-        NSMutableArray *vars = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *vars = [[NSMutableArray alloc] init];
         [scanner scanUpToString:@"?" intoString:nil]; // ignore the beginning of the string and skip to the vars
         
         NSString *tempString;
@@ -45,10 +45,5 @@
     return nil;
 }
 
-- (void)dealloc
-{
-    self.variables = nil;
-    [super dealloc];
-}
 
 @end

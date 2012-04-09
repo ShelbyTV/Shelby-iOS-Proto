@@ -19,8 +19,8 @@
 }
 
 // Offline detection
-@property(nonatomic, retain) Reachability *internetReachable;
-@property(nonatomic, retain) Reachability *hostReachable;
+@property(strong, nonatomic) Reachability *internetReachable;
+@property(strong, nonatomic) Reachability *hostReachable;
 @property(readwrite) BOOL internetActive;
 @property(readwrite) BOOL hostActive;
 

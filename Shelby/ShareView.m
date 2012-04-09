@@ -36,11 +36,6 @@
     return [objects objectAtIndex:0];
 }
 
-- (void) dealloc
-{
-    [_video release];
-    [super dealloc];
-}
 
 #pragma mark - View lifecycle
 
@@ -59,7 +54,7 @@
     [_cancelBackButton setTitle:@"Cancel"];
     _toolbarLabel.text = @"Share";
     
-    NSMutableArray *toolbarItems = [[[NSMutableArray alloc] initWithArray:[_toolbar items]] autorelease];
+    NSMutableArray *toolbarItems = [[NSMutableArray alloc] initWithArray:[_toolbar items]];
     if ([toolbarItems containsObject:_sendButton]) {
         [toolbarItems removeObject:_sendButton];
     }
@@ -132,7 +127,6 @@
     UIColor *backgroundPattern = [UIColor colorWithPatternImage: [UIImage imageNamed: @"shareBackground"]];
     _dialogContainerView.backgroundColor = backgroundPattern;
     
-    [_sendButton retain];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -266,7 +260,7 @@
         [_cancelBackButton setTitle:@"Back"];
         _toolbarLabel.text = @"Post";
         
-        NSMutableArray *toolbarItems = [[[NSMutableArray alloc] initWithArray:[_toolbar items]] autorelease];
+        NSMutableArray *toolbarItems = [[NSMutableArray alloc] initWithArray:[_toolbar items]];
         if (![toolbarItems containsObject:_sendButton]) {
             [toolbarItems addObject:_sendButton];
         }
@@ -305,7 +299,7 @@
         [_cancelBackButton setTitle:@"Back"];
         _toolbarLabel.text = @"Email";
         
-        NSMutableArray *toolbarItems = [[[NSMutableArray alloc] initWithArray:[_toolbar items]] autorelease];
+        NSMutableArray *toolbarItems = [[NSMutableArray alloc] initWithArray:[_toolbar items]];
         if (![toolbarItems containsObject:_sendButton]) {
             [toolbarItems addObject:_sendButton];
         }
@@ -484,7 +478,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"The only way to add a Tumblr account right now is via the web at http://shelby.tv."
                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
-        [alert release];
     } else {
         _tumblrButton.selected = !_tumblrButton.selected;
         [self setTumblrAuthorized:TRUE];
@@ -525,8 +518,7 @@
 
 - (void)setVideo:(Video *)video {
     // Standard retain/release.
-    [_video release];
-    _video = [video retain];
+    _video = video;
     
     [self populateUI];
 }

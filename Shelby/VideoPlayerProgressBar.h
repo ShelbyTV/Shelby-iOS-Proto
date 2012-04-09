@@ -32,7 +32,7 @@
     CFTimeInterval _lastTouchTime;
 }
 
-@property(assign) id <VideoProgressBarDelegate> delegate;
+@property(unsafe_unretained) id <VideoProgressBarDelegate> delegate;
 @property(readwrite) float duration;
 
 - (void)setProgress:(float)progress;

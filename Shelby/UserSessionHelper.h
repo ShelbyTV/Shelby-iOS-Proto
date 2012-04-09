@@ -20,8 +20,8 @@
 }
 
 @property (readonly) NSInteger networkCounter;
-@property (nonatomic, readonly, retain) User *currentUser;
-@property (nonatomic, readonly, retain) Channel *currentUserPublicChannel;
+@property (strong, nonatomic, readonly) User *currentUser;
+@property (strong, nonatomic, readonly) Channel *currentUserPublicChannel;
 
 - (id)initWithContext:(NSManagedObjectContext *)context;
 

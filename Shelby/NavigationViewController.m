@@ -244,7 +244,6 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo mode?" message:@"Would you like to turn demo mode on?"
                                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
     [alert show];
-    [alert release];
 }
 
 - (void)toggleSettings
@@ -657,7 +656,6 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Aaawww… " message:@"I know you love that video, but it seems our heart is broken right now. Maybe try to like me again later?"
                                                    delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
-    [alert release];
 }
 
 - (void)userLoggedOut:(NSNotification*)aNotification
@@ -703,9 +701,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 
-    [_videoPlayer release];
 
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning

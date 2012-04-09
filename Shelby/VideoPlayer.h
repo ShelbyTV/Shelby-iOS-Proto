@@ -86,12 +86,12 @@
     BOOL _initialized;
 }
 
-@property (assign) id <VideoPlayerDelegate> delegate;
+@property (unsafe_unretained) id <VideoPlayerDelegate> delegate;
 @property (readonly) BOOL isIdle;
-@property (nonatomic, retain) VideoPlayerTitleBar *titleBar;
-@property (nonatomic, retain) VideoPlayerTitleBar *tvTitleBar;
+@property (strong, nonatomic) VideoPlayerTitleBar *titleBar;
+@property (strong, nonatomic) VideoPlayerTitleBar *tvTitleBar;
 @property (nonatomic, readonly) MPMoviePlayerController *moviePlayer;
-@property (nonatomic, readwrite, retain) Video *currentVideo;
+@property (strong, nonatomic, readwrite) Video *currentVideo;
 @property (nonatomic) BOOL fullscreen;
 
 

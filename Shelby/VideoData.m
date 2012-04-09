@@ -89,12 +89,12 @@
 
 - (NSArray *)videoDupesForVideo:(Video *)video
 {
-    return [[[((VideoDupeArray *)[videoDupeDict objectForKey:[video dupeKey]]) copyOfVideoArray] retain] autorelease];
+    return [((VideoDupeArray *)[videoDupeDict objectForKey:[video dupeKey]]) copyOfVideoArray];
 }
 
 - (NSArray *)videoDupesForKey:(NSString *)videoKey
 {
-    return [[[((VideoDupeArray *)[videoDupeDict objectForKey:videoKey]) copyOfVideoArray] retain] autorelease];
+    return [((VideoDupeArray *)[videoDupeDict objectForKey:videoKey]) copyOfVideoArray];
 }
 
 - (NSURL *)getVideoContentURL:(Video *)video
@@ -139,7 +139,7 @@
 
     if (numToRemove > 0) {
         
-        NSMutableArray *discardedBroadcasts = [[[NSMutableArray alloc] initWithCapacity:numToRemove] autorelease];
+        NSMutableArray *discardedBroadcasts = [[NSMutableArray alloc] initWithCapacity:numToRemove];
 
         for (Broadcast *broadcast in [broadcasts reverseObjectEnumerator]) {
             if (numRemoved >= numToRemove) {
@@ -173,7 +173,7 @@
     }
 
     for (Broadcast *broadcast in broadcasts) {
-        Video *video = [[[Video alloc] initWithBroadcast:broadcast] autorelease];
+        Video *video = [[Video alloc] initWithBroadcast:broadcast];
         
         if (IS_NULL([knownShelbyIds objectForKey:video.shelbyId])) {
             [knownShelbyIds setObject:[NSValue valueWithPointer:nil] forKey:video.shelbyId];
@@ -189,7 +189,7 @@
             }
             [self updateVideoTableCell:[[dupeArray copyOfVideoArray] objectAtIndex:0]];
         } else {
-            dupeArray = [[[VideoDupeArray alloc] init] autorelease];
+            dupeArray = [[VideoDupeArray alloc] init];
             [dupeArray addVideo:video];
             [videoDupeDict setObject:dupeArray forKey:[VideoHelper dupeKeyWithProvider:broadcast.provider withId:broadcast.providerId]];
             @synchronized(videoDupeArraysSorted) {
@@ -214,7 +214,7 @@
         
         NSManagedObjectContext *context = [CoreDataHelper allocateContext];
         
-        NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *broadcasts = [[NSMutableArray alloc] init];
         [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
         [self processBroadcastArray:broadcasts withContext:context];
         
@@ -344,7 +344,7 @@
         
         NSManagedObjectContext *context = [CoreDataHelper allocateContext];
         
-        NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *broadcasts = [[NSMutableArray alloc] init];
         [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
         [self processBroadcastArray:broadcasts withContext:context];
         

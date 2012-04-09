@@ -55,7 +55,7 @@
     if (NOT_NULL(error)) {
         LOG(@"%@ error: %@", requestType, error);
     } else {
-        SBJsonParser *parser = [[[SBJsonParser alloc] init] autorelease];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
         NSDictionary *dict = [parser objectWithData:data];
         NSString *apiError = [dict objectForKey:@"err"];
         

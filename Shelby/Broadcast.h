@@ -16,13 +16,13 @@
 @interface Broadcast : NSManagedObject {
 }
 
-@property (nonatomic, retain) Channel        *channel;
-@property (nonatomic, retain) SharerImage    *sharerImage;
-@property (nonatomic, retain) ThumbnailImage *thumbnailImage;
+@property (strong, nonatomic) Channel        *channel;
+@property (strong, nonatomic) SharerImage    *sharerImage;
+@property (strong, nonatomic) ThumbnailImage *thumbnailImage;
 
-@property (nonatomic, retain) NSDate   *createdAt;
-@property (nonatomic, retain) NSNumber *liked;
-@property (nonatomic, retain) NSNumber *watchLater;
+@property (strong, nonatomic) NSDate   *createdAt;
+@property (strong, nonatomic) NSNumber *liked;
+@property (strong, nonatomic) NSNumber *watchLater;
 @property (nonatomic, copy) NSString *origin;
 @property (nonatomic, copy) NSString *provider;
 @property (nonatomic, copy) NSString *providerId;
@@ -33,8 +33,8 @@
 @property (nonatomic, copy) NSString *shortPermalink;
 @property (nonatomic, copy) NSString *thumbnailImageUrl;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, retain) NSNumber *watched;
-@property (nonatomic, retain) NSNumber *isPlayable;
+@property (strong, nonatomic) NSNumber *watched;
+@property (strong, nonatomic) NSNumber *isPlayable;
 
 - (void)populateFromApiJSONDictionary:(NSDictionary *)dict;
 

@@ -10,8 +10,8 @@
 #import "Video.h"
 
 @interface VideoDupeArray ()
-@property (nonatomic, retain) NSMutableArray *array;
-@property (nonatomic, retain, readwrite) NSDate *latestCreationDate;
+@property (nonatomic, strong) NSMutableArray *array;
+@property (strong, nonatomic, readwrite) NSDate *latestCreationDate;
 @end
 
 @implementation VideoDupeArray
@@ -28,13 +28,6 @@
     return self;
 }
 
-- (void) dealloc
-{
-    [array release]; array = nil;
-    [latestCreationDate release]; latestCreationDate = nil;
-    
-    [super dealloc];
-}
 
 - (void)addVideo:(Video *)video
 {

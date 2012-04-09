@@ -65,7 +65,7 @@
     IBOutlet UIImageView *touchPlayLogo;
 }
 
-@property (assign) id <RemoteModeDelegate> delegate;
+@property (unsafe_unretained) id <RemoteModeDelegate> delegate;
 
 - (IBAction)helpPressed:(id)sender;
 

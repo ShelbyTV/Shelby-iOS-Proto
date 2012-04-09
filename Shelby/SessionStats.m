@@ -32,7 +32,7 @@ static SessionStats *singletonSessionStats = nil;
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    return [[self singleton] retain];
+    return [self singleton];
 }
 
 - (id)copyWithZone:(NSZone *)zone
@@ -47,7 +47,7 @@ static SessionStats *singletonSessionStats = nil;
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    clientString = [[NSString stringWithFormat:@"ios%@", [infoDictionary objectForKey:@"CFBundleVersion"]] retain];
+    clientString = [NSString stringWithFormat:@"ios%@", [infoDictionary objectForKey:@"CFBundleVersion"]];
 }
 
 - (void)startSessionReportingTimerInt
@@ -134,7 +134,7 @@ static SessionStats *singletonSessionStats = nil;
             }
         }
               
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[[NSURL alloc] initWithString:@"http://cobra.shelby.tv/v1/sessions"] autorelease]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://cobra.shelby.tv/v1/sessions"]];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:[formString dataUsingEncoding:NSUTF8StringEncoding]];

@@ -240,10 +240,6 @@ static NSString *TV_NIB_NAME_1080 = @"VideoPlayerControlBar_TV_1080";
     [_progressBar layoutSubviews];
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)adjustProgressBarForTV
 {

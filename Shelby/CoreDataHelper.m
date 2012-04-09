@@ -16,7 +16,7 @@
                    withShelbyId:(NSString *)shelbyId 
                       inContext:(NSManagedObjectContext *)context
 {
-    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     [fetchRequest setEntity:[NSEntityDescription entityForName:entityName 
                                         inManagedObjectContext:context]];
@@ -39,7 +39,7 @@
           withBroadcastShelbyId:(NSString *)shelbyId 
                       inContext:(NSManagedObjectContext *)context
 {
-    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     [fetchRequest setEntity:[NSEntityDescription entityForName:entityName 
                                         inManagedObjectContext:context]];
@@ -100,7 +100,6 @@
         [CoreDataHelper saveContextAndLogErrors:context];
     }
     
-    [context release];
 }
 
 + (void)deleteEntityType:(NSString *)entityName withContext:(NSManagedObjectContext *)context
@@ -111,7 +110,6 @@
     
     NSError *error;
     NSArray *entities = [context executeFetchRequest:allEntities error:&error];
-    [allEntities release];
     
     for (NSManagedObject *entity in entities) {
         [context deleteObject:entity];
@@ -152,7 +150,6 @@
     NSError *error = nil;
     NSArray *channels = [context executeFetchRequest:fetchRequest error:&error];
     
-    [fetchRequest release];
     
     return (NOT_NULL(channels) && [channels count] > 0) ? [channels objectAtIndex:0] : nil;
 }
@@ -164,7 +161,6 @@
     
     NSError *error;
     NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
-    [fetchRequest release];
     
     return (NOT_NULL(objects) && [objects count] > 0) ? [objects objectAtIndex:0] : nil;
 }

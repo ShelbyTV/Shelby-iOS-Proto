@@ -30,9 +30,9 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
 }
 
-@property (nonatomic, assign) id <VideoTableViewControllerDelegate> delegate;
-@property (nonatomic, assign) IBOutlet UITableViewCell *videoCell;
-@property (nonatomic, assign) VideoTableData *videoTableData;
+@property (nonatomic, unsafe_unretained) id <VideoTableViewControllerDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UITableViewCell *videoCell;
+@property (nonatomic, strong) VideoTableData *videoTableData;
 
 - (void)reset;
 - (Video *)getFirstVideo;
