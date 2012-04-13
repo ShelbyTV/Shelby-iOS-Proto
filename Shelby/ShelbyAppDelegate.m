@@ -6,32 +6,41 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+// Cocoa Libraries
+#import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
+
+// Third Party Libraries
+#import <Crashlytics/Crashlytics.h>
+#import "Appirater.h"
+
 #import "ShelbyAppDelegate.h"
 #import "URLParser.h"
 #import "ShelbyApp.h"
 #import "UserSessionHelper.h"
 #import "NavigationViewController.h"
-#import <AVFoundation/AVFoundation.h>
-#import <QuartzCore/QuartzCore.h>
 #import "ShelbyWindow.h"
 #import "SessionStats.h"
 #import "DataApi.h"
 
+@interface ShelbyAppDelegate  ()
+
+- (void)initializeThirdPartyLibraries;
+
+@end
+
 @implementation ShelbyAppDelegate
-
-
 @synthesize window=_window;
-
 @synthesize managedObjectContext=__managedObjectContext;
-
 @synthesize managedObjectModel=__managedObjectModel;
-
 @synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //[super application: application didFinishLaunchingWithOptions: launchOptions];
-    // Make sure the singleton is initialized.
-    [ShelbyApp sharedApp];
+#pragma mark - UIApplication Delegate Methods
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
+{
+    [ShelbyApp sharedApp];  
+    
+    [self initializeThirdPartyLibraries];
     
     return YES;
 }
@@ -101,6 +110,8 @@
      */
     
     [SessionStats startSessionReportingTimer];
+    
+    [Appirater appEnteredForeground:YES];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -126,7 +137,7 @@
 
 }
 
-- (void) screenDidConnect:(NSNotification *)notification {
+- (void)screenDidConnect:(NSNotification *)notification {
     NSLog(@"Received screenDidConnect!!!!");
 }
 
@@ -235,6 +246,13 @@
     }
 
     return __persistentStoreCoordinator;
+}
+
+#pragma mark - Third Party Libraries
+- (void)initializeThirdPartyLibraries
+{
+    [Appirater appLaunched:YES];
+    [Crashlytics startWithAPIKey:@"84a79b7ee6f2eca13877cd17b9b9a290790f99aa"];
 }
 
 #pragma mark - Application's Documents directory
