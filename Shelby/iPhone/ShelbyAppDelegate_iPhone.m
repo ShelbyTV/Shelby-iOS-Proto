@@ -61,7 +61,22 @@
         [navigationViewController loadInitialUserDataAlreadyLoggedIn];
     }
         
+    
+    [self initializeThirdPartyLibraries];
+    
     return YES;
+}
+
+-(void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [Appirater appEnteredForeground:YES];
+}
+
+#pragma mark - Third Party Libraries
+- (void)initializeThirdPartyLibraries
+{
+    [Appirater appLaunched:YES]; 
+    [Crashlytics startWithAPIKey:@"84a79b7ee6f2eca13877cd17b9b9a290790f99aa"];
 }
 
 @end

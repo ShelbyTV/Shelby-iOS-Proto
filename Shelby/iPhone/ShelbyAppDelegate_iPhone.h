@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ShelbyAppDelegate.h"
 
-@interface ShelbyAppDelegate_iPhone : ShelbyAppDelegate {
-    
-}
+@interface ShelbyAppDelegate_iPhone : ShelbyAppDelegate <ThirdPartyDelegate>
 
 @end

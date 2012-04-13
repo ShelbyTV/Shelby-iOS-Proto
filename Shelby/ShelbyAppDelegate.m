@@ -6,31 +6,38 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+// Cocoa Lbraries
+#import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
+
 #import "ShelbyAppDelegate.h"
 #import "URLParser.h"
 #import "ShelbyApp.h"
 #import "UserSessionHelper.h"
 #import "NavigationViewController.h"
-#import <AVFoundation/AVFoundation.h>
-#import <QuartzCore/QuartzCore.h>
 #import "ShelbyWindow.h"
 #import "SessionStats.h"
 #import "DataApi.h"
 
 @implementation ShelbyAppDelegate
-
-
 @synthesize window=_window;
-
 @synthesize managedObjectContext=__managedObjectContext;
-
 @synthesize managedObjectModel=__managedObjectModel;
-
 @synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
 
+#pragma mark - Memory Deallocaiton Methods
+- (void)dealloc
+{
+    [_window release];
+    [__managedObjectContext release];
+    [__managedObjectModel release];
+    [__persistentStoreCoordinator release];
+    [super dealloc];
+}
+
+#pragma mark - UIApplicationDelegate Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //[super application: application didFinishLaunchingWithOptions: launchOptions];
-    // Make sure the singleton is initialized.
+
     [ShelbyApp sharedApp];
     
     return YES;
@@ -101,6 +108,7 @@
      */
     
     [SessionStats startSessionReportingTimer];
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -137,15 +145,6 @@
     [self saveContext];
     
     [SessionStats endSessionReportingTimer];
-}
-
-- (void)dealloc
-{
-    [_window release];
-    [__managedObjectContext release];
-    [__managedObjectModel release];
-    [__persistentStoreCoordinator release];
-    [super dealloc];
 }
 
 - (void)awakeFromNib

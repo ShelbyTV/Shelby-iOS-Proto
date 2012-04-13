@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+// Third Party Libraries (for use in sub-classes)
+#import <Crashlytics/Crashlytics.h>
+#import "Appirater.h"
+
 @class LoginViewController;
 @class NavigationViewController;
 @class ShelbyWindow;
@@ -30,4 +34,9 @@
 - (void)raiseShelbyWindow;
 - (void)lowerShelbyWindow;
 
+@end
+
+
+@protocol ThirdPartyDelegate <NSObject>
+- (void)initializeThirdPartyLibraries; // Used in subclasses (_iPhone, _iPad)
 @end
