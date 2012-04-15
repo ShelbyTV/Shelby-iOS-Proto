@@ -976,6 +976,15 @@
 			name = "Core Data";
 			sourceTree = "<group>";
 		};
+		0A33D05C153B764C00197457 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				0A3E791314357D8100800018 /* TestFlight.h */,
+				0A3E791014357D5600800018 /* libTestFlight.a */,
+			);
+			name = TestFlight;
+			sourceTree = "<group>";
+		};
 		0A363C461484B5C600CB3BDA /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1004,15 +1013,6 @@
 				0AC0498F14AFCD2000FD6820 /* remoteMode_iPad.png */,
 			);
 			name = iPad;
-			sourceTree = "<group>";
-		};
-		0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */ = {
-			isa = PBXGroup;
-			children = (
-				0A3E791314357D8100800018 /* TestFlight.h */,
-				0A3E791014357D5600800018 /* libTestFlight.a */,
-			);
-			name = "***MUST REMOVE BEFORE RELEASING TO APP STORE***";
 			sourceTree = "<group>";
 		};
 		0AC82610149006BA009FF975 /* Sharing */ = {
@@ -1213,7 +1213,6 @@
 		0AD9A34513D53BD200EFECE0 = {
 			isa = PBXGroup;
 			children = (
-				0A3E790F14357D0A00800018 /* ***MUST REMOVE BEFORE RELEASING TO APP STORE*** */,
 				0AD9A35C13D53BD200EFECE0 /* Shelby */,
 				42C4C55513E8A6A50034AC97 /* Resources */,
 				0AD9A38513D53BD300EFECE0 /* ShelbyTests */,
@@ -1418,6 +1417,7 @@
 		427A622513F4717C00C945E2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0A33D05C153B764C00197457 /* TestFlight */,
 				42925B131401C01B00333F46 /* EGOTableViewPullRefresh */,
 				42AB21D113FEF34C00A8FC00 /* JSON-Framework */,
 				42AB209013FEE40500A8FC00 /* OAuth */,
