@@ -64,4 +64,9 @@
     return YES;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[iRater sharedInstance] recordEvent];
+}
+
 @end

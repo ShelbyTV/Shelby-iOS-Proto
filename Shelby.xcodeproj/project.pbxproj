@@ -366,6 +366,7 @@
 		42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB14143B9844009FCFCE /* FacebookDead.png */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
 		42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */; };
+		8EB5C492153CB36A00C88F93 /* iRater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB5C491153CB36A00C88F93 /* iRater.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -832,6 +833,8 @@
 		42FAA3AE13FD841900BC1D28 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelbyApp.h; sourceTree = "<group>"; };
 		42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelbyApp.m; sourceTree = "<group>"; };
+		8EB5C490153CB36A00C88F93 /* iRater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRater.h; sourceTree = "<group>"; };
+		8EB5C491153CB36A00C88F93 /* iRater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRater.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1417,6 +1420,7 @@
 		427A622513F4717C00C945E2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8EB5C48F153CB36A00C88F93 /* iRater */,
 				0A33D05C153B764C00197457 /* TestFlight */,
 				42925B131401C01B00333F46 /* EGOTableViewPullRefresh */,
 				42AB21D113FEF34C00A8FC00 /* JSON-Framework */,
@@ -1732,6 +1736,15 @@
 				0A9B02CD1506EA820017E2A6 /* KitchenSinkUtilities.m */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		8EB5C48F153CB36A00C88F93 /* iRater */ = {
+			isa = PBXGroup;
+			children = (
+				8EB5C490153CB36A00C88F93 /* iRater.h */,
+				8EB5C491153CB36A00C88F93 /* iRater.m */,
+			);
+			path = iRater;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2192,6 +2205,7 @@
 				0A02DD7414EDAC7100204025 /* VideoDupeArray.m in Sources */,
 				0AEF194814FD920300FA65C5 /* VideoSeparatorCell.m in Sources */,
 				0A9B02CE1506EA820017E2A6 /* KitchenSinkUtilities.m in Sources */,
+				8EB5C492153CB36A00C88F93 /* iRater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2414,6 +2428,8 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
+				CODE_SIGN_IDENTITY = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2431,6 +2447,8 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
+				PROVISIONING_PROFILE = "B09ECF02-F5E7-47A1-A176-FB36C53A0EAF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B09ECF02-F5E7-47A1-A176-FB36C53A0EAF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2443,8 +2461,8 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Johnson (74ZK87E24M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2461,7 +2479,8 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B09ECF02-F5E7-47A1-A176-FB36C53A0EAF";
+				PROVISIONING_PROFILE = "B09ECF02-F5E7-47A1-A176-FB36C53A0EAF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C3798910-2068-44E2-8980-1B840B2A8E9A";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

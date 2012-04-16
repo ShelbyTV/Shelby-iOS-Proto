@@ -178,6 +178,8 @@
     [[ShelbyApp sharedApp].apiHelper storeAccessToken:token accessTokenSecret:tokenSecret];
 
     [DataApi fetchAndStoreUserSessionData];
+    
+    [[iRater sharedInstance] recordEvent];
 }
 
 @end
