@@ -202,65 +202,71 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
 + (void)storeNewBroadcastsInCoreData:(NSArray *) array
 {   
-    // This method takes a long time to execute, and it should never be called from the main thread.
-    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    static NSString *methodLock = @"storeNewBroadcastsInCoreDataMethodLock";
     
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
-    
-    /*
-     * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.
-     * Those spots are where we save videos to CoreData (here), where we calculate how many new videos there are, and
-     * where we actually populate our data in-memory data structures.
-     *
-     * By having all 3 locations all reference the maxVideos most recent videos, we can make sure that occasional blips
-     * or odd behaviors server-side don't cause any problems client-side (e.g. if a recently added CoreData video is missing
-     * from an API update).
-     */
-    
-    int numToKeep = [PlatformHelper maxVideos];
- 
-    NSArray *newBroadcastsSortedByDate = [array sortedArrayUsingComparator:(NSComparator)^(id dict1, id dict2) {
+    // We need to make sure the polling CoreData broadcast store doesn't happen at the same time as initial login broadcast store
+    @synchronized(methodLock) {
         
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        // This method takes a long time to execute, and it should never be called from the main thread.
+        NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
         
-        NSDate *date1;
-        NSDate *date2;
+        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
         
-        if (NOT_NULL([dict1 objectForKey:@"created_at"])) {
-            date1 = [dateFormatter dateFromString:[dict1 objectForKey: @"created_at"]];
+        /*
+         * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.
+         * Those spots are where we save videos to CoreData (here), where we calculate how many new videos there are, and
+         * where we actually populate our data in-memory data structures.
+         *
+         * By having all 3 locations all reference the maxVideos most recent videos, we can make sure that occasional blips
+         * or odd behaviors server-side don't cause any problems client-side (e.g. if a recently added CoreData video is missing
+         * from an API update).
+         */
+        
+        int numToKeep = [PlatformHelper maxVideos];
+        
+        NSArray *newBroadcastsSortedByDate = [array sortedArrayUsingComparator:(NSComparator)^(id dict1, id dict2) {
+            
+            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+            [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.000Z'"];
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+            
+            NSDate *date1;
+            NSDate *date2;
+            
+            if (NOT_NULL([dict1 objectForKey:@"created_at"])) {
+                date1 = [dateFormatter dateFromString:[dict1 objectForKey: @"created_at"]];
+            }
+            if (NOT_NULL([dict2 objectForKey:@"created_at"])) {
+                date2 = [dateFormatter dateFromString:[dict2 objectForKey: @"created_at"]];
+            }
+            
+            return [date2 compare:date1];
+        }];
+        
+        int upserted = 0;
+        
+        for (NSDictionary *dict in newBroadcastsSortedByDate)
+        {        
+            if (upserted >= numToKeep) {
+                break;
+            }
+            
+            Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:context];
+            
+            if (IS_NULL(upsert)) {
+                upsert = [NSEntityDescription
+                          insertNewObjectForEntityForName:@"Broadcast"
+                          inManagedObjectContext:context];
+            }
+            
+            [upsert populateFromApiJSONDictionary:dict];
+            upsert.channel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:context];
+            
+            upserted++;
         }
-        if (NOT_NULL([dict2 objectForKey:@"created_at"])) {
-            date2 = [dateFormatter dateFromString:[dict2 objectForKey: @"created_at"]];
-        }
-
-        return [date2 compare:date1];
-    }];
-     
-    int upserted = 0;
-
-    for (NSDictionary *dict in newBroadcastsSortedByDate)
-    {        
-        if (upserted >= numToKeep) {
-            break;
-        }
-                
-        Broadcast *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast" withShelbyId:[dict objectForKey:@"_id"] inContext:context];
         
-        if (IS_NULL(upsert)) {
-            upsert = [NSEntityDescription
-                      insertNewObjectForEntityForName:@"Broadcast"
-                      inManagedObjectContext:context];
-        }
-        
-        [upsert populateFromApiJSONDictionary:dict];
-        upsert.channel = [CoreDataHelper fetchPublicChannelFromCoreDataContext:context];
-        
-        upserted++;
+        [CoreDataHelper saveAndReleaseContext:context];
     }
-    
-    [CoreDataHelper saveAndReleaseContext:context]; 
 }
 
 + (void)processGetBroadcastsResponseAndStoreInCoreData:(NSArray *)array
@@ -276,6 +282,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
 + (void)fetchPollingBroadcastsAndStoreInCoreData
 {
+    // XXX crashed here
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId]];    
     ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
     [DataApi makeRequest:req withProcessResponseSelector:@selector(processPollBroadcastsResponseAndStoreInCoreData:)];

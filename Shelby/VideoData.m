@@ -233,15 +233,6 @@
 
 - (void)receivedBroadcastsAndStoredInCoreDataNotification:(NSNotification *)notification
 {
-    [NSTimer scheduledTimerWithTimeInterval:0 
-                                     target:self
-                                   selector:@selector(loadInitialVideosFromAPIAfterBroadcastsFetched:) 
-                                   userInfo:notification.userInfo 
-                                    repeats:NO];
-}
-
-- (void)loadInitialVideosFromAPIAfterBroadcastsFetched:(NSTimer*)timer
-{
     [self loadInitialVideosFromCoreData];
 }
 
