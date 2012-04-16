@@ -282,10 +282,13 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
 + (void)fetchPollingBroadcastsAndStoreInCoreData
 {
-    // XXX crashed here
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId]];    
-    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
-    [DataApi makeRequest:req withProcessResponseSelector:@selector(processPollBroadcastsResponseAndStoreInCoreData:)];
+    // User may be logged in, but we might get unlucky and not have completed all the info-gathering APIs, so need to check...
+    if ([ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel != nil &&
+        [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId != nil) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId]];    
+        ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+        [DataApi makeRequest:req withProcessResponseSelector:@selector(processPollBroadcastsResponseAndStoreInCoreData:)];
+    }
 }
 
 + (void)processPollBroadcastsResponseAndStoreInCoreData:(NSArray *)array
