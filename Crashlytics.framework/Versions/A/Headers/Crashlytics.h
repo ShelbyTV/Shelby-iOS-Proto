@@ -2,14 +2,15 @@
 //  Crashlytics.h
 //  Crashlytics
 //
-//  Created by Jeff Seibert on 3/5/11.
 //  Copyright 2012 Crashlytics, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
+@protocol CrashlyticsDelegate;
 
 @interface Crashlytics : NSObject {
+@private
 	NSString *_apiKey;
 	NSString *_dataDirectory;
 	NSString *_bundleIdentifier;
@@ -18,11 +19,14 @@
 	id _user;
 	NSInteger _sendButtonIndex;
 	NSInteger _alwaysSendButtonIndex;
+	NSObject <CrashlyticsDelegate> *_delegate;
 }
 
-@property (readonly) NSString *apiKey;
-@property (readonly) NSString *version;
-@property (assign) BOOL debugMode;
+@property (nonatomic, readonly, copy) NSString *apiKey;
+@property (nonatomic, readonly, copy) NSString *version;
+@property (nonatomic, assign)         BOOL      debugMode;
+
+@property (nonatomic, assign)         NSObject <CrashlyticsDelegate> *delegate;
 
 /**
  *
@@ -38,6 +42,15 @@
 
 /**
  *
+ * If you need the functionality provided by the CrashlyticsDelegate protocol, you can use
+ * these convenience methods to activate the framework and set the delegate in one call.
+ *
+ **/
++ (Crashlytics *)startWithAPIKey:(NSString *)apiKey delegate:(NSObject <CrashlyticsDelegate> *)delegate;
++ (Crashlytics *)startWithAPIKey:(NSString *)apiKey delegate:(NSObject <CrashlyticsDelegate> *)delegate afterDelay:(NSTimeInterval)delay;
+
+/**
+ *
  * Access the singleton Crashlytics instance.
  *
  **/
@@ -49,5 +62,28 @@
  *
  **/
 - (void)crash;
+
+@end
+
+/**
+ *
+ * The CrashlyticsDelegate protocol provides a mechanism for your application to take
+ * action on events that occur in the Crashlytics crash reporting system.  You can make 
+ * use of these calls by assigning an object to the Crashlytics' delegate property directly,
+ * or through the convenience startWithAPIKey:delegate:... methods.
+ *
+ **/
+@protocol CrashlyticsDelegate <NSObject>
+@optional
+
+/**
+ *
+ * Called once a Crashlytics instance has determined that the last execution of the 
+ * application ended in a crash.  This is called some time after the crash reporting
+ * process has begun.  If you have specififed a delay in one of the
+ * startWithAPIKey:... calls, this will take at least that long to be invoked.
+ *
+ **/
+- (void)crashlyticsDidDetectCrashDuringPreviousExecution:(Crashlytics *)crashlytics;
 
 @end
