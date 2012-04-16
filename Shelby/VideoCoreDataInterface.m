@@ -25,7 +25,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSManagedObjectContext *context = [CoreDataHelper createContext];
         
         Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                             withShelbyId:video.shelbyId
@@ -44,7 +44,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSManagedObjectContext *context = [CoreDataHelper createContext];
         
         Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                             withShelbyId:video.shelbyId
@@ -63,7 +63,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSManagedObjectContext *context = [CoreDataHelper createContext];
         
         Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                             withShelbyId:video.shelbyId
@@ -83,7 +83,7 @@
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -105,7 +105,7 @@
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId
@@ -133,7 +133,7 @@
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     
     Broadcast *broadcast = [CoreDataHelper fetchExistingUniqueEntity:@"Broadcast"
                                                         withShelbyId:video.shelbyId

@@ -128,7 +128,7 @@
     self = [super init];
     if (self) {
         
-        self.view = [[UIView alloc] initWithFrame:frame];
+        self.view = [[[UIView alloc] initWithFrame:frame] autorelease];
         [self viewDidLoad];
         
         // DEVNOTE: A workaround to force initialization of ABPropertyIDs.

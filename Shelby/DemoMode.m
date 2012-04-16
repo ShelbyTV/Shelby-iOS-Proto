@@ -49,7 +49,7 @@
     {
         NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
         
-        NSArray *videos = [dupeArray copyOfVideoArray];
+        NSArray *videos = [[dupeArray copyOfVideoArray] autorelease];
         Video *video = [videos objectAtIndex:0];
         
         if (video.isPlayable != IS_PLAYABLE || IS_NULL(video.contentURL)) {

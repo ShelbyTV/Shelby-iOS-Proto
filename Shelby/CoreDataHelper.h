@@ -22,7 +22,7 @@
                       inContext:(NSManagedObjectContext *)context;
 
 
-+ (NSManagedObjectContext *)allocateContext;
++ (NSManagedObjectContext *)createContext;
 + (BOOL)contextHasChanges:(NSManagedObjectContext *)context;
 + (void)saveContextAndLogErrors:(NSManagedObjectContext *)context;
 + (void)saveAndReleaseContext:(NSManagedObjectContext *)context;

@@ -76,7 +76,7 @@
 
 #pragma mark - Context Helpers
 
-+ (NSManagedObjectContext *)allocateContext
++ (NSManagedObjectContext *)createContext
 {
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     [context setUndoManager:nil];
@@ -121,7 +121,7 @@
 + (void)deleteAllData
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
 
     [self deleteEntityType:@"User" withContext:context];
     [self deleteEntityType:@"Channel" withContext:context];

@@ -2461,7 +2461,7 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44E53500-CA17-400F-A933-65316853F1AB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B09ECF02-F5E7-47A1-A176-FB36C53A0EAF";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

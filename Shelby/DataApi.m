@@ -91,7 +91,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
 {
     NSLog(@"Entering downloadUserImageAndStoreUserWithDictionary");
     
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     User *upsert = [CoreDataHelper fetchExistingUniqueEntity:@"User" withShelbyId:[dict objectForKey:@"_id"] inContext:context];
     
     if (IS_NULL(upsert)) {
@@ -165,7 +165,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
 
 + (void)processGetChannelsResponse:(NSArray *)array
 {
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     
     for (NSDictionary *dict in array) {
         if ([(NSNumber *)[dict objectForKey:@"public"] intValue] != 0) {
@@ -210,7 +210,7 @@ withProcessResponseSelector:(SEL)processResponseSelector
         // This method takes a long time to execute, and it should never be called from the main thread.
         NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
         
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSManagedObjectContext *context = [CoreDataHelper createContext];
         
         /*
          * We have to make sure that we respect maxVideos in 3 spots and only examing the maxVideos most recent videos.

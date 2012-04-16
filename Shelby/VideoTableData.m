@@ -126,7 +126,7 @@
     
     for (VideoDupeArray *dupeArray in [ShelbyApp sharedApp].videoData.videoDupeArraysSorted)
     {
-        NSArray *videos = [dupeArray copyOfVideoArray];
+        NSArray *videos = [[dupeArray copyOfVideoArray] autorelease];
         Video *video = [videos objectAtIndex:0];
                 
         if (video.isPlayable != IS_PLAYABLE) {

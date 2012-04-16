@@ -93,7 +93,7 @@
     // This method takes a long time to execute, and it should never be called from the main thread.
     NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
     
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     
     NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
     [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
@@ -133,7 +133,7 @@
     newPlayableBroadcasts = FALSE;
 
     // calculate number of new videos and comments on existing videos
-    NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+    NSManagedObjectContext *context = [CoreDataHelper createContext];
     NSArray *broadcastDicts = [VideoCoreDataInterface fetchKeyBroadcastFieldDictionariesFromCoreDataContext:context];
     
     int newVideos = 0;

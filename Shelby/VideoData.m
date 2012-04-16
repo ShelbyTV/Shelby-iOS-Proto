@@ -89,12 +89,12 @@
 
 - (NSArray *)videoDupesForVideo:(Video *)video
 {
-    return [[[((VideoDupeArray *)[videoDupeDict objectForKey:[video dupeKey]]) copyOfVideoArray] retain] autorelease];
+    return [[((VideoDupeArray *)[videoDupeDict objectForKey:[video dupeKey]]) copyOfVideoArray] autorelease];
 }
 
 - (NSArray *)videoDupesForKey:(NSString *)videoKey
 {
-    return [[[((VideoDupeArray *)[videoDupeDict objectForKey:videoKey]) copyOfVideoArray] retain] autorelease];
+    return [[((VideoDupeArray *)[videoDupeDict objectForKey:videoKey]) copyOfVideoArray] autorelease];
 }
 
 - (NSURL *)getVideoContentURL:(Video *)video
@@ -111,7 +111,7 @@
     NSArray *toReturn;
     
     @synchronized(videoDupeArraysSorted) {
-        toReturn = [videoDupeArraysSorted copy];
+        toReturn = [[videoDupeArraysSorted copy] autorelease];
     }
     
     return toReturn;
@@ -187,7 +187,7 @@
             @synchronized(videoDupeArraysSorted) {
                 [videoDupeArraysSorted sortUsingSelector:@selector(compareByCreationTime:)];
             }
-            [self updateVideoTableCell:[[dupeArray copyOfVideoArray] objectAtIndex:0]];
+            [self updateVideoTableCell:[[[dupeArray copyOfVideoArray] autorelease] objectAtIndex:0]];
         } else {
             dupeArray = [[[VideoDupeArray alloc] init] autorelease];
             [dupeArray addVideo:video];
@@ -212,7 +212,7 @@
         
         _isLoading = TRUE;
         
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSManagedObjectContext *context = [CoreDataHelper createContext];
         
         NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
         [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
@@ -333,7 +333,7 @@
         
         _isLoading = TRUE;
         
-        NSManagedObjectContext *context = [CoreDataHelper allocateContext];
+        NSManagedObjectContext *context = [CoreDataHelper createContext];
         
         NSMutableArray *broadcasts = [[[NSMutableArray alloc] init] autorelease];
         [broadcasts addObjectsFromArray:[VideoCoreDataInterface fetchBroadcastsFromCoreDataContext:context]];
