@@ -366,7 +366,7 @@
 		42E1BB15143B9844009FCFCE /* FacebookDead.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E1BB14143B9844009FCFCE /* FacebookDead.png */; };
 		42FAA3AF13FD841900BC1D28 /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3AE13FD841900BC1D28 /* URLParser.m */; };
 		42FAA3B213FD85E900BC1D28 /* ShelbyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */; };
-		8EB5C492153CB36A00C88F93 /* iRater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB5C491153CB36A00C88F93 /* iRater.m */; };
+		8ECB6B04153DC8C6009E9889 /* Panhandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB6B03153DC8C6009E9889 /* Panhandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -833,8 +833,8 @@
 		42FAA3AE13FD841900BC1D28 /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		42FAA3B013FD85E900BC1D28 /* ShelbyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelbyApp.h; sourceTree = "<group>"; };
 		42FAA3B113FD85E900BC1D28 /* ShelbyApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelbyApp.m; sourceTree = "<group>"; };
-		8EB5C490153CB36A00C88F93 /* iRater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRater.h; sourceTree = "<group>"; };
-		8EB5C491153CB36A00C88F93 /* iRater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRater.m; sourceTree = "<group>"; };
+		8ECB6B02153DC8C6009E9889 /* Panhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panhandler.h; sourceTree = "<group>"; };
+		8ECB6B03153DC8C6009E9889 /* Panhandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panhandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1420,7 +1420,7 @@
 		427A622513F4717C00C945E2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				8EB5C48F153CB36A00C88F93 /* iRater */,
+				8ECB6B01153DC8C6009E9889 /* Panhandler */,
 				0A33D05C153B764C00197457 /* TestFlight */,
 				42925B131401C01B00333F46 /* EGOTableViewPullRefresh */,
 				42AB21D113FEF34C00A8FC00 /* JSON-Framework */,
@@ -1738,13 +1738,14 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
-		8EB5C48F153CB36A00C88F93 /* iRater */ = {
+		8ECB6B01153DC8C6009E9889 /* Panhandler */ = {
 			isa = PBXGroup;
 			children = (
-				8EB5C490153CB36A00C88F93 /* iRater.h */,
-				8EB5C491153CB36A00C88F93 /* iRater.m */,
+				8ECB6B02153DC8C6009E9889 /* Panhandler.h */,
+				8ECB6B03153DC8C6009E9889 /* Panhandler.m */,
 			);
-			path = iRater;
+			name = Panhandler;
+			path = Panhandler/Panhandler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2205,7 +2206,7 @@
 				0A02DD7414EDAC7100204025 /* VideoDupeArray.m in Sources */,
 				0AEF194814FD920300FA65C5 /* VideoSeparatorCell.m in Sources */,
 				0A9B02CE1506EA820017E2A6 /* KitchenSinkUtilities.m in Sources */,
-				8EB5C492153CB36A00C88F93 /* iRater.m in Sources */,
+				8ECB6B04153DC8C6009E9889 /* Panhandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

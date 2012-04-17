@@ -179,7 +179,7 @@
 
     [DataApi fetchAndStoreUserSessionData];
     
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:1];
 }
 
 @end

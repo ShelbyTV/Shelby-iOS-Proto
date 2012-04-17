@@ -540,7 +540,7 @@ static const float kNextPrevXOffset        =  0.0f;
         _tvPaused.hidden = !_paused;
     }
     
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:3];
 }
 
 - (void)pause 
@@ -555,8 +555,7 @@ static const float kNextPrevXOffset        =  0.0f;
     if (NOT_NULL(_tvPaused)) {
         _tvPaused.hidden = !_paused;
     }
-    
-    [[iRater sharedInstance] recordEvent];
+
 }
 
 - (void)stop {
@@ -798,13 +797,13 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)likeVideoSucceeded:(NSNotification *)notification
 {
     [self likeVideoResponse:notification selected:TRUE];
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:4];
 }
 
 - (void)dislikeVideoSucceeded:(NSNotification *)notification
 {    
     [self likeVideoResponse:notification selected:FALSE];
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:1];
 }
 
 - (void)watchLaterVideoResponse:(NSNotification *)notification selected:(BOOL)like
@@ -829,13 +828,13 @@ static const float kNextPrevXOffset        =  0.0f;
 - (void)watchLaterVideoSucceeded:(NSNotification *)notification
 {
     [self watchLaterVideoResponse:notification selected:TRUE];
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:4];
 }
 
 - (void)unwatchLaterVideoSucceeded:(NSNotification *)notification
 {    
     [self watchLaterVideoResponse:notification selected:FALSE];
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:1];
 }
 
 - (void)contentURLAvailable:(NSNotification *)notification

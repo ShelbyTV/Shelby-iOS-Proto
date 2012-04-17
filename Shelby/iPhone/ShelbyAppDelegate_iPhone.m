@@ -66,7 +66,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[iRater sharedInstance] recordEvent];
+    [[Panhandler sharedInstance] recordEventWithWeight:1];
 }
 
 @end

@@ -809,7 +809,6 @@
 {
     [_videoPlayer screenDidConnect];
     
-    [[iRater sharedInstance] recordEvent];
 }
 
 - (void) screenDidDisconnect:(NSNotification *)notification
@@ -837,8 +836,6 @@
     [_videoPlayer drawControls];
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
     [_videoPlayer controlBarFavoriteButtonWasPressed:nil];
-    
-    [[iRater sharedInstance] recordEvent];
 }
 
 - (void)remoteModeWatchLaterVideo
@@ -846,8 +843,6 @@
     [_videoPlayer drawControls];
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
     [_videoPlayer controlBarWatchLaterButtonWasPressed:nil];
-    
-    [[iRater sharedInstance] recordEvent];
 }
 
 - (void)remoteModeScanForward
@@ -884,8 +879,6 @@
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
 
     [_videoPlayer controlBarPlayButtonWasPressed:nil];
-    
-    [[iRater sharedInstance] recordEvent];
 }
 
 - (void)remoteModeShowSharing
