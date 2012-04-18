@@ -125,7 +125,7 @@ static Panhandler *sharedInstance = nil;
 {
     
     // Output current number of events triggered
-    ( counter ) ? NSLog(@"[%@: %d Events Triggered]", NSStringFromClass([self class]), counter) : NSLog(@"[%@: Counter Reset)", NSStringFromClass([self class]));
+    ( counter ) ? NSLog(@"[%@: %d Events Triggered]", NSStringFromClass([self class]), counter) : NSLog(@"[%@: Counter Reset]", NSStringFromClass([self class]));
     
     // Shows alert if conditions are satisfied    
     switch (PanhandlerDebugMode) {
