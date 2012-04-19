@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataApi : NSObject
+@interface DataApi : NSObject <NSURLConnectionDelegate>
 
 + (void)fetchCurrentUserAuthentications;
 + (void)fetchChannels;
 + (void)fetchAndStoreUserSessionData;
 
 + (void)fetchBroadcastsAndStoreInCoreData;
++ (void)synchronousFetchBroadcastsAndStoreInCoreData;
 + (void)fetchPollingBroadcastsAndStoreInCoreData;
 
 @end

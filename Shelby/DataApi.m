@@ -20,9 +20,32 @@
 #import "Broadcast.h"
 #import "PlatformHelper.h"
 
+@interface DataApi ()
+
++ (void)makeSynchronousRequest:(ApiMutableURLRequest *)request withProcessResponseSelector:(SEL)processResponseSelector;
+
+@end
+
 @implementation DataApi
 
 #pragma mark - Helper Methods
+
++ (void)makeSynchronousRequest:(ApiMutableURLRequest *)request
+withProcessResponseSelector:(SEL)processResponseSelector
+{
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
+    [request signPlaintext];
+    [request setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:[NSValue valueWithPointer:processResponseSelector], @"processResponseSelector", nil]];
+    
+    NSURLResponse *response = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    [self receivedResponse:response data:data error:nil forRequest:request];
+    
+    [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
+}
 
 + (void)makeRequest:(ApiMutableURLRequest *)request
 withProcessResponseSelector:(SEL)processResponseSelector
@@ -192,6 +215,13 @@ withProcessResponseSelector:(SEL)processResponseSelector
 }
 
 #pragma mark - Broadcasts
+
++ (void)synchronousFetchBroadcastsAndStoreInCoreData
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId]];    
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+    [DataApi makeSynchronousRequest:req withProcessResponseSelector:@selector(processGetBroadcastsResponseAndStoreInCoreData:)];
+}
 
 + (void)fetchBroadcastsAndStoreInCoreData
 {

@@ -22,6 +22,7 @@
 #import "UserAccountView.h"
 #import "Enums.h"
 #import "VideoData.h"
+#import "DataApi.h"
 
 #import "VideoGuideTimelineView.h"
 #import "VideoGuideFavoritesView.h"
@@ -32,12 +33,13 @@
 
 @interface NavigationViewController ()
 @property (readwrite) NSInteger networkCounter;
+
+- (void)receivedNoNewDataFromAPI;
+
 @end
 
 @implementation NavigationViewController
-
 @synthesize shareView = _shareView;
-
 @synthesize networkCounter;
 @synthesize touched;
 
@@ -87,6 +89,11 @@
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(receivedNewDataFromAPI:)
                                                      name: @"NewDataAvailableFromAPI"
+                                                   object: nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(receivedNoNewDataFromAPI)
+                                                     name: @"NoNewDataAvailableFromAPI"
                                                    object: nil];
         
         [[NSNotificationCenter defaultCenter] addObserver: self
@@ -951,6 +958,12 @@
      ];
 }
 
+- (void)receivedNoNewDataFromAPI
+{
+    // Since there are no new comments nor videos, perform a synchronous call to the API
+    [DataApi synchronousFetchBroadcastsAndStoreInCoreData];
+    NSLog(@"Fetching Data from NavigationViewController");
+}
 
 - (void)receivedNewDataFromAPI:(NSNotification *)notification
 {
@@ -960,6 +973,10 @@
     if (newVideos + newCommentsOnExistingVideos <= 0) {
         [timelineTabBarItem setBadgeValue:nil];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        
+        // If no new data exists in Core Data, poll the API for new data that may exist on the server
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NoNewDataAvailableFromAPI" object:nil];
+        
     } else {
         [timelineTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", newVideos + newCommentsOnExistingVideos]];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:(newVideos + newCommentsOnExistingVideos)];
