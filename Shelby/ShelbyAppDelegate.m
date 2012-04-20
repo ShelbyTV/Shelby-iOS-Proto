@@ -126,9 +126,10 @@
      object:nil];
 
     // Fetch Data from the API
-    [DataApi synchronousFetchBroadcastsAndStoreInCoreData];
-    NSLog(@"Fetching Data from AppDelegate");
-    
+    if ( [ShelbyApp sharedApp].userSessionHelper.loggedIn ) {
+        [DataApi synchronousFetchBroadcastsAndStoreInCoreData];
+        NSLog(@"Fetching Data from AppDelegate");
+    }
 }
 
 - (void) screenDidConnect:(NSNotification *)notification {
