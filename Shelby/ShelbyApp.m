@@ -15,6 +15,7 @@
 #import "BSWebViewUserAgent.h"
 #import "ShelbyWindow.h"
 #import "VideoData.h"
+#import "VideoDataPoller.h"
 #import "DataApi.h"
 
 #import "TestFlight.h"
@@ -29,6 +30,7 @@
 @synthesize demoModeEnabled = _demoModeEnabled;
 @synthesize safariUserAgent;
 @synthesize videoData;
+@synthesize videoDataPoller;
 @synthesize shelbyWindow;
 
 #pragma mark - Singleton
@@ -80,7 +82,9 @@ static ShelbyWindow *gSecondScreenWindow;
         
         self.userSessionHelper = [[[UserSessionHelper alloc] initWithContext:context] autorelease];
         self.videoData = [[[VideoData alloc] init] autorelease];
+        self.videoDataPoller = [[VideoDataPoller alloc] init];
         self.apiHelper = [[[ApiHelper alloc] init] autorelease];
+
         [self.apiHelper loadTokens];
         [self addNetworkObject:self.userSessionHelper];
         [self addNetworkObject:self.apiHelper];

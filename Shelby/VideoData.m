@@ -45,7 +45,6 @@
         videoDupeDict = [[NSMutableDictionary alloc] init];
         videoDupeArraysSorted = [[NSMutableArray alloc] init];
         videoDataDelegates = [[NSMutableArray alloc] init];
-        videoDataPoller = [[VideoDataPoller alloc] init];
         knownShelbyIds = [[NSMutableDictionary alloc] init];
         
         dataProcessor = [[VideoDataProcessor alloc] init];
@@ -351,7 +350,7 @@
         
         [CoreDataHelper saveAndReleaseContext:context];
         
-        [videoDataPoller recalculateImmediately];
+        [[ShelbyApp sharedApp].videoDataPoller recalculateImmediately];
         
         _isLoading = FALSE;
     });
@@ -373,7 +372,7 @@
 - (void)reset
 {
     [dataProcessor clearPendingOperations];
-    [videoDataPoller clearPendingOperations];
+    [[ShelbyApp sharedApp].videoDataPoller clearPendingOperations];
 
     [videoDupeDict removeAllObjects];
     @synchronized(videoDupeArraysSorted) {

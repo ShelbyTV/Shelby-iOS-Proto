@@ -16,6 +16,7 @@
 #import "ShelbyWindow.h"
 #import "SessionStats.h"
 #import "DataApi.h"
+#import "VideoDataPoller.h"
 
 @implementation ShelbyAppDelegate
 
@@ -117,14 +118,13 @@
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
     if (setCategoryError) { /* should really handle the error condition */ }
     
-
-    
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(screenDidConnect:)
      name:UIScreenDidConnectNotification
      object:nil];
-
+    
+    [[ShelbyApp sharedApp].videoDataPoller resetPollingTimer];
 }
 
 - (void) screenDidConnect:(NSNotification *)notification {

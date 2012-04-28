@@ -15,10 +15,13 @@
     
     BOOL newPlayableBroadcasts;
     
+    NSTimer *pollingTimer;
+    
     VideoDataProcessor *dataProcessor;
 }
 
 - (void)recalculateImmediately;
 - (void)clearPendingOperations;
+- (void)resetPollingTimer;
 
 @end

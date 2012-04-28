@@ -33,11 +33,11 @@
         dataProcessor.delegate = self;
         
         lastApiPollIntervalSeconds = 10;
-        [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
-                                         target:self
-                                       selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
-                                       userInfo:nil 
-                                        repeats:NO];
+        pollingTimer = [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
+                                                        target:self
+                                                      selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
+                                                      userInfo:nil 
+                                                       repeats:NO];
         
         [NSTimer scheduledTimerWithTimeInterval:5
                                          target:self
@@ -79,13 +79,31 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self updateCoreDataAndIssuePlayabilityChecks];
     });
+
+    @synchronized(pollingTimer) {
+        lastApiPollIntervalSeconds = MIN((lastApiPollIntervalSeconds * 2), 120);
+        pollingTimer = [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
+                                                        target:self
+                                                      selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
+                                                      userInfo:nil 
+                                                       repeats:NO];
+    }
+}
+
+- (void)resetPollingTimer
+{
+    @synchronized(pollingTimer) {
+        [pollingTimer invalidate];
+        pollingTimer = [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
+                                                        target:self
+                                                      selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
+                                                      userInfo:nil 
+                                                       repeats:NO];
+    }
     
-    lastApiPollIntervalSeconds = MIN((lastApiPollIntervalSeconds * 2), 120);
-    [NSTimer scheduledTimerWithTimeInterval:lastApiPollIntervalSeconds
-                                     target:self
-                                   selector:@selector(updateCoreDataAndIssuePlayabilityChecksTimer) 
-                                   userInfo:nil 
-                                    repeats:NO];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self updateCoreDataAndIssuePlayabilityChecks];
+    });
 }
 
 - (void)processPollingBroadcastsStoredInCoreDataInt
