@@ -12,6 +12,7 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "COPeoplePickerViewController.h"
+#import "Panhandler.h"
 
 
 @implementation ShareView
@@ -281,6 +282,8 @@
     
     [self updateInterfaceType];
     [self updateSendButton];
+    
+    [[Panhandler sharedInstance] recordEventWithWeight:6]; 
 }
 
 - (IBAction)shareViaEmailButtonPressed:(id)sender
@@ -320,6 +323,8 @@
     
     [self updateInterfaceType];
     [self updateSendButton];
+    
+    [[Panhandler sharedInstance] recordEventWithWeight:6]; 
 }
 
 - (void)updateSendButton

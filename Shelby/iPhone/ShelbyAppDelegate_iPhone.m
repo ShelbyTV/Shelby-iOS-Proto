@@ -64,4 +64,9 @@
     return YES;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[Panhandler sharedInstance] recordEventWithWeight:1];
+}
+
 @end

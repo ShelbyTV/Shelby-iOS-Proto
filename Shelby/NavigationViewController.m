@@ -541,6 +541,7 @@
 
 - (IBAction)favoritesButtonPressed:(id)sender
 {
+    
     [tabBar setSelectedItem:favoritesTabBarItem];
     [self hideSearchBar];
     
@@ -552,6 +553,7 @@
     searchVideoGuide.hidden = YES;
     
     currentGuide = favoritesVideoGuide;
+
 }
 
 - (IBAction)watchLaterButtonPressed:(id)sender
@@ -733,6 +735,7 @@
     
     [ [UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
+
 }
 
 
@@ -805,6 +808,7 @@
 - (void) screenDidConnect:(NSNotification *)notification
 {
     [_videoPlayer screenDidConnect];
+    
 }
 
 - (void) screenDidDisconnect:(NSNotification *)notification
@@ -847,6 +851,7 @@
     [_videoPlayer recordButtonPressOrControlsVisible:YES];
 
     [_videoPlayer scanForward];
+    
 }
 
 - (void)remoteModeScanBackward

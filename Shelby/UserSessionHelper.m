@@ -178,6 +178,8 @@
     [[ShelbyApp sharedApp].apiHelper storeAccessToken:token accessTokenSecret:tokenSecret];
 
     [DataApi fetchAndStoreUserSessionData];
+    
+    [[Panhandler sharedInstance] recordEventWithWeight:1];
 }
 
 @end

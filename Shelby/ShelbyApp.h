@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NetworkObject.h"
+#import "Panhandler.h"
 
 @class UserSessionHelper;
 @class ApiHelper;
