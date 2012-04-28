@@ -141,7 +141,7 @@
         return;
     }
     
-    [[ShelbyApp sharedApp].videoData loadAdditionalVideosFromCoreData];
+    [[ShelbyApp sharedApp].videoData loadAnyAdditionalVideos];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view

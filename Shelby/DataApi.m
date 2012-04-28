@@ -39,6 +39,25 @@ withProcessResponseSelector:(SEL)processResponseSelector
     [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
 }
 
++ (void)makeSyncRequest:(ApiMutableURLRequest *)request
+withProcessResponseSelector:(SEL)processResponseSelector
+{
+    if ([ShelbyApp sharedApp].demoModeEnabled) {
+        return;
+    }
+    
+    [request signPlaintext];
+    [request setUserInfoDict:[NSDictionary dictionaryWithObjectsAndKeys:[NSValue valueWithPointer:processResponseSelector], @"processResponseSelector", nil]];
+    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    
+    [[ShelbyApp sharedApp].apiHelper incrementNetworkCounter];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [self receivedResponse:response data:data error:error forRequest:request];
+    [[ShelbyApp sharedApp].apiHelper decrementNetworkCounter];
+}
+
 + (void)receivedResponse:(NSURLResponse *)resp
                     data:(NSData *)data
                    error:(NSError *)error
@@ -200,6 +219,16 @@ withProcessResponseSelector:(SEL)processResponseSelector
     [DataApi makeRequest:req withProcessResponseSelector:@selector(processGetBroadcastsResponseAndStoreInCoreData:)];
 }
 
++ (void)fetchBroadcastsAndStoreInCoreDataSynchronous
+{
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: kBroadcastsUrl, [ShelbyApp sharedApp].userSessionHelper.currentUserPublicChannel.shelbyId]];    
+    ApiMutableURLRequest *req = [[ShelbyApp sharedApp].apiHelper requestForURL:url withMethod:@"GET"];
+    [DataApi makeSyncRequest:req withProcessResponseSelector:@selector(processGetBroadcastsResponseAndStoreInCoreDataSynchronous:)];
+}
+
 + (void)storeNewBroadcastsInCoreData:(NSArray *) array
 {   
     static NSString *methodLock = @"storeNewBroadcastsInCoreDataMethodLock";
@@ -278,6 +307,14 @@ withProcessResponseSelector:(SEL)processResponseSelector
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceivedBroadcastsAndStoredInCoreData" 
                                                             object:[DataApi class]];
     });
+}
+
++ (void)processGetBroadcastsResponseAndStoreInCoreDataSynchronous:(NSArray *)array
+{
+    // This method takes a long time to execute, and it should never be called from the main thread.
+    NSAssert(![NSThread isMainThread], @"Method called on main thread! Should be in the background!");
+    
+    [DataApi storeNewBroadcastsInCoreData:array];
 }
 
 + (void)fetchPollingBroadcastsAndStoreInCoreData

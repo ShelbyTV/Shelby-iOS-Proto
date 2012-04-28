@@ -36,6 +36,9 @@
     VideoDataPoller *videoDataPoller;
     
     BOOL _isLoading;
+    
+    int _newVideos;
+    int _newCommentsOnExistingVideos;
 }
 
 - (BOOL)isLoading;
@@ -58,7 +61,7 @@
 - (BOOL)isKnownVideoKey:(NSString *)key;
 - (BOOL)isKnownShelbyId:(NSString *)shelbyId;
 
-- (void)loadAdditionalVideosFromCoreData;
+- (void)loadAnyAdditionalVideos;
 
 - (void)reloadTableVideos;
 

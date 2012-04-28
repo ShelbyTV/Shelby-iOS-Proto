@@ -80,6 +80,11 @@
                                                  selector:@selector(watchVideoSucceeded:)
                                                      name:@"WatchBroadcastSucceeded"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(receivedNewDataFromAPI:)
+                                                     name: @"NewDataAvailableFromAPI"
+                                                   object: nil];
     }
     
     return self;
@@ -327,11 +332,16 @@
     return NOT_NULL([knownShelbyIds objectForKey:shelbyId]);
 }
 
-- (void)loadAdditionalVideosFromCoreData
+- (void)loadAnyAdditionalVideos
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         _isLoading = TRUE;
+        
+        // if no pending changes, query the API with the table refresh spinner going the whole time...
+        if (_newVideos + _newCommentsOnExistingVideos <= 0) {
+            [DataApi fetchBroadcastsAndStoreInCoreDataSynchronous];
+        }
         
         NSManagedObjectContext *context = [CoreDataHelper createContext];
         
@@ -370,6 +380,12 @@
         [videoDupeArraysSorted removeAllObjects];
     }
     [knownShelbyIds removeAllObjects];
+}
+
+- (void)receivedNewDataFromAPI:(NSNotification *)notification
+{
+    _newVideos = [[notification.userInfo objectForKey:@"newVideos"] intValue];
+    _newCommentsOnExistingVideos = [[notification.userInfo objectForKey:@"newCommentsOnExistingVideos"] intValue];
 }
 
 @end
