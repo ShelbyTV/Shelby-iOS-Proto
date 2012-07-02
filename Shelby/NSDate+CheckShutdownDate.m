@@ -20,7 +20,7 @@
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"America/New_York"];
     [format setTimeZone:timeZone];
     
-    NSString *shutdownString = @"07-01-2012 21:00";
+    NSString *shutdownString = @"07-13-2012 00:00";
     NSDate *shutdownDate = [format dateFromString:shutdownString];
     
     NSLog(@"\nToday's Date:%@\nShutdown Date: %@", currentDate, shutdownDate);

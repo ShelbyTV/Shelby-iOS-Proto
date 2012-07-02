@@ -52,7 +52,7 @@
     
     if ( sender == self.messageButton) {
         
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://shelby.tv/blog"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://shelby.tv/blog/post/26350448496/shelby-gt-ios"]];
 
     }
 
@@ -61,21 +61,32 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     
-     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-     
-         return (interfaceOrientation == UIInterfaceOrientationPortrait);
-         
-     } else if ( ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) && (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) ) {
-         
-         return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
-     
-    } else if ( ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) && (interfaceOrientation == UIInterfaceOrientationLandscapeRight) ) {
-    
-        return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-   
-    } else { 
-        
-        return interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+    switch ( [[UIDevice currentDevice] userInterfaceIdiom])  {
+            
+        case UIUserInterfaceIdiomPhone:
+            return interfaceOrientation == UIInterfaceOrientationPortrait;
+            break;
+            
+        case UIUserInterfaceIdiomPad:
+            
+            if ( interfaceOrientation == UIInterfaceOrientationLandscapeRight ) {
+                
+                return interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+                
+            } else if ( interfaceOrientation == UIInterfaceOrientationLandscapeLeft ) {
+                
+                return interfaceOrientation == UIInterfaceOrientationLandscapeLeft;
+                
+            } else {
+                
+               return interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+                
+            }
+            
+            break;
+            
+        default:
+            break;
     }
     
 }
