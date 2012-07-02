@@ -14,7 +14,8 @@
 
 @implementation GTViewController
 @synthesize messageLabel = _messageLabel;
-@synthesize messageButton = _messageButton;
+@synthesize importantLabel = _importantLabel;
+@synthesize blogButton = _blogButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,7 +31,8 @@
 - (void)viewDidUnload
 {
     self.messageLabel = nil; [self.messageLabel release];
-    self.messageButton = nil; [self.messageButton release];
+    self.importantLabel = nil; [self.importantLabel release];
+    self.blogButton = nil; [self.blogButton release];
     [super viewDidUnload];
 }
 
@@ -42,15 +44,16 @@
     
     [self.messageLabel setTextAlignment:UITextAlignmentLeft];
     [self.messageLabel setTextColor:[UIColor whiteColor]];
-    [self.messageLabel setText:@"A new Shelby app is coming soon, loaded with exciting new features.\n\nWe've shut down this version to focus on delivering the rebuilt app to you ASAP.\n\nWe apologize for the inconvenience, but it'll totally be worth it."];
-    [self.messageLabel setNeedsDisplay];
+    [self.messageLabel setText:@"A new Shelby app is coming soon!\n\nWe've shut down this version to devote ourselves entirely to finishing the new app, and delivering it to you quickly. We apologize for the inconvenience."];
+    [self.importantLabel setText:@"IMPORTANT: You don’t have to uninstall this version. The new app will be deployed as an update."];
+    
 }
 
 - (IBAction)launchShelbyBlog:(id)sender
 {
     
     
-    if ( sender == self.messageButton) {
+    if ( sender == self.blogButton) {
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://shelby.tv/blog/post/26350448496/shelby-gt-ios"]];
 

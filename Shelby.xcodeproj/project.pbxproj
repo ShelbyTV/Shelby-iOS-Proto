@@ -370,7 +370,6 @@
 		8E0FFFC4159E285400F47F19 /* GTViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E0FFFC3159E285400F47F19 /* GTViewController_iPhone.xib */; };
 		8E5CDDE2153DE50E00B8B0A1 /* Panhandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5CDDE1153DE50E00B8B0A1 /* Panhandler.m */; };
 		8E9F1DD915A0EF6200E9F318 /* GTViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DD815A0EF6200E9F318 /* GTViewController_iPad.xib */; };
-		8E9F1DDF15A122A200E9F318 /* GTButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDA15A1229A00E9F318 /* GTButton.png */; };
 		8E9F1DE015A122A200E9F318 /* GTButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDB15A1229A00E9F318 /* GTButton@2x.png */; };
 		8E9F1DE115A122A200E9F318 /* Ubuntu-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDC15A1229B00E9F318 /* Ubuntu-B.ttf */; };
 		8E9F1DE215A122A200E9F318 /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDD15A1229D00E9F318 /* Ubuntu-M.ttf */; };
@@ -848,7 +847,6 @@
 		8E5CDDE0153DE50E00B8B0A1 /* Panhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panhandler.h; sourceTree = "<group>"; };
 		8E5CDDE1153DE50E00B8B0A1 /* Panhandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panhandler.m; sourceTree = "<group>"; };
 		8E9F1DD815A0EF6200E9F318 /* GTViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTViewController_iPad.xib; sourceTree = "<group>"; };
-		8E9F1DDA15A1229A00E9F318 /* GTButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GTButton.png; path = "GT Assets/GTButton.png"; sourceTree = "<group>"; };
 		8E9F1DDB15A1229A00E9F318 /* GTButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GTButton@2x.png"; path = "GT Assets/GTButton@2x.png"; sourceTree = "<group>"; };
 		8E9F1DDC15A1229B00E9F318 /* Ubuntu-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-B.ttf"; path = "GT Assets/Ubuntu-B.ttf"; sourceTree = "<group>"; };
 		8E9F1DDD15A1229D00E9F318 /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-M.ttf"; path = "GT Assets/Ubuntu-M.ttf"; sourceTree = "<group>"; };
@@ -1772,7 +1770,6 @@
 		8EF811D015A0D37C0021F83A /* GT */ = {
 			isa = PBXGroup;
 			children = (
-				8E9F1DDA15A1229A00E9F318 /* GTButton.png */,
 				8E9F1DDB15A1229A00E9F318 /* GTButton@2x.png */,
 				8E9F1DDC15A1229B00E9F318 /* Ubuntu-B.ttf */,
 				8E9F1DDD15A1229D00E9F318 /* Ubuntu-M.ttf */,
@@ -2113,7 +2110,6 @@
 				0AEF194514FD6B6400FA65C5 /* refreshExclamation@2x.png in Resources */,
 				8E0FFFC4159E285400F47F19 /* GTViewController_iPhone.xib in Resources */,
 				8E9F1DD915A0EF6200E9F318 /* GTViewController_iPad.xib in Resources */,
-				8E9F1DDF15A122A200E9F318 /* GTButton.png in Resources */,
 				8E9F1DE015A122A200E9F318 /* GTButton@2x.png in Resources */,
 				8E9F1DE115A122A200E9F318 /* Ubuntu-B.ttf in Resources */,
 				8E9F1DE215A122A200E9F318 /* Ubuntu-M.ttf in Resources */,
@@ -2434,8 +2430,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shelby TV, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -2446,8 +2442,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Shelby.tv;
-				PROVISIONING_PROFILE = "A6CC5FE3-9170-47F2-A539-3EDB4028F3C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A6CC5FE3-9170-47F2-A539-3EDB4028F3C0";
+				PROVISIONING_PROFILE = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2457,8 +2453,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shelby TV, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_THUMB_SUPPORT = NO;
@@ -2468,8 +2464,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = Shelby.tv;
-				PROVISIONING_PROFILE = "A6CC5FE3-9170-47F2-A539-3EDB4028F3C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A6CC5FE3-9170-47F2-A539-3EDB4028F3C0";
+				PROVISIONING_PROFILE = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2483,8 +2479,8 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shelby TV, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2502,8 +2498,8 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				PROVISIONING_PROFILE = "8A567109-1212-45B0-8736-0ED200B3E0D5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8A567109-1212-45B0-8736-0ED200B3E0D5";
+				PROVISIONING_PROFILE = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2516,8 +2512,8 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Arthur Sabintsev (Z4E762QSUZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shelby TV, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shelby TV, Inc.";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2534,8 +2530,8 @@
 					"\"$(SRCROOT)/Libraries/TestFlight\"",
 				);
 				PRODUCT_NAME = Shelby.tv;
-				PROVISIONING_PROFILE = "8A567109-1212-45B0-8736-0ED200B3E0D5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8A567109-1212-45B0-8736-0ED200B3E0D5";
+				PROVISIONING_PROFILE = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "48E3E9EE-CE21-4CDC-8E44-4F6844D95A6D";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

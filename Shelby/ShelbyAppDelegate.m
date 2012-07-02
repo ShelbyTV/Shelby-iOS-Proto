@@ -51,8 +51,8 @@
     if ([[url absoluteString] rangeOfString:@"add_provider"].location != NSNotFound) {
         NSLog(@"Receiving add_provider response!");
         
-        [DataApi fetchCurrentUserAuthentications];
-        [navigationViewController fullscreenWebViewCloseWasPressed:self];
+       if ( ![NSDate checkShutdownDate] ) [DataApi fetchCurrentUserAuthentications];
+       if ( ![NSDate checkShutdownDate] ) [navigationViewController fullscreenWebViewCloseWasPressed:self];
         
         return YES;
     } else {
@@ -60,16 +60,20 @@
         // Example:
         // shelby://ios.shelby.tv/auth?oauth_token=WuhQpEQuyPaS1EczFnfRBA7ThXCwWerX3rhECBIz&oauth_verifier=NPkCVIlxYXYiBYYfGsB6
         
-        URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
+        if ( ![NSDate checkShutdownDate] ) {
         
-        NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];
+            URLParser *parser = [[[URLParser alloc] initWithURLString: [url absoluteString]] autorelease];
+            
+            NSString *oauthVerifier = [parser valueForVariable: @"oauth_verifier"];
+            
+            LOG(@"oauthToken: %@", [parser valueForVariable: @"oauth_token"]);
+            LOG(@"oauthVerifier: %@", oauthVerifier);
+            
+            // If we're coming from oAuth, capture the incoming verifier.
+            [[ShelbyApp sharedApp].userSessionHelper verifierReturnedFromAuth:oauthVerifier];
         
-        LOG(@"oauthToken: %@", [parser valueForVariable: @"oauth_token"]);
-        LOG(@"oauthVerifier: %@", oauthVerifier);
-        
-        // If we're coming from oAuth, capture the incoming verifier.
-        [[ShelbyApp sharedApp].userSessionHelper verifierReturnedFromAuth:oauthVerifier];
-        
+        }
+            
         return YES;
     }
     return NO;
@@ -82,7 +86,7 @@
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     
-    [[ShelbyApp sharedApp].navigationViewController pauseCurrentVideo];
+    if ( ![NSDate checkShutdownDate] ) [[ShelbyApp sharedApp].navigationViewController pauseCurrentVideo];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -92,9 +96,9 @@
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     
-    [[ShelbyApp sharedApp].navigationViewController pauseCurrentVideo];
+   if ( ![NSDate checkShutdownDate] ) [[ShelbyApp sharedApp].navigationViewController pauseCurrentVideo];
     
-    [SessionStats endSessionReportingTimer];
+   if ( ![NSDate checkShutdownDate] ) [SessionStats endSessionReportingTimer];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -103,7 +107,7 @@
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
     
-    [SessionStats startSessionReportingTimer];
+    if ( ![NSDate checkShutdownDate] ) [SessionStats startSessionReportingTimer];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -112,21 +116,25 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
 
-    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
-    [NSURLCache setSharedURLCache:sharedCache];
-    [sharedCache release];
+    if ( ![NSDate checkShutdownDate] ) {
     
-    NSError *setCategoryError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
-    if (setCategoryError) { /* should really handle the error condition */ }
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(screenDidConnect:)
-     name:UIScreenDidConnectNotification
-     object:nil];
-    
-    [[ShelbyApp sharedApp].videoDataPoller resetPollingTimer];
+        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
+        [NSURLCache setSharedURLCache:sharedCache];
+        [sharedCache release];
+        
+        NSError *setCategoryError = nil;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+        if (setCategoryError) { /* should really handle the error condition */ }
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(screenDidConnect:)
+         name:UIScreenDidConnectNotification
+         object:nil];
+        
+        [[ShelbyApp sharedApp].videoDataPoller resetPollingTimer];
+        
+    }
 }
 
 - (void) screenDidConnect:(NSNotification *)notification {
@@ -138,7 +146,7 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
     
-    [SessionStats endSessionReportingTimer];
+    if ( ![NSDate checkShutdownDate] ) [SessionStats endSessionReportingTimer];
 }
 
 - (void)dealloc

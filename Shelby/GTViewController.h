@@ -11,7 +11,8 @@
 @interface GTViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel;
-@property (strong, nonatomic) IBOutlet UIButton *messageButton;
+@property (strong, nonatomic) IBOutlet UILabel *importantLabel;
+@property (strong, nonatomic) IBOutlet UIButton *blogButton;
 
 - (IBAction)launchShelbyBlog:(id)sender;
 
