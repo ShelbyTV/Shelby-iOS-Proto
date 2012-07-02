@@ -369,12 +369,12 @@
 		8E0FFFC1159E27F800F47F19 /* GTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0FFFC0159E27F800F47F19 /* GTViewController.m */; };
 		8E0FFFC4159E285400F47F19 /* GTViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E0FFFC3159E285400F47F19 /* GTViewController_iPhone.xib */; };
 		8E5CDDE2153DE50E00B8B0A1 /* Panhandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5CDDE1153DE50E00B8B0A1 /* Panhandler.m */; };
-		8E9F1DBA15A0DECF00E9F318 /* GTButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DB515A0DECF00E9F318 /* GTButton.png */; };
-		8E9F1DBB15A0DECF00E9F318 /* GTButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DB615A0DECF00E9F318 /* GTButton@2x.png */; };
-		8E9F1DCA15A0E53000E9F318 /* Ubuntu-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DC715A0E53000E9F318 /* Ubuntu-B.ttf */; };
-		8E9F1DCB15A0E53000E9F318 /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DC815A0E53000E9F318 /* Ubuntu-M.ttf */; };
-		8E9F1DCC15A0E53000E9F318 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DC915A0E53000E9F318 /* Ubuntu-R.ttf */; };
 		8E9F1DD915A0EF6200E9F318 /* GTViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DD815A0EF6200E9F318 /* GTViewController_iPad.xib */; };
+		8E9F1DDF15A122A200E9F318 /* GTButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDA15A1229A00E9F318 /* GTButton.png */; };
+		8E9F1DE015A122A200E9F318 /* GTButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDB15A1229A00E9F318 /* GTButton@2x.png */; };
+		8E9F1DE115A122A200E9F318 /* Ubuntu-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDC15A1229B00E9F318 /* Ubuntu-B.ttf */; };
+		8E9F1DE215A122A200E9F318 /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDD15A1229D00E9F318 /* Ubuntu-M.ttf */; };
+		8E9F1DE315A122A200E9F318 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F1DDE15A1229F00E9F318 /* Ubuntu-R.ttf */; };
 		8EF811CF15A0D3370021F83A /* NSDate+CheckShutdownDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF811CE15A0D3350021F83A /* NSDate+CheckShutdownDate.m */; };
 /* End PBXBuildFile section */
 
@@ -847,12 +847,12 @@
 		8E0FFFC3159E285400F47F19 /* GTViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTViewController_iPhone.xib; sourceTree = "<group>"; };
 		8E5CDDE0153DE50E00B8B0A1 /* Panhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panhandler.h; sourceTree = "<group>"; };
 		8E5CDDE1153DE50E00B8B0A1 /* Panhandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panhandler.m; sourceTree = "<group>"; };
-		8E9F1DB515A0DECF00E9F318 /* GTButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GTButton.png; sourceTree = "<group>"; };
-		8E9F1DB615A0DECF00E9F318 /* GTButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GTButton@2x.png"; sourceTree = "<group>"; };
-		8E9F1DC715A0E53000E9F318 /* Ubuntu-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-B.ttf"; path = "GT Assets/Ubuntu-B.ttf"; sourceTree = SOURCE_ROOT; };
-		8E9F1DC815A0E53000E9F318 /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-M.ttf"; path = "GT Assets/Ubuntu-M.ttf"; sourceTree = SOURCE_ROOT; };
-		8E9F1DC915A0E53000E9F318 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-R.ttf"; path = "GT Assets/Ubuntu-R.ttf"; sourceTree = SOURCE_ROOT; };
 		8E9F1DD815A0EF6200E9F318 /* GTViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTViewController_iPad.xib; sourceTree = "<group>"; };
+		8E9F1DDA15A1229A00E9F318 /* GTButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GTButton.png; path = "GT Assets/GTButton.png"; sourceTree = "<group>"; };
+		8E9F1DDB15A1229A00E9F318 /* GTButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GTButton@2x.png"; path = "GT Assets/GTButton@2x.png"; sourceTree = "<group>"; };
+		8E9F1DDC15A1229B00E9F318 /* Ubuntu-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-B.ttf"; path = "GT Assets/Ubuntu-B.ttf"; sourceTree = "<group>"; };
+		8E9F1DDD15A1229D00E9F318 /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-M.ttf"; path = "GT Assets/Ubuntu-M.ttf"; sourceTree = "<group>"; };
+		8E9F1DDE15A1229F00E9F318 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu-R.ttf"; path = "GT Assets/Ubuntu-R.ttf"; sourceTree = "<group>"; };
 		8EF811CD15A0D3350021F83A /* NSDate+CheckShutdownDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CheckShutdownDate.h"; sourceTree = "<group>"; };
 		8EF811CE15A0D3350021F83A /* NSDate+CheckShutdownDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CheckShutdownDate.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1772,11 +1772,11 @@
 		8EF811D015A0D37C0021F83A /* GT */ = {
 			isa = PBXGroup;
 			children = (
-				8E9F1DC715A0E53000E9F318 /* Ubuntu-B.ttf */,
-				8E9F1DC815A0E53000E9F318 /* Ubuntu-M.ttf */,
-				8E9F1DC915A0E53000E9F318 /* Ubuntu-R.ttf */,
-				8E9F1DB515A0DECF00E9F318 /* GTButton.png */,
-				8E9F1DB615A0DECF00E9F318 /* GTButton@2x.png */,
+				8E9F1DDA15A1229A00E9F318 /* GTButton.png */,
+				8E9F1DDB15A1229A00E9F318 /* GTButton@2x.png */,
+				8E9F1DDC15A1229B00E9F318 /* Ubuntu-B.ttf */,
+				8E9F1DDD15A1229D00E9F318 /* Ubuntu-M.ttf */,
+				8E9F1DDE15A1229F00E9F318 /* Ubuntu-R.ttf */,
 				8E0FFFBF159E27F800F47F19 /* GTViewController.h */,
 				8E0FFFC0159E27F800F47F19 /* GTViewController.m */,
 				8E0FFFC3159E285400F47F19 /* GTViewController_iPhone.xib */,
@@ -2112,12 +2112,12 @@
 				0AEF194414FD6B6400FA65C5 /* refreshExclamation.png in Resources */,
 				0AEF194514FD6B6400FA65C5 /* refreshExclamation@2x.png in Resources */,
 				8E0FFFC4159E285400F47F19 /* GTViewController_iPhone.xib in Resources */,
-				8E9F1DBA15A0DECF00E9F318 /* GTButton.png in Resources */,
-				8E9F1DBB15A0DECF00E9F318 /* GTButton@2x.png in Resources */,
-				8E9F1DCA15A0E53000E9F318 /* Ubuntu-B.ttf in Resources */,
-				8E9F1DCB15A0E53000E9F318 /* Ubuntu-M.ttf in Resources */,
-				8E9F1DCC15A0E53000E9F318 /* Ubuntu-R.ttf in Resources */,
 				8E9F1DD915A0EF6200E9F318 /* GTViewController_iPad.xib in Resources */,
+				8E9F1DDF15A122A200E9F318 /* GTButton.png in Resources */,
+				8E9F1DE015A122A200E9F318 /* GTButton@2x.png in Resources */,
+				8E9F1DE115A122A200E9F318 /* Ubuntu-B.ttf in Resources */,
+				8E9F1DE215A122A200E9F318 /* Ubuntu-M.ttf in Resources */,
+				8E9F1DE315A122A200E9F318 /* Ubuntu-R.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
