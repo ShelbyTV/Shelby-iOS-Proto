@@ -17,6 +17,7 @@
 #import "SessionStats.h"
 #import "DataApi.h"
 #import "VideoDataPoller.h"
+#import "NSDate+CheckShutdownDate.h"
 
 @implementation ShelbyAppDelegate
 
@@ -32,7 +33,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[super application: application didFinishLaunchingWithOptions: launchOptions];
     // Make sure the singleton is initialized.
-    [ShelbyApp sharedApp];
+    
+     if ( ![NSDate checkShutdownDate] ) [ShelbyApp sharedApp];
     
     return YES;
 }
